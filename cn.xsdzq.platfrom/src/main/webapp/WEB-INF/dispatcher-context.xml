@@ -12,9 +12,8 @@
 	http://www.springframework.org/schema/util 
 	http://www.springframework.org/schema/util/spring-util-4.0.xsd">
 
-	<context:component-scan base-package="cn.xsdzq.platform" />  
 	<mvc:annotation-driven />
-
+	<context:component-scan base-package="cn.xsdzq.platform" />  
 
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>  
@@ -24,6 +23,7 @@
     
     <!-- Serve static content-->
 	<mvc:resources mapping="/static/**" location="/static/" />
+	<mvc:default-servlet-handler/>
 	
 	
 </beans>
