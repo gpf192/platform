@@ -1,15 +1,31 @@
 package cn.xsdzq.platform.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import cn.xsdzq.platform.entity.HelloEntity;
+import cn.xsdzq.platform.service.IHelloService;
 
 @Controller
 @RequestMapping("/hello")
 public class HelloController {
 
-	@RequestMapping("say")
-	public void sayHello() {
+	private IHelloService helloService;
+
+	@Autowired
+	public HelloController(IHelloService helloServiceImpl) {
+		this.helloService = helloServiceImpl;
+	}
+
+	@RequestMapping(value = "/say", method = RequestMethod.GET)
+	public String sayHello() {
 		System.out.println("say hello");
+		HelloEntity helloEntity = new HelloEntity();
+		helloEntity.setName("aaa");
+		helloService.addHello(helloEntity);
+		return "NewFile";
 	}
 
 }

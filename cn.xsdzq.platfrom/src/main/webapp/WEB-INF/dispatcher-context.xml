@@ -12,9 +12,13 @@
 	http://www.springframework.org/schema/util 
 	http://www.springframework.org/schema/util/spring-util-4.0.xsd">
 
-	<mvc:annotation-driven />
-	<context:component-scan base-package="cn.xsdzq.platform" />  
-
+	<mvc:annotation-driven/>
+    <mvc:default-servlet-handler/>
+    <context:component-scan base-package="cn.xsdzq.platform.controller">
+        <context:include-filter type="annotation"  expression="org.springframework.stereotype.Controller"/>
+        <context:include-filter type="annotation"  expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
+	
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>  
         <property name="prefix" value="/WEB-INF/views/"></property>  
@@ -23,7 +27,7 @@
     
     <!-- Serve static content-->
 	<mvc:resources mapping="/static/**" location="/static/" />
-	<mvc:default-servlet-handler/>
+	
 	
 	
 </beans>
