@@ -1,0 +1,26 @@
+@media screen and (max-width: 768px) {
+	.masthead h1 {
+		font-size: 50px;
+	}
+	.masthead h2 {
+		font-size: 24px;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	.masthead h1 {
+		font-size: 50px;
+	}
+	.masthead h2 {
+		font-size: 24px;
+	}
+}
+
+@media screen and (min-width: 992px) {
+	.masthead h1 {
+		font-size: 100px;
+	}
+	.masthead h2 {
+		font-size: 30px;
+	}
+}

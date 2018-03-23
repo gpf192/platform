@@ -20,8 +20,8 @@ public class JdbcHelloRepository implements HelloRepository {
 	public void addHello() {
 		// TODO Auto-generated method stub
 		String sql = "SELECT COUNT(*) FROM user";
-		int count = jdbcOperations.queryForInt(sql);
-		System.out.println(count);
+		// int count = jdbcOperations.queryForInt(sql);
+		// System.out.println(count);
 
 	}
 
