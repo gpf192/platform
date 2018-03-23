@@ -2,7 +2,7 @@ ngApp.factory("httpUtils", [
 function() {
 
 	//var baseUrl = "http://localhost:8080/webapp/";
-	var baseUrl = getUrl() +"/webapp/";
+	var baseUrl = getUrl() +"/platform/";
 	var url = {
 		categoryList : baseUrl + "category/getAll",
 		addCategory : baseUrl + "category/addCategory",

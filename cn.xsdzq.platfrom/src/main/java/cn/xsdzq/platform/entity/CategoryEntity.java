@@ -1,0 +1,72 @@
+package cn.xsdzq.platform.entity;
+
+import java.io.Serializable;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "category")
+public class CategoryEntity implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * default entity id
+	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private long id;
+
+	@Column(name = "title")
+	private String title;
+
+	@Column(name = "exp")
+	private String exp;
+
+	@OneToMany(cascade = { CascadeType.REFRESH, CascadeType.MERGE, CascadeType.REMOVE,
+			CascadeType.PERSIST }, fetch = FetchType.LAZY, mappedBy = "categoryEntity")
+
+	private Set<InfoEntity> infos;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getExp() {
+		return exp;
+	}
+
+	public void setExp(String exp) {
+		this.exp = exp;
+	}
+
+	public Set<InfoEntity> getInfos() {
+		return infos;
+	}
+
+	public void setInfos(Set<InfoEntity> infos) {
+		this.infos = infos;
+	}
+
+}
