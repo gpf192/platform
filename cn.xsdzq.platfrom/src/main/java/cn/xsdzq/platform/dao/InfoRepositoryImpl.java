@@ -22,7 +22,7 @@ public class InfoRepositoryImpl implements InfoRepository {
 	@Override
 	public InfoEntity getInfo(long id) {
 		// TODO Auto-generated method stub
-		TypedQuery<InfoEntity> sqlQuery = em.createQuery("SELECT c FROM Info c WHERE c.id=?", InfoEntity.class);
+		TypedQuery<InfoEntity> sqlQuery = em.createQuery("SELECT c FROM InfoEntity c WHERE c.id=?", InfoEntity.class);
 		sqlQuery.setParameter(1, id);
 		return sqlQuery.getSingleResult();
 	}
@@ -30,7 +30,7 @@ public class InfoRepositoryImpl implements InfoRepository {
 	@Override
 	public List<InfoEntity> getInfosByCategoryId(long id) {
 		// TODO Auto-generated method stub
-		TypedQuery<InfoEntity> sqlQuery = em.createQuery("SELECT c FROM Info c WHERE c.categoryId = ?",
+		TypedQuery<InfoEntity> sqlQuery = em.createQuery("SELECT c FROM InfoEntity c WHERE c.categoryId = ?",
 				InfoEntity.class);
 		sqlQuery.setParameter(1, id);
 		return sqlQuery.getResultList();
@@ -41,7 +41,7 @@ public class InfoRepositoryImpl implements InfoRepository {
 	public List<InfoEntity> searchInfos(String key) {
 		// TODO Auto-generated method stub
 		String param = "%" + key + "%";
-		String sql = "SELECT c FROM Info c WHERE c.title like ?";
+		String sql = "SELECT c FROM InfoEntity c WHERE c.title like ?";
 		Query query = em.createQuery(sql, InfoEntity.class);
 		query.setParameter(1, param);
 		List<InfoEntity> infos = query.getResultList();

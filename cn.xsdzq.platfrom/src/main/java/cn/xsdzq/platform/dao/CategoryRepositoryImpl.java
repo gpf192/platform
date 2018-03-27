@@ -21,7 +21,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 	@Override
 	public CategoryEntity findCategoryById(long id) {
 		// TODO Auto-generated method stub
-		TypedQuery<CategoryEntity> sqlQuery = em.createQuery("SELECT c FROM Category c WHERE c.id=?",
+		TypedQuery<CategoryEntity> sqlQuery = em.createQuery("SELECT c FROM CategoryEntity c WHERE c.id=?",
 				CategoryEntity.class);
 		sqlQuery.setParameter(1, id);
 		return sqlQuery.getSingleResult();
@@ -30,7 +30,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 	@Override
 	public List<CategoryEntity> findAll() {
 		// TODO Auto-generated method stub
-		TypedQuery<CategoryEntity> sqlQuery = em.createQuery("SELECT c FROM Category c", CategoryEntity.class);
+		TypedQuery<CategoryEntity> sqlQuery = em.createQuery("SELECT c FROM CategoryEntity c", CategoryEntity.class);
 		return sqlQuery.getResultList();
 	}
 

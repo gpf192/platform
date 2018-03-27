@@ -33,7 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// .hasRole("USER").anyRequest().permitAll();
 		// http.csrf().disable();
 		http.formLogin().usernameParameter("username").passwordParameter("password").loginPage("/login").and()
-				.authorizeRequests().antMatchers("/hello/say").hasRole("USER").anyRequest().permitAll();
+				.authorizeRequests().antMatchers("/static/index.html").hasRole("USER").anyRequest().permitAll().and()
+				.csrf().disable();
 	}
 
 }

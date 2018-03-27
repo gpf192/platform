@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "information", uniqueConstraints = { @UniqueConstraint(columnNames = { "title" }) })
 public class InfoEntity implements Serializable {
@@ -104,6 +106,7 @@ public class InfoEntity implements Serializable {
 		return categoryEntity;
 	}
 
+	@JsonBackReference
 	public void setCategoryEntity(CategoryEntity categoryEntity) {
 		this.categoryEntity = categoryEntity;
 	}
