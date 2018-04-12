@@ -1,0 +1,38 @@
+<script type="text/javascript" src="htmls/category/modifycategory.js"></script>
+<div ng-init="init()">
+	<div>
+		<ol class="breadcrumb">
+			<li>
+				<a href="#">分类管理</a>
+			</li>
+			<li class="active">
+				<a ui-sref=".modifyCategory">修改分类</a>
+			</li>
+		</ol>
+	</div>
+	<div>
+		<form class="form-horizontal">
+			<fieldset>
+				<legend>
+					修改分类的相关信息
+				</legend>
+				<div class="form-group">
+				<label for="moduleId" class="col-sm-2 control-label">分类名称</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" id="title" ng-model="formData.title" required placeholder="请输入分类名称" />
+				</div>
+				<div class="col-sm-4">
+					<span class="text-danger control-label">* </span>
+					<label class="text-warning control-label"></label>
+				</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 text-center col-sm-10">
+						<button type="button" ng-click="submit()" class="btn btn-default btn-primary">
+							修改
+						</button>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</div>

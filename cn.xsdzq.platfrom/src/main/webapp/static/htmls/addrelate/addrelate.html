@@ -1,0 +1,58 @@
+<script type="text/javascript" src="htmls/addrelate/addrelate.js"></script>
+<div ng-init="init()">
+	<div>
+		<ol class="breadcrumb">
+			<li>
+				<a href="#">模块管理</a>
+			</li>
+			<li class="active">
+				<a ui-sref=".addrelate">增加模块关联</a>
+			</li>
+		</ol>
+	</div>
+	<form name="relateForm" id="relateForm" class="form-horizontal">
+		<fieldset>
+			<legend>
+				增加模块关联
+			</legend>
+			<div class="form-group">
+				<label for="moduleId" class="col-sm-2 control-label">模块名称</label>
+				<div class="col-sm-6">
+					<select class="form-control" ng-model="formData.module" ng-options="item.moduleName for item in moduleList">
+
+					</select>
+				</div>
+				<div class="col-sm-4">
+					<span class="text-danger control-label">* </span><label class="text-warning control-label">需要关联版本的模块</label>
+				</div>
+
+			</div>
+			<div class="form-group">
+				<label for="moduleName" class="col-sm-2 control-label">版本号：</label>
+				<div class="col-sm-6">
+					<div class="checkbox">
+						<ul class="list-unstyled">
+							<li ng-repeat="item in releaseList">
+								<label>
+									<input type="checkbox" ng-model="tempReleases[$index]" name="releases" ng-true-value="{{item._id}}" />
+									{{item.versionId}}</label>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<span class="text-danger control-label">* </span><label class="text-warning  control-label">当前系统内的版本号</label>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-offset-2 text-center col-sm-10">
+					<button type="button" ng-click="submit()" class="btn btn-default btn-primary">
+						确 认
+					</button>
+				</div>
+			</div>
+
+		</fieldset>
+	</form>
+</div>

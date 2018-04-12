@@ -13,6 +13,7 @@
 		<spring.security.version>5.0.3.RELEASE</spring.security.version>
 		<org.hibernate.version>5.1.3.Final</org.hibernate.version>
 		<jackson.version>2.9.0</jackson.version>
+		<swagger-springmvc.version>1.0.2</swagger-springmvc.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -195,6 +196,24 @@
 			<version>1.2.3</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.mangofactory</groupId>
+			<artifactId>swagger-springmvc</artifactId>
+			<version>${swagger-springmvc.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.7.0</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>

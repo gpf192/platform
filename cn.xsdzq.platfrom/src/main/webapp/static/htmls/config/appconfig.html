@@ -1,0 +1,46 @@
+<script type="text/javascript" src="htmls/config/appconfig.js"></script>
+<div ng-init="init()">
+	<div>
+		<ol class="breadcrumb">
+			<li>
+				<a href="#">相关配置</a>
+			</li>
+			<li class="active">
+				<a ui-sref=".getappconfig">拉取APP配置</a>
+			</li>
+		</ol>
+	</div>
+	<div>
+		<form class="form-horizontal">
+			<fieldset>
+				<legend>
+					拉取APP配置
+				</legend>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">APP版本</label>
+					<div class="col-sm-6">
+						<select class="form-control" ng-model="formData.release" ng-options="item as item.versionId for item in releaseList" ng-change="" ></select>
+					</div>
+				</div>
+				<div class="form-group hide">
+					<label class="col-sm-2 control-label">APP系统</label>
+					<div class="col-sm-6">
+						<select class="form-control" ng-model="os" ng-options="item as item.name for item in platforms"></select>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-6"></div>
+					<div class="col-sm-2 text-center">
+						<input type="button" value="查找" class="btn btn-primary" ng-click="getAppConfig()" />
+					</div>
+				</div>
+			</fieldset>
+		</form>
+
+	</div>
+	<div>
+		<pre>
+			{{appConfig|json}}
+		</pre>
+	</div>
+</div>
