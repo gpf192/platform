@@ -58,19 +58,24 @@ public class FirstController {
 	@RequestMapping(value = "/test2")
 	@ResponseBody
 	public String test2(){
+		System.out.println("********************进入test2*******");
 		StringBuffer sb = new StringBuffer();
+		System.out.println("********************进入test3*******");
 		// 部署流程，只要是符合BPMN2规范的XML文件，理论上都可以被ACTIVITI部署
-		repositoryService.createDeployment().addClasspathResource("cn.xsdzq.platform/diagrams/MyProcess.bpmn").deploy();
+		repositoryService.createDeployment().addClasspathResource("cn/xsdzq/platform/diagrams/MyProcess.bpmn20.xml").deploy();
+		
+		System.out.println("********************进入test4*******");
 		// 开启流程，myprocess是流程的ID
 		runtimeService.startProcessInstanceByKey("myProcess");
+		System.out.println("********************进入test5*******");
 		// 查询历史表中的Task
-		List<Task> task = taskService.createTaskQuery().list();
-		Task task1 = task.get(task.size()-1);
+		/*List<Task> task = taskService.createTaskQuery().list();
+		Task task1 = task.get(task.size()-1);repositoryService.createDeployment().addClasspathResource
 		sb.append("第一环节："+task1 +"<br/>");
 		sb.append("推动流程到下一环节："+task1+"<br/>");
 		taskService.complete(task1.getId());
 		task1 = taskService.createTaskQuery().executionId(task1.getExecutionId()).singleResult();
-		sb.append("第二环节：" + task1+"<br/>");
+		sb.append("第二环节：" + task1+"<br/>");*/
 		return sb.toString();
 	}
 }
