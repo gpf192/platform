@@ -8,6 +8,22 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/",
 		templateUrl : "htmls/index/content.html",
 		controller : "indexController"
+	}).state("newuser", { 
+		url : "/user/new",
+		templateUrl : "htmls/user/newuser.html",
+		controller : "newUserController"
+	}).state("newrole", {
+		url : "/role/new",
+		templateUrl : "htmls/role/newrole.html",
+		controller : "newRoleController"
+	}).state("addrole", {
+		url : "/role/add",
+		templateUrl : "htmls/admin/addrole.html",
+		controller : "addRoleController"
+	}).state("addauthority", {
+		url : "/admin/addauthority",
+		templateUrl : "htmls/admin/addauthority.html",
+		controller : "addAuthorityController"
 	}).state("categorylist", {
 		url : "/category/list",
 		templateUrl : "htmls/category/categorylist.html",

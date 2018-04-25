@@ -1,0 +1,58 @@
+<script type="text/javascript" src="htmls/admin/addauthority.js"></script>
+<div  ng-init="init()">
+	<div>
+		<ol class="breadcrumb">
+			<li>
+				<a href="#">授权管理</a>
+			</li>
+			<li class="active">
+				<a ui-sref=".newversion">角色赋权</a>
+			</li>
+		</ol>
+	</div>
+
+	<form action="" class="form-horizontal">
+		<fieldset>
+			<legend>
+				角色赋权
+			</legend>
+			<div class="form-group">
+				<label for="versionId" class="col-sm-2 control-label">角色名称：</label>
+				<div class="col-sm-6">
+					<select class="form-control" ng-model="formData.role" ng-options="item.name for item in roleList" ng-change="getAuthorityListByRole(formData.role)"></select>
+				</div>
+				<div class="col-sm-4">
+					<span class="text-danger control-label">* </span><label class="text-warning control-label"></label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">全部权限：</label>
+				<div class="col-sm-6">
+					<div class="row" ng-repeat="row in authorityList">
+						<div class="col-sm-12 col-sm-12-add-margin" ng-init="rowIndex=$index">
+							<span>{{row.menu_name}}</span>
+						</div>
+						<div class="row">
+							<div class="col-sm-3" ng-repeat="col in authorityList[rowIndex].child">
+								<input type="checkbox" ng-model="authorityList[rowIndex].child[$index].check "> 
+								<span>{{col.menu_name}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+				{{authorityList}}
+					
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="button" ng-click="submit()" class="btn btn-default btn-primary">
+						确 认
+					</button>
+				</div>
+			</div>
+		</fieldset>
+	</form>
+
+</div>

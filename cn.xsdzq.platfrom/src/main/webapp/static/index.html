@@ -1,108 +1,137 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="ngApp">
+<html lang="zh-CN" ng-app="ngApp">
 	<head>
-		<meta charset="utf-8">
-
+		<meta http-equiv="content-type"   content="text/html; charset=UTF-8">
 		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
 		Remove this if you use the .htaccess -->
+		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
 		<title>新时代证券帮助中心</title>
 		<meta name="description" content="">
-		<meta name="author" content="ZHENGJINGUANG829">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<meta name="author" content="ZHENGJINGUANG">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+		
 		<link rel="shortcut icon" href="images/logo.png">
 		<link rel="apple-touch-icon" href="images/logo.png">
-		<link href="css/bootstrap.min.css" rel="stylesheet" />
-		<link href="ue/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-		<link href="css/extra.css?version=0.3" rel="stylesheet" />
-		<link href="css/extra-responsive.css?version=0.3" rel="stylesheet" />
-		<link href="css/style.css"  rel="stylesheet" />
+
+		<!--css link-->
+		<link href="css/cloud-admin.css" rel="stylesheet"  />
+		<link href="css/themes/default.css" rel="stylesheet"  />
+		<link href="font-awesome/css/font-awesome.css" rel="stylesheet"  />
+		<link href="css/responsive.css" rel="stylesheet"  />
+		<link href="css/main.css" rel="stylesheet"  />
 		<link href="css/default.css" rel="stylesheet" />
+
+		<!--[if lt IE 9]>
+		<script src="lib/plugins/html5shiv.min.js"></script>
+		<script src="lib/plugins/respond.min.js"></script>
+		<![endif]-->
 	</head>
 
 	<body>
-
 		<div ng-controller="indexController" ng-init="init()">
-			<!-- 导航条定义  -->
-			<div class="navbar navbar-duomi navbar-static-top" role="navigation">
-				<div class="container-fluid">
-					<div class="hide"><img src="images/logo.jpg" class="pull-left img-logo" />
-					</div>
+			<header class="navbar clearfix" id="header">
+				<div class="container">
+					<div class="navbar-brand">
+						<!-- COMPANY LOGO -->
+						<a href="index.html"> <img src="images/logo.png" alt="Cloud Admin Logo" class="img-responsive hide" height="30" width="120"> </a>
+						<!-- /COMPANY LOGO -->
+						<!-- TEAM STATUS FOR MOBILE -->
+						<div class="visible-xs">
+							<a href="#" class="team-status-toggle switcher btn dropdown-toggle"> <i class="fa fa-users"></i> </a>
+						</div>
+						<!-- /TEAM STATUS FOR MOBILE -->
+						<!-- SIDEBAR COLLAPSE -->
+						<div id="sidebar-collapse" class="sidebar-collapse btn">
+							<i class="fa fa-bars"
+							data-icon1="fa fa-bars"
+							data-icon2="fa fa-bars" ></i>
+						</div>
+						<!-- /SIDEBAR COLLAPSE -->
+					</div>					
+				</div>	
+			</header>
+			<!--/HEADER -->
+			<section id="page">
+				<div id="sidebar" class="sidebar">
+					<div class="sidebar-menu nav-collapse">
+						<div class="divide-20"></div>
+						<!-- SEARCH BAR -->
+						<div id="search-bar">
+							<input class="search" type="text" placeholder="Search">
+							<i class="fa fa-search search-icon"></i>
+						</div>
+						<!-- /SEARCH BAR -->
 
-					<div class="navbar-header">
-						<a class="navbar-brand"  id="logo">新时代证券帮助中心</a>
-					</div>
-				</div>
-			</div>
-
-			<!--左边菜单导航-->
-			<div class="container-fluid main-content">
-				<div class="row">
-					<div class="col-md-2">
-						<ul id="main-nav" class="main-nav nav nav-tabs nav-stacked" style="">
-							<li>
-								<a href="#" ng-click="getResource()"> <i class="glyphicon glyphicon-th-large"></i> 首页 </a>
-							</li>
-							<li class="hide">
-								<a href="http://static.demo.ruyo.net/Bootstrap_left_menu.html2.html#systemSetting" class="nav-header" data-toggle="collapse"> <i class="glyphicon glyphicon-cog"></i> 系统管理 <span class="pull-right glyphicon glyphicon-chevron-toggle"></span> </a>
-								<ul id="systemSetting" class="nav nav-list secondmenu collapse in">
-									<li>
-										<a href="./Bootstrap_left_menu.html2_files/Bootstrap_left_menu.html2.html"><i class="glyphicon glyphicon-user"></i>&nbsp;用户管理</a>
-									</li>
-									<li>
-										<a href="./Bootstrap_left_menu.html2_files/Bootstrap_left_menu.html2.html"><i class="glyphicon glyphicon-th-list"></i>&nbsp;菜单管理</a>
+						<!-- SIDEBAR MENU -->
+						<ul id="mainMenu">
+							<li class="active has-sub" ng-repeat="item in menu" >
+								<a> <i class="fa fa-user fa-fw fa-4x"></i> <span class="menu-text" ng-bind="item.menu_name"></span> <span class="selected"></span> </a>
+								<ul id="configSetting" class="nav sub nav-list secondmenu collapse in">
+									<li ng-repeat="row in menu[$index].child">
+										<a ui-sref=".addUser"><span ng-bind="row.menu_name"></span></a>
 									</li>
 								</ul>
 							</li>
-							<li>
-								<a href="#configSetting" class="nav-header" data-toggle="collapse"> <i class="glyphicon glyphicon-credit-card"></i> 信息管理 <span class="pull-right glyphicon  glyphicon-chevron-toggle"></span> </a>
-								<ul id="configSetting" class="nav nav-list secondmenu collapse in">
-									<li>
-										<a ui-sref=".newinfo"><i class="glyphicon glyphicon-plus"></i>&nbsp;创建信息</a>
-									</li>
-									<li>
-										<a ui-sref=".infolist"><i class="glyphicon glyphicon-th-list"></i> 信息列表管理</a>
-									</li>
-									<li class="hide">
-										<a ui-sref="queryversionmodule"><i class="glyphicon glyphicon-star-empty"></i>&nbsp;版本关联模块</a>
-									</li>
-								</ul>
-							</li>
-
-							<li>
-								<a href="#disSetting" class="nav-header" data-toggle="collapse"> <i class="glyphicon glyphicon-tasks"></i> 分类管理<span class="pull-right glyphicon glyphicon-chevron-toggle"></span> </a>
-								<ul id="disSetting" class="nav nav-list secondmenu collapse in">
-									<li>
-										<a ui-sref=".newcategory"><i class="glyphicon glyphicon-plus"></i>&nbsp;新建分类</a>
-									</li>
-									<li>
-										<a ui-sref=".categorylist"><i class="glyphicon glyphicon-list"></i>&nbsp;分类列表管理</a>
-									</li>
-								</ul>
-							</li>
-
-							<li class="hide">
-								<a href="http://static.demo.ruyo.net/Bootstrap_left_menu.html2.html#dicSetting" class="nav-header" data-toggle="collapse"> <i class="glyphicon glyphicon-bold"></i> 相关配置 <span class="pull-right glyphicon glyphicon-chevron-toggle"></span> </a>
-								<ul id="dicSetting" class="nav nav-list secondmenu collapse in">
-									<li>
-										<a ui-sref=".getappconfig"><i class="glyphicon glyphicon-text-width"></i>&nbsp;拉取APP配置</a>
-									</li>
-								</ul>
-							</li>
-							<li class="hide">
-								<a ui-sref="explain"> <i class="glyphicon glyphicon-fire"></i> 关于系统 <span class="badge pull-right">1</span> </a>
-							</li>
-
 						</ul>
-					</div>
-					<div class="col-md-10">
-						<!-- 主内容区 -->
-						<div ui-view></div>
+						<!-- /SIDEBAR MENU -->
 					</div>
 				</div>
-			</div>
-
+				<!-- /SIDEBAR -->
+				<div id="main-content">
+					<div class="modal fade" id="box-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+										&times;
+									</button>
+									<h4 class="modal-title">Box Settings</h4>
+								</div>
+								<div class="modal-body">
+									Here goes box setting content.
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">
+										Close
+									</button>
+									<button type="button" class="btn btn-primary">
+										Save changes
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="container">
+						<div class="row">
+							<div id="content" class="col-sm-12">
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="page-header">
+											<!-- 导航条-->
+											<ul class="breadcrumb">
+												<li>
+													<i class="fa fa-home"></i>
+													<a href="index.html">首页</a>
+												</li>
+												<li>
+													<a href="#">用户管理</a>
+												</li>
+												<li>
+													用户列表
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<!-- 主内容区  -->
+								<div ui-view></div>
+							</div><!-- /CONTENT-->
+						</div>
+					</div>
+				</div>
+			</section>
 			<!-- loading区-->
 			<div times="6" showtime="0" style="z-index: 19891020; left: 0px; width: 0px; height: auto; top: 0px; margin-left: 0px;display: none" id="xubox_layer6" class="xubox_layer" type="page">
 				<div style="z-index: 19891020; height: 0px; background-color: rgb(255, 255, 255);" class="xubox_main">
@@ -118,43 +147,43 @@
 						</div>
 					</div>
 				</div>
-				<div id="xubox_border6" class="xubox_border" style="z-index: 19891019; opacity: 0; top: 0px; left: 0px; width: 0px; height: 0px; background-color: rgb(255, 255, 255);"></div>
-			</div>
-
-			<footer class="footer">
-				<div class="container">
-					<p>
-						&copy; 新时代证券股份有限公司帮助中心 版权所有 Copyright @2017-2018 Reserved.
-					</p>
+				<div id="xubox_border6" class="xubox_border" style="z-index: 19891019; opacity: 0; top: 0px; left: 0px; width: 0px; height: 0px; background-color: rgb(255, 255, 255);">
 				</div>
-				<address class="hide">
-					<ul class="list-inline text-center">
-						<li>
-							邮箱：zhengjinguangzjg@163.com
+			</div>
+			<hr />
 
-						</li>
-						<li>
-							QQ:630541608
-
-						</li>
-					</ul>
-				</address>
-
+			<footer class="clearfix text-center"  >
+				<p>
+					&copy; 新时代证券股份有限公司帮助中心 版权所有 Copyright by @2017-2018 Reserved.
+				</p>
 			</footer>
 		</div>
-		<script type="text/javascript" src="lib/jquery-1.11.1.js"></script>
+		<script type="text/javascript" src="lib/jquery-1.11.1.min.js"></script>
 		<script type="text/javascript" src="lib/jquery.artDialog.min.js"></script>
-		<script type="text/javascript" src="lib/angular.js"></script>
-		<script type="text/javascript" src="lib/bootstrap.js"></script>
+		<script type="text/javascript" src="lib/jquery.cookie.min.js"></script>
+		<script type="text/javascript" src="lib/angular.min.js"></script>
+		<script type="text/javascript" src="lib/bootstrap.min.js"></script>		
 		<script type="text/javascript" src="lib/angularExtends/angular-ui-router.js"></script>
 		<script type="text/javascript" src="lib/angularExtends/angular-animate.js"></script>
+		
+		
+		<script type="text/javascript" src="lib/script.js"></script>
 		<script type="text/javascript" src="app.js"></script>
-		<script type="text/javascript" src="lib/service/utils.js"></script>
 		<script type="text/javascript" src="lib/service/httpUtils.js"></script>
+		<script type="text/javascript" src="lib/service/commonUtils.js"></script>
+		<script type="text/javascript" src="lib/service/gridService.js"></script>
 		<script type="text/javascript" src="lib/service/layerUtils.js"></script>
 		<script type="text/javascript" src="lib/service/interceptor.js"></script>
-
-		<script type="text/javascript" src="lib/expand/d3.v3.min.js"></script>
+		<script type="text/javascript" src="lib/directives/ui-checkboxtree.js"></script>
 		<script type="text/javascript" src="index.js"></script>
+		<script>
+			jQuery(document).ready(function() {
+				App.setPage("index");
+				//Set current page
+				App.init();
+				//Initialise plugins and elements
+			});
+		</script>
+
 	</body>
 </html>

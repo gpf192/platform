@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,29 +31,38 @@ public class UserEntity implements Serializable {
 	@Column(name = "id", unique = true, length = 20)
 	private Long id;
 
-	@Column(name = "username", unique = true, nullable = false, length = 50)
+	// 登录名称
+	@Column(name = "username", unique = true, nullable = false, length = 100)
 	private String username;
 
-	@Column(name = "password", nullable = false, length = 20)
+	// 别名
+	@Column(name = "alias", nullable = true, length = 100)
+	private String alias;
+
+	// 权限级别
+	@Column(name = "level", nullable = false)
+	private int level;
+
+	@Column(name = "password", nullable = false, length = 50)
 	private String password;
 
 	@Column(name = "phone", nullable = true, length = 12)
 	private String phone;
 
-	@Column(name = "department", nullable = true, length = 50)
+	@Column(name = "department", nullable = true, length = 100)
 	private String department;
 
-	@Column(name = "address", nullable = true, length = 100)
+	@Column(name = "address", nullable = true, length = 200)
 	private String address;
 
 	@Column(name = "enabled", nullable = false)
 	private boolean enabled = true;
 
-	@ManyToMany
-	@JoinTable(name = "users_authorities", joinColumns = {
+	@ManyToMany(targetEntity = RoleEntity.class, fetch = FetchType.EAGER)
+	@JoinTable(name = "users_roles", joinColumns = {
 			@JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "authority_id", referencedColumnName = "id") })
-	private Set<AuthoritiesEntity> authoritiesEntitySet;
+					@JoinColumn(name = "role_id", referencedColumnName = "id") })
+	private Set<RoleEntity> roleEntities;
 
 	// 创建时间
 	@Column(name = "createtime", insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -81,12 +91,28 @@ public class UserEntity implements Serializable {
 		this.username = username;
 	}
 
+	public String getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
+
 	public String getPassword() {
 		return password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 
 	public String getPhone() {
@@ -121,17 +147,17 @@ public class UserEntity implements Serializable {
 		this.enabled = enabled;
 	}
 
-	public Set<AuthoritiesEntity> getAuthoritiesEntitySet() {
-		return authoritiesEntitySet;
+	public Date getCreatetime() {
+		return createtime;
+	}
+
+	public Set<RoleEntity> getRoleEntities() {
+		return roleEntities;
 	}
 
 	@JsonBackReference
-	public void setAuthoritiesEntitySet(Set<AuthoritiesEntity> authoritiesEntitySet) {
-		this.authoritiesEntitySet = authoritiesEntitySet;
-	}
-
-	public Date getCreatetime() {
-		return createtime;
+	public void setRoleEntities(Set<RoleEntity> roleEntities) {
+		this.roleEntities = roleEntities;
 	}
 
 	public void setCreatetime(Date createtime) {
