@@ -47,8 +47,9 @@
 			</props>
 		</property>
 	</bean>
-
-	<!--事务管理器配置 -->
+	
+	
+	<!--jpa事务管理器配置 -->
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
@@ -56,8 +57,40 @@
 
 	<!-- 配置 Annotation 驱动，定义事务 -->
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
-
-
-
-
+	<!-- add by fjx begin -->
+	<!-- 加载activiti引擎 -->
+   
+    <bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
+        <property name="dataSource" ref="dataSource" />
+         <property name="transactionManager" ref="transactionManager" />      
+        <property name="databaseSchemaUpdate" value="true" />
+        <property name="jobExecutorActivate" value="false" />
+       
+       <property name="jpaEntityManagerFactory" ref="entityManagerFactory" /> 
+        <property name="jpaHandleTransaction" value="false" /> 
+        <property name="jpaCloseEntityManager" value="false" /> 
+        <!-- 全局事件 -->
+        <property name="typedEventListeners">
+            <map>
+                <entry key="VARIABLE_CREATED" >
+                    <list>
+                       <!-- <ref bean="variableCreateListener"/> -->
+                    </list>
+                </entry>
+            </map>
+        </property>
+        
+    </bean>
+	 <bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
+        <property name="processEngineConfiguration" ref="processEngineConfiguration" />
+    </bean>
+    <!-- activiti的各种服务接口 -->
+    <bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService" />
+    <bean id="runtimeService" factory-bean="processEngine"    factory-method="getRuntimeService" />
+    <bean id="formService" factory-bean="processEngine" factory-method="getFormService"/>
+    <bean id="identityService" factory-bean="processEngine" factory-method="getIdentityService"/>
+    <bean id="taskService" factory-bean="processEngine"       factory-method="getTaskService" />
+    <bean id="historyService" factory-bean="processEngine"    factory-method="getHistoryService" />
+    <bean id="managementService" factory-bean="processEngine"  factory-method="getManagementService" />  
+ <!-- add by fjx end -->
 </beans>

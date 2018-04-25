@@ -52,6 +52,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// http.formLogin().loginPage("/static/login.html").and().authorizeRequests().antMatchers("/hello/say")
 		// .hasRole("USER").anyRequest().permitAll();
 		// http.csrf().disable();
+		/*http.formLogin().usernameParameter("username").passwordParameter("password").loginPage("/login").and()
+				.authorizeRequests().antMatchers("/static/index.html").hasRole("USER").anyRequest().permitAll().and()
+				.headers().frameOptions().disable()//add by fanjx 解除浏览器对框架的限制
+                .and()
+				.csrf().disable();*/
+
 
 		// http.formLogin().usernameParameter("username").passwordParameter("password").loginPage("/login").and()
 		// .authorizeRequests().antMatchers("/static/index.html").hasRole("USER").anyRequest().permitAll().and()
@@ -85,6 +91,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public AccessDecisionManager myAccessDecisionManager() {
 
 		return new MyAccessDecisionManager();
+    
 	}
 
 }
