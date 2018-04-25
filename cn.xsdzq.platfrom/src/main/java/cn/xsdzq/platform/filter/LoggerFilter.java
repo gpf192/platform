@@ -46,6 +46,11 @@ public class LoggerFilter implements Filter {
 		String ip = httpRequest.getRemoteAddr();
 		String agent = httpRequest.getHeader("User-Agent");
 
+		if (null == channel || channel.equals("")) {
+			System.out.println("channel: " + channel);
+			channel = "";
+		}
+
 		RecordEntity recordEntity = new RecordEntity();
 
 		recordEntity.setChannel(channel);

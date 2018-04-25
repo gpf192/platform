@@ -1,9 +1,18 @@
-ngApp.factory("httpUtils", [
-function() {
+ngApp.factory("httpUtils", [ function() {
 
-	//var baseUrl = "http://localhost:8080/webapp/";
-	var baseUrl = getUrl() +"/platform/";
+	// var baseUrl = "http://localhost:8080/webapp/";
+	var baseUrl = getUrl() + "/platform/";
 	var url = {
+		menu : baseUrl+"menu",
+		addUser : baseUrl + "user/add",
+		userList : baseUrl + "user/getAll",
+		userAddRoles: baseUrl + "user/userAddRoles",
+		addRole : baseUrl + "role/add",
+		getExtraRole : baseUrl + "role/getExtraRole",
+		addPermissions: baseUrl +"role/addPermissions",
+		roleList : baseUrl + "role/getAll",
+		authorityList : baseUrl + "authority/getAll",
+		authorityListByRole : baseUrl + "authority/getAllByRole",
 		categoryList : baseUrl + "category/getAll",
 		addCategory : baseUrl + "category/addCategory",
 		modifyCategory : baseUrl + "category/modifyCategory",
@@ -15,9 +24,9 @@ function() {
 		modifyInfo : baseUrl + "info/modifyInfo",
 		deleteInfo : baseUrl + "info/deleteInfo"
 	};
-	
-	function getUrl(){
-		var url=window.location.protocol+"//"+window.location.host;
+
+	function getUrl() {
+		var url = window.location.protocol + "//" + window.location.host;
 		return url;
 	}
 
@@ -27,4 +36,4 @@ function() {
 	};
 	return utils;
 
-}]);
+} ]);

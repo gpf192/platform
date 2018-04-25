@@ -1,0 +1,47 @@
+<script type="text/javascript" src="htmls/role/newrole.js"></script>
+<div  ng-init="init()">
+	<div>
+		<ol class="breadcrumb">
+			<li>
+				<a href="#">角色管理</a>
+			</li>
+			<li class="active">
+				<a ui-sref=".newversion">新建角色</a>
+			</li>
+		</ol>
+	</div>
+
+	<form action="" class="form-horizontal">
+		<fieldset>
+			<legend>
+				新建角色
+			</legend>
+			<div class="form-group">
+				<label for="versionId" class="col-sm-2 control-label">角色名称：</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" id="name" name="name" ng-model="formData.name" placeholder="请输入角色名称" />
+				</div>
+				<div class="col-sm-4">
+					<span class="text-danger control-label">* </span><label class="text-warning control-label"></label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">角色描述：</label>
+				<div class="col-sm-6">
+					<textarea rows="3" class="form-control" id="role_describe" name="role_describe" ng-model="formData.role_describe" placeholder="请输入角色描述" />
+				</div>
+				<div class="col-sm-4">
+					<span class="text-danger control-label">* </span><label class="text-warning control-label">相关岗位的名称</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="button" ng-click="submit()" class="btn btn-default btn-primary">
+						确 认
+					</button>
+				</div>
+			</div>
+		</fieldset>
+	</form>
+
+</div>

@@ -1,13 +1,13 @@
 ngApp.controller("indexController", function($scope, $http, httpUtils) {
 
 	$scope.init = function() {
-		$("#main-nav li > ul > li").each(function(index, domEle) {
-			var that = this;
-			$(domEle).on("click", function(event) {
-				$("#main-nav li > ul > li").removeClass("active");
-				$(that).addClass("active");
-				event.stopPropagation();
-			});
+		var url=httpUtils.url.menu;
+		$http.get(url).success(function(data) {
+			if (data.resCode == 0) {
+				$scope.menu=data.result.menu;
+			} else {
+				layerUtils.iMsg(-1,"菜单获取失败");
+			}
 		});
 	};
 
