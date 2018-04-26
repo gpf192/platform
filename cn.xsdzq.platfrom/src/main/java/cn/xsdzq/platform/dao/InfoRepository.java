@@ -19,4 +19,8 @@ public interface InfoRepository {
 	void addInfo(InfoEntity infoEntity);
 
 	void modifyInfo(InfoEntity infoEntity);
+	//add by fjx begin
+	List<InfoEntity> searUncheckchInfos();
+	String getCheckResult(long id);
+	//add nu fjx end
 }

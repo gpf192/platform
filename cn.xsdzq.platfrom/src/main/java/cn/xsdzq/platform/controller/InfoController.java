@@ -117,5 +117,38 @@ public class InfoController extends BaseController {
 		return GsonUtil.buildMap(0, "ok", infoDTOs);
 
 	}
+	//add by fjx begin
+	/**
+	 * 获取未审核的流程 接口1
+	 */
+	@RequestMapping(value = "/getUncheckedInfo", method = POST, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> getUncheckedInfo(HttpServletRequest request) {
+		List<InfoEntity> infos = iInfoService.searUncheckchInfos();
+		List<InfoDTO> infoDTOs = new ArrayList<InfoDTO>();
+		for (InfoEntity info : infos) {
+			InfoDTO dto = InfoUtil.convertInfoDTOByInfo(info);
+			infoDTOs.add(dto);
+		}
+		return GsonUtil.buildMap(0, "ok", infoDTOs);
+
+	}	
+	/**
+	 * 获取审核结果 接口3
+	 */
+	@RequestMapping(value = "/getCheckResult/{param}", method = GET, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> getCheckResult(HttpServletRequest request, @PathVariable String param) {
+		long id = Long.parseLong(param);
+		if (id > 0) {
+			String checkResult = iInfoService.getCheckResult(id);
+			return GsonUtil.buildMap(0, "ok", checkResult);
+		} else {
+			return GsonUtil.buildMap(1, "fail", null);
+		}
+	}
+
+	
+	//add by fjx 
 
 }
