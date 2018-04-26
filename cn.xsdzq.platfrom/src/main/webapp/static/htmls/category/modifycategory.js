@@ -2,6 +2,19 @@ ngApp.$inject = ['$scope', '$http', '$state', '$stateParams', 'httpUtils', 'laye
 function modifyCategoryController($scope, $http, $state, $stateParams, httpUtils, layerUtils) {
 	$scope.formData = {};
 	$scope.init = function() {
+		var data = {
+				"one" : {
+					name : "分类管理",
+					goto:""
+
+				},
+				"two" : {
+					name : "分类名称修改",
+					goto:"modifyCategory"
+
+				}
+			}
+		$scope.$emit("changeNavigation", data);
 		angular.copy($stateParams.category,$scope.formData);
 		if (angular.equals($scope.formData, {})) {
 			$state.go("categorylist");

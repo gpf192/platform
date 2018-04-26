@@ -1,9 +1,21 @@
-ngApp.$inject = ['$scope', '$http', ' $state', 'httpUtils', 'layerUtils'];
+ngApp.$inject = [ '$scope', '$http', ' $state', 'httpUtils', 'layerUtils' ];
 function newCategoryController($scope, $http, $state, httpUtils, layerUtils) {
 	$scope.formData = {};
 
 	$scope.init = function() {
+		var data = {
+			"one" : {
+				name : "分类管理",
+				goto:"newcategory"
 
+			},
+			"two" : {
+				name : "新建分类",
+				goto:"newcategory"
+
+			}
+		}
+		$scope.$emit("changeNavigation", data);
 	};
 
 	$scope.submit = function() {

@@ -39,6 +39,9 @@ public class AuthorityEntity implements GrantedAuthority {
 	@Column(name = "url")
 	private String url;
 
+	@Column(name = "forward")
+	private String forward;
+
 	@Column(name = "parent_id", nullable = false)
 	private long parent_id;
 
@@ -104,6 +107,14 @@ public class AuthorityEntity implements GrantedAuthority {
 
 	public long getParent_id() {
 		return parent_id;
+	}
+
+	public String getForward() {
+		return forward;
+	}
+
+	public void setForward(String forward) {
+		this.forward = forward;
 	}
 
 	public void setParent_id(long parent_id) {

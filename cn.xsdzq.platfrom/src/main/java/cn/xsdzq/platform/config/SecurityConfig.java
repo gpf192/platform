@@ -52,12 +52,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// http.formLogin().loginPage("/static/login.html").and().authorizeRequests().antMatchers("/hello/say")
 		// .hasRole("USER").anyRequest().permitAll();
 		// http.csrf().disable();
-		/*http.formLogin().usernameParameter("username").passwordParameter("password").loginPage("/login").and()
-				.authorizeRequests().antMatchers("/static/index.html").hasRole("USER").anyRequest().permitAll().and()
-				.headers().frameOptions().disable()//add by fanjx 解除浏览器对框架的限制
-                .and()
-				.csrf().disable();*/
-
+		/*
+		 * http.formLogin().usernameParameter("username").passwordParameter("password").
+		 * loginPage("/login").and()
+		 * .authorizeRequests().antMatchers("/static/index.html").hasRole("USER").
+		 * anyRequest().permitAll().and() .headers().frameOptions().disable()//add by
+		 * fanjx 解除浏览器对框架的限制 .and() .csrf().disable();
+		 */
 
 		// http.formLogin().usernameParameter("username").passwordParameter("password").loginPage("/login").and()
 		// .authorizeRequests().antMatchers("/static/index.html").hasRole("USER").anyRequest().permitAll().and()
@@ -67,17 +68,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		// 动态配置
 
-		http.formLogin().and().authorizeRequests().antMatchers("/login").permitAll().anyRequest().authenticated()
+		http.formLogin().usernameParameter("username").passwordParameter("password").loginPage("/login")
+				.defaultSuccessUrl("/static/index.html").and().authorizeRequests().anyRequest().authenticated()
 				.withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
 
 					@Override
-					public <O extends FilterSecurityInterceptor> O postProcess(O object) { // TODO Auto-generated method
-																							// // stub
+					public <O extends FilterSecurityInterceptor> O postProcess(O object) {
+						// TODO Auto-generated method
 						object.setSecurityMetadataSource(mySecurityMetadataSource());
 						object.setAccessDecisionManager(myAccessDecisionManager());
 						return object;
 					}
-				}).antMatchers("/static/**").hasRole("MAIN_AUTHORITY").and().csrf().disable();
+				}).and().csrf().disable();
 
 	}
 
@@ -91,7 +93,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public AccessDecisionManager myAccessDecisionManager() {
 
 		return new MyAccessDecisionManager();
-    
+
 	}
 
 }

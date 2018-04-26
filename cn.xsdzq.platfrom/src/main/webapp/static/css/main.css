@@ -352,6 +352,14 @@
 	margin: 10px auto
 }
 
+#content .breadcrumb > li:last-child a {
+	color: #000;
+}
+
+#content .breadcrumb > li:last-child a:hover {
+	text-decoration: none;
+}
+
 
 
 

@@ -92,6 +92,7 @@ public class MainServiceImpl implements IMainService {
 		jsonObject.put("resource_path", authorityEntity.getResource_path());
 		jsonObject.put("level", authorityEntity.getLevel());
 		jsonObject.put("sort", authorityEntity.getSort());
+		jsonObject.put("forward", authorityEntity.getForward());
 		return jsonObject;
 	}
 

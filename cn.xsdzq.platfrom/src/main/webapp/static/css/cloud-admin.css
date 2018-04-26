@@ -1555,11 +1555,10 @@ legend {
   width: 100%;
   padding: 0;
   margin-bottom: 20px;
-  font-size: 21px;
+  font-size: 18px;
   line-height: inherit;
   color: #333333;
   border: 0;
-  border-bottom: 1px solid #e5e5e5;
 }
 label {
   display: inline-block;
@@ -6439,7 +6438,7 @@ fieldset[disabled] .btn-yellow.active {
   background: none repeat scroll 0 0 #FFFFFF;
   border-bottom-color: #cdd2d2;
   color: #000000;
-  margin: 0 -15px 30px;
+  margin: 0 -15px 15px;
   min-height: 40px;
   overflow: hidden;
   padding: 0 20px;

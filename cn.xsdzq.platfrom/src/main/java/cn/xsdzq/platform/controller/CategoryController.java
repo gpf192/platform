@@ -12,19 +12,23 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sun.istack.internal.logging.Logger;
+
 import cn.xsdzq.platform.entity.CategoryEntity;
 import cn.xsdzq.platform.model.CategoryDTO;
+import cn.xsdzq.platform.model.IdDTO;
 import cn.xsdzq.platform.service.ICategoryService;
 import cn.xsdzq.platform.util.GsonUtil;
 
 @Controller
 @RequestMapping("/category")
 public class CategoryController {
+
+	private static Logger logger = Logger.getLogger(CategoryController.class);
 
 	@Autowired
 	@Qualifier("categoryServiceImpl")
@@ -81,10 +85,11 @@ public class CategoryController {
 		return GsonUtil.buildMap(0, "ok", null);
 	}
 
-	@RequestMapping(value = "/deleteCategory/{param}", method = POST, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/deleteCategory", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Map<String, Object> deleteCategory(HttpServletRequest request, @PathVariable String param) {
-		long id = Long.parseLong(param);
+	public Map<String, Object> deleteCategory(@RequestBody IdDTO idDTO) {
+		long id = idDTO.getId();
+		logger.info("id: " + id);
 		if (id > 0) {
 			categoryService.deleteCategory(id);
 			return GsonUtil.buildMap(0, "ok", null);

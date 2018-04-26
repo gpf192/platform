@@ -14,10 +14,10 @@
 <meta name="author" content="ZHENGJINGUANG">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
-<link href="static/images/logo.png" rel="icon" />
-<link href="static/images/logo.png" rel="apple-touch-icon" />
-<link href="static/css/bootstrap.min.css" rel="stylesheet" />
-<link href="static/css/login.css" rel="stylesheet" />
+<link href="loginin/images/logo.png" rel="icon" />
+<link href="loginin/images/logo.png" rel="apple-touch-icon" />
+<link href="loginin/css/bootstrap.min.css" rel="stylesheet" />
+<link href="loginin/css/login.css" rel="stylesheet" />
 </head>
 <body>
 	<div id="login">
@@ -75,7 +75,7 @@
 			</form>
 		</div>
 	</div>
-	<script type="text/javascript" src="static/lib/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="loginin/lib/jquery-1.11.1.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(
 		/*function() {

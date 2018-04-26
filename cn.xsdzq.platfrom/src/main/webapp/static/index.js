@@ -1,4 +1,4 @@
-ngApp.controller("indexController", function($scope, $http, httpUtils) {
+ngApp.controller("indexController", function($scope, $state, $http, httpUtils) {
 
 	$scope.init = function() {
 		var url=httpUtils.url.menu;
@@ -10,6 +10,14 @@ ngApp.controller("indexController", function($scope, $http, httpUtils) {
 			}
 		});
 	};
+	
+	$scope.$on("changeNavigation",function(event,data){
+		$scope.navigation=data;
+	});
+	
+	$scope.goto = function(state){
+		$state.go(state);
+	}
 
 	$scope.getResource = function() {
 		var params = {
