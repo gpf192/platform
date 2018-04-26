@@ -73,5 +73,26 @@ public class InfoRepositoryImpl implements InfoRepository {
 		// Info modifyInfo = em.find(Info.class, info.getId());
 		em.merge(infoEntity);
 	}
+	
+	//add by fjx begin
+	@Override
+	public List<InfoEntity> searUncheckchInfos() {
+		// TODO Auto-generated method stub
+				TypedQuery<InfoEntity> sqlQuery = em.createQuery("SELECT c FROM InfoEntity c WHERE c.checked = ?",
+						InfoEntity.class);
+				sqlQuery.setParameter(1, "N");
+				return sqlQuery.getResultList();
+	}
+	
 
+	@Override
+	public String getCheckResult(long id) {
+		// TODO Auto-generated method stub
+		TypedQuery<InfoEntity> sqlQuery = em.createQuery("SELECT c FROM InfoEntity c WHERE c.id = ?",
+				InfoEntity.class);
+		sqlQuery.setParameter(1, id);
+		InfoEntity infoEntity = sqlQuery.getSingleResult();
+		return infoEntity.getChecked_result();
+	}
+	//add by fjx end
 }

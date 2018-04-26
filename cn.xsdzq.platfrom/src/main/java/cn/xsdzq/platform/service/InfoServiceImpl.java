@@ -56,5 +56,19 @@ public class InfoServiceImpl implements IInfoService {
 		// TODO Auto-generated method stub
 		infoRepository.modifyInfo(infoEntity);
 	}
+	//add by  fjx
+	@Override
+	public List<InfoEntity> searUncheckchInfos() {
+		// TODO Auto-generated method stub
+		List<InfoEntity> infos = infoRepository.searUncheckchInfos();
+		return infos;
+	}
+
+	@Override
+	public String getCheckResult(long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 
 }

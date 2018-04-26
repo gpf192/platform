@@ -17,5 +17,8 @@ public interface IInfoService {
 	List<InfoEntity> getInfosByCategoryId(long id);
 
 	List<InfoEntity> searchInfos(String key);
-
+	//add by fjx begin
+	List<InfoEntity> searUncheckchInfos();
+	String getCheckResult(long id);
+	//add by fjx end
 }

@@ -36,6 +36,12 @@ public class InfoEntity implements Serializable {
 	@Column(name = "title")
 
 	private String title;
+	//add by fjx begin
+	@Column(name = "checked")
+	private String checked = "N";
+	@Column(name = "checked_result")
+	private String checked_result = "false";
+	//add by fjx end
 
 	@Column(name = "categoryId", insertable = false, updatable = false)
 	private long categoryId;
@@ -104,6 +110,22 @@ public class InfoEntity implements Serializable {
 
 	public CategoryEntity getCategoryEntity() {
 		return categoryEntity;
+	}
+
+	public String getChecked() {
+		return checked;
+	}
+
+	public void setChecked(String checked) {
+		this.checked = checked;
+	}
+
+	public String getChecked_result() {
+		return checked_result;
+	}
+
+	public void setChecked_result(String checked_result) {
+		this.checked_result = checked_result;
 	}
 
 	@JsonBackReference
