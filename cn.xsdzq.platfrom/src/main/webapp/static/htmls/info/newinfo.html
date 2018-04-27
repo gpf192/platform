@@ -1,6 +1,5 @@
-<script type="text/javascript" src="ue/third-party/template.min.js"></script>
 <script type="text/javascript" charset="utf-8"
-	src="ue/umeditor.config.js"></script>
+		src="ue/umeditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="ue/umeditor.min.js"></script>
 <script type="text/javascript" src="ue/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript" src="htmls/info/newinfo.js"></script>
@@ -24,8 +23,8 @@
 			<fieldset>
 				<legend> 新建信息 </legend>
 				<div class="form-group">
-					<label for="versionId" class="col-sm-3 control-label">标题：</label>
-					<div class="col-sm-6">
+					<label for="versionId" class="col-sm-2 control-label">标题：</label>
+					<div class="col-sm-7">
 						<input type="text" class="form-control" id="title" name="title"
 							ng-model="formData.title" placeholder="请输入标题" />
 					</div>
@@ -35,8 +34,8 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label">分类：</label>
-					<div class="col-sm-6">
+					<label class="col-sm-2 control-label">分类：</label>
+					<div class="col-sm-7">
 						<select class="form-control" ng-model="formData.category"
 							ng-options="item.title for item in categoryList"></select>
 					</div>
@@ -53,8 +52,8 @@
 					</div>
 				</div>
 				<div class="form-group hide">
-					<label class="col-sm-3 control-label">标签：</label>
-					<div class="col-sm-6">
+					<label class="col-sm-2 control-label">标签：</label>
+					<div class="col-sm-7">
 						<select class="form-control" ng-model="formData.label"
 							ng-options="item.label for item in labelList"></select>
 					</div>
@@ -68,9 +67,9 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label"> 具体内容： </label>
-					<div class="col-sm-9">
-						<script type="text/plain" id="myEditor" style="width: 800px; height: 300px;"></script>
+					<label class="col-sm-2 control-label"> 具体内容： </label>
+					<div class="col-sm-10">
+						<script type="text/plain" id="myEditor" style="width: 750px; height: 400px;"></script>
 					</div>
 				</div>
 				<div class="form-group">

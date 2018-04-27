@@ -1,12 +1,20 @@
 <script type="text/javascript" src="htmls/info/infolist.js"></script>
-<div ng-init="init()">
-	<div>
-		<ol class="breadcrumb">
-			<li><a href="#">用户管理</a></li>
-			<li class="active"><a ui-sref=".infolist">新增用户</a></li>
-		</ol>
+<div class="box border primary" ng-init="init()">
+	<div class="box-title">
+		<h4>
+			<i class="fa fa-bars"></i>信息列表管理
+		</h4>
+		<div class="tools hidden">
+			<a href="#box-config" data-toggle="modal" class="config"> <i
+				class="fa fa-cog"></i>
+			</a> <a href="javascript:;" class="reload"> <i class="fa fa-refresh"></i>
+			</a> <a href="javascript:;" class="collapse"> <i
+				class="fa fa-chevron-up"></i>
+			</a> <a href="javascript:;" class="remove"> <i class="fa fa-times"></i>
+			</a>
+		</div>
 	</div>
-	<div>
+	<div class="box-body">
 		<form class="form-horizontal">
 			<fieldset>
 				<legend> 信息列表管理 </legend>
