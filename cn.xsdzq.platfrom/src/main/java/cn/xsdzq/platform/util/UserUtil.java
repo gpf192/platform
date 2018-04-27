@@ -46,4 +46,17 @@ public class UserUtil {
 		return userDTO;
 	}
 
+	public static UserDTO convertUserDTOByUserEntityToMain(UserEntity userEntity) {
+		UserDTO userDTO = new UserDTO();
+		userDTO.setId(userEntity.getId());
+		userDTO.setUsername(userEntity.getUsername());
+		userDTO.setAlias(userEntity.getAlias());
+		userDTO.setLevel(userEntity.getLevel());
+		userDTO.setDepartment(userEntity.getDepartment());
+		userDTO.setPhone(userEntity.getPhone());
+		userDTO.setEnabled(userEntity.isEnabled());
+		userDTO.setAddress(userEntity.getAddress());
+		return userDTO;
+	}
+
 }

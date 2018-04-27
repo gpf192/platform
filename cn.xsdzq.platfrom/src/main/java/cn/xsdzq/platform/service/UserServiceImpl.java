@@ -52,6 +52,7 @@ public class UserServiceImpl implements IUserService {
 	@Transactional
 	public void addUser(UserEntity userEntity) {
 		// TODO Auto-generated method stub
+		// 新建用户给予基础的权限
 		userRepository.addUser(userEntity);
 	}
 

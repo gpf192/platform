@@ -22,7 +22,8 @@ ngApp.factory("httpUtils", [ function() {
 		addInfo : baseUrl + "info/addInfo",
 		getInfoList : baseUrl + "info/getInfosByCategoryId",
 		modifyInfo : baseUrl + "info/modifyInfo",
-		deleteInfo : baseUrl + "info/deleteInfo"
+		deleteInfo : baseUrl + "info/deleteInfo",
+		checkList : baseUrl + "info/getUncheckedInfo",
 	};
 
 	function getUrl() {

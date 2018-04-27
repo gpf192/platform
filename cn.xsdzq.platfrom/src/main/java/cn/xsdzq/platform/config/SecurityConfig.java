@@ -67,10 +67,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// .authorizeRequests().anyRequest().permitAll().and().csrf().disable();
 
 		// 动态配置
-		//add by fjx begin
+		// add by fjx begin
 		http.formLogin().usernameParameter("username").passwordParameter("password").loginPage("/login")
-		.defaultSuccessUrl("/static/index.html").and().authorizeRequests().and() .headers().frameOptions().disable();
-		//add by fjx end
+				.defaultSuccessUrl("/static/index.html").and().logout().logoutSuccessUrl("/login").and()
+				.authorizeRequests().and().headers().frameOptions().disable();
+		// add by fjx end
 		http.formLogin().usernameParameter("username").passwordParameter("password").loginPage("/login")
 				.defaultSuccessUrl("/static/index.html").and().authorizeRequests().anyRequest().authenticated()
 				.withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {

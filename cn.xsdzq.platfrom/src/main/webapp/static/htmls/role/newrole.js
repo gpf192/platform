@@ -2,6 +2,19 @@ ngApp.$inject = ['$scope', '$http', '$state', 'httpUtils', 'layerUtils'];
 function newRoleController($scope, $http, $state, httpUtils, layerUtils) {
 	$scope.formData = {};	
 	$scope.init=function(){
+		var data = {
+				"one" : {
+					name : "角色管理",
+					goto:""
+
+				},
+				"two" : {
+					name : "新建角色",
+					goto:"newrole"
+
+				}
+			}
+		$scope.$emit("changeNavigation", data);
 		
 	};
 

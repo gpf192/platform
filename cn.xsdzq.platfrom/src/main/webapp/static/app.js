@@ -73,6 +73,11 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl : "htmls/config/appconfig.html",
 		controller : "appConfigController",
 		params:{state:{}}
+	}).state("checklist", {
+		url : "/info/checklist",
+		templateUrl : "htmls/info/checklist.html",
+		controller : "checkListController",
+		params:{state:{}}
 	}).state("result", {
 		url : "/result",
 		templateUrl : "htmls/common/result.html",

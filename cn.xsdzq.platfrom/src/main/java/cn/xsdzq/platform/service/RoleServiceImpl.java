@@ -65,6 +65,12 @@ public class RoleServiceImpl implements IRoleService {
 	@Transactional
 	public void addRole(RoleEntity roleEntity) {
 		// TODO Auto-generated method stub
+		AuthorityEntity authorityEntity = authorityRepository.findAuthorityByAuthority("ROLE_MAIN_AUTHORITY");
+		Set<AuthorityEntity> authorityEntities = new HashSet<>();
+		if (authorityEntity != null) {
+			authorityEntities.add(authorityEntity);
+			roleEntity.setAuthorityEntities(authorityEntities);
+		}
 		roleRepository.addRole(roleEntity);
 
 	}
@@ -79,6 +85,7 @@ public class RoleServiceImpl implements IRoleService {
 		Set<AuthorityEntity> authoritySet = new HashSet<AuthorityEntity>();
 		List<AuthorityEntity> aList = roleAuthorityDTO.getAuthorityEntities();
 		if (roleEntity != null) {
+
 			for (AuthorityEntity authorityEntity : aList) {
 				if (authorityEntity.getLevel() == 1) {
 					authoritySet.add(authorityEntity);

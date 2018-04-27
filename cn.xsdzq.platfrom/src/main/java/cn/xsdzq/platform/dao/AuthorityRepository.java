@@ -8,6 +8,8 @@ public interface AuthorityRepository {
 
 	public AuthorityEntity findAuthorityById(long id);
 
+	public AuthorityEntity findAuthorityByAuthority(String name);
+
 	public List<AuthorityEntity> findAllAuthority();
 
 	public AuthorityEntity findAuthorityByUrl(String url);

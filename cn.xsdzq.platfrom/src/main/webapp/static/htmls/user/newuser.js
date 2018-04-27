@@ -4,16 +4,21 @@ function newUserController($scope, $http, $state, httpUtils, layerUtils) {
 	$scope.categoryList=[];
 	
 	$scope.init=function(){
+		var data = {
+				"one" : {
+					name : "用户管理",
+					goto:""
+
+				},
+				"two" : {
+					name : "新建用户",
+					goto:"newuser"
+
+				}
+			}
+			$scope.$emit("changeNavigation", data);
 		
 	};
-
-	$scope.toRelate = function() {
-		$state.go("addrelate");
-	};
-	
-	$scope.addCategory = function() {
-		$state.go("newcategory");
-	}
 	
 	$scope.labelList=[];
 
