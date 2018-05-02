@@ -20,6 +20,7 @@ import cn.xsdzq.platform.entity.UserEntity;
 import cn.xsdzq.platform.service.IMainService;
 import cn.xsdzq.platform.service.IUserService;
 import cn.xsdzq.platform.util.GsonUtil;
+import cn.xsdzq.platform.util.UserUtil;
 
 @Controller
 @RequestMapping("/")
@@ -42,6 +43,7 @@ public class MainController {
 		String name = user.getUsername();
 		UserEntity userEntity = userService.findUserByName(name);
 		JSONObject menu = mainService.getMenu(userEntity);
+		menu.put("user", UserUtil.convertUserDTOByUserEntityToMain(userEntity));
 		return GsonUtil.buildMap(0, "ok", menu);
 
 	}

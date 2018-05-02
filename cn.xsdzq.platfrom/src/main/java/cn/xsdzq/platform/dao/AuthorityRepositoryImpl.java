@@ -28,6 +28,21 @@ public class AuthorityRepositoryImpl implements AuthorityRepository {
 	}
 
 	@Override
+	public AuthorityEntity findAuthorityByAuthority(String name) {
+		// TODO Auto-generated method stub
+		AuthorityEntity authorityEntity = null;
+		TypedQuery<AuthorityEntity> sqlQuery = em.createQuery("SELECT a FROM AuthorityEntity a WHERE a.authority=?",
+				AuthorityEntity.class);
+		sqlQuery.setParameter(1, name);
+		List<AuthorityEntity> authorityEntities = sqlQuery.getResultList();
+		if (authorityEntities.size() > 0) {
+			authorityEntity = authorityEntities.get(0);
+		}
+		return authorityEntity;
+
+	}
+
+	@Override
 	public List<AuthorityEntity> findAllAuthority() {
 		// TODO Auto-generated method stub
 		TypedQuery<AuthorityEntity> sqlQuery = em.createQuery("SELECT a FROM AuthorityEntity a", AuthorityEntity.class);

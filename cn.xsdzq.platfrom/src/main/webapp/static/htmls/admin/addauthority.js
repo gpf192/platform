@@ -6,6 +6,19 @@ function addAuthorityController($scope, $http, $state, httpUtils, layerUtils) {
 	$scope.authorityList=[];
 	
 	$scope.init=function(){
+		var data = {
+				"one" : {
+					name : "授权管理",
+					goto:""
+
+				},
+				"two" : {
+					name : "角色赋权",
+					goto:"addauthority"
+
+				}
+			}
+		$scope.$emit("changeNavigation", data);
 		$http.get(httpUtils.url.roleList, {}).success(function(data) {
 			if (data.resCode == 0) {
 				$scope.roleList = data.result;
@@ -38,7 +51,7 @@ function addAuthorityController($scope, $http, $state, httpUtils, layerUtils) {
 		var params={};
 		var authorities=[];
 		var len=$scope.authorityList.length;
-		//增加的权限
+		// 增加的权限
 		for(var i=0;i<len;i++){
 			var len2=$scope.authorityList[i].child.length;
 			for(var j=0;j<len2;j++){

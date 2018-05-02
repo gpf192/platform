@@ -5,6 +5,19 @@ function addRoleController($scope, $http, $state, httpUtils, layerUtils) {
 	$scope.roleList = [];
 
 	$scope.init = function() {
+		var data = {
+				"one" : {
+					name : "授权管理",
+					goto:""
+
+				},
+				"two" : {
+					name : "用户赋权",
+					goto:"addrole"
+
+				}
+			}
+		$scope.$emit("changeNavigation", data);
 		$http.get(httpUtils.url.userList, {}).success(function(data) {
 			if (data.resCode == 0) {
 				$scope.userList = data.result;
