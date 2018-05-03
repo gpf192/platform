@@ -1,0 +1,47 @@
+<script type="text/javascript" src="htmls/info/checkdetail.js"></script>
+<div class="box border primary" ng-init="init()">
+	<div class="box-title">
+		<h4>
+			<i class="fa fa-bars"></i>审核信息
+		</h4>
+		<div class="tools hidden">
+			<a href="#box-config" data-toggle="modal" class="config"> <i
+				class="fa fa-cog"></i>
+			</a> <a href="javascript:;" class="reload"> <i class="fa fa-refresh"></i>
+			</a> <a href="javascript:;" class="collapse"> <i
+				class="fa fa-chevron-up"></i>
+			</a> <a href="javascript:;" class="remove"> <i class="fa fa-times"></i>
+			</a>
+		</div>
+	</div>
+	<div class="box-body">
+		<form action="" class="form-horizontal">
+			<fieldset>
+				<legend>审核 </legend>
+				<div class="form-group">
+					<label for="versionId" class="col-sm-3 control-label">文章标题：</label>
+					<div class="col-sm-6 text-inline blod">
+						<span ng-bind="info.title"></span>
+					</div>
+					<div class="col-sm-3"></div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">文章内容：</label>
+					<div class="col-sm-9 text-inline">
+						<div ng-bind-html="info.content|trustHtml"></div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-3 col-sm-1">
+						<button type="button" ng-click="check(true)"
+							class="btn btn-success btn-primary">通过</button>
+					</div>
+					<div class="col-sm-1">
+						<button type="button" ng-click="check(false)"
+							class="btn btn-default btn-danger">不通过</button>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</div>

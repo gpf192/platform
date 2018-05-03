@@ -58,6 +58,13 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	@Transactional
+	public void deleteUser(UserEntity userEntity) {
+		// TODO Auto-generated method stub
+		userRepository.deleteUser(userEntity);
+	}
+
+	@Override
+	@Transactional
 	public void addRoles(UserRoleDTO userRoleDTO) {
 		// TODO Auto-generated method stub
 		UserEntity userEntity = userRepository.findUserById(userRoleDTO.getUser_id());
@@ -65,18 +72,27 @@ public class UserServiceImpl implements IUserService {
 		List<RoleEntity> postRoleEntity = new ArrayList<>();
 		for (RoleDTO roleDTO : userRoleDTO.getRoleDTOs()) {
 			postRoleEntity.add(RoleUtil.convertRoleEntityByRoleDTO(roleDTO));
-
 		}
 
 		for (RoleEntity roleEntity : postRoleEntity) {
-
 			if (!userEntity.getRoleEntities().contains(roleEntity)) {
 				userEntity.getRoleEntities().add(roleEntity);
 			}
 		}
 
 		userRepository.addRoles(userEntity, userEntity.getRoleEntities());
+	}
 
+	@Override
+	@Transactional
+	public void modifyRoles(UserRoleDTO userRoleDTO) {
+		// TODO Auto-generated method stub
+		UserEntity userEntity = userRepository.findUserById(userRoleDTO.getUser_id());
+		Set<RoleEntity> roleEntities = new HashSet<>();
+		for (RoleDTO roleDTO : userRoleDTO.getRoleDTOs()) {
+			roleEntities.add(RoleUtil.convertRoleEntityByRoleDTO(roleDTO));
+		}
+		userRepository.addRoles(userEntity, roleEntities);
 	}
 
 }

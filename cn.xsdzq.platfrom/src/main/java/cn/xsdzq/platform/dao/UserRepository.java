@@ -16,6 +16,8 @@ public interface UserRepository {
 
 	public void addUser(UserEntity userEntity);
 
+	public void deleteUser(UserEntity userEntity);
+
 	public void addRoles(UserEntity userEntity, Set<RoleEntity> roleEntities);
 
 }

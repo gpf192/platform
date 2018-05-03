@@ -13,6 +13,8 @@ public interface IRoleService {
 
 	public List<RoleDTO> findExtraRole(UserDTO userDTO);
 
+	public List<RoleDTO> findMyRole(UserDTO userDTO);
+
 	public List<RoleEntity> findAllRole();
 
 	public void addRole(RoleEntity roleEntity);

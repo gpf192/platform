@@ -56,6 +56,26 @@ public class RoleServiceImpl implements IRoleService {
 	}
 
 	@Override
+	public List<RoleDTO> findMyRole(UserDTO userDTO) {
+		// TODO Auto-generated method stub
+		UserEntity userEntity = userRepository.findUserById(userDTO.getId());
+		Set<RoleEntity> myRoleEntities = userEntity.getRoleEntities();
+		List<RoleEntity> roleEntities = roleRepository.findAllRole();
+		List<RoleDTO> rList = new ArrayList<>();
+		for (RoleEntity roleEntity : roleEntities) {
+			RoleDTO roleDTO = RoleUtil.convertUserDTOByUserEntity(roleEntity);
+			if (myRoleEntities.contains(roleEntity)) {
+				roleDTO.setCheck(true);
+				rList.add(roleDTO);
+			} else {
+				roleDTO.setCheck(false);
+				rList.add(roleDTO);
+			}
+		}
+		return rList;
+	}
+
+	@Override
 	public List<RoleEntity> findAllRole() {
 		// TODO Auto-generated method stub
 		return roleRepository.findAllRole();

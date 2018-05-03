@@ -16,6 +16,10 @@ public interface IUserService {
 
 	public void addUser(UserEntity userEntity);
 
+	public void deleteUser(UserEntity userEntity);
+
 	public void addRoles(UserRoleDTO userRoleDTO);
+
+	public void modifyRoles(UserRoleDTO userRoleDTO);
 
 }

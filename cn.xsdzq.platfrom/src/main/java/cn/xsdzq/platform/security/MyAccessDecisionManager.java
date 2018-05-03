@@ -26,10 +26,11 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
 		while (iterator.hasNext()) {
 			ConfigAttribute ca = iterator.next();
 			String needRole = ((SecurityConfig) ca).getAttribute();
-			System.out.println("needRole: " + needRole);
-			System.out.println("authentication.getAuthorities(): " + authentication.getAuthorities().size());
+			// System.out.println("needRole: " + needRole);
+			// System.out.println("authentication.getAuthorities(): " +
+			// authentication.getAuthorities().size());
 			for (GrantedAuthority ga : authentication.getAuthorities()) {
-				System.out.println("authentication: " + ga.getAuthority());
+				// System.out.println("authentication: " + ga.getAuthority());
 				if (ga.getAuthority().equals(needRole)) {
 					// 匹配到有对应角色,则允许通过
 					return;

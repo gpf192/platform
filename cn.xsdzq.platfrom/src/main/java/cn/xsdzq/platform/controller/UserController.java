@@ -38,16 +38,22 @@ public class UserController {
 
 	@RequestMapping(value = "/add", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Map<String, Object> getCategory(@RequestBody UserDTO userDTO) {
+	public Map<String, Object> add(@RequestBody UserDTO userDTO) {
 
 		logger.info(userDTO.toString());
-		/*
-		 * UserEntity userEntity = new UserEntity(); userEntity.setUsername("系统录入员");
-		 * userEntity.setPassword("123456"); userEntity.setPhone("13555555555");
-		 * userEntity.setEnabled(true);
-		 */
 		UserEntity userEntity = UserUtil.convertUserEntityByUserDTOADD(userDTO);
 		userService.addUser(userEntity);
+		return GsonUtil.buildMap(0, "ok", null);
+
+	}
+
+	@RequestMapping(value = "/delete", method = POST, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> delete(@RequestBody UserDTO userDTO) {
+
+		logger.info(userDTO.toString());
+		UserEntity userEntity = UserUtil.convertUserEntityByUserDTO(userDTO);
+		userService.deleteUser(userEntity);
 		return GsonUtil.buildMap(0, "ok", null);
 
 	}
@@ -67,6 +73,15 @@ public class UserController {
 		logger.info("userId: " + userRoleDTO.getUser_id());
 		logger.info("size: " + userRoleDTO.getRoleDTOs().size());
 		userService.addRoles(userRoleDTO);
+		return GsonUtil.buildMap(0, "ok", null);
+	}
+
+	@RequestMapping(value = "/userModifyRoles", method = POST, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> ModifyRoles(@RequestBody UserRoleDTO userRoleDTO) {
+		logger.info("userId: " + userRoleDTO.getUser_id());
+		logger.info("size: " + userRoleDTO.getRoleDTOs().size());
+		userService.modifyRoles(userRoleDTO);
 		return GsonUtil.buildMap(0, "ok", null);
 	}
 
