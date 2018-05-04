@@ -15,8 +15,10 @@ function infoListController($scope, $http, $state, $stateParams, httpUtils, laye
 	};
 	$scope.getInfosByCategoryId = function() {
 		var url = httpUtils.url.getInfoList;
-		var getUrl = url + "/" + $scope.formData.category.id;
-		$http.get(getUrl).success(function(data) {
+		var params={
+				id:$scope.formData.category.id
+		}
+		$http.get(url,params).success(function(data) {
 			if (data.resCode == 0) {
 				$scope.infoList = data.result;
 			}

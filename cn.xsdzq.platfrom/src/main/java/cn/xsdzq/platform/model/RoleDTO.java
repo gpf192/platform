@@ -12,17 +12,20 @@ public class RoleDTO {
 
 	private int sort;// 排序序号
 
+	private boolean check;
+
 	public RoleDTO() {
 		super();
 	}
 
-	public RoleDTO(long id, String name, Long parent_id, String describe, int sort) {
+	public RoleDTO(long id, String name, Long parent_id, String describe, int sort, boolean check) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.parent_id = parent_id;
 		this.describe = describe;
 		this.sort = sort;
+		this.check = check;
 	}
 
 	public long getId() {
@@ -63,6 +66,14 @@ public class RoleDTO {
 
 	public void setSort(int sort) {
 		this.sort = sort;
+	}
+
+	public boolean isCheck() {
+		return check;
+	}
+
+	public void setCheck(boolean check) {
+		this.check = check;
 	}
 
 }

@@ -4,7 +4,7 @@ var ngApp = angular.module("ngApp", ["ngAnimate", "ui.router"]);
 //config
 // 配置我们的路由
 ngApp.config(function($stateProvider, $urlRouterProvider) {
-	$stateProvider.state("index", {
+	$stateProvider.state("index", {//
 		url : "/",
 		templateUrl : "htmls/index/content.html",
 		controller : "indexController"
@@ -12,10 +12,23 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/user/new",
 		templateUrl : "htmls/user/newuser.html",
 		controller : "newUserController"
+	}).state("userlist", { 
+		url : "/user/list",
+		templateUrl : "htmls/user/userlist.html",
+		controller : "userListController"
+	}).state("modifyrole", { 
+		url : "/user/role/modify",
+		templateUrl : "htmls/user/modifyrole.html",
+		controller : "modifyRoleController",
+		params:{user:{}}
 	}).state("newrole", {
 		url : "/role/new",
 		templateUrl : "htmls/role/newrole.html",
 		controller : "newRoleController"
+	}).state("rolelist", {
+		url : "/role/list",
+		templateUrl : "htmls/role/rolelist.html",
+		controller : "roleListController"
 	}).state("addrole", {
 		url : "/role/add",
 		templateUrl : "htmls/admin/addrole.html",
@@ -55,6 +68,11 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/info/list",
 		templateUrl : "htmls/info/infolist.html",
 		controller : "infoListController"
+	}).state("checkdetail", {
+		url : "/info/check/datail",
+		templateUrl : "htmls/info/checkdetail.html",
+		controller : "checkDetailController",
+		params:{info:{}}
 	}).state("modifyinfo", {
 		url : "/info/modify",
 		templateUrl : "htmls/info/modifyinfo.html",

@@ -55,17 +55,23 @@ public class UserRepositoryImpl implements UserRepository {
 	public void addUser(UserEntity userEntity) {
 		// TODO Auto-generated method stub
 		em.persist(userEntity);
+	}
 
+	@Override
+	@Transactional
+	public void deleteUser(UserEntity userEntity) {
+		// TODO Auto-generated method stub
+		UserEntity uEntity = em.find(UserEntity.class, userEntity.getId());
+		em.remove(uEntity);
 	}
 
 	@Override
 	@Transactional
 	public void addRoles(UserEntity userEntity, Set<RoleEntity> roleEntities) {
 		// TODO Auto-generated method stub
-
+		System.out.println("dao: " + roleEntities.size());
 		userEntity.setRoleEntities(roleEntities);
 		em.merge(userEntity);
-
 	}
 
 }

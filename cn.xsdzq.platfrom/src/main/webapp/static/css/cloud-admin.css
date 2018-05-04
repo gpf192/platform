@@ -1848,7 +1848,8 @@ textarea.input-lg {
 .form-horizontal .radio,
 .form-horizontal .checkbox,
 .form-horizontal .radio-inline,
-.form-horizontal .checkbox-inline {
+.form-horizontal .checkbox-inline,
+.form-horizontal .text-inline {
   margin-top: 0;
   margin-bottom: 0;
   padding-top: 7px;

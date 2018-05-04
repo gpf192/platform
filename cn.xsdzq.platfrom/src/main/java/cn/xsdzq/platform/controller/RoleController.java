@@ -55,10 +55,6 @@ public class RoleController {
 	@RequestMapping(value = "/getAll", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> getAllRole() {
-		/*
-		 * RoleEntity roleEntity = new RoleEntity(); roleEntity.setName("信息录入员");
-		 * roleEntity.setParent_id(new Long("0")); roleEntity.setSort(1);
-		 */
 		List<RoleEntity> roleEntities = roleService.findAllRole();
 		List<RoleDTO> roleDTOs = new ArrayList<>();
 		if (roleEntities != null) {
@@ -66,7 +62,6 @@ public class RoleController {
 				roleDTOs.add(RoleUtil.convertUserDTOByUserEntity(roleEntity));
 			}
 		}
-
 		return GsonUtil.buildMap(0, "ok", roleEntities);
 	}
 
@@ -76,6 +71,13 @@ public class RoleController {
 		RoleEntity roleEntity = roleService.findRoleById(9);
 		Set<AuthorityEntity> authorityEntities = roleEntity.getAuthorityEntities();
 		return GsonUtil.buildMap(0, "ok", authorityEntities);
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/getPermissionsByUser", method = POST, produces = "application/json; charset=utf-8")
+	public Map<String, Object> getPermissionsByUser(@RequestBody UserDTO userDTO) {
+		List<RoleDTO> roleDTOs = roleService.findMyRole(userDTO);
+		return GsonUtil.buildMap(0, "ok", roleDTOs);
 	}
 
 	@RequestMapping(value = "/addPermissions", method = POST, produces = "application/json; charset=utf-8")

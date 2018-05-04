@@ -19,20 +19,5 @@ ngApp.controller("indexController", function($scope, $state, $http, httpUtils) {
 	$scope.goto = function(state){
 		$state.go(state);
 	}
-	
-	
-
-	$scope.getResource = function() {
-		var params = {
-			"platform" : "android",
-			"appId" : "6.1.0",
-			"appVersion" : "1",
-			"modulesVersions" : "1,1,1,1",
-			"modulesName" : "js,css,img,loyaltyProgram"
-		};
-		$http.post("http://localhost:18080/resource/version/getH5Version", params).success(function(data) {
-
-		});
-	};
 
 });
