@@ -46,7 +46,13 @@ public class RoleRepositoryImpl implements RoleRepository {
 	public void addRole(RoleEntity roleEntity) {
 		// TODO Auto-generated method stub
 		em.persist(roleEntity);
+	}
 
+	@Override
+	@Transactional
+	public void modifyRole(RoleEntity roleEntity) {
+		// TODO Auto-generated method stub
+		em.merge(roleEntity);
 	}
 
 	@Override

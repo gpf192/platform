@@ -1,5 +1,4 @@
-ngApp.factory('layerUtils', [
-function() {
+ngApp.factory('layerUtils', [ function() {
 	function iMsg(num, msg) {
 		$.dialog({
 			title : "提示信息",
@@ -10,16 +9,14 @@ function() {
 		});
 	}
 
-	function iAlert(msg) {
-		alert(msg);
-		/*$.dialog({
-		 title:"提示",
-		 content: msg,
-		 lock:true,
-		 opacity:"0.3",
-		 ok:function(){
-		 }
-		 });*/
+	function iAlert(msg, success) {
+		$.dialog({
+			title : "提示",
+			content : msg,
+			lock : true,
+			opacity : "0.3",
+			ok : success
+		});
 	}
 
 	function iLoading(flag) {
@@ -38,7 +35,7 @@ function() {
 			lock : true,
 			opacity : "0.3",
 			okValue : "确认",
-			style:'confirm',
+			style : 'confirm',
 			ok : callFun,
 			cancelValue : "取消",
 			cancel : cancelFun
@@ -52,4 +49,4 @@ function() {
 		iConfirm : iConfirm
 	};
 	return layerUtils;
-}]);
+} ]);

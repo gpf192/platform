@@ -12,6 +12,11 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/user/new",
 		templateUrl : "htmls/user/newuser.html",
 		controller : "newUserController"
+	}).state("modifyuser", { 
+		url : "/user/modify",
+		templateUrl : "htmls/user/modifyuser.html",
+		controller : "modifyUserController",
+		params:{user:{}}
 	}).state("userlist", { 
 		url : "/user/list",
 		templateUrl : "htmls/user/userlist.html",
@@ -25,6 +30,11 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/role/new",
 		templateUrl : "htmls/role/newrole.html",
 		controller : "newRoleController"
+	}).state("modifyrole2", {
+		url : "/role/modify",
+		templateUrl : "htmls/role/modifyrole.html",
+		controller : "modifyRoleController",
+		params:{role:{}}
 	}).state("rolelist", {
 		url : "/role/list",
 		templateUrl : "htmls/role/rolelist.html",

@@ -5,11 +5,13 @@ ngApp.factory("httpUtils", [ function() {
 	var url = {
 		menu : baseUrl+"menu",
 		addUser : baseUrl + "user/add",
+		modifyUser : baseUrl + "user/modify",
 		deleteUser : baseUrl + "user/delete",
 		userList : baseUrl + "user/getAll",
 		userAddRoles: baseUrl + "user/userAddRoles",
 		userModifyRoles: baseUrl + "user/userModifyRoles",
 		addRole : baseUrl + "role/add",
+		modifyRole : baseUrl + "role/modifyRole", 
 		getExtraRole : baseUrl + "role/getExtraRole",
 		addPermissions: baseUrl +"role/addPermissions",
 		getPermissionsByUser: baseUrl +"role/getPermissionsByUser",

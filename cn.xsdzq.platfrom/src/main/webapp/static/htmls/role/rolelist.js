@@ -23,12 +23,15 @@ function roleListController($scope, $http, $state, httpUtils, layerUtils) {
 			}
 		});
 	}
-	$scope.modifyRoleName =function(index){
-
-		//$state.go("modifyrole",{user:user});
+	$scope.modifyRoleName = function(index){
+		var role = $scope.roles[index];
+		$state.go("modifyrole2",{role:role});
 	}
 	
 	$scope.deleteRole = function(index) {
+		
+		layerUtils.iMsg(-1,"暂未开放删除功能");
+		return;
 		layerUtils.iConfirm("是否需要删除用户", function() {
 			var url = httpUtils.url.deleteUser
 			var user=$scope.users[index];

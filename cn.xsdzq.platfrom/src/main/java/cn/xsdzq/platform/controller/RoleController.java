@@ -45,6 +45,14 @@ public class RoleController {
 		return GsonUtil.buildMap(0, "ok", null);
 	}
 
+	@RequestMapping(value = "/modifyRole", method = POST, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> modifyRole(@RequestBody RoleDTO roleDTO) {
+		RoleEntity roleEntity = RoleUtil.convertRoleEntityByRoleDTO(roleDTO);
+		roleService.modifyRole(roleEntity);
+		return GsonUtil.buildMap(0, "ok", null);
+	}
+
 	@RequestMapping(value = "/getExtraRole", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> getExtraRole(@RequestBody UserDTO userDTO) {
@@ -59,10 +67,10 @@ public class RoleController {
 		List<RoleDTO> roleDTOs = new ArrayList<>();
 		if (roleEntities != null) {
 			for (RoleEntity roleEntity : roleEntities) {
-				roleDTOs.add(RoleUtil.convertUserDTOByUserEntity(roleEntity));
+				roleDTOs.add(RoleUtil.convertRoleDTOByRoleEntity(roleEntity));
 			}
 		}
-		return GsonUtil.buildMap(0, "ok", roleEntities);
+		return GsonUtil.buildMap(0, "ok", roleDTOs);
 	}
 
 	@ResponseBody
