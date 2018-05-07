@@ -27,6 +27,7 @@ ngApp.factory("httpUtils", [ function() {
 		modifyInfo : baseUrl + "info/modifyInfo",
 		deleteInfo : baseUrl + "info/deleteInfo",
 		checkList : baseUrl + "info/getUncheckedInfo",
+		modifyCheckResult : baseUrl + "info/modifyCheckResult"
 	};
 
 	function getUrl() {

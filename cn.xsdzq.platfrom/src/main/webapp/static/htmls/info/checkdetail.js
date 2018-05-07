@@ -38,9 +38,19 @@ function checkDetailController($scope, $http, $state, $stateParams, httpUtils, l
 	
 	$scope.check=function(value){
 		console.log(value);
-		if(value){
-			
-		}
+		var params = {
+				id : $scope.info.id,
+				checkFlag : value
+			};
+		
+		$http.post(httpUtils.url.modifyCheckResult, params).success(function(data) {
+			if (data.resCode == 0) {
+				//window.sessionStorage.setItem("moduleName", $scope.formData.moduleName);
+				layerUtils.iMsg(-1, "修改成功");
+			} else {
+				layerUtils.iMsg(-1, data.resMsg);
+			}
+		});
 		
 	}
 	

@@ -15,10 +15,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.xsdzq.platform.entity.CategoryEntity;
 import cn.xsdzq.platform.entity.InfoEntity;
+import cn.xsdzq.platform.model.CategoryDTO;
+import cn.xsdzq.platform.model.CheckResultDTO;
 import cn.xsdzq.platform.model.InfoDTO;
 import cn.xsdzq.platform.model.SearchBean;
 import cn.xsdzq.platform.service.ICategoryService;
@@ -50,11 +53,12 @@ public class InfoController extends BaseController {
 		}
 	}
 
-	@RequestMapping(value = "/getInfosByCategoryId/{param}", method = GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/getInfosByCategoryId", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Map<String, Object> getInfos(HttpServletRequest request, @PathVariable String param) {
-		System.out.println(param);
-		long categoryId = Long.parseLong(param);
+	public Map<String, Object> getInfos(HttpServletRequest request, @RequestParam long id) {
+	//public Map<String, Object> getInfos(HttpServletRequest request, @PathVariable(value="param") String param) {
+		System.out.println(id+"********");
+		long categoryId = id;
 		if (categoryId > 0) {
 			List<InfoEntity> infos = iInfoService.getInfosByCategoryId(categoryId);
 			List<InfoDTO> infoDTOs = new ArrayList<InfoDTO>();
@@ -134,20 +138,16 @@ public class InfoController extends BaseController {
 
 	}	
 	/**
-	 * 获取审核结果 接口3
+	 * 插入审核结果 接口
 	 */
-	@RequestMapping(value = "/getCheckResult/{param}", method = GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/modifyCheckResult", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Map<String, Object> getCheckResult(HttpServletRequest request, @PathVariable String param) {
-		long id = Long.parseLong(param);
-		if (id > 0) {
-			String checkResult = iInfoService.getCheckResult(id);
-			return GsonUtil.buildMap(0, "ok", checkResult);
-		} else {
-			return GsonUtil.buildMap(1, "fail", null);
-		}
+	public Map<String, Object> modifyCheckResult(HttpServletRequest request, @RequestBody CheckResultDTO checkResultDTO) {	
+		CheckResultDTO dto = checkResultDTO;
+		System.out.println(dto.isCheckFlag()+" **** "+dto.getId());
+		iInfoService.modifyCheckResult(dto.getId(), dto.isCheckFlag());
+		return GsonUtil.buildMap(0, "ok", null);
 	}
-
 	
 	//add by fjx 
 
