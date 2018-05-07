@@ -40,7 +40,12 @@ public class MyFilterInvocationSecurityMetadataSource implements FilterInvocatio
 		// TODO Auto-generated method stub
 		FilterInvocation filterInvocation = (FilterInvocation) object;
 		String url = filterInvocation.getRequestUrl();
-		// System.out.println("get url: " + url);
+		// 处理get查询字符串
+		if (url.indexOf("?") > 0) {
+			// System.out.println("url1: " + url);
+			url = url.split("\\?")[0];
+		}
+		// System.out.println("url2: " + url);
 
 		// 先循环配置
 		for (Map.Entry<String, String> entry : urlRoleMap.entrySet()) {
