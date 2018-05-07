@@ -6,6 +6,14 @@ function infoListController($scope, $http, $state, $stateParams, httpUtils, laye
 	$scope.categoryList = [];
 	$scope.infoList = [];
 	$scope.init = function() {
+		var data = [{
+			name : "信息管理",
+			goto:""
+		}, {
+			name : "信息列表管理",
+			goto:"infolist"
+		}];
+		$scope.$emit("changeNavigation", data);
 		$http.get(httpUtils.url.categoryList, {}).success(function(data) {
 			if (data.resCode == 0) {
 				$scope.categoryList = data.result;
@@ -15,10 +23,14 @@ function infoListController($scope, $http, $state, $stateParams, httpUtils, laye
 	};
 	$scope.getInfosByCategoryId = function() {
 		var url = httpUtils.url.getInfoList;
-		var params={
-				id:$scope.formData.category.id
+		var params = {
+			id : $scope.formData.category.id
 		}
-		$http.get(url,params).success(function(data) {
+		$http({
+			url : url,
+			method : 'GET',
+			params : params
+		}).success(function(data) {
 			if (data.resCode == 0) {
 				$scope.infoList = data.result;
 			}
@@ -27,7 +39,9 @@ function infoListController($scope, $http, $state, $stateParams, httpUtils, laye
 	$scope.modifyInfo = function(index) {
 		var id = $scope.infoList[index].id;
 		$state.go("modifyinfo", {
-			id : {id:id}
+			id : {
+				id : id
+			}
 		});
 	}
 	$scope.deleteInfo = function(index) {
@@ -43,7 +57,7 @@ function infoListController($scope, $http, $state, $stateParams, httpUtils, laye
 		}, function() {
 			console.log("取消");
 		});
-		
+
 	}
 
 }
