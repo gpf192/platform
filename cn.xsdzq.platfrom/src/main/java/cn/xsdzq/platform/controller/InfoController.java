@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -80,6 +84,12 @@ public class InfoController extends BaseController {
 		InfoEntity info = InfoUtil.convertInfoByInfoDTO(dto);
 		CategoryEntity category = categoryService.getCategoryById(info.getCategoryId());
 		info.setCategoryEntity(category);
+		//插入创建人
+		SecurityContext ctx = SecurityContextHolder.getContext();
+		Authentication auth = ctx.getAuthentication();
+		User user = (User) auth.getPrincipal();
+		String  name = user.getUsername();
+		info.setCreated_by(name);		
 		iInfoService.addInfo(info);
 		return GsonUtil.buildMap(0, "ok", null);
 	}
@@ -87,7 +97,7 @@ public class InfoController extends BaseController {
 	@RequestMapping(value = "/deleteInfo", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> deletInfo(HttpServletRequest request, @RequestBody InfoDTO dto) {
-		System.out.println(dto.getTitle());
+		System.out.println(dto.getTitle()+"****** 删除信息");
 		InfoEntity info = InfoUtil.convertInfoByInfoDTO(dto);
 		CategoryEntity category = categoryService.getCategoryById(info.getCategoryId());
 		info.setCategoryEntity(category);
@@ -98,7 +108,7 @@ public class InfoController extends BaseController {
 	@RequestMapping(value = "/modifyInfo", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> modifyInfo(HttpServletRequest request, @RequestBody InfoDTO dto) {
-		System.out.println(dto.getTitle());
+		System.out.println(dto.getTitle()+"********************");
 		InfoEntity info = InfoUtil.convertInfoByInfoDTO(dto);
 		CategoryEntity category = categoryService.getCategoryById(info.getCategoryId());
 		info.setCategoryEntity(category);

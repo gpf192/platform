@@ -19,7 +19,7 @@ ngApp.filter('trustHtml', function ($sce) {
 ngApp.filter('transfera', function() { 
 	return function (value) {
 	    if(value == 'generate'){
-	    	return "新建";
+	    	return "未提交";
 	    }
 	    if(value == 'submit'){
 	    	return "待审核";
