@@ -15,3 +15,20 @@ ngApp.filter('trustHtml', function ($sce) {
         return $sce.trustAsHtml(content);
     }
 });
+
+ngApp.filter('transfera', function() { 
+	return function (value) {
+	    if(value == 'generate'){
+	    	return "新建";
+	    }
+	    if(value == 'submit'){
+	    	return "待审核";
+	    }
+	    if(value == 'approve'){
+	    	return "审核通过";
+	    }
+	    if(value == 'reject'){
+	    	return "审核拒绝";
+	    }
+	}
+});

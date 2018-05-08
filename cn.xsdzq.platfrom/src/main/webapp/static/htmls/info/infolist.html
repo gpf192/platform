@@ -67,6 +67,8 @@
 						<th class="col-sm-2 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">内容摘要</th>
 						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1">审核状态</th>
+						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">修改</th>
 						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">删除</th>
@@ -78,9 +80,11 @@
 						<td class="col-sm-1">{{info.title}}</td>
 						<td class="col-sm-2"><span
 							ng-bind="info.content |substring:0:23"></span></td>
+						<td class="col-sm-1"><span
+						    ng-bind="info.checked_result |transfera"></span></td>
 						<td class="col-sm-1 text-center">
 							<div>
-								<button type="button" class="btn btn-info btn-sm"
+								<button ng-if="info.checked_result == ('generate')||info.checked_result == ('reject')" type="button" class="btn btn-info btn-sm"
 									ng-click="modifyInfo($index)">
 									<i class="fa fa-pencil-square-o"></i><span> 修改</span>
 								</button>
