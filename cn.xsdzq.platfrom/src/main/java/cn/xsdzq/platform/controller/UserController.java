@@ -47,6 +47,17 @@ public class UserController {
 
 	}
 
+	@RequestMapping(value = "/modify", method = POST, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> modify(@RequestBody UserDTO userDTO) {
+
+		logger.info(userDTO.toString());
+		UserEntity userEntity = UserUtil.convertUserEntityByUserDTO(userDTO);
+		userService.modifyUser(userEntity);
+		return GsonUtil.buildMap(0, "ok", null);
+
+	}
+
 	@RequestMapping(value = "/delete", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> delete(@RequestBody UserDTO userDTO) {

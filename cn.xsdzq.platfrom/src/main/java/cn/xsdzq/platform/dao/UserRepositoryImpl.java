@@ -59,6 +59,13 @@ public class UserRepositoryImpl implements UserRepository {
 
 	@Override
 	@Transactional
+	public void modifyUser(UserEntity userEntity) {
+		// TODO Auto-generated method stub
+		em.merge(userEntity);
+	}
+
+	@Override
+	@Transactional
 	public void deleteUser(UserEntity userEntity) {
 		// TODO Auto-generated method stub
 		UserEntity uEntity = em.find(UserEntity.class, userEntity.getId());

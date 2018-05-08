@@ -58,6 +58,13 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	@Transactional
+	public void modifyUser(UserEntity userEntity) {
+		// TODO Auto-generated method stub
+		userRepository.modifyUser(userEntity);
+	}
+
+	@Override
+	@Transactional
 	public void deleteUser(UserEntity userEntity) {
 		// TODO Auto-generated method stub
 		userRepository.deleteUser(userEntity);

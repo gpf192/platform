@@ -7,7 +7,7 @@ function userListController($scope, $http, $state, httpUtils, layerUtils) {
 		var data = {
 				"one" : {
 					name : "用户管理",
-					goto:""
+					goto:"userlist"
 
 				},
 				"two" : {
@@ -20,6 +20,12 @@ function userListController($scope, $http, $state, httpUtils, layerUtils) {
 		$scope.getUserList();
 	};
 	
+	$scope.modifyRole =function(index){
+		var user=$scope.users[index];
+		console.log(user);
+		$state.go("modifyrole",{user:user});
+	}
+	
 	$scope.getUserList = function() {
 		$http.get(httpUtils.url.userList, {}).success(function(data) {
 			if (data.resCode == 0) {
@@ -27,12 +33,13 @@ function userListController($scope, $http, $state, httpUtils, layerUtils) {
 			}
 		});
 	}
-	$scope.modifyRole =function(index){
+	
+	
+	$scope.modifyUser =function(index){
 		var user=$scope.users[index];
 		console.log(user);
-		$state.go("modifyrole",{user:user});
+		$state.go("modifyuser",{user:user});
 	}
-	$scope.labelList=[];
 	
 	$scope.deleteUser = function(index) {
 		layerUtils.iConfirm("是否需要删除用户", function() {

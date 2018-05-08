@@ -49,7 +49,7 @@ public class RoleServiceImpl implements IRoleService {
 		List<RoleDTO> rList = new ArrayList<>();
 		for (RoleEntity roleEntity : roleEntities) {
 			if (!myRoleEntities.contains(roleEntity)) {
-				rList.add(RoleUtil.convertUserDTOByUserEntity(roleEntity));
+				rList.add(RoleUtil.convertRoleDTOByRoleEntity(roleEntity));
 			}
 		}
 		return rList;
@@ -63,7 +63,7 @@ public class RoleServiceImpl implements IRoleService {
 		List<RoleEntity> roleEntities = roleRepository.findAllRole();
 		List<RoleDTO> rList = new ArrayList<>();
 		for (RoleEntity roleEntity : roleEntities) {
-			RoleDTO roleDTO = RoleUtil.convertUserDTOByUserEntity(roleEntity);
+			RoleDTO roleDTO = RoleUtil.convertRoleDTOByRoleEntity(roleEntity);
 			if (myRoleEntities.contains(roleEntity)) {
 				roleDTO.setCheck(true);
 				rList.add(roleDTO);
@@ -93,6 +93,13 @@ public class RoleServiceImpl implements IRoleService {
 		}
 		roleRepository.addRole(roleEntity);
 
+	}
+
+	@Override
+	@Transactional
+	public void modifyRole(RoleEntity roleEntity) {
+		// TODO Auto-generated method stub
+		roleRepository.modifyRole(roleEntity);
 	}
 
 	@Override

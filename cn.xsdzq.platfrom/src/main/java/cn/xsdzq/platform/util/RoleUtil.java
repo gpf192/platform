@@ -20,7 +20,7 @@ public class RoleUtil {
 		return roleEntity;
 	}
 
-	public static RoleDTO convertUserDTOByUserEntity(RoleEntity roleEntity) {
+	public static RoleDTO convertRoleDTOByRoleEntity(RoleEntity roleEntity) {
 		RoleDTO roleDTO = new RoleDTO();
 		roleDTO.setId(roleEntity.getId());
 		roleDTO.setName(roleEntity.getName());
