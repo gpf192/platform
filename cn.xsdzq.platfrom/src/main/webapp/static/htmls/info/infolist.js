@@ -37,15 +37,18 @@ function infoListController($scope, $http, $state, $stateParams, httpUtils, laye
 		});
 	};
 	$scope.modifyInfo = function(index) {
-		var id = $scope.infoList[index].id;
+		//var id = $scope.infoList[index].id;
+		var info = $scope.infoList[index];
+		console.log(info);
 		$state.go("modifyinfo", {
-			id : {
+/*			id : {
 				id : id
-			}
+			}*/
+			info : info
 		});
 	}
 	$scope.deleteInfo = function(index) {
-		layerUtils.iConfirm("是否需要该文章？", function() {
+		layerUtils.iConfirm("是否删除该文章？", function() {
 			var url = httpUtils.url.deleteInfo;
 			var param = $scope.infoList[index];
 			$http.post(url, param).success(function(data) {

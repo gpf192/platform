@@ -38,14 +38,25 @@ function newVersionController($scope, $http, $state, httpUtils, layerUtils) {
 
 	$scope.labelList = [];
 
-	$scope.submit = function() {
+	$scope.submit = function(value) {
 		var editorContent = UM.getEditor('myEditor').getContent();
 		console.log(editorContent);
-		var params = {
-			title : $scope.formData.title,
-			categoryId : $scope.formData.category.id,
-			content : editorContent
-		};
+		if(value){
+			var params = {
+				title : $scope.formData.title,
+				categoryId : $scope.formData.category.id,
+				content : editorContent,
+				flag : "submit"
+				};		
+		}else{
+			var params = {
+					title : $scope.formData.title,
+					categoryId : $scope.formData.category.id,
+					content : editorContent,
+					flag : "generate"
+					};			
+		}
+		
 
 		var url = httpUtils.url.addInfo;
 		$http.post(url, params).success(function(data) {

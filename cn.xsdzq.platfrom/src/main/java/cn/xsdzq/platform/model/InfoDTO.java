@@ -7,7 +7,8 @@ public class InfoDTO {
 	private String label;
 	private String content;
 	private String exp;
-
+	private String flag;//保存还是提交
+	private String checked_result;//审核状态
 	public InfoDTO() {
 
 	}
@@ -68,6 +69,22 @@ public class InfoDTO {
 
 	public void setExp(String exp) {
 		this.exp = exp;
+	}
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
+
+	public String getChecked_result() {
+		return checked_result;
+	}
+
+	public void setChecked_result(String checked_result) {
+		this.checked_result = checked_result;
 	}
 
 }

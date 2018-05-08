@@ -30,9 +30,10 @@ public class InfoRepositoryImpl implements InfoRepository {
 	@Override
 	public List<InfoEntity> getInfosByCategoryId(long id) {
 		// TODO Auto-generated method stub
-		TypedQuery<InfoEntity> sqlQuery = em.createQuery("SELECT c FROM InfoEntity c WHERE c.categoryId = ?",
+		TypedQuery<InfoEntity> sqlQuery = em.createQuery("SELECT c FROM InfoEntity c WHERE c.categoryId = ? and c.created_by = ?",
 				InfoEntity.class);
 		sqlQuery.setParameter(1, id);
+		sqlQuery.setParameter(2, "lishan");
 		return sqlQuery.getResultList();
 	}
 
