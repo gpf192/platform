@@ -5,18 +5,15 @@ function newVersionController($scope, $http, $state, httpUtils, layerUtils) {
 	$scope.categoryList = [];
 
 	$scope.init = function() {
-		var data = {
-				"one" : {
+		var data = [
+				 {
 					name : "信息管理",
 					goto:""
 
-				},
-				"two" : {
+				}, {
 					name : "新建信息",
 					goto:"newinfo"
-
-				}
-			}
+				}];
 		$scope.$emit("changeNavigation", data);
 
 		$http.get(httpUtils.url.categoryList, {}).success(function(data) {
