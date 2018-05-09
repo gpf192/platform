@@ -41,9 +41,6 @@ function infoListController($scope, $http, $state, $stateParams, httpUtils, laye
 		var info = $scope.infoList[index];
 		console.log(info);
 		$state.go("modifyinfo", {
-/*			id : {
-				id : id
-			}*/
 			info : info
 		});
 	}

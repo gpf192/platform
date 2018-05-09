@@ -7,51 +7,56 @@ function modifyInfoController($scope, $http, $state, $stateParams, httpUtils, la
 	var um = UM.getEditor('myEditor');
 
 	$scope.init = function() {
-		console.log($stateParams);
-		var flag = utils.isEmptyObject($stateParams.id);
+		var data = [{
+						name : "信息管理",
+						goto:"infolist"
+					},
+					{
+						name : "修改信息",
+						goto:"modifyinfo"
+					}];
+		$scope.$emit("changeNavigation", data);
+		var flag = utils.isEmptyObject($stateParams.info);
 		if(flag){
 			$state.go("infolist");
 			return;
 		}
-		var id = $stateParams.id;
-		var url = httpUtils.url.getInfoById + "/" + id.id;		
+		angular.copy($stateParams.info,$scope.formData);
+		$scope.initData();
+	};
+	$scope.initData=function(){
+		UM.getEditor('myEditor').setContent($scope.formData.content);
 		$http.get(httpUtils.url.categoryList, {}).success(function(data) {
 			if (data.resCode == 0) {
 				$scope.categoryList = data.result;
-				$http.get(url, {}).success(function(innerData) {
-					if (innerData.resCode == 0) {
-						$scope.formData.info = innerData.result;
-						var categoryId = innerData.result.categoryId;
-						console.log(categoryId);
-						um.setContent(innerData.result.content);
-						for(var i in $scope.categoryList){
-							console.log($scope.categoryList[i]);
-							if($scope.categoryList[i].id==categoryId){
-								$scope.formData.category = $scope.categoryList[i];
-							}
-						}	
+				for(var i=0;i<data.result.length;i++){
+					if($scope.formData.categoryId==data.result[i].id){
+						$scope.formData.category = $scope.categoryList[i];
 					}
-				});
+				}
 			}
 		});
-	};
+	}
 
 	$scope.submit = function() {
 		var editorContent = UM.getEditor('myEditor').getContent();
 		console.log(editorContent);
 		var params = {
-			id :$scope.formData.info.id,
-			title : $scope.formData.info.title,
+			id :$scope.formData.id,
+			title : $scope.formData.title,
 			categoryId : $scope.formData.category.id,
 			content : editorContent
 		};
-		$scope.formData.info.categoryId = $scope.formData.category.id;
-		$scope.formData.info.content = editorContent;
+		if(($stateParams.info.title==params.title)&&($stateParams.info.categoryId==params.categoryId)&&($stateParams.info.content==params.content)){
+			layerUtils.iMsg(-1, "请修改后，在提交");
+			return;
+		}
 		var url = httpUtils.url.modifyInfo;
-		$http.post(url, $scope.formData.info).success(function(data) {
+		$http.post(url, params).success(function(data) {
 			if (data.resCode == 0) {
-				layerUtils.iMsg(-1, "修改成功");
-				$scope.formData = {};
+				layerUtils.iAlert("修改成功",function(){
+					$state.go("infolist");
+				});
 			} else {
 				layerUtils.iMsg(-1, data.resMsg);
 			}
