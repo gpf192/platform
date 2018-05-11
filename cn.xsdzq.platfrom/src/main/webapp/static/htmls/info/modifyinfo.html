@@ -70,13 +70,23 @@
 						<script type="text/plain" id="myEditor" style="width: 750px; height: 400px;"></script>
 					</div>
 				</div>
-
+				<!-- 
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
 						<button type="button" ng-click="submit()"
 							class="btn btn-default btn-primary">修改</button>
 					</div>
-				</div>
+				</div> -->
+				<div class="form-group">
+					<div class="col-sm-offset-2 text-right col-sm-3">
+						<button type="button" ng-click="submit(false)"
+							class="btn btn-default btn-warning">暂存</button>
+					</div>	
+					<div class="col-sm-offset-1 col-sm-3" >
+						<button type="button" ng-click="submit(true)"
+							class="btn btn-default btn-danger">提交审核</button>
+					</div>														
+				</div>				
 			</fieldset>
 		</form>
 	</div>

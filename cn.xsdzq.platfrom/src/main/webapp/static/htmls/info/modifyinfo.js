@@ -38,19 +38,37 @@ function modifyInfoController($scope, $http, $state, $stateParams, httpUtils, la
 		});
 	}
 
-	$scope.submit = function() {
+	$scope.submit = function(value) {
 		var editorContent = UM.getEditor('myEditor').getContent();
 		console.log(editorContent);
-		var params = {
+/*		var params = {
 			id :$scope.formData.id,
 			title : $scope.formData.title,
 			categoryId : $scope.formData.category.id,
 			content : editorContent
-		};
-		if(($stateParams.info.title==params.title)&&($stateParams.info.categoryId==params.categoryId)&&($stateParams.info.content==params.content)){
+		};*/
+		if(value){
+			var params = {
+				id :$scope.formData.id,
+				title : $scope.formData.title,
+				categoryId : $scope.formData.category.id,
+				content : editorContent,
+				flag : "submit"
+				};		
+		}else{
+			var params = {
+					id :$scope.formData.id,
+					title : $scope.formData.title,
+					categoryId : $scope.formData.category.id,
+					content : editorContent,
+					flag : "generate"
+					};			
+		}
+		// 允许用户在未修改的情况下，进行提交审核操作
+/*		if(($stateParams.info.title==params.title)&&($stateParams.info.categoryId==params.categoryId)&&($stateParams.info.content==params.content)){
 			layerUtils.iMsg(-1, "请修改后，在提交");
 			return;
-		}
+		}*/
 		var url = httpUtils.url.modifyInfo;
 		$http.post(url, params).success(function(data) {
 			if (data.resCode == 0) {

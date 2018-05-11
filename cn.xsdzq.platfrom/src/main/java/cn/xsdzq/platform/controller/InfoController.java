@@ -112,6 +112,12 @@ public class InfoController extends BaseController {
 		InfoEntity info = InfoUtil.convertInfoByInfoDTO(dto);
 		CategoryEntity category = categoryService.getCategoryById(info.getCategoryId());
 		info.setCategoryEntity(category);
+		//插入创建人
+		SecurityContext ctx = SecurityContextHolder.getContext();
+		Authentication auth = ctx.getAuthentication();
+		User user = (User) auth.getPrincipal();
+		String  name = user.getUsername();
+		info.setCreated_by(name);	
 		iInfoService.modifyInfo(info);
 		return GsonUtil.buildMap(0, "ok", null);
 	}
