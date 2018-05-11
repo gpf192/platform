@@ -35,6 +35,11 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl : "htmls/role/modifyrole.html",
 		controller : "modifyRoleController",
 		params:{role:{}}
+	}).state("modifyauthority", {
+		url : "/role/modify/authority",
+		templateUrl : "htmls/role/modifyauthority.html",
+		controller : "modifyAuthorityController",
+		params:{role:{}}
 	}).state("rolelist", {
 		url : "/role/list",
 		templateUrl : "htmls/role/rolelist.html",

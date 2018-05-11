@@ -2,6 +2,7 @@ package cn.xsdzq.platform.service;
 
 import java.util.List;
 
+import cn.xsdzq.platform.entity.AuthorityEntity;
 import cn.xsdzq.platform.entity.RoleEntity;
 import cn.xsdzq.platform.model.RoleAuthorityDTO;
 import cn.xsdzq.platform.model.RoleDTO;
@@ -15,7 +16,11 @@ public interface IRoleService {
 
 	public List<RoleDTO> findMyRole(UserDTO userDTO);
 
+	public List<AuthorityEntity> findAuthorityByRole(RoleDTO roleDTO);
+
 	public List<RoleEntity> findAllRole();
+
+	public void modifyRoleAuthority(RoleAuthorityDTO roleAuthorityDTO);
 
 	public void addRole(RoleEntity roleEntity);
 

@@ -47,7 +47,6 @@ public class AuthorityServiceImpl implements IAuthorityService {
 			if (!rSet.contains(authorityEntity)) {
 				authorityEntities.add(authorityEntity);
 			}
-
 		}
 		return authorityEntities;
 	}

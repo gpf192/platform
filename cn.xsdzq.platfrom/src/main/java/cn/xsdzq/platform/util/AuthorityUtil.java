@@ -49,6 +49,7 @@ public class AuthorityUtil {
 		jsonObject.put("resource_path", authorityEntity.getResource_path());
 		jsonObject.put("level", authorityEntity.getLevel());
 		jsonObject.put("sort", authorityEntity.getSort());
+		jsonObject.put("check", authorityEntity.isCheck());
 		return jsonObject;
 	}
 

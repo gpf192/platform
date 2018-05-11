@@ -363,6 +363,15 @@
 .margin10{
 	margin-top: 10px;
 }
+.margin-left-0{
+	margin-left: 0;
+}
+.margin-left-5{
+	margin-left: 5px;
+}
+.margin-left-15{
+	margin-left: 15px;
+}
 .full{
 	width: 100%;
 }
@@ -370,6 +379,11 @@
 	min-width: 230px!important;
     height: 130px!important;
 }
-
+.table > tbody > tr > td{
+	line-height: 31px;
+}
+.bold{
+	font-weight: bold;
+}
 
 

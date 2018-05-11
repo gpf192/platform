@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONArray;
+
 import cn.xsdzq.platform.entity.AuthorityEntity;
 import cn.xsdzq.platform.entity.RoleEntity;
 import cn.xsdzq.platform.model.RoleAuthorityDTO;
@@ -22,6 +24,7 @@ import cn.xsdzq.platform.model.RoleDTO;
 import cn.xsdzq.platform.model.UserDTO;
 import cn.xsdzq.platform.service.IAuthorityService;
 import cn.xsdzq.platform.service.IRoleService;
+import cn.xsdzq.platform.util.AuthorityUtil;
 import cn.xsdzq.platform.util.GsonUtil;
 import cn.xsdzq.platform.util.RoleUtil;
 
@@ -86,6 +89,21 @@ public class RoleController {
 	public Map<String, Object> getPermissionsByUser(@RequestBody UserDTO userDTO) {
 		List<RoleDTO> roleDTOs = roleService.findMyRole(userDTO);
 		return GsonUtil.buildMap(0, "ok", roleDTOs);
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/getPermissionsByUserToModify", method = POST, produces = "application/json; charset=utf-8")
+	public Map<String, Object> getPermissionsByUserToModify(@RequestBody RoleDTO roleDTO) {
+		List<AuthorityEntity> authorityEntities = roleService.findAuthorityByRole(roleDTO);
+		JSONArray jsonArray = AuthorityUtil.getJsonAuthority(authorityEntities);
+		return GsonUtil.buildMap(0, "ok", jsonArray);
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/modifyRoleAuthority", method = POST, produces = "application/json; charset=utf-8")
+	public Map<String, Object> modifyRoleAuthority(@RequestBody RoleAuthorityDTO roleAuthorityDTO) {
+		roleService.modifyRoleAuthority(roleAuthorityDTO);
+		return GsonUtil.buildMap(0, "ok", null);
 	}
 
 	@RequestMapping(value = "/addPermissions", method = POST, produces = "application/json; charset=utf-8")

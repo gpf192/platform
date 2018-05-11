@@ -76,6 +76,22 @@ public class RoleServiceImpl implements IRoleService {
 	}
 
 	@Override
+	public List<AuthorityEntity> findAuthorityByRole(RoleDTO roleDTO) {
+		// TODO Auto-generated method stub
+		RoleEntity roleEntity = roleRepository.findRoleById(roleDTO.getId());
+		List<AuthorityEntity> authorityEntities = authorityRepository.findAllAuthority();
+		Set<AuthorityEntity> myAuthoritySet = roleEntity.getAuthorityEntities();
+		for (AuthorityEntity authorityEntity : authorityEntities) {
+			if (myAuthoritySet.contains(authorityEntity)) {
+				authorityEntity.setCheck(true);
+			} else {
+				authorityEntity.setCheck(false);
+			}
+		}
+		return authorityEntities;
+	}
+
+	@Override
 	public List<RoleEntity> findAllRole() {
 		// TODO Auto-generated method stub
 		return roleRepository.findAllRole();
@@ -92,13 +108,29 @@ public class RoleServiceImpl implements IRoleService {
 			roleEntity.setAuthorityEntities(authorityEntities);
 		}
 		roleRepository.addRole(roleEntity);
-
 	}
 
 	@Override
 	@Transactional
 	public void modifyRole(RoleEntity roleEntity) {
 		// TODO Auto-generated method stub
+		roleRepository.modifyRole(roleEntity);
+	}
+
+	@Override
+	@Transactional
+	public void modifyRoleAuthority(RoleAuthorityDTO roleAuthorityDTO) {
+		// TODO Auto-generated method stub
+		RoleEntity roleEntity = roleRepository.findRoleById(roleAuthorityDTO.getRole_id());
+		List<AuthorityEntity> aList = roleAuthorityDTO.getAuthorityEntities();
+		List<AuthorityEntity> myAuthorityEntities = new ArrayList<>();
+		for (AuthorityEntity aEntity : aList) {
+			if (aEntity.isCheck()) {
+				myAuthorityEntities.add(aEntity);
+			}
+		}
+		Set<AuthorityEntity> myAuthoritySet = getAuthorityEntitieSet(myAuthorityEntities);
+		roleEntity.setAuthorityEntities(myAuthoritySet);
 		roleRepository.modifyRole(roleEntity);
 	}
 
@@ -145,7 +177,6 @@ public class RoleServiceImpl implements IRoleService {
 					} else {
 						authoritySet.add(level3Authority);
 					}
-
 				}
 			}
 			if (authoritySet.size() > 0) {
@@ -153,7 +184,36 @@ public class RoleServiceImpl implements IRoleService {
 				roleRepository.appendAuthorities(roleEntity, myAuthoritySet);
 			}
 		}
-
 	}
 
+	private Set<AuthorityEntity> getAuthorityEntitieSet(List<AuthorityEntity> authorityEntities) {
+		Set<AuthorityEntity> authoritySet = new HashSet<AuthorityEntity>();
+		List<AuthorityEntity> aList = authorityEntities;
+		if (aList != null) {
+			for (AuthorityEntity authorityEntity : aList) {
+				if (authorityEntity.getLevel() == 3) {
+					authoritySet.add(authorityEntity);
+					// level 为 2 的逻辑
+					AuthorityEntity level2Authority = authorityRepository
+							.findAuthorityById(authorityEntity.getParent_id());
+					if (authoritySet.contains(level2Authority)) {
+						// 保护父权限的处理逻辑
+					} else {
+						authoritySet.add(level2Authority);
+					}
+					AuthorityEntity level3Authority = authorityRepository
+							.findAuthorityById(level2Authority.getParent_id());
+					if (authoritySet.contains(level3Authority)) {
+						// 保护父权限的处理逻辑
+					} else {
+						authoritySet.add(level3Authority);
+					}
+				}
+			}
+		}
+		// 修改权限要赋予基础权限
+		AuthorityEntity mainAuthorityEntity = authorityRepository.findAuthorityByAuthority("ROLE_MAIN_AUTHORITY");
+		authoritySet.add(mainAuthorityEntity);
+		return authoritySet;
+	}
 }
