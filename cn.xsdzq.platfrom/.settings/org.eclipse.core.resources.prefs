@@ -1,7 +1,15 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
+encoding//src/main/webapp/static/htmls/category/categorylist.html=UTF-8
+encoding//src/main/webapp/static/htmls/category/modifycategory.html=UTF-8
+encoding//src/main/webapp/static/htmls/category/newcategory.html=UTF-8
+encoding//src/main/webapp/static/htmls/info/checkdetail.html=UTF-8
+encoding//src/main/webapp/static/htmls/info/checklist.html=UTF-8
 encoding//src/main/webapp/static/htmls/info/infolist.html=UTF-8
+encoding//src/main/webapp/static/htmls/info/modifyinfo.html=UTF-8
 encoding//src/main/webapp/static/htmls/info/newinfo.html=UTF-8
+encoding//src/main/webapp/static/htmls/user/modifyuser.html=UTF-8
+encoding//src/main/webapp/static/htmls/user/userlist.html=UTF-8
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8
