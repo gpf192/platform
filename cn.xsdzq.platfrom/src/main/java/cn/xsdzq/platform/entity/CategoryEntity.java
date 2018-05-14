@@ -32,6 +32,9 @@ public class CategoryEntity implements Serializable {
 	@Column(name = "image", length = 2000, nullable = true)
 	private String image;
 
+	@Column(name = "categorysort", columnDefinition = "int DEFAULT 0")
+	private int categorysort;
+
 	@Column(name = "exp")
 	private String exp;
 
@@ -62,6 +65,14 @@ public class CategoryEntity implements Serializable {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public int getCategorysort() {
+		return categorysort;
+	}
+
+	public void setCategorysort(int categorysort) {
+		this.categorysort = categorysort;
 	}
 
 	public String getExp() {

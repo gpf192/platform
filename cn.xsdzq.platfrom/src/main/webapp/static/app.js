@@ -116,6 +116,10 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl : "htmls/common/result.html",
 		controller : "resultController",
 		params:{state:{}}
+	}).state("sortcategory", {
+		url : "/category/sort",
+		templateUrl : "htmls/admin/sortcategory.html",
+		controller : "sortCategoryController"
 	});
 
 	$urlRouterProvider.otherwise("/");

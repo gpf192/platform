@@ -18,6 +18,9 @@ function addRoleController($scope, $http, $state, httpUtils, layerUtils) {
 				}
 			}
 		$scope.$emit("changeNavigation", data);
+		
+		
+		
 		$http.get(httpUtils.url.userList, {}).success(function(data) {
 			if (data.resCode == 0) {
 				$scope.userList = data.result;

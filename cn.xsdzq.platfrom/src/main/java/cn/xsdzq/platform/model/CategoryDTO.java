@@ -4,6 +4,7 @@ public class CategoryDTO {
 	private long id;
 	private String title;
 	private String image;
+	private int categorysort;
 	private String exp;
 
 	public long getId() {
@@ -28,6 +29,14 @@ public class CategoryDTO {
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public int getCategorysort() {
+		return categorysort;
+	}
+
+	public void setCategorysort(int categorysort) {
+		this.categorysort = categorysort;
 	}
 
 	public String getExp() {
