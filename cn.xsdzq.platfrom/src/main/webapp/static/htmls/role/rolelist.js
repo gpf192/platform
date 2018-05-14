@@ -27,6 +27,10 @@ function roleListController($scope, $http, $state, httpUtils, layerUtils) {
 		var role = $scope.roles[index];
 		$state.go("modifyrole2",{role:role});
 	}
+	$scope.modifyAuthority = function(index){
+		var role = $scope.roles[index];
+		$state.go("modifyauthority",{role:role});
+	}
 	
 	$scope.deleteRole = function(index) {
 		

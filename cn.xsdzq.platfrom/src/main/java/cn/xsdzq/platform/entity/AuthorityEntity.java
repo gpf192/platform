@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.security.core.GrantedAuthority;
 
@@ -54,6 +55,9 @@ public class AuthorityEntity implements GrantedAuthority {
 	@Column(name = "sort")
 	private int sort;
 
+	@Transient
+	private boolean check;
+
 	// 创建时间
 	@Column(name = "createtime", insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Date createtime;
@@ -64,6 +68,29 @@ public class AuthorityEntity implements GrantedAuthority {
 
 	@ManyToMany(mappedBy = "authorityEntities", fetch = FetchType.EAGER)
 	private Set<RoleEntity> roleEntities;
+
+	public AuthorityEntity() {
+		super();
+	}
+
+	public AuthorityEntity(Long id, String menu_name, String authority, String url, String forward, long parent_id,
+			String resource_path, int level, int sort, boolean check, Date createtime, Date modifytime,
+			Set<RoleEntity> roleEntities) {
+		super();
+		this.id = id;
+		this.menu_name = menu_name;
+		this.authority = authority;
+		this.url = url;
+		this.forward = forward;
+		this.parent_id = parent_id;
+		this.resource_path = resource_path;
+		this.level = level;
+		this.sort = sort;
+		this.check = check;
+		this.createtime = createtime;
+		this.modifytime = modifytime;
+		this.roleEntities = roleEntities;
+	}
 
 	public Long getId() {
 		return id;
@@ -143,6 +170,14 @@ public class AuthorityEntity implements GrantedAuthority {
 
 	public void setSort(int sort) {
 		this.sort = sort;
+	}
+
+	public boolean isCheck() {
+		return check;
+	}
+
+	public void setCheck(boolean check) {
+		this.check = check;
 	}
 
 	public Date getModifytime() {
