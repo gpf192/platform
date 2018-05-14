@@ -29,6 +29,9 @@ public class CategoryEntity implements Serializable {
 	@Column(name = "title")
 	private String title;
 
+	@Column(name = "image", length = 2000, nullable = true)
+	private String image;
+
 	@Column(name = "exp")
 	private String exp;
 
@@ -47,6 +50,14 @@ public class CategoryEntity implements Serializable {
 
 	public String getTitle() {
 		return title;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public void setTitle(String title) {

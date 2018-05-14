@@ -3,6 +3,7 @@ package cn.xsdzq.platform.model;
 public class CategoryDTO {
 	private long id;
 	private String title;
+	private String image;
 	private String exp;
 
 	public long getId() {
@@ -19,6 +20,14 @@ public class CategoryDTO {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public String getExp() {

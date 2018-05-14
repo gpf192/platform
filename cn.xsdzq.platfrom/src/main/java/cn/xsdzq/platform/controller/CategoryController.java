@@ -21,13 +21,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.mangofactory.swagger.models.dto.Model;
 import com.sun.istack.internal.logging.Logger;
 
 import cn.xsdzq.platform.entity.CategoryEntity;
 import cn.xsdzq.platform.model.CategoryDTO;
 import cn.xsdzq.platform.model.IdDTO;
 import cn.xsdzq.platform.service.ICategoryService;
+import cn.xsdzq.platform.util.CategoryUtil;
 import cn.xsdzq.platform.util.GsonUtil;
 import cn.xsdzq.platform.util.PhotoUtil;
 
@@ -70,11 +70,11 @@ public class CategoryController {
 
 	@RequestMapping(value = "/addCategory", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Map<String, Object> addCategory(HttpServletRequest request, @RequestBody CategoryDTO dto) {
-		System.out.println(dto.getTitle());
-		CategoryEntity category = new CategoryEntity();
-		String title = dto.getTitle();
-		category.setTitle(title);
+	public Map<String, Object> addCategory(HttpServletRequest request, @RequestBody CategoryDTO categoryDTO) {
+		System.out.println(categoryDTO.getTitle());
+		CategoryEntity category = CategoryUtil.convertCategoryEntityByCategoryDTO(categoryDTO);
+		// String title = dto.getTitle();
+		// category.setTitle(title);
 		categoryService.addCategory(category);
 		return GsonUtil.buildMap(0, "ok", null);
 	}
@@ -104,38 +104,38 @@ public class CategoryController {
 			return GsonUtil.buildMap(1, "fail", null);
 		}
 	}
-	 @ResponseBody
-	 @RequestMapping(value = "upload",method = POST, produces = "application/json; charset=utf-8")
-	    public Map<String, Object>  upload(@RequestParam("file") MultipartFile file, HttpServletRequest request){
-			System.out.println("进入上传页面     ");
 
-	        //第一种返回页面的方法
-	        //model.addAttribute("img",PhotoUtil.saveFile(file,request));
-	       //第二种返回页面的方法
-	        request.setAttribute("img",PhotoUtil.saveFile(file,request));
-	        return GsonUtil.buildMap(0, "ok", null);
-	    }
-	 
-	 @RequestMapping(value="/add",method = POST)
-	    public ResponseEntity<Object> addProduct(@RequestParam("file") MultipartFile uploadFiles){
-		 System.out.println("进入上传页面     ");
-	        String fileName=uploadFiles.getOriginalFilename();
-	        String prefix="."+fileName.substring(fileName.lastIndexOf(".")+1);
-	        File dst=null;
-	        try {
-	            String root = System.getProperty("catalina.base");    //获取tomcat根路径
-	            File uploadDir = new File(root, "webapps/upload");    //创建一个指向tomcat/webapps/upload目录的对象
-	            if (!uploadDir.exists()) {
-	                uploadDir.mkdir();                                //如果不存在则创建upload目录
-	            }
-	            dst = new File(uploadDir, 
-	                    UUID.randomUUID().toString()+prefix);                //创建一个指向upload目录下的文件对象，文件名随机生成    
-	            uploadFiles.transferTo(dst);                            //创建文件并将上传文件复制过去
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-	      //然后把路径set到productVo中 完成添加 "/upload/"+dst.getName();
-			return null;
+	@ResponseBody
+	@RequestMapping(value = "upload", method = POST, produces = "application/json; charset=utf-8")
+	public Map<String, Object> upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+		System.out.println("进入上传页面     ");
+
+		// 第一种返回页面的方法
+		// model.addAttribute("img",PhotoUtil.saveFile(file,request));
+		// 第二种返回页面的方法
+		request.setAttribute("img", PhotoUtil.saveFile(file, request));
+		return GsonUtil.buildMap(0, "ok", null);
+	}
+
+	@RequestMapping(value = "/add", method = POST)
+	public ResponseEntity<Object> addProduct(@RequestParam("file") MultipartFile uploadFiles) {
+		System.out.println("进入上传页面     ");
+		String fileName = uploadFiles.getOriginalFilename();
+		String prefix = "." + fileName.substring(fileName.lastIndexOf(".") + 1);
+		File dst = null;
+		try {
+			String root = System.getProperty("catalina.base"); // 获取tomcat根路径
+			File uploadDir = new File(root, "webapps/upload"); // 创建一个指向tomcat/webapps/upload目录的对象
+			if (!uploadDir.exists()) {
+				uploadDir.mkdir(); // 如果不存在则创建upload目录
+			}
+			dst = new File(uploadDir, UUID.randomUUID().toString() + prefix); // 创建一个指向upload目录下的文件对象，文件名随机生成
+			uploadFiles.transferTo(dst); // 创建文件并将上传文件复制过去
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// 然后把路径set到productVo中 完成添加 "/upload/"+dst.getName();
+		return null;
 
 	}
 }
