@@ -60,7 +60,6 @@ public class CategoryController {
 		for (CategoryEntity category : list) {
 			CategoryDTO dto = CategoryUtil.convertCategoryDTOByCategoryEntity(category);
 			cDtos.add(dto);
-
 		}
 		return GsonUtil.buildMap(0, "ok", cDtos);
 	}

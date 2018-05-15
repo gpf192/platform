@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.xsdzq.platform.entity.CategoryEntity;
 import cn.xsdzq.platform.entity.InfoEntity;
-import cn.xsdzq.platform.model.CategoryDTO;
 import cn.xsdzq.platform.model.CheckResultDTO;
 import cn.xsdzq.platform.model.InfoDTO;
 import cn.xsdzq.platform.model.SearchBean;
@@ -60,8 +59,9 @@ public class InfoController extends BaseController {
 	@RequestMapping(value = "/getInfosByCategoryId", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> getInfos(HttpServletRequest request, @RequestParam long id) {
-	//public Map<String, Object> getInfos(HttpServletRequest request, @PathVariable(value="param") String param) {
-		System.out.println(id+"********");
+		// public Map<String, Object> getInfos(HttpServletRequest request,
+		// @PathVariable(value="param") String param) {
+		System.out.println(id + "********");
 		long categoryId = id;
 		if (categoryId > 0) {
 			List<InfoEntity> infos = iInfoService.getInfosByCategoryId(categoryId);
@@ -84,12 +84,12 @@ public class InfoController extends BaseController {
 		InfoEntity info = InfoUtil.convertInfoByInfoDTO(dto);
 		CategoryEntity category = categoryService.getCategoryById(info.getCategoryId());
 		info.setCategoryEntity(category);
-		//插入创建人
+		// 插入创建人
 		SecurityContext ctx = SecurityContextHolder.getContext();
 		Authentication auth = ctx.getAuthentication();
 		User user = (User) auth.getPrincipal();
-		String  name = user.getUsername();
-		info.setCreated_by(name);		
+		String name = user.getUsername();
+		info.setCreated_by(name);
 		iInfoService.addInfo(info);
 		return GsonUtil.buildMap(0, "ok", null);
 	}
@@ -97,7 +97,7 @@ public class InfoController extends BaseController {
 	@RequestMapping(value = "/deleteInfo", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> deletInfo(HttpServletRequest request, @RequestBody InfoDTO dto) {
-		System.out.println(dto.getTitle()+"****** 删除信息");
+		System.out.println(dto.getTitle() + "****** 删除信息");
 		InfoEntity info = InfoUtil.convertInfoByInfoDTO(dto);
 		CategoryEntity category = categoryService.getCategoryById(info.getCategoryId());
 		info.setCategoryEntity(category);
@@ -108,16 +108,16 @@ public class InfoController extends BaseController {
 	@RequestMapping(value = "/modifyInfo", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> modifyInfo(HttpServletRequest request, @RequestBody InfoDTO dto) {
-		System.out.println(dto.getTitle()+"********************");
+		System.out.println(dto.getTitle() + "********************");
 		InfoEntity info = InfoUtil.convertInfoByInfoDTO(dto);
 		CategoryEntity category = categoryService.getCategoryById(info.getCategoryId());
 		info.setCategoryEntity(category);
-		//插入创建人
+		// 插入创建人
 		SecurityContext ctx = SecurityContextHolder.getContext();
 		Authentication auth = ctx.getAuthentication();
 		User user = (User) auth.getPrincipal();
-		String  name = user.getUsername();
-		info.setCreated_by(name);	
+		String name = user.getUsername();
+		info.setCreated_by(name);
 		iInfoService.modifyInfo(info);
 		return GsonUtil.buildMap(0, "ok", null);
 	}
@@ -137,7 +137,8 @@ public class InfoController extends BaseController {
 		return GsonUtil.buildMap(0, "ok", infoDTOs);
 
 	}
-	//add by fjx begin
+
+	// add by fjx begin
 	/**
 	 * 获取未审核的流程 接口1
 	 */
@@ -152,19 +153,21 @@ public class InfoController extends BaseController {
 		}
 		return GsonUtil.buildMap(0, "ok", infoDTOs);
 
-	}	
+	}
+
 	/**
 	 * 插入审核结果 接口
 	 */
 	@RequestMapping(value = "/modifyCheckResult", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Map<String, Object> modifyCheckResult(HttpServletRequest request, @RequestBody CheckResultDTO checkResultDTO) {	
+	public Map<String, Object> modifyCheckResult(HttpServletRequest request,
+			@RequestBody CheckResultDTO checkResultDTO) {
 		CheckResultDTO dto = checkResultDTO;
-		System.out.println(dto.isCheckFlag()+" **** "+dto.getId());
+		System.out.println(dto.isCheckFlag() + " **** " + dto.getId());
 		iInfoService.modifyCheckResult(dto.getId(), dto.isCheckFlag());
 		return GsonUtil.buildMap(0, "ok", null);
 	}
-	
-	//add by fjx 
+
+	// add by fjx
 
 }

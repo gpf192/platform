@@ -20,7 +20,7 @@ public class MyFilterInvocationSecurityMetadataSource implements FilterInvocatio
 	private final Map<String, String> urlRoleMap = new HashMap<String, String>() {
 		{
 			put("/static/**", "ROLE_MAIN_AUTHORITY");
-			put("/front/**", "ROLE_MAIN_AUTHORITY");
+			put("/front/**", "ROLE_ANONYMOUS");
 			put("/login", "ROLE_ANONYMOUS");
 			put("/loginin/**", "ROLE_ANONYMOUS");
 		}
