@@ -36,14 +36,16 @@ public class InfoEntity implements Serializable {
 	@Column(name = "title")
 
 	private String title;
-	//add by fjx begin
+	// add by fjx begin
 	@Column(name = "checked")
-	private String checked = "N";//默认未审核
+	private String checked = "N";// 默认未审核
+
 	@Column(name = "checked_result")
 	private String checked_result;
+
 	@Column(name = "created_by")
 	private String created_by;
-	//add by fjx end
+	// add by fjx end
 
 	@Column(name = "categoryId", insertable = false, updatable = false)
 	private long categoryId;
@@ -51,7 +53,7 @@ public class InfoEntity implements Serializable {
 	@Column(name = "label")
 	private String label;
 
-	@Column(name = "content")
+	@Column(name = "content", length = 3000)
 	private String content;
 
 	@Column(name = "exp")
@@ -129,7 +131,6 @@ public class InfoEntity implements Serializable {
 	public void setChecked_result(String checked_result) {
 		this.checked_result = checked_result;
 	}
-
 
 	public String getCreated_by() {
 		return created_by;

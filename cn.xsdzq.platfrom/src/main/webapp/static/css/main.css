@@ -386,4 +386,9 @@
 	font-weight: bold;
 }
 
+table tbody td .category-img{
+	width: 40px;
+	height: 40px;
+}
+
 

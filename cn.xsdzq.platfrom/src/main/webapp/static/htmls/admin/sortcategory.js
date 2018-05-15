@@ -1,26 +1,20 @@
 ngApp.$inject = [ '$scope', '$http', '$state', 'httpUtils', 'layerUtils' ];
-function addRoleController($scope, $http, $state, httpUtils, layerUtils) {
+function sortCategoryController($scope, $http, $state, httpUtils, layerUtils) {
 	$scope.formData = {};
 	$scope.formData.user = {};
 	$scope.roleList = [];
 
 	$scope.init = function() {
-		var data = {
-				"one" : {
-					name : "授权管理",
-					goto:""
+		var data = [{
+			name : "分类管理",
+			goto:""
 
-				},
-				"two" : {
-					name : "用户赋权",
-					goto:"addrole"
+		},{
+			name : "分类排序",
+			goto:"sortcategory"
 
-				}
-			}
+		}];
 		$scope.$emit("changeNavigation", data);
-		
-		
-		
 		$http.get(httpUtils.url.userList, {}).success(function(data) {
 			if (data.resCode == 0) {
 				$scope.userList = data.result;
@@ -28,7 +22,6 @@ function addRoleController($scope, $http, $state, httpUtils, layerUtils) {
 				$scope.getExtraRoleListByUser($scope.userList[0]);
 			}
 		});
-
 	};
 
 	$scope.getExtraRoleListByUser = function(user) {

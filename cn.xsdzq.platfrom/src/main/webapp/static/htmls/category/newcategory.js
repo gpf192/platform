@@ -51,6 +51,7 @@ function newCategoryController($scope, $http, $state, httpUtils, layerUtils) {
 				}
 				if (!flag) {
 					layerUtils.iMsg(-1, "上传文件的类型不正确，请选择图片上传！");
+					layerUtils.iLoading(false);
 					return false;
 				}
 				readFront = new FileReader();

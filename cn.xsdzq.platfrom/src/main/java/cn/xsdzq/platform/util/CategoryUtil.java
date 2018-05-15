@@ -9,6 +9,7 @@ public class CategoryUtil {
 		categoryEntity.setId(categoryDTO.getId());
 		categoryEntity.setTitle(categoryDTO.getTitle());
 		categoryEntity.setImage(categoryDTO.getImage());
+		categoryEntity.setCategorysort(categoryDTO.getCategorysort());
 		categoryEntity.setExp(categoryDTO.getExp());
 		return categoryEntity;
 	}
@@ -18,6 +19,7 @@ public class CategoryUtil {
 		categoryDTO.setId(categoryEntity.getId());
 		categoryDTO.setTitle(categoryEntity.getTitle());
 		categoryDTO.setImage(categoryEntity.getImage());
+		categoryDTO.setCategorysort(categoryEntity.getCategorysort());
 		categoryDTO.setExp(categoryEntity.getExp());
 		return categoryDTO;
 	}

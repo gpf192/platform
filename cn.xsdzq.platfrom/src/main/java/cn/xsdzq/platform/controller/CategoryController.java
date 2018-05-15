@@ -58,12 +58,8 @@ public class CategoryController {
 		List<CategoryEntity> list = categoryService.findAll();
 		List<CategoryDTO> cDtos = new ArrayList<CategoryDTO>();
 		for (CategoryEntity category : list) {
-			CategoryDTO dto = new CategoryDTO();
-			dto.setId(category.getId());
-			dto.setTitle(category.getTitle());
-			dto.setExp(category.getExp());
+			CategoryDTO dto = CategoryUtil.convertCategoryDTOByCategoryEntity(category);
 			cDtos.add(dto);
-
 		}
 		return GsonUtil.buildMap(0, "ok", cDtos);
 	}
@@ -103,6 +99,12 @@ public class CategoryController {
 		} else {
 			return GsonUtil.buildMap(1, "fail", null);
 		}
+	}
+
+	@RequestMapping(value = "/sort", method = POST, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> sort(@RequestBody List<CategoryDTO> categoryDTOs) {
+		return GsonUtil.buildMap(0, "ok", null);
 	}
 
 	@ResponseBody
