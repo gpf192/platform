@@ -1,5 +1,5 @@
 <script type="text/javascript" src="htmls/admin/sortcategory.js"></script>
-<div class="box border primary" ng-init="init()">
+<div class="box border primary sortcategory" ng-init="init()">
 	<div class="box-title">
 		<h4>
 			<i class="fa fa-bars"></i>分类排序
@@ -16,39 +16,28 @@
 	</div>
 	<div class="box-body big">
 		<form action="" class="form-horizontal">
-			<fieldset>
-				<legend>分类排序 </legend>
-				<div class="form-group">
-					<label for="versionId" class="col-sm-3 control-label">用户名称：</label>
-					<div class="col-sm-6">
-						<select class="form-control" ng-model="formData.user"
-							ng-options="item.username for item in userList"
-							ng-change="getExtraRoleListByUser(formData.user)"></select>
-					</div>
-					<div class="col-sm-3">
-						<span class="text-danger control-label">* </span><label
-							class="text-warning control-label"></label>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label">全部权限：</label>
-					<div class="col-sm-6">
-						<div class="row col-sm-12-add-margin">
-							<div class="col-sm-3" ng-repeat="row in roleList">
-								<input type="checkbox" ng-model="roleList[$index].check ">
-								<span>{{row.name}}</span>
+			<div class="form-group">
+				<div class="col-sm-9 sort-img-wrapper-wrapper">
+					<div class="row" id="dragWrapper">
+						<div class="col-sm-4 text-center" id="drag{{$index+1}}" draggable="true" ng-repeat="category in categorys"
+							ng-init="initEvent($index)">
+							<div class="sort-img-wrapper text-center">
+								<img class="img-responsive" id="drag-img-{{$index+1}}"
+									src="{{category.image}}"> <span ng-bind="category.title"></span>{{$index+1}}
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-3">{{roleList}}</div>
 				</div>
-				<div class="form-group">
-					<div class="col-sm-offset-3 col-sm-9">
-						<button type="button" ng-click="submit()"
-							class="btn btn-default btn-primary">确 认</button>
-					</div>
+				<div class="col-sm-3 sort-img-tip">
+					<span class="text-warning">支持拖动排序，请像操作手机一样，操作图标</span>
 				</div>
-			</fieldset>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-12 margin-top-20 text-center">
+					<button type="button" ng-click="sort()"
+						class="btn btn-default btn-warning">确 认 排 序</button>
+				</div>
+			</div>
 		</form>
 	</div>
 </div>

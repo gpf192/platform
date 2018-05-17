@@ -1,8 +1,7 @@
 ngApp.$inject = [ '$scope', '$http', '$state', 'httpUtils', 'layerUtils' ];
 function sortCategoryController($scope, $http, $state, httpUtils, layerUtils) {
-	$scope.formData = {};
-	$scope.formData.user = {};
-	$scope.roleList = [];
+
+	$scope.categorys = [];
 
 	$scope.init = function() {
 		var data = [{
@@ -15,30 +14,60 @@ function sortCategoryController($scope, $http, $state, httpUtils, layerUtils) {
 
 		}];
 		$scope.$emit("changeNavigation", data);
-		$http.get(httpUtils.url.userList, {}).success(function(data) {
-			if (data.resCode == 0) {
-				$scope.userList = data.result;
-				$scope.formData.user = $scope.userList[0];
-				$scope.getExtraRoleListByUser($scope.userList[0]);
-			}
-		});
+		$scope.getCategoryList();
 	};
-
-	$scope.getExtraRoleListByUser = function(user) {
-
-		$http.post(httpUtils.url.getExtraRole, user).success(function(data) {
+	
+	$scope.getCategoryList = function() {
+		$http.get(httpUtils.url.categoryList, {}).success(function(data) {
 			if (data.resCode == 0) {
-				$scope.roleList = data.result;
+				$scope.categorys = data.result;
 			}
 		});
 	}
-
-	$scope.toRelate = function() {
-		$state.go("addrelate");
-	};
-
-	$scope.addCategory = function() {
-		$state.go("newcategory");
+	
+	$scope.dragElement=null;
+	$scope.initEvent=function(index){
+		setTimeout(function(){
+			var dragElement = document.getElementById("drag"+(index+1));
+			var imgIcon = document.getElementById("drag-img-"+(index+1));
+			dragElement.addEventListener("dragstart", function(event) {
+				// console.log("dragstart");
+				$scope.dragElement = this;
+				// event.dataTransfer.setDragImage(imgIcon,45,45);
+			}, false);
+			
+			dragElement.addEventListener("dragenter", function(event) {
+				if ($scope.dragElement != this) {
+					// console.log(this.parentNode);
+					this.parentNode.insertBefore($scope.dragElement, this);
+				}
+			}, false);
+			dragElement.addEventListener('dragleave', function(event) {
+				if ($scope.dragElement != this) {
+					if (this == this.parentNode.lastElementChild
+							|| this == this.parentNode.lastChild) {
+						this.parentNode.appendChild($scope.dragElement);
+					}
+				}
+			}, false)
+		},100);
+	}
+	$scope.sort = function(){
+		var array=[];
+		var wraper=$("#dragWrapper").children();
+		wraper.each(function(index, domEle){
+			
+			var id=$(this).attr("id");
+			
+			array.push(id.substring(4));
+			
+		});
+		if(array.join("")=="123456"){
+			layerUtils.iMsg(-1, "请排序后，在提交");
+		}
+		console.log(array);
+		console.log($scope.categorys);
+		console.log(wraper.length);
 	}
 
 	$scope.submit = function() {

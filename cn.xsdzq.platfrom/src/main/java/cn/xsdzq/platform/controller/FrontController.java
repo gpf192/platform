@@ -58,7 +58,7 @@ public class FrontController {
 		System.out.println(id + "********");
 		long categoryId = id;
 		if (categoryId > 0) {
-			List<InfoEntity> infos = iInfoService.getInfosByCategoryId(categoryId);
+			List<InfoEntity> infos = iInfoService.getInfosByCategoryIdToFront(categoryId);
 			List<InfoDTO> infoDTOs = new ArrayList<InfoDTO>();
 			for (InfoEntity info : infos) {
 				InfoDTO dto = InfoUtil.convertInfoDTOByInfo(info);

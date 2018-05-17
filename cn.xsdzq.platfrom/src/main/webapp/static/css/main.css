@@ -363,6 +363,9 @@
 .margin10{
 	margin-top: 10px;
 }
+.margin-top-20{
+	margin-top: 20px;
+}
 .margin-left-0{
 	margin-left: 0;
 }
@@ -390,5 +393,29 @@ table tbody td .category-img{
 	width: 40px;
 	height: 40px;
 }
+.sortcategory .sort-img-wrapper-wrapper{
+	border: 0.5px solid #f1f1f1;
+    padding-top: 40px;
+    padding-bottom: 60px;
+}
+   
+.sortcategory .sort-img-wrapper{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+.sortcategory .sort-img-wrapper img{
+	width: 40px;
+	height: 40px;
+}
+.sortcategory .sort-img-tip{
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+}
+
 
 

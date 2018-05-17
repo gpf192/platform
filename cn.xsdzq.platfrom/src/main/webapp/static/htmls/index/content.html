@@ -1,3 +1,135 @@
-<div>
-	<h2>欢迎进入后台管理系统</h2>
+<style>
+#index ul {
+	list-style-type: none;
+	display: flex;
+}
+
+#index ul li {
+	margin: 0 10px;
+	width: 100px;
+	height: 100px;
+	background: #6699ff;
+	cursor: pointer;
+}
+
+#source {
+	width: 100px;
+	height: 100px;
+	background: #6699ff;
+	cursor: pointer;
+}
+
+#process {
+	width: 150px;
+	height: 150px;
+	background: #686868;
+}
+
+#target {
+	width: 300px;
+	height: 300px;
+	background: #f1f1f1;
+}
+</style>
+<div id="index">
+	<ul>
+		<li draggable="true">
+			<div>
+				<span>元素li1</span>
+			</div>
+		</li>
+		<li draggable="true">
+			<div>
+				<span>元素li2</span>
+			</div>
+		</li>
+		<li draggable="true">
+			<div>
+				<span>元素li3</span>
+			</div>
+		</li>
+		<li draggable="true">
+			<div>
+				<span>元素li4</span>
+			</div>
+		</li>
+		<li draggable="true">
+			<div>
+				<span>元素li5</span>
+			</div>
+		</li>
+		<li draggable="true">
+			<div>
+				<span>元素li6</span>
+			</div>
+		</li>
+	</ul>
+	<h2 class="hide">欢迎进入后台管理系统</h2>
+	<div>
+		<div id="source" draggable="true">
+			<span>source元素</span>
+		</div>
+		<div id="process">
+			<span>process元素</span>
+		</div>
+		<div id="target">
+			<span>target元素</span>
+		</div>
+	</div>
 </div>
+<script type="text/javascript">
+	console.log("aaa");
+
+	var list = document.querySelectorAll("li");
+	var dragElement = null;
+
+	for (var i = 0; i < list.length; i++) {
+		list[i].addEventListener("dragstart", function(event) {
+			console.log("dragstart开始拖动");
+			dragElement = this;
+		}, false);
+		list[i].addEventListener("dragenter", function(event) {
+			console.log("dragstart开始拖动");
+			if (dragElement != this) {
+				this.parentNode.insertBefore(dragElement, this);
+
+			}
+		}, false);
+		list[i].addEventListener('dragleave', function(event) {
+			if (dragElement != this) {
+				if (this == this.parentNode.lastElementChild
+						|| this == this.parentNode.lastChild) {
+					this.parentNode.appendChild(dragElement);
+				}
+			}
+		}, false)
+
+	}
+
+	var source = document.getElementById('source');
+	var process = document.getElementById('process');
+	var target = document.getElementById('target');
+	source.addEventListener("dragstart", function(event) {
+		console.log("dragstart开始拖动");
+	});
+	source.addEventListener("dragend", function(event) {
+		console.log("dragend结束拖动");
+	});
+	process.addEventListener("dragenter", function(event) {
+		console.log("dragstart拖动进入process");
+	});
+	process.addEventListener("dragleave", function(event) {
+		console.log("dragstart拖动离开process");
+	});
+	target.addEventListener("drag", function(event) {
+		console.log("dragstart放到target");
+		event.preventDefault();
+	});
+	document.ondragover = function(event) {
+		event.preventDefault();
+	}
+
+	document.ondrop = function(event) {
+		event.preventDefault();
+	}
+</script>

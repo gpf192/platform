@@ -12,6 +12,8 @@ public interface InfoRepository {
 
 	List<InfoEntity> getInfosByCategoryId(long id);
 
+	List<InfoEntity> getInfosByCategoryIdToFront(long id);
+
 	List<InfoEntity> searchInfos(String key);
 
 	void deleteInfo(InfoEntity infoEntity);
@@ -19,8 +21,10 @@ public interface InfoRepository {
 	void addInfo(InfoEntity infoEntity);
 
 	void modifyInfo(InfoEntity infoEntity);
-	//add by fjx begin
+
+	// add by fjx begin
 	List<InfoEntity> searUncheckchInfos();
+
 	String getCheckResult(long id);
-	//add nu fjx end
+	// add nu fjx end
 }
