@@ -24,6 +24,7 @@ ngApp.factory("httpUtils", [ function() {
 		addCategory : baseUrl + "category/addCategory",
 		modifyCategory : baseUrl + "category/modifyCategory",
 		deleteCategory : baseUrl + "category/deleteCategory",
+		sortCategory : baseUrl + "category/sortCategory",
 		moduleUpload : baseUrl + "modules/upload",
 		getInfoById : baseUrl + "info/getInfoById",
 		addInfo : baseUrl + "info/addInfo",

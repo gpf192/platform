@@ -19,10 +19,10 @@
 			<div class="form-group">
 				<div class="col-sm-9 sort-img-wrapper-wrapper">
 					<div class="row" id="dragWrapper">
-						<div class="col-sm-4 text-center" id="drag{{$index+1}}" draggable="true" ng-repeat="category in categorys"
+						<div class="col-sm-4 text-center" id="drag{{$index}}" draggable="true" ng-repeat="category in categorys"
 							ng-init="initEvent($index)">
 							<div class="sort-img-wrapper text-center">
-								<img class="img-responsive" id="drag-img-{{$index+1}}"
+								<img class="img-responsive" id="drag-img-{{$index}}"
 									src="{{category.image}}"> <span ng-bind="category.title"></span>{{$index+1}}
 							</div>
 						</div>

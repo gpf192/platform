@@ -4,6 +4,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -49,6 +50,7 @@ public class FrontController {
 			CategoryDTO dto = CategoryUtil.convertCategoryDTOByCategoryEntity(category);
 			cDtos.add(dto);
 		}
+		cDtos.sort(Comparator.naturalOrder());
 		return GsonUtil.buildMap(0, "ok", cDtos);
 	}
 

@@ -28,8 +28,8 @@ function sortCategoryController($scope, $http, $state, httpUtils, layerUtils) {
 	$scope.dragElement=null;
 	$scope.initEvent=function(index){
 		setTimeout(function(){
-			var dragElement = document.getElementById("drag"+(index+1));
-			var imgIcon = document.getElementById("drag-img-"+(index+1));
+			var dragElement = document.getElementById("drag"+(index));
+			var imgIcon = document.getElementById("drag-img-"+(index));
 			dragElement.addEventListener("dragstart", function(event) {
 				// console.log("dragstart");
 				$scope.dragElement = this;
@@ -56,18 +56,29 @@ function sortCategoryController($scope, $http, $state, httpUtils, layerUtils) {
 		var array=[];
 		var wraper=$("#dragWrapper").children();
 		wraper.each(function(index, domEle){
-			
 			var id=$(this).attr("id");
-			
 			array.push(id.substring(4));
-			
 		});
-		if(array.join("")=="123456"){
+		if(array.join("")=="012345"){
 			layerUtils.iMsg(-1, "请排序后，在提交");
 		}
-		console.log(array);
-		console.log($scope.categorys);
-		console.log(wraper.length);
+		for(var i=0;i<array.length;i++){
+			var index=array[i];
+			$scope.categorys[index].categorysort=i+1;
+		}
+		var params={
+			categoryDTOs:$scope.categorys
+		}
+		var url = httpUtils.url.sortCategory
+		$http.post(url, params).success(function(data) {
+			if (data.resCode == 0) {
+				layerUtils.iMsg(-1, "排序成功");
+				$scope.formData = {};
+			} else {
+				layerUtils.iMsg(-1, "排序失败");
+			}
+		});
+
 	}
 
 	$scope.submit = function() {

@@ -1,6 +1,9 @@
+
 package cn.xsdzq.platform.dao;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -54,6 +57,17 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 		// TODO Auto-generated method stub
 		CategoryEntity categoryEntity = em.find(CategoryEntity.class, id);
 		em.remove(categoryEntity);
+	}
+
+	@Override
+	public void sortCategory(List<CategoryEntity> categoryEntities) {
+		// TODO Auto-generated method stub
+		Set<CategoryEntity> cSet = new HashSet<>();
+		for (CategoryEntity categoryEntity : categoryEntities) {
+			cSet.add(categoryEntity);
+		}
+		em.merge(cSet);
+
 	}
 
 }
