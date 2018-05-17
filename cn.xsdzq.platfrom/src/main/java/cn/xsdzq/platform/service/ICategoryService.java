@@ -16,4 +16,6 @@ public interface ICategoryService {
 
 	void deleteCategory(long id);
 
+	void sortCategory(List<CategoryEntity> categoryEntities);
+
 }

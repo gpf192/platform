@@ -1,6 +1,6 @@
 package cn.xsdzq.platform.model;
 
-public class CategoryDTO {
+public class CategoryDTO implements Comparable<CategoryDTO> {
 	private long id;
 	private String title;
 	private String image;
@@ -45,6 +45,16 @@ public class CategoryDTO {
 
 	public void setExp(String exp) {
 		this.exp = exp;
+	}
+
+	@Override
+	public int compareTo(CategoryDTO categoryDTO) {
+		// TODO Auto-generated method stub
+		if (this.categorysort > categoryDTO.getCategorysort()) {
+			return 1;
+		} else {
+			return -1;
+		}
 	}
 
 }

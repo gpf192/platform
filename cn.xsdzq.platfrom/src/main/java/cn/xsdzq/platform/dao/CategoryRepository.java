@@ -19,4 +19,6 @@ public interface CategoryRepository {
 
 	void deleteCategory(long id);
 
+	void sortCategory(List<CategoryEntity> categoryEntities);
+
 }

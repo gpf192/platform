@@ -51,4 +51,14 @@ public class CategoryServiceImpl implements ICategoryService {
 		categoryRepository.deleteCategory(id);
 	}
 
+	@Override
+	@Transactional
+	public void sortCategory(List<CategoryEntity> categoryEntities) {
+		// TODO Auto-generated method stub
+		// categoryRepository.sortCategory(categoryEntities);
+		for (CategoryEntity category : categoryEntities) {
+			categoryRepository.modifyCategory(category);
+		}
+	}
+
 }

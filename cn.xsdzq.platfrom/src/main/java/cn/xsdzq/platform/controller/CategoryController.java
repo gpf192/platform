@@ -25,6 +25,7 @@ import com.sun.istack.internal.logging.Logger;
 
 import cn.xsdzq.platform.entity.CategoryEntity;
 import cn.xsdzq.platform.model.CategoryDTO;
+import cn.xsdzq.platform.model.CategoryDTOList;
 import cn.xsdzq.platform.model.IdDTO;
 import cn.xsdzq.platform.service.ICategoryService;
 import cn.xsdzq.platform.util.CategoryUtil;
@@ -101,9 +102,14 @@ public class CategoryController {
 		}
 	}
 
-	@RequestMapping(value = "/sort", method = POST, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/sortCategory", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Map<String, Object> sort(@RequestBody List<CategoryDTO> categoryDTOs) {
+	public Map<String, Object> sort(@RequestBody CategoryDTOList categoryDTOList) {
+		List<CategoryEntity> categoryEntities = new ArrayList<>();
+		for (CategoryDTO categoryDTO : categoryDTOList.getCategoryDTOs()) {
+			categoryEntities.add(CategoryUtil.convertCategoryEntityByCategoryDTO(categoryDTO));
+		}
+		categoryService.sortCategory(categoryEntities);
 		return GsonUtil.buildMap(0, "ok", null);
 	}
 
