@@ -16,10 +16,15 @@ public interface IInfoService {
 
 	List<InfoEntity> getInfosByCategoryId(long id);
 
+	List<InfoEntity> getInfosByCategoryIdToFront(long id);
+
 	List<InfoEntity> searchInfos(String key);
-	//add by fjx begin
+
+	// add by fjx begin
 	List<InfoEntity> searUncheckchInfos();
+
 	String getCheckResult(long id);
+
 	void modifyCheckResult(long id, boolean flag);
-	//add by fjx end
+	// add by fjx end
 }

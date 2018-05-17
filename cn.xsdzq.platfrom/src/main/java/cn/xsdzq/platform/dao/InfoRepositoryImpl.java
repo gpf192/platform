@@ -34,14 +34,28 @@ public class InfoRepositoryImpl implements InfoRepository {
 	@Override
 	public List<InfoEntity> getInfosByCategoryId(long id) {
 		// TODO Auto-generated method stub
-		TypedQuery<InfoEntity> sqlQuery = em.createQuery("SELECT c FROM InfoEntity c WHERE c.categoryId = ? and c.created_by = ?",
-				InfoEntity.class);
+		TypedQuery<InfoEntity> sqlQuery = em.createQuery(
+				"SELECT c FROM InfoEntity c WHERE c.categoryId = ? and c.created_by = ?", InfoEntity.class);
 		sqlQuery.setParameter(1, id);
 		SecurityContext ctx = SecurityContextHolder.getContext();
 		Authentication auth = ctx.getAuthentication();
 		User user = (User) auth.getPrincipal();
-		String  name = user.getUsername();
+		String name = user.getUsername();
 		sqlQuery.setParameter(2, name);
+		return sqlQuery.getResultList();
+	}
+
+	@Override
+	public List<InfoEntity> getInfosByCategoryIdToFront(long id) {
+		// TODO Auto-generated method stub
+		TypedQuery<InfoEntity> sqlQuery = em.createQuery("SELECT c FROM InfoEntity c WHERE c.categoryId = ?",
+				InfoEntity.class);
+		sqlQuery.setParameter(1, id);
+		// SecurityContext ctx = SecurityContextHolder.getContext();
+		// Authentication auth = ctx.getAuthentication();
+		// User user = (User) auth.getPrincipal();
+		// String name = user.getUsername();
+		// sqlQuery.setParameter(2, name);
 		return sqlQuery.getResultList();
 	}
 
@@ -82,27 +96,25 @@ public class InfoRepositoryImpl implements InfoRepository {
 		// Info modifyInfo = em.find(Info.class, info.getId());
 		em.merge(infoEntity);
 	}
-	
-	//add by fjx begin
+
+	// add by fjx begin
 	@Override
 	public List<InfoEntity> searUncheckchInfos() {
 		// TODO Auto-generated method stub
-				TypedQuery<InfoEntity> sqlQuery = em.createQuery("SELECT c FROM InfoEntity c WHERE c.checked = ? and c.checked_result = ?",
-						InfoEntity.class);
-				sqlQuery.setParameter(1, "N");
-				sqlQuery.setParameter(2, "submit");
-				return sqlQuery.getResultList();
+		TypedQuery<InfoEntity> sqlQuery = em.createQuery(
+				"SELECT c FROM InfoEntity c WHERE c.checked = ? and c.checked_result = ?", InfoEntity.class);
+		sqlQuery.setParameter(1, "N");
+		sqlQuery.setParameter(2, "submit");
+		return sqlQuery.getResultList();
 	}
-	
 
 	@Override
 	public String getCheckResult(long id) {
 		// TODO Auto-generated method stub
-		TypedQuery<InfoEntity> sqlQuery = em.createQuery("SELECT c FROM InfoEntity c WHERE c.id = ?",
-				InfoEntity.class);
+		TypedQuery<InfoEntity> sqlQuery = em.createQuery("SELECT c FROM InfoEntity c WHERE c.id = ?", InfoEntity.class);
 		sqlQuery.setParameter(1, id);
 		InfoEntity infoEntity = sqlQuery.getSingleResult();
 		return infoEntity.getChecked_result();
 	}
-	//add by fjx end
+	// add by fjx end
 }
