@@ -38,6 +38,10 @@ function newVersionController($scope, $http, $state, httpUtils, layerUtils) {
 	$scope.submit = function(value) {
 		var editorContent = UM.getEditor('myEditor').getContent();
 		console.log(editorContent);
+		if (angular.isEmpty($scope.formData.title) || angular.isEmpty(editorContent) || angular.isEmpty($scope.formData.category) ) {
+			layerUtils.iMsg(-1, "必填项不能为空");
+			return;
+		}
 		if(value){
 			var params = {
 				title : $scope.formData.title,

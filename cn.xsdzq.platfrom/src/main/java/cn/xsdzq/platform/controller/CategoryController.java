@@ -84,7 +84,7 @@ public class CategoryController {
 		category.setId(dto.getId());
 		category.setTitle(dto.getTitle());
 		category.setExp(dto.getExp());
-		System.out.println(dto.getTitle());
+		category.setImage(dto.getImage());
 		categoryService.modifyCategory(category);
 		return GsonUtil.buildMap(0, "ok", null);
 	}
@@ -113,37 +113,4 @@ public class CategoryController {
 		return GsonUtil.buildMap(0, "ok", null);
 	}
 
-	@ResponseBody
-	@RequestMapping(value = "upload", method = POST, produces = "application/json; charset=utf-8")
-	public Map<String, Object> upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
-		System.out.println("进入上传页面     ");
-
-		// 第一种返回页面的方法
-		// model.addAttribute("img",PhotoUtil.saveFile(file,request));
-		// 第二种返回页面的方法
-		request.setAttribute("img", PhotoUtil.saveFile(file, request));
-		return GsonUtil.buildMap(0, "ok", null);
-	}
-
-	@RequestMapping(value = "/add", method = POST)
-	public ResponseEntity<Object> addProduct(@RequestParam("file") MultipartFile uploadFiles) {
-		System.out.println("进入上传页面     ");
-		String fileName = uploadFiles.getOriginalFilename();
-		String prefix = "." + fileName.substring(fileName.lastIndexOf(".") + 1);
-		File dst = null;
-		try {
-			String root = System.getProperty("catalina.base"); // 获取tomcat根路径
-			File uploadDir = new File(root, "webapps/upload"); // 创建一个指向tomcat/webapps/upload目录的对象
-			if (!uploadDir.exists()) {
-				uploadDir.mkdir(); // 如果不存在则创建upload目录
-			}
-			dst = new File(uploadDir, UUID.randomUUID().toString() + prefix); // 创建一个指向upload目录下的文件对象，文件名随机生成
-			uploadFiles.transferTo(dst); // 创建文件并将上传文件复制过去
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		// 然后把路径set到productVo中 完成添加 "/upload/"+dst.getName();
-		return null;
-
-	}
 }
