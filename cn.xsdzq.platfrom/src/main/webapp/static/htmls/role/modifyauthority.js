@@ -38,8 +38,14 @@ function modifyAuthorityController($scope, $http, $state, $stateParams, httpUtil
 		// 增加的权限
 		for (var i = 0; i < len; i++) {
 			for(var j=0; j<$scope.permissions[i].child.length;j++ ){
-				var permission=$scope.permissions[i].child[j];
-					pList.push(permission);
+				//console.log($scope.permissions[i].child[j]);
+				for(var k=0;k<$scope.permissions[i].child[j].child.length;k++){
+					var permission=$scope.permissions[i].child[j].child[k];
+					//console.log(permission);
+					if(permission.check){
+						pList.push(permission);
+					}
+				}
 			}
 		}
 		params.authorityEntities = pList;

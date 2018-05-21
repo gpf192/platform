@@ -32,23 +32,25 @@
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">全部权限：</label>
-					<div class="col-sm-6">
+					<div class="col-sm-9">
 						<div class="row" ng-repeat="row in authorityList">
-							<div class="col-sm-12 col-sm-12-add-margin"
-								ng-init="rowIndex=$index">
-								<span>{{row.menu_name}}</span>
+							<div class="col-sm-12 categoryTitle margin10" ng-init="rowIndex=$index">
+								<span class="bold ">{{row.menu_name}}</span>
 							</div>
 							<div class="row">
-								<div class="col-sm-3"
-									ng-repeat="col in authorityList[rowIndex].child">
-									<input type="checkbox"
-										ng-model="authorityList[rowIndex].child[$index].check ">
-									<span>{{col.menu_name}}</span>
+								<div class="col-sm-12 margin10" ng-repeat="item in row.child">
+									<span class="bold">{{item.menu_name}}</span>
+										<div class="row">
+											<div class="col-sm-4" ng-repeat="permission in item.child">
+												<input type="checkbox" ng-model="permission.check ">
+												<span>{{permission.menu_name}}</span>
+											</div>
+										</div>
+									
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-3">{{authorityList}}</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-3 col-sm-9">
