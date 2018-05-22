@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +43,11 @@ public class UserController {
 
 		logger.info(userDTO.toString());
 		UserEntity userEntity = UserUtil.convertUserEntityByUserDTOADD(userDTO);
+		//加密
+		String pw1 = userEntity.getPassword();
+		BCryptPasswordEncoder encode = new BCryptPasswordEncoder();
+		pw1 = encode.encode(pw1);
+		userEntity.setPassword(pw1);
 		userService.addUser(userEntity);
 		return GsonUtil.buildMap(0, "ok", null);
 
@@ -53,6 +59,11 @@ public class UserController {
 
 		logger.info(userDTO.toString());
 		UserEntity userEntity = UserUtil.convertUserEntityByUserDTO(userDTO);
+		//加密
+		String pw1 = userEntity.getPassword();
+		BCryptPasswordEncoder encode = new BCryptPasswordEncoder();
+		pw1 = encode.encode(pw1);
+		userEntity.setPassword(pw1);
 		userService.modifyUser(userEntity);
 		return GsonUtil.buildMap(0, "ok", null);
 

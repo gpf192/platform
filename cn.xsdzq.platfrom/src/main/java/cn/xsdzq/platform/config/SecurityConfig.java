@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
@@ -42,8 +43,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// XsdPasswordEncoder()).withUser("user").password("password").roles("USER");
 		// auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(new
 		// XsdPasswordEncoder()); //数据库认证
-		// 自定义认证
-		auth.userDetailsService(new MyUserService(userRepository)).passwordEncoder(new XsdPasswordEncoder());
+		// 自定义认证 
+		//auth.userDetailsService(new MyUserService(userRepository)).passwordEncoder(new XsdPasswordEncoder());
+		auth.userDetailsService(new MyUserService(userRepository)).passwordEncoder(new BCryptPasswordEncoder());
+
 	}
 
 	@Override
@@ -94,10 +97,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Bean
-	public AccessDecisionManager myAccessDecisionManager() {
-
+	public AccessDecisionManager myAccessDecisionManager() {		
 		return new MyAccessDecisionManager();
 
 	}
+	   @Bean
+	    public BCryptPasswordEncoder passwordEncoder(){
+	        return new BCryptPasswordEncoder();
+	    }
 
 }
