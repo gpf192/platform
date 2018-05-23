@@ -420,6 +420,9 @@ table tbody td .category-img{
 	background: #6d9eeb;
 }
  
-
+.dataTables_info{
+	line-height: 87px;
+    margin-left: 10px;
+}
 
 

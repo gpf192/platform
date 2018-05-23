@@ -19,12 +19,14 @@ public class RecordRepositoryImpl implements RecordRepository {
 	private EntityManager em;
 
 	@Override
+	@Transactional
 	public void addRecord(RecordEntity recordEntity) {
 		// TODO Auto-generated method stub
 		em.persist(recordEntity);
 	}
 
 	@Override
+	@Transactional
 	public void mergeRecord(RecordEntity recordEntity) {
 		// TODO Auto-generated method stub
 		TypedQuery<RecordEntity> sqlQuery = em.createQuery("SELECT c FROM RecordEntity c WHERE c.channel=? and c.uri=?",

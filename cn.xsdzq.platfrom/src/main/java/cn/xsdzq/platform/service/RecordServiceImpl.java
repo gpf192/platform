@@ -15,12 +15,14 @@ public class RecordServiceImpl implements IRecordService {
 	private RecordRepository recordRepository;
 
 	@Override
+	@Transactional
 	public void addRecord(RecordEntity recordEntity) {
 		// TODO Auto-generated method stub
 		recordRepository.addRecord(recordEntity);
 	}
 
 	@Override
+	@Transactional
 	public void mergeRecord(RecordEntity recordEntity) {
 		// TODO Auto-generated method stub
 		recordRepository.mergeRecord(recordEntity);

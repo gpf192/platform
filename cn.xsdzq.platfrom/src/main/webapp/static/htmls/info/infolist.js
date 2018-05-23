@@ -1,5 +1,5 @@
-ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', 'httpUtils', 'layerUtils' ];
-function infoListController($scope, $http, $state, $stateParams, httpUtils, layerUtils) {
+ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils' ];
+function infoListController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils) {
 
 	$scope.formData = {};
 	$scope.formData.category = {};
@@ -20,11 +20,30 @@ function infoListController($scope, $http, $state, $stateParams, httpUtils, laye
 				$scope.formData.category = $scope.categoryList[0];
 			}
 		});
+		$scope.currentPage = {
+			page : 0
+		};
+		$scope.selectNumList = [{
+			num : 2
+		}, {
+			num : 4
+		}, {
+			num : 6
+		}];
+		$scope.selectNum = $scope.selectNumList[0];
+		$scope.$watch("selectNum.num", function(newValue, oldValue) {
+			if (newValue != oldValue) {
+				$scope.getInfosByCategoryId(newValue);
+				$scope.currentPage.page=0;
+			}
+		}, true);
 	};
-	$scope.getInfosByCategoryId = function() {
+	$scope.getInfosByCategoryId = function(pageSize) {
 		var url = httpUtils.url.getInfoList;
-		var params = {
-			id : $scope.formData.category.id
+		/*var params = {
+			id : $scope.formData.category.id,
+			pageNumber : 0,
+			pageSize : 3
 		}
 		$http({
 			url : url,
@@ -34,10 +53,24 @@ function infoListController($scope, $http, $state, $stateParams, httpUtils, laye
 			if (data.resCode == 0) {
 				$scope.infoList = data.result;
 			}
-		});
+		});*/
+		
+		
+		var params = {
+			id : $scope.formData.category.id,
+			pageNumber : 0,
+			pageSize : pageSize
+		};
+		var settings = {
+			url : url,
+			showPage : 7,
+			pageSize : pageSize,
+			putDataList : "infoList"
+		};
+		var tableElement = angular.element("#datatable1");
+		$gridService.queryTableDatas($scope, tableElement, params, settings, $http);
 	};
 	$scope.modifyInfo = function(index) {
-		//var id = $scope.infoList[index].id;
 		var info = $scope.infoList[index];
 		console.log(info);
 		$state.go("modifyinfo", {
@@ -57,7 +90,5 @@ function infoListController($scope, $http, $state, $stateParams, httpUtils, laye
 		}, function() {
 			console.log("取消");
 		});
-
 	}
-
 }
