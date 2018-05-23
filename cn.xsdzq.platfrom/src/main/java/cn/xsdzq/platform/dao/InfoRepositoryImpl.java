@@ -48,14 +48,10 @@ public class InfoRepositoryImpl implements InfoRepository {
 	@Override
 	public List<InfoEntity> getInfosByCategoryIdToFront(long id) {
 		// TODO Auto-generated method stub
-		TypedQuery<InfoEntity> sqlQuery = em.createQuery("SELECT c FROM InfoEntity c WHERE c.categoryId = ?",
+		TypedQuery<InfoEntity> sqlQuery = em.createQuery("SELECT c FROM InfoEntity c WHERE c.categoryId = ? and c.checked_result = ?",
 				InfoEntity.class);
 		sqlQuery.setParameter(1, id);
-		// SecurityContext ctx = SecurityContextHolder.getContext();
-		// Authentication auth = ctx.getAuthentication();
-		// User user = (User) auth.getPrincipal();
-		// String name = user.getUsername();
-		// sqlQuery.setParameter(2, name);
+		sqlQuery.setParameter(2, "approve");//前台页面只显示审核通过的
 		return sqlQuery.getResultList();
 	}
 
