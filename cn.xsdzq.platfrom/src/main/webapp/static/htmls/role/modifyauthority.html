@@ -28,12 +28,20 @@
 				<label class="col-sm-3 control-label">权限列表：</label>
 				<div class="col-sm-6">
 					<div class="row">
-						<div class="col-sm-12 margin10" ng-repeat="item in permissions">
-							<span class="bold">{{item.menu_name}}</span>
+						<div class="col-sm-12 margin10 " ng-repeat="item in permissions">
+							<div class="bold categoryTitle">{{item.menu_name}}</div>
 							<div class="row margin-left-0">
-								<div class="col-sm-4 margin10 " ng-repeat="permission in item.child">
-									<input type="checkbox" ng-model="permission.check" /> <span>{{permission.menu_name}}</span>
+								<div class="col-sm-12 margin10"  ng-repeat="two in item.child">
+									<div>
+										<span class="bold">{{two.menu_name}}</span>
+										<div class="row">
+											<div class="col-sm-4 margin10" ng-repeat="permission in two.child">
+												<input type="checkbox" ng-model="permission.check" /> <span>{{permission.menu_name}}</span>
+											</div>
+										</div>
+									</div>
 								</div>
+								
 							</div>
 						</div>
 					</div>

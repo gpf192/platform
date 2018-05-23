@@ -10,6 +10,7 @@ ngApp.factory("$gridService", ['$compile','commonUtils',function($compile,common
 			alert(content);
 		},
 		dataTables : function($scope, element, queryDatas, settings, $http) {
+			console.log(settings);
 			var alertFunction = this.alertFun;
 			// 把this的函数上下文，复制到事件绑定中。
 			var element$ = angular.element(element);
@@ -352,12 +353,18 @@ ngApp.factory("$gridService", ['$compile','commonUtils',function($compile,common
 							element$.find("span.ellipsis:last").show();
 						};
 					};
-					var start=pagableQryData.limit*(page-1);
-					pagableQryData.start=start;
+					//var pageNumber= pageSize pagableQryData.limit*(page-1);
+					//var pageNumber= settings.pageSize*(page-1);
+					var pageNumber= (page-1);
+					pagableQryData.pageNumber=pageNumber;
 
 					$scope.currentPage.page = page-1;
-					$http.post(settings.url, pagableQryData).success(function(data) {
-						$scope[putDataListStr] = data;
+					$http({
+						url : settings.url,
+						method : 'GET',
+						params : pagableQryData
+					}).success(function(data) {
+						$scope[putDataListStr] = data.result;
 					});
 				};
 				$scope.changePageSize = function(pageSize) {
@@ -395,15 +402,20 @@ ngApp.factory("$gridService", ['$compile','commonUtils',function($compile,common
 				//需要错误处理
 			}
 			var putDataListStr = queryAttrs.putDataList;
-			$http.post(url, queryDatas).success(function(data) {
-				console.log(data);		
-				$scope[putDataListStr] = data;
+			$http({
+				url : url,
+				method : 'GET',
+				params : queryDatas
+			}).success(function(data) {
+				$scope[putDataListStr] = data.result;
 				settings.totleRecord = data.pagination.totalItems;
 				//判断查询无数据的情况
-				if (settings.totleRecord === "0") {
-					var content = "<div>查询无数据</div>";
+				if (settings.totleRecord == "0") {
+					console.log(settings.totleRecord);
+					var content = "<tfoot><tr><td  colspan='8'><div>查询无数据</div></td></tr></tfoot>";
 					element.append(content);
 				} else {
+					element.find('tfoot').remove();
 					dataTablesQuery.call(that, $scope, element, queryDatas, settings, $http);
 				}
 			});

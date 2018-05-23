@@ -52,12 +52,23 @@ function addAuthorityController($scope, $http, $state, httpUtils, layerUtils) {
 		var authorities=[];
 		var len=$scope.authorityList.length;
 		// 增加的权限
-		for(var i=0;i<len;i++){
+		/*for(var i=0;i<len;i++){
 			var len2=$scope.authorityList[i].child.length;
 			for(var j=0;j<len2;j++){
 				var authority=$scope.authorityList[i].child[j];
 				if(authority.check){
 					authorities.push(authority);
+				}
+			}
+		}*/
+		
+		for (var i = 0; i < len; i++) {
+			for(var j=0; j<$scope.authorityList[i].child.length;j++ ){
+				for(var k=0;k<$scope.authorityList[i].child[j].child.length;k++){
+					var permission=$scope.authorityList[i].child[j].child[k];
+					if(permission.check){
+						authorities.push(permission);
+					}
 				}
 			}
 		}

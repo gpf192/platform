@@ -1,5 +1,8 @@
 ngApp.filter('substring', function() { //可以注入依赖
     return function(text,start,end) {
+    	if(text==null||text==""||text==undefined){
+    		return;
+    	}
     	var str=text.substring(start,end);
     	if(text.length>23){
     		str+="······";

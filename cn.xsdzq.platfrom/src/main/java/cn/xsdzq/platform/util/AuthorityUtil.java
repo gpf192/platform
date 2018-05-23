@@ -13,18 +13,28 @@ public class AuthorityUtil {
 	public static JSONArray getJsonAuthority(List<AuthorityEntity> authorityEntities) {
 
 		JSONArray levelOneJsonArray = new JSONArray();
-		List<AuthorityEntity> oneLevelList = new ArrayList<AuthorityEntity>();
+		List<AuthorityEntity> twoLevelList = new ArrayList<AuthorityEntity>();
+
 		// 遍历第一次，得到一级菜单
-		for (AuthorityEntity first : authorityEntities) {
-			if (first.getLevel() == 2) {
-				oneLevelList.add(first);
+		for (AuthorityEntity one : authorityEntities) {
+			if (one.getLevel() == 1) {
+				JSONObject levelOneJson = authorityEntityParseJSONObject(one);
+				levelOneJsonArray.add(levelOneJson);
+				JSONArray oneJsonArray = new JSONArray();
+				levelOneJson.put("child", oneJsonArray);
 			}
 		}
 
-		for (AuthorityEntity twoAuthorityEntity : oneLevelList) {
-			JSONObject levelOneJson = authorityEntityParseJSONObject(twoAuthorityEntity);
+		for (AuthorityEntity second : authorityEntities) {
+			if (second.getLevel() == 2) {
+				twoLevelList.add(second);
+			}
+		}
+
+		for (AuthorityEntity twoAuthorityEntity : twoLevelList) {
+			JSONObject levelTwoJson = authorityEntityParseJSONObject(twoAuthorityEntity);
 			JSONArray twoJsonArray = new JSONArray();
-			levelOneJson.put("child", twoJsonArray);
+			levelTwoJson.put("child", twoJsonArray);
 			// 遍历第二次，得到二级菜单
 			for (AuthorityEntity two : authorityEntities) {
 				if (two.getLevel() == 3) {
@@ -33,7 +43,14 @@ public class AuthorityUtil {
 					}
 				}
 			}
-			levelOneJsonArray.add(levelOneJson);
+
+			for (Object jObject : levelOneJsonArray) {
+				JSONObject onejObject = (JSONObject) jObject;
+				System.out.println("id: " + onejObject.getInteger("id"));
+				if (levelTwoJson.getInteger("parent_id") == onejObject.getInteger("id")) {
+					onejObject.getJSONArray("child").add(levelTwoJson);
+				}
+			}
 		}
 		return levelOneJsonArray;
 

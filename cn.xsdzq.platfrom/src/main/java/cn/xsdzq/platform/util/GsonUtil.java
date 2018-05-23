@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.google.gson.Gson;
 
+import cn.xsdzq.platform.model.Pagination;
+
 public class GsonUtil {
 
 	public static Gson gson = new Gson();
@@ -36,6 +38,19 @@ public class GsonUtil {
 		map.put("respMsg", message);
 		if (result != null) {
 			map.put("result", result);
+		}
+		return map;
+	}
+
+	public static Map<String, Object> buildMap(int code, String message, Object result, Pagination pagination) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("resCode", code);
+		map.put("respMsg", message);
+		if (result != null) {
+			map.put("result", result);
+		}
+		if (pagination != null) {
+			map.put("pagination", pagination);
 		}
 		return map;
 	}
