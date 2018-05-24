@@ -22,9 +22,11 @@ import cn.xsdzq.platform.entity.CategoryEntity;
 import cn.xsdzq.platform.entity.InfoEntity;
 import cn.xsdzq.platform.model.CategoryDTO;
 import cn.xsdzq.platform.model.InfoDTO;
+import cn.xsdzq.platform.model.Pagination;
 import cn.xsdzq.platform.model.SearchBean;
 import cn.xsdzq.platform.service.ICategoryService;
 import cn.xsdzq.platform.service.IInfoService;
+import cn.xsdzq.platform.service.IMyInfoService;
 import cn.xsdzq.platform.util.CategoryUtil;
 import cn.xsdzq.platform.util.GsonUtil;
 import cn.xsdzq.platform.util.InfoUtil;
@@ -32,6 +34,10 @@ import cn.xsdzq.platform.util.InfoUtil;
 @Controller
 @RequestMapping("/front")
 public class FrontController {
+
+	@Autowired
+	@Qualifier("myInfoServiceImpl")
+	private IMyInfoService myInfoService;
 
 	@Autowired
 	@Qualifier("infoServiceImpl")
@@ -56,17 +62,20 @@ public class FrontController {
 
 	@RequestMapping(value = "/getInfosByCategoryId", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Map<String, Object> getInfos(HttpServletRequest request, @RequestParam long id) {
+	public Map<String, Object> getInfos(HttpServletRequest request, @RequestParam long id, @RequestParam int pageNumber,
+			@RequestParam int pageSize) {
 		System.out.println(id + "********");
 		long categoryId = id;
 		if (categoryId > 0) {
-			List<InfoEntity> infos = iInfoService.getInfosByCategoryIdToFront(categoryId);
+			List<InfoEntity> infos = myInfoService.getInfosByCategoryId(categoryId, pageNumber, pageSize);
 			List<InfoDTO> infoDTOs = new ArrayList<InfoDTO>();
 			for (InfoEntity info : infos) {
 				InfoDTO dto = InfoUtil.convertInfoDTOByInfo(info);
 				infoDTOs.add(dto);
 			}
-			return GsonUtil.buildMap(0, "ok", infoDTOs);
+			int sum = myInfoService.countInfosByCategoryId(categoryId);
+			Pagination pagination = new Pagination(pageNumber, pageSize, sum);
+			return GsonUtil.buildMap(0, "ok", infoDTOs, pagination);
 		} else {
 			return GsonUtil.buildMap(1, "fail", null);
 		}
