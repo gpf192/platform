@@ -59,11 +59,14 @@ public class UserController {
 
 		logger.info(userDTO.toString());
 		UserEntity userEntity = UserUtil.convertUserEntityByUserDTO(userDTO);
+		//保持用户原有角色
+		userEntity.setRoleEntities( userService.findUserById(userDTO.getId()).getRoleEntities());
 		//加密
 		String pw1 = userEntity.getPassword();
 		BCryptPasswordEncoder encode = new BCryptPasswordEncoder();
 		pw1 = encode.encode(pw1);
 		userEntity.setPassword(pw1);
+		System.out.println(userEntity.toString());
 		userService.modifyUser(userEntity);
 		return GsonUtil.buildMap(0, "ok", null);
 
