@@ -6,6 +6,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,8 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.sun.istack.internal.logging.Logger;
 
 import cn.xsdzq.platform.entity.UserEntity;
 import cn.xsdzq.platform.model.UserDTO;
@@ -27,7 +27,7 @@ import cn.xsdzq.platform.util.UserUtil;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-	Logger logger = Logger.getLogger(UserController.class);
+	Logger logger = LogManager.getLogger(UserController.class.getName());
 
 	@Autowired
 	@Qualifier("userServiceImpl")
@@ -43,7 +43,7 @@ public class UserController {
 
 		logger.info(userDTO.toString());
 		UserEntity userEntity = UserUtil.convertUserEntityByUserDTOADD(userDTO);
-		//加密
+		// 加密
 		String pw1 = userEntity.getPassword();
 		BCryptPasswordEncoder encode = new BCryptPasswordEncoder();
 		pw1 = encode.encode(pw1);
@@ -59,9 +59,9 @@ public class UserController {
 
 		logger.info(userDTO.toString());
 		UserEntity userEntity = UserUtil.convertUserEntityByUserDTO(userDTO);
-		//保持用户原有角色
-		userEntity.setRoleEntities( userService.findUserById(userDTO.getId()).getRoleEntities());
-		//加密
+		// 保持用户原有角色
+		userEntity.setRoleEntities(userService.findUserById(userDTO.getId()).getRoleEntities());
+		// 加密
 		String pw1 = userEntity.getPassword();
 		BCryptPasswordEncoder encode = new BCryptPasswordEncoder();
 		pw1 = encode.encode(pw1);
