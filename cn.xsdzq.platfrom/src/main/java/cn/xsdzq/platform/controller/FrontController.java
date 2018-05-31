@@ -10,6 +10,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -35,6 +37,8 @@ import cn.xsdzq.platform.util.InfoUtil;
 @RequestMapping("/front")
 public class FrontController {
 
+	Logger logger = LogManager.getLogger(FrontController.class);
+
 	@Autowired
 	@Qualifier("myInfoServiceImpl")
 	private IMyInfoService myInfoService;
@@ -50,6 +54,7 @@ public class FrontController {
 	@RequestMapping(value = "/getCategories", produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> getAllCategory() {
+		logger.info("getAllCategory");
 		List<CategoryEntity> list = categoryService.findAll();
 		List<CategoryDTO> cDtos = new ArrayList<CategoryDTO>();
 		for (CategoryEntity category : list) {
@@ -64,7 +69,7 @@ public class FrontController {
 	@ResponseBody
 	public Map<String, Object> getInfos(HttpServletRequest request, @RequestParam long id, @RequestParam int pageNumber,
 			@RequestParam int pageSize) {
-		System.out.println(id + "********");
+		logger.info(id + "********");
 		long categoryId = id;
 		if (categoryId > 0) {
 			List<InfoEntity> infos = myInfoService.getInfosByCategoryId(categoryId, pageNumber, pageSize);
@@ -84,7 +89,7 @@ public class FrontController {
 	@RequestMapping(value = "/search", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> search(HttpServletRequest request, @RequestBody SearchBean searchBean) {
-		System.out.println(searchBean.getKey());
+		logger.info(searchBean.getKey());
 		String key = searchBean.getKey();
 		List<InfoEntity> infos = iInfoService.searchInfos(key);
 		List<InfoDTO> infoDTOs = new ArrayList<InfoDTO>();
