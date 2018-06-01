@@ -60,9 +60,10 @@ public class InfoRepositoryImpl implements InfoRepository {
 	public List<InfoEntity> searchInfos(String key) {
 		// TODO Auto-generated method stub
 		String param = "%" + key + "%";
-		String sql = "SELECT c FROM InfoEntity c WHERE c.title like ?";
+		String sql = "SELECT c FROM InfoEntity c WHERE c.title like ? and c.checked_result = ?";
 		Query query = em.createQuery(sql, InfoEntity.class);
 		query.setParameter(1, param);
+		query.setParameter(2, "approve");//前台搜索框只搜审核通过的
 		List<InfoEntity> infos = query.getResultList();
 		return infos;
 	}
