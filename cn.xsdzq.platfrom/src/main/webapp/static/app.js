@@ -93,6 +93,11 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl : "htmls/info/modifyinfo.html",
 		controller : "modifyInfoController",
 		params:{info:{}}
+	}).state("viewinfo", {
+		url : "/info/view",
+		templateUrl : "htmls/info/viewinfo.html",
+		controller : "modifyInfoController",
+		params:{info:{}}
 	}).state("addrelate", {
 		url : "/relate/add",
 		templateUrl : "htmls/addrelate/addrelate.html",
