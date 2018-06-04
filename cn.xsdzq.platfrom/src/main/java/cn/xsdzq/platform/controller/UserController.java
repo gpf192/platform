@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,7 +40,7 @@ public class UserController {
 
 	@RequestMapping(value = "/add", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Map<String, Object> add(@RequestBody UserDTO userDTO) {
+	public Map<String, Object> add(@Validated @RequestBody UserDTO userDTO) {
 
 		logger.info(userDTO.toString());
 		UserEntity userEntity = UserUtil.convertUserEntityByUserDTOADD(userDTO);
