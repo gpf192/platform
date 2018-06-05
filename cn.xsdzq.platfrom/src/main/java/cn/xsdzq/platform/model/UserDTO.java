@@ -1,15 +1,19 @@
 package cn.xsdzq.platform.model;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 public class UserDTO {
 	// 登录名称
 	private long id;
 
+	@NotBlank(message = "用户名称不能为空")
 	private String username;
 
 	private String alias;
 
 	private int level;
 
+	@NotBlank(message = "密码不能为空")
 	private String password;
 
 	private String phone;
