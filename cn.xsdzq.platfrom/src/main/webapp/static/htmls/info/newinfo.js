@@ -37,9 +37,16 @@ function newVersionController($scope, $http, $state, httpUtils, layerUtils) {
 
 	$scope.submit = function(value) {
 		var editorContent = UM.getEditor('myEditor').getContent();
-		console.log(editorContent);
-		if (angular.isEmpty($scope.formData.title) || angular.isEmpty(editorContent) || angular.isEmpty($scope.formData.category) ) {
-			layerUtils.iMsg(-1, "必填项不能为空");
+		if (angular.isEmpty($scope.formData.title)) {
+			layerUtils.iMsg(-1, "标题不能为空");
+			return;
+		}
+		if (angular.isEmpty($scope.formData.category) ) {
+			layerUtils.iMsg(-1, "分类不能为空");
+			return;
+		}
+		if (angular.isEmpty(editorContent)) {
+			layerUtils.iMsg(-1, "信息内容不能为空");
 			return;
 		}
 		if(value){
@@ -51,19 +58,18 @@ function newVersionController($scope, $http, $state, httpUtils, layerUtils) {
 				};		
 		}else{
 			var params = {
-					title : $scope.formData.title,
-					categoryId : $scope.formData.category.id,
-					content : editorContent,
-					flag : "generate"
-					};			
+				title : $scope.formData.title,
+				categoryId : $scope.formData.category.id,
+				content : editorContent,
+				flag : "generate"
+				};			
 		}
-		
-
 		var url = httpUtils.url.addInfo;
 		$http.post(url, params).success(function(data) {
 			if (data.resCode == 0) {
 				layerUtils.iMsg(-1, "添加成功");
-				$scope.formData = {};
+				$scope.formData.title = "";
+				UM.getEditor('myEditor').setContent("");
 			} else {
 				layerUtils.iMsg(-1, "添加失败");
 			}

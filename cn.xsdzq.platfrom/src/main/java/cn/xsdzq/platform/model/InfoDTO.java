@@ -1,14 +1,23 @@
 package cn.xsdzq.platform.model;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 public class InfoDTO {
 	private long id;
+
+	@NotBlank(message = "标题不能为空")
 	private String title;
+
 	private Long categoryId;
+
 	private String label;
+
+	@NotBlank(message = "信息内容不能为空")
 	private String content;
 	private String exp;
-	private String flag;//保存还是提交
-	private String checked_result;//审核状态
+	private String flag;// 保存还是提交
+	private String checked_result;// 审核状态
+
 	public InfoDTO() {
 
 	}

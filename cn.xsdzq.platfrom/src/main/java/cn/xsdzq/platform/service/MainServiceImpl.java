@@ -1,6 +1,7 @@
 package cn.xsdzq.platform.service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -14,6 +15,7 @@ import com.alibaba.fastjson.JSONObject;
 import cn.xsdzq.platform.entity.AuthorityEntity;
 import cn.xsdzq.platform.entity.RoleEntity;
 import cn.xsdzq.platform.entity.UserEntity;
+import cn.xsdzq.platform.util.AuthorityJSONComparator;
 
 @Service(value = "mainServiceImpl")
 @Transactional(readOnly = true)
@@ -34,13 +36,14 @@ public class MainServiceImpl implements IMainService {
 			Iterator<AuthorityEntity> authoritIterable = authorityEntities.iterator();
 			while (authoritIterable.hasNext()) {
 				AuthorityEntity authorityEntity = (AuthorityEntity) authoritIterable.next();
-				authorityEntitiesList.add(authorityEntity);
+				// 过滤因为角色叠加造成多余的权限
+				if (!authorityEntitiesList.contains(authorityEntity)) {
+					authorityEntitiesList.add(authorityEntity);
+				}
 			}
 		}
-
 		// 第三，根据权限遍历出菜单
 		JSONObject result = calculateMenu(authorityEntitiesList);
-		System.out.println(result);
 		return result;
 	}
 
@@ -55,10 +58,11 @@ public class MainServiceImpl implements IMainService {
 				oneLevelList.add(first);
 			}
 		}
-
+		// 1级菜单遍历的结果排序
+		oneLevelList.sort(Comparator.naturalOrder());
 		for (AuthorityEntity twoAuthorityEntity : oneLevelList) {
 			JSONObject levelOneJson = authorityEntityParseJSONObject(twoAuthorityEntity);
-			JSONArray twoJsonArray = new JSONArray();
+			List<JSONObject> twoJsonArray = new ArrayList<JSONObject>();
 			levelOneJson.put("child", twoJsonArray);
 			// 遍历第二次，得到二级菜单
 			for (AuthorityEntity two : authorityEntitiesList) {
@@ -68,6 +72,8 @@ public class MainServiceImpl implements IMainService {
 					}
 				}
 			}
+			// 2级菜单遍历的结果排序
+			twoJsonArray.sort(new AuthorityJSONComparator());
 			levelOneJsonArray.add(levelOneJson);
 		}
 		// 遍历第三次，得到相应权限 保留三级权限的遍历

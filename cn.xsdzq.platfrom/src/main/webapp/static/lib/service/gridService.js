@@ -10,7 +10,7 @@ ngApp.factory("$gridService", ['$compile','commonUtils',function($compile,common
 			alert(content);
 		},
 		dataTables : function($scope, element, queryDatas, settings, $http) {
-			console.log(settings);
+			//console.log(settings);
 			var alertFunction = this.alertFun;
 			// 把this的函数上下文，复制到事件绑定中。
 			var element$ = angular.element(element);
@@ -299,8 +299,8 @@ ngApp.factory("$gridService", ['$compile','commonUtils',function($compile,common
 				});
 				var putDataListStr = settings.putDataList;
 				var showPages = function(page) {
-					console.log(page);
-					console.log(page_num);
+					//console.log(page);
+					//console.log(page_num);
 
 					if (page == 1) {
 						prev$.prop("disabled", true);
@@ -395,7 +395,6 @@ ngApp.factory("$gridService", ['$compile','commonUtils',function($compile,common
 			var dataTablesQuery = this.dataTables;
 			var that = this;
 			var settings = angular.extend(defaults, queryAttrs);
-			console.log(settings);
 			var url = settings.url;
 			if (commonUtils.isEmpty(url)) {
 				return;
@@ -411,7 +410,8 @@ ngApp.factory("$gridService", ['$compile','commonUtils',function($compile,common
 				settings.totleRecord = data.pagination.totalItems;
 				//判断查询无数据的情况
 				if (settings.totleRecord == "0") {
-					console.log(settings.totleRecord);
+					//console.log(settings.totleRecord);
+					element.find('tfoot').remove();
 					var content = "<tfoot><tr><td  colspan='8'><div>查询无数据</div></td></tr></tfoot>";
 					element.append(content);
 				} else {
