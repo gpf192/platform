@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "authorities")
-public class AuthorityEntity implements GrantedAuthority {
+public class AuthorityEntity implements GrantedAuthority, Comparable<AuthorityEntity> {
 
 	/**
 	 * 
@@ -195,6 +195,15 @@ public class AuthorityEntity implements GrantedAuthority {
 	@JsonBackReference
 	public void setRoleEntities(Set<RoleEntity> roleEntities) {
 		this.roleEntities = roleEntities;
+	}
+
+	@Override
+	public int compareTo(AuthorityEntity authority) {
+		// TODO Auto-generated method stub
+		if (this.sort > authority.getSort()) {
+			return 1;
+		}
+		return -1;
 	}
 
 }

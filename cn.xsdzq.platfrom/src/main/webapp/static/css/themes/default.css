@@ -23,7 +23,7 @@
   height: 30px;
   width: 120px;
   top: 8px;
-  left: 60px;
+  left: 70px;
 }
 .navbar .dropdown-toggle {
   color: #FFFFFF;
@@ -382,7 +382,6 @@
   margin: 8% 0 0;
 }
 .sidebar-menu > ul > li > ul.sub {
-  display: none;
   list-style: none;
   clear: both;
   padding-left: 25px;
@@ -487,7 +486,7 @@
 .sidebar-menu > ul > li > ul.sub > li.active > a,
 .sidebar-menu > ul > li > ul.sub > li > a:hover,
 .sidebar-menu > ul > li > ul.sub > li.current {
-  background: #f4f4f4 !important;
+  background: #FAFAFA !important;
 }
 .sidebar-menu > ul > li > ul.sub > li > a:hover {
   background: #f4f4f4 !important;

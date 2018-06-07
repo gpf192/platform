@@ -6,9 +6,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +17,7 @@ import cn.xsdzq.platform.entity.UserEntity;
 import cn.xsdzq.platform.service.IMainService;
 import cn.xsdzq.platform.service.IUserService;
 import cn.xsdzq.platform.util.GsonUtil;
+import cn.xsdzq.platform.util.UserManageUtil;
 import cn.xsdzq.platform.util.UserUtil;
 
 @Controller
@@ -37,15 +35,13 @@ public class MainController {
 	@RequestMapping(value = "/menu", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> getMenu() {
-		SecurityContext ctx = SecurityContextHolder.getContext();
-		Authentication auth = ctx.getAuthentication();
-		User user = (User) auth.getPrincipal();
+		User user = UserManageUtil.getUser();
 		String name = user.getUsername();
 		UserEntity userEntity = userService.findUserByName(name);
 		JSONObject menu = mainService.getMenu(userEntity);
+		// 接口合并用户信息
 		menu.put("user", UserUtil.convertUserDTOByUserEntityToMain(userEntity));
 		return GsonUtil.buildMap(0, "ok", menu);
-
 	}
 
 }

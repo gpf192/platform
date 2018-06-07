@@ -37,8 +37,8 @@
 				<div class="col-sm-12">
 					<div class="pull-right">
 						<div class="dataTables_filter" id="datatable1_filter">
-							<label> <input type="text" aria-controls="datatable1"
-								placeholder="Search" class="form-control input-sm">
+							<label> 
+							<input type="text" aria-controls="datatable1" ng-model="search" placeholder="Search" class="form-control input-sm">
 							</label>
 						</div>
 					</div>
@@ -75,7 +75,7 @@
 					</tr>
 				</thead>
 				<tbody role="alert" aria-live="polite" aria-relevant="all">
-					<tr ng-repeat="info in infoList">
+					<tr ng-repeat="info in infoList| filter:search">
 						<td class="col-sm-1">{{$index+selectNum["num"]*currentPage.page+1}}</td>
 						<td class="col-sm-1">{{info.title}}</td>
 						<td class="col-sm-2"><span

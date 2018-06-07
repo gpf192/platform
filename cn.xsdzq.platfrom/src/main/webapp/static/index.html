@@ -10,8 +10,7 @@
 <title>新时代证券帮助中心</title>
 <meta name="description" content="">
 <meta name="author" content="ZHENGJINGUANG">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
 
 <link rel="shortcut icon" href="images/logo.png">
 <link rel="apple-touch-icon" href="images/logo.png">
@@ -27,9 +26,9 @@
 
 
 <!--[if lt IE 9]>
-		<script src="lib/plugins/html5shiv.min.js"></script>
-		<script src="lib/plugins/respond.min.js"></script>
-		<![endif]-->
+	<script src="lib/plugins/html5shiv.min.js"></script>
+	<script src="lib/plugins/respond.min.js"></script>
+<![endif]-->
 </head>
 
 <body>
@@ -38,16 +37,14 @@
 			<div class="container">
 				<div class="navbar-brand">
 					<!-- COMPANY LOGO -->
-					<a href="index.html"> <img src="images/logo.png"
-						alt="Cloud Admin Logo" class="img-responsive hide" height="30"
-						width="120">
+					<a href="index.html"> 
+						<img src="images/main.png" alt="Cloud Admin Logo" class="img-responsive" height="30" width="120">
 					</a>
 					<!-- /COMPANY LOGO -->
 					<!-- TEAM STATUS FOR MOBILE -->
 					<div class="visible-xs">
-						<a href="#"
-							class="team-status-toggle switcher btn dropdown-toggle"> <i
-							class="fa fa-users"></i>
+						<a href="#" class="team-status-toggle switcher btn dropdown-toggle"> 
+							<i class="fa fa-users"></i>
 						</a>
 					</div>
 					<!-- /TEAM STATUS FOR MOBILE -->
@@ -59,48 +56,13 @@
 					<!-- /SIDEBAR COLLAPSE -->
 				</div>
 				<ul class="nav navbar-nav pull-right">
-					<!-- BEGIN INBOX DROPDOWN -->
-					<li class="dropdown hide" id="header-message"><a href="#"
-						class="dropdown-toggle" data-toggle="dropdown"> <i
-							class="fa fa-envelope"></i> <span class="badge">3</span>
-					</a>
-						<ul class="dropdown-menu inbox">
-							<li class="dropdown-title"><span><i
-									class="fa fa-envelope-o"></i> 3 Messages</span> <span
-								class="compose pull-right tip-right" title="Compose message"><i
-									class="fa fa-pencil-square-o"></i></span></li>
-							<li><a href="#"> <img src="images/avatars/avatar2.jpg"
-									alt="" /> <span class="body"> <span class="from">Jane
-											Doe</span> <span class="message"> Duis autem vel eum iriure
-											dolor in hendrerit in vulputate velit esse mole ... </span> <span
-										class="time"> <i class="fa fa-clock-o"></i> <span>Just
-												Now</span>
-									</span>
-								</span>
-
-							</a></li>
-							<li><a href="#"> <img src="images/avatars/avatar1.jpg"
-									alt="" /> <span class="body"> <span class="from">Vince
-											Pelt</span> <span class="message"> Duis autem vel eum iriure
-											dolor in hendrerit in vulputate velit esse mole ... </span> <span
-										class="time"> <i class="fa fa-clock-o"></i> <span>15
-												min ago</span>
-									</span>
-								</span>
-
-							</a></li>
-							<li class="footer"><a href="#">See all messages <i
-									class="fa fa-arrow-circle-right"></i></a></li>
-						</ul></li>
-					<!-- END INBOX DROPDOWN -->
-
 					<!-- BEGIN USER LOGIN DROPDOWN -->
-					<li class="dropdown user" id="header-user"><a
-						href="javascript:void(0)" class="dropdown-toggle"
-						data-toggle="dropdown"> <img alt=""
-							src="images/avatars/avatar3.jpg" /> <span class="username"
-							ng-bind="user.username"></span> <i class="fa fa-angle-down"></i>
-					</a>
+					<li class="dropdown user" id="header-user">
+						<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"> 
+							<img alt="" src="images/xiaoxin.jpg" /> 
+							<span class="username" ng-bind="user.username"></span> 
+							<i class="fa fa-angle-down"></i>
+						</a>
 						<ul class="dropdown-menu">
 							<li class="hide"><a href="javascript:void(0)"><i class="fa fa-user"></i>
 									我的信息</a></li>
@@ -108,9 +70,11 @@
 									Account Settings</a></li>
 							<li class="hide"><a href="#"><i class="fa fa-eye"></i>
 									Privacy Settings</a></li>
-							<li><a href="/platform/logout"><i
-									class="fa fa-power-off"></i> 退出</a></li>
-						</ul></li>
+							<li>
+								<a href="/platform/logout"><i class="fa fa-power-off"></i>退出</a>
+							</li>
+						</ul>
+					</li>
 					<!-- END USER LOGIN DROPDOWN -->
 				</ul>
 			</div>
@@ -120,26 +84,29 @@
 			<div id="sidebar" class="sidebar">
 				<div class="sidebar-menu nav-collapse">
 					<div class="divide-20"></div>
-					<!-- SEARCH BAR 
+					<!-- SEARCH BAR -->
 					<div id="search-bar">
-						<input class="search" type="text" placeholder="Search"> <i
-							class="fa fa-search search-icon"></i>
-					</div>-->
+						<input class="search" ng-model="search" type="text" placeholder="菜单搜索"> 
+						<i class="fa fa-search search-icon"></i>
+					</div>
 					<!-- /SEARCH BAR -->
 
 					<!-- SIDEBAR MENU -->
 					<ul id="mainMenu">
-						<li class="active has-sub open" ng-repeat="item in menu"><a>
-								<i class="fa fa-user fa-fw fa-4x"></i> <span class="menu-text"
-								ng-bind="item.menu_name"></span> <span class="selected"></span>
-						</a>
-							<ul id="configSetting"
-								class="nav sub nav-list secondmenu collapse in">
-								<li ng-repeat="row in menu[$index].child |orderBy:'sort'">
-									<a ng-click="goto(row.forward)"><span
-										ng-bind="row.menu_name"></span></a>
+						<li class="has-sub" ng-init="first=$index" ng-class="{open:item.isOpen,active:item.isActive}" ng-repeat="item in menu| filter:search" ng-click="expanded($index);">
+							<a href="javascript:void(0)">
+								<i class="fa fa-fw fa-4x" ng-class="item.resource_path"></i> 
+								<span class="menu-text" ng-bind="item.menu_name"></span> 
+								<span ng-show="item.arrow" ng-class="{open:item.isOpen||item.isActive}" class="arrow"></span>
+							</a>
+							<ul class="nav sub nav-list secondmenu" ng-class="{collapse:!item.isOpen}">
+								<li ng-repeat="row in menu[$index].child" ng-class="{current:row.isCurrent}" ng-click="goto(first,$index,row.forward,$event)">
+									<a href="javascript:void(0)">
+										<span ng-bind="row.menu_name"></span>
+									</a>
 								</li>
-							</ul></li>
+							</ul>
+						</li>
 					</ul>
 					<!-- /SIDEBAR MENU -->
 				</div>
@@ -216,7 +183,8 @@
 		<hr />
 
 		<footer class="clearfix text-center">
-			<p>&copy; 新时代证券股份有限公司帮助中心 版权所有 Copyright by @2017-2018 Reserved.
+			<p>
+				&copy; 新时代证券股份有限公司帮助中心 版权所有 Copyright by @2018-2019 Reserved.
 			</p>
 		</footer>
 	</div>
@@ -225,10 +193,8 @@
 	<script type="text/javascript" src="lib/jquery.cookie.min.js"></script>
 	<script type="text/javascript" src="lib/angular.js"></script>
 	<script type="text/javascript" src="lib/bootstrap.min.js"></script>
-	<script type="text/javascript"
-		src="lib/angularExtends/angular-ui-router.js"></script>
-	<script type="text/javascript"
-		src="lib/angularExtends/angular-animate.js"></script>
+	<script type="text/javascript" src="lib/angularExtends/angular-ui-router.js"></script>
+	<script type="text/javascript" src="lib/angularExtends/angular-animate.js"></script>
 
 
 	<script type="text/javascript" src="lib/script.js"></script>

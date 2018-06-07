@@ -40,22 +40,6 @@ function infoListController($scope, $http, $state, $stateParams, $gridService, h
 	};
 	$scope.getInfosByCategoryId = function(pageSize) {
 		var url = httpUtils.url.getInfoList;
-		/*var params = {
-			id : $scope.formData.category.id,
-			pageNumber : 0,
-			pageSize : 3
-		}
-		$http({
-			url : url,
-			method : 'GET',
-			params : params
-		}).success(function(data) {
-			if (data.resCode == 0) {
-				$scope.infoList = data.result;
-			}
-		});*/
-		
-		
 		var params = {
 			id : $scope.formData.category.id,
 			pageNumber : 0,
@@ -91,7 +75,7 @@ function infoListController($scope, $http, $state, $stateParams, $gridService, h
 			$http.post(url, param).success(function(data) {
 				if (data.resCode == 0) {
 					layerUtils.iMsg(-1, "删除成功");
-					$scope.getInfosByCategoryId();
+					$scope.getInfosByCategoryId(10);
 				}
 			});
 		}, function() {

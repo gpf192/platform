@@ -9,13 +9,13 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,10 +33,12 @@ import cn.xsdzq.platform.service.IInfoService;
 import cn.xsdzq.platform.service.IMyInfoService;
 import cn.xsdzq.platform.util.GsonUtil;
 import cn.xsdzq.platform.util.InfoUtil;
+import cn.xsdzq.platform.util.UserManageUtil;
 
 @Controller
 @RequestMapping("/info")
 public class InfoController extends BaseController {
+	Logger logger = LogManager.getLogger(InfoController.class.getName());
 	@Autowired
 	@Qualifier("infoServiceImpl")
 	private IInfoService iInfoService;
@@ -86,46 +88,44 @@ public class InfoController extends BaseController {
 
 	@RequestMapping(value = "/addInfo", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Map<String, Object> addInfo(HttpServletRequest request, @RequestBody InfoDTO dto) {
-		System.out.println(dto.getTitle());
+	public Map<String, Object> addInfo(HttpServletRequest request, @Validated @RequestBody InfoDTO dto) {
 		InfoEntity info = InfoUtil.convertInfoByInfoDTO(dto);
 		CategoryEntity category = categoryService.getCategoryById(info.getCategoryId());
 		info.setCategoryEntity(category);
 		// 插入创建人
-		SecurityContext ctx = SecurityContextHolder.getContext();
-		Authentication auth = ctx.getAuthentication();
-		User user = (User) auth.getPrincipal();
+		User user = UserManageUtil.getUser();
 		String name = user.getUsername();
 		info.setCreated_by(name);
 		iInfoService.addInfo(info);
+		logger.info("action:" + "add" + ";" + name + ";" + "title:" + dto.getTitle() + ";");
 		return GsonUtil.buildMap(0, "ok", null);
 	}
 
 	@RequestMapping(value = "/deleteInfo", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> deletInfo(HttpServletRequest request, @RequestBody InfoDTO dto) {
-		System.out.println(dto.getTitle() + "****** 删除信息");
 		InfoEntity info = InfoUtil.convertInfoByInfoDTO(dto);
 		CategoryEntity category = categoryService.getCategoryById(info.getCategoryId());
 		info.setCategoryEntity(category);
 		iInfoService.deleteInfo(info);
+		User user = UserManageUtil.getUser();
+		String name = user.getUsername();
+		logger.info("action:" + "delete" + ";" + "user:" + name + ";" + "title:" + dto.getTitle() + ";");
 		return GsonUtil.buildMap(0, "ok", null);
 	}
 
 	@RequestMapping(value = "/modifyInfo", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> modifyInfo(HttpServletRequest request, @RequestBody InfoDTO dto) {
-		System.out.println(dto.getTitle() + "********************");
 		InfoEntity info = InfoUtil.convertInfoByInfoDTO(dto);
 		CategoryEntity category = categoryService.getCategoryById(info.getCategoryId());
 		info.setCategoryEntity(category);
 		// 插入创建人
-		SecurityContext ctx = SecurityContextHolder.getContext();
-		Authentication auth = ctx.getAuthentication();
-		User user = (User) auth.getPrincipal();
+		User user = UserManageUtil.getUser();
 		String name = user.getUsername();
 		info.setCreated_by(name);
 		iInfoService.modifyInfo(info);
+		logger.info("action:" + "modify" + ";" + "user:" + name + ";" + "title:" + dto.getTitle() + ";");
 		return GsonUtil.buildMap(0, "ok", null);
 	}
 
