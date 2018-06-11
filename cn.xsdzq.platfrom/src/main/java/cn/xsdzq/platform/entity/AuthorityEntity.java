@@ -13,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.security.core.GrantedAuthority;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -49,7 +51,7 @@ public class AuthorityEntity implements GrantedAuthority, Comparable<AuthorityEn
 	@Column(name = "resource_path", length = 100)
 	private String resource_path;
 
-	@Column(name = "level")
+	@Column(name = "authority_level")
 	private int level;
 
 	@Column(name = "sort")
@@ -59,11 +61,13 @@ public class AuthorityEntity implements GrantedAuthority, Comparable<AuthorityEn
 	private boolean check;
 
 	// 创建时间
-	@Column(name = "createtime", insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	@CreatedDate
+	@Column(name = "createtime", insertable = false)
 	private Date createtime;
 
 	// 修改时间
-	@Column(name = "modifytime", nullable = true, insertable = false, updatable = false, columnDefinition = "TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP")
+	@LastModifiedDate
+	@Column(name = "modifytime", nullable = true)
 	private Date modifytime;
 
 	@ManyToMany(mappedBy = "authorityEntities", fetch = FetchType.EAGER)
