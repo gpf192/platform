@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -29,6 +30,7 @@ public class CategoryEntity implements Serializable {
 	@Column(name = "title")
 	private String title;
 
+	@Lob
 	@Column(name = "image", length = 2000, nullable = true)
 	private String image;
 

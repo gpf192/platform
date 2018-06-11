@@ -10,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
 @Entity
 @Table(name = "record")
 public class RecordEntity implements Serializable {
@@ -38,7 +41,7 @@ public class RecordEntity implements Serializable {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", unique = true, length = 20)
 	private long id;
 
@@ -63,10 +66,12 @@ public class RecordEntity implements Serializable {
 	@Column(name = "acount", nullable = true)
 	private int acount;
 
-	@Column(name = "visitTime", insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	@CreatedDate
+	@Column(name = "visitTime")
 	private Date visitTime;
 
-	@Column(name = "modifytime", nullable = true, insertable = false, updatable = false, columnDefinition = "TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP")
+	@LastModifiedDate
+	@Column(name = "modifytime", nullable = true)
 	private Date modifytime;
 
 	public long getId() {

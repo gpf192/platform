@@ -15,6 +15,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
@@ -40,7 +43,7 @@ public class UserEntity implements Serializable {
 	private String alias;
 
 	// 权限级别
-	@Column(name = "level", nullable = false)
+	@Column(name = "user_level", nullable = false)
 	private int level;
 
 	@Column(name = "password", nullable = false, length = 500)
@@ -65,14 +68,16 @@ public class UserEntity implements Serializable {
 	private Set<RoleEntity> roleEntities;
 
 	// 创建时间
-	@Column(name = "createtime", insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	@CreatedDate
+	@Column(name = "createtime")
 	private Date createtime;
 
 	// 修改时间
-	@Column(name = "modifytime", nullable = true, insertable = false, updatable = false, columnDefinition = "TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP")
+	@Column(name = "modifytime", nullable = true)
 	private Date modifytime;
 
-	@Column(name = "lastmodifytime", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+	@LastModifiedDate
+	@Column(name = "lastmodifytime")
 	private Date lastmodifytime;
 
 	public Long getId() {

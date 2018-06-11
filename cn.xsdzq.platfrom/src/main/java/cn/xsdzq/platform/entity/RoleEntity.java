@@ -15,6 +15,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
@@ -44,11 +47,13 @@ public class RoleEntity implements Serializable {
 	private int sort;// 排序序号
 
 	// 创建时间
-	@Column(name = "createtime", insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	@CreatedDate
+	@Column(name = "createtime")
 	private Date createtime;
 
 	// 修改时间
-	@Column(name = "modifytime", nullable = true, insertable = false, updatable = false, columnDefinition = "TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP")
+	@LastModifiedDate
+	@Column(name = "modifytime", nullable = true)
 	private Date modifytime;
 
 	@ManyToMany(targetEntity = AuthorityEntity.class, fetch = FetchType.EAGER)
