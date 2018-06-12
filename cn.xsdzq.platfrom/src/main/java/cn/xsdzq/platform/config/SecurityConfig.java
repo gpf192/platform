@@ -20,7 +20,6 @@ import cn.xsdzq.platform.dao.UserRepository;
 import cn.xsdzq.platform.security.MyAccessDecisionManager;
 import cn.xsdzq.platform.security.MyFilterInvocationSecurityMetadataSource;
 import cn.xsdzq.platform.security.MyUserService;
-import cn.xsdzq.platform.transition.XsdPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
@@ -43,8 +42,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// XsdPasswordEncoder()).withUser("user").password("password").roles("USER");
 		// auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(new
 		// XsdPasswordEncoder()); //数据库认证
-		// 自定义认证 
-		//auth.userDetailsService(new MyUserService(userRepository)).passwordEncoder(new XsdPasswordEncoder());
+		// 自定义认证
+		// auth.userDetailsService(new
+		// MyUserService(userRepository)).passwordEncoder(new XsdPasswordEncoder());
 		auth.userDetailsService(new MyUserService(userRepository)).passwordEncoder(new BCryptPasswordEncoder());
 
 	}
@@ -97,13 +97,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Bean
-	public AccessDecisionManager myAccessDecisionManager() {		
+	public AccessDecisionManager myAccessDecisionManager() {
 		return new MyAccessDecisionManager();
 
 	}
-	   @Bean
-	    public BCryptPasswordEncoder passwordEncoder(){
-	        return new BCryptPasswordEncoder();
-	    }
+
+	@Bean
+	public BCryptPasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
 }
