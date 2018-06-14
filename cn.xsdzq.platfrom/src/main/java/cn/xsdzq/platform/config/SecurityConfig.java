@@ -5,6 +5,8 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -23,6 +25,7 @@ import cn.xsdzq.platform.security.MyUserService;
 
 @Configuration
 @EnableWebSecurity
+@EnableJpaAuditing
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -71,14 +74,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		// 动态配置
 		// add by fjx begin
-		http.formLogin().usernameParameter("username").passwordParameter("password").loginPage("/login")
-				.defaultSuccessUrl("/static/index.html").and().logout().logoutSuccessUrl("/login").and()
-				.authorizeRequests().and().headers().frameOptions().disable();
+		// http.formLogin().usernameParameter("username").passwordParameter("password").loginPage("/login")
+		// .defaultSuccessUrl("/static/index.html").and().logout().logoutSuccessUrl("/login").and()
+		// .authorizeRequests().and().headers().frameOptions().disable();
 		// add by fjx end
 		http.formLogin().usernameParameter("username").passwordParameter("password").loginPage("/login")
-				.defaultSuccessUrl("/static/index.html").and().authorizeRequests().anyRequest().authenticated()
+				.defaultSuccessUrl("/static/index.html").and().logout().logoutSuccessUrl("/login").and()
+				.authorizeRequests().anyRequest().authenticated()
 				.withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
-
 					@Override
 					public <O extends FilterSecurityInterceptor> O postProcess(O object) {
 						// TODO Auto-generated method
@@ -86,25 +89,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						object.setAccessDecisionManager(myAccessDecisionManager());
 						return object;
 					}
-				}).and().csrf().disable();
+				}).and().headers().frameOptions().disable().and().csrf().disable();
+		// 限制只允许一个用户登录
+		http.sessionManagement().maximumSessions(1).expiredUrl("/login/?expire=true");
 
 	}
 
 	@Bean
 	public FilterInvocationSecurityMetadataSource mySecurityMetadataSource() {
-
 		return new MyFilterInvocationSecurityMetadataSource(authorityRepository);
 	}
 
 	@Bean
 	public AccessDecisionManager myAccessDecisionManager() {
 		return new MyAccessDecisionManager();
-
 	}
 
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+
+	@Bean
+	AuditorAware<String> auditorProvider() {
+
+		return new UserAuditorAware();
 	}
 
 }

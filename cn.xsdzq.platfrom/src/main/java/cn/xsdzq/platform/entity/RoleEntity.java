@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,11 +18,13 @@ import javax.persistence.Table;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "role")
+@EntityListeners(AuditingEntityListener.class)
 public class RoleEntity implements Serializable {
 
 	/**
@@ -47,13 +50,13 @@ public class RoleEntity implements Serializable {
 	private int sort;// 排序序号
 
 	// 创建时间
-	@CreatedDate
 	@Column(name = "createtime")
+	@CreatedDate
 	private Date createtime;
 
 	// 修改时间
-	@LastModifiedDate
 	@Column(name = "modifytime", nullable = true)
+	@LastModifiedDate
 	private Date modifytime;
 
 	@ManyToMany(targetEntity = AuthorityEntity.class, fetch = FetchType.EAGER)

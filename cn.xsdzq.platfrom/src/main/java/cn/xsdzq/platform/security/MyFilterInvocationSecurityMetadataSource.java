@@ -20,7 +20,8 @@ public class MyFilterInvocationSecurityMetadataSource implements FilterInvocatio
 	private final Map<String, String> urlRoleMap = new HashMap<String, String>() {
 		{
 			put("/static/**", "ROLE_MAIN_AUTHORITY");
-			put("/front/**", "ROLE_ANONYMOUS");
+			// put("/front/**", "ROLE_MAIN_AUTHORITY");
+			// put("/front/**", "ROLE_ANONYMOUS");
 			put("/login", "ROLE_ANONYMOUS");
 			put("/loginin/**", "ROLE_ANONYMOUS");
 		}
@@ -43,25 +44,25 @@ public class MyFilterInvocationSecurityMetadataSource implements FilterInvocatio
 		String url = filterInvocation.getRequestUrl();
 		// 处理get查询字符串
 		if (url.indexOf("?") > 0) {
-			// System.out.println("url1: " + url);
 			url = url.split("\\?")[0];
 		}
-		// System.out.println("url2: " + url);
-
 		// 先循环配置
 		for (Map.Entry<String, String> entry : urlRoleMap.entrySet()) {
+			if (antPathMatcher.match("/front/**", url)) {
+				String[] roles = { "ROLE_MAIN_AUTHORITY", "ROLE_ANONYMOUS" };
+				return SecurityConfig.createList(roles);
+			}
 			if (antPathMatcher.match(entry.getKey(), url)) {
 				return SecurityConfig.createList(entry.getValue());
 			}
 		}
+		// 根据url查询数据库对应的角色
 
 		AuthorityEntity authorityEntity = authorityRepository.findAuthorityByUrl(url.trim());
 		if (null == authorityEntity) {
 			// 没有匹配到,默认是要登录才能访问
-			System.out.println("默认: " + "ROLE_DEFULT");
 			return SecurityConfig.createList("ROLE_DEFULT");
 		} else {
-			System.out.println("权限: " + authorityEntity.getAuthority());
 			return SecurityConfig.createList(authorityEntity.getAuthority());
 		}
 	}

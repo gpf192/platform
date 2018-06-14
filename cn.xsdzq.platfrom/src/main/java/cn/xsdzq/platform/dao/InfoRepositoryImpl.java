@@ -48,10 +48,10 @@ public class InfoRepositoryImpl implements InfoRepository {
 	@Override
 	public List<InfoEntity> getInfosByCategoryIdToFront(long id) {
 		// TODO Auto-generated method stub
-		TypedQuery<InfoEntity> sqlQuery = em.createQuery("SELECT c FROM InfoEntity c WHERE c.categoryId = ? and c.checked_result = ?",
-				InfoEntity.class);
+		TypedQuery<InfoEntity> sqlQuery = em.createQuery(
+				"SELECT c FROM InfoEntity c WHERE c.categoryId = ? and c.checked_result = ?", InfoEntity.class);
 		sqlQuery.setParameter(1, id);
-		sqlQuery.setParameter(2, "approve");//前台页面只显示审核通过的
+		sqlQuery.setParameter(2, "approve");// 前台页面只显示审核通过的
 		return sqlQuery.getResultList();
 	}
 
@@ -63,7 +63,7 @@ public class InfoRepositoryImpl implements InfoRepository {
 		String sql = "SELECT c FROM InfoEntity c WHERE c.title like ? and c.checked_result = ?";
 		Query query = em.createQuery(sql, InfoEntity.class);
 		query.setParameter(1, param);
-		query.setParameter(2, "approve");//前台搜索框只搜审核通过的
+		query.setParameter(2, "approve");// 前台搜索框只搜审核通过的
 		List<InfoEntity> infos = query.getResultList();
 		return infos;
 	}
@@ -111,7 +111,7 @@ public class InfoRepositoryImpl implements InfoRepository {
 		TypedQuery<InfoEntity> sqlQuery = em.createQuery("SELECT c FROM InfoEntity c WHERE c.id = ?", InfoEntity.class);
 		sqlQuery.setParameter(1, id);
 		InfoEntity infoEntity = sqlQuery.getSingleResult();
-		return infoEntity.getChecked_result();
+		return infoEntity.getCheckedResult();
 	}
 	// add by fjx end
 }

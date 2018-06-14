@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,9 +13,11 @@ import javax.persistence.Table;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Table(name = "record")
+@EntityListeners(AuditingEntityListener.class)
 public class RecordEntity implements Serializable {
 
 	/**
@@ -66,12 +69,12 @@ public class RecordEntity implements Serializable {
 	@Column(name = "acount", nullable = true)
 	private int acount;
 
-	@CreatedDate
 	@Column(name = "visitTime")
+	@CreatedDate
 	private Date visitTime;
 
-	@LastModifiedDate
 	@Column(name = "modifytime", nullable = true)
+	@LastModifiedDate
 	private Date modifytime;
 
 	public long getId() {

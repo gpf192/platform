@@ -83,15 +83,15 @@ public class InfoServiceImpl implements IInfoService {
 	public void modifyCheckResult(long id, boolean flag) {
 		// TODO Auto-generated method stub
 		InfoEntity info = infoRepository.getInfo(id);
-		System.out.println(info.getId() + "         " + info.getChecked() + "       " + info.getChecked_result());
+		System.out.println(info.getId() + "         " + info.getChecked() + "       " + info.getCheckedResult());
 		info.setChecked("Y");// 设置为已审核
 		if (flag) {
 			// 如果审核通过，审核结果置位approve 否则为reject
-			info.setChecked_result("approve");
+			info.setCheckedResult("approve");
 		} else {
-			info.setChecked_result("reject");
+			info.setCheckedResult("reject");
 		}
-		System.out.println(info.getId() + "         " + info.getChecked() + "       " + info.getChecked_result());
+		System.out.println(info.getId() + "         " + info.getChecked() + "       " + info.getCheckedResult());
 		infoRepository.modifyInfo(info);
 	}
 }

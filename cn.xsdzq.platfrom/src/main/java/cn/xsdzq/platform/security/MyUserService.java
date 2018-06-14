@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,6 +18,7 @@ import cn.xsdzq.platform.entity.RoleEntity;
 import cn.xsdzq.platform.entity.UserEntity;
 
 public class MyUserService implements UserDetailsService {
+	Logger logger = LogManager.getLogger(MyUserService.class.getName());
 
 	private UserRepository userRepository;
 
@@ -35,13 +38,12 @@ public class MyUserService implements UserDetailsService {
 			throw new UsernameNotFoundException(username + " not find");
 		}
 		List<AuthorityEntity> authorities = getAuthorityList(userEntity);
-		System.out.println("getUsername" + userEntity.getUsername() + "; " + "getPassword" + userEntity.getPassword());
+		logger.info("getUsername" + userEntity.getUsername() + "; " + "getPassword" + userEntity.getPassword());
 		User user = new User(userEntity.getUsername(), userEntity.getPassword(), authorities);
 		return user;
 	}
 
 	public List<AuthorityEntity> getAuthorityList(UserEntity userEntity) {
-
 		// 第一，得到用户的角色
 		Set<RoleEntity> roleEntities = userEntity.getRoleEntities();
 		// 第二，得到所有权限
