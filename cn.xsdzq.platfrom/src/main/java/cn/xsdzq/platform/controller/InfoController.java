@@ -70,7 +70,10 @@ public class InfoController extends BaseController {
 			@RequestParam int pageSize) {
 		long categoryId = id;
 		if (categoryId > 0) {
-			List<InfoEntity> infos = myInfoService.getInfosByCategoryId(categoryId, pageNumber, pageSize);
+			User user = UserManageUtil.getUser();
+			String userName = user.getUsername();
+			List<InfoEntity> infos = myInfoService.getInfosByCategoryIdByCreator(categoryId, userName, pageNumber,
+					pageSize);
 			List<InfoDTO> infoDTOs = new ArrayList<InfoDTO>();
 			for (InfoEntity info : infos) {
 				InfoDTO dto = InfoUtil.convertInfoDTOByInfo(info);
@@ -83,7 +86,6 @@ public class InfoController extends BaseController {
 		} else {
 			return GsonUtil.buildMap(1, "fail", null);
 		}
-
 	}
 
 	@RequestMapping(value = "/addInfo", method = POST, produces = "application/json; charset=utf-8")
@@ -95,7 +97,7 @@ public class InfoController extends BaseController {
 		// 插入创建人
 		User user = UserManageUtil.getUser();
 		String name = user.getUsername();
-		info.setCreated_by(name);
+		info.setCreatedBy(name);
 		iInfoService.addInfo(info);
 		logger.info("action:" + "add" + ";" + name + ";" + "title:" + dto.getTitle() + ";");
 		return GsonUtil.buildMap(0, "ok", null);
@@ -123,9 +125,17 @@ public class InfoController extends BaseController {
 		// 插入创建人
 		User user = UserManageUtil.getUser();
 		String name = user.getUsername();
-		info.setCreated_by(name);
+		info.setCreatedBy(name);
 		iInfoService.modifyInfo(info);
 		logger.info("action:" + "modify" + ";" + "user:" + name + ";" + "title:" + dto.getTitle() + ";");
+		return GsonUtil.buildMap(0, "ok", null);
+	}
+
+	@RequestMapping(value = "/addWeight", method = POST, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> addWeight(@RequestBody InfoDTO dto) {
+		InfoEntity infoEntity = InfoUtil.convertInfoByInfoDTO(dto);
+		iInfoService.addWeight(infoEntity);
 		return GsonUtil.buildMap(0, "ok", null);
 	}
 

@@ -57,12 +57,18 @@ public class RoleRepositoryImpl implements RoleRepository {
 
 	@Override
 	@Transactional
+	public void deteleRole(RoleEntity roleEntity) {
+		// TODO Auto-generated method stub
+		RoleEntity removeRoleEntity = em.find(RoleEntity.class, roleEntity.getId());
+		em.remove(removeRoleEntity);
+	}
+
+	@Override
+	@Transactional
 	public void appendAuthorities(RoleEntity roleEntity, Set<AuthorityEntity> authorityEntities) {
 		// TODO Auto-generated method stub
-
 		roleEntity.setAuthorityEntities(authorityEntities);
 		em.merge(roleEntity);
-
 	}
 
 }

@@ -34,15 +34,15 @@ function roleListController($scope, $http, $state, httpUtils, layerUtils) {
 	
 	$scope.deleteRole = function(index) {
 		
-		layerUtils.iMsg(-1,"暂未开放删除功能");
-		return;
-		layerUtils.iConfirm("是否需要删除用户", function() {
-			var url = httpUtils.url.deleteUser
-			var user=$scope.users[index];
-			$http.post(url, user).success(function(data) {
+		//layerUtils.iMsg(-1,"暂未开放删除功能");
+		//return;
+		layerUtils.iConfirm("用户对应的相应角色权限也会删除，是否需要删除角色？", function() {
+			var url = httpUtils.url.deleteRole
+			var role=$scope.roles[index];
+			$http.post(url, role).success(function(data) {
 				if (data.resCode == 0) {
 					layerUtils.iMsg(-1, "删除成功");
-					$scope.getUserList();
+					$scope.getRoleList();
 				}
 			});
 		}, function() {

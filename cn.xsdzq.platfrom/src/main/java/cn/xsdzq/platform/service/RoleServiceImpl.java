@@ -119,6 +119,13 @@ public class RoleServiceImpl implements IRoleService {
 
 	@Override
 	@Transactional
+	public void deteleRole(RoleEntity roleEntity) {
+		// TODO Auto-generated method stub
+		roleRepository.deteleRole(roleEntity);
+	}
+
+	@Override
+	@Transactional
 	public void modifyRoleAuthority(RoleAuthorityDTO roleAuthorityDTO) {
 		// TODO Auto-generated method stub
 		RoleEntity roleEntity = roleRepository.findRoleById(roleAuthorityDTO.getRole_id());
@@ -216,4 +223,5 @@ public class RoleServiceImpl implements IRoleService {
 		authoritySet.add(mainAuthorityEntity);
 		return authoritySet;
 	}
+
 }

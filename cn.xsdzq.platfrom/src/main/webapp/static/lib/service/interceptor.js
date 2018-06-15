@@ -1,4 +1,4 @@
-ngApp.factory('pingnInterceptor', ['$q', '$location', 'layerUtils',
+ngApp.factory('xsdInterceptor', ['$q', '$location', 'layerUtils',
 function($q, $location, layerUtils) {
 	var interceptor = {
 		'request' : function(config) {
@@ -28,12 +28,17 @@ function($q, $location, layerUtils) {
 			layerUtils.iLoading(false);
 			return responseError;
 		},
-		'responseError' : function(rejection) {
-			//console.log("responseError  responseError responseError");
-			layerUtils.iLoading(false);
+		'responseError' : function(response) {
+			//console.log(response);
+			//console.log(response.status);
+			layerUtils.iLoading(false); 
+			// http 的返回状态码
+			if(response.status==403){
+				layerUtils.iAlert("没有对应的权限，请联系管理员");
+			}
 			//layerUtils.iMsg(-1, "服务器异常，请稍后再试!");
 
-			return rejection;
+			return response;
 		}
 	};
 	return interceptor;

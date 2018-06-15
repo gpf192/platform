@@ -68,6 +68,18 @@ function infoListController($scope, $http, $state, $stateParams, $gridService, h
 			info : info
 		});
 	}
+	
+	$scope.addWeight = function(index){
+		var url = httpUtils.url.addWeight;
+		var param = $scope.infoList[index];
+		param.weight=param.weight+1;
+		$http.post(url, param).success(function(data) {
+			if (data.resCode == 0) {
+				layerUtils.iMsg(-1, "权重增加成功");
+			}
+		});
+	}
+	
 	$scope.deleteInfo = function(index) {
 		layerUtils.iConfirm("是否删除该文章？", function() {
 			var url = httpUtils.url.deleteInfo;

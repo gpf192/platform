@@ -64,6 +64,13 @@ public class InfoServiceImpl implements IInfoService {
 		infoRepository.modifyInfo(infoEntity);
 	}
 
+	@Override
+	@Transactional
+	public void addWeight(InfoEntity infoEntity) {
+		// TODO Auto-generated method stub
+		infoRepository.addWeight(infoEntity);
+	}
+
 	// add by fjx
 	@Override
 	public List<InfoEntity> searUncheckchInfos() {
@@ -94,4 +101,5 @@ public class InfoServiceImpl implements IInfoService {
 		System.out.println(info.getId() + "         " + info.getChecked() + "       " + info.getCheckedResult());
 		infoRepository.modifyInfo(info);
 	}
+
 }

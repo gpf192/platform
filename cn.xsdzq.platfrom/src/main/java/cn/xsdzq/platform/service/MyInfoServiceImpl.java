@@ -28,16 +28,20 @@ public class MyInfoServiceImpl implements IMyInfoService {
 	public List<InfoEntity> getInfosByCategoryId(long id, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCategoryIdAndCheckedResultOrderByModifytimeDesc(id,
-				"approve", pageRequest);
+		Page<InfoEntity> pages = myInfoRepository
+				.findInfoEntityByCategoryIdAndCheckedResultOrderByWeightDescModifytimeDesc(id, "approve", pageRequest);
 		List<InfoEntity> infos = pages.getContent();
 		return infos;
 	}
 
 	@Override
-	public List<InfoEntity> getInfosByCategoryIdAndCreate(long id, String userName, int pageNumber, int pageSize) {
+	public List<InfoEntity> getInfosByCategoryIdByCreator(long id, String userName, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
-		return null;
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCategoryIdAndCreatedByOrderByModifytimeDesc(id,
+				userName, pageRequest);
+		List<InfoEntity> infos = pages.getContent();
+		return infos;
 	}
 
 	@Override

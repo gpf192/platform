@@ -56,6 +56,14 @@ public class RoleController {
 		return GsonUtil.buildMap(0, "ok", null);
 	}
 
+	@RequestMapping(value = "/delete", method = POST, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> deleteRole(@RequestBody RoleDTO roleDTO) {
+		RoleEntity roleEntity = RoleUtil.convertRoleEntityByRoleDTO(roleDTO);
+		roleService.deteleRole(roleEntity);
+		return GsonUtil.buildMap(0, "ok", null);
+	}
+
 	@RequestMapping(value = "/getExtraRole", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> getExtraRole(@RequestBody UserDTO userDTO) {

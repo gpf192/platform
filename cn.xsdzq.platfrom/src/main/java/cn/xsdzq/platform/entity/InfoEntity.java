@@ -54,7 +54,7 @@ public class InfoEntity implements Serializable {
 	private String checkedResult;
 
 	@Column(name = "created_by")
-	private String created_by;
+	private String createdBy;
 	// add by fjx end
 
 	@Column(name = "categoryId", insertable = false, updatable = false)
@@ -69,6 +69,9 @@ public class InfoEntity implements Serializable {
 
 	@Column(name = "exp")
 	private String exp;
+
+	@Column(name = "weight")
+	private int weight = 1;// 设置信息权重，初始为1
 
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "categoryId", referencedColumnName = "id")
@@ -154,12 +157,20 @@ public class InfoEntity implements Serializable {
 		this.checkedResult = checkedResult;
 	}
 
-	public String getCreated_by() {
-		return created_by;
+	public int getWeight() {
+		return weight;
 	}
 
-	public void setCreated_by(String created_by) {
-		this.created_by = created_by;
+	public void setWeight(int weight) {
+		this.weight = weight;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
 	}
 
 	@JsonBackReference

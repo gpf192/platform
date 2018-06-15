@@ -10,7 +10,7 @@ public interface IMyInfoService {
 
 	List<InfoEntity> getInfosByCategoryId(long id, int pageNumber, int pageSize);
 
-	List<InfoEntity> getInfosByCategoryIdAndCreate(long id, String userName, int pageNumber, int pageSize);
+	List<InfoEntity> getInfosByCategoryIdByCreator(long id, String userName, int pageNumber, int pageSize);
 
 	int countInfosByCategoryId(long categoryId);
 

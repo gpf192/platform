@@ -26,6 +26,8 @@ public interface IRoleService {
 
 	public void modifyRole(RoleEntity roleEntity);
 
+	public void deteleRole(RoleEntity roleEntity);
+
 	public void appendAuthorities(RoleAuthorityDTO roleAuthorityDTO);
 
 }

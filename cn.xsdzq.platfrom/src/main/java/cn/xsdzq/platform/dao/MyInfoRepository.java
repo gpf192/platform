@@ -14,6 +14,9 @@ public interface MyInfoRepository extends PagingAndSortingRepository<InfoEntity,
 
 	int countInfoEntityByCategoryId(long categoryId);
 
-	Page<InfoEntity> findInfoEntityByCategoryIdAndCheckedResultOrderByModifytimeDesc(long categoryId,
+	Page<InfoEntity> findInfoEntityByCategoryIdAndCheckedResultOrderByWeightDescModifytimeDesc(long categoryId,
 			String checked_result, Pageable pageable);
+
+	Page<InfoEntity> findInfoEntityByCategoryIdAndCreatedByOrderByModifytimeDesc(long categoryId, String username,
+			Pageable pageable);
 }
