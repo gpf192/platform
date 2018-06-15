@@ -26,7 +26,6 @@ public class RecordServiceImpl implements IRecordService {
 	public void mergeRecord(RecordEntity recordEntity) {
 		// TODO Auto-generated method stub
 		recordRepository.mergeRecord(recordEntity);
-
 	}
 
 }

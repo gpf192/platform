@@ -6,6 +6,8 @@ import cn.xsdzq.platform.entity.InfoEntity;
 
 public interface IMyInfoService {
 
+	InfoEntity getInfoEntityById(Long id);
+
 	List<InfoEntity> getInfosByCategoryId(long id);
 
 	List<InfoEntity> getInfosByCategoryId(long id, int pageNumber, int pageSize);

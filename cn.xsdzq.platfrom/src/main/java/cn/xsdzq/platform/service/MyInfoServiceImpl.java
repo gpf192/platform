@@ -1,6 +1,7 @@
 package cn.xsdzq.platform.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,13 @@ import cn.xsdzq.platform.entity.InfoEntity;
 public class MyInfoServiceImpl implements IMyInfoService {
 	@Autowired
 	private MyInfoRepository myInfoRepository;
+
+	@Override
+	public InfoEntity getInfoEntityById(Long id) {
+		// TODO Auto-generated method stub
+		Optional<InfoEntity> optional = myInfoRepository.findById(id);
+		return optional.get();
+	}
 
 	@Override
 	public List<InfoEntity> getInfosByCategoryId(long id) {
