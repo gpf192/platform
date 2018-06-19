@@ -48,10 +48,10 @@ public class InfoRepositoryImpl implements InfoRepository {
 	@Override
 	public List<InfoEntity> getInfosByCategoryIdToFront(long id) {
 		// TODO Auto-generated method stub
-		TypedQuery<InfoEntity> sqlQuery = em.createQuery("SELECT c FROM InfoEntity c WHERE c.categoryId = ? and c.checked_result = ?",
-				InfoEntity.class);
+		TypedQuery<InfoEntity> sqlQuery = em.createQuery(
+				"SELECT c FROM InfoEntity c WHERE c.categoryId = ? and c.checkedResult = ?", InfoEntity.class);
 		sqlQuery.setParameter(1, id);
-		sqlQuery.setParameter(2, "approve");//前台页面只显示审核通过的
+		sqlQuery.setParameter(2, "approve");// 前台页面只显示审核通过的
 		return sqlQuery.getResultList();
 	}
 
@@ -60,10 +60,10 @@ public class InfoRepositoryImpl implements InfoRepository {
 	public List<InfoEntity> searchInfos(String key) {
 		// TODO Auto-generated method stub
 		String param = "%" + key + "%";
-		String sql = "SELECT c FROM InfoEntity c WHERE c.title like ? and c.checked_result = ?";
+		String sql = "SELECT c FROM InfoEntity c WHERE c.title like ? and c.checkedResult = ?";
 		Query query = em.createQuery(sql, InfoEntity.class);
 		query.setParameter(1, param);
-		query.setParameter(2, "approve");//前台搜索框只搜审核通过的
+		query.setParameter(2, "approve");// 前台搜索框只搜审核通过的
 		List<InfoEntity> infos = query.getResultList();
 		return infos;
 	}
@@ -72,9 +72,7 @@ public class InfoRepositoryImpl implements InfoRepository {
 	@Transactional
 	public void deleteInfo(InfoEntity infoEntity) {
 		// TODO Auto-generated method stub
-		System.out.println("deleteInfo");
 		long id = infoEntity.getId();
-		System.out.println(id);
 		InfoEntity deleteInfo = em.find(InfoEntity.class, id);
 		em.remove(deleteInfo);
 	}
@@ -94,14 +92,25 @@ public class InfoRepositoryImpl implements InfoRepository {
 		em.merge(infoEntity);
 	}
 
+	@Override
+	@Transactional
+	public void addWeight(InfoEntity infoEntity) {
+		// TODO Auto-generated method stub
+		InfoEntity myInfoEntity = em.find(InfoEntity.class, infoEntity.getId());
+		myInfoEntity.setWeight(infoEntity.getWeight());
+		em.merge(myInfoEntity);
+	}
+
 	// add by fjx begin
 	@Override
 	public List<InfoEntity> searUncheckchInfos() {
 		// TODO Auto-generated method stub
+		System.out.println("searUncheckchInfos");
 		TypedQuery<InfoEntity> sqlQuery = em.createQuery(
-				"SELECT c FROM InfoEntity c WHERE c.checked = ? and c.checked_result = ?", InfoEntity.class);
-		sqlQuery.setParameter(1, "N");
-		sqlQuery.setParameter(2, "submit");
+				"SELECT c FROM InfoEntity c WHERE c.checked = ?0 and c.checkedResult = ?1", InfoEntity.class);
+		sqlQuery.setParameter(0, "N");
+		sqlQuery.setParameter(1, "submit");
+		System.out.println(sqlQuery.getResultList());
 		return sqlQuery.getResultList();
 	}
 
@@ -111,7 +120,8 @@ public class InfoRepositoryImpl implements InfoRepository {
 		TypedQuery<InfoEntity> sqlQuery = em.createQuery("SELECT c FROM InfoEntity c WHERE c.id = ?", InfoEntity.class);
 		sqlQuery.setParameter(1, id);
 		InfoEntity infoEntity = sqlQuery.getSingleResult();
-		return infoEntity.getChecked_result();
+		return infoEntity.getCheckedResult();
 	}
 	// add by fjx end
+
 }

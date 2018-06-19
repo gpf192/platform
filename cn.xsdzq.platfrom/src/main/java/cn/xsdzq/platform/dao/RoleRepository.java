@@ -16,6 +16,8 @@ public interface RoleRepository {
 
 	public void modifyRole(RoleEntity roleEntity);
 
+	public void deteleRole(RoleEntity roleEntity);
+
 	public List<AuthorityEntity> getAuthoritiesByRole(RoleEntity roleEntity);
 
 	public void appendAuthorities(RoleEntity roleEntity, Set<AuthorityEntity> authorityEntities);

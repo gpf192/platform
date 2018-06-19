@@ -12,17 +12,24 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.alibaba.fastjson.JSONObject;
+
 import cn.xsdzq.platform.entity.RecordEntity;
 import cn.xsdzq.platform.service.IRecordService;
+import cn.xsdzq.platform.util.CommonUtil;
 
 public class LoggerFilter implements Filter {
 
 	@Autowired
 	IRecordService recordService;
+
+	Logger logger = LogManager.getLogger(LoggerFilter.class.getName());
 
 	@Override
 	public void init(FilterConfig config) throws ServletException {
@@ -40,53 +47,25 @@ public class LoggerFilter implements Filter {
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		// 拦截html请求
 		// 请求的完整地址
+		JSONObject channelJson = CommonUtil.getJsonByQueryString(httpRequest.getQueryString());
+		logger.info("channel: " + httpRequest.getQueryString());
 		String url = httpRequest.getRequestURL().toString();
 		String path = httpRequest.getRequestURI();
-		String channel = httpRequest.getParameter("channel");
+		String channel = channelJson.getString("channel");
 		String ip = httpRequest.getRemoteAddr();
 		String agent = httpRequest.getHeader("User-Agent");
-
+		httpRequest.getQueryString();
 		if (null == channel || channel.equals("")) {
-			System.out.println("channel: " + channel);
-			channel = "";
+			channel = "default";
 		}
-
+		logger.error("channel: " + channel);
 		RecordEntity recordEntity = new RecordEntity();
-
 		recordEntity.setChannel(channel);
 		recordEntity.setUri(url);
 		recordEntity.setIp(ip);
 		recordEntity.setPath(path);
 		recordEntity.setAgent(agent);
-
-		System.out.println("agent: " + agent);
 		recordService.mergeRecord(recordEntity);
-
-		/*
-		 * HttpSession session = httpRequest.getSession(); String ip =
-		 * httpRequest.getRemoteAddr(); String page = httpRequest.getRequestURI();
-		 * String contextPath = httpRequest.getContextPath(); String servletPath =
-		 * httpRequest.getServletPath(); String addr = httpRequest.getLocalAddr();
-		 * String queryStirng = httpRequest.getQueryString(); String pathInfo =
-		 * httpRequest.getPathInfo(); String aa = httpRequest.getParameter("aa"); String
-		 * url = httpRequest.getRequestURL().toString(); System.out.println("url:" + url
-		 * + ";" + "addr: " + addr + ";" + "queryStirng" + queryStirng + ";" +
-		 * "pathInfo" + pathInfo + ";" + "aa" + aa);
-		 * 
-		 * System.out.println("doFilter sessionId=" + session.getId() + ",ip=" + ip +
-		 * ",page=" + page + ",contextPath=" + contextPath + ",servletPath=" +
-		 * servletPath);
-		 * 
-		 * Map<String, String[]> params = request.getParameterMap(); String queryString2
-		 * = ""; for (String key : params.keySet()) { String[] values = params.get(key);
-		 * for (int i = 0; i < values.length; i++) { String value = values[i];
-		 * queryString2 += key + "=" + value + "&"; } } // 去掉最后一个空格 if
-		 * (queryString2.length() > 0) { queryString2 = queryString2.substring(0,
-		 * queryString2.length() - 1); }
-		 * 
-		 * System.out.println("queryString2:" + queryString2);
-		 * 
-		 */
 		chain.doFilter(httpRequest, httpResponse);
 
 	}

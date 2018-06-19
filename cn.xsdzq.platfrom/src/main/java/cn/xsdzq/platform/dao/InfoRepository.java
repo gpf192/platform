@@ -22,6 +22,8 @@ public interface InfoRepository {
 
 	void modifyInfo(InfoEntity infoEntity);
 
+	void addWeight(InfoEntity infoEntity);
+
 	// add by fjx begin
 	List<InfoEntity> searUncheckchInfos();
 

@@ -132,7 +132,7 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 
 ngApp.config(['$httpProvider',function($httpProvider) {
 	
-	$httpProvider.interceptors.push('pingnInterceptor');
+	$httpProvider.interceptors.push('xsdInterceptor');
 	
 }]);
 

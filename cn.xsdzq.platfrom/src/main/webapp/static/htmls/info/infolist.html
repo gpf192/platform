@@ -69,6 +69,8 @@
 						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">审核状态</th>
 						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1">置顶权重</th>
+						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">修改</th>
 						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">删除</th>
@@ -82,6 +84,11 @@
 							ng-bind="info.content |substring:0:23"></span></td>
 						<td class="col-sm-1"><span
 						    ng-bind="info.checked_result |transfera"></span></td>
+						<td>
+							<button type="button" class="btn btn-primary btn-sm" ng-click="addWeight($index)">
+								<i class="fa fa-plus"></i><span> 置顶</span>
+							</button>
+						</td>
 						<td class="col-sm-1 text-center">
 							<div>
 								<button ng-if="info.checked_result == ('generate')||info.checked_result == ('reject')" type="button" class="btn btn-info btn-sm"

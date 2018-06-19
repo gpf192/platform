@@ -1,6 +1,7 @@
 package cn.xsdzq.platform.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +19,13 @@ public class MyInfoServiceImpl implements IMyInfoService {
 	private MyInfoRepository myInfoRepository;
 
 	@Override
+	public InfoEntity getInfoEntityById(Long id) {
+		// TODO Auto-generated method stub
+		Optional<InfoEntity> optional = myInfoRepository.findById(id);
+		return optional.get();
+	}
+
+	@Override
 	public List<InfoEntity> getInfosByCategoryId(long id) {
 		// TODO Auto-generated method stub
 		List<InfoEntity> infos = myInfoRepository.findInfoEntityByCategoryId(id);
@@ -28,7 +36,18 @@ public class MyInfoServiceImpl implements IMyInfoService {
 	public List<InfoEntity> getInfosByCategoryId(long id, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCategoryId(id, pageRequest);
+		Page<InfoEntity> pages = myInfoRepository
+				.findInfoEntityByCategoryIdAndCheckedResultOrderByWeightDescModifytimeDesc(id, "approve", pageRequest);
+		List<InfoEntity> infos = pages.getContent();
+		return infos;
+	}
+
+	@Override
+	public List<InfoEntity> getInfosByCategoryIdByCreator(long id, String userName, int pageNumber, int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCategoryIdAndCreatedByOrderByModifytimeDesc(id,
+				userName, pageRequest);
 		List<InfoEntity> infos = pages.getContent();
 		return infos;
 	}

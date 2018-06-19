@@ -29,19 +29,19 @@ public class RecordRepositoryImpl implements RecordRepository {
 	@Transactional
 	public void mergeRecord(RecordEntity recordEntity) {
 		// TODO Auto-generated method stub
-		TypedQuery<RecordEntity> sqlQuery = em.createQuery("SELECT c FROM RecordEntity c WHERE c.channel=? and c.uri=?",
-				RecordEntity.class);
-		// if(recordEntity.getChannel().equals(""))
+		TypedQuery<RecordEntity> sqlQuery = em
+				.createQuery("SELECT c FROM RecordEntity c WHERE c.channel=?1 and c.uri=?2", RecordEntity.class);
 		sqlQuery.setParameter(1, recordEntity.getChannel());
 		sqlQuery.setParameter(2, recordEntity.getUri());
 		List<RecordEntity> rList = sqlQuery.getResultList();
 		if (rList.size() > 0) {
+			System.out.println("merge");
 			RecordEntity oldRecordEntity = rList.get(0);
 			int acount = oldRecordEntity.getAcount();
 			oldRecordEntity.setAcount(acount + 1);
 			em.merge(oldRecordEntity);
-			em.flush();
 		} else {
+			System.out.println("persist");
 			recordEntity.setAcount(1);
 			em.persist(recordEntity);
 		}

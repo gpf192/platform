@@ -17,6 +17,7 @@ public class InfoDTO {
 	private String exp;
 	private String flag;// 保存还是提交
 	private String checked_result;// 审核状态
+	private int weight;
 
 	public InfoDTO() {
 
@@ -94,6 +95,14 @@ public class InfoDTO {
 
 	public void setChecked_result(String checked_result) {
 		this.checked_result = checked_result;
+	}
+
+	public int getWeight() {
+		return weight;
+	}
+
+	public void setWeight(int weight) {
+		this.weight = weight;
 	}
 
 }

@@ -51,6 +51,20 @@ public class FrontController {
 	@Qualifier("categoryServiceImpl")
 	private ICategoryService categoryService;
 
+	@RequestMapping(value = "/getInfoById", method = GET, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> getCategory(@RequestParam long id) {
+		if (id > 0) {
+			InfoEntity info = myInfoService.getInfoEntityById(id);
+			if (info != null) {
+				InfoDTO infoDTO = InfoUtil.convertInfoDTOByInfo(info);
+				return GsonUtil.buildMap(0, "ok", infoDTO);
+			}
+
+		}
+		return GsonUtil.buildMap(1, "fail", null);
+	}
+
 	@RequestMapping(value = "/getCategories", produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> getAllCategory() {

@@ -5,6 +5,14 @@
 http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
 	<display-name>platform</display-name>
+	
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<listener>
+		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
+	</listener>
 
 	<filter>
 		<filter-name>loggerFilter</filter-name>
@@ -32,11 +40,6 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 		</param-value>
 	</context-param>
 
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
-
-
 	<servlet>
 		<servlet-name>spring</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -51,7 +54,12 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+	<session-config>
+        <session-timeout>30</session-timeout>
+	</session-config>
 
+	
 
 
 </web-app>

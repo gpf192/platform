@@ -12,6 +12,7 @@ ngApp.factory("httpUtils", [ function() {
 		userModifyRoles: baseUrl + "user/userModifyRoles",
 		addRole : baseUrl + "role/add",
 		modifyRole : baseUrl + "role/modifyRole",
+		deleteRole : baseUrl + "role/delete",
 		getRoleAuthorityToModify : baseUrl +"role/getPermissionsByUserToModify",
 		getExtraRole : baseUrl + "role/getExtraRole",
 		addPermissions: baseUrl +"role/addPermissions",
@@ -30,6 +31,7 @@ ngApp.factory("httpUtils", [ function() {
 		addInfo : baseUrl + "info/addInfo",
 		getInfoList : baseUrl + "info/getInfosByCategoryId",
 		modifyInfo : baseUrl + "info/modifyInfo",
+		addWeight : baseUrl + "info/addWeight",
 		deleteInfo : baseUrl + "info/deleteInfo",
 		checkList : baseUrl + "info/getUncheckedInfo",
 		modifyCheckResult : baseUrl + "info/modifyCheckResult"
