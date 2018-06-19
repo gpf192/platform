@@ -19,6 +19,13 @@ public class MyInfoServiceImpl implements IMyInfoService {
 	private MyInfoRepository myInfoRepository;
 
 	@Override
+	@Transactional
+	public void addPageViewById(Long id) {
+		// TODO Auto-generated method stub
+		myInfoRepository.addPageView(id);
+	}
+
+	@Override
 	public InfoEntity getInfoEntityById(Long id) {
 		// TODO Auto-generated method stub
 		Optional<InfoEntity> optional = myInfoRepository.findById(id);

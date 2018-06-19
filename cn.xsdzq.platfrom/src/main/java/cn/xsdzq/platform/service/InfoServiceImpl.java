@@ -66,6 +66,13 @@ public class InfoServiceImpl implements IInfoService {
 
 	@Override
 	@Transactional
+	public void addPageViewById(Long id) {
+		// TODO Auto-generated method stub
+		infoRepository.addPageView(id);
+	}
+
+	@Override
+	@Transactional
 	public void addWeight(InfoEntity infoEntity) {
 		// TODO Auto-generated method stub
 		infoRepository.addWeight(infoEntity);

@@ -18,6 +18,7 @@ public class InfoDTO {
 	private String flag;// 保存还是提交
 	private String checked_result;// 审核状态
 	private int weight;
+	private int pageView;
 
 	public InfoDTO() {
 
@@ -103,6 +104,14 @@ public class InfoDTO {
 
 	public void setWeight(int weight) {
 		this.weight = weight;
+	}
+
+	public int getPageView() {
+		return pageView;
+	}
+
+	public void setPageView(int pageView) {
+		this.pageView = pageView;
 	}
 
 }

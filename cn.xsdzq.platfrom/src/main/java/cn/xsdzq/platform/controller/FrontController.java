@@ -30,6 +30,7 @@ import cn.xsdzq.platform.service.ICategoryService;
 import cn.xsdzq.platform.service.IInfoService;
 import cn.xsdzq.platform.service.IMyInfoService;
 import cn.xsdzq.platform.util.CategoryUtil;
+import cn.xsdzq.platform.util.CommonUtil;
 import cn.xsdzq.platform.util.GsonUtil;
 import cn.xsdzq.platform.util.InfoUtil;
 
@@ -53,14 +54,16 @@ public class FrontController {
 
 	@RequestMapping(value = "/getInfoById", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Map<String, Object> getCategory(@RequestParam long id) {
+	public Map<String, Object> getCategory(HttpServletRequest request, @RequestParam long id) {
 		if (id > 0) {
 			InfoEntity info = myInfoService.getInfoEntityById(id);
+			logger.info(CommonUtil.getIpAdrress(request));
 			if (info != null) {
 				InfoDTO infoDTO = InfoUtil.convertInfoDTOByInfo(info);
+				// iInfoService.addPageViewById(id);
+				myInfoService.addPageViewById(id);
 				return GsonUtil.buildMap(0, "ok", infoDTO);
 			}
-
 		}
 		return GsonUtil.buildMap(1, "fail", null);
 	}

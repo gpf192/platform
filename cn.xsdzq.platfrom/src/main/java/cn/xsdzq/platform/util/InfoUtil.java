@@ -15,6 +15,7 @@ public class InfoUtil {
 		infoEntity.setExp(dto.getExp());
 		infoEntity.setCheckedResult(dto.getFlag());
 		infoEntity.setWeight(dto.getWeight());
+		infoEntity.setPageView(dto.getPageView());
 		return infoEntity;
 	}
 
@@ -28,6 +29,7 @@ public class InfoUtil {
 		dto.setExp(infoEntity.getExp());
 		dto.setChecked_result(infoEntity.getCheckedResult());
 		dto.setWeight(infoEntity.getWeight());
+		dto.setPageView(infoEntity.getPageView());
 		return dto;
 	}
 
