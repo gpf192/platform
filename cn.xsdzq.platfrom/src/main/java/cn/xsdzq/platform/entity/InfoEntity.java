@@ -71,7 +71,10 @@ public class InfoEntity implements Serializable {
 	private String exp;
 
 	@Column(name = "weight")
-	private int weight = 1;// 设置信息权重，初始为1
+	private int weight = 0;// 设置信息权重，初始为0
+
+	@Column(name = "page_view")
+	private int pageView = 0;
 
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "categoryId", referencedColumnName = "id")
@@ -171,6 +174,14 @@ public class InfoEntity implements Serializable {
 
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
+	}
+
+	public int getPageView() {
+		return pageView;
+	}
+
+	public void setPageView(int pageView) {
+		this.pageView = pageView;
 	}
 
 	@JsonBackReference

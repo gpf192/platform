@@ -88,8 +88,16 @@ public class InfoRepositoryImpl implements InfoRepository {
 	@Transactional
 	public void modifyInfo(InfoEntity infoEntity) {
 		// TODO Auto-generated method stub
-		// Info modifyInfo = em.find(Info.class, info.getId());
 		em.merge(infoEntity);
+	}
+
+	@Override
+	@Transactional
+	public void addPageView(Long id) {
+		// TODO Auto-generated method stub
+		InfoEntity myInfoEntity = em.find(InfoEntity.class, id);
+		myInfoEntity.setPageView(myInfoEntity.getPageView() + 1);
+		em.merge(myInfoEntity);
 	}
 
 	@Override
@@ -105,7 +113,6 @@ public class InfoRepositoryImpl implements InfoRepository {
 	@Override
 	public List<InfoEntity> searUncheckchInfos() {
 		// TODO Auto-generated method stub
-		System.out.println("searUncheckchInfos");
 		TypedQuery<InfoEntity> sqlQuery = em.createQuery(
 				"SELECT c FROM InfoEntity c WHERE c.checked = ?0 and c.checkedResult = ?1", InfoEntity.class);
 		sqlQuery.setParameter(0, "N");

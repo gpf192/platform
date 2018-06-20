@@ -8,6 +8,8 @@ public interface IMyInfoService {
 
 	InfoEntity getInfoEntityById(Long id);
 
+	void addPageViewById(Long id);
+
 	List<InfoEntity> getInfosByCategoryId(long id);
 
 	List<InfoEntity> getInfosByCategoryId(long id, int pageNumber, int pageSize);

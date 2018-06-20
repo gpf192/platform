@@ -35,13 +35,11 @@ public class RecordRepositoryImpl implements RecordRepository {
 		sqlQuery.setParameter(2, recordEntity.getUri());
 		List<RecordEntity> rList = sqlQuery.getResultList();
 		if (rList.size() > 0) {
-			System.out.println("merge");
 			RecordEntity oldRecordEntity = rList.get(0);
 			int acount = oldRecordEntity.getAcount();
 			oldRecordEntity.setAcount(acount + 1);
 			em.merge(oldRecordEntity);
 		} else {
-			System.out.println("persist");
 			recordEntity.setAcount(1);
 			em.persist(recordEntity);
 		}

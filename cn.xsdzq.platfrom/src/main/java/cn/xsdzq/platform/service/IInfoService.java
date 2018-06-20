@@ -14,6 +14,8 @@ public interface IInfoService {
 
 	void modifyInfo(InfoEntity infoEntity);
 
+	void addPageViewById(Long id);
+
 	void addWeight(InfoEntity infoEntity);
 
 	List<InfoEntity> getInfosByCategoryId(long id);
