@@ -32,7 +32,25 @@ ngApp.controller("indexController", function($scope, $state, $http, httpUtils) {
 		$scope.navigation=data;
 	});
 	
-	$scope.goto = function(first,second,state,$event){
+	$scope.goto=function(state){
+		$state.go(state);
+	}
+	$scope.gotoMain=function(){
+		$state.go("index");
+		$scope.navigation=[];
+	}
+	$scope.gotoNav=function(state){
+		console.log($scope.navigation);
+		console.log(state);
+		for(var i =0;i<$scope.navigation.length;i++){
+			if($scope.navigation[i]['goto']==state){
+				$scope.navigation.splice(i-1);
+			}
+		}
+		$state.go(state);
+	}
+	
+	$scope.gotoMenu = function(first,second,state,$event){
 		$event.stopPropagation();
 		$state.go(state);
 		console.log(first+" "+second);

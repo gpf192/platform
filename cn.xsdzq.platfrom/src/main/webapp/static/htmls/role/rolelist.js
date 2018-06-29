@@ -43,6 +43,8 @@ function roleListController($scope, $http, $state, httpUtils, layerUtils) {
 				if (data.resCode == 0) {
 					layerUtils.iMsg(-1, "删除成功");
 					$scope.getRoleList();
+				}else if(data.resCode == 2){
+					layerUtils.iAlert("当前角色有用户正在使用，请删除用户中的角色后，在删除当前的角色！");
 				}
 			});
 		}, function() {

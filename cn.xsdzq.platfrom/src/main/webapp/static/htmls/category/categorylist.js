@@ -3,18 +3,13 @@ function categoryListController($scope, $http, $state, $stateParams, httpUtils,l
 
 	$scope.categorys = [];
 	$scope.init = function() {
-		var data = {
-				"one" : {
+		var data = [{
 					name : "分类管理",
 					goto:"newcategory"
-
-				},
-				"two" : {
+				},{
 					name : "分类列表管理",
 					goto:"categorylist"
-
-				}
-			}
+				}]
 		$scope.$emit("changeNavigation", data);
 		$scope.getCategoryList();
 	};

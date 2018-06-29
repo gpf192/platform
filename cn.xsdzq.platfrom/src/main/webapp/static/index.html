@@ -100,7 +100,7 @@
 								<span ng-show="item.arrow" ng-class="{open:item.isOpen||item.isActive}" class="arrow"></span>
 							</a>
 							<ul class="nav sub nav-list secondmenu" ng-class="{collapse:!item.isOpen}">
-								<li ng-repeat="row in menu[$index].child" ng-class="{current:row.isCurrent}" ng-click="goto(first,$index,row.forward,$event)">
+								<li ng-repeat="row in menu[$index].child" ng-class="{current:row.isCurrent}" ng-click="gotoMenu(first,$index,row.forward,$event)">
 									<a href="javascript:void(0)">
 										<span ng-bind="row.menu_name"></span>
 									</a>
@@ -141,10 +141,10 @@
 										<!-- 导航条-->
 										<ul class="breadcrumb">
 											<li>
-												<i class="fa fa-home"></i> <a href="#">首页</a>
+												<i class="fa fa-home"></i> <a href="javascript:void(0)" ng-click=gotoMain()>首页</a>
 											</li>
 											<li ng-repeat="nav in navigation">
-												<a href="javascript:void(0)" ng-click="goto(nav.goto)"><span ng-bind="nav.name"></span></a>
+												<a href="javascript:void(0)" ng-click="gotoNav(nav.goto)"><span ng-bind="nav.name"></span></a>
 											</li>
 										</ul>
 									</div>

@@ -8,7 +8,7 @@ function newVersionController($scope, $http, $state, httpUtils, layerUtils) {
 		var data = [
 				 {
 					name : "信息管理",
-					goto:""
+					goto:"infolist"
 
 				}, {
 					name : "新建信息",

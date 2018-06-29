@@ -8,7 +8,7 @@ function infoListController($scope, $http, $state, $stateParams, $gridService, h
 	$scope.init = function() {
 		var data = [{
 			name : "信息管理",
-			goto:""
+			goto:"infolist"
 		}, {
 			name : "信息列表管理",
 			goto:"infolist"

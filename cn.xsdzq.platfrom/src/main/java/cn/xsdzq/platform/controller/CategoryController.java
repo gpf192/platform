@@ -3,23 +3,19 @@ package cn.xsdzq.platform.controller;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
-import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.sun.istack.internal.logging.Logger;
 
@@ -30,7 +26,6 @@ import cn.xsdzq.platform.model.IdDTO;
 import cn.xsdzq.platform.service.ICategoryService;
 import cn.xsdzq.platform.util.CategoryUtil;
 import cn.xsdzq.platform.util.GsonUtil;
-import cn.xsdzq.platform.util.PhotoUtil;
 
 @Controller
 @RequestMapping("/category")
@@ -62,6 +57,7 @@ public class CategoryController {
 			CategoryDTO dto = CategoryUtil.convertCategoryDTOByCategoryEntity(category);
 			cDtos.add(dto);
 		}
+		cDtos.sort(Comparator.naturalOrder());
 		return GsonUtil.buildMap(0, "ok", cDtos);
 	}
 
