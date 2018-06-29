@@ -18,8 +18,12 @@ function modifyCategoryController($scope, $http, $state, $stateParams, httpUtils
 		angular.copy($stateParams.category,$scope.formData);
 		if (angular.equals($scope.formData, {})) {
 			$state.go("categorylist");
+			return;
 		}
+		document.getElementById("tempImage").src=$scope.formData.image;
+		
 	};
+	
 
 	$scope.submit = function() {
 		if(angular.equals($scope.formData, $stateParams.category)){
@@ -88,7 +92,7 @@ function modifyCategoryController($scope, $http, $state, $stateParams, httpUtils
 		}
 		$http.post(url, $scope.formData).success(function(data) {
 			if (data.resCode == 0) {
-				layerUtils.iMsg(-1, "添加成功");
+				layerUtils.iMsg(-1, "修改成功");
 			} else {
 				layerUtils.iMsg(-1, data.resMSg);
 			}

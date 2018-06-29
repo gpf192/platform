@@ -16,7 +16,7 @@
 	</div>
 	<div class="box-body">
 		<div  class="dataTables_wrapper form-inline" role="grid">
-			<div class="row">
+			<div class="row hide">
 				<div class="col-sm-12">
 					<div class="pull-right">
 						<div class="dataTables_filter" id="datatable1_filter">
@@ -59,7 +59,7 @@
 					<tr ng-repeat="item in categorys">
 						<td class="col-sm-1">{{$index+1}}</td>
 						<td class="col-sm-2">{{item.title}}</td>
-						<td class="col-sm-1" align="center"><img alt="没有图标" ng-if="item.image" class="img-responsive category-img" src="{{item.image}}"></td>
+						<td class="col-sm-1" align="center"><img alt="没有图标" ng-if="item.image" class="img-responsive category-img" ng-src="{{item.image}}"></td>
 						<td class="col-sm-1 text-center">
 							<div>
 								<button type="button" class="btn btn-info btn-sm"
