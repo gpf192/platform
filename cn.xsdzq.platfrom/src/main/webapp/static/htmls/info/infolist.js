@@ -75,7 +75,7 @@ function infoListController($scope, $http, $state, $stateParams, $gridService, h
 		param.weight=param.weight+1;
 		$http.post(url, param).success(function(data) {
 			if (data.resCode == 0) {
-				layerUtils.iMsg(-1, "权重增加成功");
+				layerUtils.iMsg(-1, "置顶成功");
 			}
 		});
 	}
