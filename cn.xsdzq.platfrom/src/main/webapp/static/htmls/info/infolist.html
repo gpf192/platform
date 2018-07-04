@@ -33,7 +33,7 @@
 				</div>
 			</form>
 			<hr />
-			<div class="row" ng-show="infoList.length>0">
+			<div class="row hide" ng-show="infoList.length>0">
 				<div class="col-sm-12">
 					<div class="pull-right">
 						<div class="dataTables_filter" id="datatable1_filter">
@@ -79,9 +79,7 @@
 				<tbody role="alert" aria-live="polite" aria-relevant="all">
 					<tr ng-repeat="info in infoList | filter:{title:search}">
 						<td class="col-sm-1">{{$index+selectNum["num"]*currentPage.page+1}}</td>
-						<td class="col-sm-3">{{info.title}}</td>
-						<!-- <td class="col-sm-2"><span
-							ng-bind="info.content |substring:0:23"></span></td> -->
+						<td class="col-sm-1">{{info.title}}</td>
 						<td class="col-sm-1"><span
 						    ng-bind="info.checked_result |transfera"></span></td>
 						<td class="col-sm-1"><span
