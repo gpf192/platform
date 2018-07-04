@@ -424,5 +424,8 @@ table tbody td .category-img{
 	line-height: 87px;
     margin-left: 10px;
 }
-
+.col-sm-add-margin-5{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
 

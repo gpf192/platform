@@ -44,7 +44,8 @@ ngApp.controller("indexController", function($scope, $state, $http, httpUtils) {
 		console.log(state);
 		for(var i =0;i<$scope.navigation.length;i++){
 			if($scope.navigation[i]['goto']==state){
-				$scope.navigation.splice(i-1);
+				$scope.navigation=$scope.navigation.splice(i-1);
+				console.log($scope.navigation);
 			}
 		}
 		$state.go(state);
