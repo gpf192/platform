@@ -17,7 +17,8 @@ function newUserController($scope, $http, $state, httpUtils, layerUtils) {
 				}
 			}
 			$scope.$emit("changeNavigation", data);
-		
+		$scope.formData.username="";
+		$scope.formData.password="";
 	};
 	
 	$scope.labelList=[];

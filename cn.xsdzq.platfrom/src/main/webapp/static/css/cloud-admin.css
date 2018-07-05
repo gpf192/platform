@@ -6488,6 +6488,9 @@ fieldset[disabled] .btn-yellow.active {
   text-shadow: none;
   padding: 0 5px;
 }
+#content .breadcrumb > li:nth-child(2) a{
+	text-decoration: none;
+}
 .date-range {
   margin-top: 20px;
 }
