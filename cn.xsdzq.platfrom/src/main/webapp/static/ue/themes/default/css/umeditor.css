@@ -771,3 +771,6 @@
     border:none;
 
 }
+img {
+max-width: 100%; /*图片自适应宽度*/
+}
