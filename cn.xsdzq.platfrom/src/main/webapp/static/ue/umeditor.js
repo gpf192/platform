@@ -3689,7 +3689,12 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
                 return '';
             }
             me.fireEvent('beforegetcontent');
+            //console.log(typeof me.body.innerHTML);
+            //console.log(me.body.innerHTML);
+            //console.log(me.document.getElementsByTagName('table'));
             var root = UM.htmlparser(me.body.innerHTML,ignoreBlank);
+            //console.log(typeof root);
+            //console.log(root);
             me.filterOutputRule(root);
             me.fireEvent('aftergetcontent',root);
             return  root.toHtml(formatter);
@@ -5344,6 +5349,42 @@ var htmlparser = UM.htmlparser = function (htmlstr,ignoreBlank) {
             //是自闭合的处理一下
             children:dtd.$empty[tagName] ? null : []
         });
+        //处理table元素
+        if(htmlattr&&tagName=='table'){
+        	if(htmlattr.indexOf("border=")<0){
+        		htmlattr+='border="1"';
+        	}
+        	var attrArray=htmlattr.split("\"");
+        	for(let i=0; i<attrArray.length;i++){
+        		if(attrArray[i]=="border="||attrArray[i]==" border="||attrArray[i]==" border= "){
+        			attrArray[i+1]=1;
+        		}
+        		if(attrArray[i]=="style="||attrArray[i]==" style="||attrArray[i]==" style= "){
+        			var params=attrArray[i+1];
+        			var paramsArray=params.split(";");
+        			//console.log("origin: "+params);
+        			for(var j=0;j<paramsArray.length;j++){
+        				console.log(paramsArray[j]);
+        				if(paramsArray[j].indexOf("width")>-1){
+        					var thirdArray=paramsArray[j].split(":");
+        					var width=thirdArray[1].substring(0,thirdArray[1].length-2);
+        					if(width.indexOf("px")){
+        						var intWidth=parseInt(width, 10);
+            					if(intWidth>320){
+            						thirdArray[1]="100%";
+            					}
+            					paramsArray[j]=thirdArray.join(":");
+        					}
+        					//console.log("paramsArray[j]:"+paramsArray[j]);
+        				}       				       				
+        			}
+        			attrArray[i+1]=paramsArray.join(";");
+        		}
+        	}
+        	var htmlattrStr=attrArray.join("\"");
+        	//console.log("result:"+htmlattrStr);
+        	htmlattr=htmlattrStr;
+        }
         //如果属性存在，处理属性
         if (htmlattr) {
             var attrs = {}, match;
@@ -5352,6 +5393,7 @@ var htmlparser = UM.htmlparser = function (htmlstr,ignoreBlank) {
             }
             elm.attrs = attrs;
         }
+
 
         parent.children.push(elm);
         //如果是自闭合节点返回父亲节点

@@ -25,11 +25,11 @@ UM.I18N['zh-cn'] = {
     },
     'paragraph':{'p':'段落', 'h1':'标题 1', 'h2':'标题 2', 'h3':'标题 3', 'h4':'标题 4', 'h5':'标题 5', 'h6':'标题 6'},
     'fontfamily':{
+    	'yahei':'微软雅黑',
         'songti':'宋体',
         'kaiti':'楷体',
         'heiti':'黑体',
         'lishu':'隶书',
-        'yahei':'微软雅黑',
         'andaleMono':'andale mono',
         'arial': 'arial',
         'arialBlack':'arial black',

@@ -1,14 +1,20 @@
-ngApp.factory('xsdInterceptor', ['$q', '$location', 'layerUtils',
-function($q, $location, layerUtils) {
+ngApp.factory('xsdInterceptor', ['$q', '$window','$location', 'layerUtils',
+function($q,$window, $location, layerUtils) {
 	var interceptor = {
 		'request' : function(config) {
 			//console.log(config);
 			//console.log("request request request");
 			var url=config.url;
+			if(url.indexOf("login")>-1&&url.indexOf("expire")>-1){
+				layerUtils.iConfirm("登录已过期，请重新登录！", function() {
+					console.log("登录已过期，请重新登录！");
+				});
+			}
 			var position=url.indexOf(".");
 			if(position<0){
 				layerUtils.iLoading(true);
 			}
+			
 			//var deferred=$q.defer();
 			//$q.when(config);
 			//if(config.url.indexOf("Function700001")>0){
@@ -21,6 +27,19 @@ function($q, $location, layerUtils) {
 		'response' : function(response) {
 			//console.log("response  response response");
 			layerUtils.iLoading(false);
+			var data = response.data;
+			console.log($location);
+			if((typeof data =='string')){
+				if(data.indexOf("!DOCTYPE html")&&data.indexOf("loginin/css/bootstrap.min.css")>-1&&data.indexOf("登录")){
+					layerUtils.iConfirm("登录已过期，请重新登录！", function() {
+						var loginUrl=$location.protocol()+"://"+$location.host()+":"+$location.port()+"/platform/login";
+						console.log(loginUrl);
+						window.location.href=$location.absUrl();
+					}, function() {
+						console.log("取消");
+					});
+				}
+			}
 			return response;
 		},
 		'requestError' : function(responseError) {

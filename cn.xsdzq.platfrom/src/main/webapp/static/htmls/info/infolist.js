@@ -18,6 +18,7 @@ function infoListController($scope, $http, $state, $stateParams, $gridService, h
 			if (data.resCode == 0) {
 				$scope.categoryList = data.result;
 				$scope.formData.category = $scope.categoryList[0];
+				$scope.getInfosByCategoryId(10);
 			}
 		});
 		$scope.currentPage = {
