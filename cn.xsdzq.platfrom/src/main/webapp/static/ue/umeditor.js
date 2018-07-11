@@ -5351,6 +5351,9 @@ var htmlparser = UM.htmlparser = function (htmlstr,ignoreBlank) {
         });
         //处理table元素
         if(htmlattr&&tagName=='table'){
+        	if(htmlattr.indexOf("border=")<0){
+        		htmlattr+='border="1"';
+        	}
         	var attrArray=htmlattr.split("\"");
         	for(let i=0; i<attrArray.length;i++){
         		if(attrArray[i]=="border="||attrArray[i]==" border="||attrArray[i]==" border= "){
@@ -5361,8 +5364,8 @@ var htmlparser = UM.htmlparser = function (htmlstr,ignoreBlank) {
         			var paramsArray=params.split(";");
         			//console.log("origin: "+params);
         			for(var j=0;j<paramsArray.length;j++){
-        				//console.log(paramsArray[j]);
-        				if(paramsArray[j].indexOf("width")>0){
+        				console.log(paramsArray[j]);
+        				if(paramsArray[j].indexOf("width")>-1){
         					var thirdArray=paramsArray[j].split(":");
         					var width=thirdArray[1].substring(0,thirdArray[1].length-2);
         					if(width.indexOf("px")){

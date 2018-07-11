@@ -153,7 +153,7 @@
 
         //语言配置项,默认是zh-cn。有需要的话也可以使用如下这样的方式来自动多语言切换，当然，前提条件是lang文件夹下存在对应的语言文件：
         //lang值也可以通过自动获取 (navigator.language||navigator.browserLanguage ||navigator.userLanguage).toLowerCase()
-        //,lang:"zh-cn"
+        ,lang:"zh-cn"
         //,langPath:URL +"lang/"
 
         //ie下的链接自动监测
@@ -203,9 +203,9 @@
 
         //fontfamily
         //字体设置
-//        ,'fontfamily':[
-//              { name: 'songti', val: '宋体,SimSun'},
-//          ]
+        ,'fontfamily':[
+              { name: 'songti', val: '宋体,SimSun'},
+         ]
 
         //fontsize
         //字号
