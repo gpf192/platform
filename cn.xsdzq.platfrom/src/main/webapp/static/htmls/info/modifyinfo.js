@@ -10,6 +10,9 @@ function modifyInfoController($scope, $http, $state, $stateParams, httpUtils, la
 		var data = [{
 						name : "信息管理",
 						goto:"infolist"
+					},{
+						name : "信息列表管理",
+						goto:"infolist"	
 					},
 					{
 						name : "修改信息",

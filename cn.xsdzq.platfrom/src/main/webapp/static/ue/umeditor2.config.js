@@ -9,6 +9,10 @@
  * 当升级编辑器时，可直接使用旧版配置文件替换新版配置文件,不用担心旧版配置文件中因缺少新功能所需的参数而导致脚本报错。
  **************************提示********************************/
 
+etpl.config({
+    commandOpen: '<%',
+    commandClose: '%>'
+});
 
 (function () {
     /**
@@ -141,7 +145,6 @@
         ,imagePath:URL + "jsp/"                     //图片修正地址，引用了fixedImagePath,如有特殊需求，可自行配置
         ,imageFieldName:"upfile"                   //图片数据的key,若此处修改，需要在后台对应文件修改对应参数
 
-
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的从新定义
         ,toolbar:[
             'source | undo redo | bold italic underline strikethrough | superscript subscript | forecolor backcolor | removeformat |',
@@ -153,7 +156,7 @@
 
         //语言配置项,默认是zh-cn。有需要的话也可以使用如下这样的方式来自动多语言切换，当然，前提条件是lang文件夹下存在对应的语言文件：
         //lang值也可以通过自动获取 (navigator.language||navigator.browserLanguage ||navigator.userLanguage).toLowerCase()
-        ,lang:"zh-cn"
+        //,lang:"zh-cn"
         //,langPath:URL +"lang/"
 
         //ie下的链接自动监测
@@ -203,9 +206,9 @@
 
         //fontfamily
         //字体设置
-        //,'fontfamily':[
-        //      { name: 'songti', val: '宋体,SimSun'},
-        // ]
+//        ,'fontfamily':[
+//              { name: 'songti', val: '宋体,SimSun'},
+//          ]
 
         //fontsize
         //字号
@@ -292,7 +295,7 @@
 			header: ['style', 'class', 'id'],
 			hr:     ['style', 'class', 'id'],
 			i:      ['style', 'class', 'id'],
-            iframe: ['style', 'class', 'id', 'src', 'frameborder', 'data-latex'],
+            // iframe: ['style', 'class', 'id', 'src', 'frameborder', 'data-latex'],
 			img:    ['src', 'alt', 'title', 'width', 'height', 'style', 'class', 'id', '_url'],
 			ins:    ['datetime', 'style', 'class', 'id'],
 			li:     ['style', 'class', 'id'],
