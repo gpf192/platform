@@ -9068,3 +9068,8 @@ ul.stats li small {
 .well.well-bottom {
   border-radius: 0 0 4px 4px;
 }
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
