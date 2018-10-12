@@ -4,7 +4,7 @@
 	src="ue/umeditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="ue/umeditor.min.js"></script>
 <script type="text/javascript" src="ue/lang/zh-cn/zh-cn.js"></script>
-<script type="text/javascript" src="htmls/info/modifyinfo.js"></script>
+<script type="text/javascript" src="htmls/info/viewinfo.js"></script>
 <div class="box border primary" ng-init="init()">
 	<div class="box-title">
 		<h4>
@@ -70,7 +70,12 @@
 						<script type="text/plain" id="myEditor" style="width: 750px; height: 400px;"></script>
 					</div>
 				</div>
-				
+				<div class="form-group full">
+					<div class="col-sm-offset-1 col-sm-3" >
+						<button type="button" ng-click="back()"
+							class="btn btn-default btn-primary">返回</button>
+					</div>														
+				</div>
 			</fieldset>
 		</form>
 	</div>

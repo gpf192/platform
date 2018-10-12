@@ -5,12 +5,22 @@ function infoListController($scope, $http, $state, $stateParams, $gridService, h
 	$scope.formData.category = {};
 	$scope.categoryList = [];
 	$scope.infoList = [];
+    $scope.approveResultOption = {
+            全部: "all",
+            待提交: "generate",
+            待审核: "submit",
+            已发布: "approve",
+            审核拒绝:"reject"
+        };
+    
 	$scope.init = function() {
+		//审核状态 默认为查询 全部
+		$scope.approveResult = $scope.approveResultOption['全部'];
 		var data = [{
 			name : "信息管理",
 			goto:"infolist"
 		}, {
-			name : "信息列表管理",
+			name : "内容管理",
 			goto:"infolist"
 		}];
 		$scope.$emit("changeNavigation", data);
@@ -40,9 +50,16 @@ function infoListController($scope, $http, $state, $stateParams, $gridService, h
 		}, true);
 	};
 	$scope.getInfosByCategoryId = function(pageSize) {
+		var inforTitle1 = $scope.formData.title;	
+		if (angular.isEmpty($scope.formData.title) ) {
+			//如果用户未输入或者输入为空格 ， 该参数赋值为空
+			inforTitle1 = '';		
+		}
 		var url = httpUtils.url.getInfoList;
 		var params = {
 			id : $scope.formData.category.id,
+			infoTitle : inforTitle1,
+			approveResult :$scope.approveResult,
 			pageNumber : 0,
 			pageSize : pageSize
 		};
@@ -56,11 +73,15 @@ function infoListController($scope, $http, $state, $stateParams, $gridService, h
 		$gridService.queryTableDatas($scope, tableElement, params, settings, $http);
 	};
 	$scope.modifyInfo = function(index) {
-		var info = $scope.infoList[index];
-		console.log(info);
-		$state.go("modifyinfo", {
-			info : info
-		});
+		layerUtils.iConfirm("是否修该此文章？", function() {
+			var info = $scope.infoList[index];
+			console.log(info);
+			$state.go("modifyinfo", {
+				info : info
+			});
+		}, function() {
+			console.log("取消");
+		})
 	}
 	$scope.viewInfo = function(index) {
 		var info = $scope.infoList[index];

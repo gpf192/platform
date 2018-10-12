@@ -1,5 +1,9 @@
 package cn.xsdzq.platform.util;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import cn.xsdzq.platform.entity.CategoryEntity;
 import cn.xsdzq.platform.entity.InfoEntity;
 import cn.xsdzq.platform.model.InfoDTO;
 
@@ -30,6 +34,11 @@ public class InfoUtil {
 		dto.setChecked_result(infoEntity.getCheckedResult());
 		dto.setWeight(infoEntity.getWeight());
 		dto.setPageView(infoEntity.getPageView());
+		dto.setCreatedBy( infoEntity.getCreatedBy());
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		dto.setModifytime(sdf.format(infoEntity.getModifytime())); 
+		CategoryEntity  categoryEntity = infoEntity.getCategoryEntity();
+		dto.setCategoryTitle(categoryEntity.getTitle());
 		return dto;
 	}
 

@@ -184,6 +184,14 @@ public class InfoEntity implements Serializable {
 		this.pageView = pageView;
 	}
 
+	public Date getModifytime() {
+		return modifytime;
+	}
+
+	public void setModifytime(Date modifytime) {
+		this.modifytime = modifytime;
+	}
+
 	@JsonBackReference
 	public void setCategoryEntity(CategoryEntity categoryEntity) {
 		this.categoryEntity = categoryEntity;

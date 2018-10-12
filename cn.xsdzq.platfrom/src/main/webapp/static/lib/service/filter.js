@@ -22,13 +22,13 @@ ngApp.filter('trustHtml', function ($sce) {
 ngApp.filter('transfera', function() { 
 	return function (value) {
 	    if(value == 'generate'){
-	    	return "未提交";
+	    	return "待提交";
 	    }
 	    if(value == 'submit'){
 	    	return "待审核";
 	    }
 	    if(value == 'approve'){
-	    	return "审核通过";
+	    	return "已发布";
 	    }
 	    if(value == 'reject'){
 	    	return "审核拒绝";
