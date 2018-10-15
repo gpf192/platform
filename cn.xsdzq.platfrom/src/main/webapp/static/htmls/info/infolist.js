@@ -75,7 +75,9 @@ function infoListController($scope, $http, $state, $stateParams, $gridService, h
 	$scope.modifyInfo = function(index) {
 		layerUtils.iConfirm("是否修该此文章？", function() {
 			var info = $scope.infoList[index];
+			console.log(200000+info);
 			console.log(info);
+			console.log(200000+info);
 			$state.go("modifyinfo", {
 				info : info
 			});

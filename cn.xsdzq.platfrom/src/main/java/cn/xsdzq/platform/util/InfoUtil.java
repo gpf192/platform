@@ -20,6 +20,7 @@ public class InfoUtil {
 		infoEntity.setCheckedResult(dto.getFlag());
 		infoEntity.setWeight(dto.getWeight());
 		infoEntity.setPageView(dto.getPageView());
+		infoEntity.setCommonFlag(dto.getCommonFlag());
 		return infoEntity;
 	}
 
@@ -39,6 +40,7 @@ public class InfoUtil {
 		dto.setModifytime(sdf.format(infoEntity.getModifytime())); 
 		CategoryEntity  categoryEntity = infoEntity.getCategoryEntity();
 		dto.setCategoryTitle(categoryEntity.getTitle());
+		dto.setCommonFlag(infoEntity.getCommonFlag());
 		return dto;
 	}
 

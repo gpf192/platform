@@ -320,5 +320,94 @@ public class InfoController extends BaseController {
 	}
 
 	// add by fjx
+	@RequestMapping(value = "/getCheckInfosByCategoryId", method = GET, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> getCheckInfos(HttpServletRequest request, @RequestParam long id, @RequestParam String infoTitle,
+			@RequestParam String approveResult, @RequestParam int pageNumber,@RequestParam int pageSize) {
+		System.out.println("approveResult是********** ********** ********** ********** ********** **********   "  + approveResult);
+		System.out.println("infoTitle是********** ********** ********** ********** ********** **********   "  + infoTitle);
+		long categoryId = id;
+		if (categoryId > 0) {
+			CategoryEntity category = categoryService.getCategoryById(categoryId);
+			String categoryTitle = category.getTitle();
+			System.out.println("categoryTitle是   "  + categoryTitle);
+			List<InfoEntity> infos = null;
+			int sum = 0 ;
+			//开始查询所有待审核 和 已审核的 单子，与用户名无关
+				//开始判断 栏目 是否查询全部
+				if("全部".equals(categoryTitle)) {				
+					
+					//超级用户查询全部，开始判断标题是否为空，条件：title关键字、审核状态
+					if("".equals(infoTitle)) {
+						//标题关键字为空，开始判断审核状态 是否为all  条件：审核状态
+						if("all".equals(approveResult)){
+							//审核状态为all，条件：用户名
+							infos = myInfoService.getInfosBySuperCreator(pageNumber, pageSize); /////
+							sum = myInfoService.countInfosBySuperCreator();///////
+							//******************************************************* 开发到这里
+						}else {
+							//审核状态非all，条件：审核状态						
+							infos = myInfoService.getInfosByCheckedResult(approveResult, pageNumber, pageSize);
+							sum = myInfoService.countInfosByCheckedResult(approveResult);
+						}
 
+					}else {
+						//标题关键字不为空，条件：title关键字、审核状态
+						if("all".equals(approveResult)){
+							//审核状态为all，条件：title关键字	  "%"+infoTitle+"%"							
+							infos = myInfoService.getInfosByTitleLike("%"+infoTitle+"%", pageNumber, pageSize);  /////////
+							sum = myInfoService.countInfosByTitleLike("%"+infoTitle+"%");//////////
+						}else {
+							//审核状态非all，条件：title关键字、审核状态	
+							infos = myInfoService.getInfosByCheckedResultByTitleLike(approveResult, "%"+infoTitle+"%", pageNumber, pageSize);
+							sum = myInfoService.countInfosByCheckedResultByTitleLike(approveResult,"%"+infoTitle+"%");
+						}
+					}
+
+				}else {
+					//栏目为非全部，开始判断title关键字是否为空，*********************************
+					if("".equals(infoTitle)) {
+						//title关键字 为空，开始判断审核状态是否为全部
+						if("all".equals(approveResult)) {
+							//审核状态为 all， 条件：栏目id		
+							infos = myInfoService.getInfosByCategoryIdByCheckAll(categoryId, pageNumber,
+									pageSize);//////////
+							sum = myInfoService.countInfosByCategoryId(categoryId);/////////
+						}else {
+							//审核状态为非all  ，条件：栏目id、审核状态					
+							infos = myInfoService.getInfosByCategoryIdByCheckedResult(categoryId, approveResult, pageNumber,
+									pageSize);
+							sum = myInfoService.countInfosByCategoryIdByCheckedResult(categoryId, approveResult);
+						}
+					}else {
+						//title关键字 非空，开始判断审核状态是否为全部
+						if("all".equals(approveResult)) {
+							//审核状态为 all， 条件：栏目id、   title关键字
+							infos = myInfoService.getInfosByCategoryIdByTitleLike(categoryId, "%"+infoTitle+"%", pageNumber,
+									pageSize);/////////
+							sum = myInfoService.countInfosByCategoryIdByTitleLike(categoryId, "%"+infoTitle+"%");///////////
+						}else {
+							//审核状态为非all  ，条件：栏目id、title关键字  、审核状态 						
+							infos = myInfoService.getInfosByCategoryIdByCheckedResultByTitleLike(categoryId, approveResult, "%"+infoTitle+"%", pageNumber,
+									pageSize);
+							sum = myInfoService.countInfosByCategoryIdByCheckedResultByTitleLike(categoryId, approveResult, "%"+infoTitle+"%");
+						}
+					}
+					
+				}
+			
+
+			List<InfoDTO> infoDTOs = new ArrayList<InfoDTO>();
+			for (InfoEntity info : infos) {
+				InfoDTO dto = InfoUtil.convertInfoDTOByInfo(info);
+				infoDTOs.add(dto);
+			}
+			//int sum = myInfoService.countInfosByCategoryId(categoryId);
+			System.out.println("sum: " + sum);
+			Pagination pagination = new Pagination(pageNumber, pageSize, sum);
+			return GsonUtil.buildMap(0, "ok", infoDTOs, pagination);
+		} else {
+			return GsonUtil.buildMap(1, "fail", null);
+		}
+	}
 }

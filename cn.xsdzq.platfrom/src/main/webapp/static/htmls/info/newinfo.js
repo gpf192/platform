@@ -54,13 +54,13 @@ function newVersionController($scope, $http, $state, httpUtils, layerUtils) {
 		}else{
 			var commonFlag = 'N';
 		}
-		console.log(10000000);
-		console.log(commonFlag);
+
 		if(value){
 			var params = {
 				title : $scope.formData.title,
 				categoryId : $scope.formData.category.id,
 				content : editorContent,
+				commonFlag :commonFlag,
 				flag : "submit"
 				};		
 		}else{
@@ -68,6 +68,7 @@ function newVersionController($scope, $http, $state, httpUtils, layerUtils) {
 				title : $scope.formData.title,
 				categoryId : $scope.formData.category.id,
 				content : editorContent,
+				commonFlag : commonFlag,
 				flag : "generate"
 				};			
 		}

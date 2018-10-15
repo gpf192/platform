@@ -51,6 +51,13 @@
 						</div>
 					</div>
 				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label"></label>
+					<div class="col-sm-7" >
+						<input type="checkbox" ng-model="commonFlagCheck" value=true>
+						<span>设置为常见问题</span>
+					</div>
+				</div>
 				<div class="form-group hide">
 					<label class="col-sm-2 control-label">标签：</label>
 					<div class="col-sm-6">
@@ -72,7 +79,7 @@
 						<script type="text/plain" id="myEditor" style="width: 750px; height: 400px;"></script>
 					</div>
 				</div>
-				<!-- 
+				<!-- value="formData.commonFlag"
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
 						<button type="button" ng-click="submit()"
