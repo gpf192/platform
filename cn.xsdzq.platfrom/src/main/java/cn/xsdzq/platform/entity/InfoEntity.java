@@ -49,6 +49,9 @@ public class InfoEntity implements Serializable {
 	// add by fjx begin
 	@Column(name = "checked")
 	private String checked = "N";// 默认未审核
+	
+	@Column(name = "common_flag")
+	private String commonFlag = "N";
 
 	@Column(name = "checked_result")
 	private String checkedResult;
@@ -182,6 +185,30 @@ public class InfoEntity implements Serializable {
 
 	public void setPageView(int pageView) {
 		this.pageView = pageView;
+	}
+
+	public Date getModifytime() {
+		return modifytime;
+	}
+
+	public void setModifytime(Date modifytime) {
+		this.modifytime = modifytime;
+	}
+
+	public Date getCreatetime() {
+		return createtime;
+	}
+
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
+	}
+
+	public String getCommonFlag() {
+		return commonFlag;
+	}
+
+	public void setCommonFlag(String commonFlag) {
+		this.commonFlag = commonFlag;
 	}
 
 	@JsonBackReference

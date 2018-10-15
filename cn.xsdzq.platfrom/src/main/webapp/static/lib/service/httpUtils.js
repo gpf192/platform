@@ -30,6 +30,7 @@ ngApp.factory("httpUtils", [ function() {
 		getInfoById : baseUrl + "info/getInfoById",
 		addInfo : baseUrl + "info/addInfo",
 		getInfoList : baseUrl + "info/getInfosByCategoryId",
+		getCheckInfoList : baseUrl + "info/getCheckInfosByCategoryId",
 		modifyInfo : baseUrl + "info/modifyInfo",
 		addWeight : baseUrl + "info/addWeight",
 		deleteInfo : baseUrl + "info/deleteInfo",

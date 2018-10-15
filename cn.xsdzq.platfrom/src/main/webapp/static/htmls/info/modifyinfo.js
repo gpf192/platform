@@ -29,6 +29,7 @@ function modifyInfoController($scope, $http, $state, $stateParams, httpUtils, la
 	};
 	$scope.initData=function(){
 		UM.getEditor('myEditor').setContent($scope.formData.content);
+		//$scope.commonFlagCheck = formData.commonFlagCheck;
 		$http.get(httpUtils.url.categoryList, {}).success(function(data) {
 			if (data.resCode == 0) {
 				$scope.categoryList = data.result;
@@ -39,23 +40,30 @@ function modifyInfoController($scope, $http, $state, $stateParams, httpUtils, la
 				}
 			}
 		});
+		
+		if($scope.formData.commonFlag == 'Y'){
+			$scope.commonFlagCheck = true;
+		}else{
+			$scope.commonFlagCheck = false;
+		}
 	}
 
 	$scope.submit = function(value) {
 		var editorContent = UM.getEditor('myEditor').getContent();
 		console.log(editorContent);
-/*		var params = {
-			id :$scope.formData.id,
-			title : $scope.formData.title,
-			categoryId : $scope.formData.category.id,
-			content : editorContent
-		};*/
+		//判断勾选框
+		if($scope.commonFlagCheck){
+			var commonFlag = 'Y';
+		}else{
+			var commonFlag = 'N';
+		}
 		if(value){
 			var params = {
 				id :$scope.formData.id,
 				title : $scope.formData.title,
 				categoryId : $scope.formData.category.id,
 				content : editorContent,
+				commonFlag : commonFlag,
 				flag : "submit"
 				};		
 		}else{
@@ -64,6 +72,7 @@ function modifyInfoController($scope, $http, $state, $stateParams, httpUtils, la
 					title : $scope.formData.title,
 					categoryId : $scope.formData.category.id,
 					content : editorContent,
+					commonFlag : commonFlag,
 					flag : "generate"
 					};			
 		}

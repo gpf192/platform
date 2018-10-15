@@ -2,7 +2,7 @@
 <div class="box border primary" ng-init="init()">
 	<div class="box-title">
 		<h4>
-			<i class="fa fa-bars"></i>信息列表管理
+			<i class="fa fa-bars"></i>内容管理
 		</h4>
 		<div class="tools hidden">
 			<a href="#box-config" data-toggle="modal" class="config"> <i
@@ -17,14 +17,28 @@
 	<div class="box-body">
 		<div class="dataTables_wrapper form-inline" role="grid">
 			<form class="form-horizontal margin10">
-				<div class="form-group full">
-					<label class="col-sm-4 control-label text-right">根据分类信息查询:</label>
-					<div class="col-sm-8">
+				<div class="form-group ">
+					<label class="col-sm-5 control-label text-right">栏目查询:</label>
+					<div class="col-sm-7">
 						<select class="form-control" ng-model="formData.category"
 							ng-options="item.title for item in categoryList"></select>
 					</div>
 				</div>
-				<div class="form-group full">
+				<div class="form-group ">
+					<label class="col-sm-4 control-label text-right">文章标题:</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="searchTitle" name="title"
+						ng-model="formData.title" placeholder="请输入关键字"></input>
+					</div>
+				</div>
+				<div class="form-group ">
+					<label class="col-sm-5 control-label text-right">审核状态:</label>
+					<div class="col-sm-7">
+						<select class="form-control" ng-model="approveResult"
+							ng-options="key for (key, value) in approveResultOption" ></select>
+					</div>
+				</div>
+				<div class="form-group ">
 					<div class="col-sm-4"></div>
 					<div class="col-sm-8 text-center">
 						<input type="button" value="查询" class="btn btn-primary"
@@ -65,13 +79,21 @@
 						<th class="col-sm-3 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">文章标题</th>
 						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-							aria-controls="datatable1" rowspan="1" colspan="1">审核状态</th>
+							aria-controls="datatable1" rowspan="1" colspan="1">栏目名称</th>
 						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-							aria-controls="datatable1" rowspan="1" colspan="1">页面浏览量</th>
+							aria-controls="datatable1" rowspan="1" colspan="1">发布时间</th>
 						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-							aria-controls="datatable1" rowspan="1" colspan="1">置顶权重</th>
+							aria-controls="datatable1" rowspan="1" colspan="1">发布人</th>
 						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-							aria-controls="datatable1" rowspan="1" colspan="1">修改</th>
+							aria-controls="datatable1" rowspan="1" colspan="1">审核状态</th>	
+						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1">浏览量</th>
+						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1">置顶</th>
+						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1">编辑</th>
+						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1">复制</th>
 						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">删除</th>
 					</tr>
@@ -79,9 +101,12 @@
 				<tbody role="alert" aria-live="polite" aria-relevant="all">
 					<tr ng-repeat="info in infoList | filter:{title:search}">
 						<td class="col-sm-1">{{$index+selectNum["num"]*currentPage.page+1}}</td>
-						<td class="col-sm-1">{{info.title}}</td>
+						<td class="col-sm-1" ng-click="viewInfo($index)" style="cursor:pointer">{{info.title}}</td>
+						<td class="col-sm-1">{{info.categoryTitle}}</td> 
+						<td class="col-sm-1">{{info.modifytime}}</td>
+						<td class="col-sm-1">{{info.createdBy}}</td>
 						<td class="col-sm-1"><span
-						    ng-bind="info.checked_result |transfera"></span></td>
+						    ng-bind="info.checked_result |transfera"></span></td>				 
 						<td class="col-sm-1"><span
 						    ng-bind="info.pageView"></span></td>
 						<td>
@@ -93,17 +118,26 @@
 							<div>
 								<button ng-if="info.checked_result == ('generate')||info.checked_result == ('reject')" type="button" class="btn btn-info btn-sm"
 									ng-click="modifyInfo($index)">
-									<i class="fa fa-pencil-square-o"></i><span> 修改</span>
+									<i class="fa fa-pencil-square-o"></i><span> 编辑</span>
 								</button>
-								<button ng-if="info.checked_result == ('submit')||info.checked_result == ('approve')" type="button" class="btn btn-info btn-sm"
+								<!-- <button ng-if="info.checked_result == ('submit')||info.checked_result == ('approve')" type="button" class="btn btn-info btn-sm"
 									ng-click="viewInfo($index)">
 									<i class="fa fa-clipboard"></i><span> 查看</span>
+								</button> -->
+								
+							</div>
+						</td>
+						<td class="col-sm-1">
+							<div>
+								<button ng-if="info.checked_result == ('approve')" type="button" class="btn btn-danger btn-sm"
+									ng-click="">
+									<i class="fa fa-clipboard"></i><span> 复制</span>
 								</button>
 							</div>
 						</td>
 						<td class="col-sm-1">
 							<div>
-								<button type="button" class="btn btn-danger btn-sm"
+								<button ng-if="info.checked_result == ('generate')||info.checked_result == ('reject')" type="button" class="btn btn-danger btn-sm"
 									ng-click="deleteInfo($index)">
 									<i class="fa fa-trash-o"></i><span> 删除</span>
 								</button>
