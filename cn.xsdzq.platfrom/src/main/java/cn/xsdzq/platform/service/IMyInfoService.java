@@ -57,6 +57,14 @@ public interface IMyInfoService {
 	 int countInfosByCategoryIdByTitleLike(long categoryId, String title);
 	 List<InfoEntity> getInfosByCategoryIdByCheckedResultByTitleLike(long id, String approveResult, String title, int pageNumber, int pageSize);
 	 int countInfosByCategoryIdByCheckedResultByTitleLike(long categoryId, String approveResult, String title);
-
+	 //审核模块  Check
+	 List<InfoEntity> getCheckInfosBySuperCreator(int pageNumber, int pageSize);
+	 int countCheckInfosBySuperCreator();
+	 List<InfoEntity> getCheckInfosByTitleLike(String title, int pageNumber, int pageSize); 
+	 int countCheckInfosByTitleLike(String title);
+	 List<InfoEntity> getCheckInfosByCategoryIdByCheckAll(long id, int pageNumber, int pageSize);
+	 int countCheckInfosByCategoryId(long categoryId);
+	 List<InfoEntity> getCheckInfosByCategoryIdByTitleLike(long id, String title, int pageNumber, int pageSize);
+	 int countCheckInfosByCategoryIdByTitleLike(long categoryId, String title);
 
 }

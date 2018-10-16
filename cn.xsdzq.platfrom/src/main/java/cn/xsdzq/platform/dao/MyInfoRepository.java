@@ -80,5 +80,14 @@ public interface MyInfoRepository extends PagingAndSortingRepository<InfoEntity,
 	Page<InfoEntity> findInfoEntityByCategoryIdAndCheckedResultAndTitleLikeOrderByModifytimeDesc(long categoryId, String title,
 			 String approveResult, Pageable pageable);
 	int countInfoEntityByCategoryIdAndCheckedResultAndTitleLike(long categoryId, String approveResult, String title);
-
+//审核模块用到的
+	Page<InfoEntity> findByCheckedResultInOrderByModifytimeDesc(List<String> list, Pageable pageable);
+	int countInfoEntityByCheckedResultIn(List<String> list);
+	Page<InfoEntity> findInfoEntityByTitleLikeAndCheckedResultInOrderByModifytimeDesc(String title,List<String> list, Pageable pageable);
+	int countInfoEntityByTitleLikeAndCheckedResultIn(String title,List<String> list);
+	Page<InfoEntity> findInfoEntityByCategoryIdAndCheckedResultInOrderByModifytimeDesc(long categoryId, List<String> list, Pageable pageable);
+	int countInfoEntityByCategoryIdAndCheckedResultIn(long categoryId, List<String> list);
+	Page<InfoEntity> findInfoEntityByCategoryIdAndTitleLikeAndCheckedResultInOrderByModifytimeDesc(long id, String title, List<String> list, Pageable pageable);
+	int countInfoEntityByCategoryIdAndTitleLikeAndCheckedResultIn(long categoryId, String title, List<String> list);
+	
 }

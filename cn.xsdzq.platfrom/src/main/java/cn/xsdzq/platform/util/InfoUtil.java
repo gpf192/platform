@@ -1,5 +1,7 @@
 package cn.xsdzq.platform.util;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -24,7 +26,7 @@ public class InfoUtil {
 		return infoEntity;
 	}
 
-	public static InfoDTO convertInfoDTOByInfo(InfoEntity infoEntity) {
+	public static InfoDTO convertInfoDTOByInfo(InfoEntity infoEntity) {		
 		InfoDTO dto = new InfoDTO();
 		dto.setId(infoEntity.getId());
 		dto.setTitle(infoEntity.getTitle());
@@ -41,6 +43,10 @@ public class InfoUtil {
 		CategoryEntity  categoryEntity = infoEntity.getCategoryEntity();
 		dto.setCategoryTitle(categoryEntity.getTitle());
 		dto.setCommonFlag(infoEntity.getCommonFlag());
+		if(infoEntity.getCreatetime()!= null) {
+			dto.setCreatetime(sdf.format(infoEntity.getCreatetime()));
+		}
+		
 		return dto;
 	}
 

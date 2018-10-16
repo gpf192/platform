@@ -1,5 +1,6 @@
 package cn.xsdzq.platform.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -235,5 +236,61 @@ public class MyInfoServiceImpl implements IMyInfoService {
 	}
 	public int countInfosByCategoryIdByCheckedResultByTitleLike(long categoryId, String approveResult, String title) {
 		return myInfoRepository.countInfoEntityByCategoryIdAndCheckedResultAndTitleLike(categoryId, approveResult, title);
+	}
+	//审核模块所需要用到的 
+	public List<String> getCheckConditions(){
+		List<String> list = new ArrayList<>();
+		list.add("approve");
+		list.add("submit");
+		return list;
+	}
+	public List<InfoEntity> getCheckInfosBySuperCreator(int pageNumber, int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		List<String> list = getCheckConditions();
+		Page<InfoEntity> pages = myInfoRepository.findByCheckedResultInOrderByModifytimeDesc(list, pageRequest);//问题 ：无法排序
+		List<InfoEntity> infos = pages.getContent();
+		return infos;
+	}
+	public int countCheckInfosBySuperCreator() {
+		// TODO Auto-generated method stub
+		List<String> list = getCheckConditions();
+		return (int) myInfoRepository.countInfoEntityByCheckedResultIn(list);
+	}
+	public List<InfoEntity> getCheckInfosByTitleLike(String title, int pageNumber, int pageSize){
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		List<String> list = getCheckConditions();
+		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByTitleLikeAndCheckedResultInOrderByModifytimeDesc(title, list, pageRequest);
+		List<InfoEntity> infos = pages.getContent();
+		return infos;		
+	}
+	public int countCheckInfosByTitleLike(String title) {
+		// TODO Auto-generated method stub
+		List<String> list = getCheckConditions();
+		return myInfoRepository.countInfoEntityByTitleLikeAndCheckedResultIn(title,list);
+	}
+	public List<InfoEntity> getCheckInfosByCategoryIdByCheckAll(long id, int pageNumber, int pageSize) {
+		// TODO Auto-generated method stub  Check
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		List<String> list = getCheckConditions();
+		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCategoryIdAndCheckedResultInOrderByModifytimeDesc(id, list, pageRequest);
+		List<InfoEntity> infos = pages.getContent();
+		return infos;
+	}
+	public int countCheckInfosByCategoryId(long categoryId) {
+		// TODO Auto-generated method stub
+		List<String> list = getCheckConditions();
+		return myInfoRepository.countInfoEntityByCategoryIdAndCheckedResultIn(categoryId, list);
+	}
+	public List<InfoEntity> getCheckInfosByCategoryIdByTitleLike(long id, String title, int pageNumber, int pageSize){
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		List<String> list = getCheckConditions();
+		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCategoryIdAndTitleLikeAndCheckedResultInOrderByModifytimeDesc(id, title, list, pageRequest);
+		List<InfoEntity> infos = pages.getContent();
+		return infos;
+	}
+	public int countCheckInfosByCategoryIdByTitleLike(long categoryId, String title) {
+		List<String> list = getCheckConditions();
+		return myInfoRepository.countInfoEntityByCategoryIdAndTitleLikeAndCheckedResultIn(categoryId, title, list);
 	}
 }

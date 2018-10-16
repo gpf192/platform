@@ -25,6 +25,7 @@ public class InfoDTO {
 	private String modifytime;
 	private String categoryTitle;
 	private String commonFlag;
+	private String createtime;
 	public InfoDTO() {
 
 	}
@@ -149,6 +150,14 @@ public class InfoDTO {
 
 	public void setCommonFlag(String commonFlag) {
 		this.commonFlag = commonFlag;
+	}
+
+	public String getCreatetime() {
+		return createtime;
+	}
+
+	public void setCreatetime(String createtime) {
+		this.createtime = createtime;
 	}
 
 }

@@ -19,7 +19,6 @@ function modifyCategoryController($scope, $http, $state, $stateParams, httpUtils
 			return;
 		}
 		document.getElementById("tempImage").src=$scope.formData.image;
-		
 	};
 	
 

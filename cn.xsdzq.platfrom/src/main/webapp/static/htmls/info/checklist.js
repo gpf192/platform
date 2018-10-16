@@ -1,7 +1,6 @@
 ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils' ];
 function checkListController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils) {
 
-	$scope.checkList = [];
 	$scope.formData = {};
 	$scope.formData.category = {};
 	$scope.categoryList = [];
@@ -46,7 +45,7 @@ function checkListController($scope, $http, $state, $stateParams, $gridService, 
 					$scope.currentPage.page=0;
 				}
 			}, true);
-		//$scope.getCheckList();
+		
 	};
 	
 	$scope.getCheckInfosByCategoryId = function(pageSize) {
@@ -73,30 +72,35 @@ function checkListController($scope, $http, $state, $stateParams, $gridService, 
 		$gridService.queryTableDatas($scope, tableElement, params, settings, $http);
 	};
 	
-	$scope.getCheckList = function(){
+/*	$scope.getCheckList = function(){
 		$http.post(httpUtils.url.checkList, {}).success(function(data) {
 			if (data.resCode == 0) {
 				$scope.checkList = data.result;
 			}
 		});
-	};
-/*	$scope.getInfosByCategoryId = function() {
-		var url = httpUtils.url.getInfoList;
-		var getUrl = url + "/" + $scope.formData.category.id;
-		$http.get(getUrl).success(function(data) {
-			if (data.resCode == 0) {
-				$scope.infoList = data.result;
-			}
-		});
 	};*/
+
 	$scope.checkInfo = function(index){
-		var info = $scope.checkList[index];
+		var info = $scope.infoList[index];
 		console.log(info);
 		$state.go("checkdetail", {
 			info : info
 		});
 	}
-
+	$scope.revocation = function(index) {
+		layerUtils.iConfirm("是否要撤回该文章？撤回后，会进入待提交状态。", function() {
+			var url = httpUtils.url.revocation;
+			var param = $scope.infoList[index];
+			$http.post(url, param).success(function(data) {
+				if (data.resCode == 0) {
+					layerUtils.iMsg(-1, "撤回成功");
+					$scope.getCheckInfosByCategoryId(10);
+				}
+			});
+		}, function() {
+			console.log("取消");
+		});
+	}
 
 
 }

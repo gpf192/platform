@@ -65,6 +65,7 @@ public class CategoryController {
 	@ResponseBody
 	public Map<String, Object> addCategory(HttpServletRequest request, @RequestBody CategoryDTO categoryDTO) {
 		System.out.println(categoryDTO.getTitle());
+		System.out.println(categoryDTO.getDisplayFlag()+"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 		CategoryEntity category = CategoryUtil.convertCategoryEntityByCategoryDTO(categoryDTO);
 		// String title = dto.getTitle();
 		// category.setTitle(title);
