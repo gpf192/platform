@@ -4,11 +4,11 @@ function newCategoryController($scope, $http, $state, httpUtils, layerUtils) {
 
 	$scope.init = function() {
 		var data = [ {
-				name : "分类管理",
+				name : "栏目",
 				goto:"newcategory"
 
 			}, {
-				name : "新建分类",
+				name : "新建栏目",
 				goto:"newcategory"
 
 			}];
@@ -20,7 +20,7 @@ function newCategoryController($scope, $http, $state, httpUtils, layerUtils) {
 		var url = httpUtils.url.addCategory;
 		
 		if (angular.isEmpty($scope.formData.title)) {
-			layerUtils.iMsg(-1, "分类名称不能为空");
+			layerUtils.iMsg(-1, "栏目名称不能为空");
 			return;
 		}
 		$http.post(url, $scope.formData).success(function(data) {

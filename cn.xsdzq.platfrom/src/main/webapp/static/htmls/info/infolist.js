@@ -41,7 +41,7 @@ function infoListController($scope, $http, $state, $stateParams, $gridService, h
 		}, {
 			num : 100
 		}];
-		$scope.selectNum = $scope.selectNumList[0];
+		$scope.selectNum = $scope.selectNumList[0];	
 		$scope.$watch("selectNum.num", function(newValue, oldValue) {
 			if (newValue != oldValue) {
 				$scope.getInfosByCategoryId(newValue);
@@ -75,9 +75,7 @@ function infoListController($scope, $http, $state, $stateParams, $gridService, h
 	$scope.modifyInfo = function(index) {
 		layerUtils.iConfirm("是否修该此文章？", function() {
 			var info = $scope.infoList[index];
-			console.log(200000+info);
 			console.log(info);
-			console.log(200000+info);
 			$state.go("modifyinfo", {
 				info : info
 			});

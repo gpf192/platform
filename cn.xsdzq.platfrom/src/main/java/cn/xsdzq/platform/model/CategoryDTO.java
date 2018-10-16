@@ -6,6 +6,7 @@ public class CategoryDTO implements Comparable<CategoryDTO> {
 	private String image;
 	private int categorysort;
 	private String exp;
+	private boolean displayFlag;
 
 	public long getId() {
 		return id;
@@ -45,6 +46,14 @@ public class CategoryDTO implements Comparable<CategoryDTO> {
 
 	public void setExp(String exp) {
 		this.exp = exp;
+	}
+
+	public boolean getDisplayFlag() {
+		return displayFlag;
+	}
+
+	public void setDisplayFlag(boolean displayFlag) {
+		this.displayFlag = displayFlag;
 	}
 
 	@Override

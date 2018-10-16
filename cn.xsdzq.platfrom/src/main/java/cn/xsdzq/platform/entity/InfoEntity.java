@@ -51,13 +51,16 @@ public class InfoEntity implements Serializable {
 	private String checked = "N";// 默认未审核
 	
 	@Column(name = "common_flag")
-	private String commonFlag = "N";
+	private String commonFlag = "N";//前台常见问题标识
 
 	@Column(name = "checked_result")
 	private String checkedResult;
 
 	@Column(name = "created_by")
 	private String createdBy;
+	
+	@Column(name = "approved_by")
+	private String approvedBy = "";
 	// add by fjx end
 
 	@Column(name = "categoryId", insertable = false, updatable = false)
@@ -209,6 +212,14 @@ public class InfoEntity implements Serializable {
 
 	public void setCommonFlag(String commonFlag) {
 		this.commonFlag = commonFlag;
+	}
+
+	public String getApprovedBy() {
+		return approvedBy;
+	}
+
+	public void setApprovedBy(String approvedBy) {
+		this.approvedBy = approvedBy;
 	}
 
 	@JsonBackReference

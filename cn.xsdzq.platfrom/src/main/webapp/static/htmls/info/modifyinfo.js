@@ -29,7 +29,6 @@ function modifyInfoController($scope, $http, $state, $stateParams, httpUtils, la
 	};
 	$scope.initData=function(){
 		UM.getEditor('myEditor').setContent($scope.formData.content);
-		//$scope.commonFlagCheck = formData.commonFlagCheck;
 		$http.get(httpUtils.url.categoryList, {}).success(function(data) {
 			if (data.resCode == 0) {
 				$scope.categoryList = data.result;

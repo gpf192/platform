@@ -36,7 +36,10 @@ public class CategoryEntity implements Serializable {
 
 	@Column(name = "categorysort", columnDefinition = "int DEFAULT 0")
 	private int categorysort;
-
+	
+	@Column(name = "display_flag")
+	private boolean displayFlag ;//前台显示标识
+	
 	@Column(name = "exp")
 	private String exp;
 
@@ -91,6 +94,14 @@ public class CategoryEntity implements Serializable {
 
 	public void setInfos(Set<InfoEntity> infos) {
 		this.infos = infos;
+	}
+
+	public boolean getDisplayFlag() {
+		return displayFlag;
+	}
+
+	public void setDisplayFlag(boolean displayFlag) {
+		this.displayFlag = displayFlag;
 	}
 
 }

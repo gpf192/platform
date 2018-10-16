@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.SystemPropertyUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -93,7 +94,7 @@ public class InfoController extends BaseController {
 							//审核状态为all，条件：用户名
 							infos = myInfoService.getInfosBySuperCreator(pageNumber, pageSize);
 							sum = myInfoService.countInfosBySuperCreator();
-							//******************************************************* 开发到这里
+							
 						}else {
 							//审核状态非all，条件：审核状态						
 							infos = myInfoService.getInfosByCheckedResult(approveResult, pageNumber, pageSize);
@@ -253,13 +254,14 @@ public class InfoController extends BaseController {
 	@RequestMapping(value = "/modifyInfo", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> modifyInfo(HttpServletRequest request, @RequestBody InfoDTO dto) {
-		InfoEntity info = InfoUtil.convertInfoByInfoDTO(dto);
+		InfoEntity info = InfoUtil.convertInfoByInfoDTO(dto);		
 		CategoryEntity category = categoryService.getCategoryById(info.getCategoryId());
 		info.setCategoryEntity(category);
 		// 插入创建人
 		User user = UserManageUtil.getUser();
 		String name = user.getUsername();
-		info.setCreatedBy(name);		
+		info.setCreatedBy(name);	
+		info.setCreatetime(new Date());
 		iInfoService.modifyInfo(info);
 		logger.info("action:" + "modify" + ";" + "user:" + name + ";" + "title:" + dto.getTitle() + ";");
 		return GsonUtil.buildMap(0, "ok", null);
@@ -318,6 +320,25 @@ public class InfoController extends BaseController {
 		iInfoService.modifyCheckResult(dto.getId(), dto.isCheckFlag());
 		return GsonUtil.buildMap(0, "ok", null);
 	}
+	//撤回信息
+	@RequestMapping(value = "/revocation", method = POST, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> revocation(HttpServletRequest request, @RequestBody InfoDTO dto) {
+		InfoEntity info = InfoUtil.convertInfoByInfoDTO(dto);
+		CategoryEntity category = categoryService.getCategoryById(info.getCategoryId());
+		info.setCategoryEntity(category);
+		// 插入审批人
+		User user = UserManageUtil.getUser();
+		String name = user.getUsername();
+		info.setCreatedBy(name);
+		info.setCheckedResult("generate");
+		info.setModifytime(new Date());
+		info.setApprovedBy(name);
+		iInfoService.modifyInfo(info);
+		logger.info("action:" + "modify" + ";" + "user:" + name + ";" + "title:" + dto.getTitle() + ";");
+		return GsonUtil.buildMap(0, "ok", null);
+	}
+	
 
 	// add by fjx
 	@RequestMapping(value = "/getCheckInfosByCategoryId", method = GET, produces = "application/json; charset=utf-8")
@@ -337,14 +358,14 @@ public class InfoController extends BaseController {
 				//开始判断 栏目 是否查询全部
 				if("全部".equals(categoryTitle)) {				
 					
-					//超级用户查询全部，开始判断标题是否为空，条件：title关键字、审核状态
+					//查询全部，开始判断标题是否为空，条件：title关键字、审核状态
 					if("".equals(infoTitle)) {
 						//标题关键字为空，开始判断审核状态 是否为all  条件：审核状态
 						if("all".equals(approveResult)){
-							//审核状态为all，条件：用户名
-							infos = myInfoService.getInfosBySuperCreator(pageNumber, pageSize); /////
-							sum = myInfoService.countInfosBySuperCreator();///////
-							//******************************************************* 开发到这里
+							//审核状态为all，条件：审核状态为 已审核approve、待审核 submit  
+							infos = myInfoService.getCheckInfosBySuperCreator(pageNumber, pageSize); 
+							sum = myInfoService.countCheckInfosBySuperCreator();
+							
 						}else {
 							//审核状态非all，条件：审核状态						
 							infos = myInfoService.getInfosByCheckedResult(approveResult, pageNumber, pageSize);
@@ -355,8 +376,8 @@ public class InfoController extends BaseController {
 						//标题关键字不为空，条件：title关键字、审核状态
 						if("all".equals(approveResult)){
 							//审核状态为all，条件：title关键字	  "%"+infoTitle+"%"							
-							infos = myInfoService.getInfosByTitleLike("%"+infoTitle+"%", pageNumber, pageSize);  /////////
-							sum = myInfoService.countInfosByTitleLike("%"+infoTitle+"%");//////////
+							infos = myInfoService.getCheckInfosByTitleLike("%"+infoTitle+"%", pageNumber, pageSize); 
+							sum = myInfoService.countCheckInfosByTitleLike("%"+infoTitle+"%");
 						}else {
 							//审核状态非all，条件：title关键字、审核状态	
 							infos = myInfoService.getInfosByCheckedResultByTitleLike(approveResult, "%"+infoTitle+"%", pageNumber, pageSize);
@@ -365,14 +386,13 @@ public class InfoController extends BaseController {
 					}
 
 				}else {
-					//栏目为非全部，开始判断title关键字是否为空，*********************************
+					//栏目为非全部，开始判断title关键字是否为空，
 					if("".equals(infoTitle)) {
 						//title关键字 为空，开始判断审核状态是否为全部
 						if("all".equals(approveResult)) {
-							//审核状态为 all， 条件：栏目id		
-							infos = myInfoService.getInfosByCategoryIdByCheckAll(categoryId, pageNumber,
-									pageSize);//////////
-							sum = myInfoService.countInfosByCategoryId(categoryId);/////////
+							//审核状态为 all， 条件：栏目id		Check
+							infos = myInfoService.getCheckInfosByCategoryIdByCheckAll(categoryId, pageNumber,pageSize);
+							sum = myInfoService.countCheckInfosByCategoryId(categoryId);
 						}else {
 							//审核状态为非all  ，条件：栏目id、审核状态					
 							infos = myInfoService.getInfosByCategoryIdByCheckedResult(categoryId, approveResult, pageNumber,
@@ -383,24 +403,22 @@ public class InfoController extends BaseController {
 						//title关键字 非空，开始判断审核状态是否为全部
 						if("all".equals(approveResult)) {
 							//审核状态为 all， 条件：栏目id、   title关键字
-							infos = myInfoService.getInfosByCategoryIdByTitleLike(categoryId, "%"+infoTitle+"%", pageNumber,
-									pageSize);/////////
-							sum = myInfoService.countInfosByCategoryIdByTitleLike(categoryId, "%"+infoTitle+"%");///////////
+							infos = myInfoService.getCheckInfosByCategoryIdByTitleLike(categoryId, "%"+infoTitle+"%", pageNumber,pageSize);
+							sum = myInfoService.countCheckInfosByCategoryIdByTitleLike(categoryId, "%"+infoTitle+"%");
 						}else {
 							//审核状态为非all  ，条件：栏目id、title关键字  、审核状态 						
 							infos = myInfoService.getInfosByCategoryIdByCheckedResultByTitleLike(categoryId, approveResult, "%"+infoTitle+"%", pageNumber,
 									pageSize);
 							sum = myInfoService.countInfosByCategoryIdByCheckedResultByTitleLike(categoryId, approveResult, "%"+infoTitle+"%");
 						}
-					}
-					
+					}					
 				}
 			
 
 			List<InfoDTO> infoDTOs = new ArrayList<InfoDTO>();
 			for (InfoEntity info : infos) {
 				InfoDTO dto = InfoUtil.convertInfoDTOByInfo(info);
-				infoDTOs.add(dto);
+				infoDTOs.add(dto);			
 			}
 			//int sum = myInfoService.countInfosByCategoryId(categoryId);
 			System.out.println("sum: " + sum);
