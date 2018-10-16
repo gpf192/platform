@@ -49,12 +49,18 @@ public class InfoEntity implements Serializable {
 	// add by fjx begin
 	@Column(name = "checked")
 	private String checked = "N";// 默认未审核
+	
+	@Column(name = "common_flag")
+	private String commonFlag = "N";//前台常见问题标识
 
 	@Column(name = "checked_result")
 	private String checkedResult;
 
 	@Column(name = "created_by")
 	private String createdBy;
+	
+	@Column(name = "approved_by")
+	private String approvedBy = "";
 	// add by fjx end
 
 	@Column(name = "categoryId", insertable = false, updatable = false)
@@ -182,6 +188,38 @@ public class InfoEntity implements Serializable {
 
 	public void setPageView(int pageView) {
 		this.pageView = pageView;
+	}
+
+	public Date getModifytime() {
+		return modifytime;
+	}
+
+	public void setModifytime(Date modifytime) {
+		this.modifytime = modifytime;
+	}
+
+	public Date getCreatetime() {
+		return createtime;
+	}
+
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
+	}
+
+	public String getCommonFlag() {
+		return commonFlag;
+	}
+
+	public void setCommonFlag(String commonFlag) {
+		this.commonFlag = commonFlag;
+	}
+
+	public String getApprovedBy() {
+		return approvedBy;
+	}
+
+	public void setApprovedBy(String approvedBy) {
+		this.approvedBy = approvedBy;
 	}
 
 	@JsonBackReference

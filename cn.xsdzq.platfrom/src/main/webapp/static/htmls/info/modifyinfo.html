@@ -41,7 +41,7 @@
 					<label class="col-sm-2 control-label">分类：</label>
 					<div class="col-sm-6">
 						<select class="form-control" ng-model="formData.category"
-							ng-options="item.title for item in categoryList"></select>
+							ng-options="item.title for item in categoryList | filter:{title:'!全部'}"></select>
 					</div>
 					<div class="col-sm-4">
 						<div class="row">
@@ -49,6 +49,13 @@
 								<span class="text-danger control-label">* </span>
 							</div>
 						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label"></label>
+					<div class="col-sm-7" >
+						<input type="checkbox" ng-model="commonFlagCheck" value=true>
+						<span>设置为常见问题</span>
 					</div>
 				</div>
 				<div class="form-group hide">
@@ -72,7 +79,7 @@
 						<script type="text/plain" id="myEditor" style="width: 750px; height: 400px;"></script>
 					</div>
 				</div>
-				<!-- 
+				<!-- value="formData.commonFlag"
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
 						<button type="button" ng-click="submit()"

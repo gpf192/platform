@@ -3,11 +3,13 @@ package cn.xsdzq.platform.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.xsdzq.platform.dao.InfoRepository;
 import cn.xsdzq.platform.entity.InfoEntity;
+import cn.xsdzq.platform.util.UserManageUtil;
 
 @Service(value = "infoServiceImpl")
 @Transactional(readOnly = true)
@@ -105,6 +107,9 @@ public class InfoServiceImpl implements IInfoService {
 		} else {
 			info.setCheckedResult("reject");
 		}
+		User user = UserManageUtil.getUser();
+		String name = user.getUsername();
+		info.setApprovedBy(name);
 		System.out.println(info.getId() + "         " + info.getChecked() + "       " + info.getCheckedResult());
 		infoRepository.modifyInfo(info);
 	}

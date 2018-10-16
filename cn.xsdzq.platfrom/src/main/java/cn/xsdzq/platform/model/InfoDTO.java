@@ -1,5 +1,7 @@
 package cn.xsdzq.platform.model;
 
+import java.util.Date;
+
 import org.hibernate.validator.constraints.NotBlank;
 
 public class InfoDTO {
@@ -19,7 +21,11 @@ public class InfoDTO {
 	private String checked_result;// 审核状态
 	private int weight;
 	private int pageView;
-
+	private String createdBy;
+	private String modifytime;
+	private String categoryTitle;
+	private String commonFlag;
+	private String createtime;
 	public InfoDTO() {
 
 	}
@@ -112,6 +118,46 @@ public class InfoDTO {
 
 	public void setPageView(int pageView) {
 		this.pageView = pageView;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public String getModifytime() {
+		return modifytime;
+	}
+
+	public void setModifytime(String modifytime) {
+		this.modifytime = modifytime;
+	}
+
+	public String getCategoryTitle() {
+		return categoryTitle;
+	}
+
+	public void setCategoryTitle(String categoryTitle) {
+		this.categoryTitle = categoryTitle;
+	}
+
+	public String getCommonFlag() {
+		return commonFlag;
+	}
+
+	public void setCommonFlag(String commonFlag) {
+		this.commonFlag = commonFlag;
+	}
+
+	public String getCreatetime() {
+		return createtime;
+	}
+
+	public void setCreatetime(String createtime) {
+		this.createtime = createtime;
 	}
 
 }

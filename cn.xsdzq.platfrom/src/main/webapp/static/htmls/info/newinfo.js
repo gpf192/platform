@@ -3,7 +3,7 @@ function newVersionController($scope, $http, $state, httpUtils, layerUtils) {
 	$scope.formData = {};
 	$scope.formData.category = {};
 	$scope.categoryList = [];
-
+	
 	$scope.init = function() {
 		var data = [
 				 {
@@ -11,7 +11,7 @@ function newVersionController($scope, $http, $state, httpUtils, layerUtils) {
 					goto:"infolist"
 
 				}, {
-					name : "新建信息",
+					name : "新建文章",
 					goto:"newinfo"
 				}];
 		$scope.$emit("changeNavigation", data);
@@ -19,7 +19,7 @@ function newVersionController($scope, $http, $state, httpUtils, layerUtils) {
 		$http.get(httpUtils.url.categoryList, {}).success(function(data) {
 			if (data.resCode == 0) {
 				$scope.categoryList = data.result;
-				$scope.formData.category = $scope.categoryList[0];
+				$scope.formData.category = $scope.categoryList[1];
 			}
 		});
 	};
@@ -34,7 +34,6 @@ function newVersionController($scope, $http, $state, httpUtils, layerUtils) {
 	}
 
 	$scope.labelList = [];
-
 	$scope.submit = function(value) {
 		var editorContent = UM.getEditor('myEditor').getContent();
 		if (angular.isEmpty($scope.formData.title)) {
@@ -49,11 +48,19 @@ function newVersionController($scope, $http, $state, httpUtils, layerUtils) {
 			layerUtils.iMsg(-1, "信息内容不能为空");
 			return;
 		}
+		//判断勾选框
+		if($scope.commonFlagCheck){
+			var commonFlag = 'Y';
+		}else{
+			var commonFlag = 'N';
+		}
+
 		if(value){
 			var params = {
 				title : $scope.formData.title,
 				categoryId : $scope.formData.category.id,
 				content : editorContent,
+				commonFlag :commonFlag,
 				flag : "submit"
 				};		
 		}else{
@@ -61,6 +68,7 @@ function newVersionController($scope, $http, $state, httpUtils, layerUtils) {
 				title : $scope.formData.title,
 				categoryId : $scope.formData.category.id,
 				content : editorContent,
+				commonFlag : commonFlag,
 				flag : "generate"
 				};			
 		}

@@ -106,7 +106,7 @@ public class InfoRepositoryImpl implements InfoRepository {
 		// TODO Auto-generated method stub
 		InfoEntity myInfoEntity = em.find(InfoEntity.class, infoEntity.getId());
 		myInfoEntity.setWeight(infoEntity.getWeight());
-		em.merge(myInfoEntity);
+		em.merge(myInfoEntity);		
 	}
 
 	// add by fjx begin

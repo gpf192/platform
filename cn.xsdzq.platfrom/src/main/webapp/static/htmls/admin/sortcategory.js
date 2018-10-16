@@ -5,11 +5,11 @@ function sortCategoryController($scope, $http, $state, httpUtils, layerUtils) {
 
 	$scope.init = function() {
 		var data = [{
-			name : "分类管理",
+			name : "栏目",
 			goto:""
 
 		},{
-			name : "分类排序",
+			name : "栏目排序",
 			goto:"sortcategory"
 
 		}];

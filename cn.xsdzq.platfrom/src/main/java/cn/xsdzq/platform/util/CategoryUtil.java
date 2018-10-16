@@ -11,6 +11,7 @@ public class CategoryUtil {
 		categoryEntity.setImage(categoryDTO.getImage());
 		categoryEntity.setCategorysort(categoryDTO.getCategorysort());
 		categoryEntity.setExp(categoryDTO.getExp());
+		categoryEntity.setDisplayFlag(categoryDTO.getDisplayFlag());
 		return categoryEntity;
 	}
 
@@ -21,6 +22,7 @@ public class CategoryUtil {
 		categoryDTO.setImage(categoryEntity.getImage());
 		categoryDTO.setCategorysort(categoryEntity.getCategorysort());
 		categoryDTO.setExp(categoryEntity.getExp());
+		categoryDTO.setDisplayFlag(categoryEntity.getDisplayFlag());
 		return categoryDTO;
 	}
 

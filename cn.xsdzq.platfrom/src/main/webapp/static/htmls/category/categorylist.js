@@ -4,10 +4,10 @@ function categoryListController($scope, $http, $state, $stateParams, httpUtils,l
 	$scope.categorys = [];
 	$scope.init = function() {
 		var data = [{
-					name : "分类管理",
+					name : "栏目",
 					goto:"newcategory"
 				},{
-					name : "分类列表管理",
+					name : "栏目管理",
 					goto:"categorylist"
 				}]
 		$scope.$emit("changeNavigation", data);
@@ -23,13 +23,14 @@ function categoryListController($scope, $http, $state, $stateParams, httpUtils,l
 	}
 
 	$scope.modifyCategory = function(index) {
+		console.log($scope.categorys[index]);
 		$state.go("modifyCategory", {
 			category : $scope.categorys[index]
 		});
 	};
 
 	$scope.deleteCategory = function(index) {
-		layerUtils.iConfirm("是否需要解除分类，将会删除分类下所有信息文章？", function() {
+		layerUtils.iConfirm("是否需要删除栏目？删除栏目同时将会删除栏目下所有文章？", function() {
 			var id = $scope.categorys[index].id;
 			var url = httpUtils.url.deleteCategory
 			var param = {
