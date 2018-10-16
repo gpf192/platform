@@ -28,7 +28,7 @@ function($q,$window, $location, layerUtils) {
 			//console.log("response  response response");
 			layerUtils.iLoading(false);
 			var data = response.data;
-			console.log($location);
+			//console.log($location);
 			if((typeof data =='string')){
 				if(data.indexOf("!DOCTYPE html")&&data.indexOf("loginin/css/bootstrap.min.css")>-1&&data.indexOf("登录")){
 					layerUtils.iConfirm("登录已过期，请重新登录！", function() {
@@ -55,6 +55,17 @@ function($q,$window, $location, layerUtils) {
 			if(response.status==403){
 				layerUtils.iAlert("没有对应的权限，请联系管理员");
 			}
+			if (response.status === 401) {
+//              return responseOrNewPromise
+                console.log('401');
+                layerUtils.iConfirm("登录已过期，请重新登录！", function() {
+					var loginUrl=$location.protocol()+"://"+$location.host()+":"+$location.port()+"/platform/login";
+					console.log(loginUrl);
+					window.location.href=$location.absUrl();
+				}, function() {
+					console.log("取消");
+				});
+            }
 			//layerUtils.iMsg(-1, "服务器异常，请稍后再试!");
 
 			return response;

@@ -14,11 +14,14 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 import cn.xsdzq.platform.dao.AuthorityRepository;
 import cn.xsdzq.platform.dao.UserRepository;
+import cn.xsdzq.platform.security.AjaxAuthenticationEntryPoint;
+import cn.xsdzq.platform.security.AjaxRequestMatcher;
 import cn.xsdzq.platform.security.MyAccessDecisionManager;
 import cn.xsdzq.platform.security.MyFilterInvocationSecurityMetadataSource;
 import cn.xsdzq.platform.security.MyUserService;
@@ -89,7 +92,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						object.setAccessDecisionManager(myAccessDecisionManager());
 						return object;
 					}
-				}).and().headers().frameOptions().disable().and().csrf().disable();
+				}).and().headers().frameOptions().disable().and().exceptionHandling()
+				.authenticationEntryPoint(gAuthenticationEntryPoint()).and().csrf()
+				.disable();
 		// 限制只允许一个用户登录
 		http.sessionManagement().maximumSessions(1).expiredUrl("/login/?expire=true");
 
@@ -112,8 +117,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	AuditorAware<String> auditorProvider() {
-
 		return new UserAuditorAware();
+	}
+
+	@Bean
+	public AuthenticationEntryPoint gAuthenticationEntryPoint() {
+		return new AjaxAuthenticationEntryPoint();
 	}
 
 }
