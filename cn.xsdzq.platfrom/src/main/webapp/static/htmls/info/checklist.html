@@ -103,7 +103,7 @@
 						<td>
 							<input type="checkbox" name="selected" ng-checked="isSelected(info.id)" ng-click="updateSelection($event,info.id)" /></td>				
 						<td class="col-sm-1">{{$index+selectNum["num"]*currentPage.page+1}}</td>
-						<td class="col-sm-1" >{{info.title}}</td>
+						<td class="col-sm-1" ng-click="checkInfo($index)" style="cursor:pointer" >{{info.title}}</td>
 						<td class="col-sm-1">{{info.categoryTitle}}</td> 
 						<td class="col-sm-1">{{info.createdBy}}</td>
 						<td class="col-sm-1">{{info.createtime}}</td>

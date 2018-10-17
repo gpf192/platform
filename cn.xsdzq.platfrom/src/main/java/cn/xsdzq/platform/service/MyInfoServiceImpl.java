@@ -293,4 +293,13 @@ public class MyInfoServiceImpl implements IMyInfoService {
 		List<String> list = getCheckConditions();
 		return myInfoRepository.countInfoEntityByCategoryIdAndTitleLikeAndCheckedResultIn(categoryId, title, list);
 	}
+	public List<InfoEntity> getInfosByCommonFlag(String flag){
+		List<InfoEntity> infos = myInfoRepository.findInfoEntityByCommonFlagAndCheckedResult(flag, "approve");
+		return infos;
+	}
+	public List<InfoEntity> getInfosByCategoryIdByCheckedResultForH5(long id) {
+		// TODO Auto-generated method stub
+		List<InfoEntity> infos = myInfoRepository.findInfoEntityByCategoryIdAndCheckedResult(id, "approve");
+		return infos;
+	}
 }

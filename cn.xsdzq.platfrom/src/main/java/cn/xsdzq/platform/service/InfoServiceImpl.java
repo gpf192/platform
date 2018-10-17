@@ -113,5 +113,4 @@ public class InfoServiceImpl implements IInfoService {
 		System.out.println(info.getId() + "         " + info.getChecked() + "       " + info.getCheckedResult());
 		infoRepository.modifyInfo(info);
 	}
-
 }
