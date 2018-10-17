@@ -70,5 +70,8 @@ function checkDetailController($scope, $http, $state, $stateParams, httpUtils, l
 		});
 		
 	}
+	$scope.back = function(value) {
+		history.go(-1);
+	};
 
 }
