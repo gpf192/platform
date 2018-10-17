@@ -28,6 +28,23 @@ function categoryListController($scope, $http, $state, $stateParams, httpUtils,l
 			category : $scope.categorys[index]
 		});
 	};
+	
+	$scope.copyUrl = function(index) {
+		console.log($scope.categorys[index]);
+		var category=$scope.categorys[index];
+		var text=window.location.protocol+"//"+window.location.hostname+":"+window.location.port+"/front/#/"+category.id+"/"+category.title;
+		if (window.clipboardData) {//如果是IE浏览器
+	        window.clipboardData.setData('text', text);
+	    } else {//非IE浏览器
+    	   var textarea = document.createElement('textarea');
+    	   textarea.value = text;
+           document.body.appendChild(textarea);
+           textarea.select(); // 选择对象
+           document.execCommand("Copy"); // 执行浏览器复制命令
+    	   textarea.style.display='none';
+	    }
+		layerUtils.iMsg(-1, "复制成功");
+	}
 
 	$scope.deleteCategory = function(index) {
 		layerUtils.iConfirm("是否需要删除栏目？删除栏目同时将会删除栏目下所有文章？", function() {

@@ -18,7 +18,7 @@ function sortCategoryController($scope, $http, $state, httpUtils, layerUtils) {
 	};
 	
 	$scope.getCategoryList = function() {
-		$http.get(httpUtils.url.categoryList, {}).success(function(data) {
+		$http.get(httpUtils.url.getDisplayCategories, {}).success(function(data) {
 			if (data.resCode == 0) {
 				$scope.categorys = data.result;
 			}
