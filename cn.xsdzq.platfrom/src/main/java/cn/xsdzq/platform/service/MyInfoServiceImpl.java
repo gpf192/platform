@@ -293,8 +293,9 @@ public class MyInfoServiceImpl implements IMyInfoService {
 		List<String> list = getCheckConditions();
 		return myInfoRepository.countInfoEntityByCategoryIdAndTitleLikeAndCheckedResultIn(categoryId, title, list);
 	}
-	public List<InfoEntity> getInfosByCommonFlag(String flag){
-		List<InfoEntity> infos = myInfoRepository.findInfoEntityByCommonFlagAndCheckedResult(flag, "approve");
+	public List<InfoEntity> getInfosByCommonFlag(String flag,int pageNumber, int pageSize){
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		List<InfoEntity> infos = myInfoRepository.findInfoEntityByCommonFlagAndCheckedResult(flag, "approve",pageRequest);
 		return infos;
 	}
 	public List<InfoEntity> getInfosByCategoryIdByCheckedResultForH5(long id) {

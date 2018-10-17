@@ -90,7 +90,7 @@ public interface MyInfoRepository extends PagingAndSortingRepository<InfoEntity,
 	Page<InfoEntity> findInfoEntityByCategoryIdAndTitleLikeAndCheckedResultInOrderByModifytimeDesc(long id, String title, List<String> list, Pageable pageable);
 	int countInfoEntityByCategoryIdAndTitleLikeAndCheckedResultIn(long categoryId, String title, List<String> list);
 	//h5
-	List<InfoEntity> findInfoEntityByCommonFlagAndCheckedResult(String commonFlag, String checkedResult);
+	List<InfoEntity> findInfoEntityByCommonFlagAndCheckedResult(String commonFlag, String checkedResult, Pageable pageable);
 	List<InfoEntity> findInfoEntityByCategoryIdAndCheckedResult(long categoryId, String checkedResult);
 
 }
