@@ -22,12 +22,19 @@ public class CategoryServiceImpl implements ICategoryService {
 		CategoryEntity categoryEntity = categoryRepository.findCategoryById(id);
 		return categoryEntity;
 	}
-
+	
 	@Override
 	public List<CategoryEntity> findAll() {
 		// TODO Auto-generated method stub
 		List<CategoryEntity> list = categoryRepository.findAll();
 		return list;
+	}
+	
+	@Override
+	public List<CategoryEntity> findDisplayCategory() {
+		// TODO Auto-generated method stub
+		List<CategoryEntity> displayList = categoryRepository.getDisplayCategory();
+		return displayList;
 	}
 
 	@Override
@@ -60,5 +67,7 @@ public class CategoryServiceImpl implements ICategoryService {
 			categoryRepository.modifyCategory(category);
 		}
 	}
+
+
 
 }

@@ -9,7 +9,9 @@ public interface ICategoryService {
 	CategoryEntity getCategoryById(long id);
 
 	List<CategoryEntity> findAll();
-
+	
+	List<CategoryEntity> findDisplayCategory();
+ 
 	void addCategory(CategoryEntity categoryEntity);
 
 	void modifyCategory(CategoryEntity categoryEntity);

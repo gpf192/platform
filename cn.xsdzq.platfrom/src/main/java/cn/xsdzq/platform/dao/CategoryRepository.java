@@ -12,6 +12,8 @@ public interface CategoryRepository {
 	CategoryEntity findCategoryById(long id);
 
 	public List<CategoryEntity> findAll();
+	
+	public List<CategoryEntity> getDisplayCategory();
 
 	void addCategory(CategoryEntity category);
 

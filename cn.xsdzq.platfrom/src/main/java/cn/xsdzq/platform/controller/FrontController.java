@@ -81,6 +81,20 @@ public class FrontController {
 		cDtos.sort(Comparator.naturalOrder());
 		return GsonUtil.buildMap(0, "ok", cDtos);
 	}
+	
+	@RequestMapping(value = "/getDisplayCategories", produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> getDisplayCategories() {
+		List<CategoryEntity> list = categoryService.findDisplayCategory();
+		List<CategoryDTO> cDtos = new ArrayList<CategoryDTO>();
+		for (CategoryEntity category : list) {
+			CategoryDTO dto = CategoryUtil.convertCategoryDTOByCategoryEntity(category);
+			cDtos.add(dto);
+		}
+		cDtos.sort(Comparator.naturalOrder());
+		return GsonUtil.buildMap(0, "ok", cDtos);
+	}
+
 
 	@RequestMapping(value = "/getInfosByCategoryId", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
@@ -101,6 +115,20 @@ public class FrontController {
 		} else {
 			return GsonUtil.buildMap(1, "fail", null);
 		}
+	}
+	
+	//h5前端调用接口
+	//查询常见文章 ，条件：常用文章flag 、 审核状态为approve
+	@RequestMapping(value = "/getCommonInfos", method = GET, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> getCommonInfos(HttpServletRequest request) {
+		List<InfoEntity> infos = myInfoService.getInfosByCommonFlag("Y");
+		List<InfoDTO> infoDTOs = new ArrayList<InfoDTO>();
+		for (InfoEntity info : infos) {
+			InfoDTO dto = InfoUtil.convertInfoDTOByInfo(info);
+			infoDTOs.add(dto);
+		}
+		return GsonUtil.buildMap(0, "ok", infoDTOs);
 	}
 
 	@RequestMapping(value = "/search", method = POST, produces = "application/json; charset=utf-8")

@@ -36,6 +36,14 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 		TypedQuery<CategoryEntity> sqlQuery = em.createQuery("SELECT c FROM CategoryEntity c", CategoryEntity.class);
 		return sqlQuery.getResultList();
 	}
+	
+
+	@Override
+	public List<CategoryEntity> getDisplayCategory() {
+		// TODO Auto-generated method stub
+		TypedQuery<CategoryEntity> sqlQuery = em.createQuery("SELECT c FROM CategoryEntity c WHERE c.displayFlag=1", CategoryEntity.class);
+		return sqlQuery.getResultList();
+	}
 
 	@Override
 	@Transactional
@@ -69,5 +77,4 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 		em.merge(cSet);
 
 	}
-
 }

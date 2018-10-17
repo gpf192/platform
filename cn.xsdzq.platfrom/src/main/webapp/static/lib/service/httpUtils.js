@@ -22,6 +22,7 @@ ngApp.factory("httpUtils", [ function() {
 		authorityList : baseUrl + "authority/getAll",
 		authorityListByRole : baseUrl + "authority/getAllByRole",
 		categoryList : baseUrl + "category/getAll",
+		getDisplayCategories: baseUrl + "category/getDisplayCategories",
 		addCategory : baseUrl + "category/addCategory",
 		modifyCategory : baseUrl + "category/modifyCategory",
 		deleteCategory : baseUrl + "category/deleteCategory",
