@@ -105,7 +105,7 @@ public class InfoServiceImpl implements IInfoService {
 			// 如果审核通过，审核结果置位approve 否则为reject
 			info.setCheckedResult("approve");
 		} else {
-			info.setCheckedResult("reject");
+			info.setCheckedResult("generate");
 		}
 		User user = UserManageUtil.getUser();
 		String name = user.getUsername();
