@@ -50,6 +50,10 @@
 						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">图标</th>
 						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1">前端显示</th>
+						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1">前端地址</th>
+						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">修改</th>
 						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">删除</th>
@@ -60,6 +64,18 @@
 						<td class="col-sm-1">{{$index+1}}</td>
 						<td class="col-sm-2">{{item.title}}</td>
 						<td class="col-sm-1" align="center"><img alt="没有图标" ng-if="item.image" class="img-responsive category-img" ng-src="{{item.image}}"></td>
+						<td class="col-sm-1">
+							<span ng-show="item.displayFlag"><b>显示</b></span>
+							<span ng-show="!item.displayFlag"><b>不显示</b></span>
+						</td>
+						<td class="col-sm-1">
+							<div>
+								<button  class="btn btn-primary btn-sm" ng-click="copyUrl($index)">
+									<i class="fa fa-copy"></i>
+									<span>复制</span>
+								</button>
+							</div>
+						</td>
 						<td class="col-sm-1 text-center">
 							<div>
 								<button type="button" class="btn btn-info btn-sm"
