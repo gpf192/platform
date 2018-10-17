@@ -66,5 +66,7 @@ public interface IMyInfoService {
 	 int countCheckInfosByCategoryId(long categoryId);
 	 List<InfoEntity> getCheckInfosByCategoryIdByTitleLike(long id, String title, int pageNumber, int pageSize);
 	 int countCheckInfosByCategoryIdByTitleLike(long categoryId, String title);
-
+	 //h5前端需要的接口
+	 List<InfoEntity> getInfosByCommonFlag(String flag);
+	 List<InfoEntity> getInfosByCategoryIdByCheckedResultForH5(long id);
 }

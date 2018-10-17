@@ -9,8 +9,7 @@ function infoListController($scope, $http, $state, $stateParams, $gridService, h
             全部: "all",
             待提交: "generate",
             待审核: "submit",
-            已发布: "approve",
-            审核拒绝:"reject"
+            已发布: "approve"
         };
     
 	$scope.init = function() {

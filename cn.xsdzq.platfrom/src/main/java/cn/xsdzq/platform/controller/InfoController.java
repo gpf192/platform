@@ -338,9 +338,33 @@ public class InfoController extends BaseController {
 		logger.info("action:" + "modify" + ";" + "user:" + name + ";" + "title:" + dto.getTitle() + ";");
 		return GsonUtil.buildMap(0, "ok", null);
 	}
-	
+	//h5前端调用接口
+	//查询常见文章 ，条件：常用文章flag 、 审核状态为approve
+	@RequestMapping(value = "/getCommonInfos", method = GET, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> getCommonInfos(HttpServletRequest request) {
+		List<InfoEntity> infos = myInfoService.getInfosByCommonFlag("Y");
+		List<InfoDTO> infoDTOs = new ArrayList<InfoDTO>();
+		for (InfoEntity info : infos) {
+			InfoDTO dto = InfoUtil.convertInfoDTOByInfo(info);
+			infoDTOs.add(dto);
+		}
+		return GsonUtil.buildMap(0, "ok", infoDTOs);
+	}
+	//根据分类id查询，条件：分类id 、审核状态为approve
+	@RequestMapping(value = "/getInfosByCategoryIdForH5", method = GET, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> getInfosByCategoryIdForH5(HttpServletRequest request, @RequestParam long id) {
+		List<InfoEntity> infos = myInfoService.getInfosByCategoryIdByCheckedResultForH5(id);
+		List<InfoDTO> infoDTOs = new ArrayList<InfoDTO>();
+		for (InfoEntity info : infos) {
+			InfoDTO dto = InfoUtil.convertInfoDTOByInfo(info);
+			infoDTOs.add(dto);
+		}
+		return GsonUtil.buildMap(0, "ok", infoDTOs);
+	}
 
-	// add by fjx
+	// add by fjx 审核模块用接口
 	@RequestMapping(value = "/getCheckInfosByCategoryId", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> getCheckInfos(HttpServletRequest request, @RequestParam long id, @RequestParam String infoTitle,

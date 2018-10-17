@@ -36,6 +36,8 @@ ngApp.factory("httpUtils", [ function() {
 		addWeight : baseUrl + "info/addWeight",
 		deleteInfo : baseUrl + "info/deleteInfo",
 		checkList : baseUrl + "info/getUncheckedInfo",
+		getCommonInfos : baseUrl + "info/getCommonInfos",
+		getInfosByCategoryIdForH5 : baseUrl + "info/getInfosByCategoryIdForH5",
 		modifyCheckResult : baseUrl + "info/modifyCheckResult"
 	};
 

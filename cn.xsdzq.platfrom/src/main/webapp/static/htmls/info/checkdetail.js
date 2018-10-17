@@ -73,5 +73,18 @@ function checkDetailController($scope, $http, $state, $stateParams, httpUtils, l
 	$scope.back = function(value) {
 		history.go(-1);
 	};
-
+	$scope.revocation = function(index) {		
+		layerUtils.iConfirm("是否要撤回该文章？撤回后，会进入待提交状态。", function() {
+			var url = httpUtils.url.revocation;
+			var param = $scope.info;
+			$http.post(url, param).success(function(data) {
+				if (data.resCode == 0) {
+					layerUtils.iMsg(-1, "撤回成功");
+					history.go(-1);			
+				}
+			});
+		}, function() {
+			console.log("取消");
+		});
+	}
 }
