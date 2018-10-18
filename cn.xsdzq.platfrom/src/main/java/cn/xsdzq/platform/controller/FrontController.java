@@ -128,7 +128,9 @@ public class FrontController {
 			InfoDTO dto = InfoUtil.convertInfoDTOByInfo(info);
 			infoDTOs.add(dto);
 		}
-		return GsonUtil.buildMap(0, "ok", infoDTOs);
+		int sum = myInfoService.countInfosByCommonFlag("Y");
+		Pagination pagination = new Pagination(pageNumber, pageSize, sum);
+		return GsonUtil.buildMap(0, "ok", infoDTOs, pagination);
 	}
 
 	@RequestMapping(value = "/search", method = POST, produces = "application/json; charset=utf-8")
