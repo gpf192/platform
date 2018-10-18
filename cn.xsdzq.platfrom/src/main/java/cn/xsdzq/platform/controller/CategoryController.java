@@ -78,10 +78,7 @@ public class CategoryController {
 	@ResponseBody
 	public Map<String, Object> addCategory(HttpServletRequest request, @RequestBody CategoryDTO categoryDTO) {
 		System.out.println(categoryDTO.getTitle());
-		System.out.println(categoryDTO.getDisplayFlag()+"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 		CategoryEntity category = CategoryUtil.convertCategoryEntityByCategoryDTO(categoryDTO);
-		// String title = dto.getTitle();
-		// category.setTitle(title);
 		categoryService.addCategory(category);
 		return GsonUtil.buildMap(0, "ok", null);
 	}
@@ -95,6 +92,7 @@ public class CategoryController {
 		category.setTitle(dto.getTitle());
 		category.setExp(dto.getExp());
 		category.setImage(dto.getImage());
+		category.setDisplayFlag(dto.getDisplayFlag());
 		categoryService.modifyCategory(category);
 		return GsonUtil.buildMap(0, "ok", null);
 	}

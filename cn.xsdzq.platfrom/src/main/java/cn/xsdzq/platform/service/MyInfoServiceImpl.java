@@ -1,6 +1,7 @@
 package cn.xsdzq.platform.service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.xsdzq.platform.dao.MyInfoRepository;
+import cn.xsdzq.platform.entity.CategoryEntity;
 import cn.xsdzq.platform.entity.InfoEntity;
 
 @Service(value = "myInfoServiceImpl")
@@ -296,6 +298,15 @@ public class MyInfoServiceImpl implements IMyInfoService {
 	public List<InfoEntity> getInfosByCommonFlag(String flag,int pageNumber, int pageSize){
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
 		List<InfoEntity> infos = myInfoRepository.findInfoEntityByCommonFlagAndCheckedResult(flag, "approve",pageRequest);
+		//如果关联的栏目不显示前端，剔除
+		Iterator<InfoEntity> it = infos.iterator();
+		while (it.hasNext()) {		
+			InfoEntity info = it.next();
+			CategoryEntity cate = info.getCategoryEntity();
+			if(!cate.getDisplayFlag()) {
+				it.remove();
+			}		
+		}
 		return infos;
 	}
 	public int countInfosByCommonFlag(String flag){

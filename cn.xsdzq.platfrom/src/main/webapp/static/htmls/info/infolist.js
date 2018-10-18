@@ -115,4 +115,20 @@ function infoListController($scope, $http, $state, $stateParams, $gridService, h
 			console.log("取消");
 		});
 	}
+	$scope.copyUrl = function(index) {
+		console.log($scope.infoList[index]);
+		var info=$scope.infoList[index];
+		var text=window.location.protocol+"//"+window.location.hostname+":"+window.location.port+"/front/#/detail/"+info.id;
+		if (window.clipboardData) {//如果是IE浏览器
+	        window.clipboardData.setData('text', text);
+	    } else {//非IE浏览器
+    	   var textarea = document.createElement('textarea');
+    	   textarea.value = text;
+           document.body.appendChild(textarea);
+           textarea.select(); // 选择对象
+           document.execCommand("Copy"); // 执行浏览器复制命令
+    	   textarea.style.display='none';
+	    }
+		layerUtils.iMsg(-1, "复制成功");
+	}
 }

@@ -136,6 +136,7 @@ public class FrontController {
 	@RequestMapping(value = "/search", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> search(HttpServletRequest request, @RequestBody SearchBean searchBean) {
+		System.out.println("in  search%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 		logger.info(searchBean.getKey());
 		String key = searchBean.getKey();
 		List<InfoEntity> infos = iInfoService.searchInfos(key);

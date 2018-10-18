@@ -1,5 +1,6 @@
 package cn.xsdzq.platform.service;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.xsdzq.platform.dao.InfoRepository;
+import cn.xsdzq.platform.entity.CategoryEntity;
 import cn.xsdzq.platform.entity.InfoEntity;
 import cn.xsdzq.platform.util.UserManageUtil;
 
@@ -49,6 +51,15 @@ public class InfoServiceImpl implements IInfoService {
 	public List<InfoEntity> searchInfos(String key) {
 		// TODO Auto-generated method stub
 		List<InfoEntity> infos = infoRepository.searchInfos(key);
+		//如果关联的栏目不显示前端，剔除
+		Iterator<InfoEntity> it = infos.iterator();
+		while (it.hasNext()) {		
+			InfoEntity info = it.next();
+			CategoryEntity cate = info.getCategoryEntity();
+			if(!cate.getDisplayFlag()) {
+				it.remove();
+			}		
+		}
 		return infos;
 	}
 
