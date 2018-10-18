@@ -298,6 +298,10 @@ public class MyInfoServiceImpl implements IMyInfoService {
 		List<InfoEntity> infos = myInfoRepository.findInfoEntityByCommonFlagAndCheckedResult(flag, "approve",pageRequest);
 		return infos;
 	}
+	public int countInfosByCommonFlag(String flag){
+		int sum = myInfoRepository.countInfoEntityByCommonFlagAndCheckedResult(flag, "approve");
+		return sum;
+	}
 	public List<InfoEntity> getInfosByCategoryIdByCheckedResultForH5(long id) {
 		// TODO Auto-generated method stub
 		List<InfoEntity> infos = myInfoRepository.findInfoEntityByCategoryIdAndCheckedResult(id, "approve");

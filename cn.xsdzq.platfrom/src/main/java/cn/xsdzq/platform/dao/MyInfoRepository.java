@@ -91,6 +91,7 @@ public interface MyInfoRepository extends PagingAndSortingRepository<InfoEntity,
 	int countInfoEntityByCategoryIdAndTitleLikeAndCheckedResultIn(long categoryId, String title, List<String> list);
 	//h5
 	List<InfoEntity> findInfoEntityByCommonFlagAndCheckedResult(String commonFlag, String checkedResult, Pageable pageable);
+	int countInfoEntityByCommonFlagAndCheckedResult(String commonFlag, String checkedResult);
 	List<InfoEntity> findInfoEntityByCategoryIdAndCheckedResult(long categoryId, String checkedResult);
 
 }
