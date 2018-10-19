@@ -111,9 +111,10 @@ function checkListController($scope, $http, $state, $stateParams, $gridService, 
         layerUtils.iConfirm("您确定要将选中的文章直接展示给客户？", function() {
         for (var h = 0; h < $scope.selected.length; h++) {
 			var params = {
-					id : $scope.selected[i],
+					id : $scope.selected[h],
 					//true 代表审核通过
-					checkFlag : true
+					checkFlag : true,
+					action : 'approve'
 				};
 			//选中多页的  ，如果有已审批的 也会被再次审批！1！！ 怎样让选中变量 只保存当前页的数据					
 			
@@ -160,12 +161,13 @@ function checkListController($scope, $http, $state, $stateParams, $gridService, 
 			return;
         }
       //数据合法后，开始执行批量撤回操作
-		layerUtils.iConfirm("您确定要将选中的文章从帮助中心撤回？", function() {
+		layerUtils.iConfirm("您确定要将选中的文章从帮助中心撤回？只有已发布的文章才会被撤回！", function() {
         for (var h = 0; h < $scope.selected.length; h++) {
 			var params = {
-					id : $scope.selected[i],
+					id : $scope.selected[h],
 					//false 代表退回  撤回，最终都是变为待提交状态
-					checkFlag : false
+					checkFlag : false,
+					action : 'callback'
 				};	
 				$http.post(httpUtils.url.modifyCheckResult, params).success(function(data) {
 					if (data.resCode == 0) {			
@@ -246,6 +248,5 @@ function checkListController($scope, $http, $state, $stateParams, $gridService, 
 			console.log("取消");
 		});
 	}
-
 
 }

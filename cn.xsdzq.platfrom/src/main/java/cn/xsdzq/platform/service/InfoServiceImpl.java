@@ -107,21 +107,46 @@ public class InfoServiceImpl implements IInfoService {
 
 	@Override
 	@Transactional
-	public void modifyCheckResult(long id, boolean flag) {
+	public void modifyCheckResult(long id, boolean flag, String action) {
 		// TODO Auto-generated method stub
 		InfoEntity info = infoRepository.getInfo(id);
-		System.out.println(info.getId() + "         " + info.getChecked() + "       " + info.getCheckedResult());
-		info.setChecked("Y");// 设置为已审核
-		if (flag) {
-			// 如果审核通过，审核结果置位approve 否则为reject
+		String tempCheckedResult = info.getCheckedResult();
+		System.out.println(info.getId() + "  " + info.getChecked() + "       " + info.getCheckedResult());
+		//区分三个动作，别面前台分页 选中多页的进行操作的问题
+		if("approve".equals(action) && flag && tempCheckedResult != "approve") {
+			System.out.println("审核命令  +  待审核*******************************************");		
 			info.setCheckedResult("approve");
-		} else {
-			info.setCheckedResult("generate");
+			User user = UserManageUtil.getUser();
+			String name = user.getUsername();
+			info.setApprovedBy(name);
+			info.setChecked("Y");// 设置为已审核
+			
+			infoRepository.modifyInfo(info);
 		}
-		User user = UserManageUtil.getUser();
-		String name = user.getUsername();
-		info.setApprovedBy(name);
-		System.out.println(info.getId() + "         " + info.getChecked() + "       " + info.getCheckedResult());
-		infoRepository.modifyInfo(info);
+		
+		if("approve".equals(action) && flag == false && tempCheckedResult != "approve") {
+			//System.out.println("退回命令  +  待审核*******************************************");		
+			info.setCheckedResult("generate");
+			User user = UserManageUtil.getUser();
+			String name = user.getUsername();
+			info.setApprovedBy(name);
+			info.setChecked("Y");// 设置为已审核
+			
+			infoRepository.modifyInfo(info);
+		}
+		
+		
+		if("callback".equals(action) && flag == false && "approve".equals(tempCheckedResult)) {
+			//System.out.println("撤回命令  +  已发布*******************************************");		
+			info.setCheckedResult("generate");
+			User user = UserManageUtil.getUser();
+			String name = user.getUsername();
+			info.setApprovedBy(name);
+			info.setChecked("Y");// 设置为已审核
+		
+			infoRepository.modifyInfo(info);
+		}
+		
+		
 	}
 }

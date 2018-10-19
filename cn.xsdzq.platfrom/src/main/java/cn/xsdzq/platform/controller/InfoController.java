@@ -316,8 +316,9 @@ public class InfoController extends BaseController {
 	public Map<String, Object> modifyCheckResult(HttpServletRequest request,
 			@RequestBody CheckResultDTO checkResultDTO) {
 		CheckResultDTO dto = checkResultDTO;
+		String action = dto.getAction();
 		System.out.println(dto.isCheckFlag() + " **** " + dto.getId());
-		iInfoService.modifyCheckResult(dto.getId(), dto.isCheckFlag());
+		iInfoService.modifyCheckResult(dto.getId(), dto.isCheckFlag(),  action);
 		return GsonUtil.buildMap(0, "ok", null);
 	}
 	//撤回信息
