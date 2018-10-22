@@ -60,6 +60,18 @@ public class CategoryController {
 		cDtos.sort(Comparator.naturalOrder());
 		return GsonUtil.buildMap(0, "ok", cDtos);
 	}
+	@RequestMapping(value = "/getAllExcept", produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> getAllCategoryExcept() {
+		List<CategoryEntity> list = categoryService.findAllExcept();
+		List<CategoryDTO> cDtos = new ArrayList<CategoryDTO>();
+		for (CategoryEntity category : list) {
+			CategoryDTO dto = CategoryUtil.convertCategoryDTOByCategoryEntity(category);
+			cDtos.add(dto);
+		}
+		cDtos.sort(Comparator.naturalOrder());
+		return GsonUtil.buildMap(0, "ok", cDtos);
+	}
 	
 	@RequestMapping(value = "/getDisplayCategories", produces = "application/json; charset=utf-8")
 	@ResponseBody

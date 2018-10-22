@@ -161,7 +161,7 @@ function checkListController($scope, $http, $state, $stateParams, $gridService, 
 			return;
         }
       //数据合法后，开始执行批量撤回操作
-		layerUtils.iConfirm("您确定要将选中的文章从帮助中心撤回？只有已发布的文章才会被撤回！", function() {
+		layerUtils.iConfirm("您确定要将选中的文章从帮助中心撤回？", function() {
         for (var h = 0; h < $scope.selected.length; h++) {
 			var params = {
 					id : $scope.selected[h],

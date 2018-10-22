@@ -13,6 +13,8 @@ public interface CategoryRepository {
 
 	public List<CategoryEntity> findAll();
 	
+	public List<CategoryEntity> findAllExcept();
+	
 	public List<CategoryEntity> getDisplayCategory();
 
 	void addCategory(CategoryEntity category);

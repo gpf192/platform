@@ -14,7 +14,7 @@ function categoryListController($scope, $http, $state, $stateParams, httpUtils,l
 		$scope.getCategoryList();
 	};
 	$scope.getCategoryList = function() {
-		$http.get(httpUtils.url.categoryList, {}).success(function(data) {
+		$http.get(httpUtils.url.categoryListExcept, {}).success(function(data) {
 			if (data.resCode == 0) {
 				$scope.categorys = data.result;
 				console.log($scope.categorys);

@@ -26,7 +26,12 @@ function infoListController($scope, $http, $state, $stateParams, $gridService, h
 		$http.get(httpUtils.url.categoryList, {}).success(function(data) {
 			if (data.resCode == 0) {
 				$scope.categoryList = data.result;
-				$scope.formData.category = $scope.categoryList[0];
+				//设置筛选条件为默认
+				for(var k = 0; k < $scope.categoryList.length; k++){
+					if($scope.categoryList[k].title == "全部"){
+						$scope.formData.category = $scope.categoryList[k];	
+					}
+				}
 				$scope.getInfosByCategoryId(10);
 			}
 		});
