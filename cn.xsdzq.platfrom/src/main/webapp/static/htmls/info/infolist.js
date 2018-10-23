@@ -26,7 +26,12 @@ function infoListController($scope, $http, $state, $stateParams, $gridService, h
 		$http.get(httpUtils.url.categoryList, {}).success(function(data) {
 			if (data.resCode == 0) {
 				$scope.categoryList = data.result;
-				$scope.formData.category = $scope.categoryList[0];
+				//设置筛选条件为默认
+				for(var k = 0; k < $scope.categoryList.length; k++){
+					if($scope.categoryList[k].title == "全部"){
+						$scope.formData.category = $scope.categoryList[k];	
+					}
+				}
 				$scope.getInfosByCategoryId(10);
 			}
 		});
@@ -114,5 +119,21 @@ function infoListController($scope, $http, $state, $stateParams, $gridService, h
 		}, function() {
 			console.log("取消");
 		});
+	}
+	$scope.copyUrl = function(index) {
+		console.log($scope.infoList[index]);
+		var info=$scope.infoList[index];
+		var text=window.location.protocol+"//"+window.location.hostname+":"+window.location.port+"/front/#/detail/"+info.id;
+		if (window.clipboardData) {//如果是IE浏览器
+	        window.clipboardData.setData('text', text);
+	    } else {//非IE浏览器
+    	   var textarea = document.createElement('textarea');
+    	   textarea.value = text;
+           document.body.appendChild(textarea);
+           textarea.select(); // 选择对象
+           document.execCommand("Copy"); // 执行浏览器复制命令
+    	   textarea.style.display='none';
+	    }
+		layerUtils.iMsg(-1, "复制成功");
 	}
 }

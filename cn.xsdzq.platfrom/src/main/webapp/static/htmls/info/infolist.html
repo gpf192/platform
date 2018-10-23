@@ -20,7 +20,7 @@
 				<div class="form-group ">
 					<label class="col-sm-5 control-label text-right">栏目查询:</label>
 					<div class="col-sm-7">
-						<select class="form-control" ng-model="formData.category"
+						<select style="width:130px;" class="form-control" ng-model="formData.category"
 							ng-options="item.title for item in categoryList"></select>
 					</div>
 				</div>
@@ -34,7 +34,7 @@
 				<div class="form-group ">
 					<label class="col-sm-5 control-label text-right">审核状态:</label>
 					<div class="col-sm-7">
-						<select class="form-control" ng-model="approveResult"
+						<select style="width:100px;" class="form-control" ng-model="approveResult"
 							ng-options="key for (key, value) in approveResultOption" ></select>
 					</div>
 				</div>
@@ -76,7 +76,7 @@
 					<tr role="row">
 						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">序号</th>
-						<th class="col-sm-3 text-center" role="columnheader" tabindex="0"
+						<th class="col-sm-2 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">文章标题</th>
 						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">栏目名称</th>
@@ -129,9 +129,9 @@
 						</td>
 						<td class="col-sm-1">
 							<div>
-								<button ng-if="info.checked_result == ('approve')" type="button" class="btn btn-danger btn-sm"
-									ng-click="">
-									<i class="fa fa-clipboard"></i><span> 复制</span>
+								<button ng-if="info.checked_result == ('approve')" type="button" class="btn btn-primary btn-sm"
+									ng-click="copyUrl($index)">
+									<i class="fa fa-copy"></i><span> 复制</span>
 								</button>
 							</div>
 						</td>

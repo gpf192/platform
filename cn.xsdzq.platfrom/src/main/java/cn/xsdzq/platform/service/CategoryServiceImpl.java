@@ -29,7 +29,10 @@ public class CategoryServiceImpl implements ICategoryService {
 		List<CategoryEntity> list = categoryRepository.findAll();
 		return list;
 	}
-	
+	public List<CategoryEntity> findAllExcept(){
+		List<CategoryEntity> list = categoryRepository.findAllExcept();
+		return list;
+	}
 	@Override
 	public List<CategoryEntity> findDisplayCategory() {
 		// TODO Auto-generated method stub

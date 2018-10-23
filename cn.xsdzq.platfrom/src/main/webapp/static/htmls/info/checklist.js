@@ -25,7 +25,12 @@ function checkListController($scope, $http, $state, $stateParams, $gridService, 
 		$http.get(httpUtils.url.categoryList, {}).success(function(data) {
 			if (data.resCode == 0) {
 				$scope.categoryList = data.result;
-				$scope.formData.category = $scope.categoryList[0];
+				//设置筛选条件为默认
+				for(var k = 0; k < $scope.categoryList.length; k++){
+					if($scope.categoryList[k].title == "全部"){
+						$scope.formData.category = $scope.categoryList[k];	
+					}
+				}
 				$scope.getCheckInfosByCategoryId(10);
 			}
 		});
@@ -78,26 +83,22 @@ function checkListController($scope, $http, $state, $stateParams, $gridService, 
       return $scope.selected.length === $scope.infoList.length;
     };
     $scope.batchApprove = function(){
-    	console.log(10000000000);
         if($scope.selected.length == 0){
         	layerUtils.iMsg(-1, "未选择记录！");
 			return;
         }
-    	var countSubmit=0;
+    
     	var countApprove=0;
     	//bug：全选包括多页的，infolist 只有本页的
         //循环选中的记录 
         for (var i = 0; i < $scope.selected.length; i++) {
             var infoId = $scope.selected[i];//获得  info-id
             //循环当前页的集合，与选中的对比
-            for (var i = 0; i < $scope.infoList.length; i++) {
-                var infoIdTemp = $scope.infoList[i].id;
-                var infoCheckedResultTemp = $scope.infoList[i].checked_result;
+            for (var k = 0; k < $scope.infoList.length; k++) {
+                var infoIdTemp = $scope.infoList[k].id;
+                var infoCheckedResultTemp = $scope.infoList[k].checked_result;
                 //如果比对成功，判断审核状态
                 if(infoId == infoIdTemp){
-                	if(infoCheckedResultTemp == 'submit'){
-                		countSubmit++;
-                	}
                 	if(infoCheckedResultTemp == 'approve'){
                 		countApprove++;
                 	}
@@ -105,6 +106,7 @@ function checkListController($scope, $http, $state, $stateParams, $gridService, 
               }                     
           }
         //比对完成后，判断选中的记录是不是同时又待审核的和 已发布， 如果有，不可批量操作
+        //console.log("11111 "+countApprove);
         if(countApprove >0){
         	console.log("选中数 "+$scope.selected.length);
         	layerUtils.iMsg(-1, "已发布文章无法参与审批！");
@@ -112,11 +114,12 @@ function checkListController($scope, $http, $state, $stateParams, $gridService, 
         }
         //数据合法后，开始执行批量审批操作
         layerUtils.iConfirm("您确定要将选中的文章直接展示给客户？", function() {
-        for (var i = 0; i < $scope.selected.length; i++) {
+        for (var h = 0; h < $scope.selected.length; h++) {
 			var params = {
-					id : $scope.selected[i],
+					id : $scope.selected[h],
 					//true 代表审核通过
-					checkFlag : true
+					checkFlag : true,
+					action : 'approve'
 				};
 			//选中多页的  ，如果有已审批的 也会被再次审批！1！！ 怎样让选中变量 只保存当前页的数据					
 			
@@ -139,27 +142,24 @@ function checkListController($scope, $http, $state, $stateParams, $gridService, 
 			return;
         }
     	var countSubmit=0;
-    	var countApprove=0;
     	//bug：全选包括多页的，infolist 只有本页的
         //循环选中的记录 
         for (var i = 0; i < $scope.selected.length; i++) {
             var infoId = $scope.selected[i];//获得  info-id
             //循环当前页的集合，与选中的对比
-            for (var i = 0; i < $scope.infoList.length; i++) {
-                var infoIdTemp = $scope.infoList[i].id;
-                var infoCheckedResultTemp = $scope.infoList[i].checked_result;
+            for (var k = 0; k < $scope.infoList.length; k++) {
+                var infoIdTemp = $scope.infoList[k].id;
+                var infoCheckedResultTemp = $scope.infoList[k].checked_result;
                 //如果比对成功，判断审核状态
                 if(infoId == infoIdTemp){
                 	if(infoCheckedResultTemp == 'submit'){
                 		countSubmit++;
                 	}
-                	if(infoCheckedResultTemp == 'approve'){
-                		countApprove++;
-                	}
                 }              
               }                     
           }
         //比对完成后，判断选中的记录是不是待审核的， 如果有，不可批量操作
+        
         if(countSubmit >0){
         	console.log("选中数 "+$scope.selected.length);
         	layerUtils.iMsg(-1, "待审核文章无法撤回！");
@@ -167,11 +167,12 @@ function checkListController($scope, $http, $state, $stateParams, $gridService, 
         }
       //数据合法后，开始执行批量撤回操作
 		layerUtils.iConfirm("您确定要将选中的文章从帮助中心撤回？", function() {
-        for (var i = 0; i < $scope.selected.length; i++) {
+        for (var h = 0; h < $scope.selected.length; h++) {
 			var params = {
-					id : $scope.selected[i],
+					id : $scope.selected[h],
 					//false 代表退回  撤回，最终都是变为待提交状态
-					checkFlag : false
+					checkFlag : false,
+					action : 'callback'
 				};	
 				$http.post(httpUtils.url.modifyCheckResult, params).success(function(data) {
 					if (data.resCode == 0) {			
@@ -252,6 +253,5 @@ function checkListController($scope, $http, $state, $stateParams, $gridService, 
 			console.log("取消");
 		});
 	}
-
 
 }

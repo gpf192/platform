@@ -40,7 +40,8 @@ function checkDetailController($scope, $http, $state, $stateParams, httpUtils, l
 		console.log(value);
 		var params = {
 				id : $scope.info.id,
-				checkFlag : value
+				checkFlag : value,
+				action : 'approve'
 			};
 		
 		$http.post(httpUtils.url.modifyCheckResult, params).success(function(data) {

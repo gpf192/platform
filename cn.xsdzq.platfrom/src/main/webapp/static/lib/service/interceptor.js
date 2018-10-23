@@ -33,8 +33,8 @@ function($q,$window, $location, layerUtils) {
 				if(data.indexOf("!DOCTYPE html")&&data.indexOf("loginin/css/bootstrap.min.css")>-1&&data.indexOf("登录")){
 					layerUtils.iConfirm("登录已过期，请重新登录！", function() {
 						var loginUrl=$location.protocol()+"://"+$location.host()+":"+$location.port()+"/platform/login";
-						console.log(loginUrl);
-						window.location.href=$location.absUrl();
+						//window.location.href=$location.absUrl();
+						location.reload();;
 					}, function() {
 						console.log("取消");
 					});
@@ -60,8 +60,8 @@ function($q,$window, $location, layerUtils) {
                 console.log('401');
                 layerUtils.iConfirm("登录已过期，请重新登录！", function() {
 					var loginUrl=$location.protocol()+"://"+$location.host()+":"+$location.port()+"/platform/login";
-					console.log(loginUrl);
-					window.location.href=$location.absUrl();
+					//window.location.href=$location.absUrl();
+					location.reload();;
 				}, function() {
 					console.log("取消");
 				});

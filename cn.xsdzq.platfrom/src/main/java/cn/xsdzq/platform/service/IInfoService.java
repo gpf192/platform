@@ -29,6 +29,6 @@ public interface IInfoService {
 
 	String getCheckResult(long id);
 
-	void modifyCheckResult(long id, boolean flag);
+	void modifyCheckResult(long id, boolean flag, String action);
 	// add by fjx end
 }

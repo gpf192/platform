@@ -37,7 +37,13 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 		return sqlQuery.getResultList();
 	}
 	
-
+	public List<CategoryEntity> findAllExcept() {
+		// TODO Auto-generated method stub
+		TypedQuery<CategoryEntity> sqlQuery = em.createQuery("SELECT c FROM CategoryEntity c where c.title!=?", CategoryEntity.class);
+		sqlQuery.setParameter(1, "全部");
+		return sqlQuery.getResultList();
+	}
+	
 	@Override
 	public List<CategoryEntity> getDisplayCategory() {
 		// TODO Auto-generated method stub

@@ -10,6 +10,8 @@ public interface ICategoryService {
 
 	List<CategoryEntity> findAll();
 	
+	List<CategoryEntity> findAllExcept();
+	
 	List<CategoryEntity> findDisplayCategory();
  
 	void addCategory(CategoryEntity categoryEntity);
