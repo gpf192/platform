@@ -58,14 +58,16 @@
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
 				</div>
-				<div class="form-group">
+				<div class="form-group hide">
 					<div class="col-sm-offset-2 col-sm-10">
 						<div class="checkbox">
-							<label> <input type="checkbox"> 记住我
+							<label for="remember_me"> <input id="remember_me"
+								name="remember_me" type="checkbox"> 记住我
 							</label>
 						</div>
 					</div>
 				</div>
+				<br>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
 						<button type="submit" name="submit"
