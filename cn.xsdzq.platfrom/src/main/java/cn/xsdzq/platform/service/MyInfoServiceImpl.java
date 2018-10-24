@@ -57,7 +57,7 @@ public class MyInfoServiceImpl implements IMyInfoService {
 	public List<InfoEntity> getInfosByCategoryIdByCreator(long id, String userName, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCategoryIdAndCreatedByOrderByModifytimeDesc(id,
+		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCategoryIdAndCreatedByOrderByWeightDescModifytimeDesc(id,
 				userName, pageRequest);
 		List<InfoEntity> infos = pages.getContent();
 		return infos;
@@ -67,7 +67,7 @@ public class MyInfoServiceImpl implements IMyInfoService {
 	public List<InfoEntity> getInfosByCategoryIdByCreatorByCheckedResult(long id, String userName, String approveResult, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCategoryIdAndCreatedByAndCheckedResultOrderByModifytimeDesc(id,
+		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCategoryIdAndCreatedByAndCheckedResultOrderByWeightDescModifytimeDesc(id,
 				userName, approveResult, pageRequest);
 		List<InfoEntity> infos = pages.getContent();
 		return infos;
@@ -79,7 +79,7 @@ public class MyInfoServiceImpl implements IMyInfoService {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
 		//Page<InfoEntity> pages = myInfoRepository.findAll(pageRequest);
-		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCreatedByAndCheckedResultOrderByModifytimeDesc(userName, approveResult, pageRequest);
+		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCreatedByAndCheckedResultOrderByWeightDescModifytimeDesc(userName, approveResult, pageRequest);
 		List<InfoEntity> infos = pages.getContent();
 		return infos;
 	}	
@@ -88,7 +88,7 @@ public class MyInfoServiceImpl implements IMyInfoService {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
 		//Page<InfoEntity> pages = myInfoRepository.findAll(pageRequest);
-		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCreatedByOrderByModifytimeDesc(userName, pageRequest);
+		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCreatedByOrderByWeightDescModifytimeDesc(userName, pageRequest);
 		List<InfoEntity> infos = pages.getContent();
 		return infos;
 	}	
@@ -117,25 +117,25 @@ public class MyInfoServiceImpl implements IMyInfoService {
 
 	public List<InfoEntity> getInfosByCreatorByTitleLike(String userName, String title, int pageNumber, int pageSize){
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCreatedByAndTitleLikeOrderByModifytimeDesc(userName, title, pageRequest);
+		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCreatedByAndTitleLikeOrderByWeightDescModifytimeDesc(userName, title, pageRequest);
 		List<InfoEntity> infos = pages.getContent();
 		return infos;		
 	}
 	public List<InfoEntity> getInfosByCreatorByCheckedResultByTitleLike(String userName, String approveResult, String title,  int pageNumber, int pageSize){
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCreatedByAndCheckedResultAndTitleLikeOrderByModifytimeDesc(userName, approveResult, title, pageRequest);
+		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCreatedByAndCheckedResultAndTitleLikeOrderByWeightDescModifytimeDesc(userName, approveResult, title, pageRequest);
 		List<InfoEntity> infos = pages.getContent();
 		return infos;		
 	}
 	public List<InfoEntity> getInfosByCategoryIdByCreatorByTitleLike(long id, String userName, String title, int pageNumber, int pageSize){
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCategoryIdAndCreatedByAndTitleLikeOrderByModifytimeDesc(id, userName, title, pageRequest);
+		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCategoryIdAndCreatedByAndTitleLikeOrderByWeightDescModifytimeDesc(id, userName, title, pageRequest);
 		List<InfoEntity> infos = pages.getContent();
 		return infos;
 	}
 	public List<InfoEntity> getInfosByCategoryIdByCreatorByCheckedResultByTitleLike(long id, String userName, String approveResult, String title, int pageNumber, int pageSize){
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCategoryIdAndCreatedByAndCheckedResultAndTitleLikeOrderByModifytimeDesc(id, userName, approveResult, title, pageRequest);
+		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCategoryIdAndCreatedByAndCheckedResultAndTitleLikeOrderByWeightDescModifytimeDesc(id, userName, approveResult, title, pageRequest);
 		List<InfoEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -163,7 +163,7 @@ public class MyInfoServiceImpl implements IMyInfoService {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
 		//Page<InfoEntity> pages = myInfoRepository.findAll(pageRequest);//问题 ：无法排序
-		Page<InfoEntity> pages = myInfoRepository.findByOrderByModifytimeDesc(pageRequest);//问题 ：无法排序
+		Page<InfoEntity> pages = myInfoRepository.findByOrderByWeightDescModifytimeDesc(pageRequest);//问题 ：无法排序
 		List<InfoEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -174,7 +174,7 @@ public class MyInfoServiceImpl implements IMyInfoService {
 	public List<InfoEntity> getInfosByCheckedResult(String approveResult, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCheckedResultOrderByModifytimeDesc(approveResult, pageRequest);
+		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCheckedResultOrderByWeightDescModifytimeDesc(approveResult, pageRequest);
 		List<InfoEntity> infos = pages.getContent();
 		return infos;
 	}	
@@ -184,7 +184,7 @@ public class MyInfoServiceImpl implements IMyInfoService {
 	}
 	public List<InfoEntity> getInfosByTitleLike(String title, int pageNumber, int pageSize){
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByTitleLikeOrderByModifytimeDesc(title, pageRequest);
+		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByTitleLikeOrderByWeightDescModifytimeDesc(title, pageRequest);
 		List<InfoEntity> infos = pages.getContent();
 		return infos;		
 	}
@@ -194,7 +194,7 @@ public class MyInfoServiceImpl implements IMyInfoService {
 	}
 	public List<InfoEntity> getInfosByCheckedResultByTitleLike(String approveResult, String title,  int pageNumber, int pageSize){
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCheckedResultAndTitleLikeOrderByModifytimeDesc(approveResult, title, pageRequest);
+		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCheckedResultAndTitleLikeOrderByWeightDescModifytimeDesc(approveResult, title, pageRequest);
 		List<InfoEntity> infos = pages.getContent();
 		return infos;		
 	}
@@ -223,7 +223,7 @@ public class MyInfoServiceImpl implements IMyInfoService {
 	}
 	public List<InfoEntity> getInfosByCategoryIdByTitleLike(long id, String title, int pageNumber, int pageSize){
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCategoryIdAndTitleLikeOrderByModifytimeDesc(id, title, pageRequest);
+		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCategoryIdAndTitleLikeOrderByWeightDescModifytimeDesc(id, title, pageRequest);
 		List<InfoEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -232,7 +232,7 @@ public class MyInfoServiceImpl implements IMyInfoService {
 	}
 	public List<InfoEntity> getInfosByCategoryIdByCheckedResultByTitleLike(long id, String approveResult, String title, int pageNumber, int pageSize){
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCategoryIdAndCheckedResultAndTitleLikeOrderByModifytimeDesc(id , approveResult, title, pageRequest);
+		Page<InfoEntity> pages = myInfoRepository.findInfoEntityByCategoryIdAndCheckedResultAndTitleLikeOrderByWeightDescModifytimeDesc(id , approveResult, title, pageRequest);
 		List<InfoEntity> infos = pages.getContent();
 		return infos;
 	}

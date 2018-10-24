@@ -1,13 +1,17 @@
 package cn.xsdzq.platform.service;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import cn.xsdzq.platform.controller.InfoController;
 import cn.xsdzq.platform.dao.InfoRepository;
 import cn.xsdzq.platform.entity.CategoryEntity;
 import cn.xsdzq.platform.entity.InfoEntity;
@@ -16,6 +20,7 @@ import cn.xsdzq.platform.util.UserManageUtil;
 @Service(value = "infoServiceImpl")
 @Transactional(readOnly = true)
 public class InfoServiceImpl implements IInfoService {
+	Logger logger = LogManager.getLogger(InfoServiceImpl.class.getName());
 	@Autowired
 	private InfoRepository infoRepository;
 
@@ -74,6 +79,8 @@ public class InfoServiceImpl implements IInfoService {
 	@Transactional
 	public void modifyInfo(InfoEntity infoEntity) {
 		// TODO Auto-generated method stub
+		//撤回的时候录入时间未赋值
+		infoEntity.setCreatetime(infoRepository.getInfo(infoEntity.getId()).getCreatetime()); 
 		infoRepository.modifyInfo(infoEntity);
 	}
 
@@ -112,15 +119,15 @@ public class InfoServiceImpl implements IInfoService {
 		InfoEntity info = infoRepository.getInfo(id);
 		String tempCheckedResult = info.getCheckedResult();
 		System.out.println(info.getId() + "  " + info.getChecked() + "       " + info.getCheckedResult());
-		//区分三个动作，别面前台分页 选中多页的进行操作的问题
+		//区分三个动作，前台分页 选中多页的进行操作的问题,批量同意，单个拒绝，批量撤回，
 		if("approve".equals(action) && flag && tempCheckedResult != "approve") {
-			System.out.println("审核命令  +  待审核*******************************************");		
+			//System.out.println("审核命令  +  待审核*******************************************");		
 			info.setCheckedResult("approve");
 			User user = UserManageUtil.getUser();
 			String name = user.getUsername();
 			info.setApprovedBy(name);
 			info.setChecked("Y");// 设置为已审核
-			
+			info.setApproveTime(new Date());
 			infoRepository.modifyInfo(info);
 		}
 		
@@ -131,7 +138,7 @@ public class InfoServiceImpl implements IInfoService {
 			String name = user.getUsername();
 			info.setApprovedBy(name);
 			info.setChecked("Y");// 设置为已审核
-			
+			info.setApproveTime(new Date());
 			infoRepository.modifyInfo(info);
 		}
 		
@@ -143,7 +150,7 @@ public class InfoServiceImpl implements IInfoService {
 			String name = user.getUsername();
 			info.setApprovedBy(name);
 			info.setChecked("Y");// 设置为已审核
-		
+			logger.info(name + "  撤回操作 ,文章id为： "+info.getId());
 			infoRepository.modifyInfo(info);
 		}
 		

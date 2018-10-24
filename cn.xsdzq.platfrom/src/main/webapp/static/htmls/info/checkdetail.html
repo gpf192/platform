@@ -33,11 +33,15 @@
 					<div class="col-sm-2"></div>
 				</div>
 				<div class="form-group">
-					<div class="col-sm-offset-4 col-sm-1">
+						<div class="col-sm-offset-4 col-sm-1" >
+							<button type="button" ng-click="back()"
+								class="btn btn-default btn-primary">返回</button>
+						</div>
+					<div class="col-sm-1">
 						<button ng-if="info.checked_result == ('submit')" type="button" ng-click="check(true)"
 							class="btn btn-success btn-primary"> 通过</button>
 					</div>
-					<div class="col-sm-2">
+					<div class="col-sm-1">
 						<button ng-if="info.checked_result == ('submit')" type="button" ng-click="check(false)"
 							class="btn btn-default btn-danger">退回</button>
 					</div>
@@ -45,13 +49,10 @@
 							<button ng-if="info.checked_result == ('approve')" type="button" ng-click="revocation()"
 								class="btn btn-default btn-danger">撤回</button>
 					</div>	
-					<div class="form-group full">
-						<div class="col-sm-2" >
-							<button type="button" ng-click="back()"
-								class="btn btn-default btn-primary">返回</button>
-						</div>		
+					
+		
 											
-					</div>
+					
 				</div>
 			</fieldset>
 		</form>

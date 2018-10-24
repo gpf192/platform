@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -26,6 +27,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.xsdzq.platform.entity.CategoryEntity;
 import cn.xsdzq.platform.entity.InfoEntity;
+import cn.xsdzq.platform.entity.RoleEntity;
+import cn.xsdzq.platform.entity.UserEntity;
 import cn.xsdzq.platform.model.CheckResultDTO;
 import cn.xsdzq.platform.model.InfoDTO;
 import cn.xsdzq.platform.model.Pagination;
@@ -33,6 +36,7 @@ import cn.xsdzq.platform.model.SearchBean;
 import cn.xsdzq.platform.service.ICategoryService;
 import cn.xsdzq.platform.service.IInfoService;
 import cn.xsdzq.platform.service.IMyInfoService;
+import cn.xsdzq.platform.service.IUserService;
 import cn.xsdzq.platform.util.GsonUtil;
 import cn.xsdzq.platform.util.InfoUtil;
 import cn.xsdzq.platform.util.UserManageUtil;
@@ -52,6 +56,10 @@ public class InfoController extends BaseController {
 	@Autowired
 	@Qualifier("categoryServiceImpl")
 	private ICategoryService categoryService;
+	
+	@Autowired
+	@Qualifier("userServiceImpl")
+	private IUserService userService;
 
 	@RequestMapping(value = "/getInfoById/{param}", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
@@ -70,20 +78,25 @@ public class InfoController extends BaseController {
 	@ResponseBody
 	public Map<String, Object> getInfos(HttpServletRequest request, @RequestParam long id, @RequestParam String infoTitle,
 			@RequestParam String approveResult, @RequestParam int pageNumber,@RequestParam int pageSize) {
-		System.out.println("approveResult是********** ********** ********** ********** ********** **********   "  + approveResult);
-		System.out.println("infoTitle是********** ********** ********** ********** ********** **********   "  + infoTitle);
 		long categoryId = id;
 		if (categoryId > 0) {
 			
 			User user = UserManageUtil.getUser();
 			String userName = user.getUsername();
-			//add by fan for get all info
+			UserEntity userEntity = userService.findUserByName(userName);
+			Set<RoleEntity>  roleEntitySet = userEntity.getRoleEntities();
+			boolean superFlag = false;
+			//循环所有的角色，查看是否有superadmin的权限,与角色绑定，而不是与用户绑定
+			for(RoleEntity role: roleEntitySet) {
+				if("superadmin".equals(role.getName())) {
+					superFlag = true;	
+				}
+			}
 			CategoryEntity category = categoryService.getCategoryById(categoryId);
 			String categoryTitle = category.getTitle();
-			System.out.println("categoryTitle是   "  + categoryTitle);
 			List<InfoEntity> infos = null;
 			int sum = 0 ;
-			if("superadmin".equals(userName)) {
+			if(superFlag) {
 				//超级用户 ，开始判断 栏目 是否查询全部
 				if("全部".equals(categoryTitle)) {				
 					
@@ -335,23 +348,11 @@ public class InfoController extends BaseController {
 		info.setCheckedResult("generate");
 		info.setModifytime(new Date());
 		info.setApprovedBy(name);
-		iInfoService.modifyInfo(info);
+		iInfoService.modifyInfo(info);	
 		logger.info("action:" + "modify" + ";" + "user:" + name + ";" + "title:" + dto.getTitle() + ";");
 		return GsonUtil.buildMap(0, "ok", null);
 	}
-	//h5前端调用接口
-	//查询常见文章 ，条件：常用文章flag 、 审核状态为approve
-	/*@RequestMapping(value = "/getCommonInfos", method = GET, produces = "application/json; charset=utf-8")
-	@ResponseBody
-	public Map<String, Object> getCommonInfos(HttpServletRequest request) {
-		List<InfoEntity> infos = myInfoService.getInfosByCommonFlag("Y");
-		List<InfoDTO> infoDTOs = new ArrayList<InfoDTO>();
-		for (InfoEntity info : infos) {
-			InfoDTO dto = InfoUtil.convertInfoDTOByInfo(info);
-			infoDTOs.add(dto);
-		}
-		return GsonUtil.buildMap(0, "ok", infoDTOs);
-	}*/
+
 	//根据分类id查询，条件：分类id 、审核状态为approve
 	@RequestMapping(value = "/getInfosByCategoryIdForH5", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
@@ -370,8 +371,8 @@ public class InfoController extends BaseController {
 	@ResponseBody
 	public Map<String, Object> getCheckInfos(HttpServletRequest request, @RequestParam long id, @RequestParam String infoTitle,
 			@RequestParam String approveResult, @RequestParam int pageNumber,@RequestParam int pageSize) {
-		System.out.println("approveResult是********** ********** ********** ********** ********** **********   "  + approveResult);
-		System.out.println("infoTitle是********** ********** ********** ********** ********** **********   "  + infoTitle);
+		//System.out.println("approveResult是********** ********** ********** ********** ********** **********   "  + approveResult);
+		//System.out.println("infoTitle是********** ********** ********** ********** ********** **********   "  + infoTitle);
 		long categoryId = id;
 		if (categoryId > 0) {
 			CategoryEntity category = categoryService.getCategoryById(categoryId);
