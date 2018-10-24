@@ -61,10 +61,10 @@ public class InfoController extends BaseController {
 	@Qualifier("userServiceImpl")
 	private IUserService userService;
 
-	@RequestMapping(value = "/getInfoById/{param}", method = GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/getInfoById", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Map<String, Object> getCategory(HttpServletRequest request, @PathVariable String param) {
-		long id = Long.parseLong(param);
+	public Map<String, Object> getCategory(HttpServletRequest request, @RequestParam long id) {
+		logger.info("id ="+id);
 		if (id > 0) {
 			InfoEntity info = iInfoService.getInfo(id);
 			InfoDTO infoDTO = InfoUtil.convertInfoDTOByInfo(info);

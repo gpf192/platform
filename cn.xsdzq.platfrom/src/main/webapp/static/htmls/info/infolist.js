@@ -90,7 +90,7 @@ function infoListController($scope, $http, $state, $stateParams, $gridService, h
 	$scope.viewInfo = function(index) {
 		var info = $scope.infoList[index];
 		console.log(info);
-		var url = window.location.protocol+"//"+window.location.hostname+":"+window.location.port+"/front/#/detail/"+info.id;
+		var url = window.location.protocol+"//"+window.location.hostname+":"+window.location.port+"/platform/static/demo.html"+"?id="+info.id;
 		window.open(url);
 		//$state.go("viewinfo", {
 		//	info : info
