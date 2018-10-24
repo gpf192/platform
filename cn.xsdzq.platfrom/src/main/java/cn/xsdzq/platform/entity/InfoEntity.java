@@ -97,7 +97,10 @@ public class InfoEntity implements Serializable {
 	@Column(name = "modifytime")
 	@LastModifiedDate
 	private Date modifytime;
-
+	// 审批时间
+	@Column(name = "approve_time")
+	private Date approveTime;
+	
 	public long getId() {
 		return id;
 	}
@@ -220,6 +223,14 @@ public class InfoEntity implements Serializable {
 
 	public void setApprovedBy(String approvedBy) {
 		this.approvedBy = approvedBy;
+	}
+
+	public Date getApproveTime() {
+		return approveTime;
+	}
+
+	public void setApproveTime(Date approveTime) {
+		this.approveTime = approveTime;
 	}
 
 	@JsonBackReference

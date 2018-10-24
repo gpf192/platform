@@ -51,7 +51,10 @@ public class RoleController {
 	@RequestMapping(value = "/modifyRole", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> modifyRole(@RequestBody RoleDTO roleDTO) {
+		RoleEntity roleTemp = roleService.findRoleById(roleDTO.getId());
 		RoleEntity roleEntity = RoleUtil.convertRoleEntityByRoleDTO(roleDTO);
+		//修改角色时， 保留之前的权限
+		roleEntity.setAuthorityEntities(roleTemp.getAuthorityEntities());
 		roleService.modifyRole(roleEntity);
 		return GsonUtil.buildMap(0, "ok", null);
 	}
