@@ -16,35 +16,28 @@
 	</div>
 	<div class="box-body">
 		<div class="dataTables_wrapper form-inline" role="grid">
-			<form class="form-horizontal margin10">
+			<form class="form-inline margin10">
 				<div class="form-group ">
-					<label class="col-sm-5 control-label text-right">栏目查询:</label>
-					<div class="col-sm-7">
-						<select style="width:130px;" class="form-control" ng-model="formData.category"
-							ng-options="item.title for item in categoryList"></select>
-					</div>
+					<label class="control-label text-right">栏目查询:</label>					
+						<select class="form-control" ng-model="formData.category"
+							ng-options="item.title for item in categoryList"></select>					
 				</div>
+				&nbsp
 				<div class="form-group ">
-					<label class="col-sm-4 control-label text-right">文章标题:</label>
-					<div class="col-sm-8">
-						<input type="text" class="form-control" id="searchTitle" name="title"
+					<label  for="searchTitle">文章标题:</label>					
+						<input type="text" class="form-control input-300 " id="searchTitle" name="title"
 						ng-model="formData.title" placeholder="请输入关键字"></input>
-					</div>
+
 				</div>
+				&nbsp
 				<div class="form-group ">
-					<label class="col-sm-5 control-label text-right">审核状态:</label>
-					<div class="col-sm-7">
-						<select style="width:100px;" class="form-control" ng-model="approveResult"
+					<label class=" control-label text-right">审核状态:</label>
+						<select class="form-control" ng-model="approveResult"
 							ng-options="key for (key, value) in approveResultOption" ></select>
-					</div>
 				</div>
-				<div class="form-group ">
-					<div class="col-sm-4"></div>
-					<div class="col-sm-8 text-center">
-						<input type="button" value="查询" class="btn btn-primary"
+				&nbsp
+				<input type="button" value="查询" class="btn btn-primary"
 							ng-click="getCheckInfosByCategoryId(10)" />
-					</div>
-				</div>
 			</form>
 			<hr />
 			<div class="row hide" ng-show="infoList.length>0">

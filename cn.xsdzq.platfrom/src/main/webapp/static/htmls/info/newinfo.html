@@ -37,7 +37,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-2 control-label">分类：</label>
+					<label class="col-sm-2 control-label">栏目：</label>
 					<div class="col-sm-7">
 						<select class="form-control" ng-model="formData.category"
 							ng-options="item.title for item in categoryList | filter:{title:'!全部'}"></select>
@@ -49,7 +49,7 @@
 							</div>
 							<div class="col-sm-10">
 								<button type="button" ng-click="addCategory()"
-									class="btn btn-default btn-primary">增加分类</button>
+									class="btn btn-default btn-primary">增加栏目</button>
 							</div>
 						</div>
 					</div>
