@@ -46,7 +46,22 @@
   top: 8px;
 }
 .navbar .dropdown-toggle .username {
+	width: 30%;
+    height: 100%;
+    display: inline-block;
+    box-sizing: border-box;
+    vertical-align: middle;
   font-weight: 600;
+  
+}
+.navbar .dropdown-toggle .imgright {	
+	width: 20%;
+    height: 100%;
+  en 
+    box-sizing: border-box;
+    vertical-align: middle;
+  font-weight: 600;
+  
 }
 .navbar #header-notification .dropdown-toggle i,
 .navbar #header-message .dropdown-toggle i,

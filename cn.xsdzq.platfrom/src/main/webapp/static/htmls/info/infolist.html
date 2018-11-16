@@ -66,10 +66,34 @@
 				class="datatable table table-striped table-bordered table-hover dataTable text-center"
 				aria-describedby="datatable1_info">
 				<thead>
+					<div>
+						&nbsp &nbsp
+						<button type="button" class="btn btn-primary btn-sm" ng-click="batchAddWeight()">
+								<i class="fa fa-plus"></i><span> 置顶</span>
+						</button>
+						&nbsp &nbsp
+						<button  type="button" class="btn btn-primary btn-sm"
+									ng-click="batchCopyUrl()">
+									<i class="fa fa-copy"></i><span> 复制</span>
+						</button>
+						&nbsp &nbsp
+						<button  type="button" class="btn btn-info btn-sm"
+									ng-click="batchModifyInfo()">
+									<i class="fa fa-pencil-square-o"></i><span> 编辑</span>
+						</button>
+						&nbsp &nbsp
+						<button  type="button" class="btn btn-danger btn-sm"
+									ng-click="batchDeleteInfo()">
+									<i class="fa fa-trash-o"></i><span> 删除</span>
+						</button>
+						
+					 </div>
+					 &nbsp
 					<tr role="row">
-						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+						<th class="col-sm-0 text-center"><input type="checkbox" ng-click="selectAll($event)" ng-checked="isSelectedAll()" /></th>
+						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">序号</th>
-						<th class="col-sm-2 text-center" role="columnheader" tabindex="0"
+						<th class="col-sm-3 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">文章标题</th>
 						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">栏目名称</th>
@@ -81,6 +105,7 @@
 							aria-controls="datatable1" rowspan="1" colspan="1">审核状态</th>	
 						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">浏览量</th>
+						<!-- 
 						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">置顶</th>
 						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
@@ -89,10 +114,13 @@
 							aria-controls="datatable1" rowspan="1" colspan="1">复制</th>
 						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">删除</th>
+							 -->
 					</tr>
 				</thead>
 				<tbody role="alert" aria-live="polite" aria-relevant="all">
 					<tr ng-repeat="info in infoList | filter:{title:search}">
+						<td class="col-sm-1">
+							<input type="checkbox" name="selected" ng-checked="isSelected(info.id)" ng-click="updateSelection($event,info.id)" /></td>	
 						<td class="col-sm-1">{{$index+selectNum["num"]*currentPage.page+1}}</td>
 						<td class="col-sm-1" ng-click="viewInfo($index)" style="cursor:pointer">{{info.title}}</td>
 						<td class="col-sm-1">{{info.categoryTitle}}</td> 
@@ -102,6 +130,7 @@
 						    ng-bind="info.checked_result |transfera"></span></td>				 
 						<td class="col-sm-1"><span
 						    ng-bind="info.pageView"></span></td>
+						    <!-- 
 						<td>
 							<button type="button" class="btn btn-primary btn-sm" ng-click="addWeight($index)">
 								<i class="fa fa-plus"></i><span> 置顶</span>
@@ -113,10 +142,7 @@
 									ng-click="modifyInfo($index)">
 									<i class="fa fa-pencil-square-o"></i><span> 编辑</span>
 								</button>
-								<!-- <button ng-if="info.checked_result == ('submit')||info.checked_result == ('approve')" type="button" class="btn btn-info btn-sm"
-									ng-click="viewInfo($index)">
-									<i class="fa fa-clipboard"></i><span> 查看</span>
-								</button> -->
+								
 								
 							</div>
 						</td>
@@ -136,6 +162,7 @@
 								</button>
 							</div>
 						</td>
+						-->
 					</tr>
 				</tbody>
 				<tfoot>
