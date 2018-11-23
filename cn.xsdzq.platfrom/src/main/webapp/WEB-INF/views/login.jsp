@@ -24,9 +24,11 @@
 		<div class="form">
 			<div class="container-fluid">
 				<div class="row">
+				<!--  
 					<div class="col-sm-7">
 						<h3>新时代后台管理系统</h3>
 					</div>
+					 -->
 					<div class="col-sm-5 text-center error-msg">
 						<c:if test="${not empty error}">
 							<div class="error">${error}</div>
@@ -37,21 +39,23 @@
 					</div>
 				</div>
 			</div>
-			<hr />
+			
 			<form class="form-horizontal" action="login" method='POST'>
-				<div class="form-group">
-					<label for="inputEmail3" class="col-sm-2 control-label">用户名：</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" id="username"
-							name="username" placeholder="请输入用户名">
+				<div >
+				<!-- 	<label for="inputEmail3" class="col-sm-2 control-label">用户名：</label> -->
+					<div class="col-sm-offset-1  col-sm-10 ">
+						
+						<input type="text" class="form-control" id="username" 
+							name="username" placeholder="用户名">
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="inputPassword3" class="col-sm-2 control-label">密
-						码：</label>
-					<div class="col-sm-10">
+			
+				<div id="Box1">
+					<!--  <label for="inputPassword3" class="col-sm-2 control-label">密
+						码：</label>   -->
+					<div class="col-sm-offset-1 col-sm-10 divb">	
 						<input type="password" class="form-control" id="password"
-							name="password" placeholder="请输入密码">
+							name="password" placeholder="密码">
 					</div>
 				</div>
 				<div>
@@ -68,16 +72,20 @@
 					</div>
 				</div>
 				<br>
-				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-10">
+				
+				<div id="Box2">
+					<div class="col-sm-offset-1 col-sm-10 col-lg-10 divb">
 						<button type="submit" name="submit"
-							class="btn btn-default btn-primary">登录</button>
+							class="btn btn-default btn-warning btn-block">登录</button>
 					</div>
 				</div>
+				
 			</form>
+			   <div class="form-group">
+			
 		</div>
+		
 	</div>
-	<script type="text/javascript" src="loginin/lib/jquery-1.11.1.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(
 		/*function() {

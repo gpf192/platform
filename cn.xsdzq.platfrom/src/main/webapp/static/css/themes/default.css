@@ -46,21 +46,12 @@
   top: 8px;
 }
 .navbar .dropdown-toggle .username {
-	width: 30%;
-    height: 100%;
-    display: inline-block;
-    box-sizing: border-box;
-    vertical-align: middle;
-  font-weight: 600;
-  
+  display: inline-block;
+  font-weight: 600; 
 }
 .navbar .dropdown-toggle .imgright {	
-	width: 20%;
-    height: 100%;
-  en 
-    box-sizing: border-box;
-    vertical-align: middle;
-  font-weight: 600;
+  display: inline-block;
+  vertical-align: middle;
   
 }
 .navbar #header-notification .dropdown-toggle i,
@@ -584,16 +575,16 @@
   color: #FFFFFF;
   padding: 6px 8px;
 }
-.sidebar-collapse:hover,
-.switcher:hover {
-  background-color: #507aa4;
+.sidebar-collapse
+ {	
+  background-color: #FFFFFF;
 }
 .sidebar-collapse > [class*="fa-"],
 .switcher > [class*="fa-"] {
-  color: #FFFFFF;
+  color: #5e87b0;/**/
   cursor: pointer;
   display: inline-block;
-  padding: 0 5px;
+  padding: 0 0px;
   position: relative;
   float: right;
 }

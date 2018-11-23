@@ -10,10 +10,7 @@ function infoListController($scope, $http, $state, $stateParams, $gridService, h
             待提交: "generate",
             待审核: "submit",
             已发布: "approve"
-        };
-    //拖动列宽
-
-    //拖动列宽end
+        };   
 	$scope.init = function() {
 		//审核状态 默认为查询 全部
 		$scope.approveResult = $scope.approveResultOption['全部'];

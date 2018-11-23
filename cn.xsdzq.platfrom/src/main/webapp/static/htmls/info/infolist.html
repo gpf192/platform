@@ -1,4 +1,10 @@
 <script type="text/javascript" src="htmls/info/infolist.js"></script>
+<link href="css/grid.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+$(function(){
+	$("table").resizableColumns({});
+});
+</script>
 <div class="box border primary" ng-init="init()">
 	<div class="box-title">
 		<h4>
@@ -15,7 +21,7 @@
 		</div>
 	</div>
 	<div class="box-body">
-		<div class="dataTables_wrapper form-inline" role="grid">
+		<div class="dataTables_wrapper form-inline" role="grid" >
 			<form class="form-inline margin10">
 				<div class="form-group ">
 					<label class="control-label text-right">栏目查询:</label>
@@ -61,8 +67,8 @@
 					</div>
 					<div class="clearfix"></div>
 				</div>
-			</div>
-			<table id="datatable1" cellpadding="0" cellspacing="0" border="0"
+			</div>			
+			<table id="datatable1" cellpadding="0" cellspacing="0" border="0" width="80%"
 				class="datatable table table-striped table-bordered table-hover dataTable text-center"
 				aria-describedby="datatable1_info">
 				<thead>
@@ -88,22 +94,24 @@
 						</button>
 						
 					 </div>
-					 &nbsp
+					 &nbsp				
 					<tr role="row">
-						<th class="col-sm-0 text-center"><input type="checkbox" ng-click="selectAll($event)" ng-checked="isSelectedAll()" /></th>
-						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+					
+						<th class="col-sm-0 text-center"><input type="checkbox" ng-click="selectAll($event)" ng-checked="isSelectedAll()" /></th>					
+						<th  class="col-sm-0 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">序号</th>
-						<th class="col-sm-3 text-center" role="columnheader" tabindex="0"
+							
+						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">文章标题</th>
-						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">栏目名称</th>
-						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">发布时间</th>
-						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">发布人</th>
-						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">审核状态</th>	
-						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">浏览量</th>
 						<!-- 
 						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
@@ -119,12 +127,12 @@
 				</thead>
 				<tbody role="alert" aria-live="polite" aria-relevant="all">
 					<tr ng-repeat="info in infoList | filter:{title:search}">
-						<td class="col-sm-1">
+						<td class="col-sm-0">
 							<input type="checkbox" name="selected" ng-checked="isSelected(info.id)" ng-click="updateSelection($event,info.id)" /></td>	
 						<td class="col-sm-1">{{$index+selectNum["num"]*currentPage.page+1}}</td>
-						<td class="col-sm-1" ng-click="viewInfo($index)" style="cursor:pointer">{{info.title}}</td>
-						<td class="col-sm-1">{{info.categoryTitle}}</td> 
-						<td class="col-sm-1">{{info.modifytime}}</td>
+						<td class="col-sm-0" ng-click="viewInfo($index)" style="cursor:pointer">{{info.title}}</td>
+						<td class="col-sm-0">{{info.categoryTitle}}</td> 
+						<td class="col-sm-0">{{info.modifytime}}</td>
 						<td class="col-sm-1">{{info.createdBy}}</td>
 						<td class="col-sm-1"><span
 						    ng-bind="info.checked_result |transfera"></span></td>				 
