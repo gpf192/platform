@@ -1,5 +1,5 @@
 'use strict';
-var ngApp = angular.module("ngApp", ["ngAnimate", "ui.router"]);
+var ngApp = angular.module("ngApp", ["ngAnimate", "ui.router", "ui.grid", "ui.grid.resizeColumns", "ui.grid.moveColumns",]);
 
 //config
 // 配置我们的路由
@@ -125,6 +125,10 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/category/sort",
 		templateUrl : "htmls/admin/sortcategory.html",
 		controller : "sortCategoryController"
+	}).state("demo", {
+		url : "/demo",
+		templateUrl : "htmls/demo/demo.html",
+		controller : "demoController"
 	});
 
 	$urlRouterProvider.otherwise("/");
