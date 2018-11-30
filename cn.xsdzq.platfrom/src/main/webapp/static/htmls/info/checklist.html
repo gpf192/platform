@@ -1,4 +1,18 @@
 <script type="text/javascript" src="htmls/info/checklist.js"></script>
+<script type="text/javascript">
+$(function(){
+	 var onSampleResized = function(e){  
+		    var onSampleResized = $(e.currentTarget).find("th"); 
+		  };  
+
+		 $("#datatable2").colResizable({
+		    liveDrag:true,
+		    gripInnerHtml:"<div class='grip'></div>", 
+		    draggingClass:"dragging", 
+		    onResize:onSampleResized
+		  }); 
+	});
+</script>
 <div class="box border primary" ng-init="init()">
 	<div class="box-title">
 		<h4>
@@ -62,31 +76,31 @@
 					<div class="clearfix"></div>
 				</div>
 			</div>
-			<table id="datatable1" cellpadding="0" cellspacing="0" border="0"
+			<table id="datatable2" cellpadding="0" cellspacing="0" border="0"
 				class="datatable table table-striped table-bordered table-hover dataTable text-center"
 				aria-describedby="datatable1_info">
 			    <thead>
 					<tr role="row">
-						<th>
-							<input type="checkbox" ng-click="selectAll($event)" ng-checked="isSelectedAll()" /> 全选</th>
-						<th width="500" >序号</th>
-						<th class="col-sm-3 text-center" role="columnheader" tabindex="0"
-							aria-controls="datatable1" rowspan="1" colspan="1">文章标题</th>
-						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-							aria-controls="datatable1" rowspan="1" colspan="1">栏目名称</th>
-				        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-							aria-controls="datatable1" rowspan="1" colspan="1">发布人</th>
-						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-							aria-controls="datatable1" rowspan="1" colspan="1">录入时间</th>
-						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-							aria-controls="datatable1" rowspan="1" colspan="1">发布时间</th>
+						<th class="col-sm-1 text-center">
+							<input type="checkbox" ng-click="selectAll($event)" ng-checked="isSelectedAll()" /> </th>
+						<th class="col-sm-1 text-center" >序号</th>
+						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">文章标题</div></th>
+						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">栏目名称</div></th>
+				        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">发布人</div></th>
+						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">录入时间</div></th>
+						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">发布时间</div></th>
 
-						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-							aria-controls="datatable1" rowspan="1" colspan="1">审核状态</th>	
+						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">审核状态</div></th>	
 						
-						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">审核</th>
-						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">撤回</th>
 					</tr>
 				</thead>
@@ -95,22 +109,22 @@
 						<td>
 							<input type="checkbox" name="selected" ng-checked="isSelected(info.id)" ng-click="updateSelection($event,info.id)" /></td>				
 						<td width="100">{{$index+selectNum["num"]*currentPage.page+1}}</td>
-						<td class="col-sm-1" ng-click="checkInfo($index)" style="cursor:pointer" >{{info.title}}</td>
-						<td class="col-sm-1">{{info.categoryTitle}}</td> 
-						<td class="col-sm-1">{{info.createdBy}}</td>
-						<td class="col-sm-1">{{info.createtime}}</td>
-						<td class="col-sm-1">{{info.modifytime}}</td>
+						<td ng-click="checkInfo($index)" style="cursor:pointer" ><div style="white-space:nowrap;">{{info.title}}</div></td>
+						<td ><div style="white-space:nowrap;">{{info.categoryTitle}}</div></td> 
+						<td ><div style="white-space:nowrap;">{{info.createdBy}}</div></td>
+						<td ><div style="white-space:nowrap;">{{info.createtime}}</div></td>
+						<td ><div style="white-space:nowrap;">{{info.modifytime}}</div></td>
 						
-						<td class="col-sm-1"><span
-						    ng-bind="info.checked_result |transfera"></span></td>				 
+						<td class="col-sm-1"><div style="white-space:nowrap;"><span
+						    ng-bind="info.checked_result |transfera"></span></div></td>				 
 						
 						
 						
-						<td class="col-sm-1">
+						<td class="col-sm-2">
 							<div>
 								<button ng-if="info.checked_result == ('submit')" type="button" class="btn btn-warning btn-sm"
 									ng-click="checkInfo($index)">
-									<i class="fa fa-clipboard"></i><span>去审批</span>
+									<i class="fa fa-clipboard"></i><span>审批</span>
 								</button>
 							</div>
 						</td>

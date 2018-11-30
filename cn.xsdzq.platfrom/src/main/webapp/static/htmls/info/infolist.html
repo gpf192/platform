@@ -1,9 +1,17 @@
 <script type="text/javascript" src="htmls/info/infolist.js"></script>
-<link href="css/grid.css" type="text/css" rel="stylesheet">
 <script type="text/javascript">
 $(function(){
-	$("table").resizableColumns({});
-});
+	 var onSampleResized = function(e){  
+		    var onSampleResized = $(e.currentTarget).find("th"); 
+		  };  
+
+		 $("#datatable1").colResizable({
+		    liveDrag:true,
+		    gripInnerHtml:"<div class='grip'></div>", 
+		    draggingClass:"dragging", 
+		    onResize:onSampleResized
+		  }); 
+	});
 </script>
 <div class="box border primary" ng-init="init()">
 	<div class="box-title">
@@ -97,46 +105,34 @@ $(function(){
 					 &nbsp				
 					<tr role="row">
 					
-						<th class="col-sm-0 text-center"><input type="checkbox" ng-click="selectAll($event)" ng-checked="isSelectedAll()" /></th>					
-						<th  class="col-sm-0 text-center" role="columnheader" tabindex="0"
-							aria-controls="datatable1" rowspan="1" colspan="1">序号</th>
-							
+						<th class="col-sm-1 text-center"><input type="checkbox" ng-click="selectAll($event)" ng-checked="isSelectedAll()" /></th>					
+						<th class="col-sm-1 text-center">序号</th>		
 						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-							aria-controls="datatable1" rowspan="1" colspan="1">文章标题</th>
+							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">文章标题</div></th>
 						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-							aria-controls="datatable1" rowspan="1" colspan="1">栏目名称</th>
+							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">栏目名称</div></th>
 						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-							aria-controls="datatable1" rowspan="1" colspan="1">发布时间</th>
+							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">发布时间</div></th>
 						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-							aria-controls="datatable1" rowspan="1" colspan="1">发布人</th>
+							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">发布人</div></th>
 						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-							aria-controls="datatable1" rowspan="1" colspan="1">审核状态</th>	
-						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-							aria-controls="datatable1" rowspan="1" colspan="1">浏览量</th>
-						<!-- 
+							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">审核状态</div></th>	
 						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-							aria-controls="datatable1" rowspan="1" colspan="1">置顶</th>
-						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-							aria-controls="datatable1" rowspan="1" colspan="1">编辑</th>
-						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-							aria-controls="datatable1" rowspan="1" colspan="1">复制</th>
-						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-							aria-controls="datatable1" rowspan="1" colspan="1">删除</th>
-							 -->
+							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">浏览量</div></th>
 					</tr>
 				</thead>
 				<tbody role="alert" aria-live="polite" aria-relevant="all">
 					<tr ng-repeat="info in infoList | filter:{title:search}">
-						<td class="col-sm-0">
+						<td >
 							<input type="checkbox" name="selected" ng-checked="isSelected(info.id)" ng-click="updateSelection($event,info.id)" /></td>	
-						<td class="col-sm-1">{{$index+selectNum["num"]*currentPage.page+1}}</td>
-						<td class="col-sm-0" ng-click="viewInfo($index)" style="cursor:pointer">{{info.title}}</td>
-						<td class="col-sm-0">{{info.categoryTitle}}</td> 
-						<td class="col-sm-0">{{info.modifytime}}</td>
-						<td class="col-sm-1">{{info.createdBy}}</td>
-						<td class="col-sm-1"><span
-						    ng-bind="info.checked_result |transfera"></span></td>				 
-						<td class="col-sm-1"><span
+						<td >{{$index+selectNum["num"]*currentPage.page+1}}</td>
+						<td ng-click="viewInfo($index)" style="cursor:pointer"><div style="white-space:nowrap;">{{info.title}}</div></td>
+						<td ><div style="white-space:nowrap;" >{{info.categoryTitle}}</div> </td> 
+						<td ><div style="white-space:nowrap;">{{info.modifytime}}</div> </td>
+						<td ><div style="white-space:nowrap;">{{info.createdBy}}</div> </td>
+						<td ><div style="white-space:nowrap;" ><span
+						    ng-bind="info.checked_result |transfera"></span></div></td>				 
+						<td ><span
 						    ng-bind="info.pageView"></span></td>
 						    <!-- 
 						<td>

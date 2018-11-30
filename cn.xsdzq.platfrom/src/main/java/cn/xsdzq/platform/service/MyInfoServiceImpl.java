@@ -297,7 +297,7 @@ public class MyInfoServiceImpl implements IMyInfoService {
 	}
 	public List<InfoEntity> getInfosByCommonFlag(String flag,int pageNumber, int pageSize){
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		List<InfoEntity> infos = myInfoRepository.findInfoEntityByCommonFlagAndCheckedResult(flag, "approve",pageRequest);
+		List<InfoEntity> infos = myInfoRepository.findInfoEntityByCommonFlagAndCheckedResultOrderByWeightDescModifytimeDesc(flag, "approve",pageRequest);
 		//如果关联的栏目不显示前端，剔除
 		Iterator<InfoEntity> it = infos.iterator();
 		while (it.hasNext()) {		
