@@ -58,6 +58,13 @@ ngApp.controller("indexController", function($scope, $state, $http, httpUtils) {
 	$scope.gotoMenu = function(first,second,state,$event){
 		$event.stopPropagation();
 		$state.go(state);
+		//console.log("1"+window.location.url()); 
+		console.log("2 "+window.location.hash); 
+		//var hashPath = window.location.hash;
+		// if((state == "infolist") || (state == "checklist")){
+		//if((hashPath != "#/") && (state == "infolist" || state == "checklist")){
+			// location.reload();
+	//	}
 		console.log(first+" "+second);
 		for(var i=0;i<$scope.menu.length;i++){
 			if(i==first){
