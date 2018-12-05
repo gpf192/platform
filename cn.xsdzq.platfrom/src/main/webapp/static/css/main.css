@@ -432,3 +432,6 @@ table tbody td .category-img{
 .input-300{
 	width: 300px;
 }
+.overflow-x-scroll{
+	overflow-x:scroll;
+}
