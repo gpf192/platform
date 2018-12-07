@@ -63,11 +63,20 @@ public class UserEntity implements Serializable {
 
 	@Column(name = "enabled", nullable = false)
 	private boolean enabled = true;
-
+	
+	@Column(name = "accountNonExpired ", nullable = false)
+	private boolean accountNonExpired  = true;
+	
+	@Column(name = "accountNonLocked ", nullable = false)
+	private boolean accountNonLocked  = true;
+	
+	@Column(name = "credentialsNonExpired ", nullable = false)
+	private boolean credentialsNonExpired  = true;
+	
 	@ManyToMany(targetEntity = RoleEntity.class, fetch = FetchType.EAGER)
-	@JoinTable(name = "users_roles", joinColumns = {
-			@JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "role_id", referencedColumnName = "id") })
+	@JoinTable(name = "user_roles", joinColumns = {
+			@JoinColumn(name = "username", referencedColumnName = "username") }, inverseJoinColumns = {
+					@JoinColumn(name = "role", referencedColumnName = "name") })
 	private Set<RoleEntity> roleEntities;
 
 	// 创建时间
@@ -154,6 +163,30 @@ public class UserEntity implements Serializable {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public boolean isAccountNonExpired() {
+		return accountNonExpired;
+	}
+
+	public void setAccountNonExpired(boolean accountNonExpired) {
+		this.accountNonExpired = accountNonExpired;
+	}
+
+	public boolean isAccountNonLocked() {
+		return accountNonLocked;
+	}
+
+	public void setAccountNonLocked(boolean accountNonLocked) {
+		this.accountNonLocked = accountNonLocked;
+	}
+
+	public boolean isCredentialsNonExpired() {
+		return credentialsNonExpired;
+	}
+
+	public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+		this.credentialsNonExpired = credentialsNonExpired;
 	}
 
 	public Date getCreatetime() {
