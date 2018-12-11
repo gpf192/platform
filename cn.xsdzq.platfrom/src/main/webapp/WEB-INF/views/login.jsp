@@ -30,8 +30,11 @@
 					</div>
 					 -->
 					<div class="col-sm-5 text-center error-msg">
-						<c:if test="${not empty error}">
+						<c:if test="${SPRING_SECURITY_LAST_EXCEPTION.message=='Bad credentials'}">
 							<div class="error">${error}</div>
+						</c:if>
+						<c:if test="${SPRING_SECURITY_LAST_EXCEPTION.message!='Bad credentials'}">
+							<div class="error">${SPRING_SECURITY_LAST_EXCEPTION.message}</div>
 						</c:if>
 						<c:if test="${not empty msg}">
 							<div class="msg">${msg}</div>

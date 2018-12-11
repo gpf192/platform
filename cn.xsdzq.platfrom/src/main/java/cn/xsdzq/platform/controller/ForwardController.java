@@ -16,13 +16,12 @@ public class ForwardController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView forwardLogin(@RequestParam(value = "error", required = false) String error,
-			@RequestParam(value = "logout", required = false) String logout,
-			HttpServletRequest request) {
-
+			@RequestParam(value = "logout", required = false) String logout) {
+		
 		ModelAndView model = new ModelAndView();
 		if (error != null) {
-			//model.addObject("error", "用户名或密码不正确!");
-			model.addObject("error", getErrorMessage(request, "SPRING_SECURITY_LAST_EXCEPTION"));
+			model.addObject("error", "用户名或密码不正确!");
+			//model.addObject("error", getErrorMessage(request, "SPRING_SECURITY_LAST_EXCEPTION"));
 
 		}
 
