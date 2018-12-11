@@ -302,6 +302,7 @@ function infoListController($scope, $http, $state, $stateParams, $gridService, h
 			$http.post(url, param).success(function(data) {
 				if (data.resCode == 0) {
 					layerUtils.iMsg(-1, "删除成功");
+					$scope.selected = [];//及时删除，否则下次删除仍存在变量中
 					$scope.getInfosByCategoryId(10);
 				}
 			});

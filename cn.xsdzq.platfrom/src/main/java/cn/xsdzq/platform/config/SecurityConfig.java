@@ -1,8 +1,6 @@
 package cn.xsdzq.platform.config;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,12 +16,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
-
 import cn.xsdzq.platform.dao.AuthorityRepository;
 import cn.xsdzq.platform.dao.UserRepository;
 import cn.xsdzq.platform.handler.MyAuthenctiationFailureHandler;
 import cn.xsdzq.platform.security.AjaxAuthenticationEntryPoint;
-import cn.xsdzq.platform.security.AjaxRequestMatcher;
 import cn.xsdzq.platform.security.MyAccessDecisionManager;
 import cn.xsdzq.platform.security.MyFilterInvocationSecurityMetadataSource;
 import cn.xsdzq.platform.security.MyUserService;
