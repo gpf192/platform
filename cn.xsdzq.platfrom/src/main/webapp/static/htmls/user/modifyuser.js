@@ -26,10 +26,26 @@ function modifyUserController($scope, $http, $state, $stateParams, httpUtils, la
 	
 
 	$scope.submit = function() {
+		if (angular.isEmpty($scope.formData.username)) {
+			layerUtils.iMsg(-1, "用户名不能为空");
+			return;
+		}
+		if (angular.isEmpty($scope.formData.password)) {
+			layerUtils.iMsg(-1, "密码不能为空");
+			return;
+		}
 		if(angular.equals($scope.formData,$stateParams.user)){
 			layerUtils.iMsg(-1,"请修改后，重新提交");
 			return;
 		}
+		//判断勾选框
+		if($scope.commonFlagCheck){
+			var commonFlag = 'Y';
+		}else{
+			var commonFlag = 'N';
+		}
+		
+		console.log($scope.formData);
 		var url = httpUtils.url.modifyUser;
 		$http.post(url, $scope.formData).success(function(data) {
 			if (data.resCode == 0) {
