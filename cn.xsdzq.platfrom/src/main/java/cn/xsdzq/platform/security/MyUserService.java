@@ -44,18 +44,14 @@ public class MyUserService implements UserDetailsService {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				throw new AuthenticationServiceException("用户名或密码错误!");
-			}
-		
-
+				throw new AuthenticationServiceException("noUser");
+			}		
 		if (userEntity == null) {
-			//throw new UsernameNotFoundException(username + " not find");
-			//System.out.println("chabudeded ");
-			throw new AuthenticationServiceException("用户名或密码错误!");
-		}
-		
+			
+			throw new AuthenticationServiceException("noUser");
+		}		
 		if(userEntity.getLockFlag() >= 5){
-			throw  new LockedException("您登录的错误次数过多，账户已锁定");
+			throw  new LockedException("locked");
 		}
 		List<AuthorityEntity> authorities = getAuthorityList(userEntity);
 		logger.info("getUsername" + userEntity.getUsername() + "; " + "getPassword" + userEntity.getPassword());

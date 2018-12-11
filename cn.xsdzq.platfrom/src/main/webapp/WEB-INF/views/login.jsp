@@ -29,12 +29,9 @@
 						<h3>新时代后台管理系统</h3>
 					</div>
 					 -->
-					<div class="col-sm-5 text-center error-msg">
-						<c:if test="${SPRING_SECURITY_LAST_EXCEPTION.message=='Bad credentials'}">
+					<div class="col-sm-12 text-center error-msg">
+						<c:if test="${not empty error}">
 							<div class="error">${error}</div>
-						</c:if>
-						<c:if test="${SPRING_SECURITY_LAST_EXCEPTION.message!='Bad credentials'}">
-							<div class="error">${SPRING_SECURITY_LAST_EXCEPTION.message}</div>
 						</c:if>
 						<c:if test="${not empty msg}">
 							<div class="msg">${msg}</div>

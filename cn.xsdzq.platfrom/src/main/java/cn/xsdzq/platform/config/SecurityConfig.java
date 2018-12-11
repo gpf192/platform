@@ -19,6 +19,7 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 import cn.xsdzq.platform.dao.AuthorityRepository;
 import cn.xsdzq.platform.dao.UserRepository;
 import cn.xsdzq.platform.handler.MyAuthenctiationFailureHandler;
+import cn.xsdzq.platform.handler.MyAuthenctiationSuccessHandler;
 import cn.xsdzq.platform.security.AjaxAuthenticationEntryPoint;
 import cn.xsdzq.platform.security.MyAccessDecisionManager;
 import cn.xsdzq.platform.security.MyFilterInvocationSecurityMetadataSource;
@@ -37,6 +38,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private AuthorityRepository authorityRepository;
+	@Autowired
+	MyAuthenctiationSuccessHandler myAuthenctiationSuccessHandler;
+	
 	@Autowired
     MyAuthenctiationFailureHandler myAuthenctiationFailureHandler;
 	@Autowired
@@ -79,7 +83,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// .authorizeRequests().and().headers().frameOptions().disable();
 		// add by fjx end  failureHandler(myAuthenctiationFailureHandler)
 		http.formLogin().usernameParameter("username").passwordParameter("password").loginPage("/login")
-				.defaultSuccessUrl("/static/index.html").failureHandler(myAuthenctiationFailureHandler).and().logout().logoutSuccessUrl("/login").and()
+				.defaultSuccessUrl("/static/index.html").successHandler(myAuthenctiationSuccessHandler).failureHandler(myAuthenctiationFailureHandler).and().logout().logoutSuccessUrl("/login").and()
 				.authorizeRequests().anyRequest().authenticated()
 				.withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
 					@Override

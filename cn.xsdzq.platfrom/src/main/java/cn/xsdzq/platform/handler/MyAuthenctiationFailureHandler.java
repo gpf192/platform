@@ -29,11 +29,7 @@ private Logger logger = LoggerFactory.getLogger(getClass());
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
 			throws IOException, ServletException {
 		String username = request.getParameter("username").toString();
-		System.out.println("进入认证失败处理类***************************************** "+username);
 		logger.info("进入认证失败处理类***************************************** "+username);
-		exception.getMessage();
-		System.out.println("进入认证失败处理类11***************************************** "+exception.getMessage());
-//		response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
 		response.setContentType("application/json;charset=UTF-8");
 		//转发到login
 		//查询是否有该用户
@@ -52,7 +48,7 @@ private Logger logger = LoggerFactory.getLogger(getClass());
 				userEntity.setLockFlag(lockFlag+1);
 				userService.modifyUser(userEntity);
 			}
-			System.out.println("用户姓名是      "+userEntity.getUsername());
+			//System.out.println("用户姓名是      "+userEntity.getUsername());
 		}
 		request.getSession().setAttribute("error", exception.getLocalizedMessage());
 		request.getSession().setAttribute(WebAttributes.AUTHENTICATION_EXCEPTION, exception);
