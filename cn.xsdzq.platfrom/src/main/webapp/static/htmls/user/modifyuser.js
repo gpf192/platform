@@ -34,17 +34,15 @@ function modifyUserController($scope, $http, $state, $stateParams, httpUtils, la
 			layerUtils.iMsg(-1, "密码不能为空");
 			return;
 		}
+		if (($scope.formData.lockFlag < 0 || $scope.formData.lockFlag > 5)) {
+			layerUtils.iMsg(-1, "请输入5以内数字");
+			return;
+		}
 		if(angular.equals($scope.formData,$stateParams.user)){
 			layerUtils.iMsg(-1,"请修改后，重新提交");
 			return;
 		}
-		//判断勾选框
-		if($scope.commonFlagCheck){
-			var commonFlag = 'Y';
-		}else{
-			var commonFlag = 'N';
-		}
-		
+	
 		console.log($scope.formData);
 		var url = httpUtils.url.modifyUser;
 		$http.post(url, $scope.formData).success(function(data) {

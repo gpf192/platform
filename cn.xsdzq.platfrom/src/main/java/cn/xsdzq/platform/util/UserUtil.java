@@ -38,7 +38,7 @@ public class UserUtil {
 		UserDTO userDTO = new UserDTO();
 		userDTO.setId(userEntity.getId());
 		userDTO.setUsername(userEntity.getUsername());
-		userDTO.setPassword(userEntity.getPassword());
+		//userDTO.setPassword(userEntity.getPassword());
 		userDTO.setAlias(userEntity.getAlias());
 		userDTO.setLevel(userEntity.getLevel());
 		userDTO.setLockFlag(userEntity.getLockFlag());
