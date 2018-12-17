@@ -75,6 +75,17 @@
 							class="text-warning control-label"></label>
 					</div>
 				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">当前登录失败次数：</label>
+					<div class="col-sm-6">
+					<input type="text" class="form-control" id="faileTimes" name="faileTimes"
+							 ng-model="formData.lockFlag" placeholder="请输入5以内数字" oninput="value=value.replace(/[^\d]/g,'')" />
+					</div>
+					<div class="col-sm-3">
+						<span class="text-danger control-label">* </span><label
+							class="text-warning control-label">失败5次用户即被锁定</label>
+					</div>
+				</div>
 				<div class="form-group hide">
 					<label class="col-sm-3 control-label">标签：</label>
 					<div class="col-sm-6">

@@ -35,3 +35,14 @@ ngApp.filter('transfera', function() {
 	    }
 	}
 });
+ngApp.filter('lockTransform', function() { 
+	return function (value) {
+	    if(value == '5'){
+	    	return "已锁定";
+	    }
+	    if(value != '5'){
+	    	return "正常";
+	    }
+	    
+	}
+});

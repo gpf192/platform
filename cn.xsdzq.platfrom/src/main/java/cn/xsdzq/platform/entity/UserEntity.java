@@ -63,7 +63,9 @@ public class UserEntity implements Serializable {
 
 	@Column(name = "enabled", nullable = false)
 	private boolean enabled = true;
-
+	//账户锁标识
+		@Column(name = "lock_flag", nullable = false)
+		private int lockFlag = 0;
 	@ManyToMany(targetEntity = RoleEntity.class, fetch = FetchType.EAGER)
 	@JoinTable(name = "users_roles", joinColumns = {
 			@JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = {
@@ -90,6 +92,14 @@ public class UserEntity implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public int getLockFlag() {
+		return lockFlag;
+	}
+
+	public void setLockFlag(int lockFlag) {
+		this.lockFlag = lockFlag;
 	}
 
 	public String getUsername() {

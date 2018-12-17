@@ -67,7 +67,7 @@ public class UserController {
 		BCryptPasswordEncoder encode = new BCryptPasswordEncoder();
 		pw1 = encode.encode(pw1);
 		userEntity.setPassword(pw1);
-		System.out.println(userEntity.toString());
+		System.out.println(userEntity.getLockFlag()+" *************************************************");
 		userService.modifyUser(userEntity);
 		return GsonUtil.buildMap(0, "ok", null);
 
@@ -84,7 +84,7 @@ public class UserController {
 
 	}
 
-	@RequestMapping(value = "/getAll", method = GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/getAll", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> getAll() {
 

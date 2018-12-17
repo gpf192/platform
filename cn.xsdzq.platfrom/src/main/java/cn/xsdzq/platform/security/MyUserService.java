@@ -5,8 +5,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationServiceException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -31,11 +36,22 @@ public class MyUserService implements UserDetailsService {
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username) throws  UsernameNotFoundException, AuthenticationServiceException {
 		// TODO Auto-generated method stub
-		UserEntity userEntity = userRepository.findUserByName(username);
+		UserEntity userEntity = null;
+			try {
+				userEntity = userRepository.findUserByName(username);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				throw new AuthenticationServiceException("noUser");
+			}		
 		if (userEntity == null) {
-			throw new UsernameNotFoundException(username + " not find");
+			
+			throw new AuthenticationServiceException("noUser");
+		}		
+		if(userEntity.getLockFlag() >= 5){
+			throw  new LockedException("locked");
 		}
 		List<AuthorityEntity> authorities = getAuthorityList(userEntity);
 		logger.info("getUsername" + userEntity.getUsername() + "; " + "getPassword" + userEntity.getPassword());
