@@ -125,6 +125,10 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/category/sort",
 		templateUrl : "htmls/admin/sortcategory.html",
 		controller : "sortCategoryController"
+	}).state("kcList", {
+		url : "/kc/kcList",
+		templateUrl : "htmls/kc/kcList.html",
+		controller : "kcListController"
 	}).state("demo", {
 		url : "/demo",
 		templateUrl : "htmls/demo/demo.html",

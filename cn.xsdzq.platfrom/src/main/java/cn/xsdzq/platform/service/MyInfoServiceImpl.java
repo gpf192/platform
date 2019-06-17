@@ -112,7 +112,7 @@ public class MyInfoServiceImpl implements IMyInfoService {
 	@Override
 	public int countInfosByCategoryId(long categoryId) {
 		// TODO Auto-generated method stub
-		return myInfoRepository.countInfoEntityByCategoryId(categoryId);
+		return myInfoRepository.countInfoEntityByCategoryIdAndCheckedResult(categoryId,"approve");
 	}
 
 	public List<InfoEntity> getInfosByCreatorByTitleLike(String userName, String title, int pageNumber, int pageSize){
