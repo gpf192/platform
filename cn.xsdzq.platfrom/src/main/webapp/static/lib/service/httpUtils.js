@@ -40,7 +40,8 @@ ngApp.factory("httpUtils", [ function() {
 		checkList : baseUrl + "info/getUncheckedInfo",
 		getCommonInfos : baseUrl + "info/getCommonInfos",
 		getInfosByCategoryIdForH5 : baseUrl + "info/getInfosByCategoryIdForH5",
-		modifyCheckResult : baseUrl + "info/modifyCheckResult"
+		modifyCheckResult : baseUrl + "info/modifyCheckResult",
+		kcList : baseUrl + "kechuang/getKCInfos"
 	};
 
 	function getUrl() {

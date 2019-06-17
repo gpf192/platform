@@ -1,0 +1,141 @@
+<script src="././exporttable/alasql.min.js" type="text/javascript"></script>
+<script src="././exporttable/xlsx.core.min.js" type="text/javascript"></script> 
+<script type="text/javascript" src="htmls/kc/kcList.js"></script>
+<div class="box border primary" ng-init="init()">
+	<div class="box-title">
+		<h4>
+			<i class="fa fa-bars"></i>科创板预约记录查询
+		</h4>
+		<div class="tools hidden">
+			<a href="#box-config" data-toggle="modal" class="config"> <i
+				class="fa fa-cog"></i>
+			</a> <a href="javascript:;" class="reload"> <i class="fa fa-refresh"></i>
+			</a> <a href="javascript:;" class="collapse"> <i
+				class="fa fa-chevron-up"></i>
+			</a> <a href="javascript:;" class="remove"> <i class="fa fa-times"></i>
+			</a>
+		</div>
+	</div>
+	<div class="box-body">
+		<div class="dataTables_wrapper form-inline" role="grid" >
+			<form class="form-inline margin10">
+				
+				&nbsp
+				
+				
+				&nbsp
+				<div class="form-group">
+	                <label for="dtp_input2" >预约时间-起始</label>
+	                <div class="input-group date form_date col-md-5" data-date="" data-date-format="yyyy-MM-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+	                    <input class="form-control" ng-model="formData.beginTime" size="16" type="text" value="" readonly>
+	                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+						<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+	                </div>
+					<input type="hidden" id="dtp_input2" value="" /><br/>
+                </div>
+                				<div class="form-group">
+	                <label for="dtp_input2" >预约时间-截止</label>
+	                <div class="input-group date form_date col-md-5" data-date="" data-date-format="yyyy-MM-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+	                    <input class="form-control" ng-model="formData.endTime"  size="16" type="text" value="" readonly>
+	                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+						<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+	                </div>
+					<input type="hidden" id="dtp_input2" value="" /><br/>
+                </div>
+
+
+
+				<div class="form-group ">
+				<input type="button" value="查询" class="btn btn-primary"
+								ng-click="getOpinionBy(2000)" />
+				</div>
+				<div class="form-group ">
+				<input type="button" value="重置" class="btn btn-primary"
+								ng-click="reset()" />
+				</div>
+			</form>
+			
+			<hr />
+				
+			<table id="datatable1" cellpadding="0" cellspacing="0" border="0" width="80%"
+				class="datatable table table-striped table-bordered table-hover dataTable text-center"
+				aria-describedby="datatable1_info">
+				<thead>
+					<div>
+						
+						
+						&nbsp &nbsp
+						<div class="col-sm-2">
+								<button type="button" ng-click="exportToExcel()"
+									class="btn btn-default btn-primary">批量导出</button>
+						</div>
+					
+						
+					 </div>
+					 &nbsp				
+					<tr role="row">
+					
+						<!-- <th class="col-sm-1 text-center"><input type="checkbox" ng-click="selectAll($event)" ng-checked="isSelectedAll()" /></th> -->				
+						<th class="col-sm-1 text-center">序号</th>		
+						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">姓名</div></th>
+													<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">手机号码</div></th>
+						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">预约时间</div></th>
+						
+					</tr>
+				</thead>
+				<tbody role="alert" aria-live="polite" aria-relevant="all">
+					<tr ng-repeat="info in infoList | filter:{title:search}">
+					<!-- 	 <td >
+							<input type="checkbox" name="selected" ng-checked="isSelected(info.id)" ng-click="updateSelection($event,info.id)" /></td>  -->	
+						<td >{{$index+selectNum["num"]*currentPage.page+1}}</td>
+						<td ><div style="white-space:nowrap;">{{info.name}}</div></td>
+						
+						<td ><div style="white-space:nowrap;">{{info.phone}}</div> </td>
+						<td ><div style="white-space:nowrap;" >{{info.createtime}}</div> </td> 					
+						
+					</tr>
+				</tbody>
+				<tfoot>
+			</table>
+		
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+    $('.form_datetime').datetimepicker({
+       // language:  'uk',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+        showMeridian: 1
+    });
+	$('.form_date').datetimepicker({
+        language:  'zh-CN',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0
+    });
+	$('.form_time').datetimepicker({
+        language:  'zh-CN',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 1,
+		minView: 0,
+		maxView: 1,
+		forceParse: 0
+    });
+	$('#datetimepicker').datetimepicker('setStartDate', '2012-01-01');
+
+</script>

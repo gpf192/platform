@@ -3,6 +3,7 @@ package cn.xsdzq.platform.controller;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -21,11 +22,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.xsdzq.platform.entity.CategoryEntity;
+import cn.xsdzq.platform.entity.CustomerMobileEntity;
 import cn.xsdzq.platform.entity.InfoEntity;
 import cn.xsdzq.platform.model.CategoryDTO;
 import cn.xsdzq.platform.model.InfoDTO;
+import cn.xsdzq.platform.model.KCBean;
 import cn.xsdzq.platform.model.Pagination;
 import cn.xsdzq.platform.model.SearchBean;
+import cn.xsdzq.platform.service.CustomerKCService;
 import cn.xsdzq.platform.service.ICategoryService;
 import cn.xsdzq.platform.service.IInfoService;
 import cn.xsdzq.platform.service.IMyInfoService;
@@ -51,6 +55,10 @@ public class FrontController {
 	@Autowired
 	@Qualifier("categoryServiceImpl")
 	private ICategoryService categoryService;
+	
+	@Autowired
+	@Qualifier("customerKCServiceImpl")
+	private CustomerKCService customerKCService;
 
 	@RequestMapping(value = "/getInfoById", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
@@ -136,7 +144,6 @@ public class FrontController {
 	@RequestMapping(value = "/search", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> search(HttpServletRequest request, @RequestBody SearchBean searchBean) {
-		System.out.println("in  search%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 		logger.info(searchBean.getKey());
 		String key = searchBean.getKey();
 		List<InfoEntity> infos = iInfoService.searchInfos(key);
@@ -147,5 +154,52 @@ public class FrontController {
 		}
 		return GsonUtil.buildMap(0, "ok", infoDTOs);
 	}
+	
+	//科创板预约
+	
+	@RequestMapping(value = "/saveCustomerMobile", method = POST, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> saveCustomerMobile(HttpServletRequest request,  @RequestBody KCBean kcBean) {
+		String name = kcBean.getName();
+		String phone = kcBean.getPhone();
+		logger.info(" post kechuang 科创版用户预约 ， name: "+name+",phone: "+phone);
+		if(name != null && phone != null) {
+			CustomerMobileEntity user = new CustomerMobileEntity();
+			user.setName(name);
+			user.setPhone(phone);
+			customerKCService.addKCInfo(user);
+			return GsonUtil.buildMap(0, "ok", null);
+		}
+		else {
+			return GsonUtil.buildMap(1, "fail", null);
+		}
+		
+	}
+	
+	@RequestMapping(value = "/saveCustomerMobile_get", method = GET, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> saveCustomerMobile_get(HttpServletRequest request, @RequestParam String name, @RequestParam String phone) {
+		
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		logger.info(" kechuang 科创版用户预约 ， name: "+name+",phone: "+phone);
+		if(name != null && phone != null) {
+			CustomerMobileEntity user = new CustomerMobileEntity();
+			user.setName(name);
+			user.setPhone(phone);
+			customerKCService.addKCInfo(user);
+			return GsonUtil.buildMap(0, "ok", null);
+		}
+		else {
+			return GsonUtil.buildMap(1, "fail", null);
+		}
+		
+	}
+	
+	//  end
 
 }
