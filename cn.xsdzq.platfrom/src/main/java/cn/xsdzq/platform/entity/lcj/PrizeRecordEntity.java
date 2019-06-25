@@ -18,7 +18,7 @@ public class PrizeRecordEntity {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "prize_record_sequence")
-	@SequenceGenerator(name = "prize_record_sequence", sequenceName = "sequence_prize_record_", allocationSize = 1)
+	@SequenceGenerator(name = "prize_record_sequence", sequenceName = "sequence_prize_record", allocationSize = 1)
 	@Column(name = "id")
 	private long id;
 	

@@ -37,6 +37,9 @@ public class PrizeEntity implements Serializable {
 	@Column(name = "rate")
 	private String rate;
 	
+	@Column(name = "amount")
+	private String amount;
+	
 	// 创建时间
 
 	@Column(name = "createtime")
@@ -92,6 +95,20 @@ public class PrizeEntity implements Serializable {
 
 	public void setModifytime(Date modifytime) {
 		this.modifytime = modifytime;
+	}
+
+	public String getAmount() {
+		return amount;
+	}
+
+	public void setAmount(String amount) {
+		this.amount = amount;
+	}
+
+	@Override
+	public String toString() {
+		return "PrizeEntity [id=" + id + ", name=" + name + ", price=" + price + ", rate=" + rate + ", amount=" + amount
+				+ ", createtime=" + createtime + ", modifytime=" + modifytime + "]";
 	}
 	
 	

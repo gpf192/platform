@@ -5,6 +5,8 @@ public class PrizeDTO {
 	private String name;
 	private String pice;
 	private String rate;
+	private String amount;
+	
 	public PrizeDTO() {
 		super();
 	}
@@ -32,16 +34,24 @@ public class PrizeDTO {
 	public void setRate(String rate) {
 		this.rate = rate;
 	}
+	
+	public String getAmount() {
+		return amount;
+	}
+	public void setAmount(String amount) {
+		this.amount = amount;
+	}
 	@Override
 	public String toString() {
 		return "PrizeDTO [id=" + id + ", name=" + name + ", pice=" + pice + ", rate=" + rate + "]";
 	}
-	public PrizeDTO(long id, String name, String pice, String rate) {
+	public PrizeDTO(long id, String name, String pice, String rate ,String amount) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.pice = pice;
 		this.rate = rate;
+		this.amount = amount;
 	}
 	
 }
