@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
-@Table(name = "lcj_prize_info")
+@Table(name = "lcj_prize_record")
 @EntityListeners(AuditingEntityListener.class)
 public class PrizeRecordEntity {
 	
