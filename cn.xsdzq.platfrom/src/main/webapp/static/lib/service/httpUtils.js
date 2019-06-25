@@ -41,7 +41,9 @@ ngApp.factory("httpUtils", [ function() {
 		getCommonInfos : baseUrl + "info/getCommonInfos",
 		getInfosByCategoryIdForH5 : baseUrl + "info/getInfosByCategoryIdForH5",
 		modifyCheckResult : baseUrl + "info/modifyCheckResult",
-		kcList : baseUrl + "kechuang/getKCInfos"
+		kcList : baseUrl + "kechuang/getKCInfos",
+		turntablePrizeList : baseUrl + "prize/getPrize",
+		winPrizeList: baseUrl + "prizeRecord/getPrizeRecord"
 	};
 
 	function getUrl() {
