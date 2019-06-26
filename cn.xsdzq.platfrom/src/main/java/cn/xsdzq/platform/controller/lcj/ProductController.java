@@ -26,9 +26,12 @@ import cn.xsdzq.platform.controller.BaseController;
 import cn.xsdzq.platform.entity.CategoryEntity;
 import cn.xsdzq.platform.entity.InfoEntity;
 import cn.xsdzq.platform.entity.lcj.ProductEntity;
+import cn.xsdzq.platform.entity.lcj.ProductSellEntity;
 import cn.xsdzq.platform.model.InfoDTO;
 import cn.xsdzq.platform.model.Pagination;
 import cn.xsdzq.platform.model.lcj.ProductDTO;
+import cn.xsdzq.platform.model.lcj.ProductSellDTO;
+import cn.xsdzq.platform.service.lcj.MyProductSellService;
 import cn.xsdzq.platform.service.lcj.MyProductService;
 import cn.xsdzq.platform.service.lcj.ProductService;
 import cn.xsdzq.platform.util.GsonUtil;
@@ -45,8 +48,12 @@ public class ProductController extends BaseController{
 	private MyProductService myProductService;
 	
 	@Autowired
-	@Qualifier("myProductServiceImpl")
+	@Qualifier("productServiceImpl")
 	private ProductService productService;
+	
+	@Autowired
+	@Qualifier("myProductSellServiceImpl")
+	private MyProductSellService myProductSellService;
 	
 	@RequestMapping(value = "/getProduct", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
@@ -107,5 +114,31 @@ public class ProductController extends BaseController{
 		//logger.info("action:" + "modify" + ";" + "user:" + name + ";" + "title:" + dto.getTitle() + ";");
 		return GsonUtil.buildMap(0, "ok", null);
 	}
-
+//产品销售数据查询
+	@RequestMapping(value = "/getProductSell", method = GET, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> getProductSell(HttpServletRequest request,  
+//			@RequestParam String beginTime, @RequestParam String endTime, 
+			 @RequestParam int pageNumber,@RequestParam int pageSize) {
+		System.out.println("全量查询产品销售信息   +   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+		/*Date endDate = null;
+		Date beginDate = null;*/
+		
+		int sum = 0 ;
+		List<ProductSellEntity> entitys = null;
+		//int num = MethodUtil.getMethodNum(beginTime,endTime);
+		
+			entitys = myProductSellService.getAllProductSell(pageNumber, pageSize);
+			sum = myProductSellService.countAll();
+		
+	
+					
+		List<ProductSellDTO> productSellDTOs = new ArrayList<ProductSellDTO>();
+		for (ProductSellEntity entity : entitys) {
+			ProductSellDTO dto = LcjUtil.convertProductSellDTOByEntity(entity);
+			productSellDTOs.add(dto);
+		}
+		Pagination pagination = new Pagination(pageNumber, pageSize, sum);
+		return GsonUtil.buildMap(0, "ok", productSellDTOs, pagination);
+	}
 }
