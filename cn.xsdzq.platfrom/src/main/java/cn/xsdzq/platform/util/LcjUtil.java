@@ -1,7 +1,9 @@
 package cn.xsdzq.platform.util;
 
+import cn.xsdzq.platform.entity.InfoEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeRecordEntity;
+import cn.xsdzq.platform.model.InfoDTO;
 import cn.xsdzq.platform.model.lcj.PrizeDTO;
 import cn.xsdzq.platform.model.lcj.PrizeRecordDTO;
 
@@ -13,6 +15,7 @@ public class LcjUtil {
 		
 		dto.setPice(entity.getPrice());
 		dto.setRate(entity.getRate());
+		dto.setAmount(entity.getAmount());
 		/*try {
 			dto.setCreatetime(DateUtil.DateToString(entity.getCreatetime()));		
 		} catch (Exception e) {
@@ -21,6 +24,15 @@ public class LcjUtil {
 		}*/
 		
 		return dto;
+	}
+	public static PrizeEntity convertEntityByPrizeDTO(PrizeDTO dto) {
+		PrizeEntity entity = new PrizeEntity();
+		entity.setId(dto.getId());
+		entity.setName(dto.getName());
+		entity.setPrice(dto.getPice());
+		entity.setAmount(dto.getAmount());
+
+		return entity;
 	}
 	
 	public static PrizeRecordDTO convertPrizeRecordDTOByPrizeRecord(PrizeRecordEntity entity) {		

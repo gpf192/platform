@@ -43,7 +43,10 @@ ngApp.factory("httpUtils", [ function() {
 		modifyCheckResult : baseUrl + "info/modifyCheckResult",
 		kcList : baseUrl + "kechuang/getKCInfos",
 		turntablePrizeList : baseUrl + "prize/getPrize",
-		winPrizeList: baseUrl + "prizeRecord/getPrizeRecord"
+		winPrizeList: baseUrl + "prizeRecord/getPrizeRecord",
+		addPrize : baseUrl + "prize/addPrize",
+		modifyPrize : baseUrl + "prize/modifyPrize",
+		deletePrize : baseUrl + "prize/deletePrize"
 	};
 
 	function getUrl() {
