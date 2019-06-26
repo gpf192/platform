@@ -8,40 +8,43 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import cn.xsdzq.platform.dao.lcj.EmpRepository;
 import cn.xsdzq.platform.dao.lcj.PrizeRepository;
+import cn.xsdzq.platform.entity.lcj.EmpEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeEntity;
 import cn.xsdzq.platform.service.InfoServiceImpl;
 
-@Service(value = "prizeServiceImpl")
-@Transactional(readOnly = true)
-public class PrizeServiceImpl implements PrizeService{
-	Logger logger = LogManager.getLogger(InfoServiceImpl.class.getName());
-	@Autowired
-	private PrizeRepository prizeRepository;
 
+@Service(value = "empServiceImpl")
+@Transactional(readOnly = true)
+public class EmpServiceImpl implements EmpService{
+	Logger logger = LogManager.getLogger(EmpServiceImpl.class.getName());
+	@Autowired
+	private EmpRepository empRepository;
+	
 	@Override
-	public List<PrizeEntity> getAllPrize() {
+	public List<EmpEntity> getAllPrize() {
 		// TODO Auto-generated method stub
-		List<PrizeEntity> infos = prizeRepository.getAllPrize();
+		List<EmpEntity> infos = empRepository.getAllEmp();
 		return infos;
 	}
 
 	@Override
-	public void addPrize(PrizeEntity entity) {
+	public void addEmp(EmpEntity entity) {
 		// TODO Auto-generated method stub
-		prizeRepository.addPrize(entity);
+		empRepository.addEmp(entity);
 	}
 
 	@Override
-	public void deletePrize(PrizeEntity entity) {
+	public void deleteEmp(EmpEntity entity) {
 		// TODO Auto-generated method stub
-		prizeRepository.deletePrize(entity);
+		empRepository.deleteEmp(entity);
 	}
 
 	@Override
-	public void modifyPrize(PrizeEntity entity) {
+	public void modifyEmp(EmpEntity entity) {
 		// TODO Auto-generated method stub
-		prizeRepository.modifyPrize(entity);
+		empRepository.modifyEmp(entity);
 	}
 
 }

@@ -22,25 +22,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
+
 import cn.xsdzq.platform.controller.BaseController;
-import cn.xsdzq.platform.entity.CategoryEntity;
-import cn.xsdzq.platform.entity.CustomerMobileEntity;
-import cn.xsdzq.platform.entity.InfoEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeEntity;
-import cn.xsdzq.platform.model.InfoDTO;
-import cn.xsdzq.platform.model.KCDTO;
-import cn.xsdzq.platform.model.Pagination;
 import cn.xsdzq.platform.model.lcj.PrizeDTO;
-import cn.xsdzq.platform.service.IMyInfoService;
-import cn.xsdzq.platform.service.KCService;
 import cn.xsdzq.platform.service.lcj.MyPrizeService;
 import cn.xsdzq.platform.service.lcj.PrizeService;
-import cn.xsdzq.platform.util.DateUtil;
 import cn.xsdzq.platform.util.GsonUtil;
-import cn.xsdzq.platform.util.InfoUtil;
-import cn.xsdzq.platform.util.KCUtil;
 import cn.xsdzq.platform.util.LcjUtil;
-import cn.xsdzq.platform.util.MethodUtil;
 import cn.xsdzq.platform.util.UserManageUtil;
 
 @Controller
@@ -85,7 +76,7 @@ public class PrizeController extends BaseController {
 	@RequestMapping(value = "/getPrize", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> getPrize(HttpServletRequest request) {
-		List<PrizeEntity> infos = myPrizeService.getAllPrize();
+		List<PrizeEntity> infos = prizeService.getAllPrize();
 		List<PrizeDTO> infoDTOs = new ArrayList<PrizeDTO>();
 		for (PrizeEntity info : infos) {
 			PrizeDTO dto = LcjUtil.convertPrizeDTOByPrize(info);
@@ -93,14 +84,18 @@ public class PrizeController extends BaseController {
 		}
 		return GsonUtil.buildMap(0, "ok", infoDTOs);
 	}
-	@RequestMapping(value = "/addPrize", method = POST, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/addPrize", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Map<String, Object> addPrize(HttpServletRequest request, @Validated @RequestBody PrizeDTO dto) {
-		PrizeEntity entity = LcjUtil.convertEntityByPrizeDTO(dto);
-		Date date = new Date();
-		entity.setCreatetime(date);
-		
-		myPrizeService.addPrize(entity);;
+	public Map<String, Object> addPrize(HttpServletRequest request, @RequestParam String batchPrizeJson) {
+		//解析json,批量添加
+		List<PrizeDTO> dtoList = JSON.parseArray(batchPrizeJson,PrizeDTO.class);
+		for(PrizeDTO dto : dtoList) {
+			PrizeEntity entity = LcjUtil.convertEntityByPrizeDTO(dto);
+			Date date = new Date();
+			entity.setCreatetime(date);			
+			prizeService.addPrize(entity);
+		}
+				
 		//logger.info("action:" + "add" + ";" + name + ";" + "title:" + dto.getTitle() + ";");
 		return GsonUtil.buildMap(0, "ok", null);
 	}
@@ -112,7 +107,7 @@ public class PrizeController extends BaseController {
 		User user = UserManageUtil.getUser();
 		String name = user.getUsername();
 		
-		myPrizeService.deletePrize(entity);
+		prizeService.deletePrize(entity);
 		
 		logger.info(" 删除理财节奖品信息 action:" + "delete" + ";" + "user: " + name  +" prize: "+entity.getName()+" ;" );
 		return GsonUtil.buildMap(0, "ok", null);
@@ -126,7 +121,7 @@ public class PrizeController extends BaseController {
 	
 		Date date = new Date();
 		entity.setModifytime(date);
-		myPrizeService.modifyPrize(entity);
+		prizeService.modifyPrize(entity);
 	//	logger.info("action:" + "modify" + ";" + "user:" + name + ";" + "title:" + dto.getTitle() + ";");
 		return GsonUtil.buildMap(0, "ok", null);
 	}
