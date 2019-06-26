@@ -46,7 +46,13 @@ ngApp.factory("httpUtils", [ function() {
 		winPrizeList: baseUrl + "prizeRecord/getPrizeRecord",
 		addPrize : baseUrl + "prize/addPrize",
 		modifyPrize : baseUrl + "prize/modifyPrize",
-		deletePrize : baseUrl + "prize/deletePrize"
+		deletePrize : baseUrl + "prize/deletePrize",
+		
+		activityProductsList : baseUrl + "product/getProduct",
+		addProduct : baseUrl + "product/addProduct",
+		modifyProduct: baseUrl + "product/modifyProduct",
+		deleteProduct : baseUrl + "product/deleteProduct",
+		activityProductsList : baseUrl + "product/getSellData"
 	};
 
 	function getUrl() {
