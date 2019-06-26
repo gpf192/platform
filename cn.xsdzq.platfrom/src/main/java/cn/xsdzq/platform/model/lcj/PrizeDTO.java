@@ -1,11 +1,14 @@
 package cn.xsdzq.platform.model.lcj;
 
-public class PrizeDTO {
+import java.io.Serializable;
+
+public class PrizeDTO implements Serializable{
 	private long id;
 	private String name;
 	private String pice;
 	private String rate;
 	private String amount;
+	private Integer winning_number;
 	
 	public PrizeDTO() {
 		super();
@@ -40,6 +43,14 @@ public class PrizeDTO {
 	}
 	public void setAmount(String amount) {
 		this.amount = amount;
+	}
+	
+	
+	public Integer getWinning_number() {
+		return winning_number;
+	}
+	public void setWinning_number(Integer winning_number) {
+		this.winning_number = winning_number;
 	}
 	@Override
 	public String toString() {
