@@ -1,6 +1,7 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
+encoding//src/main/webapp/static/htmls/admin/addauthority.html=UTF-8
 encoding//src/main/webapp/static/htmls/category/categorylist.html=UTF-8
 encoding//src/main/webapp/static/htmls/category/modifycategory.html=UTF-8
 encoding//src/main/webapp/static/htmls/category/newcategory.html=UTF-8

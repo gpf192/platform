@@ -57,7 +57,12 @@ ngApp.controller("indexController", function($scope, $state, $http, httpUtils) {
 	
 	$scope.gotoMenu = function(first,second,state,$event){
 		$event.stopPropagation();
-		$state.go(state);
+		if(state==null) {
+			$state.go("turntablePrizeList");
+		}else {
+			$state.go(state);
+		}
+	
 		//console.log("1"+window.location.url()); 
 		console.log("2 "+window.location.hash); 
 		//var hashPath = window.location.hash;

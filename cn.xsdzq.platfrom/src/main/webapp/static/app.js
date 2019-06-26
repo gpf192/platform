@@ -149,6 +149,30 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/finance/shareList",
 		templateUrl : "htmls/finance/shareList.html",
 		controller : "shareListController"
+	}).state("turntablePrizeList", {
+		url : "/turntablePrizeList",
+		templateUrl : "htmls/finance/turntablePrizeList.html",
+		controller : "turntablePrizeListController"
+	}).state("addPrize", {
+		url : "/addPrize",
+		templateUrl : "htmls/finance/addPrize.html",
+		controller : "addPrizeController"
+	}).state("winPrizeList", {
+		url : "/winPrizeList",
+		templateUrl : "htmls/finance/winPrizeList.html",
+		controller : "winPrizeListController"
+	}).state("activityProductsList", {
+		url : "/activityProductsList",
+		templateUrl : "htmls/finance/activityProductsList.html",
+		controller : "activityProductsListController"
+	}).state("newProduct", {
+		url : "/newProduct",
+		templateUrl : "htmls/finance/newProduct.html",
+		controller : "newProductListController"
+	}).state("userTIcketsList", {
+		url : "/userTIcketsList",
+		templateUrl : "htmls/finance/userTIcketsList.html",
+		controller : "userTIcketsListController"
 	}).state("demo", {
 		url : "/demo",
 		templateUrl : "htmls/demo/demo.html",
