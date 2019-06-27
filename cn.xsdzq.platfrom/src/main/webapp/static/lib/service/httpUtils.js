@@ -57,7 +57,10 @@ ngApp.factory("httpUtils", [ function() {
 		participantsList: baseUrl + "emp/getEmp",
 		addEmp: baseUrl + "emp/addEmp",
 		modifyEmp: baseUrl + "emp/modifyEmp",
-		deleteEmp: baseUrl + "emp/deleteEmp"
+		deleteEmp: baseUrl + "emp/deleteEmp",
+		
+		userTIcketsList: baseUrl + "vote/getUserVote",
+		contestantList: baseUrl + "vote/getEmpVote"
 	};
 
 	function getUrl() {
