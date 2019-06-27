@@ -1,15 +1,19 @@
 package cn.xsdzq.platform.util;
 
 import cn.xsdzq.platform.entity.lcj.EmpEntity;
+import cn.xsdzq.platform.entity.lcj.EmpVoteEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeRecordEntity;
 import cn.xsdzq.platform.entity.lcj.ProductEntity;
 import cn.xsdzq.platform.entity.lcj.ProductSellEntity;
+import cn.xsdzq.platform.entity.lcj.UserVoteEntity;
 import cn.xsdzq.platform.model.lcj.EmpDTO;
+import cn.xsdzq.platform.model.lcj.EmpVoteDTO;
 import cn.xsdzq.platform.model.lcj.PrizeDTO;
 import cn.xsdzq.platform.model.lcj.PrizeRecordDTO;
 import cn.xsdzq.platform.model.lcj.ProductDTO;
 import cn.xsdzq.platform.model.lcj.ProductSellDTO;
+import cn.xsdzq.platform.model.lcj.UserVoteDTO;
 //奖项信息
 public class LcjUtil {
 	public static PrizeDTO convertPrizeDTOByPrize(PrizeEntity entity) {		
@@ -122,5 +126,35 @@ public class LcjUtil {
 		entity.setSales_department(dto.getSales_department());
 
 		return entity;
+	}
+	//用户投票数记录
+	public static UserVoteDTO convertUserVoteDTOByEntity(UserVoteEntity entity) {		
+		UserVoteDTO dto = new UserVoteDTO();
+		dto.setId(entity.getId());
+		dto.setUsername(entity.getUsername());
+		dto.setAccount(entity.getAccount());
+		dto.setTotal_votes(entity.getTotal_votes());
+		dto.setVotes_source(entity.getVotes_source());
+	
+		dto.setGain_time(entity.getGain_time());
+		dto.setVote_for(entity.getVote_for());
+		dto.setVote_for_amount(entity.getVote_for_amount());
+		dto.setDivision(entity.getDivision());		
+		dto.setSales_department(entity.getSales_department());
+		return dto;
+	}
+	//参赛选手得票记录
+	public static EmpVoteDTO convertEmpVoteDTOByEntity(EmpVoteEntity entity) {		
+		EmpVoteDTO dto = new EmpVoteDTO();
+		dto.setId(entity.getId());
+		entity.setEmp_name(dto.getEmp_name());
+		entity.setEmp_code(dto.getEmp_code());
+		
+		dto.setDivision(entity.getDivision());		
+		dto.setSales_department(entity.getSales_department());
+		dto.setGet_vote_amount(entity.getGet_vote_amount());
+		dto.setGet_vote_time(entity.getGet_vote_time());
+		dto.setVote_from_user(entity.getVote_from_user());
+		return dto;
 	}
 }
