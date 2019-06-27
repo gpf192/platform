@@ -46,10 +46,20 @@ function() {
 			return !1;  
 		return !0  
 	}
+	
+	function isEmpty(obj){
+	    if(typeof obj == "undefined" || obj == null || obj == ""){
+	        return true;
+	    }else{
+	        return false;
+	    }
+	}
+
 
 	var utils = {
 		createD3Tree : createD3Tree,
-		isEmptyObject : isEmptyObject
+		isEmptyObject : isEmptyObject,
+		isEmpty : isEmpty 
 	};
 	return utils;
 }]);
