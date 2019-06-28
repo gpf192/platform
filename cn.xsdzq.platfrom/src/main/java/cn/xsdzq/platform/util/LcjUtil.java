@@ -41,7 +41,7 @@ public class LcjUtil {
 		entity.setPrice(dto.getPice());
 		entity.setAmount(dto.getAmount());
 		entity.setRate(dto.getRate());
-		entity.setWinning_number(dto.getWinning_number());
+		//entity.setWinning_number(dto.getWinning_number());
 		return entity;
 	}
 	//中奖纪录
@@ -102,29 +102,29 @@ public class LcjUtil {
 	public static EmpDTO convertEmpDTOByEntity(EmpEntity entity) {		
 		EmpDTO dto = new EmpDTO();
 		dto.setId(entity.getId());
-		dto.setEmp_name(entity.getEmp_name());
-		dto.setEmp_code(entity.getEmp_code());
-		dto.setEmp_type(entity.getEmp_type());
-		dto.setEmp_category(entity.getEmp_category());
-		dto.setEntry_time(entity.getEntry_time());
+		dto.setEmp_name(entity.getEmpName());
+		dto.setEmp_code(entity.getEmpName());
+		dto.setEmp_type(entity.getEmpType());
+		dto.setEmp_category(entity.getEmpCategory());
+		dto.setEntry_time(entity.getEntryTime());
 		
 		dto.setContract(entity.getContract());
 		dto.setDivision(entity.getDivision());
-		dto.setSales_department(entity.getSales_department());
+		dto.setSales_department(entity.getSalesDepartment());
 		return dto;
 	}
 	public static EmpEntity convertEntityByEmpDTO(EmpDTO dto) {
 		EmpEntity entity = new EmpEntity();
 		entity.setId(dto.getId());
-		entity.setEmp_name(dto.getEmp_name());
-		entity.setEmp_code(dto.getEmp_code());
-		entity.setEmp_type(dto.getEmp_type());
-		entity.setEmp_category(dto.getEmp_category());
-		entity.setEntry_time(dto.getEntry_time());
+		entity.setEmpName(dto.getEmp_name());
+		entity.setEmpCode(dto.getEmp_code());
+		entity.setEmpType(dto.getEmp_type());
+		entity.setEmpCategory(dto.getEmp_category());
+		entity.setEntryTime(dto.getEntry_time());
 		
 		entity.setContract(dto.getContract());
 		entity.setDivision(dto.getDivision());
-		entity.setSales_department(dto.getSales_department());
+		entity.setSalesDepartment(dto.getSales_department());
 
 		return entity;
 	}

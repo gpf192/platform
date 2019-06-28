@@ -33,6 +33,7 @@ import cn.xsdzq.platform.service.lcj.MyPrizeService;
 import cn.xsdzq.platform.service.lcj.PrizeService;
 import cn.xsdzq.platform.util.GsonUtil;
 import cn.xsdzq.platform.util.LcjUtil;
+import cn.xsdzq.platform.util.MethodUtil;
 import cn.xsdzq.platform.util.UserManageUtil;
 
 @Controller
@@ -50,18 +51,55 @@ public class EmpController extends BaseController {
 	@RequestMapping(value = "/getEmp", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> getEmp(HttpServletRequest request,  
-//			@RequestParam String beginTime, @RequestParam String endTime, 
+			@RequestParam String emp_name, @RequestParam String emp_code,  @RequestParam String sales_department, 
 			 @RequestParam int pageNumber,@RequestParam int pageSize) {
 		System.out.println("全量参赛人员信息   +   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-		/*Date endDate = null;
-		Date beginDate = null;*/
+		
 		
 		int sum = 0 ;
 		List<EmpEntity> entitys = null;
-		//int num = MethodUtil.getMethodNum(beginTime,endTime);
-		
+		int num = MethodUtil.getEmpMethodNum(emp_name, emp_code, sales_department);
+		if(num == 1) {
+			//全量查找
 			entitys = myEmpService.getAllEmp(pageNumber, pageSize);
 			sum = myEmpService.countAll();
+		}
+		if(num == 2) {
+			//查询条件 emp_name, emp_code, sales_department
+			entitys = myEmpService.findByEmp_nameAndEmp_codeAndSales_departmentOrderByEmp_code(emp_name, emp_code, sales_department, pageNumber, pageSize);
+			sum = myEmpService.countEmpEntityByEmp_nameAndEmp_codeAndSales_department(emp_name, emp_code, sales_department);
+		}
+		if(num == 3) {
+			//查询条件  名字
+			entitys = myEmpService.findEmpEntityByEmp_nameOrderByEmp_code(emp_name, pageNumber, pageSize);
+			sum = myEmpService.countEmpEntityByEmp_name(emp_name);
+		}
+		if(num == 4) {
+			//查询条件  code
+			entitys = myEmpService.findEmpEntityByEmp_codeOrderByEmp_code(emp_code, pageNumber, pageSize);
+			sum = myEmpService.countEmpEntityByEmp_code(emp_code);
+		}
+		if(num == 5) {
+			//查询条件  部门
+			entitys = myEmpService.findEmpEntityBySales_departmentOrderByEmp_code(sales_department, pageNumber, pageSize);
+			sum = myEmpService.countEmpEntityBySales_department(sales_department);
+		}
+		if(num == 6) {
+			//查询条件  姓名、code
+			entitys = myEmpService.findEmpEntityByEmp_nameAndEmp_codeOrderByEmp_code(emp_name, emp_code, pageNumber, pageSize);
+			sum = myEmpService.countEmpEntityByEmp_nameAndEmp_code(emp_name, emp_code);
+		}
+		if(num == 7) {
+			//查询条件  姓名、部门
+			entitys = myEmpService.findEmpEntityByEmp_nameAndSales_departmentOrderByEmp_code(emp_name, sales_department, pageNumber, pageSize);
+			sum = myEmpService.countEmpEntityByEmp_nameAndSales_department(emp_name, sales_department);
+		}
+		if(num == 8) {
+			//查询条件  code、部门
+			entitys = myEmpService.findEmpEntityByEmp_codeAndSales_departmentOrderByEmp_code(emp_code, sales_department, pageNumber, pageSize);
+			sum = myEmpService.countEmpEntityByEmp_codeAndSales_department(emp_code, sales_department);
+		}
+			
 		
 	
 					
@@ -93,7 +131,7 @@ public class EmpController extends BaseController {
 		empService.deleteEmp(entity);
 		User user = UserManageUtil.getUser();
 		String name = user.getUsername();
-		logger.info(" 删除理财节 参赛用户  emp 信息 action:" + "delete" + ";" + "user: " + name  +" empname: "+entity.getEmp_name()+" ;" );
+		logger.info(" 删除理财节 参赛用户  emp 信息 action:" + "delete" + ";" + "user: " + name  +" empname: "+entity.getEmpName()+" ;" );
 		return GsonUtil.buildMap(0, "ok", null);
 	}
 

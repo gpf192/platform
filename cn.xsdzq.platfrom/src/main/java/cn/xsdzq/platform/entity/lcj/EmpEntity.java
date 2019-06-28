@@ -23,25 +23,25 @@ public class EmpEntity {
 	private long id;
 	
 	@Column(name = "emp_name")
-	private String emp_name;
+	private String empName;//人员姓名
 	
 	@Column(name = "emp_code")
-	private String emp_code;
+	private String empCode;//人员编号
 	
 	@Column(name = "emp_type")
-	private String emp_type;//在编性质
+	private String empType;//在编性质
 	
 	@Column(name = "emp_category")
-	private String emp_category;//人员类别
+	private String empCategory;//人员类别
 	
 	@Column(name = "contract")
 	private String contract;//签约合同
 	
 	@Column(name = "entry_time")
-	private String entry_time;//入职时间
+	private String entryTime;//入职时间
 	
 	@Column(name = "sales_department")
-	private String sales_department;//隶属营业部
+	private String salesDepartment;//隶属营业部
 	
 	@Column(name = "division")
 	private String division;//隶属赛区
@@ -54,36 +54,36 @@ public class EmpEntity {
 		this.id = id;
 	}
 
-	public String getEmp_name() {
-		return emp_name;
+	public String getEmpName() {
+		return empName;
 	}
 
-	public void setEmp_name(String emp_name) {
-		this.emp_name = emp_name;
+	public void setEmpName(String empName) {
+		this.empName = empName;
 	}
 
-	public String getEmp_code() {
-		return emp_code;
+	public String getEmpCode() {
+		return empCode;
 	}
 
-	public void setEmp_code(String emp_code) {
-		this.emp_code = emp_code;
+	public void setEmpCode(String empCode) {
+		this.empCode = empCode;
 	}
 
-	public String getEmp_type() {
-		return emp_type;
+	public String getEmpType() {
+		return empType;
 	}
 
-	public void setEmp_type(String emp_type) {
-		this.emp_type = emp_type;
+	public void setEmpType(String empType) {
+		this.empType = empType;
 	}
 
-	public String getEmp_category() {
-		return emp_category;
+	public String getEmpCategory() {
+		return empCategory;
 	}
 
-	public void setEmp_category(String emp_category) {
-		this.emp_category = emp_category;
+	public void setEmpCategory(String empCategory) {
+		this.empCategory = empCategory;
 	}
 
 	public String getContract() {
@@ -94,20 +94,20 @@ public class EmpEntity {
 		this.contract = contract;
 	}
 
-	public String getEntry_time() {
-		return entry_time;
+	public String getEntryTime() {
+		return entryTime;
 	}
 
-	public void setEntry_time(String entry_time) {
-		this.entry_time = entry_time;
+	public void setEntryTime(String entryTime) {
+		this.entryTime = entryTime;
 	}
 
-	public String getSales_department() {
-		return sales_department;
+	public String getSalesDepartment() {
+		return salesDepartment;
 	}
 
-	public void setSales_department(String sales_department) {
-		this.sales_department = sales_department;
+	public void setSalesDepartment(String salesDepartment) {
+		this.salesDepartment = salesDepartment;
 	}
 
 	public String getDivision() {
@@ -120,10 +120,11 @@ public class EmpEntity {
 
 	@Override
 	public String toString() {
-		return "EmpEntity [id=" + id + ", emp_name=" + emp_name + ", emp_code=" + emp_code + ", emp_type=" + emp_type
-				+ ", emp_category=" + emp_category + ", contract=" + contract + ", entry_time=" + entry_time
-				+ ", sales_department=" + sales_department + ", division=" + division + "]";
+		return "EmpEntity [id=" + id + ", empName=" + empName + ", empCode=" + empCode + ", empType=" + empType
+				+ ", empCategory=" + empCategory + ", contract=" + contract + ", entryTime=" + entryTime
+				+ ", salesDepartment=" + salesDepartment + ", division=" + division + "]";
 	}
+
 	
 	
 }

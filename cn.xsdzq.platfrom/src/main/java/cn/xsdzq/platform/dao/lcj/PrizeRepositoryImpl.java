@@ -38,7 +38,15 @@ public class PrizeRepositoryImpl implements PrizeRepository{
 	@Transactional
 	public void addPrize(PrizeEntity prizeEntity) {
 		// TODO Auto-generated method stub
-		em.persist(prizeEntity);
+		long id = prizeEntity.getId();
+		PrizeEntity info = em.find(PrizeEntity.class, id);
+		if(info == null){
+			em.persist(prizeEntity);
+			
+		}else {
+			em.merge(prizeEntity);
+			}
+		
 	}
 
 	@Override
