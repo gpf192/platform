@@ -30,18 +30,21 @@ public class EmpServiceImpl implements EmpService{
 	}
 
 	@Override
+	@Transactional
 	public void addEmp(EmpEntity entity) {
 		// TODO Auto-generated method stub
 		empRepository.addEmp(entity);
 	}
 
 	@Override
+	@Transactional
 	public void deleteEmp(EmpEntity entity) {
 		// TODO Auto-generated method stub
 		empRepository.deleteEmp(entity);
 	}
 
 	@Override
+	@Transactional
 	public void modifyEmp(EmpEntity entity) {
 		// TODO Auto-generated method stub
 		empRepository.modifyEmp(entity);

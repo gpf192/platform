@@ -27,18 +27,21 @@ public class PrizeServiceImpl implements PrizeService{
 	}
 
 	@Override
+	@Transactional
 	public void addPrize(PrizeEntity entity) {
 		// TODO Auto-generated method stub
 		prizeRepository.addPrize(entity);
 	}
 
 	@Override
+	@Transactional
 	public void deletePrize(PrizeEntity entity) {
 		// TODO Auto-generated method stub
 		prizeRepository.deletePrize(entity);
 	}
 
 	@Override
+	@Transactional
 	public void modifyPrize(PrizeEntity entity) {
 		// TODO Auto-generated method stub
 		prizeRepository.modifyPrize(entity);
