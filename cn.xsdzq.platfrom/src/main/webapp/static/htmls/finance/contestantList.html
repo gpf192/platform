@@ -1,22 +1,8 @@
 <script type="text/javascript" src="htmls/finance/contestantList.js"></script>
-<script type="text/javascript">
-$(function(){
-     var onSampleResized = function(e){  
-            var onSampleResized = $(e.currentTarget).find("th"); 
-          };  
-
-         $("#datatable1").colResizable({
-            liveDrag:true,
-            gripInnerHtml:"<div class='grip'></div>", 
-            draggingClass:"dragging", 
-            onResize:onSampleResized
-          }); 
-    });
-</script>
-<div class="box border primary overflow-x-scroll"  ng-init="init()">
+<div class="box border primary" ng-init="init()">
     <div class="box-title">
         <h4>
-            <i class="fa fa-bars"></i>参赛选手得票
+            <i class="fa fa-bars"></i>参赛选手得票数据统计
         </h4>
         <div class="tools hidden">
             <a href="#box-config" data-toggle="modal" class="config"> <i
@@ -31,16 +17,17 @@ $(function(){
     <div class="box-body">
         <div class="dataTables_wrapper form-inline" role="grid">
             <form class="form-inline margin10">
-                  <div class="form-group ">
-                    <label  for="employeeName">员工姓名:</label>                 
-                        <input type="text" class="form-control input-300 " id="employeeName" name="employeeName"
-                        ng-model="formData.employeeName" placeholder="请输入员工姓名"></input>
+                <div class="form-group ">
+                    <label  for="emp_name">员工姓名:</label>                 
+                        <input type="text" class="form-control input-300 " id="emp_name" name="emp_name"
+                        ng-model="formData.emp_name" placeholder="请输入员工姓名"></input>
+
                 </div>
                 &nbsp
                 <div class="form-group ">
-                    <label  for="capitalAccount">来源客户:</label>                 
-                        <input type="text" class="form-control input-300 " id="customerSource" name="customerSource"
-                        ng-model="formData.customerSource" placeholder="请输入来源客户"></input>
+                    <label  for="vote_from_user">来源客户:</label>                 
+                        <input type="text" class="form-control input-300 " id="vote_from_user" name="vote_from_user"
+                        ng-model="formData.vote_from_user" placeholder="请输入来源客户"></input>
 
                 </div>
                 &nbsp
@@ -51,7 +38,7 @@ $(function(){
                             ng-click="getCheckInfosByCategoryId(10)" />
             </form>
             <hr />
-            <div class="row hide" ng-show="infoList.length>0">
+            <div class="row hide" ng-show="empVoteList.length>0">
                 <div class="col-sm-12">
                     <div class="pull-right">
                         <div class="dataTables_filter" id="datatable1_filter">
@@ -78,61 +65,33 @@ $(function(){
                 aria-describedby="datatable1_info">
                 <thead>
                     <tr role="row">
-                        <th class="col-sm-1 text-center">
-                            <input type="checkbox" ng-click="selectAll($event)" ng-checked="isSelectedAll()" /> </th>
                         <th class="col-sm-1 text-center" >序号</th>
                         <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">文章标题</div></th>
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">员工姓名</div></th>
                         <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">栏目名称</div></th>
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">员工编号</div></th>
                         <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">发布人</div></th>
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">隶属营业部</div></th>
                         <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">录入时间</div></th>
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">隶属赛区</div></th>
                         <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">发布时间</div></th>
-
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">获得票数</div></th>
                         <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">审核状态</div></th> 
-                        
-                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">审核</th>
-                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">撤回</th>
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">获得时间</div></th> 
+                          <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">来源用户</div></th> 
                     </tr>
                 </thead>
                 <tbody role="alert" aria-live="polite" aria-relevant="all">
-                    <tr ng-repeat="info in infoList | filter:{title:search}">
-                        <td>
-                            <input type="checkbox" name="selected" ng-checked="isSelected(info.id)" ng-click="updateSelection($event,info.id)" /></td>              
+                    <tr ng-repeat="empVote in empVoteList | filter:{title:search}">
                         <td width="100">{{$index+selectNum["num"]*currentPage.page+1}}</td>
-                        <td ng-click="checkInfo($index)" style="cursor:pointer" ><div style="white-space:nowrap;">{{info.title}}</div></td>
-                        <td ><div style="white-space:nowrap;">{{info.categoryTitle}}</div></td> 
-                        <td ><div style="white-space:nowrap;">{{info.createdBy}}</div></td>
-                        <td ><div style="white-space:nowrap;">{{info.createtime}}</div></td>
-                        <td ><div style="white-space:nowrap;">{{info.modifytime}}</div></td>
-                        
-                        <td class="col-sm-1"><div style="white-space:nowrap;"><span
-                            ng-bind="info.checked_result |transfera"></span></div></td>              
-                        
-                        
-                        
-                        <td class="col-sm-2">
-                            <div>
-                                <button ng-if="info.checked_result == ('submit')" type="button" class="btn btn-warning btn-sm"
-                                    ng-click="checkInfo($index)">
-                                    <i class="fa fa-clipboard"></i><span>审批</span>
-                                </button>
-                            </div>
-                        </td>
-                        <td class="col-sm-1">
-                            <div>
-                                <button ng-if="info.checked_result == ('approve')" type="button" class="btn btn-danger btn-sm"
-                                    ng-click="revocation($index)">
-                                    <i class="fa fa-trash-o"></i><span> 撤回</span>
-                                </button>
-                            </div>
-                        </td>
+                        <td ><div style="white-space:nowrap;">{{empVote.emp_name}}</div></td> 
+                        <td ><div style="white-space:nowrap;">{{empVote.emp_code}}</div></td>
+                        <td ><div style="white-space:nowrap;">{{empVote.sales_department}}</div></td>
+                        <td ><div style="white-space:nowrap;">{{empVote.division}}</div></td>
+                        <td ><div style="white-space:nowrap;">{{empVote.get_vote_amount}}</div></td>
+                        <td ><div style="white-space:nowrap;">{{empVote.get_vote_time}}</div></td>
+                        <td ><div style="white-space:nowrap;">{{empVote.vote_from_user}}</div></td>
                     </tr>
                 </tbody>
                 <tfoot>
@@ -167,18 +126,6 @@ $(function(){
                     <div class="clearfix"></div>    
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 text-left col-sm-5">
-                    <button type="button" ng-click="batchApprove()"
-                        class="btn btn-default btn-primary">批量审批</button>
-                </div>  
-                <div class="col-sm-offset-2 col-sm-3" >
-                    <button type="button" ng-click="batchRevocation()"
-                        class="btn btn-default btn-danger">批量撤回</button>
-                </div>  
-                                                    
-            </div>
-            
         </div>
         
     </div>  

@@ -30,7 +30,7 @@ function turntablePrizeListController($scope, $http, $state, httpUtils, layerUti
 		var url = httpUtils.url.turntablePrizeList;
 		$http.get(url, {}).success(function(data) {
 			if (data.resCode == 0) {
-				var finalData = data.result.splice(0,5);
+				var finalData = data.result;
 				customaryPrizeList =[].concat(finalData); ;
 				$scope.newPrizeList = [].concat(finalData);
 			}

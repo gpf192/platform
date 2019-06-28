@@ -1,31 +1,31 @@
 ngApp.$inject = ['$scope', '$http', '$state', 'httpUtils', 'layerUtils'];
-function newProductController($scope, $http, $state, httpUtils, layerUtils) {
+function addProductController($scope, $http, $state, httpUtils, layerUtils) {
 	$scope.formData = {};
-	$scope.categoryList=[];
-	
 	$scope.init=function(){
 		var data = {
 				"one" : {
-					name : "用户管理",
+					name : "活动产品管理",
 					goto:""
 
 				},
 				"two" : {
-					name : "新建用户",
-					goto:"newuser"
+					name : "添加活动产品",
+					goto:"addProduct"
 
 				}
 			}
 			$scope.$emit("changeNavigation", data);
-		$scope.formData.username="";
-		$scope.formData.password="";
+		
+		$scope.formData.name="";
+		$scope.formData.type="";
+		$scope.formData.begin_date="";
+		$scope.formData.coefficient="";
+		$scope.formData.code="";
 	};
 	
-	$scope.labelList=[];
-
-	$scope.submit = function() {
-		
-		var url = httpUtils.url.addUser;
+	
+	$scope.newBuild = function() {
+		var url = httpUtils.url.addProduct;
 		$http.post(url, $scope.formData).success(function(data) {
 			if (data.resCode == 0) {
 				layerUtils.iMsg(-1,"添加成功");
@@ -34,5 +34,6 @@ function newProductController($scope, $http, $state, httpUtils, layerUtils) {
 				layerUtils.iMsg(-1,"添加失败");
 			}
 		});
-	};
+	}
+	
 }
