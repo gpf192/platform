@@ -104,7 +104,7 @@ function turntablePrizeListController($scope, $http, $state, httpUtils, layerUti
 			}else {
 				//如果不一致提交更新
 				var url = httpUtils.url.addPrize;
-				$http.post(url,{batchPrizeJson:JSON.stringify($scope.newPrizeList)}).success(function(data) {
+				$http.get(url,{batchPrizeJson:angular.toJson($scope.newPrizeList)}).success(function(data) {
 					if (data.resCode == 0) {
 						layerUtils.iMsg(-1,"奖品添加成功");
 						customaryPrizeList =[].concat($scope.newPrizeList); ;
