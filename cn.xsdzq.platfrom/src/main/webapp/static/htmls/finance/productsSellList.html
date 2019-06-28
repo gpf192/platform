@@ -1,4 +1,4 @@
-<script type="text/javascript" src="htmls/finance/winPrizeList.js"></script>
+<script type="text/javascript" src="htmls/finance/productsSellList.js"></script>
 <div class="box border primary" ng-init="init()">
     <div class="box-title">
         <h4>
@@ -14,13 +14,15 @@
             </a>
         </div>
     </div>
-    <div class="box-body"> 
-            <div class="col-sm-2">
+  <div class="box-body">
+        <div class="col-sm-2">
                                 <button type="button" ng-click="exportToExcel()"
                                     class="btn btn-default btn-primary">导出</button>
              </div>
+                    
+    
         <div  class="dataTables_wrapper form-inline" role="grid">
-            <div class="row hide">
+            <div class="row hide" ng-show="productsSellList.length>0">
                 <div class="col-sm-12">
                     <div class="pull-right">
                         <div class="dataTables_filter" id="datatable1_filter">
@@ -42,67 +44,58 @@
                     <div class="clearfix"></div>
                 </div>
             </div>
-            <table id="datatable1" cellpadding="0" cellspacing="0" border="0"
-                class="datatable table table-striped table-bordered table-hover  text-center"
+                <table id="datatable1" cellpadding="0" cellspacing="0" border="0" width="80%"
+                class="datatable table table-striped table-bordered table-hover dataTable text-center"
                 aria-describedby="datatable1_info">
                 <thead>
+             
                     <tr role="row">
-                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">用户姓名</th>
-                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">资金账号</th>
-                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">委托时间</th>
-                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">成交时间</th>
-                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">产品代码</th>
-                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">产品名称</th>
-                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">交易份额</th>
-                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">成交金额</th>
-                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">获得票数</th>
-                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">对应服务员工</th>
+                        <th class="col-sm-1 text-center">序号</th>        
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">用户姓名</div></th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">资金账号</div></th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">委托时间</div></th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">成交时间</div></th>
+                     <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">产品代码</div></th>
+                             <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">产品名称</div></th>
+                             <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">交易份额</div></th>
+                     <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">成交金额</div></th>
+                       <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">获得票数</div></th>
+                               <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">对应服务员工</div></th>
                     </tr>
                 </thead>
                 <tbody role="alert" aria-live="polite" aria-relevant="all">
-                    <tr ng-repeat="prize in prizeList">
-                        <td class="col-sm-1">{{$index+1}}</td>
-                        <td class="col-sm-1">{{prize.prizeName}}</td>
-                        <td class="col-sm-1">{{prize.prizeNum}}</td>
-                        <td class="col-sm-1">{{prize.prizeValue}}</td>
-                        <td class="col-sm-1">{{prize.probability}}</td>
-                        <td class="col-sm-1">{{prize.winnersNum}}</td>
-                        <td class="col-sm-1">{{prize.remainPrizes}}</td>                  
-                        <td class="col-sm-1 text-center">
-                            <div>
-                                <button type="button" class="btn btn-warning btn-sm"
-                                    ng-click="modifyUser($index)">
-                                    <i class="fa fa-pencil-square-o"></i><span> 修改</span>
-                                </button>
-                            </div>
-                        </td>
-                        <td class="col-sm-1">
-                            <div>
-                                <button type="button" class="btn btn-danger btn-sm"
-                                    ng-click="deleteUser($index)">
-                                    <i class="fa fa-trash-o"></i><span> 删除</span>
-                                </button>
-                            </div>
-                        </td>
+                    <tr ng-repeat="product in productsSellList">
+                        <td >{{$index+selectNum["num"]*currentPage.page+1}}</td>
+                        <td ><div style="white-space:nowrap;" >{{product.username}}</div> </td> 
+                        <td ><div style="white-space:nowrap;">{{product.account}}</div> </td>
+                        <td ><div style="white-space:nowrap;">{{product.order_time}}</div> </td>
+                         <td ><div style="white-space:nowrap;">{{product.deal_time}}</div> </td>
+                           <td ><div style="white-space:nowrap;" >{{product.product_code}}</div> </td> 
+                        <td ><div style="white-space:nowrap;">{{product.product_name}}</div> </td>
+                        <td ><div style="white-space:nowrap;">{{product.deal_share}}</div> </td>
+                         <td ><div style="white-space:nowrap;">{{product.deal_amount}}</div> </td>
+                           <td ><div style="white-space:nowrap;" >{{product.votes}}</div> </td> 
+                        <td ><div style="white-space:nowrap;">{{product.emp_name}}</div> </td>
                     </tr>
                 </tbody>
-
+                <tfoot>
             </table>
             <div class="row hide">
                 <div class="col-sm-12" ng-model="pagination">
                     <div class="pull-left">
-                        <div class="dataTables_info" id="datatable1_info">显示
-                            {{pagination.start}} 到 10 / {{pagination.totalItems}} 记录</div>
+                        <div class="dataTables_info" id="datatable1_info">
+                            第 {{pagination.pageNumber+1}} 页     /  共  {{pagination.totalItems}} 记录
+                        </div>
                     </div>
                     <div class="pull-right">
                         <div class="dataTables_paginate paging_bs_full"

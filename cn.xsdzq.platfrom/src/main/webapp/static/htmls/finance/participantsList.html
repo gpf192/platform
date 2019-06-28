@@ -1,4 +1,4 @@
-<script type="text/javascript" src="htmls/finance/winPrizeList.js"></script>
+<script type="text/javascript" src="htmls/finance/participantsList.js"></script>
 <div class="box border primary" ng-init="init()">
     <div class="box-title">
         <h4>
@@ -15,92 +15,108 @@
         </div>
     </div>
     <div class="box-body">
-        <div  class="dataTables_wrapper form-inline" role="grid">
-            <div class="row hide">
+        <div class="dataTables_wrapper form-inline" role="grid">
+            <form class="form-inline margin10">
+                <div class="form-group ">
+                    <label  for="emp_name">人员姓名:</label>                 
+                        <input type="text" class="form-control input-300 " id="emp_name" name="emp_name"
+                        ng-model="formData.emp_name" placeholder="请输入人员姓名"></input>
+
+                </div>
+                &nbsp
+                <div class="form-group ">
+                    <label  for="searchTitle">人员编号:</label>                 
+                        <input type="text" class="form-control input-300 " id="emp_code" name="emp_code"
+                        ng-model="formData.emp_code" placeholder="请输入人员编号"></input>
+
+                </div>
+                &nbsp
+                <div class="form-group ">
+                    <label class=" control-label text-right">隶属营业部:</label>
+                        <select class="form-control" ng-model="approveResult"
+                            ng-options="key for (key, value) in approveResultOption" ></select>
+                </div>
+                &nbsp
+                <input type="button" value="查询" class="btn btn-primary"
+                            ng-click="getCheckInfosByCategoryId(10)" />
+            </form>
+            <hr />
+            <div class="row hide" ng-show="empList.length>0">
                 <div class="col-sm-12">
                     <div class="pull-right">
                         <div class="dataTables_filter" id="datatable1_filter">
-                            <label> <input type="text" aria-controls="datatable1"
-                                placeholder="Search" ng-model="search" class="form-control input-sm">
-                            </label> 
+                            <label> 
+                            <input type="text" aria-controls="datatable1" ng-model="search" placeholder="Search" class="form-control input-sm">
+                            </label>
                         </div>
                     </div>
-                    <div class="pull-left hide">
+                    <div class="pull-left">
                         <div id="datatable1_length" class="dataTables_length">
-                            <label> 显示 <select size="1" name="datatable1_length"
-                                ng-model="selectNum"
-                                ng-options="row.num for row in selectNumList"
-                                aria-controls="datatable1" class="form-control input-sm">
-                            </select> 行
+                            <label> 显示 
+                                <select size="1" name="datatable1_length" ng-model="selectNum"
+                                    ng-options="row.num for row in selectNumList"
+                                    aria-controls="datatable1" class="form-control input-sm">
+                                </select> 行
                             </label>
                         </div>
                     </div>
                     <div class="clearfix"></div>
                 </div>
             </div>
-            <table id="datatable1" cellpadding="0" cellspacing="0" border="0"
-                class="datatable table table-striped table-bordered table-hover  text-center"
+            <table id="datatable1" cellpadding="0" cellspacing="0" border="0" width="80%"
+                class="datatable table table-striped table-bordered table-hover dataTable text-center"
                 aria-describedby="datatable1_info">
                 <thead>
                     <tr role="row">
-                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">序号</th>
-                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">人员名称</th>
-                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">人员编号</th>
-                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">在编性质</th>
-                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">人员类别</th>
-                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">签约合同</th>
-                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">入职时间</th>
-                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">隶属营业部</th>
-                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">隶属赛区</th>
-                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                        <th class="col-sm-1 text-center" >序号</th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">人员姓名</div></th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">人员编号</div></th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">在编性质</div></th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">人员类别</div></th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">签约合同</div></th>
+
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">入职时间</div></th> 
+                          <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">隶属营业部</div></th> 
+                          <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">隶属赛区</div></th> 
+                          <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">修改</div></th> 
+                          <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">删除</div></th> 
+                    </tr>
+                </thead>
+                <tbody role="alert" aria-live="polite" aria-relevant="all">
+                    <tr ng-repeat="emp in empList | filter:{title:search}">
+                        <td width="100">{{$index+selectNum["num"]*currentPage.page+1}}</td>
+                        <td ><div style="white-space:nowrap;">{{emp.emp_name}}</div></td> 
+                        <td ><div style="white-space:nowrap;">{{emp.emp_code}}</div></td>
+                        <td ><div style="white-space:nowrap;">{{emp.emp_type}}</div></td>
+                        <td ><div style="white-space:nowrap;">{{emp.emp_category}}</div></td>
+                        <td ><div style="white-space:nowrap;">{{emp.contract}}</div></td>
+                        <td ><div style="white-space:nowrap;">{{emp.entry_time}}</div></td>
+                        <td ><div style="white-space:nowrap;">{{emp.sales_department}}</div></td>
+                        <td ><div style="white-space:nowrap;">{{emp.division}}</div></td>
+                <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1">修改</th>
                         <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1">删除</th>
                     </tr>
-                </thead>
-                <tbody role="alert" aria-live="polite" aria-relevant="all">
-                    <tr ng-repeat="prize in prizeList">
-                        <td class="col-sm-1">{{$index+1}}</td>
-                        <td class="col-sm-1">{{prize.prizeName}}</td>
-                        <td class="col-sm-1">{{prize.prizeNum}}</td>
-                        <td class="col-sm-1">{{prize.prizeValue}}</td>
-                        <td class="col-sm-1">{{prize.probability}}</td>
-                        <td class="col-sm-1">{{prize.winnersNum}}</td>
-                        <td class="col-sm-1">{{prize.remainPrizes}}</td>                  
-                        <td class="col-sm-1 text-center">
-                            <div>
-                                <button type="button" class="btn btn-warning btn-sm"
-                                    ng-click="modifyUser($index)">
-                                    <i class="fa fa-pencil-square-o"></i><span> 修改</span>
-                                </button>
-                            </div>
-                        </td>
-                        <td class="col-sm-1">
-                            <div>
-                                <button type="button" class="btn btn-danger btn-sm"
-                                    ng-click="deleteUser($index)">
-                                    <i class="fa fa-trash-o"></i><span> 删除</span>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
                 </tbody>
-
+                <tfoot>
             </table>
             <div class="row hide">
                 <div class="col-sm-12" ng-model="pagination">
                     <div class="pull-left">
-                        <div class="dataTables_info" id="datatable1_info">显示
-                            {{pagination.start}} 到 10 / {{pagination.totalItems}} 记录</div>
+                        <div class="dataTables_info" id="datatable1_info">
+                            第 {{pagination.pageNumber+1}} 页     /  共  {{pagination.totalItems}} 记录
+                        </div>
                     </div>
                     <div class="pull-right">
                         <div class="dataTables_paginate paging_bs_full"
@@ -122,9 +138,10 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="clearfix"></div>
+                    <div class="clearfix"></div>    
                 </div>
             </div>
         </div>
-    </div>
+        
+    </div>  
 </div>
