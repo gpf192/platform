@@ -40,7 +40,8 @@ public class LcjUtil {
 		entity.setName(dto.getName());
 		entity.setPrice(dto.getPice());
 		entity.setAmount(dto.getAmount());
-
+		entity.setRate(dto.getRate());
+		entity.setWinning_number(dto.getWinning_number());
 		return entity;
 	}
 	//中奖纪录
