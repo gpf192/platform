@@ -27,6 +27,7 @@ import com.alibaba.fastjson.TypeReference;
 
 import cn.xsdzq.platform.controller.BaseController;
 import cn.xsdzq.platform.entity.lcj.PrizeEntity;
+import cn.xsdzq.platform.model.lcj.BatchPrizeJsonDTO;
 import cn.xsdzq.platform.model.lcj.PrizeDTO;
 import cn.xsdzq.platform.service.lcj.MyPrizeService;
 import cn.xsdzq.platform.service.lcj.PrizeService;
@@ -84,11 +85,13 @@ public class PrizeController extends BaseController {
 		}
 		return GsonUtil.buildMap(0, "ok", infoDTOs);
 	}
-	@RequestMapping(value = "/addPrize", method = GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/addPrize", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Map<String, Object> addPrize(HttpServletRequest request, @RequestParam String batchPrizeJson) {
+	public Map<String, Object> addPrize(HttpServletRequest request, @RequestBody BatchPrizeJsonDTO jsondto) {
 		//解析json,批量添加
-		List<PrizeDTO> dtoList = JSON.parseArray(batchPrizeJson,PrizeDTO.class);
+		System.out.println("shanchu111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111");
+		System.out.println("batchPrizeJson: "+jsondto.getBatchPrizeJson());
+		List<PrizeDTO> dtoList = JSON.parseArray(jsondto.getBatchPrizeJson(),PrizeDTO.class);
 		for(PrizeDTO dto : dtoList) {
 			PrizeEntity entity = LcjUtil.convertEntityByPrizeDTO(dto);
 			Date date = new Date();
