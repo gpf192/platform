@@ -26,18 +26,21 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
+	@Transactional
 	public void addProduct(ProductEntity entity) {
 		// TODO Auto-generated method stub
 		productRepository.addProduct(entity);
 	}
 
 	@Override
+	@Transactional
 	public void deleteProduct(ProductEntity entity) {
 		// TODO Auto-generated method stub
 		productRepository.deleteProduct(entity);
 	}
 
 	@Override
+	@Transactional
 	public void modifyProduct(ProductEntity entity) {
 		// TODO Auto-generated method stub
 		productRepository.modifyProduct(entity);
