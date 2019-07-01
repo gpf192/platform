@@ -39,6 +39,9 @@
                 &nbsp
                 <input type="button" value="查询" class="btn btn-primary"
                             ng-click="getCheckInfosByCategoryId(10)" />
+                   &nbsp         
+                 <input type="button" value="添加" class="btn btn-primary"
+                            ng-click="addParticipants()" />
             </form>
             <hr />
             <div class="row hide" ng-show="empList.length>0">
@@ -67,7 +70,19 @@
                 class="datatable table table-striped table-bordered table-hover dataTable text-center"
                 aria-describedby="datatable1_info">
                 <thead>
+                    <div>
+                        <button  type="button" class="btn btn-info btn-sm"
+                                    ng-click="batchModifyInfo()">
+                                    <i class="fa fa-pencil-square-o"></i><span> 编辑</span>
+                        </button>
+                        &nbsp &nbsp
+                        <button  type="button" class="btn btn-danger btn-sm"
+                                    ng-click="batchDeleteInfo()">
+                                    <i class="fa fa-trash-o"></i><span> 删除</span>
+                        </button>
+                     </div>
                     <tr role="row">
+                      <th class="col-sm-1 text-center"><input type="checkbox" ng-click="selectAll($event)" ng-checked="isSelectedAll()" /></th>
                         <th class="col-sm-1 text-center" >序号</th>
                         <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">人员姓名</div></th>
@@ -86,14 +101,13 @@
                             aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">隶属营业部</div></th> 
                           <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">隶属赛区</div></th> 
-                          <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">修改</div></th> 
-                          <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">删除</div></th> 
+       
                     </tr>
                 </thead>
                 <tbody role="alert" aria-live="polite" aria-relevant="all">
                     <tr ng-repeat="emp in empList | filter:{title:search}">
+                        <td >
+                            <input type="checkbox" name="selected" ng-checked="isSelected(product.id)" ng-click="updateSelection($event,product.id)" /></td>  
                         <td width="100">{{$index+selectNum["num"]*currentPage.page+1}}</td>
                         <td ><div style="white-space:nowrap;">{{emp.emp_name}}</div></td> 
                         <td ><div style="white-space:nowrap;">{{emp.emp_code}}</div></td>
@@ -103,10 +117,6 @@
                         <td ><div style="white-space:nowrap;">{{emp.entry_time}}</div></td>
                         <td ><div style="white-space:nowrap;">{{emp.sales_department}}</div></td>
                         <td ><div style="white-space:nowrap;">{{emp.division}}</div></td>
-                <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">修改</th>
-                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">删除</th>
                     </tr>
                 </tbody>
                 <tfoot>

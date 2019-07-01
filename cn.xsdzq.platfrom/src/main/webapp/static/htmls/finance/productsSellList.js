@@ -28,7 +28,7 @@ function productsSellListController($scope, $http, $state, httpUtils, layerUtils
 			$scope.selectNum = $scope.selectNumList[0];	
 			$scope.$watch("selectNum.num", function(newValue, oldValue) {
 				if (newValue != oldValue) {
-					$scope.getInfosByCategoryId(newValue);
+					$scope.getWinPrizeList(newValue);
 					$scope.currentPage.page=0;
 				}
 			}, true);

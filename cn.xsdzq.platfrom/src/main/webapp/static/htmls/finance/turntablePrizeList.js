@@ -74,8 +74,8 @@ function turntablePrizeListController($scope, $http, $state, httpUtils, layerUti
 				//如果不满足的话就让添加并且更新列表 
 				var newProduct = {name:$scope.formData.name,amount:$scope.formData.amount,pice:$scope.formData.pice,rate:$scope.formData.rate};
 				$scope.newPrizeList.push(newProduct);
-				console.log("newPrizeList="+JSON.stringify($scope.newPrizeList));
-				console.log("customaryPrizeList="+JSON.stringify(customaryPrizeList));
+				console.log("newPrizeList="+angular.toJson($scope.newPrizeList));
+				console.log("customaryPrizeList="+angular.toJson(customaryPrizeList));
 				$scope.formData.name="";
 				$scope.formData.pice="";
 				$scope.formData.amount="";
@@ -96,15 +96,15 @@ function turntablePrizeListController($scope, $http, $state, httpUtils, layerUti
 		if($scope.newPrizeList.length >= 8) {
 			//如果满足8个产品
 			//比较现在修改过的对象和原来的对象是否一致
-			if(JSON.stringify(customaryPrizeList) == JSON.stringify($scope.newPrizeList)) {
-				console.log("customaryPrizeList="+JSON.stringify(customaryPrizeList));
-				console.log("newPrizeList="+JSON.stringify($scope.newPrizeList));
+			if(angular.toJson(customaryPrizeList) == angular.toJson($scope.newPrizeList)) {
+				console.log("customaryPrizeList="+angular.toJson(customaryPrizeList));
+				console.log("newPrizeList="+angular.toJson($scope.newPrizeList));
 				//如果一致提示没有奖品更新
 				layerUtils.iMsg(-1,"奖品没有更新");
 			}else {
 				//如果不一致提交更新
 				var url = httpUtils.url.addPrize;
-				$http.get(url,{batchPrizeJson:angular.toJson($scope.newPrizeList)}).success(function(data) {
+				$http.post(url,{batchPrizeJson:angular.toJson($scope.newPrizeList)}).success(function(data) {
 					if (data.resCode == 0) {
 						layerUtils.iMsg(-1,"奖品添加成功");
 						customaryPrizeList =[].concat($scope.newPrizeList); ;
