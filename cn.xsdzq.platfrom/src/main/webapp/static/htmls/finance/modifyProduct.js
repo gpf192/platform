@@ -1,5 +1,5 @@
 ngApp.$inject = ['$scope', '$http', '$state', '$stateParams', 'httpUtils', 'layerUtils', 'utils'];
-function modifyUserController($scope, $http, $state, $stateParams, httpUtils, layerUtils, utils) {
+function modifyProductController($scope, $http, $state, $stateParams, httpUtils, layerUtils, utils) {
 	
 	$scope.formData = {};
 	$scope.init=function(){
@@ -39,19 +39,12 @@ function modifyUserController($scope, $http, $state, $stateParams, httpUtils, la
 			layerUtils.iMsg(-1, "产品类型不能为空");
 			return;
 		}
-		if (angular.isEmpty($scope.formData.name)) {
-			layerUtils.iMsg(-1, "产品名称不能为空");
-			return;
-		}
+
 		if (angular.isEmpty($scope.formData.begin_date)) {
 			layerUtils.iMsg(-1, "产品开放时间不能为空");
 			return;
 		}
 		
-		if (angular.isEmpty($scope.formData.begin_date)) {
-			layerUtils.iMsg(-1, "产品开放时间不能为空");
-			return;
-		}
 		if (angular.isEmpty($scope.formData.coefficient)) {
 			layerUtils.iMsg(-1, "产品系数不能为空");
 			return;
@@ -63,10 +56,19 @@ function modifyUserController($scope, $http, $state, $stateParams, httpUtils, la
 	
 		console.log($scope.formData);
 		var url = httpUtils.url.modifyProduct;
-		$http.post(url, $scope.formData).success(function(data) {
+		
+		var newProduct = {
+				id:$stateParams.product.id,
+				code:$scope.formData.code,
+				name:$scope.formData.name,
+				type:$scope.formData.type,
+				begin_date:$scope.formData.begin_date,
+				coefficient:$scope.formData.coefficient	
+		}
+		$http.post(url, newProduct).success(function(data) {
 			if (data.resCode == 0) {
 				layerUtils.iAlert("修改成功",function(){
-					$state.go("userlist");
+					$state.go("activityProductsList");
 				});
 			} else {
 				layerUtils.iMsg(-1,"修改失败");

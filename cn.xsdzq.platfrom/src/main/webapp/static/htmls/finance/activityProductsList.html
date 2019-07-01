@@ -15,12 +15,6 @@
         </div>
     </div>
     <div class="box-body">
-       <button type="button" ng-click="exportToExcel()"
-                                    class="btn btn-default btn-primary">批量新增</button>
-       <button type="button" ng-click="newBuild()"
-                                    class="btn btn-default btn-primary">新增</button>
-                                     <button type="button" ng-click="exportToExcel()"
-                                    class="btn btn-default btn-primary">导出</button>
         <div  class="dataTables_wrapper form-inline" role="grid">
             <div class="row hide" ng-show="activityProductsList.length>0">
                 <div class="col-sm-12">
@@ -45,12 +39,32 @@
                 </div>
             </div>
             
-                        <table id="datatable1" cellpadding="0" cellspacing="0" border="0" width="80%"
+              <table id="datatable1" cellpadding="0" cellspacing="0" border="0" width="80%"
                 class="datatable table table-striped table-bordered table-hover dataTable text-center"
                 aria-describedby="datatable1_info">
-                <thead>           
+                <thead>
+                        <div>
+                   <button type="button" ng-click="exportToExcel()"
+                                    class="btn btn-default btn-primary">批量新增</button>
+       <button type="button" ng-click="newBuild()"
+                                    class="btn btn-default btn-primary">新增</button>
+                                     <button type="button" ng-click="exportToExcel()"
+                                    class="btn btn-default btn-primary">导出</button>
+                        &nbsp &nbsp
+                        <button  type="button" class="btn btn-info btn-sm"
+                                    ng-click="batchModifyInfo()">
+                                    <i class="fa fa-pencil-square-o"></i><span> 编辑</span>
+                        </button>
+                        &nbsp &nbsp
+                        <button  type="button" class="btn btn-danger btn-sm"
+                                    ng-click="batchDeleteInfo()">
+                                    <i class="fa fa-trash-o"></i><span> 删除</span>
+                        </button>
+                        
+                     </div>
+                     &nbsp           
                     <tr role="row">
-                    
+                        <th class="col-sm-1 text-center"><input type="checkbox" ng-click="selectAll($event)" ng-checked="isSelectedAll()" /></th>
                         <th class="col-sm-1 text-center">序号</th>        
                         <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1">产品代码</th>
@@ -62,21 +76,24 @@
                             aria-controls="datatable1" rowspan="1" colspan="1">开放时间</th>
                         <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1">票数系数</th>
-                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                       <!--<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1">修改</th>
                         <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1">删除</th>
+                        -->
                     </tr>
                 </thead>
                 <tbody role="alert" aria-live="polite" aria-relevant="all">
                     <tr ng-repeat="product in activityProductsList">
-                        <td >
+                    <td >
+                            <input type="checkbox" name="selected" ng-checked="isSelected(product.id)" ng-click="updateSelection($event,product.id)" /></td>  
                         <td >{{$index+selectNum["num"]*currentPage.page+1}}</td>
                         <td ><div style="white-space:nowrap;" >{{product.code}}</div> </td> 
                         <td ><div style="white-space:nowrap;" >{{product.name}}</div> </td> 
                         <td ><div style="white-space:nowrap;">{{product.type}}</div> </td>
                         <td ><div style="white-space:nowrap;">{{product.begin_date}}</div> </td>
                         <td ><div style="white-space:nowrap;">{{product.coefficient}}</div> </td>
+                        <!--
                         <td class="col-sm-1 text-center">
                             <div>
                                 <button type="button" class="btn btn-warning btn-sm"
@@ -93,6 +110,7 @@
                                 </button>
                             </div>
                         </td>
+                          -->
                     </tr>
                 </tbody>
                 <tfoot>
