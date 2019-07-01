@@ -25,6 +25,7 @@ import cn.xsdzq.platform.model.lcj.PrizeRecordDTO;
 import cn.xsdzq.platform.service.lcj.PrizeRecordService;
 import cn.xsdzq.platform.util.GsonUtil;
 import cn.xsdzq.platform.util.LcjUtil;
+import cn.xsdzq.platform.util.MethodUtil;
 
 @Controller
 @RequestMapping("/prizeRecord")
@@ -37,7 +38,7 @@ public class PrizeRecordController {
 	@RequestMapping(value = "/getPrizeRecord", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> getPrizeRecord(HttpServletRequest request,  
-//			@RequestParam String beginTime, @RequestParam String endTime, 
+			@RequestParam String beginTime, @RequestParam String endTime, @RequestParam String prizeName, @RequestParam String account, 
 			 @RequestParam int pageNumber,@RequestParam int pageSize) {
 		System.out.println("全量查询中奖纪录    +   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 		Date endDate = null;
@@ -45,12 +46,83 @@ public class PrizeRecordController {
 		
 		int sum = 0 ;
 		List<PrizeRecordEntity> entitys = null;
-		//int num = MethodUtil.getMethodNum(beginTime,endTime);
-		
+		int num = MethodUtil.getPrizeRecordMethodNum(beginTime, endTime, prizeName, account);
+		if(num == 1) {
+			//全量查找
 			entitys = prizeRecordService.getAllPrizeRecord(pageNumber, pageSize);
 			sum = prizeRecordService.countAll();
-		
-	
+		}
+		if(num == 2) {
+			//全量查找
+			entitys = prizeRecordService.getAllPrizeRecord(pageNumber, pageSize);
+			sum = prizeRecordService.countAll();
+		}		
+		if(num == 3) {
+			//全量查找
+			entitys = prizeRecordService.getAllPrizeRecord(pageNumber, pageSize);
+			sum = prizeRecordService.countAll();
+		}		
+		if(num == 4) {
+			//全量查找
+			entitys = prizeRecordService.getAllPrizeRecord(pageNumber, pageSize);
+			sum = prizeRecordService.countAll();
+		}	
+		if(num == 5) {
+			//全量查找
+			entitys = prizeRecordService.getAllPrizeRecord(pageNumber, pageSize);
+			sum = prizeRecordService.countAll();
+		}
+		if(num == 6) {
+			//全量查找
+			entitys = prizeRecordService.getAllPrizeRecord(pageNumber, pageSize);
+			sum = prizeRecordService.countAll();
+		}		
+		if(num == 7) {
+			//全量查找
+			entitys = prizeRecordService.getAllPrizeRecord(pageNumber, pageSize);
+			sum = prizeRecordService.countAll();
+		}		
+		if(num == 8) {
+			//全量查找
+			entitys = prizeRecordService.getAllPrizeRecord(pageNumber, pageSize);
+			sum = prizeRecordService.countAll();
+		}		
+		if(num == 9) {
+			//全量查找
+			entitys = prizeRecordService.getAllPrizeRecord(pageNumber, pageSize);
+			sum = prizeRecordService.countAll();
+		}
+		if(num == 10) {
+			//全量查找
+			entitys = prizeRecordService.getAllPrizeRecord(pageNumber, pageSize);
+			sum = prizeRecordService.countAll();
+		}		
+		if(num == 11) {
+			//全量查找
+			entitys = prizeRecordService.getAllPrizeRecord(pageNumber, pageSize);
+			sum = prizeRecordService.countAll();
+		}		
+		if(num == 12) {
+			//全量查找
+			entitys = prizeRecordService.getAllPrizeRecord(pageNumber, pageSize);
+			sum = prizeRecordService.countAll();
+		}
+		if(num == 13) {
+			//全量查找
+			entitys = prizeRecordService.getAllPrizeRecord(pageNumber, pageSize);
+			sum = prizeRecordService.countAll();
+		}		
+		if(num == 14) {
+			//全量查找
+			entitys = prizeRecordService.getAllPrizeRecord(pageNumber, pageSize);
+			sum = prizeRecordService.countAll();
+		}
+		if(num == 15) {
+			//全量查找
+			entitys = prizeRecordService.getAllPrizeRecord(pageNumber, pageSize);
+			sum = prizeRecordService.countAll();
+		}		
+
 					
 		List<PrizeRecordDTO> prizeRecordDTOs = new ArrayList<PrizeRecordDTO>();
 		for (PrizeRecordEntity entity : entitys) {

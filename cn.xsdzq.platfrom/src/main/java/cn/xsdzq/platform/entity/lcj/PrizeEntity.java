@@ -52,7 +52,7 @@ public class PrizeEntity implements Serializable {
 	@Column(name = "winning_number")//中奖人数
 	private Integer winning_number;
 	
-
+	
 	public long getId() {
 		return id;
 	}
