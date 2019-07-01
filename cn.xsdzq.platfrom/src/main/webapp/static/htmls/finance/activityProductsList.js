@@ -14,7 +14,7 @@ function activityProductsListController($scope, $http, $state, $stateParams, $gr
 				}
 			}
 		$scope.$emit("changeNavigation", data);
-		$scope.getActivityProductsList(10);
+		$scope.getActivityProductsList(20000);
 		
 		$scope.currentPage = {
 				page : 0
@@ -91,11 +91,21 @@ function activityProductsListController($scope, $http, $state, $stateParams, $gr
         	layerUtils.iMsg(-1, "请选择单条记录编辑！");
 			return;
         }
+		
+		for (var h = 0; h < $scope.selected.length; h++) {			
+        	var infoId = $scope.selected[h];	
+  	      for (var i = 0; i < $scope.activityProductsList.length; i++) {
+		        var tempInfo = $scope.activityProductsList[i];
+		        if(tempInfo.id == infoId){
+		        	var param = tempInfo;
+		        }
+		      }        	
+        } 
+
 		layerUtils.iConfirm("是否修该此产品信息？", function() {
-			var product = $scope.activityProductsList[$scope.selected[0]-1];
-			console.log(product);
+			console.log(param);
 			$state.go("modifyProduct", {
-				product : product
+				product : param
 			});
 		}, function() {
 			console.log("取消");
@@ -109,17 +119,62 @@ function activityProductsListController($scope, $http, $state, $stateParams, $gr
 			return;
         }
 		
+		for (var h = 0; h < $scope.selected.length; h++) {			
+        	var infoId = $scope.selected[h];	
+  	      for (var i = 0; i < $scope.activityProductsList.length; i++) {
+		        var tempInfo = $scope.activityProductsList[i];
+		        if(tempInfo.id == infoId){
+		        	var param = tempInfo;
+		        }
+		      }        	
+        } 
+		
 		layerUtils.iConfirm("是否删除该产品？", function() {
 			var url = httpUtils.url.deleteProduct;
-			var param = $scope.activityProductsList[$scope.selected[0]-1];
 			$http.post(url, param).success(function(data) {
 				if (data.resCode == 0) {
 					layerUtils.iMsg(-1, "删除成功");
-					$scope.getInfosByCategoryId(10);
+					$scope.selected = [];
+					$scope.getActivityProductsList(20000);
 				}
 			});
 		}, function() {
 			console.log("取消");
 		});
+	}
+	
+
+	//导出为excel
+	$scope.exportToExcel=function(){ 
+		console.log("lalal")
+		var excelArrs = getExcelData();
+		var myDate = new Date();
+		 alasql.promise('SELECT * INTO XLSX("参与活动产品表-' + myDate+ '.xlsx",{headers:true}) FROM ?',[excelArrs])
+			.then(function (data) {
+			  if(data == 1){
+				$timeout(function(){
+				  console.log('数据导出成功！');
+				})
+			  }
+			});
+	};
+	 
+	//组装ecxel数据
+	function getExcelData() {
+		var arr =[];
+		angular.forEach($scope.activityProductsList, function(data, index, datas) {
+			var newObj = {	
+				
+			};
+			for(k=0;k<$scope.activityProductsList.length;k++){				
+				newObj["产品代码"] = 	data.code;
+				newObj["产品名称"] = 	data.name;
+				newObj["产品类型"] = 	data.type;
+				newObj["开放时间"] = 	data.begin_date;
+				newObj["票数系数"] = 	data.coefficient;
+			}
+			arr.push(newObj);
+		});
+		return arr;
 	}
 }

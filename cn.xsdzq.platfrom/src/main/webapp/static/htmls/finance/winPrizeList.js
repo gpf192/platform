@@ -1,5 +1,5 @@
-ngApp.$inject = ['$scope', '$http', '$state', 'httpUtils', 'layerUtils', '$stateParams', '$gridService'];
-function winPrizeListController($scope, $http, $state, httpUtils, layerUtils, $stateParams, $gridService) {
+ngApp.$inject = ['$scope', '$http', '$state', 'httpUtils', 'layerUtils', '$stateParams', '$gridService','utils'];
+function winPrizeListController($scope, $http, $state, httpUtils, layerUtils, $stateParams, $gridService,utils) {
 	
 	$scope.formData = {};
 	$scope.prizeList = [];
@@ -18,7 +18,7 @@ function winPrizeListController($scope, $http, $state, httpUtils, layerUtils, $s
 		$scope.$emit("changeNavigation", data);
 		$scope.formData.beginTime = '';
 		$scope.formData.endTime = '';
-		$scope.getWinPrizeList(10);
+		$scope.getWinPrizeList(20000);
 		$scope.currentPage = {
 				page : 0
 			};
@@ -46,11 +46,29 @@ function winPrizeListController($scope, $http, $state, httpUtils, layerUtils, $s
 				return;
 			}
 		}
+		var beginTime = "";
+		var endTime = "";
+		var account = "";
+		var prizeName = "";
+		if(!utils.isEmpty($scope.formData.beginTime)) {
+			beginTime = $scope.formData.beginTime;
+		}
+		if(!utils.isEmpty($scope.formData.endTime)) {
+			endTime = $scope.formData.endTime;
+		}
+		if(!utils.isEmpty($scope.formData.account)) {
+			account = $scope.formData.account;
+		}
+		if(!utils.isEmpty($scope.formData.prizeName)) {
+			prizeName = $scope.formData.prizeName;
+		}
 		
 		var url = httpUtils.url.winPrizeList;
 		var params = {
-			beginTime : $scope.formData.beginTime,
-			endTime : $scope.formData.endTime,
+			beginTime : beginTime,
+			endTime : endTime,
+			account :account,
+			prizeName : prizeName,
 			pageNumber : 0,
 			pageSize : pageSize
 		};
@@ -63,6 +81,42 @@ function winPrizeListController($scope, $http, $state, httpUtils, layerUtils, $s
 		var tableElement = angular.element("#datatable1");
 		$gridService.queryTableDatas($scope, tableElement, params, settings, $http);
 	};
+	
+	
+
+	//导出为excel
+	$scope.exportToExcel=function(){ 
+		var excelArrs = getExcelData();
+		var myDate = new Date();
+		 alasql.promise('SELECT * INTO XLSX("中奖记录表-' + myDate+ '.xlsx",{headers:true}) FROM ?',[excelArrs])
+			.then(function (data) {
+			  if(data == 1){
+				$timeout(function(){
+				  console.log('数据导出成功！');
+				})
+			  }
+			});
+	};
+	 
+	//组装ecxel数据
+	function getExcelData() {
+		var arr =[];
+		angular.forEach($scope.prizeList, function(data, index, datas) {
+			var newObj = {	
+				
+			};
+			for(k=0;k<$scope.prizeList.length;k++){				
+				newObj["中奖用户姓名"] = 	data.username;
+				newObj["中奖用户资金账号"] = 	data.account;
+				newObj["奖品名称"] = 	data.prizeName;
+				newObj["中奖时间"] = 	data.createtime;
+				
+			}
+			arr.push(newObj);
+		});
+		return arr;
+	}
+	 
 	
 }
 

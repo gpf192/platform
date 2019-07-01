@@ -25,7 +25,7 @@
                 </div>
                 &nbsp
                 <div class="form-group ">
-                    <label  for="searchTitle">人员编号:</label>                 
+                    <label  for="emp_code">人员编号:</label>                 
                         <input type="text" class="form-control input-300 " id="emp_code" name="emp_code"
                         ng-model="formData.emp_code" placeholder="请输入人员编号"></input>
 
@@ -105,9 +105,9 @@
                     </tr>
                 </thead>
                 <tbody role="alert" aria-live="polite" aria-relevant="all">
-                    <tr ng-repeat="emp in empList | filter:{title:search}">
+                    <tr ng-repeat="emp in empList">
                         <td >
-                            <input type="checkbox" name="selected" ng-checked="isSelected(product.id)" ng-click="updateSelection($event,product.id)" /></td>  
+                            <input type="checkbox" name="selected" ng-checked="isSelected(emp.id)" ng-click="updateSelection($event,emp.id)" /></td>  
                         <td width="100">{{$index+selectNum["num"]*currentPage.page+1}}</td>
                         <td ><div style="white-space:nowrap;">{{emp.emp_name}}</div></td> 
                         <td ><div style="white-space:nowrap;">{{emp.emp_code}}</div></td>

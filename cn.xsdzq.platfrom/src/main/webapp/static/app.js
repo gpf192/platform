@@ -192,7 +192,8 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 	}).state("modifyParticipants", {
 		url : "/modifyParticipants",
 		templateUrl : "htmls/finance/modifyParticipants.html",
-		controller : "modifyParticipantsController"
+		controller : "modifyParticipantsController",
+		params:{participant:{}}
 	}).state("addProduct", {
 		url : "/addProduct",
 		templateUrl : "htmls/finance/addProduct.html",

@@ -21,7 +21,7 @@
             <form class="form-inline margin10">
     
                 <div class="form-group">
-                    <label for="dtp_input2" >预约时间-起始</label>
+                    <label for="dtp_input2" >中奖时间-起始</label>
                     <div class="input-group date form_date col-md-5" data-date="" data-date-format="yyyy-MM-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
                         <input class="form-control" ng-model="formData.beginTime" size="16" type="text" value="" readonly>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
@@ -30,7 +30,7 @@
                     <input type="hidden" id="dtp_input2" value="" /><br/>
                 </div>
                                 <div class="form-group">
-                    <label for="dtp_input2" >预约时间-截止</label>
+                    <label for="dtp_input2" >中奖时间-截止</label>
                     <div class="input-group date form_date col-md-5" data-date="" data-date-format="yyyy-MM-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
                         <input class="form-control" ng-model="formData.endTime"  size="16" type="text" value="" readonly>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
@@ -46,12 +46,19 @@
 
                 </div>
                 &nbsp
-                
+                 
+                <div class="form-group ">
+                    <label  for="emp_name">资金账号:</label>                 
+                        <input type="text" class="form-control input-300 " id="account" name="account"
+                        ng-model="formData.account" placeholder="请输入资金账号"></input>
+
+                </div>
+                 &nbsp
                 <input type="button" value="查询" class="btn btn-primary"
-                            ng-click="getWinPrizeList(10)" />
+                            ng-click="getWinPrizeList(20000)" />
                 &nbsp
                 <input type="button" value="导出" class="btn btn-primary"
-                            ng-click="getCheckInfosByCategoryId(10)" />
+                            ng-click="exportToExcel()" />
             </form>
             <hr />
         

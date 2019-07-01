@@ -1,6 +1,7 @@
-ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils' ];
-function participantsListController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils) {
+ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils','utils'];
+function participantsListController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils,utils) {
 	$scope.empList= [];
+	$scope.formData = {};
 	$scope.init=function(){
 		var data = {
 				"one" : {
@@ -14,13 +15,13 @@ function participantsListController($scope, $http, $state, $stateParams, $gridSe
 				}
 			}
 		$scope.$emit("changeNavigation", data);
-		$scope.getEmpList(10);
+		$scope.getEmpList(20000);
 		$scope.currentPage = {
 				page : 0
 			};
 			$scope.selectNumList = [{
 				num : 10
-			}, {
+			}, {			
 				num : 50
 			}, {
 				num : 100
@@ -69,7 +70,22 @@ function participantsListController($scope, $http, $state, $stateParams, $gridSe
 	}
 	$scope.getEmpList = function(pageSize) {
 		var url = httpUtils.url.participantsList;
+		var emp_name = "";
+		var emp_code = "";
+		var sales_department = "";
+		if(!utils.isEmpty($scope.formData.emp_name)) {
+			emp_name = $scope.formData.emp_name;
+		}
+		if(!utils.isEmpty($scope.formData.emp_code)) {
+			emp_code = $scope.formData.emp_code;
+		}
+		if(!utils.isEmpty($scope.formData.sales_department)) {
+			sales_department = $scope.formData.sales_department;
+		}
 		var params = {
+			emp_name : emp_name,
+			emp_code : emp_code,
+			sales_department : sales_department,
 			pageNumber : 0,
 			pageSize : pageSize
 		};
@@ -90,11 +106,19 @@ function participantsListController($scope, $http, $state, $stateParams, $gridSe
         	layerUtils.iMsg(-1, "请选择单条记录编辑！");
 			return;
         }
+		for (var h = 0; h < $scope.selected.length; h++) {			
+        	var infoId = $scope.selected[h];	
+  	      for (var i = 0; i < $scope.empList.length; i++) {
+		        var tempInfo = $scope.empList[i];
+		        if(tempInfo.id == infoId){
+		        	var param = tempInfo;
+		        }
+		      }        	
+        }
+		console.log(param);
 		layerUtils.iConfirm("是否修该此产品信息？", function() {
-			var product = $scope.empList[$scope.selected[0]-1];
-			console.log(product);
 			$state.go("modifyParticipants", {
-				product : product
+				participant : param
 			});
 		}, function() {
 			console.log("取消");
@@ -107,14 +131,22 @@ function participantsListController($scope, $http, $state, $stateParams, $gridSe
         	layerUtils.iMsg(-1, "请选择单条记录删除！");
 			return;
         }
-		
+		for (var h = 0; h < $scope.selected.length; h++) {			
+        	var infoId = $scope.selected[h];	
+  	      for (var i = 0; i < $scope.empList.length; i++) {
+		        var tempInfo = $scope.empList[i];
+		        if(tempInfo.id == infoId){
+		        	var param = tempInfo;
+		        }
+		      }        	
+        } 
 		layerUtils.iConfirm("是否删除该产品？", function() {
-			var url = httpUtils.url.deleteProduct;
-			var param = $scope.empList[$scope.selected[0]-1];
+			var url = httpUtils.url.deleteEmp;
 			$http.post(url, param).success(function(data) {
 				if (data.resCode == 0) {
 					layerUtils.iMsg(-1, "删除成功");
-					$scope.getInfosByCategoryId(10);
+					$scope.selected = [];
+					$scope.getEmpList(20000);
 				}
 			});
 		}, function() {

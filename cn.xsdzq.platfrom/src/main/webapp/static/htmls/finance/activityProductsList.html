@@ -1,3 +1,5 @@
+<script src="././exporttable/alasql.min.js" type="text/javascript"></script>
+<script src="././exporttable/xlsx.core.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="htmls/finance/activityProductsList.js"></script>
 <div class="box border primary" ng-init="init()">
     <div class="box-title">
@@ -76,11 +78,6 @@
                             aria-controls="datatable1" rowspan="1" colspan="1">开放时间</th>
                         <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1">票数系数</th>
-                       <!--<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">修改</th>
-                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">删除</th>
-                        -->
                     </tr>
                 </thead>
                 <tbody role="alert" aria-live="polite" aria-relevant="all">
@@ -115,7 +112,7 @@
                 </tbody>
                 <tfoot>
             </table>
-            <div class="row hide">
+       <div class="row hide">
                 <div class="col-sm-12" ng-model="pagination">
                     <div class="pull-left">
                         <div class="dataTables_info" id="datatable1_info">
@@ -142,7 +139,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="clearfix"></div>
+                    <div class="clearfix"></div>    
                 </div>
             </div>
         </div>
