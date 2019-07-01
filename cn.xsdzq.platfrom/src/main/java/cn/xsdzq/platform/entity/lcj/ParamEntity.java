@@ -19,13 +19,13 @@ public class ParamEntity {
 	@Column(name = "id")
 	private long id;
 	
-	@Column(name = "title")
+	@Column(name = "title", length = 500)
 	private String title;//参数描述
 	
-	@Column(name = "code")
+	@Column(name = "code", unique = true, length = 500)
 	private String code;//参数code
 	
-	@Column(name = "value")
+	@Column(name = "value", length = 500)
 	private String value;//参数值
 
 	public long getId() {
