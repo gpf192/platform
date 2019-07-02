@@ -1,5 +1,7 @@
 package cn.xsdzq.platform.entity.lcj;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -32,7 +34,7 @@ public class PrizeRecordEntity {
 	private String prizeName;
 	
 	@Column(name = "createtime")
-	private String createtime;
+	private Date createtime;
 
 	
 
@@ -60,11 +62,13 @@ public class PrizeRecordEntity {
 		this.prizeName = prizeName;
 	}
 
-	public String getCreatetime() {
+	
+
+	public Date getCreatetime() {
 		return createtime;
 	}
 
-	public void setCreatetime(String createtime) {
+	public void setCreatetime(Date createtime) {
 		this.createtime = createtime;
 	}
 
