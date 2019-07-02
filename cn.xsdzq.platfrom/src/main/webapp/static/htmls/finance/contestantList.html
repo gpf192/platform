@@ -1,3 +1,5 @@
+<script src="././exporttable/alasql.min.js" type="text/javascript"></script>
+<script src="././exporttable/xlsx.core.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="htmls/finance/contestantList.js"></script>
 <div class="box border primary" ng-init="init()">
     <div class="box-title">
@@ -35,7 +37,7 @@
                             ng-click="getCheckInfosByCategoryId(10)" />
                 &nbsp
                 <input type="button" value="导出" class="btn btn-primary"
-                            ng-click="getCheckInfosByCategoryId(10)" />
+                            ng-click="exportToExcel()" />
             </form>
             <hr />
             <div class="row hide" ng-show="empVoteList.length>0">

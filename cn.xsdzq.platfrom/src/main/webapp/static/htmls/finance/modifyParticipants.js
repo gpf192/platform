@@ -17,12 +17,12 @@ function modifyParticipantsController($scope, $http, $state, $stateParams, httpU
 		}
 			
 		$scope.$emit("changeNavigation", data);
-		var flag = utils.isEmptyObject($stateParams.emp);
+		var flag = utils.isEmptyObject($stateParams.participant);
 		if(flag){
 			$state.go("participantsList");
 			return;
 		}
-		angular.copy($stateParams.emp,$scope.formData);
+		angular.copy($stateParams.participant,$scope.formData);
 	};
 	
 
@@ -62,11 +62,11 @@ function modifyParticipantsController($scope, $http, $state, $stateParams, httpU
 //		}
 	
 		console.log($scope.formData);
-		var url = httpUtils.url.modifyProduct;
+		var url = httpUtils.url.modifyEmp;
 		$http.post(url, $scope.formData).success(function(data) {
 			if (data.resCode == 0) {
 				layerUtils.iAlert("修改成功",function(){
-					$state.go("userlist");
+					$state.go("participantsList");
 				});
 			} else {
 				layerUtils.iMsg(-1,"修改失败");
