@@ -1,15 +1,21 @@
 package cn.xsdzq.platform.entity.lcj;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import cn.xsdzq.platform.entity.CategoryEntity;
 
 @Entity
 @Table(name = "lcj_employee_info")
@@ -45,7 +51,14 @@ public class EmpEntity {
 	
 	@Column(name = "division")
 	private String division;//隶属赛区
+	
+	@Column(name = "departmentId", insertable = false, updatable = false)
+	private long departmentId;
 
+	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER, optional = false)
+	@JoinColumn(name = "departmentId", referencedColumnName = "id")
+	private DepartmentEntity departmentEntity;
+	
 	public long getId() {
 		return id;
 	}
@@ -116,6 +129,22 @@ public class EmpEntity {
 
 	public void setDivision(String division) {
 		this.division = division;
+	}
+
+	public long getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(long departmentId) {
+		this.departmentId = departmentId;
+	}
+
+	public DepartmentEntity getDepartmentEntity() {
+		return departmentEntity;
+	}
+
+	public void setDepartmentEntity(DepartmentEntity departmentEntity) {
+		this.departmentEntity = departmentEntity;
 	}
 
 	@Override
