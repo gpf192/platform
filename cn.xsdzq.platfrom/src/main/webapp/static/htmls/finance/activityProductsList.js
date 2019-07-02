@@ -177,4 +177,42 @@ function activityProductsListController($scope, $http, $state, $stateParams, $gr
 		});
 		return arr;
 	}
+	var excelInput = document.getElementById("sendFile");
+	function newBatchesBuild() {
+		excelInput.addEventListener("change",function() {
+
+		});
+	}
+	
+	newBatchesBuild();
+	$scope.newBatchesBuild = function() {
+		if(excelInput.files.length<=0) {
+		 	layerUtils.iMsg(-1, "请选择文件！");
+			return;
+		}
+		var loadExcel;
+		var excelFile = excelInput.files[0];
+	    var reader = new FileReader();
+	    reader.readAsBinaryString(excelFile);
+	    reader.onload = function(e) {
+	    	   var data = e.target.result;
+	    	   loadExcel = XLSX.read(data, {
+                   type: 'binary'
+               });
+               for(var i=0;i<loadExcel.SheetNames.length;i++){
+            	 var data = XLSX.utils.sheet_to_json(loadExcel.Sheets[loadExcel.SheetNames[i]]);
+            	 data.forEach(function(item) {
+            		 var url = httpUtils.url.addProduct;
+            			$http.post(url, item).success(function(data) {
+            				if (data.resCode == 0) {
+            				
+            				} else {
+            					
+            				}
+            			});
+            	 })
+               }
+	    }
+	    
+	}
 }

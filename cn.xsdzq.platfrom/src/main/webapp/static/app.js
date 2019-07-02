@@ -185,7 +185,7 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/participantsList",
 		templateUrl : "htmls/finance/participantsList.html",
 		controller : "participantsListController"
-	}).state("addParticipants", {
+	}).state("addEmp", {
 		url : "/addParticipants",
 		templateUrl : "htmls/finance/addParticipants.html",
 		controller : "addParticipantsController"
