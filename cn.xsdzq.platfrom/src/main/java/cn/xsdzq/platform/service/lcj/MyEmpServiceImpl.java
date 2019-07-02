@@ -31,16 +31,16 @@ public class MyEmpServiceImpl implements MyEmpService{
 	}
 	@Override
 	public int countEmpEntityByEmp_nameAndEmp_codeAndSales_department(String emp_name, String emp_code,
-			String sales_department) {
+			long sales_department) {
 		// TODO Auto-generated method stub
-		return myEmpRepository.countByEmpNameAndEmpCodeAndSalesDepartment(emp_name, emp_code, sales_department);
+		return myEmpRepository.countByEmpNameAndEmpCodeAndDepartmentId(emp_name, emp_code, sales_department);
 	}
 	@Override
 	public List<EmpEntity> findByEmp_nameAndEmp_codeAndSales_departmentOrderByEmp_code(String emp_name, String emp_code,
-			String sales_department, int pageNumber, int pageSize) {
+			long sales_department, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<EmpEntity> pages = myEmpRepository.findByEmpNameAndEmpCodeAndSalesDepartmentOrderByEmpCode(emp_name, emp_code, sales_department, pageable);
+		Page<EmpEntity> pages = myEmpRepository.findByEmpNameAndEmpCodeAndDepartmentIdOrderByEmpCode(emp_name, emp_code, sales_department, pageable);
 		List<EmpEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -71,16 +71,16 @@ public class MyEmpServiceImpl implements MyEmpService{
 		return infos;
 	}
 	@Override
-	public int countEmpEntityBySales_department(String sales_department) {
+	public int countEmpEntityBySales_department(long sales_department) {
 		// TODO Auto-generated method stub
-		return myEmpRepository.countBySalesDepartment(sales_department);
+		return myEmpRepository.countByDepartmentId(sales_department);
 	}
 	@Override
-	public List<EmpEntity> findEmpEntityBySales_departmentOrderByEmp_code(String sales_department, int pageNumber,
+	public List<EmpEntity> findEmpEntityBySales_departmentOrderByEmp_code(long sales_department, int pageNumber,
 			int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<EmpEntity> pages = myEmpRepository.findBySalesDepartmentOrderByEmpCode(sales_department, pageable);
+		Page<EmpEntity> pages = myEmpRepository.findByDepartmentIdOrderByEmpCode(sales_department, pageable);
 		List<EmpEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -99,30 +99,30 @@ public class MyEmpServiceImpl implements MyEmpService{
 		return infos;
 	}
 	@Override
-	public int countEmpEntityByEmp_nameAndSales_department(String emp_name, String sales_department) {
+	public int countEmpEntityByEmp_nameAndSales_department(String emp_name, long sales_department) {
 		// TODO Auto-generated method stub
-		return myEmpRepository.countByEmpNameAndSalesDepartment(emp_name, sales_department);
+		return myEmpRepository.countByEmpNameAndDepartmentId(emp_name, sales_department);
 	}
 	@Override
 	public List<EmpEntity> findEmpEntityByEmp_nameAndSales_departmentOrderByEmp_code(String emp_name,
-			String sales_department, int pageNumber, int pageSize) {
+			long sales_department, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<EmpEntity> pages = myEmpRepository.findByEmpNameAndSalesDepartmentOrderByEmpCode(emp_name, sales_department, pageable);
+		Page<EmpEntity> pages = myEmpRepository.findByEmpNameAndDepartmentIdOrderByEmpCode(emp_name, sales_department, pageable);
 		List<EmpEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
-	public int countEmpEntityByEmp_codeAndSales_department(String emp_code, String sales_department) {
+	public int countEmpEntityByEmp_codeAndSales_department(String emp_code, long sales_department) {
 		// TODO Auto-generated method stub
-		return myEmpRepository.countByEmpCodeAndSalesDepartment(emp_code, sales_department);
+		return myEmpRepository.countByEmpCodeAndDepartmentId(emp_code, sales_department);
 	}
 	@Override
 	public List<EmpEntity> findEmpEntityByEmp_codeAndSales_departmentOrderByEmp_code(String emp_code,
-			String sales_department, int pageNumber, int pageSize) {
+			long sales_department, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<EmpEntity> pages = myEmpRepository.findByEmpCodeAndSalesDepartmentOrderByEmpCode(emp_code, sales_department, pageable);
+		Page<EmpEntity> pages = myEmpRepository.findByEmpCodeAndDepartmentIdOrderByEmpCode(emp_code, sales_department, pageable);
 		List<EmpEntity> infos = pages.getContent();
 		return infos;
 	}
