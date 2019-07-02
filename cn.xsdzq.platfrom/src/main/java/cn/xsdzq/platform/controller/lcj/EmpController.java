@@ -23,14 +23,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.xsdzq.platform.controller.BaseController;
 import cn.xsdzq.platform.entity.lcj.EmpEntity;
-import cn.xsdzq.platform.entity.lcj.ProductEntity;
 import cn.xsdzq.platform.model.Pagination;
 import cn.xsdzq.platform.model.lcj.EmpDTO;
-import cn.xsdzq.platform.model.lcj.ProductDTO;
 import cn.xsdzq.platform.service.lcj.EmpService;
 import cn.xsdzq.platform.service.lcj.MyEmpService;
-import cn.xsdzq.platform.service.lcj.MyPrizeService;
-import cn.xsdzq.platform.service.lcj.PrizeService;
 import cn.xsdzq.platform.util.GsonUtil;
 import cn.xsdzq.platform.util.LcjUtil;
 import cn.xsdzq.platform.util.MethodUtil;
@@ -122,7 +118,7 @@ public class EmpController extends BaseController {
 		//logger.info("action:" + "add" + ";" + name + ";" + "title:" + dto.getTitle() + ";");
 		return GsonUtil.buildMap(0, "ok", null);
 	}
-
+	
 	@RequestMapping(value = "/deleteEmp", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> deleteEmp(HttpServletRequest request, @RequestBody EmpDTO dto) {

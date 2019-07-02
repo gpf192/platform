@@ -1,5 +1,7 @@
 package cn.xsdzq.platform.util;
 
+import cn.xsdzq.platform.entity.CategoryEntity;
+import cn.xsdzq.platform.entity.lcj.DepartmentEntity;
 import cn.xsdzq.platform.entity.lcj.EmpEntity;
 import cn.xsdzq.platform.entity.lcj.EmpVoteEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeEntity;
@@ -7,6 +9,8 @@ import cn.xsdzq.platform.entity.lcj.PrizeRecordEntity;
 import cn.xsdzq.platform.entity.lcj.ProductEntity;
 import cn.xsdzq.platform.entity.lcj.ProductSellEntity;
 import cn.xsdzq.platform.entity.lcj.UserVoteEntity;
+import cn.xsdzq.platform.model.CategoryDTO;
+import cn.xsdzq.platform.model.lcj.DepartmentDTO;
 import cn.xsdzq.platform.model.lcj.EmpDTO;
 import cn.xsdzq.platform.model.lcj.EmpVoteDTO;
 import cn.xsdzq.platform.model.lcj.PrizeDTO;
@@ -52,8 +56,13 @@ public class LcjUtil {
 		
 		dto.setAccount(entity.getAccount());
 		dto.setPrizeName(entity.getPrizeName());
-		dto.setCreatetime(entity.getCreatetime());
-		
+		//dto.setCreatetime(entity.getCreatetime());
+		try {
+			dto.setCreatetime(DateUtil.DateToString(entity.getCreatetime()));		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return dto;
 	}
 	
@@ -156,6 +165,24 @@ public class LcjUtil {
 		dto.setGet_vote_amount(entity.getGet_vote_amount());
 		dto.setGet_vote_time(entity.getGet_vote_time());
 		dto.setVote_from_user(entity.getVote_from_user());
+		return dto;
+	}
+	//部门 department
+	public static DepartmentEntity convertDepartmentEntityByDTO(DepartmentDTO dto) {
+		DepartmentEntity entity = new DepartmentEntity();
+		entity.setId(dto.getId());
+		entity.setCode(dto.getCode());
+		entity.setName(dto.getName());
+		
+		return entity;
+	}
+
+	public static DepartmentDTO convertDepartmentDTOByEntity(DepartmentEntity entity) {
+		DepartmentDTO dto = new DepartmentDTO();
+		dto.setId(entity.getId());
+		dto.setCode(entity.getCode());
+		dto.setName(entity.getName());
+		
 		return dto;
 	}
 }
