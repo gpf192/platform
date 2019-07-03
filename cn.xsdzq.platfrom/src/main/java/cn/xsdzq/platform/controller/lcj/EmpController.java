@@ -54,15 +54,15 @@ public class EmpController extends BaseController {
 	@RequestMapping(value = "/getEmp", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> getEmp(HttpServletRequest request,  
-			@RequestParam String emp_name, @RequestParam String emp_code,  @RequestParam String departmentId, 
+			@RequestParam String emp_name, @RequestParam String emp_code,  @RequestParam String departmentCode, 
 			 @RequestParam int pageNumber,@RequestParam int pageSize) {
 		System.out.println("全量参赛人员信息   +   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 		
 		
 		int sum = 0 ;
 		List<EmpEntity> entitys = null;
-		int num = MethodUtil.getEmpMethodNum(emp_name, emp_code, departmentId);
-		long sales_department = Long.parseLong(departmentId);
+		int num = MethodUtil.getEmpMethodNum(emp_name, emp_code, departmentCode);
+		
 		if(num == 1) {
 			//全量查找
 			entitys = myEmpService.getAllEmp(pageNumber, pageSize);
@@ -70,8 +70,8 @@ public class EmpController extends BaseController {
 		}
 		if(num == 2) {
 			//查询条件 emp_name, emp_code, sales_department
-			entitys = myEmpService.findByEmp_nameAndEmp_codeAndSales_departmentOrderByEmp_code(emp_name, emp_code, sales_department, pageNumber, pageSize);
-			sum = myEmpService.countEmpEntityByEmp_nameAndEmp_codeAndSales_department(emp_name, emp_code, sales_department);
+			entitys = myEmpService.findByEmp_nameAndEmp_codeAndSales_departmentOrderByEmp_code(emp_name, emp_code, departmentCode, pageNumber, pageSize);
+			sum = myEmpService.countEmpEntityByEmp_nameAndEmp_codeAndSales_department(emp_name, emp_code, departmentCode);
 		}
 		if(num == 3) {
 			//查询条件  名字
@@ -85,8 +85,8 @@ public class EmpController extends BaseController {
 		}
 		if(num == 5) {
 			//查询条件  部门
-			entitys = myEmpService.findEmpEntityBySales_departmentOrderByEmp_code(sales_department, pageNumber, pageSize);
-			sum = myEmpService.countEmpEntityBySales_department(sales_department);
+			entitys = myEmpService.findEmpEntityBySales_departmentOrderByEmp_code(departmentCode, pageNumber, pageSize);
+			sum = myEmpService.countEmpEntityBySales_department(departmentCode);
 		}
 		if(num == 6) {
 			//查询条件  姓名、code
@@ -95,13 +95,13 @@ public class EmpController extends BaseController {
 		}
 		if(num == 7) {
 			//查询条件  姓名、部门
-			entitys = myEmpService.findEmpEntityByEmp_nameAndSales_departmentOrderByEmp_code(emp_name, sales_department, pageNumber, pageSize);
-			sum = myEmpService.countEmpEntityByEmp_nameAndSales_department(emp_name, sales_department);
+			entitys = myEmpService.findEmpEntityByEmp_nameAndSales_departmentOrderByEmp_code(emp_name, departmentCode, pageNumber, pageSize);
+			sum = myEmpService.countEmpEntityByEmp_nameAndSales_department(emp_name, departmentCode);
 		}
 		if(num == 8) {
 			//查询条件  code、部门
-			entitys = myEmpService.findEmpEntityByEmp_codeAndSales_departmentOrderByEmp_code(emp_code, sales_department, pageNumber, pageSize);
-			sum = myEmpService.countEmpEntityByEmp_codeAndSales_department(emp_code, sales_department);
+			entitys = myEmpService.findEmpEntityByEmp_codeAndSales_departmentOrderByEmp_code(emp_code, departmentCode, pageNumber, pageSize);
+			sum = myEmpService.countEmpEntityByEmp_codeAndSales_department(emp_code, departmentCode);
 		}
 					
 		List<EmpDTO> empDTOs = new ArrayList<EmpDTO>();
@@ -117,7 +117,7 @@ public class EmpController extends BaseController {
 	@ResponseBody
 	public Map<String, Object> addEmp(HttpServletRequest request, @Validated @RequestBody EmpDTO dto) {
 		EmpEntity entity = LcjUtil.convertEntityByEmpDTO(dto);	
-		DepartmentEntity departmentEntity = departmentService.findDepartmentById(entity.getDepartmentId());
+		DepartmentEntity departmentEntity = departmentService.findDepartmentByCode(entity.getDepartmentCode());
 		entity.setDepartmentEntity(departmentEntity);
 		
 		empService.addEmp(entity);
@@ -130,7 +130,7 @@ public class EmpController extends BaseController {
 	public Map<String, Object> deleteEmp(HttpServletRequest request, @RequestBody EmpDTO dto) {
 		EmpEntity entity = LcjUtil.convertEntityByEmpDTO(dto);
 		
-		DepartmentEntity departmentEntity = departmentService.findDepartmentById(entity.getDepartmentId());
+		DepartmentEntity departmentEntity = departmentService.findDepartmentByCode(entity.getDepartmentCode());
 		entity.setDepartmentEntity(departmentEntity);
 		
 		empService.deleteEmp(entity);
@@ -144,7 +144,7 @@ public class EmpController extends BaseController {
 	@ResponseBody
 	public Map<String, Object> modifyEmp(HttpServletRequest request, @RequestBody EmpDTO dto) {
 		EmpEntity entity = LcjUtil.convertEntityByEmpDTO(dto);			
-		DepartmentEntity departmentEntity = departmentService.findDepartmentById(entity.getDepartmentId());
+		DepartmentEntity departmentEntity = departmentService.findDepartmentByCode(entity.getDepartmentCode());
 		entity.setDepartmentEntity(departmentEntity);
 		empService.modifyEmp(entity);
 		//logger.info("action:" + "modify" + ";" + "user:" + name + ";" + "title:" + dto.getTitle() + ";");

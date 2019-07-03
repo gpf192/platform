@@ -22,6 +22,15 @@ public class UserVoteDTO {
 	private String sales_department;//隶属营业部
 	
 	private String division;//隶属赛区
+	private String sourceId;
+
+	public String getSourceId() {
+		return sourceId;
+	}
+
+	public void setSourceId(String sourceId) {
+		this.sourceId = sourceId;
+	}
 
 	public long getId() {
 		return id;

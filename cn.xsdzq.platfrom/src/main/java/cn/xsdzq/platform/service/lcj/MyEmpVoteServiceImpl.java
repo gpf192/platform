@@ -32,4 +32,51 @@ public class MyEmpVoteServiceImpl implements MyEmpVoteService{
 		List<EmpVoteEntity> infos = pages.getContent();
 		return infos;
 	}
+
+	@Override
+	public List<EmpVoteEntity> findByEmpNameAndVoteFromUserOrderByAccount(String empName, String voteFromUser, int pageNumber,
+			int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		Page<EmpVoteEntity> pages = myEmpVoteRepository.findByEmpNameAndVoteFromUserOrderByAccount(empName, voteFromUser, pageRequest);
+		List<EmpVoteEntity> infos = pages.getContent();
+		return infos;
+	}
+
+	@Override
+	public int countByEmpNameAndVoteFromUser(String empName, String voteFromUser) {
+		// TODO Auto-generated method stub
+		return myEmpVoteRepository.countByEmpNameAndVoteFromUser(empName, voteFromUser);
+	}
+
+	@Override
+	public List<EmpVoteEntity> findByEmpNameOrderByAccount(String empName, int pageNumber, int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		Page<EmpVoteEntity> pages = myEmpVoteRepository.findByEmpNameOrderByAccount(empName,  pageRequest);
+		List<EmpVoteEntity> infos = pages.getContent();
+		return infos;
+	}
+
+	@Override
+	public int countByEmpName(String empName) {
+		// TODO Auto-generated method stub
+		return myEmpVoteRepository.countByEmpName(empName);
+	}
+
+	@Override
+	public List<EmpVoteEntity> findByVoteFromUserOrderByAccount(String voteFromUser, int pageNumber,
+			int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		Page<EmpVoteEntity> pages = myEmpVoteRepository.findByVoteFromUserOrderByAccount(voteFromUser,  pageRequest);
+		List<EmpVoteEntity> infos = pages.getContent();
+		return infos;
+	}
+
+	@Override
+	public int countByVoteFromUser(String voteFromUser) {
+		// TODO Auto-generated method stub
+		return myEmpVoteRepository.countByVoteFromUser(voteFromUser);
+	}
 }

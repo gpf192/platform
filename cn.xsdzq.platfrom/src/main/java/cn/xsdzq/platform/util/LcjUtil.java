@@ -1,6 +1,5 @@
 package cn.xsdzq.platform.util;
 
-import cn.xsdzq.platform.entity.CategoryEntity;
 import cn.xsdzq.platform.entity.lcj.DepartmentEntity;
 import cn.xsdzq.platform.entity.lcj.EmpEntity;
 import cn.xsdzq.platform.entity.lcj.EmpVoteEntity;
@@ -9,7 +8,6 @@ import cn.xsdzq.platform.entity.lcj.PrizeRecordEntity;
 import cn.xsdzq.platform.entity.lcj.ProductEntity;
 import cn.xsdzq.platform.entity.lcj.ProductSellEntity;
 import cn.xsdzq.platform.entity.lcj.UserVoteEntity;
-import cn.xsdzq.platform.model.CategoryDTO;
 import cn.xsdzq.platform.model.lcj.DepartmentDTO;
 import cn.xsdzq.platform.model.lcj.EmpDTO;
 import cn.xsdzq.platform.model.lcj.EmpVoteDTO;
@@ -116,7 +114,7 @@ public class LcjUtil {
 		dto.setEmp_type(entity.getEmpType());
 		dto.setEmp_category(entity.getEmpCategory());
 		dto.setEntry_time(entity.getEntryTime());
-		
+		dto.setDepartmentCode(entity.getDepartmentCode());
 		dto.setContract(entity.getContract());
 		dto.setDivision(entity.getDivision());
 		dto.setSales_department(entity.getSalesDepartment());
@@ -130,7 +128,7 @@ public class LcjUtil {
 		entity.setEmpType(dto.getEmp_type());
 		entity.setEmpCategory(dto.getEmp_category());
 		entity.setEntryTime(dto.getEntry_time());
-		
+		entity.setDepartmentCode(dto.getDepartmentCode());
 		entity.setContract(dto.getContract());
 		entity.setDivision(dto.getDivision());
 		entity.setSalesDepartment(dto.getSales_department());
@@ -143,28 +141,28 @@ public class LcjUtil {
 		dto.setId(entity.getId());
 		dto.setUsername(entity.getUsername());
 		dto.setAccount(entity.getAccount());
-		dto.setTotal_votes(entity.getTotal_votes());
-		dto.setVotes_source(entity.getVotes_source());
-	
-		dto.setGain_time(entity.getGain_time());
-		dto.setVote_for(entity.getVote_for());
-		dto.setVote_for_amount(entity.getVote_for_amount());
+		dto.setTotal_votes(entity.getTotalVotes());
+		dto.setVotes_source(entity.getVotesSource());
+		dto.setSourceId(entity.getSourceId());
+		dto.setGain_time(entity.getGainTime());
+		dto.setVote_for(entity.getVoteFor());
+		dto.setVote_for_amount(entity.getVoteForAmount());
 		dto.setDivision(entity.getDivision());		
-		dto.setSales_department(entity.getSales_department());
+		dto.setSales_department(entity.getSalesDepartment());
 		return dto;
 	}
 	//参赛选手得票记录
 	public static EmpVoteDTO convertEmpVoteDTOByEntity(EmpVoteEntity entity) {		
 		EmpVoteDTO dto = new EmpVoteDTO();
 		dto.setId(entity.getId());
-		entity.setEmp_name(dto.getEmp_name());
-		entity.setEmp_code(dto.getEmp_code());
+		dto.setEmp_name(entity.getEmpName());
+		dto.setEmp_code(entity.getEmpCode());
 		
 		dto.setDivision(entity.getDivision());		
-		dto.setSales_department(entity.getSales_department());
-		dto.setGet_vote_amount(entity.getGet_vote_amount());
-		dto.setGet_vote_time(entity.getGet_vote_time());
-		dto.setVote_from_user(entity.getVote_from_user());
+		dto.setSales_department(entity.getSalesDepartment());
+		dto.setGet_vote_amount(entity.getGetVoteAmount());
+		dto.setGet_vote_time(entity.getGetVoteTime());
+		dto.setVote_from_user(entity.getVoteFromUser());
 		return dto;
 	}
 	//部门 department

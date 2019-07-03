@@ -30,25 +30,36 @@ public class UserVoteEntity {
 	private String account;//资金账号
 	
 	@Column(name = "total_votes")
-	private String total_votes;//所得总票数
+	private String totalVotes;//所得总票数
 	
 	@Column(name = "votes_source")
-	private String votes_source;//得票来源
+	private String votesSource;//得票来源
+	
+	@Column(name = "sourceId")
+	private String sourceId;//得票来源id
 	
 	@Column(name = "gain_time")
-	private String gain_time;//得票时间
+	private String gainTime;//得票时间
 	
 	@Column(name = "vote_for")
-	private String vote_for;//投票对象
+	private String voteFor;//投票对象
 	
 	@Column(name = "vote_for_amount")//使用票数
-	private String vote_for_amount;
+	private String voteForAmount;
 	
 	@Column(name = "sales_department")
-	private String sales_department;//隶属营业部
+	private String salesDepartment;//隶属营业部
 	
 	@Column(name = "division")
 	private String division;//隶属赛区
+
+	public String getSourceId() {
+		return sourceId;
+	}
+
+	public void setSourceId(String sourceId) {
+		this.sourceId = sourceId;
+	}
 
 	public long getId() {
 		return id;
@@ -74,52 +85,52 @@ public class UserVoteEntity {
 		this.account = account;
 	}
 
-	public String getTotal_votes() {
-		return total_votes;
+	public String getTotalVotes() {
+		return totalVotes;
 	}
 
-	public void setTotal_votes(String total_votes) {
-		this.total_votes = total_votes;
+	public void setTotalVotes(String totalVotes) {
+		this.totalVotes = totalVotes;
 	}
 
-	public String getVotes_source() {
-		return votes_source;
+	public String getVotesSource() {
+		return votesSource;
 	}
 
-	public void setVotes_source(String votes_source) {
-		this.votes_source = votes_source;
+	public void setVotesSource(String votesSource) {
+		this.votesSource = votesSource;
 	}
 
-	public String getGain_time() {
-		return gain_time;
+	public String getGainTime() {
+		return gainTime;
 	}
 
-	public void setGain_time(String gain_time) {
-		this.gain_time = gain_time;
+	public void setGainTime(String gainTime) {
+		this.gainTime = gainTime;
 	}
 
-	public String getVote_for() {
-		return vote_for;
+	public String getVoteFor() {
+		return voteFor;
 	}
 
-	public void setVote_for(String vote_for) {
-		this.vote_for = vote_for;
+	public void setVoteFor(String voteFor) {
+		this.voteFor = voteFor;
 	}
 
-	public String getVote_for_amount() {
-		return vote_for_amount;
+	public String getVoteForAmount() {
+		return voteForAmount;
 	}
 
-	public void setVote_for_amount(String vote_for_amount) {
-		this.vote_for_amount = vote_for_amount;
+	public void setVoteForAmount(String voteForAmount) {
+		this.voteForAmount = voteForAmount;
 	}
 
-	public String getSales_department() {
-		return sales_department;
+	public String getSalesDepartment() {
+		return salesDepartment;
 	}
 
-	public void setSales_department(String sales_department) {
-		this.sales_department = sales_department;
+	public void setSalesDepartment(String salesDepartment) {
+		this.salesDepartment = salesDepartment;
 	}
 
 	public String getDivision() {
@@ -132,11 +143,12 @@ public class UserVoteEntity {
 
 	@Override
 	public String toString() {
-		return "UserVoteEntity [id=" + id + ", username=" + username + ", account=" + account + ", total_votes="
-				+ total_votes + ", votes_source=" + votes_source + ", gain_time=" + gain_time + ", vote_for=" + vote_for
-				+ ", vote_for_amount=" + vote_for_amount + ", sales_department=" + sales_department + ", division="
-				+ division + "]";
+		return "UserVoteEntity [id=" + id + ", username=" + username + ", account=" + account + ", totalVotes="
+				+ totalVotes + ", votesSource=" + votesSource + ", sourceId=" + sourceId + ", gainTime=" + gainTime
+				+ ", voteFor=" + voteFor + ", voteForAmount=" + voteForAmount + ", salesDepartment=" + salesDepartment
+				+ ", division=" + division + "]";
 	}
+
 	
 	
 }

@@ -31,6 +31,7 @@ import cn.xsdzq.platform.service.lcj.MyEmpVoteService;
 import cn.xsdzq.platform.service.lcj.MyUserVoteService;
 import cn.xsdzq.platform.util.GsonUtil;
 import cn.xsdzq.platform.util.LcjUtil;
+import cn.xsdzq.platform.util.MethodUtil;
 
 @Controller
 @RequestMapping("/vote")
@@ -49,20 +50,54 @@ public class VoteController extends BaseController {
 	@RequestMapping(value = "/getUserVote", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> getUserVote(HttpServletRequest request,  
-//			@RequestParam String beginTime, @RequestParam String endTime, 
+			@RequestParam String username, @RequestParam String account, @RequestParam String sourceId, 
 			 @RequestParam int pageNumber,@RequestParam int pageSize) {
 		System.out.println("全量查询用户投票数信息   +   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-		/*Date endDate = null;
-		Date beginDate = null;*/
-		
+			
 		int sum = 0 ;
 		List<UserVoteEntity> entitys = null;
-		//int num = MethodUtil.getMethodNum(beginTime,endTime);
-		
+		int num = MethodUtil.getUserVoteMethodNum(username, account, sourceId);
+		if(num == 1) {
+			//全量查找
 			entitys = myUserVoteService.getAll(pageNumber, pageSize);
 			sum = myUserVoteService.countAll();
+		}
+		if(num == 2) {
+			//三个条件一起查询
+			entitys = myUserVoteService.findByUsernameAndAccountAndSourceIdOrderByAccount(username, account, sourceId, pageNumber, pageSize);
+			sum = myUserVoteService.countByUsernameAndAccountAndSourceId(username, account, sourceId);
+		}
+		if(num == 3) {
+			//查询条件：username
+			entitys = myUserVoteService.findByUsernameOrderByAccount(username, pageNumber, pageSize);
+			sum = myUserVoteService.countByUsername(username);
+		}
+		if(num == 4) {
+			//查询条件：account
+			entitys = myUserVoteService.findByAccountOrderByAccount(account, pageNumber, pageSize);
+			sum = myUserVoteService.countByAccount(account);
+		}
+		if(num == 5) {
+			//查询条件：surceId
+			entitys = myUserVoteService.findBySourceIdOrderByAccount(sourceId, pageNumber, pageSize);
+			sum = myUserVoteService.countBySourceId(sourceId);
+		}
+		if(num == 6) {
+			//查询条件：username \account
+			entitys = myUserVoteService.findByUsernameAndAccountOrderByAccount(username, account, pageNumber, pageSize);
+			sum = myUserVoteService.countByUsernameAndAccount(username, account);
+		}
+		if(num == 7) {
+			////查询条件：username \surceId
+			entitys = myUserVoteService.findByUsernameAndSourceIdOrderByAccount(username, sourceId, pageNumber, pageSize);
+			sum = myUserVoteService.countByUsernameAndSourceId(username, sourceId);
+		}
+		if(num == 8) {
+			//查询条件：account\ surceId
+			entitys = myUserVoteService.findByAccountAndSourceIdOrderByAccount(account, sourceId, pageNumber, pageSize);
+			sum = myUserVoteService.countByAccountAndSourceId(account, sourceId);
+		}
 		
-	
 					
 		List<UserVoteDTO> DTOs = new ArrayList<UserVoteDTO>();
 		for (UserVoteEntity entity : entitys) {
@@ -76,18 +111,34 @@ public class VoteController extends BaseController {
 	@RequestMapping(value = "/getEmpVote", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> getEmpVote(HttpServletRequest request,  
-//			@RequestParam String beginTime, @RequestParam String endTime, 
+			@RequestParam String empName, @RequestParam String vote_from_user,
 			 @RequestParam int pageNumber,@RequestParam int pageSize) {
 		System.out.println("全量参赛人员得票数信息   +   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-		/*Date endDate = null;
-		Date beginDate = null;*/
 		
+		String voteFromUser = vote_from_user;
 		int sum = 0 ;
 		List<EmpVoteEntity> entitys = null;
-		//int num = MethodUtil.getMethodNum(beginTime,endTime);
-		
+		int num = MethodUtil.getEmpVoteMethodNum(empName,voteFromUser);
+		if(num == 1) {
 			entitys = myEmpVoteService.getAll(pageNumber, pageSize);
 			sum = myEmpVoteService.countAll();
+		}
+		if(num == 2) {
+			// 查询条件 empName、sourceUser
+			entitys = myEmpVoteService.findByEmpNameAndVoteFromUserOrderByAccount(empName, voteFromUser, pageNumber, pageSize);
+			sum = myEmpVoteService.countByEmpNameAndVoteFromUser(empName, voteFromUser);
+		}
+		if(num == 3) {
+			//查询条件 empName
+			entitys = myEmpVoteService.findByEmpNameOrderByAccount(empName, pageNumber, pageSize);
+			sum = myEmpVoteService.countByEmpName(empName);
+		}
+		if(num == 4) {
+			//查询条件 sourceUser
+			entitys = myEmpVoteService.findByVoteFromUserOrderByAccount(voteFromUser, pageNumber, pageSize);
+			sum = myEmpVoteService.countByVoteFromUser(voteFromUser);
+		}
+
 		
 	
 					

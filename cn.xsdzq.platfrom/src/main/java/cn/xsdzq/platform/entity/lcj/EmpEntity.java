@@ -52,11 +52,11 @@ public class EmpEntity {
 	@Column(name = "division")
 	private String division;//隶属赛区
 	
-	@Column(name = "departmentId", insertable = false, updatable = false)
-	private long departmentId;
+	@Column(name = "departmentCode", insertable = false, updatable = false)
+	private String departmentCode;
 
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER, optional = false)
-	@JoinColumn(name = "departmentId", referencedColumnName = "id")
+	@JoinColumn(name = "departmentCode", referencedColumnName = "code")
 	private DepartmentEntity departmentEntity;
 	
 	public long getId() {
@@ -131,12 +131,14 @@ public class EmpEntity {
 		this.division = division;
 	}
 
-	public long getDepartmentId() {
-		return departmentId;
+
+
+	public String getDepartmentCode() {
+		return departmentCode;
 	}
 
-	public void setDepartmentId(long departmentId) {
-		this.departmentId = departmentId;
+	public void setDepartmentCode(String departmentCode) {
+		this.departmentCode = departmentCode;
 	}
 
 	public DepartmentEntity getDepartmentEntity() {
