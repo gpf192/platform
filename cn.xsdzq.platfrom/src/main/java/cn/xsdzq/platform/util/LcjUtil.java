@@ -157,7 +157,7 @@ public class LcjUtil {
 		dto.setId(entity.getId());
 		dto.setEmp_name(entity.getEmpName());
 		dto.setEmp_code(entity.getEmpCode());
-		
+		dto.setWeight(entity.getWeight());
 		dto.setDivision(entity.getDivision());		
 		dto.setSales_department(entity.getSalesDepartment());
 		dto.setGet_vote_amount(entity.getGetVoteAmount());
@@ -165,6 +165,21 @@ public class LcjUtil {
 		dto.setVote_from_user(entity.getVoteFromUser());
 		return dto;
 	}
+	
+	public static EmpVoteEntity convertEmpVoteEntityByDTO(EmpVoteDTO dto) {		
+		EmpVoteEntity entity = new EmpVoteEntity();
+		entity.setId(dto.getId());
+		entity.setEmpName(dto.getEmp_name());
+		entity.setEmpCode(dto.getEmp_code());
+		entity.setWeight(dto.getWeight());
+		entity.setDivision(dto.getDivision());		
+		entity.setSalesDepartment(dto.getSales_department());
+		entity.setGetVoteAmount(dto.getGet_vote_amount());
+		entity.setGetVoteTime(dto.getGet_vote_time());
+		entity.setVoteFromUser(dto.getVote_from_user());
+		return entity;
+	}
+	
 	//部门 department
 	public static DepartmentEntity convertDepartmentEntityByDTO(DepartmentDTO dto) {
 		DepartmentEntity entity = new DepartmentEntity();

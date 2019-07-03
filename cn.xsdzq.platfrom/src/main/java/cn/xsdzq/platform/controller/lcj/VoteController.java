@@ -1,6 +1,7 @@
 package cn.xsdzq.platform.controller.lcj;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,20 +14,18 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.xsdzq.platform.controller.BaseController;
-import cn.xsdzq.platform.entity.lcj.EmpEntity;
 import cn.xsdzq.platform.entity.lcj.EmpVoteEntity;
 import cn.xsdzq.platform.entity.lcj.UserVoteEntity;
 import cn.xsdzq.platform.model.Pagination;
-import cn.xsdzq.platform.model.lcj.EmpDTO;
 import cn.xsdzq.platform.model.lcj.EmpVoteDTO;
 import cn.xsdzq.platform.model.lcj.UserVoteDTO;
-import cn.xsdzq.platform.service.lcj.EmpService;
-import cn.xsdzq.platform.service.lcj.MyEmpService;
+import cn.xsdzq.platform.service.lcj.EmpVoteService;
 import cn.xsdzq.platform.service.lcj.MyEmpVoteService;
 import cn.xsdzq.platform.service.lcj.MyUserVoteService;
 import cn.xsdzq.platform.util.GsonUtil;
@@ -46,6 +45,10 @@ public class VoteController extends BaseController {
 	@Autowired
 	@Qualifier("myEmpVoteServiceImpl")
 	private MyEmpVoteService myEmpVoteService;
+	
+	@Autowired
+	@Qualifier("empVoteServiceImpl")
+	private EmpVoteService empVoteService;
 	
 	@RequestMapping(value = "/getUserVote", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
@@ -107,7 +110,7 @@ public class VoteController extends BaseController {
 		Pagination pagination = new Pagination(pageNumber, pageSize, sum);
 		return GsonUtil.buildMap(0, "ok", DTOs, pagination);
 	}
-	//获取参赛人员信息
+	//获取参赛人员得票信息
 	@RequestMapping(value = "/getEmpVote", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> getEmpVote(HttpServletRequest request,  
@@ -125,22 +128,19 @@ public class VoteController extends BaseController {
 		}
 		if(num == 2) {
 			// 查询条件 empName、sourceUser
-			entitys = myEmpVoteService.findByEmpNameAndVoteFromUserOrderByAccount(empName, voteFromUser, pageNumber, pageSize);
+			entitys = myEmpVoteService.findByEmpNameAndVoteFromUserOrderByWeightDesc(empName, voteFromUser, pageNumber, pageSize);
 			sum = myEmpVoteService.countByEmpNameAndVoteFromUser(empName, voteFromUser);
 		}
 		if(num == 3) {
 			//查询条件 empName
-			entitys = myEmpVoteService.findByEmpNameOrderByAccount(empName, pageNumber, pageSize);
+			entitys = myEmpVoteService.findByEmpNameOrderByWeightDesc(empName, pageNumber, pageSize);
 			sum = myEmpVoteService.countByEmpName(empName);
 		}
 		if(num == 4) {
 			//查询条件 sourceUser
-			entitys = myEmpVoteService.findByVoteFromUserOrderByAccount(voteFromUser, pageNumber, pageSize);
+			entitys = myEmpVoteService.findByVoteFromUserOrderByWeightDesc(voteFromUser, pageNumber, pageSize);
 			sum = myEmpVoteService.countByVoteFromUser(voteFromUser);
 		}
-
-		
-	
 					
 		List<EmpVoteDTO> DTOs = new ArrayList<EmpVoteDTO>();
 		for (EmpVoteEntity entity : entitys) {
@@ -149,5 +149,13 @@ public class VoteController extends BaseController {
 		}
 		Pagination pagination = new Pagination(pageNumber, pageSize, sum);
 		return GsonUtil.buildMap(0, "ok", DTOs, pagination);
+	}
+	
+	@RequestMapping(value = "/addWeight", method = POST, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> addWeight(@RequestBody EmpVoteDTO dto) {
+		EmpVoteEntity entity = LcjUtil.convertEmpVoteEntityByDTO(dto);
+		empVoteService.addWeight(entity);
+		return GsonUtil.buildMap(0, "ok", null);
 	}
 }

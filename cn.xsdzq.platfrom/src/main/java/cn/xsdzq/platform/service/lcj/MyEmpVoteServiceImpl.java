@@ -34,11 +34,11 @@ public class MyEmpVoteServiceImpl implements MyEmpVoteService{
 	}
 
 	@Override
-	public List<EmpVoteEntity> findByEmpNameAndVoteFromUserOrderByAccount(String empName, String voteFromUser, int pageNumber,
+	public List<EmpVoteEntity> findByEmpNameAndVoteFromUserOrderByWeightDesc(String empName, String voteFromUser, int pageNumber,
 			int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<EmpVoteEntity> pages = myEmpVoteRepository.findByEmpNameAndVoteFromUserOrderByAccount(empName, voteFromUser, pageRequest);
+		Page<EmpVoteEntity> pages = myEmpVoteRepository.findByEmpNameAndVoteFromUserOrderByWeightDesc(empName, voteFromUser, pageRequest);
 		List<EmpVoteEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -50,10 +50,10 @@ public class MyEmpVoteServiceImpl implements MyEmpVoteService{
 	}
 
 	@Override
-	public List<EmpVoteEntity> findByEmpNameOrderByAccount(String empName, int pageNumber, int pageSize) {
+	public List<EmpVoteEntity> findByEmpNameOrderByWeightDesc(String empName, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<EmpVoteEntity> pages = myEmpVoteRepository.findByEmpNameOrderByAccount(empName,  pageRequest);
+		Page<EmpVoteEntity> pages = myEmpVoteRepository.findByEmpNameOrderByWeightDesc(empName,  pageRequest);
 		List<EmpVoteEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -65,11 +65,11 @@ public class MyEmpVoteServiceImpl implements MyEmpVoteService{
 	}
 
 	@Override
-	public List<EmpVoteEntity> findByVoteFromUserOrderByAccount(String voteFromUser, int pageNumber,
+	public List<EmpVoteEntity> findByVoteFromUserOrderByWeightDesc(String voteFromUser, int pageNumber,
 			int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<EmpVoteEntity> pages = myEmpVoteRepository.findByVoteFromUserOrderByAccount(voteFromUser,  pageRequest);
+		Page<EmpVoteEntity> pages = myEmpVoteRepository.findByVoteFromUserOrderByWeightDesc(voteFromUser,  pageRequest);
 		List<EmpVoteEntity> infos = pages.getContent();
 		return infos;
 	}
