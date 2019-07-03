@@ -28,4 +28,11 @@ public class DepartmentServiceImpl implements DepartmentService{
 		List<DepartmentEntity> list = departmentRepository.findAll();
 		return list;
 	}
+
+	@Override
+	public DepartmentEntity findDepartmentByCode(String code) {
+		// TODO Auto-generated method stub
+		DepartmentEntity entity = departmentRepository.findDepartmentByCode(code);
+		return entity;
+	}
 }

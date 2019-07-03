@@ -9,7 +9,7 @@ public interface MyEmpService {
 	List<EmpEntity> getAllEmp(int pageNumber, int pageSize);
 	
     int countEmpEntityByEmp_nameAndEmp_codeAndSales_department(String emp_name, String emp_code, 
-			String sales_department);
+    		String sales_department);
 	List<EmpEntity>findByEmp_nameAndEmp_codeAndSales_departmentOrderByEmp_code(String emp_name, String emp_code, 
 			String sales_department, int pageNumber, int pageSize);
 	
@@ -29,12 +29,12 @@ public interface MyEmpService {
 			int pageNumber, int pageSize);
 	
     int countEmpEntityByEmp_nameAndSales_department(String emp_name,
-			String sales_department);
+    		String sales_department);
 	List<EmpEntity>findEmpEntityByEmp_nameAndSales_departmentOrderByEmp_code(String emp_name,  
 			String sales_department, int pageNumber, int pageSize);
 	
     int countEmpEntityByEmp_codeAndSales_department( String emp_code, 
-			String sales_department);
+    		String sales_department);
 	List<EmpEntity>findEmpEntityByEmp_codeAndSales_departmentOrderByEmp_code(String emp_code, 
 			String sales_department, int pageNumber, int pageSize);
 	}

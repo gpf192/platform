@@ -17,6 +17,8 @@ public class EmpDTO {
 	
 	private String entry_time;//入职时间
 	
+	private String departmentCode;
+	
 	private String sales_department;//隶属营业部
 	
 	private String division;//隶属赛区
@@ -93,8 +95,18 @@ public class EmpDTO {
 		this.division = division;
 	}
 
+	public String getDepartmentCode() {
+		return departmentCode;
+	}
+
+	public void setDepartmentCode(String departmentCode) {
+		this.departmentCode = departmentCode;
+	}
+
+
+
 	public EmpDTO(long id, String emp_name, String emp_code, String emp_type, String emp_category, String contract,
-			String entry_time, String sales_department, String division) {
+			String entry_time, String departmentCode, String sales_department, String division) {
 		super();
 		this.id = id;
 		this.emp_name = emp_name;
@@ -103,6 +115,7 @@ public class EmpDTO {
 		this.emp_category = emp_category;
 		this.contract = contract;
 		this.entry_time = entry_time;
+		this.departmentCode = departmentCode;
 		this.sales_department = sales_department;
 		this.division = division;
 	}
@@ -115,7 +128,9 @@ public class EmpDTO {
 	public String toString() {
 		return "EmpDTO [id=" + id + ", emp_name=" + emp_name + ", emp_code=" + emp_code + ", emp_type=" + emp_type
 				+ ", emp_category=" + emp_category + ", contract=" + contract + ", entry_time=" + entry_time
-				+ ", sales_department=" + sales_department + ", division=" + division + "]";
+				+ ", departmentCode=" + departmentCode + ", sales_department=" + sales_department + ", division="
+				+ division + "]";
 	}
+
 	
 }

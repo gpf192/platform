@@ -32,4 +32,13 @@ public class DepartmentRepositoryImpl implements DepartmentRepository{
 		TypedQuery<DepartmentEntity> sqlQuery = em.createQuery("SELECT c FROM DepartmentEntity c", DepartmentEntity.class);
 		return sqlQuery.getResultList();
 	}
+
+	@Override
+	public DepartmentEntity findDepartmentByCode(String code) {
+		// TODO Auto-generated method stub
+		TypedQuery<DepartmentEntity> sqlQuery = em.createQuery("SELECT c FROM DepartmentEntity c WHERE c.departmentCode=?",
+				DepartmentEntity.class);
+		sqlQuery.setParameter(1, code);
+		return sqlQuery.getSingleResult();
+	}
 }

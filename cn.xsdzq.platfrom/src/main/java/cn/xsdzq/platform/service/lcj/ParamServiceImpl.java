@@ -22,5 +22,23 @@ public class ParamServiceImpl implements ParamService{
 		ParamEntity entity = paramRepository.getValueByCode(code);
 		return entity;
 	}
+	@Override
+	@Transactional
+	public void deleteInfo(ParamEntity entity) {
+		// TODO Auto-generated method stub
+		paramRepository.deleteInfo(entity);
+	}
+	@Override
+	@Transactional
+	public void addInfo(ParamEntity entity) {
+		// TODO Auto-generated method stub
+		paramRepository.addInfo(entity);
+	}
+	@Override
+	@Transactional
+	public void modifyInfo(ParamEntity entity) {
+		// TODO Auto-generated method stub
+		paramRepository.modifyInfo(entity);
+	}
 
 }
