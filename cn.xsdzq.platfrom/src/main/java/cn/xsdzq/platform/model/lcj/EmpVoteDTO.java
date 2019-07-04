@@ -17,6 +17,8 @@ public class EmpVoteDTO {
 	private String get_vote_time;//获得票时间
 	
 	private String vote_from_user;//来源用户
+	
+	private int weight;
 
 	public long getId() {
 		return id;
@@ -80,6 +82,14 @@ public class EmpVoteDTO {
 
 	public void setVote_from_user(String vote_from_user) {
 		this.vote_from_user = vote_from_user;
+	}
+
+	public int getWeight() {
+		return weight;
+	}
+
+	public void setWeight(int weight) {
+		this.weight = weight;
 	}
 
 	@Override
