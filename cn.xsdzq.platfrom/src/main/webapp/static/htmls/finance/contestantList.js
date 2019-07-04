@@ -1,6 +1,7 @@
-ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils' ];
-function contestantListController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils) {
+ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils', 'utils'];
+function contestantListController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils,utils) {
 	$scope.empVoteList= [];
+	$scope.formData = {};
 	$scope.init=function(){
 		var data = {
 				"one" : {
@@ -34,11 +35,51 @@ function contestantListController($scope, $http, $state, $stateParams, $gridServ
 			}, true);
 	};
 	
+	//p begin
+	//创建变量用来保存选中结果
+	    $scope.selected = [];
+	    var updateSelected = function (action, id) {
+	      if (action == 'add' && $scope.selected.indexOf(id) == -1) $scope.selected.push(id);
+	      if (action == 'remove' && $scope.selected.indexOf(id) != -1) $scope.selected.splice($scope.selected.indexOf(id), 1);
+	    };
+	    //更新某一列数据的选择
+	    $scope.updateSelection = function ($event, id) {
+	      var checkbox = $event.target;
+	      var action = (checkbox.checked ? 'add' : 'remove');
+	      updateSelected(action, id);
+	    };
+	    //全选操作
+	    $scope.selectAll = function ($event) {
+	      var checkbox = $event.target;
+	      var action = (checkbox.checked ? 'add' : 'remove');
+	      for (var i = 0; i < $scope.empVoteList.length; i++) {
+	        var contact = $scope.empVoteList[i];
+	        updateSelected(action, contact.id);
+	      }
+	    };
+	    $scope.isSelected = function (id) {
+	      return $scope.selected.indexOf(id) >= 0;
+	    };
+	    $scope.isSelectedAll = function () {
+	      return $scope.selected.length === $scope.activityProductsList.length;
+	    };
+	
+	
 	$scope.getEmpList = function(pageSize) {
 		var url = httpUtils.url.contestantList;
+		var empName ="";
+		var vote_from_user = "";
+		if(!utils.isEmpty($scope.formData.emp_name)) {
+			empName = $scope.formData.emp_name;
+		}
+		if(!utils.isEmpty($scope.formData.vote_from_user)) {
+			vote_from_user = $scope.formData.vote_from_user;
+		}
 		var params = {
 			pageNumber : 0,
-			pageSize : pageSize
+			pageSize : pageSize,
+			empName : empName,
+			vote_from_user : vote_from_user
 		};
 		var settings = {
 			url : url,
@@ -49,6 +90,32 @@ function contestantListController($scope, $http, $state, $stateParams, $gridServ
 		var tableElement = angular.element("#datatable1");
 		$gridService.queryTableDatas($scope, tableElement, params, settings, $http);
 	};
+	
+	
+	$scope.batchAddWeight = function(){
+        if($scope.selected.length != 1){
+        	layerUtils.iMsg(-1, "请选择单条记录置顶");
+			return;
+        }
+        for (var h = 0; h < $scope.selected.length; h++) {			
+        	var infoId = $scope.selected[h];	
+  	      for (var i = 0; i < $scope.infoList.length; i++) {
+		        var tempInfo = $scope.empVoteList[i];
+		        if(tempInfo.id == infoId){
+		        	var param = tempInfo;
+		        }
+		      }        	
+        }  
+        console.log(param);
+		var url = httpUtils.url.addEmpVoteWeight;
+		//var param = $scope.infoList[index];
+		param.weight=param.weight+1;
+		$http.post(url, param).success(function(data) {
+			if (data.resCode == 0) {
+				layerUtils.iMsg(-1, "置顶成功");
+			}
+		});
+	}
 	
 	
 	
