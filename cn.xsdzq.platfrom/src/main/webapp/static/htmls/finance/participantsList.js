@@ -17,15 +17,6 @@ function participantsListController($scope, $http, $state, $stateParams, $gridSe
 				}
 			}
 		$scope.$emit("changeNavigation", data);
-		$http.get(httpUtils.url.departmentList, {}).success(function(data) {
-			if (data.resCode == 0) {
-				$scope.departments = data.result;
-				$scope.selectedName = $scope.departments[0];
-			}
-		});
-		
-		
-		$scope.getEmpList(20000);
 		$scope.currentPage = {
 				page : 0
 			};
@@ -43,6 +34,18 @@ function participantsListController($scope, $http, $state, $stateParams, $gridSe
 					$scope.currentPage.page=0;
 				}
 			}, true);
+		$http.get(httpUtils.url.departmentList, {}).success(function(data) {
+			if (data.resCode == 0) {
+				$scope.departments = data.result;
+				$scope.selectedName = $scope.departments[0];
+				console.log($scope.selectedName.code);
+				$scope.getEmpList(20000);
+			}
+		});
+		
+		
+		
+		
 	};
 		
 	
@@ -83,20 +86,20 @@ function participantsListController($scope, $http, $state, $stateParams, $gridSe
 		var url = httpUtils.url.participantsList;
 		var emp_name = "";
 		var emp_code = "";
-		var departmentId = "";
+		var departmentCode = "";
 		if(!utils.isEmpty($scope.formData.emp_name)) {
 			emp_name = $scope.formData.emp_name;
 		}
 		if(!utils.isEmpty($scope.formData.emp_code)) {
 			emp_code = $scope.formData.emp_code;
 		}
-		if(!utils.isEmpty($scope.formData.departmentId)) {
-			departmentId = $scope.formData.departmentId;
+		if(!utils.isEmpty($scope.selectedName.code)) {
+			departmentCode = $scope.selectedName.code;
 		}
 		var params = {
 			emp_name : emp_name,
 			emp_code : emp_code,
-			departmentId : departmentId,
+			departmentCode : departmentCode,
 			pageNumber : 0,
 			pageSize : pageSize
 		};

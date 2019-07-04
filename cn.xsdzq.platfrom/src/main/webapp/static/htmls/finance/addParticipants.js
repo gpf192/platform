@@ -18,9 +18,8 @@ function addParticipantsController($scope, $http, $state, httpUtils, layerUtils)
 		
 		$scope.formData.emp_name="";
 		$scope.formData.emp_code="";
-		$scope.formData.sales_department_code="";
+		$scope.formData.departmentCode="";
 		$scope.formData.sales_department="";
-		$scope.formData.sales_department_code="";
 		$scope.formData.division="";
 		$scope.formData.emp_category="";
 		$scope.formData.contract="";
