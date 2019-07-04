@@ -1,6 +1,7 @@
-ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils' ];
-function userTIcketsListController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils) {
+ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils', 'utils'];
+function userTIcketsListController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils,utils) {
 	$scope.userVoteList= [];
+	$scope.formData = {};
 	$scope.init=function(){
 		var data = {
 				"one" : {
@@ -14,7 +15,28 @@ function userTIcketsListController($scope, $http, $state, $stateParams, $gridSer
 				}
 			}
 		$scope.$emit("changeNavigation", data);
-		$scope.getEmpList(10);
+	
+		$scope.voteFromList = [{
+			name:"活动登录",
+			code:1
+		},{
+			name:"活动分享",
+			code:2
+		},{
+			name:"抽奖",
+			code:3
+		},{
+			name:"购买理财产品",
+			code:4
+		},{
+			name:"新开基金账户",
+			code:5
+		},{
+			name:"签约投顾",
+			code:6
+		}]
+		$scope.selectedVote = $scope.voteFromList[0];
+		$scope.getEmpList(20000);
 		$scope.currentPage = {
 				page : 0
 			};
@@ -36,9 +58,24 @@ function userTIcketsListController($scope, $http, $state, $stateParams, $gridSer
 	
 	$scope.getEmpList = function(pageSize) {
 		var url = httpUtils.url.userTIcketsList;
+		var username = "";
+		var account = "";
+		var votes_source = "";
+		if(!utils.isEmpty($scope.formData.username)) {
+			username = $scope.formData.username;
+		}
+		if(!utils.isEmpty($scope.formData.account)) {
+			account = $scope.formData.account;
+		}
+		if(!utils.isEmpty($scope.selectedVote.code)) {
+			votes_source = $scope.selectedVote.code;
+		}
 		var params = {
 			pageNumber : 0,
-			pageSize : pageSize
+			pageSize : pageSize,
+			username : username,
+			account : account,
+			sourceId : ""
 		};
 		var settings = {
 			url : url,

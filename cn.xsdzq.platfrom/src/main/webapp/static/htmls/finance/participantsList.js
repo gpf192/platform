@@ -2,6 +2,8 @@ ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', '
 function participantsListController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils,utils) {
 	$scope.empList= [];
 	$scope.formData = {};
+	$scope.departments = [];
+	$scope.selectedName = "";
 	$scope.init=function(){
 		var data = {
 				"one" : {
@@ -15,6 +17,14 @@ function participantsListController($scope, $http, $state, $stateParams, $gridSe
 				}
 			}
 		$scope.$emit("changeNavigation", data);
+		$http.get(httpUtils.url.departmentList, {}).success(function(data) {
+			if (data.resCode == 0) {
+				$scope.departments = data.result;
+				$scope.selectedName = $scope.departments[0];
+			}
+		});
+		
+		
 		$scope.getEmpList(20000);
 		$scope.currentPage = {
 				page : 0
@@ -69,23 +79,24 @@ function participantsListController($scope, $http, $state, $stateParams, $gridSe
 		$state.go("addParticipants");
 	}
 	$scope.getEmpList = function(pageSize) {
+		console.log($scope.selectedName);
 		var url = httpUtils.url.participantsList;
 		var emp_name = "";
 		var emp_code = "";
-		var sales_department = "";
+		var departmentId = "";
 		if(!utils.isEmpty($scope.formData.emp_name)) {
 			emp_name = $scope.formData.emp_name;
 		}
 		if(!utils.isEmpty($scope.formData.emp_code)) {
 			emp_code = $scope.formData.emp_code;
 		}
-		if(!utils.isEmpty($scope.formData.sales_department)) {
-			sales_department = $scope.formData.sales_department;
+		if(!utils.isEmpty($scope.formData.departmentId)) {
+			departmentId = $scope.formData.departmentId;
 		}
 		var params = {
 			emp_name : emp_name,
 			emp_code : emp_code,
-			sales_department : sales_department,
+			departmentId : departmentId,
 			pageNumber : 0,
 			pageSize : pageSize
 		};

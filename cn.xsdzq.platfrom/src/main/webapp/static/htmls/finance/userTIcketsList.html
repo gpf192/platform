@@ -35,12 +35,12 @@
                 &nbsp
                 <div class="form-group ">
                     <label class=" control-label text-right">得票来源:</label>
-                        <select class="form-control" ng-model="approveResult"
-                            ng-options="key for (key, value) in approveResultOption" ></select>
+                        <select class="form-control" ng-model="selectedVote"
+                            ng-options="x.name for x in voteFromList" ></select>
                 </div>
                 &nbsp
                 <input type="button" value="查询" class="btn btn-primary"
-                            ng-click="getCheckInfosByCategoryId(10)" />
+                            ng-click="getEmpList(20000)" />
                 &nbsp
                 <input type="button" value="导出" class="btn btn-primary"
                             ng-click="exportToExcel()" />

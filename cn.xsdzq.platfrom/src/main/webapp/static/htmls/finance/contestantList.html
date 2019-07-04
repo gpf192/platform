@@ -34,7 +34,7 @@
                 </div>
                 &nbsp
                 <input type="button" value="查询" class="btn btn-primary"
-                            ng-click="getCheckInfosByCategoryId(10)" />
+                            ng-click="getEmpList(20000)" />
                 &nbsp
                 <input type="button" value="导出" class="btn btn-primary"
                             ng-click="exportToExcel()" />
@@ -67,6 +67,7 @@
                 aria-describedby="datatable1_info">
                 <thead>
                     <tr role="row">
+                     <th class="col-sm-1 text-center"><input type="checkbox" ng-click="selectAll($event)" ng-checked="isSelectedAll()" /></th>
                         <th class="col-sm-1 text-center" >序号</th>
                         <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">员工姓名</div></th>
@@ -86,6 +87,8 @@
                 </thead>
                 <tbody role="alert" aria-live="polite" aria-relevant="all">
                     <tr ng-repeat="empVote in empVoteList | filter:{title:search}">
+                       <td >
+                            <input type="checkbox" name="selected" ng-checked="isSelected(empVote.id)" ng-click="updateSelection($event,empVote.id)" /></td>  
                         <td width="100">{{$index+selectNum["num"]*currentPage.page+1}}</td>
                         <td ><div style="white-space:nowrap;">{{empVote.emp_name}}</div></td> 
                         <td ><div style="white-space:nowrap;">{{empVote.emp_code}}</div></td>
