@@ -140,8 +140,7 @@ public class VoteController extends BaseController {
 			//查询条件 sourceUser
 			entitys = myEmpVoteService.findByVoteFromUserOrderByWeightDesc(voteFromUser, pageNumber, pageSize);
 			sum = myEmpVoteService.countByVoteFromUser(voteFromUser);
-		}
-					
+		}	
 		List<EmpVoteDTO> DTOs = new ArrayList<EmpVoteDTO>();
 		for (EmpVoteEntity entity : entitys) {
 			EmpVoteDTO dto = LcjUtil.convertEmpVoteDTOByEntity(entity);

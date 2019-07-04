@@ -28,7 +28,7 @@ public class MyEmpVoteServiceImpl implements MyEmpVoteService{
 		// TODO Auto-generated method stub
 		
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<EmpVoteEntity> pages = myEmpVoteRepository.findByOrderById(pageRequest);
+		Page<EmpVoteEntity> pages = myEmpVoteRepository.findByOrderByWeightDesc(pageRequest);
 		List<EmpVoteEntity> infos = pages.getContent();
 		return infos;
 	}
