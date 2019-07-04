@@ -44,7 +44,7 @@ public class EmpVoteEntity {
 	@Column(name = "vote_from_user")
 	private String voteFromUser;//来源用户
 	
-	@Column(name = "weight")
+	@Column(name = "weight",columnDefinition="int default 0")
 	private int weight = 0;// 设置信息权重，初始为0
 
 	public long getId() {

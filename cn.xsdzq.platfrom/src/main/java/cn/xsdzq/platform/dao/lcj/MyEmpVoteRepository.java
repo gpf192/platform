@@ -8,7 +8,7 @@ import cn.xsdzq.platform.entity.lcj.EmpVoteEntity;
 import cn.xsdzq.platform.entity.lcj.UserVoteEntity;
 
 public interface MyEmpVoteRepository extends PagingAndSortingRepository<EmpVoteEntity, Long> {
-	Page<EmpVoteEntity> findByOrderById(Pageable pageable);
+	Page<EmpVoteEntity> findByOrderByWeightDesc(Pageable pageable);
 	
 	Page<EmpVoteEntity> findByEmpNameAndVoteFromUserOrderByWeightDesc(String empName, String voteFromUser, Pageable pageable);
 	int countByEmpNameAndVoteFromUser(String empName, String voteFromUser);

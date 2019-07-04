@@ -36,7 +36,7 @@ public class DepartmentRepositoryImpl implements DepartmentRepository{
 	@Override
 	public DepartmentEntity findDepartmentByCode(String code) {
 		// TODO Auto-generated method stub
-		TypedQuery<DepartmentEntity> sqlQuery = em.createQuery("SELECT c FROM DepartmentEntity c WHERE c.departmentCode=?",
+		TypedQuery<DepartmentEntity> sqlQuery = em.createQuery("SELECT c FROM DepartmentEntity c WHERE c.code=?",
 				DepartmentEntity.class);
 		sqlQuery.setParameter(1, code);
 		return sqlQuery.getSingleResult();
