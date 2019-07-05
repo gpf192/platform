@@ -117,7 +117,8 @@ public class LcjUtil {
 		dto.setDepartmentCode(entity.getDepartmentCode());
 		dto.setContract(entity.getContract());
 		dto.setDivision(entity.getDivision());
-		dto.setSales_department(entity.getSalesDepartment());
+		DepartmentEntity depart = entity.getDepartmentEntity();
+		dto.setSales_department(depart.getName());
 		return dto;
 	}
 	public static EmpEntity convertEntityByEmpDTO(EmpDTO dto) {
