@@ -61,7 +61,7 @@ function contestantListController($scope, $http, $state, $stateParams, $gridServ
 	      return $scope.selected.indexOf(id) >= 0;
 	    };
 	    $scope.isSelectedAll = function () {
-	      return $scope.selected.length === $scope.activityProductsList.length;
+	      return $scope.selected.length === $scope.empVoteList.length;
 	    };
 	
 	
@@ -97,12 +97,14 @@ function contestantListController($scope, $http, $state, $stateParams, $gridServ
         	layerUtils.iMsg(-1, "请选择单条记录置顶");
 			return;
         }
-        for (var h = 0; h < $scope.selected.length; h++) {			
+        for (var h = 0; h < $scope.selected.length; h++) {	
+        	
         	var infoId = $scope.selected[h];	
-  	      for (var i = 0; i < $scope.infoList.length; i++) {
+  	      for (var i = 0; i < $scope.empVoteList.length; i++) {
 		        var tempInfo = $scope.empVoteList[i];
 		        if(tempInfo.id == infoId){
 		        	var param = tempInfo;
+		        	console.log(param);
 		        }
 		      }        	
         }  
@@ -113,6 +115,8 @@ function contestantListController($scope, $http, $state, $stateParams, $gridServ
 		$http.post(url, param).success(function(data) {
 			if (data.resCode == 0) {
 				layerUtils.iMsg(-1, "置顶成功");
+//				$scope.selected = [];
+				$scope.getEmpList(20000);
 			}
 		});
 	}

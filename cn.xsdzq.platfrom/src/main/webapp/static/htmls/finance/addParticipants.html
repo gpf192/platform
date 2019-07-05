@@ -35,19 +35,12 @@
                             ng-model="formData.emp_code" placeholder="请输入人员编号" />
                     </div>
                 </div>
-                 <div class="form-group">
-                    <label class="col-sm-3 control-label">营业部编号：</label>
-                    <div class="col-sm-6">
-                        <input type="text" class="form-control" id="departmentCode" name="departmentCode"
-                            ng-model="formData.departmentCode" placeholder="请输入营业部编号" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">营业部名称：</label>
-                    <div class="col-sm-6">
-                        <input type="text" class="form-control" id="sales_department" name="sales_department"
-                            ng-model="formData.sales_department" placeholder="请输入营业部名称" />
-                    </div>
+                <div class="form-group ">
+                    <label  class="col-sm-3 control-label">隶属营业部:</label>
+                       <div class="col-sm-6">
+                        <select class="form-control"  ng-model="selectedName"
+                            ng-options="department.name for department in departments" ></select>
+                     </div>
                 </div>
                  <div class="form-group">
                     <label class="col-sm-3 control-label">隶属赛区：</label>
@@ -82,9 +75,10 @@
                 </div>>
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-9">
+                         <input type="file"  id="sendFile" />
                         <button type="button" ng-click="newBuild()" id="newBuild"
-                            class="btn btn-default btn-primary">确认新增</button>
-                            <button type="button" ng-click="newBatches()" id="newBatches"
+                            class="btn btn-default btn-primary">新增</button>
+                            <button type="button" ng-click="newBatchesBuild()" id="newBatches"
                             class="btn btn-default btn-primary">批量新增</button>
                     </div>
                 </div>

@@ -66,6 +66,12 @@
                 class="datatable table table-striped table-bordered table-hover dataTable text-center"
                 aria-describedby="datatable1_info">
                 <thead>
+                <div>
+                        &nbsp &nbsp
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="batchAddWeight()">
+                                <i class="fa fa-plus"></i><span> 置顶</span>
+                        </button>
+                        </div>
                     <tr role="row">
                      <th class="col-sm-1 text-center"><input type="checkbox" ng-click="selectAll($event)" ng-checked="isSelectedAll()" /></th>
                         <th class="col-sm-1 text-center" >序号</th>
