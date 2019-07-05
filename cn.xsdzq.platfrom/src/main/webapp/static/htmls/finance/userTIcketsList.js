@@ -75,7 +75,7 @@ function userTIcketsListController($scope, $http, $state, $stateParams, $gridSer
 			pageSize : pageSize,
 			username : username,
 			account : account,
-			sourceId : ""
+			sourceId : votes_source
 		};
 		var settings = {
 			url : url,

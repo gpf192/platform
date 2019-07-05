@@ -22,7 +22,23 @@ function modifyParticipantsController($scope, $http, $state, $stateParams, httpU
 			$state.go("participantsList");
 			return;
 		}
+		
+		var departmentCode = $stateParams.participant.departmentCode;
 		angular.copy($stateParams.participant,$scope.formData);
+		
+		$http.get(httpUtils.url.departmentList, {}).success(function(data) {
+			if (data.resCode == 0) {
+				$scope.departments = data.result;
+				$scope.departments.forEach(function(item,index) {
+					if(item.code == departmentCode) {
+						$scope.selectedName = $scope.departments[index];
+						return;
+					}
+				})
+			}
+		});
+		
+		
 	};
 	
 
