@@ -6,14 +6,18 @@ import javax.persistence.Column;
 
 public class ProductSellDTO {
 	private long id;
-	
+	private String usercode;//客户姓名
 	private String username;
 	
 	private String account;//资金账号
-	
+	private String finaccount;//理财账号
+
 	private String product_code;//产品代码
 	
 	private String product_name;
+	private String productType; //产品类型
+	private String foundType; //基金类型。0-场内，1-场外
+
 	
 	private String deal_share;//成交份额
 	
@@ -113,6 +117,39 @@ public class ProductSellDTO {
 
 	public void setDeal_time(Date deal_time) {
 		this.deal_time = deal_time;
+	}
+	
+
+	public String getUsercode() {
+		return usercode;
+	}
+
+	public void setUsercode(String usercode) {
+		this.usercode = usercode;
+	}
+
+	public String getFinaccount() {
+		return finaccount;
+	}
+
+	public void setFinaccount(String finaccount) {
+		this.finaccount = finaccount;
+	}
+
+	public String getProductType() {
+		return productType;
+	}
+
+	public void setProductType(String productType) {
+		this.productType = productType;
+	}
+
+	public String getFoundType() {
+		return foundType;
+	}
+
+	public void setFoundType(String foundType) {
+		this.foundType = foundType;
 	}
 
 	public ProductSellDTO(long id, String username, String account, String product_code, String product_name,

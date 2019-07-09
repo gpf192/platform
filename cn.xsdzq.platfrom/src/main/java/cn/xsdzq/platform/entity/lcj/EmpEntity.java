@@ -1,5 +1,7 @@
 package cn.xsdzq.platform.entity.lcj;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -20,7 +23,7 @@ import cn.xsdzq.platform.entity.CategoryEntity;
 @Entity
 @Table(name = "lcj_employee_info")
 @EntityListeners(AuditingEntityListener.class)
-public class EmpEntity {
+public class EmpEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_sequence")
@@ -58,6 +61,12 @@ public class EmpEntity {
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "departmentCode", referencedColumnName = "code")
 	private DepartmentEntity departmentEntity;
+	
+	@Column(name = "ticketId", insertable = false, updatable = false)
+	private long ticketId;
+	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER, optional = false)
+	@JoinColumn(name = "ticketId", referencedColumnName = "id")
+	private TicketEntity ticketEntity;
 	
 	public long getId() {
 		return id;

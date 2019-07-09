@@ -157,4 +157,66 @@ public class VoteController extends BaseController {
 		empVoteService.addWeight(entity);
 		return GsonUtil.buildMap(0, "ok", null);
 	}
+	
+	//获取用户投票信息
+		@RequestMapping(value = "/getUserVoteForMethodNum", method = GET, produces = "application/json; charset=utf-8")
+		@ResponseBody
+		public Map<String, Object> getUserVoteFor(HttpServletRequest request,  
+				@RequestParam String username, @RequestParam String clientId,
+				@RequestParam String empName, @RequestParam String empCode,
+				 @RequestParam int pageNumber,@RequestParam int pageSize) {
+			System.out.println("用户投票数信息   +   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+			
+			int sum = 0 ;
+			List<UserVoteEntity> entitys = null;
+			int num = MethodUtil.getUserVoteMethodNum(username, account, sourceId);
+			if(num == 1) {
+				//全量查找
+				entitys = myUserVoteService.getAll(pageNumber, pageSize);
+				sum = myUserVoteService.countAll();
+			}
+			if(num == 2) {
+				//三个条件一起查询
+				entitys = myUserVoteService.findByUsernameAndAccountAndSourceIdOrderByAccount(username, account, sourceId, pageNumber, pageSize);
+				sum = myUserVoteService.countByUsernameAndAccountAndSourceId(username, account, sourceId);
+			}
+			if(num == 3) {
+				//查询条件：username
+				entitys = myUserVoteService.findByUsernameOrderByAccount(username, pageNumber, pageSize);
+				sum = myUserVoteService.countByUsername(username);
+			}
+			if(num == 4) {
+				//查询条件：account
+				entitys = myUserVoteService.findByAccountOrderByAccount(account, pageNumber, pageSize);
+				sum = myUserVoteService.countByAccount(account);
+			}
+			if(num == 5) {
+				//查询条件：surceId
+				entitys = myUserVoteService.findBySourceIdOrderByAccount(sourceId, pageNumber, pageSize);
+				sum = myUserVoteService.countBySourceId(sourceId);
+			}
+			if(num == 6) {
+				//查询条件：username \account
+				entitys = myUserVoteService.findByUsernameAndAccountOrderByAccount(username, account, pageNumber, pageSize);
+				sum = myUserVoteService.countByUsernameAndAccount(username, account);
+			}
+			if(num == 7) {
+				////查询条件：username \surceId
+				entitys = myUserVoteService.findByUsernameAndSourceIdOrderByAccount(username, sourceId, pageNumber, pageSize);
+				sum = myUserVoteService.countByUsernameAndSourceId(username, sourceId);
+			}
+			if(num == 8) {
+				//查询条件：account\ surceId
+				entitys = myUserVoteService.findByAccountAndSourceIdOrderByAccount(account, sourceId, pageNumber, pageSize);
+				sum = myUserVoteService.countByAccountAndSourceId(account, sourceId);
+			}
+			
+						
+			List<UserVoteDTO> DTOs = new ArrayList<UserVoteDTO>();
+			for (UserVoteEntity entity : entitys) {
+				UserVoteDTO dto = LcjUtil.convertUserVoteDTOByEntity(entity);
+				DTOs.add(dto);
+			}
+			Pagination pagination = new Pagination(pageNumber, pageSize, sum);
+			return GsonUtil.buildMap(0, "ok", DTOs, pagination);
 }
