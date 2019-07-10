@@ -1,5 +1,6 @@
 package cn.xsdzq.platform.entity.lcj;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -16,7 +17,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @Table(name = "lcj_product_sell_record")
 @EntityListeners(AuditingEntityListener.class)
-public class ProductSellEntity {
+public class ProductSellEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_sell_sequence")
@@ -24,35 +25,47 @@ public class ProductSellEntity {
 	@Column(name = "id")
 	private long id;
 	
+	@Column(name = "usercode")
+	private String usercode;//客户编号
+	
 	@Column(name = "username")
-	private String username;
+	private String username;//客户姓名
 	
 	@Column(name = "account")
 	private String account;//资金账号
 	
+	@Column(name = "finaccount")
+	private String finaccount;//理财账号
+	
 	@Column(name = "product_code")
-	private String product_code;//产品代码
+	private String productCode;//产品代码
 	
 	@Column(name = "product_name")
-	private String product_name;
+	private String productName; //产品名称
+	
+	@Column(name = "product_type")
+	private String productType; //产品类型
+	
+	@Column(name = "found_type")
+	private String foundType; //基金类型。0-场内，1-场外
 	
 	@Column(name = "deal_share")
-	private String deal_share;//成交份额
+	private String dealShare;//成交份额
 	
 	@Column(name = "deal_amount")
-	private String deal_amount;//成交金额
+	private String dealAmount;//成交金额
 	
 	@Column(name = "votes")
 	private String votes;//获得票数
 	
 	@Column(name = "emp_name")
-	private String emp_name;//对应服务员工
+	private String empName;//对应服务员工
 	
 	@Column(name = "order_time")
-	private Date order_time;//委托时间
+	private Date orderTime;//委托时间
 	
 	@Column(name = "deal_time")
-	private Date deal_time;//成交时间
+	private Date dealTime;//成交时间
 	
 	public long getId() {
 		return id;
@@ -72,29 +85,53 @@ public class ProductSellEntity {
 	public void setAccount(String account) {
 		this.account = account;
 	}
-	public String getProduct_code() {
-		return product_code;
+	public String getUsercode() {
+		return usercode;
 	}
-	public void setProduct_code(String product_code) {
-		this.product_code = product_code;
+	public void setUsercode(String usercode) {
+		this.usercode = usercode;
 	}
-	public String getProduct_name() {
-		return product_name;
+	public String getFinaccount() {
+		return finaccount;
 	}
-	public void setProduct_name(String product_name) {
-		this.product_name = product_name;
+	public void setFinaccount(String finaccount) {
+		this.finaccount = finaccount;
 	}
-	public String getDeal_share() {
-		return deal_share;
+	public String getProductCode() {
+		return productCode;
 	}
-	public void setDeal_share(String deal_share) {
-		this.deal_share = deal_share;
+	public void setProductCode(String productCode) {
+		this.productCode = productCode;
 	}
-	public String getDeal_amount() {
-		return deal_amount;
+	public String getProductName() {
+		return productName;
 	}
-	public void setDeal_amount(String deal_amount) {
-		this.deal_amount = deal_amount;
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public String getProductType() {
+		return productType;
+	}
+	public void setProductType(String productType) {
+		this.productType = productType;
+	}
+	public String getFoundType() {
+		return foundType;
+	}
+	public void setFoundType(String foundType) {
+		this.foundType = foundType;
+	}
+	public String getDealShare() {
+		return dealShare;
+	}
+	public void setDealShare(String dealShare) {
+		this.dealShare = dealShare;
+	}
+	public String getDealAmount() {
+		return dealAmount;
+	}
+	public void setDealAmount(String dealAmount) {
+		this.dealAmount = dealAmount;
 	}
 	public String getVotes() {
 		return votes;
@@ -102,30 +139,31 @@ public class ProductSellEntity {
 	public void setVotes(String votes) {
 		this.votes = votes;
 	}
-	public String getEmp_name() {
-		return emp_name;
+	public String getEmpName() {
+		return empName;
 	}
-	public void setEmp_name(String emp_name) {
-		this.emp_name = emp_name;
+	public void setEmpName(String empName) {
+		this.empName = empName;
 	}
-	public Date getOrder_time() {
-		return order_time;
+	public Date getOrderTime() {
+		return orderTime;
 	}
-	public void setOrder_time(Date order_time) {
-		this.order_time = order_time;
+	public void setOrderTime(Date orderTime) {
+		this.orderTime = orderTime;
 	}
-	public Date getDeal_time() {
-		return deal_time;
+	public Date getDealTime() {
+		return dealTime;
 	}
-	public void setDeal_time(Date deal_time) {
-		this.deal_time = deal_time;
+	public void setDealTime(Date dealTime) {
+		this.dealTime = dealTime;
 	}
 	@Override
 	public String toString() {
-		return "ProductSellEntity [id=" + id + ", username=" + username + ", account=" + account + ", product_code="
-				+ product_code + ", product_name=" + product_name + ", deal_share=" + deal_share + ", deal_amount="
-				+ deal_amount + ", votes=" + votes + ", emp_name=" + emp_name + ", order_time=" + order_time
-				+ ", deal_time=" + deal_time + "]";
+		return "ProductSellEntity [id=" + id + ", usercode=" + usercode + ", username=" + username + ", account="
+				+ account + ", finaccount=" + finaccount + ", productCode=" + productCode + ", productName="
+				+ productName + ", productType=" + productType + ", foundType=" + foundType + ", dealShare=" + dealShare
+				+ ", dealAmount=" + dealAmount + ", votes=" + votes + ", empName=" + empName + ", orderTime="
+				+ orderTime + ", dealTime=" + dealTime + "]";
 	}
 	
 	

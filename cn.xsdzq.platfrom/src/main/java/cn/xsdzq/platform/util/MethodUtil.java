@@ -143,4 +143,61 @@ public class MethodUtil {
 
 		else return 5;
 	}
+	
+	//用户投票数统计
+		public static int getUserVoteForMethodNum (String username, String clientId, String empName, String empCode) {
+			if("".equals(username) && "".equals(clientId) && "".equals(empName) && "".equals(empCode)) {
+				return 1;//全量查找
+			}
+			if(!"".equals(username) && !"".equals(clientId) && !"".equals(empName) && !"".equals(empCode)) {
+				return 2;//四个条件一起查询
+			}
+			//三个条件
+			if(!"".equals(username) && !"".equals(clientId) && !"".equals(empName) && "".equals(empCode)) {
+				return 3;//查询条件：username\clientId\empName\
+			}		
+			if(!"".equals(username) && !"".equals(clientId) && "".equals(empName) && !"".equals(empCode)) {
+				return 4;//查询条件：username\clientId\\empCode
+			}	
+			if(!"".equals(username) && "".equals(clientId) && !"".equals(empName) && !"".equals(empCode)) {
+				return 5;//查询条件：username\\empName\empCode
+			}		
+			if("".equals(username) && !"".equals(clientId) && !"".equals(empName) && !"".equals(empCode)) {
+				return 6;//查询条件：\clientId\empName\empCode
+			}
+			//两个条件
+			if(!"".equals(username) && !"".equals(clientId) && "".equals(empName) && "".equals(empCode)) {
+				return 7;//查询条件：username\clientId\\
+			}		
+			if(!"".equals(username) && "".equals(clientId) && !"".equals(empName) && "".equals(empCode)) {
+				return 8;//查询条件：username\\empName\
+			}
+			if(!"".equals(username) && "".equals(clientId) && "".equals(empName) && !"".equals(empCode)) {
+				return 9;//查询条件：username\\\empCode
+			}		
+			if("".equals(username) && !"".equals(clientId) && !"".equals(empName) && "".equals(empCode)) {
+				return 10;//查询条件：\clientId\empName\
+			}
+			if("".equals(username) && !"".equals(clientId) && "".equals(empName) && !"".equals(empCode)) {
+				return 11;//查询条件：\clientId\\empCode
+			}		
+			if("".equals(username) && "".equals(clientId) && !"".equals(empName) && !"".equals(empCode)) {
+				return 12;//查询条件：\\empName\empCode
+			}
+			//一个条件
+			if(!"".equals(username) && "".equals(clientId) && "".equals(empName) && "".equals(empCode)) {
+				return 13;//查询条件：username\\\
+			}
+			if("".equals(username) && !"".equals(clientId) && "".equals(empName) && "".equals(empCode)) {
+				return 14;//查询条件：\clientId\\
+			}
+			if("".equals(username) && "".equals(clientId) && !"".equals(empName) && "".equals(empCode)) {
+				return 15;//查询条件：\\empName\
+			}
+			if("".equals(username) && "".equals(clientId) && "".equals(empName) && !"".equals(empCode)) {
+				return 16;//查询条件：\\\empCode
+			}
+			
+			else return 17;
+		}
 }

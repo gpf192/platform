@@ -27,7 +27,7 @@ public class UserVoteEntity {
 	private String username;
 	
 	@Column(name = "account")
-	private String account;//资金账号
+	private String account;//客户号
 	
 	@Column(name = "total_votes")
 	private String totalVotes;//所得总票数

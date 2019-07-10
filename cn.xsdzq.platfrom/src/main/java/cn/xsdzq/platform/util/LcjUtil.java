@@ -8,6 +8,7 @@ import cn.xsdzq.platform.entity.lcj.PrizeRecordEntity;
 import cn.xsdzq.platform.entity.lcj.ProductEntity;
 import cn.xsdzq.platform.entity.lcj.ProductSellEntity;
 import cn.xsdzq.platform.entity.lcj.UserVoteEntity;
+import cn.xsdzq.platform.entity.lcj.UserVoteForEntity;
 import cn.xsdzq.platform.model.lcj.DepartmentDTO;
 import cn.xsdzq.platform.model.lcj.EmpDTO;
 import cn.xsdzq.platform.model.lcj.EmpVoteDTO;
@@ -16,6 +17,7 @@ import cn.xsdzq.platform.model.lcj.PrizeRecordDTO;
 import cn.xsdzq.platform.model.lcj.ProductDTO;
 import cn.xsdzq.platform.model.lcj.ProductSellDTO;
 import cn.xsdzq.platform.model.lcj.UserVoteDTO;
+import cn.xsdzq.platform.model.lcj.UserVoteForDTO;
 //奖项信息
 public class LcjUtil {
 	public static PrizeDTO convertPrizeDTOByPrize(PrizeEntity entity) {		
@@ -92,17 +94,20 @@ public class LcjUtil {
 	public static ProductSellDTO convertProductSellDTOByEntity(ProductSellEntity entity) {		
 		ProductSellDTO dto = new ProductSellDTO();
 		dto.setId(entity.getId());
+		dto.setUsercode(entity.getUsercode());
 		dto.setUsername(entity.getUsername());
 		dto.setAccount(entity.getAccount());
-		dto.setProduct_code(entity.getProduct_code());
-		dto.setProduct_name(entity.getProduct_name());
-		
-		dto.setDeal_amount(entity.getDeal_amount());
-		dto.setDeal_share(entity.getDeal_share());
-		dto.setDeal_time(entity.getDeal_time());
+		dto.setFinaccount(entity.getFinaccount());
+		dto.setProduct_code(entity.getProductCode());
+		dto.setProduct_name(entity.getProductName());
+		dto.setProductType(entity.getProductType());
+		dto.setFoundType(entity.getFoundType());
+		dto.setDeal_amount(entity.getDealAmount());
+		dto.setDeal_share(entity.getDealShare());
+		dto.setDeal_time(entity.getDealTime());
 		dto.setVotes(entity.getVotes());
-		dto.setEmp_name(entity.getEmp_name());
-		dto.setOrder_time(entity.getOrder_time());
+		dto.setEmp_name(entity.getEmpName());
+		dto.setOrder_time(entity.getOrderTime());
 		return dto;
 	}
 	//参赛人员信息
@@ -136,7 +141,7 @@ public class LcjUtil {
 
 		return entity;
 	}
-	//用户投票数记录
+	//用户得票数记录
 	public static UserVoteDTO convertUserVoteDTOByEntity(UserVoteEntity entity) {		
 		UserVoteDTO dto = new UserVoteDTO();
 		dto.setId(entity.getId());
@@ -197,6 +202,21 @@ public class LcjUtil {
 		dto.setCode(entity.getCode());
 		dto.setName(entity.getName());
 		
+		return dto;
+	}
+	//用户投票记录统计
+	
+	public static UserVoteForDTO convertUserVoteForDTOByEntity(UserVoteForEntity entity) {		
+		UserVoteForDTO dto = new UserVoteForDTO();
+		dto.setId(entity.getId());
+		dto.setClientId(entity.getClientId());
+		dto.setUsername(entity.getUsername());
+		dto.setVoteTime(entity.getVoteTime());
+		dto.setEmpName(entity.getEmpName());
+		dto.setEmpCode(entity.getEmpCode());
+		dto.setVoteNum(entity.getVoteNum());
+		dto.setDivision(entity.getDivision());		
+		dto.setSalesDepartment(entity.getSalesDepartment());
 		return dto;
 	}
 }

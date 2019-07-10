@@ -22,11 +22,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.xsdzq.platform.controller.BaseController;
 import cn.xsdzq.platform.entity.lcj.EmpVoteEntity;
 import cn.xsdzq.platform.entity.lcj.UserVoteEntity;
+import cn.xsdzq.platform.entity.lcj.UserVoteForEntity;
 import cn.xsdzq.platform.model.Pagination;
 import cn.xsdzq.platform.model.lcj.EmpVoteDTO;
 import cn.xsdzq.platform.model.lcj.UserVoteDTO;
+import cn.xsdzq.platform.model.lcj.UserVoteForDTO;
 import cn.xsdzq.platform.service.lcj.EmpVoteService;
 import cn.xsdzq.platform.service.lcj.MyEmpVoteService;
+import cn.xsdzq.platform.service.lcj.MyUserVoteForService;
 import cn.xsdzq.platform.service.lcj.MyUserVoteService;
 import cn.xsdzq.platform.util.GsonUtil;
 import cn.xsdzq.platform.util.LcjUtil;
@@ -41,6 +44,11 @@ public class VoteController extends BaseController {
 	@Autowired
 	@Qualifier("myUserVoteServiceImpl")
 	private MyUserVoteService myUserVoteService;
+	
+	@Autowired
+	@Qualifier("myUserVoteForServiceImpl")
+	private MyUserVoteForService myUserVoteForService;
+	
 	
 	@Autowired
 	@Qualifier("myEmpVoteServiceImpl")
@@ -157,4 +165,107 @@ public class VoteController extends BaseController {
 		empVoteService.addWeight(entity);
 		return GsonUtil.buildMap(0, "ok", null);
 	}
+	
+	//获取用户投票信息
+		@RequestMapping(value = "/getUserVoteFor", method = GET, produces = "application/json; charset=utf-8")
+		@ResponseBody
+		public Map<String, Object> getUserVoteFor(HttpServletRequest request,  
+				@RequestParam String username, @RequestParam String clientId,
+				@RequestParam String empName, @RequestParam String empCode,
+				 @RequestParam int pageNumber,@RequestParam int pageSize) {
+			System.out.println("用户投票数信息   +   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+			
+			int sum = 0 ;
+			List<UserVoteForEntity> entitys = null;
+			int num = MethodUtil.getUserVoteForMethodNum(username, clientId, empName,empCode);
+			if(num == 1) {
+				//全量查找
+				entitys = myUserVoteForService.getAll(pageNumber, pageSize);
+				sum = myUserVoteForService.countAll();
+			}
+			if(num == 2) {
+				//4个条件一起查询
+				entitys = myUserVoteForService.findByUsernameAndClientIdAndEmpNameAndEmpCodeOrderByVoteTime(username, clientId, empName, empCode, pageNumber, pageSize);
+				sum = myUserVoteForService.countByUsernameAndClientIdAndEmpNameAndEmpCode(username, clientId, empName, empCode);
+			}
+			if(num == 3) {
+				//查询条件：username\clientId\empName\
+				entitys = myUserVoteForService.findByUsernameAndClientIdAndEmpNameOrderByVoteTime(username, clientId, empName, pageNumber, pageSize);
+				sum = myUserVoteForService.countByUsernameAndClientIdAndEmpName(username, clientId, empName);
+			}
+			if(num == 4) {
+				//查询条件：username\clientId\\empCode
+				entitys = myUserVoteForService.findByUsernameAndClientIdAndEmpCodeOrderByVoteTime(username, clientId, empCode, pageNumber, pageSize);
+				sum = myUserVoteForService.countByUsernameAndClientIdAndEmpCode(username, clientId, empCode);
+			}
+			if(num == 5) {
+				//查询条件：username\\empName\empCode
+				entitys = myUserVoteForService.findByUsernameAndEmpNameAndEmpCodeOrderByVoteTime(username, empName, empCode, pageNumber, pageSize);
+				sum = myUserVoteForService.countByUsernameAndEmpNameAndEmpCode(username, empName, empCode);
+			}
+			if(num == 6) {
+				//查询条件：\clientId\empName\empCode
+				entitys = myUserVoteForService.findByClientIdAndEmpNameAndEmpCodeOrderByVoteTime( clientId, empName, empCode, pageNumber, pageSize);
+				sum = myUserVoteForService.countByClientIdAndEmpNameAndEmpCode(clientId, empName, empCode);
+			}
+			if(num == 7) {
+				////查询条件：username\clientId\\
+				entitys = myUserVoteForService.findByUsernameAndClientIdOrderByVoteTime(username, clientId, pageNumber, pageSize);
+				sum = myUserVoteForService.countByUsernameAndClientId(username, clientId);
+			}
+			if(num == 8) {
+				//查询条件：username\\empName\
+				entitys = myUserVoteForService.findByUsernameAndEmpNameOrderByVoteTime(username, empName, pageNumber, pageSize);
+				sum = myUserVoteForService.countByUsernameAndEmpName(username, empName);
+			}
+			if(num == 9) {
+				//username\\\empCode
+				entitys = myUserVoteForService.findByUsernameAndEmpCodeOrderByVoteTime(username, empCode, pageNumber, pageSize);
+				sum = myUserVoteForService.countByUsernameAndEmpCode(username, empCode);
+			}
+			if(num == 10) {
+				//查询条件：\clientId\empName\
+				entitys = myUserVoteForService.findByClientIdAndEmpNameOrderByVoteTime(clientId, empName,pageNumber, pageSize);
+				sum = myUserVoteForService.countByClientIdAndEmpName( clientId, empName );
+			}
+			if(num == 11) {
+				//查询条件：\clientId\\empCode
+				entitys = myUserVoteForService.findByClientIdAndEmpCodeOrderByVoteTime(clientId,  empCode, pageNumber, pageSize);
+				sum = myUserVoteForService.countByClientIdAndEmpCode(clientId,  empCode);
+			}
+			if(num == 12) {
+				//查询条件：\\empName\empCode
+				entitys = myUserVoteForService.findByEmpNameAndEmpCodeOrderByVoteTime( empName, empCode, pageNumber, pageSize);
+				sum = myUserVoteForService.countByEmpNameAndEmpCode(empName, empCode);
+			}
+			if(num == 13) {
+				//查询条件：username 
+				entitys = myUserVoteForService.findByUsernameOrderByVoteTime(username, pageNumber, pageSize);
+				sum = myUserVoteForService.countByUsername(username);
+			}
+			if(num == 14) {
+				////查询条件： \clientId
+				entitys = myUserVoteForService.findByClientIdOrderByVoteTime(clientId, pageNumber, pageSize);
+				sum = myUserVoteForService.countByClientId(clientId);
+			}
+			if(num == 15) {
+				//查询条件：empName
+				entitys = myUserVoteForService.findByEmpNameOrderByVoteTime(empName, pageNumber, pageSize);
+				sum = myUserVoteForService.countByEmpName(empName);
+			}
+			if(num == 16) {
+				//查询条件：empCode
+				entitys = myUserVoteForService.findByEmpCodeOrderByVoteTime(empCode, pageNumber, pageSize);
+				sum = myUserVoteForService.countByEmpCode( empCode);
+			}
+			
+						
+			List<UserVoteForDTO> DTOs = new ArrayList<UserVoteForDTO>();
+			for (UserVoteForEntity entity : entitys) {
+				UserVoteForDTO dto = LcjUtil.convertUserVoteForDTOByEntity(entity);
+				DTOs.add(dto);
+			}
+			Pagination pagination = new Pagination(pageNumber, pageSize, sum);
+			return GsonUtil.buildMap(0, "ok", DTOs, pagination);
+			}
 }
