@@ -217,6 +217,10 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/finance/addParam",
 		templateUrl : "htmls/finance/addParam.html",
 		controller : "addParamController",
+	}).state("userVoteForList", {
+		url : "/userVoteForList",
+		templateUrl : "htmls/finance/userVoteForList.html",
+		controller : "userVoteForListController"
 	}).state("demo", {
 		url : "/demo",
 		templateUrl : "htmls/demo/demo.html",
