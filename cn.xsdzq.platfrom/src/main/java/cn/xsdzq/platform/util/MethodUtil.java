@@ -154,48 +154,48 @@ public class MethodUtil {
 			}
 			//三个条件
 			if(!"".equals(username) && !"".equals(clientId) && !"".equals(empName) && "".equals(empCode)) {
-				return 3;//查询条件：username
+				return 3;//查询条件：username\clientId\empName\
 			}		
 			if(!"".equals(username) && !"".equals(clientId) && "".equals(empName) && !"".equals(empCode)) {
-				return 4;//查询条件：account
+				return 4;//查询条件：username\clientId\\empCode
 			}	
 			if(!"".equals(username) && "".equals(clientId) && !"".equals(empName) && !"".equals(empCode)) {
-				return 5;//查询条件：surceId
+				return 5;//查询条件：username\\empName\empCode
 			}		
 			if("".equals(username) && !"".equals(clientId) && !"".equals(empName) && !"".equals(empCode)) {
-				return 6;//查询条件：username \account
+				return 6;//查询条件：\clientId\empName\empCode
 			}
 			//两个条件
 			if(!"".equals(username) && !"".equals(clientId) && "".equals(empName) && "".equals(empCode)) {
-				return 7;//查询条件：username \surceId
+				return 7;//查询条件：username\clientId\\
 			}		
 			if(!"".equals(username) && "".equals(clientId) && !"".equals(empName) && "".equals(empCode)) {
-				return 8;//查询条件：account\ surceId
+				return 8;//查询条件：username\\empName\
 			}
 			if(!"".equals(username) && "".equals(clientId) && "".equals(empName) && !"".equals(empCode)) {
-				return 9;//查询条件：username \surceId
+				return 9;//查询条件：username\\\empCode
 			}		
 			if("".equals(username) && !"".equals(clientId) && !"".equals(empName) && "".equals(empCode)) {
-				return 10;//查询条件：account\ surceId
+				return 10;//查询条件：\clientId\empName\
 			}
 			if("".equals(username) && !"".equals(clientId) && "".equals(empName) && !"".equals(empCode)) {
-				return 11;//查询条件：username \surceId
+				return 11;//查询条件：\clientId\\empCode
 			}		
 			if("".equals(username) && "".equals(clientId) && !"".equals(empName) && !"".equals(empCode)) {
-				return 12;//查询条件：account\ surceId
+				return 12;//查询条件：\\empName\empCode
 			}
 			//一个条件
 			if(!"".equals(username) && "".equals(clientId) && "".equals(empName) && "".equals(empCode)) {
-				return 13;//四个条件一起查询
+				return 13;//查询条件：username\\\
 			}
 			if("".equals(username) && !"".equals(clientId) && "".equals(empName) && "".equals(empCode)) {
-				return 14;//四个条件一起查询
+				return 14;//查询条件：\clientId\\
 			}
 			if("".equals(username) && "".equals(clientId) && !"".equals(empName) && "".equals(empCode)) {
-				return 15;//四个条件一起查询
+				return 15;//查询条件：\\empName\
 			}
 			if("".equals(username) && "".equals(clientId) && "".equals(empName) && !"".equals(empCode)) {
-				return 16;//四个条件一起查询
+				return 16;//查询条件：\\\empCode
 			}
 			
 			else return 17;
