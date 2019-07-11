@@ -11,20 +11,20 @@ function modifyParticipantsController($scope, $http, $state, $stateParams, httpU
 				},
 				"two" : {
 					name : "修改员工信息",
-					goto:"modifyParticipants"
+					goto:"modifyContestant"
 
 				}
 		}
 			
 		$scope.$emit("changeNavigation", data);
-		var flag = utils.isEmptyObject($stateParams.participant);
+		var flag = utils.isEmptyObject($stateParams.contestant);
 		if(flag){
-			$state.go("participantsList");
+			$state.go("contestantList");
 			return;
 		}
 		
 		var departmentCode = $stateParams.participant.departmentCode;
-		angular.copy($stateParams.participant,$scope.formData);
+		angular.copy($stateParams.contestant,$scope.formData);
 		
 		$http.get(httpUtils.url.departmentList, {}).success(function(data) {
 			if (data.resCode == 0) {

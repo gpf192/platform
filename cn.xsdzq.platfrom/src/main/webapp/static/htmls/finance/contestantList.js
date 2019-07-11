@@ -121,6 +121,64 @@ function contestantListController($scope, $http, $state, $stateParams, $gridServ
 		});
 	}
 	
+	//编辑
+	$scope.batchModifyInfo = function() {
+		if($scope.selected.length != 1){
+        	layerUtils.iMsg(-1, "请选择单条记录编辑！");
+			return;
+        }
+		
+		for (var h = 0; h < $scope.selected.length; h++) {			
+        	var infoId = $scope.selected[h];	
+  	      for (var i = 0; i < $scope.empVoteList.length; i++) {
+		        var tempInfo = $scope.empVoteList[i];
+		        if(tempInfo.id == infoId){
+		        	var param = tempInfo;
+		        }
+		      }        	
+        } 
+
+		layerUtils.iConfirm("是否修该此产品信息？", function() {
+			console.log(param);
+			$state.go("modifyContestant", {
+				contestant : param
+			});
+		}, function() {
+			console.log("取消");
+		})
+
+	}
+	//删除
+	$scope.batchDeleteInfo = function() {
+		if($scope.selected.length != 1){
+        	layerUtils.iMsg(-1, "请选择单条记录删除！");
+			return;
+        }
+		
+		for (var h = 0; h < $scope.selected.length; h++) {			
+        	var infoId = $scope.selected[h];	
+  	      for (var i = 0; i < $scope.empVoteList.length; i++) {
+		        var tempInfo = $scope.empVoteList[i];
+		        if(tempInfo.id == infoId){
+		        	var param = tempInfo;
+		        }
+		      }        	
+        } 
+		
+		layerUtils.iConfirm("是否删除该产品？", function() {
+			var url = httpUtils.url.deleteProduct;
+			$http.post(url, param).success(function(data) {
+				if (data.resCode == 0) {
+					layerUtils.iMsg(-1, "删除成功");
+					$scope.selected = [];
+					$scope.getEmpList(20000);
+				}
+			});
+		}, function() {
+			console.log("取消");
+		});
+	}
+	
 	
 	
 	//导出为excel
