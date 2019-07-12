@@ -57,8 +57,8 @@ ngApp.controller("indexController", function($scope, $state, $http, httpUtils) {
 	
 	$scope.gotoMenu = function(first,second,state,$event){
 		$event.stopPropagation();
-		if(state==null) {
-			$state.go("turntablePrizeList");
+		if(state=="addPrize ") {
+			$state.go("paramList");
 		}else {
 			$state.go(state);
 		}

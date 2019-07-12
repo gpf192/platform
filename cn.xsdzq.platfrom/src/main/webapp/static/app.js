@@ -203,6 +203,29 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl : "htmls/finance/modifyProduct.html",
 		controller : "modifyProductController",
 		params:{product:{}}
+	}).state("paramList", {
+		url : "/finance/paramList",
+		templateUrl : "htmls/finance/paramList.html",
+		controller : "paramListController",
+		params:{product:{}}
+	}).state("modifyParam", {
+		url : "/finance/modifyParam",
+		templateUrl : "htmls/finance/modifyParam.html",
+		controller : "modifyParamController",
+		params:{param:{}}
+	}).state("addParam", {
+		url : "/finance/addParam",
+		templateUrl : "htmls/finance/addParam.html",
+		controller : "addParamController",
+	}).state("userVoteForList", {
+		url : "/userVoteForList",
+		templateUrl : "htmls/finance/userVoteForList.html",
+		controller : "userVoteForListController"
+	}).state("modifyContestant", {
+		url : "/modifyContestant",
+		templateUrl : "htmls/finance/modifyContestant.html",
+		controller : "modifyContestantController",
+		params:{contestant:{}}
 	}).state("demo", {
 		url : "/demo",
 		templateUrl : "htmls/demo/demo.html",

@@ -17,13 +17,84 @@
         </div>
     </div>
   <div class="box-body">
-        <div class="col-sm-2">
-                                <button type="button" ng-click="exportToExcel()"
-                                    class="btn btn-default btn-primary">导出</button>
-             </div>
-                    
-    
         <div  class="dataTables_wrapper form-inline" role="grid">
+         <form class="form-inline margin10">
+                &nbsp  &nbsp
+                <div class="form-group ">
+                    <label  for="emp_name">客户号:</label>                 
+                        <input type="text" class="form-control input-300 " id="prizeName" name="prizeName"
+                        ng-model="formData.prizeName" placeholder="请输入客户号"></input>
+
+                </div>
+                &nbsp
+                 
+                <div class="form-group ">
+                    <label  for="product_code">产品代码:</label>                 
+                        <input type="text" class="form-control input-300 " id="product_code" name="product_code"
+                        ng-model="formData.product_code" placeholder="请输入产品代码"></input>
+
+                </div>
+               <br>  <br> 
+                <div class="form-group ">
+                    <label  for="account">资金账号:</label>                 
+                        <input type="text" class="form-control input-300 " id="account" name="account"
+                        ng-model="formData.account" placeholder="请输入资金账号"></input>
+
+                </div>
+                &nbsp
+                 
+                <div class="form-group ">
+                    <label  for="emp_name">理财账号:</label>                 
+                        <input type="text" class="form-control input-300 " id="account" name="account"
+                        ng-model="formData.account" placeholder="请输入资金账号"></input>
+
+                </div>
+                    <br>  <br> 
+                       <div class="form-group">
+                    <label for="dtp_input2" >委托时间-起始</label>
+                    <div class="input-group date form_date col-md-3" data-date="" data-date-format="yyyy-MM-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                        <input class="form-control" ng-model="formData.beginTime" size="16" type="text" value="" readonly>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                    </div>
+                    <input type="hidden" id="dtp_input2" value="" /><br/>
+                </div>
+                                <div class="form-group">
+                    <label for="dtp_input2" >委托时间-截止</label>
+                    <div class="input-group date form_date col-md-3" data-date="" data-date-format="yyyy-MM-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                        <input class="form-control" ng-model="formData.endTime"  size="16" type="text" value="" readonly>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                    </div>
+                    <input type="hidden" id="dtp_input2" value="" /><br/>
+                </div>
+                       <div class="form-group">
+                    <label for="dtp_input2" >成交时间-起始</label>
+                    <div class="input-group date form_date col-md-3" data-date="" data-date-format="yyyy-MM-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                        <input class="form-control" ng-model="formData.startTime" size="16" type="text" value="" readonly>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                    </div>
+                    <input type="hidden" id="dtp_input2" value="" /><br/>
+                </div>
+                                <div class="form-group">
+                    <label for="dtp_input2" >成交时间-截止</label>
+                    <div class="input-group date form_date col-md-3" data-date="" data-date-format="yyyy-MM-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                        <input class="form-control" ng-model="formData.finishTime"  size="16" type="text" value="" readonly>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                    </div>
+                    <input type="hidden" id="dtp_input2" value="" /><br/>
+                </div>
+                    <br>  <br> 
+                 &nbsp
+                <input type="button" value="查询" class="btn btn-primary"
+                            ng-click="getWinPrizeList(20000)" />
+                &nbsp
+                <input type="button" value="导出" class="btn btn-primary"
+                            ng-click="exportToExcel()" />
+            </form>
+            <hr />
             <div class="row hide" ng-show="productsSellList.length>0">
                 <div class="col-sm-12">
                     <div class="pull-right">
@@ -125,3 +196,39 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $('.form_datetime').datetimepicker({
+       // language:  'uk',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1
+    });
+    $('.form_date').datetimepicker({
+        language:  'zh-CN',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+    $('.form_time').datetimepicker({
+        language:  'zh-CN',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 1,
+        minView: 0,
+        maxView: 1,
+        forceParse: 0
+    });
+    $('#datetimepicker').datetimepicker('setStartDate', '2012-01-01');
+
+</script>

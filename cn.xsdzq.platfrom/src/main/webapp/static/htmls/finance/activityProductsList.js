@@ -177,14 +177,14 @@ function activityProductsListController($scope, $http, $state, $stateParams, $gr
 		});
 		return arr;
 	}
-	var excelInput = document.getElementById("sendFile");
-	function newBatchesBuild() {
-		excelInput.addEventListener("change",function() {
-
-		});
-	}
-	
-	newBatchesBuild();
+//	var excelInput = document.getElementById("sendFile");
+//	function newBatchesBuild() {
+//		excelInput.addEventListener("change",function() {
+//
+//		});
+//	}
+//	
+//	newBatchesBuild();
 	$scope.newBatchesBuild = function() {
 		if(excelInput.files.length<=0) {
 		 	layerUtils.iMsg(-1, "请选择文件！");
