@@ -27,7 +27,8 @@ public class LcjUserEntity implements Serializable{
 
 	 private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "lcj_user_sequence")
+	@SequenceGenerator(name = "lcj_user_sequence", sequenceName = "sequence_lcj_user", allocationSize = 1)
 	@Column(name = "id")
 	 private Long id;
 

@@ -19,9 +19,12 @@ public class EmpVoteEntity {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "emp_vote_sequence")
-	@SequenceGenerator(name = "emp_vote_sequence", sequenceName = "sequence_emp_vote_vote", allocationSize = 1)
+	@SequenceGenerator(name = "emp_vote_sequence", sequenceName = "sequence_emp_vote", allocationSize = 1)
 	@Column(name = "id")
 	private long id;
+	
+	@Column(name = "emp_id", unique = true, nullable = false)
+	private int empId;
 	
 	@Column(name = "emp_name")
 	private String empName;
@@ -46,6 +49,14 @@ public class EmpVoteEntity {
 	
 	@Column(name = "weight",columnDefinition="int default 0")
 	private int weight = 0;// 设置信息权重，初始为0
+
+	public int getEmpId() {
+		return empId;
+	}
+
+	public void setEmpId(int empId) {
+		this.empId = empId;
+	}
 
 	public long getId() {
 		return id;

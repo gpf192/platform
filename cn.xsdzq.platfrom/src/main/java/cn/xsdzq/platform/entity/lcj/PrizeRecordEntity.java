@@ -28,7 +28,13 @@ public class PrizeRecordEntity {
 	private String username;
 	
 	@Column(name = "account")
-	private String account;//客户号
+	private String account;//资金账号
+	
+	@Column(name = "client_id")
+	private String clientId;//客户号
+	
+	@Column(name = "prize_id")
+	private String prizeId;
 	
 	@Column(name = "prizeName")
 	private String prizeName;

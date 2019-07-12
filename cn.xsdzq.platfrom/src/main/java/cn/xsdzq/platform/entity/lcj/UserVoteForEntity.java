@@ -8,6 +8,7 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -18,7 +19,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class UserVoteForEntity implements Serializable{
 	 private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_vote_for_sequence")
+	@SequenceGenerator(name = "user_vote_for_sequence", sequenceName = "sequence_user_vote_for", allocationSize = 1)
 	@Column(name = "id")
 	 private Long id;
 	
@@ -41,6 +43,10 @@ public class UserVoteForEntity implements Serializable{
 	 //员工编号
 	 @Column(name = "emp_code")
 	 private String empCode;
+	 
+	 //员工id
+	 @Column(name = "emp_id")
+	 private int emp_id;//c3与c4的系统有区别，以id为主键
 	 
 	 //使用票数
 	 @Column(name = "emp_num")
@@ -124,6 +130,14 @@ public class UserVoteForEntity implements Serializable{
 
 	public void setDivision(String division) {
 		this.division = division;
+	}
+
+	public int getEmp_id() {
+		return emp_id;
+	}
+
+	public void setEmp_id(int emp_id) {
+		this.emp_id = emp_id;
 	}
 
 	@Override

@@ -31,6 +31,9 @@ public class EmpEntity implements Serializable{
 	@Column(name = "id")
 	private long id;
 	
+	@Column(name = "emp_id", unique = true, nullable = false)
+	private int empId;
+	
 	@Column(name = "emp_name")
 	private String empName;//人员姓名
 	
@@ -68,6 +71,30 @@ public class EmpEntity implements Serializable{
 	@JoinColumn(name = "ticketId", referencedColumnName = "id")
 	private TicketEntity ticketEntity;
 	
+	public int getEmpId() {
+		return empId;
+	}
+
+	public void setEmpId(int empId) {
+		this.empId = empId;
+	}
+
+	public long getTicketId() {
+		return ticketId;
+	}
+
+	public void setTicketId(long ticketId) {
+		this.ticketId = ticketId;
+	}
+
+	public TicketEntity getTicketEntity() {
+		return ticketEntity;
+	}
+
+	public void setTicketEntity(TicketEntity ticketEntity) {
+		this.ticketEntity = ticketEntity;
+	}
+
 	public long getId() {
 		return id;
 	}

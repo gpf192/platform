@@ -1,5 +1,7 @@
 package cn.xsdzq.platform.entity.lcj;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -9,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 //用户投票数
@@ -27,7 +30,10 @@ public class UserVoteEntity {
 	private String username;
 	
 	@Column(name = "account")
-	private String account;//客户号
+	private String account;
+	
+	@Column(name = "client_id")
+	private String clientId;//客户号
 	
 	@Column(name = "total_votes")
 	private String totalVotes;//所得总票数
@@ -52,6 +58,11 @@ public class UserVoteEntity {
 	
 	@Column(name = "division")
 	private String division;//隶属赛区
+	
+	// 创建时间
+	@Column(name = "createtime")
+	@CreatedDate
+	private Date createtime;
 
 	public String getSourceId() {
 		return sourceId;
@@ -139,6 +150,22 @@ public class UserVoteEntity {
 
 	public void setDivision(String division) {
 		this.division = division;
+	}
+
+	public String getClientId() {
+		return clientId;
+	}
+
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
+	}
+
+	public Date getCreatetime() {
+		return createtime;
+	}
+
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
 	}
 
 	@Override
