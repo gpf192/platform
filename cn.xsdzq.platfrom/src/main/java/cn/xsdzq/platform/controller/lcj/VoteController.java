@@ -174,17 +174,19 @@ public class VoteController extends BaseController {
 				@RequestParam String empName, @RequestParam String empCode,
 				 @RequestParam int pageNumber,@RequestParam int pageSize) {
 			System.out.println("用户投票数信息   +   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-			
+			System.out.println(username+"-"+clientId);
 			int sum = 0 ;
 			List<UserVoteForEntity> entitys = null;
 			int num = MethodUtil.getUserVoteForMethodNum(username, clientId, empName,empCode);
 			if(num == 1) {
 				//全量查找
+				System.out.println("into   1 ____");
 				entitys = myUserVoteForService.getAll(pageNumber, pageSize);
 				sum = myUserVoteForService.countAll();
 			}
 			if(num == 2) {
 				//4个条件一起查询
+				System.out.println("into   2 ____");
 				entitys = myUserVoteForService.findByUsernameAndClientIdAndEmpNameAndEmpCodeOrderByVoteTime(username, clientId, empName, empCode, pageNumber, pageSize);
 				sum = myUserVoteForService.countByUsernameAndClientIdAndEmpNameAndEmpCode(username, clientId, empName, empCode);
 			}
