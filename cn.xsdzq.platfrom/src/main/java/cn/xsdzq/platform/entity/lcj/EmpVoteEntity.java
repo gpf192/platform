@@ -47,6 +47,9 @@ public class EmpVoteEntity {
 	@Column(name = "vote_from_user")
 	private String voteFromUser;//来源用户
 	
+	@Column(name = "client_id")
+	private String clientId;//来源用户
+	
 	@Column(name = "weight",columnDefinition="int default 0")
 	private int weight = 0;// 设置信息权重，初始为0
 
@@ -68,6 +71,14 @@ public class EmpVoteEntity {
 
 	public String getEmpName() {
 		return empName;
+	}
+
+	public String getClientId() {
+		return clientId;
+	}
+
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
 	}
 
 	public void setEmpName(String empName) {
