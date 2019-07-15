@@ -5,6 +5,7 @@ import cn.xsdzq.platform.entity.lcj.EmpEntity;
 import cn.xsdzq.platform.entity.lcj.EmpVoteEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeRecordEntity;
+import cn.xsdzq.platform.entity.lcj.PrizeResultEntity;
 import cn.xsdzq.platform.entity.lcj.ProductEntity;
 import cn.xsdzq.platform.entity.lcj.ProductSellEntity;
 import cn.xsdzq.platform.entity.lcj.UserVoteEntity;
@@ -49,16 +50,16 @@ public class LcjUtil {
 		return entity;
 	}
 	//中奖纪录
-	public static PrizeRecordDTO convertPrizeRecordDTOByPrizeRecord(PrizeRecordEntity entity) {		
+	public static PrizeRecordDTO convertPrizeRecordDTOByEntity(PrizeResultEntity entity) {		
 		PrizeRecordDTO dto = new PrizeRecordDTO();
 		dto.setId(entity.getId());
-		dto.setUsername(entity.getUsername());
+		dto.setUsername(entity.getUserEntity().getClientId());
 		
-		dto.setAccount(entity.getAccount());
-		dto.setPrizeName(entity.getPrizeName());
+		dto.setClientId(entity.getUserEntity().getClientId());
+		dto.setPrizeName(entity.getPrizeEntity().getName());
 		//dto.setCreatetime(entity.getCreatetime());
 		try {
-			dto.setCreatetime(DateUtil.DateToString(entity.getCreatetime()));		
+			dto.setCreatetime(DateUtil.DateToString(entity.getRecordTime()));		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -122,14 +122,14 @@ public class VoteController extends BaseController {
 	@RequestMapping(value = "/getEmpVote", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> getEmpVote(HttpServletRequest request,  
-			@RequestParam String empName, @RequestParam String vote_from_user,
+			@RequestParam String empName, @RequestParam String empCode,@RequestParam String division,
 			 @RequestParam int pageNumber,@RequestParam int pageSize) {
 		System.out.println("全量参赛人员得票数信息   +   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 		
-		String voteFromUser = vote_from_user;
+		//String voteFromUser = vote_from_user;
 		int sum = 0 ;
 		List<EmpVoteEntity> entitys = null;
-		int num = MethodUtil.getEmpVoteMethodNum(empName,voteFromUser);
+		int num = MethodUtil.getEmpVoteMethodNum(empName, empCode, division);
 		if(num == 1) {
 			entitys = myEmpVoteService.getAll(pageNumber, pageSize);
 			sum = myEmpVoteService.countAll();

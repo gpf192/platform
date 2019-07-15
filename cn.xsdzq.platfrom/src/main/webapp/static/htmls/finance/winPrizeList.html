@@ -48,9 +48,9 @@
                 &nbsp
                  
                 <div class="form-group ">
-                    <label  for="emp_name">资金账号:</label>                 
-                        <input type="text" class="form-control input-300 " id="account" name="account"
-                        ng-model="formData.account" placeholder="请输入资金账号"></input>
+                    <label  for="emp_name">客户号:</label>                 
+                        <input type="text" class="form-control input-300 " id="clientId" name="clientId"
+                        ng-model="formData.clientId" placeholder="请输入客户号"></input>
 
                 </div>
                  &nbsp
@@ -94,7 +94,7 @@
                         <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">中奖用户姓名</div></th>
                         <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">中奖用户资金账号</div></th>
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">中奖用户客户号</div></th>
                         <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">奖品名称</div></th>
                         <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
@@ -105,7 +105,7 @@
                     <tr ng-repeat="prize in prizeList">
                         <td >{{$index+selectNum["num"]*currentPage.page+1}}</td>
                         <td ><div style="white-space:nowrap;" >{{prize.username}}</div> </td> 
-                        <td ><div style="white-space:nowrap;">{{prize.account}}</div> </td>
+                        <td ><div style="white-space:nowrap;">{{prize.clientId}}</div> </td>
                         <td ><div style="white-space:nowrap;">{{prize.prizeName}}</div> </td>
                          <td ><div style="white-space:nowrap;">{{prize.createtime}}</div> </td>
                     </tr>
