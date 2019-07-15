@@ -2,30 +2,30 @@ package cn.xsdzq.platform.service.lcj;
 
 import java.util.List;
 
-import cn.xsdzq.platform.entity.lcj.UserVoteEntity;
+import cn.xsdzq.platform.entity.lcj.UserTicketRecordEntity;
 
 public interface MyUserVoteService {
 	int countAll();
-	List<UserVoteEntity> getAll(int pageNumber, int pageSize);
+	List<UserTicketRecordEntity> getAll(int pageNumber, int pageSize);
 	
-	List<UserVoteEntity>findByUsernameAndAccountAndSourceIdOrderByAccount(String username, String account, String sourceId, int pageNumber, int pageSize);
-	int countByUsernameAndAccountAndSourceId(String username, String account, String sourceId);
+	List<UserTicketRecordEntity>findByUserEntity_usernameAndUserEntity_clientIdAndVotesSourceGainTime(String username, String clientId, String sourceId, int pageNumber, int pageSize);
+	int countByUserEntity_usernameAndUserEntity_clientIdAndVotesSource(String username, String clientId, String sourceId);
 	
-	List<UserVoteEntity>findByUsernameOrderByAccount(String username, int pageNumber, int pageSize);
-	int countByUsername(String username);
+	List<UserTicketRecordEntity>findByUserEntity_usernameGainTime(String username, int pageNumber, int pageSize);
+	int countByUserEntity_username(String username);
 	
-	List<UserVoteEntity>findByAccountOrderByAccount( String account, int pageNumber, int pageSize);
-	int countByAccount( String account);
+	List<UserTicketRecordEntity>findByUserEntity_clientIdGainTime( String clientId, int pageNumber, int pageSize);
+	int countByUserEntity_clientId( String clientId);
 	
-	List<UserVoteEntity>findBySourceIdOrderByAccount(String sourceId, int pageNumber, int pageSize);
-	int countBySourceId(String sourceId);
+	List<UserTicketRecordEntity>findByVotesSourceGainTime(String sourceId, int pageNumber, int pageSize);
+	int countByVotesSource(String sourceId);
 	
-	List<UserVoteEntity>findByUsernameAndAccountOrderByAccount(String username, String account , int pageNumber, int pageSize);
-	int countByUsernameAndAccount(String username, String account );
+	List<UserTicketRecordEntity>findByUserEntity_usernameAndUserEntity_clientIdGainTime(String username, String clientId , int pageNumber, int pageSize);
+	int countByUserEntity_usernameAndUserEntity_clientId(String username, String clientId );
 	
-	List<UserVoteEntity>findByUsernameAndSourceIdOrderByAccount(String username , String sourceId, int pageNumber, int pageSize);
-	int countByUsernameAndSourceId(String username , String sourceId);
+	List<UserTicketRecordEntity>findByUserEntity_usernameAndVotesSourceGainTime(String username , String sourceId, int pageNumber, int pageSize);
+	int countByUserEntity_usernameAndVotesSource(String username , String sourceId);
 	
-	List<UserVoteEntity>findByAccountAndSourceIdOrderByAccount(String account, String sourceId, int pageNumber, int pageSize);
-	int countByAccountAndSourceId(String account, String sourceId);
+	List<UserTicketRecordEntity>findByUserEntity_clientIdAndVotesSourceGainTime(String clientId, String sourceId, int pageNumber, int pageSize);
+	int countByUserEntity_clientIdAndVotesSource(String clientId, String sourceId);
 }

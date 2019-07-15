@@ -4,53 +4,53 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import cn.xsdzq.platform.entity.lcj.UserVoteForEntity;
+import cn.xsdzq.platform.entity.lcj.UserVoteEmpResultEntity;
 
-public interface MyUserVoteForRepository extends PagingAndSortingRepository<UserVoteForEntity, Long> {
-	Page<UserVoteForEntity> findByOrderById(Pageable pageable);
+public interface MyUserVoteForRepository extends PagingAndSortingRepository<UserVoteEmpResultEntity, Long> {
+	Page<UserVoteEmpResultEntity> findByOrderById(Pageable pageable);
 	//
-	Page<UserVoteForEntity> findByUsernameAndClientIdAndEmpNameAndEmpCodeOrderByVoteTime(String username, String clientId, String empName, String empCode, Pageable pageable);
-	int countByUsernameAndClientIdAndEmpNameAndEmpCode(String username, String clientId, String empName, String empCode);
+	Page<UserVoteEmpResultEntity> findByUserEntity_usernameAndUserEntity_clientIdAndUserEntity_empNameAndUserEntity_empCodeOrderByRecordTime(String username, String clientId, String empName, String empCode, Pageable pageable);
+	int countByUserEntity_usernameAndUserEntity_clientIdAndUserEntity_empNameAndUserEntity_empCode(String username, String clientId, String empName, String empCode);
 	
-	Page<UserVoteForEntity> findByUsernameAndClientIdAndEmpNameOrderByVoteTime(String username, String clientId, String empName,  Pageable pageable);
-	int countByUsernameAndClientIdAndEmpName(String username, String clientId, String empName);
+	Page<UserVoteEmpResultEntity> findByUserEntity_usernameAndUserEntity_clientIdAndUserEntity_empNameOrderByRecordTime(String username, String clientId, String empName,  Pageable pageable);
+	int countByUserEntity_usernameAndUserEntity_clientIdAndUserEntity_empName(String username, String clientId, String empName);
 	
-	Page<UserVoteForEntity> findByUsernameAndClientIdAndEmpCodeOrderByVoteTime(String username, String clientId , String empCode, Pageable pageable);
-	int countByUsernameAndClientIdAndEmpCode(String username, String clientId , String empCode);
+	Page<UserVoteEmpResultEntity> findByUserEntity_usernameAndUserEntity_clientIdAndUserEntity_empCodeOrderByRecordTime(String username, String clientId , String empCode, Pageable pageable);
+	int countByUserEntity_usernameAndUserEntity_clientIdAndUserEntity_empCode(String username, String clientId , String empCode);
 	
-	Page<UserVoteForEntity> findByUsernameAndEmpNameAndEmpCodeOrderByVoteTime(String username , String empName, String empCode, Pageable pageable);
-	int countByUsernameAndEmpNameAndEmpCode(String username , String empName, String empCode);
+	Page<UserVoteEmpResultEntity> findByUserEntity_usernameAndUserEntity_empNameAndUserEntity_empCodeOrderByRecordTime(String username , String empName, String empCode, Pageable pageable);
+	int countByUserEntity_usernameAndUserEntity_empNameAndUserEntity_empCode(String username , String empName, String empCode);
 	
-	Page<UserVoteForEntity> findByClientIdAndEmpNameAndEmpCodeOrderByVoteTime( String clientId, String empName, String empCode, Pageable pageable);
-	int countByClientIdAndEmpNameAndEmpCode(  String clientId, String empName, String empCode);
+	Page<UserVoteEmpResultEntity> findByUserEntity_clientIdAndUserEntity_empNameAndUserEntity_empCodeOrderByRecordTime( String clientId, String empName, String empCode, Pageable pageable);
+	int countByUserEntity_clientIdAndUserEntity_empNameAndUserEntity_empCode(  String clientId, String empName, String empCode);
 	
-	Page<UserVoteForEntity> findByUsernameAndClientIdOrderByVoteTime(String username, String clientId,  Pageable pageable);
-	int countByUsernameAndClientId(String username, String clientId);
+	Page<UserVoteEmpResultEntity> findByUserEntity_usernameAndUserEntity_clientIdOrderByRecordTime(String username, String clientId,  Pageable pageable);
+	int countByUserEntity_usernameAndUserEntity_clientId(String username, String clientId);
 	
-	Page<UserVoteForEntity> findByUsernameAndEmpNameOrderByVoteTime(String username,  String empName, Pageable pageable);
-	int countByUsernameAndEmpName(String username,  String empName);
+	Page<UserVoteEmpResultEntity> findByUserEntity_usernameAndUserEntity_empNameOrderByRecordTime(String username,  String empName, Pageable pageable);
+	int countByUserEntity_usernameAndUserEntity_empName(String username,  String empName);
 	
-	Page<UserVoteForEntity> findByUsernameAndEmpCodeOrderByVoteTime(String username, String empCode, Pageable pageable);
-	int countByUsernameAndEmpCode(String username, String empCode);
+	Page<UserVoteEmpResultEntity> findByUserEntity_usernameAndUserEntity_empCodeOrderByRecordTime(String username, String empCode, Pageable pageable);
+	int countByUserEntity_usernameAndUserEntity_empCode(String username, String empCode);
 	
-	Page<UserVoteForEntity> findByClientIdAndEmpNameOrderByVoteTime( String clientId, String empName, Pageable pageable);
-	int countByClientIdAndEmpName( String clientId, String empName);
+	Page<UserVoteEmpResultEntity> findByUserEntity_clientIdAndUserEntity_empNameOrderByRecordTime( String clientId, String empName, Pageable pageable);
+	int countByUserEntity_clientIdAndUserEntity_empName( String clientId, String empName);
 	
-	Page<UserVoteForEntity> findByClientIdAndEmpCodeOrderByVoteTime( String clientId , String empCode, Pageable pageable);
-	int countByClientIdAndEmpCode( String clientId, String empCode);
+	Page<UserVoteEmpResultEntity> findByUserEntity_clientIdAndUserEntity_empCodeOrderByRecordTime( String clientId , String empCode, Pageable pageable);
+	int countByUserEntity_clientIdAndUserEntity_empCode( String clientId, String empCode);
 	
-	Page<UserVoteForEntity> findByEmpNameAndEmpCodeOrderByVoteTime(String empName, String empCode, Pageable pageable);
-	int countByEmpNameAndEmpCode( String empName, String empCode);
+	Page<UserVoteEmpResultEntity> findByUserEntity_empNameAndUserEntity_empCodeOrderByRecordTime(String empName, String empCode, Pageable pageable);
+	int countByUserEntity_empNameAndUserEntity_empCode( String empName, String empCode);
 	
-	Page<UserVoteForEntity> findByUsernameOrderByVoteTime(String username, Pageable pageable);
-	int countByUsername(String username);
+	Page<UserVoteEmpResultEntity> findByUserEntity_usernameOrderByRecordTime(String username, Pageable pageable);
+	int countByUserEntity_username(String username);
 	
-	Page<UserVoteForEntity> findByClientIdOrderByVoteTime(String clientId, Pageable pageable);
-	int countByClientId(String clientId);
+	Page<UserVoteEmpResultEntity> findByUserEntity_clientIdOrderByRecordTime(String clientId, Pageable pageable);
+	int countByUserEntity_clientId(String clientId);
 	
-	Page<UserVoteForEntity> findByEmpNameOrderByVoteTime(String empName, Pageable pageable);
-	int countByEmpName(String empName);
+	Page<UserVoteEmpResultEntity> findByUserEntity_empNameOrderByRecordTime(String empName, Pageable pageable);
+	int countByUserEntity_empName(String empName);
 	
-	Page<UserVoteForEntity> findByEmpCodeOrderByVoteTime(String empCode, Pageable pageable);
-	int countByEmpCode(String empCode);
+	Page<UserVoteEmpResultEntity> findByUserEntity_empCodeOrderByRecordTime(String empCode, Pageable pageable);
+	int countByUserEntity_empCode(String empCode);
 }

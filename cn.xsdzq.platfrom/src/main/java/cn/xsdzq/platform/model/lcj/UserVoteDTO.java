@@ -7,9 +7,9 @@ public class UserVoteDTO {
 	
 	private String username;
 	
-	private String account;//资金账号
+	private String clientId;//客户号
 	
-	private String total_votes;//所得总票数
+	private int total_votes;//所得总票数
 	
 	private String votes_source;//得票来源
 	
@@ -48,19 +48,23 @@ public class UserVoteDTO {
 		this.username = username;
 	}
 
-	public String getAccount() {
-		return account;
+
+
+	public String getClientId() {
+		return clientId;
 	}
 
-	public void setAccount(String account) {
-		this.account = account;
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
 	}
 
-	public String getTotal_votes() {
+
+
+	public int getTotal_votes() {
 		return total_votes;
 	}
 
-	public void setTotal_votes(String total_votes) {
+	public void setTotal_votes(int total_votes) {
 		this.total_votes = total_votes;
 	}
 
@@ -114,11 +118,13 @@ public class UserVoteDTO {
 
 	@Override
 	public String toString() {
-		return "UserVoteDTO [id=" + id + ", username=" + username + ", account=" + account + ", total_votes="
+		return "UserVoteDTO [id=" + id + ", username=" + username + ", clientId=" + clientId + ", total_votes="
 				+ total_votes + ", votes_source=" + votes_source + ", gain_time=" + gain_time + ", vote_for=" + vote_for
 				+ ", vote_for_amount=" + vote_for_amount + ", sales_department=" + sales_department + ", division="
-				+ division + "]";
+				+ division + ", sourceId=" + sourceId + "]";
 	}
+
+
 	
 	
 }
