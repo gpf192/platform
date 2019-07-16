@@ -6,7 +6,7 @@ import javax.persistence.Column;
 
 public class ProductSellDTO {
 	private long id;
-	private String usercode;//客户姓名
+	private String clientId;//客户号
 	private String username;
 	
 	private String account;//资金账号
@@ -120,12 +120,14 @@ public class ProductSellDTO {
 	}
 	
 
-	public String getUsercode() {
-		return usercode;
+	
+
+	public String getClientId() {
+		return clientId;
 	}
 
-	public void setUsercode(String usercode) {
-		this.usercode = usercode;
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
 	}
 
 	public String getFinaccount() {
@@ -174,11 +176,12 @@ public class ProductSellDTO {
 
 	@Override
 	public String toString() {
-		return "ProductSellDTO [id=" + id + ", username=" + username + ", account=" + account + ", product_code="
-				+ product_code + ", product_name=" + product_name + ", deal_share=" + deal_share + ", deal_amount="
-				+ deal_amount + ", votes=" + votes + ", emp_name=" + emp_name + ", order_time=" + order_time
-				+ ", deal_time=" + deal_time + "]";
+		return "ProductSellDTO [id=" + id + ", clientId=" + clientId + ", username=" + username + ", account=" + account
+				+ ", finaccount=" + finaccount + ", product_code=" + product_code + ", product_name=" + product_name
+				+ ", productType=" + productType + ", foundType=" + foundType + ", deal_share=" + deal_share
+				+ ", deal_amount=" + deal_amount + ", votes=" + votes + ", emp_name=" + emp_name + ", order_time="
+				+ order_time + ", deal_time=" + deal_time + "]";
 	}
-	
-	
+
+
 }

@@ -1,7 +1,7 @@
 package cn.xsdzq.platform.service.lcj;
 
-import cn.xsdzq.platform.entity.lcj.EmpVoteEntity;
+import cn.xsdzq.platform.entity.lcj.EmpTicketRecordEntity;
 
 public interface EmpVoteService {
-	void addWeight(EmpVoteEntity entity);
+	void addWeight(EmpTicketRecordEntity entity);
 }

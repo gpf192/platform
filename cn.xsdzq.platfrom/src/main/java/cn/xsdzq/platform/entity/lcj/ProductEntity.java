@@ -1,5 +1,7 @@
 package cn.xsdzq.platform.entity.lcj;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -32,10 +34,19 @@ public class ProductEntity {
 	private String type;
 	
 	@Column(name = "begin_date")
-	private String begin_date;
+	private Date beginDate;
+	
+	@Column(name = "end_date")
+	private Date endDate;
 	
 	@Column(name = "coefficient")
-	private String coefficient;
+	private String coefficient;//转化系数
+	
+	@Column(name = "initial_amount")
+	private String initialAmount;//起始金额
+	
+	@Column(name = "flag")
+	private int flag;//0-场内  1-场外
 
 	public long getId() {
 		return id;
@@ -69,12 +80,21 @@ public class ProductEntity {
 		this.type = type;
 	}
 
-	public String getBegin_date() {
-		return begin_date;
+
+	public Date getBeginDate() {
+		return beginDate;
 	}
 
-	public void setBegin_date(String begin_date) {
-		this.begin_date = begin_date;
+	public void setBeginDate(Date beginDate) {
+		this.beginDate = beginDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
 	public String getCoefficient() {
@@ -83,6 +103,22 @@ public class ProductEntity {
 
 	public void setCoefficient(String coefficient) {
 		this.coefficient = coefficient;
+	}
+
+	public String getInitialAmount() {
+		return initialAmount;
+	}
+
+	public void setInitialAmount(String initialAmount) {
+		this.initialAmount = initialAmount;
+	}
+
+	public int getFlag() {
+		return flag;
+	}
+
+	public void setFlag(int flag) {
+		this.flag = flag;
 	}
 	
 }

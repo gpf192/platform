@@ -1,7 +1,5 @@
 package cn.xsdzq.platform.model.lcj;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 
 public class EmpVoteDTO {
@@ -62,7 +60,7 @@ public class EmpVoteDTO {
 		this.division = division;
 	}
 
-
+	
 
 	public int getGet_vote_amount() {
 		return get_vote_amount;
@@ -71,7 +69,6 @@ public class EmpVoteDTO {
 	public void setGet_vote_amount(int get_vote_amount) {
 		this.get_vote_amount = get_vote_amount;
 	}
-
 
 	public String getGet_vote_time() {
 		return get_vote_time;
@@ -101,11 +98,8 @@ public class EmpVoteDTO {
 	public String toString() {
 		return "EmpVoteDTO [id=" + id + ", emp_name=" + emp_name + ", emp_code=" + emp_code + ", sales_department="
 				+ sales_department + ", division=" + division + ", get_vote_amount=" + get_vote_amount
-				+ ", get_vote_time=" + get_vote_time + ", vote_from_user=" + vote_from_user + ", weight=" + weight
-				+ "]";
+				+ ", get_vote_time=" + get_vote_time + ", vote_from_user=" + vote_from_user + "]";
 	}
-
-
 	
 	
 }
