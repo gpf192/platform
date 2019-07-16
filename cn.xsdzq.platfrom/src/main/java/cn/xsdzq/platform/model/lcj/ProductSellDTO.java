@@ -30,6 +30,16 @@ public class ProductSellDTO {
 	private Date order_time;//委托时间
 	
 	private Date deal_time;//成交时间
+	
+	private int flag;//0-场内  1-场外
+
+	public int getFlag() {
+		return flag;
+	}
+
+	public void setFlag(int flag) {
+		this.flag = flag;
+	}
 
 	public long getId() {
 		return id;
