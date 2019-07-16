@@ -45,8 +45,8 @@
                  <div class="form-group">
                     <label class="col-sm-3 control-label">隶属赛区：</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="division" name="division"
-                            ng-model="formData.division" placeholder="请输入隶属赛区" />
+                        <select class="form-control"  ng-model="selectedDivision"
+                            ng-options="division.name for division in divisionFromList" ></select>
                     </div>
                 </div>
                  <div class="form-group">
