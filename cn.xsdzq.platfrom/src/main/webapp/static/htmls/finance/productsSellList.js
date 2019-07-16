@@ -1,6 +1,7 @@
-ngApp.$inject = ['$scope', '$http', '$state', 'httpUtils', 'layerUtils', '$stateParams', '$gridService'];
-function productsSellListController($scope, $http, $state, httpUtils, layerUtils, $stateParams, $gridService) {
+ngApp.$inject = ['$scope', '$http', '$state', 'httpUtils', 'layerUtils', '$stateParams', '$gridService','utils'];
+function productsSellListController($scope, $http, $state, httpUtils, layerUtils, $stateParams, $gridService,utils) {
 	$scope.productsSellList = [];
+	$scope.formData = {};
 	$scope.init=function(){
 		var data = {
 				"one" : {
@@ -37,9 +38,29 @@ function productsSellListController($scope, $http, $state, httpUtils, layerUtils
 	
 	$scope.getWinPrizeList = function(pageSize) {
 		var url = httpUtils.url.productsSellList;
+		var clientId = "";
+		var account = "";
+		var finaccount = "";
+		var code = "";
+		if(!utils.isEmpty($scope.formData.clientId)) {
+			clientId = $scope.formData.clientId;
+		}
+		if(!utils.isEmpty($scope.formData.account)) {
+			account = $scope.formData.account;
+		}
+		if(!utils.isEmpty($scope.formData.finaccount)) {
+			finaccount = $scope.formData.finaccount;
+		}
+		if(!utils.isEmpty($scope.formData.code)) {
+			code = $scope.formData.code;
+		}
 		var params = {
 			pageNumber : 0,
-			pageSize : pageSize
+			pageSize : pageSize,
+			clientId : clientId,
+			account : account,
+			finaccount :finaccount,
+			code : code
 		};
 		var settings = {
 			url : url,
