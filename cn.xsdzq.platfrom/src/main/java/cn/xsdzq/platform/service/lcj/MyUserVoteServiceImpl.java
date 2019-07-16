@@ -34,11 +34,11 @@ public class MyUserVoteServiceImpl implements MyUserVoteService{
 	}
 
 	@Override
-	public List<UserTicketRecordEntity> findByUserEntity_usernameAndUserEntity_clientIdAndVotesSourceGainTime(String username, String clientId,
+	public List<UserTicketRecordEntity> findByUserEntity_usernameAndUserEntity_clientIdAndVotesSourceOrderByGainTime(String username, String clientId,
 			String sourceId, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<UserTicketRecordEntity> pages = myUserVoteRepository.findByUserEntity_usernameAndUserEntity_clientIdAndVotesSourceGainTime(username, clientId, sourceId, pageRequest);
+		Page<UserTicketRecordEntity> pages = myUserVoteRepository.findByUserEntity_usernameAndUserEntity_clientIdAndVotesSourceOrderByGainTime(username, clientId, sourceId, pageRequest);
 		List<UserTicketRecordEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -50,10 +50,10 @@ public class MyUserVoteServiceImpl implements MyUserVoteService{
 	}
 
 	@Override
-	public List<UserTicketRecordEntity> findByUserEntity_usernameGainTime(String username, int pageNumber, int pageSize) {
+	public List<UserTicketRecordEntity> findByUserEntity_usernameOrderByGainTime(String username, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<UserTicketRecordEntity> pages = myUserVoteRepository.findByUserEntity_usernameGainTime(username, pageRequest);
+		Page<UserTicketRecordEntity> pages = myUserVoteRepository.findByUserEntity_usernameOrderByGainTime(username, pageRequest);
 		List<UserTicketRecordEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -65,10 +65,10 @@ public class MyUserVoteServiceImpl implements MyUserVoteService{
 	}
 
 	@Override
-	public List<UserTicketRecordEntity> findByUserEntity_clientIdGainTime(String clientId, int pageNumber, int pageSize) {
+	public List<UserTicketRecordEntity> findByUserEntity_clientIdOrderByGainTime(String clientId, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<UserTicketRecordEntity> pages = myUserVoteRepository.findByUserEntity_clientIdGainTime(clientId, pageRequest);
+		Page<UserTicketRecordEntity> pages = myUserVoteRepository.findByUserEntity_clientIdOrderByGainTime(clientId, pageRequest);
 		List<UserTicketRecordEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -80,10 +80,10 @@ public class MyUserVoteServiceImpl implements MyUserVoteService{
 	}
 
 	@Override
-	public List<UserTicketRecordEntity> findByVotesSourceGainTime(String sourceId, int pageNumber, int pageSize) {
+	public List<UserTicketRecordEntity> findByVotesSourceOrderByGainTime(String sourceId, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<UserTicketRecordEntity> pages = myUserVoteRepository.findByVotesSourceGainTime(sourceId, pageRequest);
+		Page<UserTicketRecordEntity> pages = myUserVoteRepository.findByVotesSourceOrderByGainTime(sourceId, pageRequest);
 		List<UserTicketRecordEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -95,11 +95,11 @@ public class MyUserVoteServiceImpl implements MyUserVoteService{
 	}
 
 	@Override
-	public List<UserTicketRecordEntity> findByUserEntity_usernameAndUserEntity_clientIdGainTime(String username, String clientId, int pageNumber,
+	public List<UserTicketRecordEntity> findByUserEntity_usernameAndUserEntity_clientIdOrderByGainTime(String username, String clientId, int pageNumber,
 			int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<UserTicketRecordEntity> pages = myUserVoteRepository.findByUserEntity_usernameAndUserEntity_clientIdGainTime(username, clientId, pageRequest);
+		Page<UserTicketRecordEntity> pages = myUserVoteRepository.findByUserEntity_usernameAndUserEntity_clientIdOrderByGainTime(username, clientId, pageRequest);
 		List<UserTicketRecordEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -111,11 +111,11 @@ public class MyUserVoteServiceImpl implements MyUserVoteService{
 	}
 
 	@Override
-	public List<UserTicketRecordEntity> findByUserEntity_usernameAndVotesSourceGainTime(String username, String sourceId,
+	public List<UserTicketRecordEntity> findByUserEntity_usernameAndVotesSourceOrderByGainTime(String username, String sourceId,
 			int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<UserTicketRecordEntity> pages = myUserVoteRepository.findByUserEntity_usernameAndVotesSourceGainTime(username, sourceId, pageRequest);
+		Page<UserTicketRecordEntity> pages = myUserVoteRepository.findByUserEntity_usernameAndVotesSourceOrderByGainTime(username, sourceId, pageRequest);
 		List<UserTicketRecordEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -127,11 +127,11 @@ public class MyUserVoteServiceImpl implements MyUserVoteService{
 	}
 
 	@Override
-	public List<UserTicketRecordEntity> findByUserEntity_clientIdAndVotesSourceGainTime(String clientId, String sourceId, int pageNumber,
+	public List<UserTicketRecordEntity> findByUserEntity_clientIdAndVotesSourceOrderByGainTime(String clientId, String sourceId, int pageNumber,
 			int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<UserTicketRecordEntity> pages = myUserVoteRepository.findByUserEntity_clientIdAndVotesSourceGainTime(clientId, sourceId, pageRequest);
+		Page<UserTicketRecordEntity> pages = myUserVoteRepository.findByUserEntity_clientIdAndVotesSourceOrderByGainTime(clientId, sourceId, pageRequest);
 		List<UserTicketRecordEntity> infos = pages.getContent();
 		return infos;
 	}
