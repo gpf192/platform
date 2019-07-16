@@ -37,6 +37,7 @@ import cn.xsdzq.platform.service.lcj.ProductService;
 import cn.xsdzq.platform.util.GsonUtil;
 import cn.xsdzq.platform.util.InfoUtil;
 import cn.xsdzq.platform.util.LcjUtil;
+import cn.xsdzq.platform.util.MethodUtil;
 import cn.xsdzq.platform.util.UserManageUtil;
 
 @Controller
@@ -58,20 +59,12 @@ public class ProductController extends BaseController{
 	@RequestMapping(value = "/getProduct", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> getProduct(HttpServletRequest request,  
-//			@RequestParam String beginTime, @RequestParam String endTime, 
 			 @RequestParam int pageNumber,@RequestParam int pageSize) {
-		System.out.println("全量查询产品信息   +   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-		/*Date endDate = null;
-		Date beginDate = null;*/
-		
+		System.out.println("全量查询产品信息   +   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");		
 		int sum = 0 ;
-		List<ProductEntity> entitys = null;
-		//int num = MethodUtil.getMethodNum(beginTime,endTime);
-		
+		List<ProductEntity> entitys = null;		
 			entitys = myProductService.getAllProduct(pageNumber, pageSize);
 			sum = myProductService.countAll();
-		
-	
 					
 		List<ProductDTO> productDTOs = new ArrayList<ProductDTO>();
 		for (ProductEntity entity : entitys) {
@@ -118,20 +111,98 @@ public class ProductController extends BaseController{
 	@RequestMapping(value = "/getProductSell", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> getProductSell(HttpServletRequest request,  
-//			@RequestParam String beginTime, @RequestParam String endTime, 
+			@RequestParam String clientId, @RequestParam String code, 
+			@RequestParam String account, @RequestParam String finaccount, 
 			 @RequestParam int pageNumber,@RequestParam int pageSize) {
 		System.out.println("全量查询产品销售信息   +   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-		/*Date endDate = null;
-		Date beginDate = null;*/
-		
+		String zj = account;
+		String lc = finaccount;
 		int sum = 0 ;
 		List<ProductSellEntity> entitys = null;
-		//int num = MethodUtil.getMethodNum(beginTime,endTime);
+		int num = MethodUtil.getProductSellMethodNum(clientId, code, zj,lc);
+		if(num == 1) {
+			//全量查找
 		
 			entitys = myProductSellService.getAllProductSell(pageNumber, pageSize);
 			sum = myProductSellService.countAll();
+		}
+		if(num == 2) {
+			//4个条件一起查询
+			System.out.println("into   2 ____");
+			entitys = myProductSellService.findByClientIdAndCodeAndZjAndLcOrderById(clientId, code, zj, lc, pageNumber, pageSize);
+			sum = myProductSellService.countByClientIdAndCodeAndZjAndLc(clientId, code, zj, lc);
+		}
+		if(num == 3) {
+			//查询条件：clientId\code\zj\
+			entitys = myProductSellService.findByClientIdAndCodeAndZjOrderById(clientId, code, zj, pageNumber, pageSize);
+			sum = myProductSellService.countByClientIdAndCodeAndZj(clientId, code, zj);
+		}
+		if(num == 4) {
+			//查询条件：clientId\code\\lc
+			entitys = myProductSellService.findByClientIdAndCodeAndLcOrderById(clientId, code, lc, pageNumber, pageSize);
+			sum = myProductSellService.countByClientIdAndCodeAndLc(clientId, code, lc);
+		}
+		if(num == 5) {
+			//查询条件：clientId\\zj\lc
+			entitys = myProductSellService.findByClientIdAndZjAndLcOrderById(clientId, zj, lc, pageNumber, pageSize);
+			sum = myProductSellService.countByClientIdAndZjAndLc(clientId, zj, lc);
+		}
+		if(num == 6) {
+			//查询条件：\\code\zj\lc
+			entitys = myProductSellService.findByCodeAndZjAndLcOrderById(code, zj, lc, pageNumber, pageSize);
+			sum = myProductSellService.countByCodeAndZjAndLc(code, zj, lc);
+		}
+		if(num == 7) {
+			////查询条件：clientId\code\\
+			entitys = myProductSellService.findByClientIdAndCodeOrderById(clientId, code, pageNumber, pageSize);
+			sum = myProductSellService.countByClientIdAndCode(clientId, code);
+		}
+		if(num == 8) {
+			//查询条件：clientId\\zj\
+			entitys = myProductSellService.findByClientIdAndZjOrderById(clientId, zj, pageNumber, pageSize);
+			sum = myProductSellService.countByClientIdAndZj(clientId, zj);
+		}
+		if(num == 9) {
+			//clientId\\\lc
+			entitys = myProductSellService.findByClientIdAndLcOrderById(clientId, lc, pageNumber, pageSize);
+			sum = myProductSellService.countByClientIdAndLc(clientId, lc);
+		}
+		if(num == 10) {
+			//查询条件：\code\zj\
+			entitys = myProductSellService.findByCodeAndZjOrderById(code, zj, pageNumber, pageSize);
+			sum = myProductSellService.countByCodeAndZj(code, zj);
+		}
+		if(num == 11) {
+			//查询条件  \code\\lc
+			entitys = myProductSellService.findByCodeAndLcOrderById(code, lc, pageNumber, pageSize);
+			sum = myProductSellService.countByCodeAndLc(code, lc);
+		}
+		if(num == 12) {
+			//查询条件：\\\\zj\lc
+			entitys = myProductSellService.findByZjAndLcOrderById(zj, lc, pageNumber, pageSize);
+			sum = myProductSellService.countByZjAndLc(zj, lc);
+		}
+		if(num == 13) {
+			//查询条件：clientId 
+			entitys = myProductSellService.findByClientIdOrderById(clientId, pageNumber, pageSize);
+			sum = myProductSellService.countByClientId(clientId);
+		}
+		if(num == 14) {
+			////查询条件： \code
+			entitys = myProductSellService.findByCodeOrderById(code, pageNumber, pageSize);
+			sum = myProductSellService.countByCode(code);
+		}
+		if(num == 15) {
+			//查询条件：zj
+			entitys = myProductSellService.findByZjOrderById(zj, pageNumber, pageSize);
+			sum = myProductSellService.countByZj(zj);
+		}
+		if(num == 16) {
+			//查询条件：lc
+			entitys = myProductSellService.findByLcOrderById(lc, pageNumber, pageSize);
+			sum = myProductSellService.countByLc( lc);
+		}
 		
-	
 					
 		List<ProductSellDTO> productSellDTOs = new ArrayList<ProductSellDTO>();
 		for (ProductSellEntity entity : entitys) {

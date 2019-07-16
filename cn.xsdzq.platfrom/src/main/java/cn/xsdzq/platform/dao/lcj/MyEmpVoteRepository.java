@@ -5,8 +5,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import cn.xsdzq.platform.entity.lcj.EmpTicketRecordEntity;
-import cn.xsdzq.platform.entity.lcj.EmpVoteEntity;
-import cn.xsdzq.platform.entity.lcj.UserVoteEntity;
 
 public interface MyEmpVoteRepository extends PagingAndSortingRepository<EmpTicketRecordEntity, Long> {
 	Page<EmpTicketRecordEntity> findByOrderByRecordTime(Pageable pageable);

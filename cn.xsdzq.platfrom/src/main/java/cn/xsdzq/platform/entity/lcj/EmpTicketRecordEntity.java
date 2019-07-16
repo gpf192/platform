@@ -45,6 +45,9 @@ public class EmpTicketRecordEntity implements Serializable {
 	@Column(name = "record_time", nullable = false)
 	private Date recordTime;
 
+	@Column(name = "weight",columnDefinition="int default 0")
+	private int weight = 0;// 设置信息权重，初始为0
+	
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "emp_id", referencedColumnName = "emp_id")
 	private EmpEntity empEntity;
@@ -103,6 +106,14 @@ public class EmpTicketRecordEntity implements Serializable {
 
 	public void setEmpEntity(EmpEntity empEntity) {
 		this.empEntity = empEntity;
+	}
+
+	public int getWeight() {
+		return weight;
+	}
+
+	public void setWeight(int weight) {
+		this.weight = weight;
 	}
 
 	@Override

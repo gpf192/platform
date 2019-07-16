@@ -3,12 +3,16 @@ package cn.xsdzq.platform.entity.lcj;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -25,20 +29,20 @@ public class ProductSellEntity implements Serializable {
 	@Column(name = "id")
 	private long id;
 	
-	@Column(name = "usercode")
-	private String usercode;//客户编号
+	@Column(name = "clientId")
+	private String clientId;//客户号
 	
 	@Column(name = "username")
 	private String username;//客户姓名
 	
 	@Column(name = "account")
-	private String account;//资金账号
+	private String zj;//资金账号
 	
 	@Column(name = "finaccount")
-	private String finaccount;//理财账号
+	private String lc;//理财账号
 	
-	@Column(name = "product_code")
-	private String productCode;//产品代码
+	@Column(name = "code")
+	private String code;//产品代码
 	
 	@Column(name = "product_name")
 	private String productName; //产品名称
@@ -79,29 +83,21 @@ public class ProductSellEntity implements Serializable {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public String getAccount() {
-		return account;
+	
+
+
+	public String getClientId() {
+		return clientId;
 	}
-	public void setAccount(String account) {
-		this.account = account;
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
 	}
-	public String getUsercode() {
-		return usercode;
+
+	public String getCode() {
+		return code;
 	}
-	public void setUsercode(String usercode) {
-		this.usercode = usercode;
-	}
-	public String getFinaccount() {
-		return finaccount;
-	}
-	public void setFinaccount(String finaccount) {
-		this.finaccount = finaccount;
-	}
-	public String getProductCode() {
-		return productCode;
-	}
-	public void setProductCode(String productCode) {
-		this.productCode = productCode;
+	public void setCode(String code) {
+		this.code = code;
 	}
 	public String getProductName() {
 		return productName;
@@ -157,15 +153,27 @@ public class ProductSellEntity implements Serializable {
 	public void setDealTime(Date dealTime) {
 		this.dealTime = dealTime;
 	}
+	public String getZj() {
+		return zj;
+	}
+	public void setZj(String zj) {
+		this.zj = zj;
+	}
+	public String getLc() {
+		return lc;
+	}
+	public void setLc(String lc) {
+		this.lc = lc;
+	}
 	@Override
 	public String toString() {
-		return "ProductSellEntity [id=" + id + ", usercode=" + usercode + ", username=" + username + ", account="
-				+ account + ", finaccount=" + finaccount + ", productCode=" + productCode + ", productName="
-				+ productName + ", productType=" + productType + ", foundType=" + foundType + ", dealShare=" + dealShare
-				+ ", dealAmount=" + dealAmount + ", votes=" + votes + ", empName=" + empName + ", orderTime="
-				+ orderTime + ", dealTime=" + dealTime + "]";
+		return "ProductSellEntity [id=" + id + ", clientId=" + clientId + ", username=" + username + ", zj=" + zj
+				+ ", lc=" + lc + ", productCode=" + code + ", productName=" + productName + ", productType="
+				+ productType + ", foundType=" + foundType + ", dealShare=" + dealShare + ", dealAmount=" + dealAmount
+				+ ", votes=" + votes + ", empName=" + empName + ", orderTime=" + orderTime + ", dealTime=" + dealTime
+				+ "]";
 	}
-	
-	
+
+
 	
 }

@@ -182,7 +182,7 @@ public class VoteController extends BaseController {
 	@RequestMapping(value = "/addWeight", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> addWeight(@RequestBody EmpVoteDTO dto) {
-		EmpVoteEntity entity = LcjUtil.convertEmpVoteEntityByDTO(dto);
+		EmpTicketRecordEntity entity = LcjUtil.convertEmpVoteEntityByDTO(dto);
 		empVoteService.addWeight(entity);
 		return GsonUtil.buildMap(0, "ok", null);
 	}

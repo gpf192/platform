@@ -50,7 +50,7 @@ public class PrizeEntity implements Serializable {
 	private Date modifytime;
 	
 	@Column(name = "winning_number",columnDefinition="int default 0")//中奖人数
-	private int winning_number = 0;
+	private int winningNumber = 0;
 	
 	@Column(name = "type") // 奖品类型
 	private boolean type;
@@ -131,12 +131,14 @@ public class PrizeEntity implements Serializable {
 	}
 
 
-	public Integer getWinning_number() {
-		return winning_number;
+
+
+	public int getWinningNumber() {
+		return winningNumber;
 	}
 
-	public void setWinning_number(Integer winning_number) {
-		this.winning_number = winning_number;
+	public void setWinningNumber(int winningNumber) {
+		this.winningNumber = winningNumber;
 	}
 
 	@Override

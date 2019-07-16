@@ -32,7 +32,7 @@ public class LcjUtil {
 		dto.setPice(entity.getPrice());
 		dto.setRate(entity.getRate());
 		dto.setAmount(entity.getAmount());
-		dto.setWinning_number(entity.getWinning_number());
+		dto.setWinning_number(entity.getWinningNumber());
 		/*try {
 			dto.setCreatetime(DateUtil.DateToString(entity.getCreatetime()));		
 		} catch (Exception e) {
@@ -77,8 +77,12 @@ public class LcjUtil {
 		dto.setName(entity.getName());
 		dto.setType(entity.getType());
 		dto.setCode(entity.getCode());
-		dto.setBegin_date(entity.getBegin_date());
 		dto.setCoefficient(entity.getCoefficient());
+		
+		dto.setBeginDate(entity.getBeginDate());
+		dto.setEndDate(entity.getEndDate());
+		dto.setInitialAmount(entity.getInitialAmount());
+		dto.setFlag(entity.getFlag());
 	
 		
 		return dto;
@@ -89,8 +93,12 @@ public class LcjUtil {
 		entity.setName(dto.getName());
 		entity.setCode(dto.getCode());
 		entity.setType(dto.getType());
-		entity.setBegin_date(dto.getBegin_date());
 		entity.setCoefficient(dto.getCoefficient());
+		
+		entity.setBeginDate(dto.getBeginDate());
+		entity.setEndDate(dto.getEndDate());
+		entity.setInitialAmount(dto.getInitialAmount());
+		entity.setFlag(dto.getFlag());
 
 		return entity;
 	}
@@ -98,11 +106,11 @@ public class LcjUtil {
 	public static ProductSellDTO convertProductSellDTOByEntity(ProductSellEntity entity) {		
 		ProductSellDTO dto = new ProductSellDTO();
 		dto.setId(entity.getId());
-		dto.setUsercode(entity.getUsercode());
+		dto.setClientId(entity.getClientId());
 		dto.setUsername(entity.getUsername());
-		dto.setAccount(entity.getAccount());
-		dto.setFinaccount(entity.getFinaccount());
-		dto.setProduct_code(entity.getProductCode());
+		dto.setAccount(entity.getZj());
+		dto.setFinaccount(entity.getLc());
+		dto.setProduct_code(entity.getCode());
 		dto.setProduct_name(entity.getProductName());
 		dto.setProductType(entity.getProductType());
 		dto.setFoundType(entity.getFoundType());
@@ -175,17 +183,17 @@ public class LcjUtil {
 		return dto;
 	}
 	
-	public static EmpVoteEntity convertEmpVoteEntityByDTO(EmpVoteDTO dto) {		
-		EmpVoteEntity entity = new EmpVoteEntity();
+	public static EmpTicketRecordEntity convertEmpVoteEntityByDTO(EmpVoteDTO dto) {		
+		EmpTicketRecordEntity entity = new EmpTicketRecordEntity();
 		entity.setId(dto.getId());
-		entity.setEmpName(dto.getEmp_name());
-		entity.setEmpCode(dto.getEmp_code());
+		//entity.setEmpName(dto.getEmp_name());
+		//entity.setEmpCode(dto.getEmp_code());
 		entity.setWeight(dto.getWeight());
-		entity.setDivision(dto.getDivision());		
-		entity.setSalesDepartment(dto.getSales_department());
+		//entity.setDivision(dto.getDivision());		
+		//entity.setSalesDepartment(dto.getSales_department());
 		//entity.setGetVoteAmount(dto.getGet_vote_amount());
 		//entity.setGetVoteTime(dto.getGet_vote_time());
-		entity.setVoteFromUser(dto.getVote_from_user());
+		//entity.setVoteFromUser(dto.getVote_from_user());
 		return entity;
 	}
 	
