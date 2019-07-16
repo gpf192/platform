@@ -47,11 +47,11 @@ function userVoteForListController($scope, $http, $state, $stateParams, $gridSer
 		if(!utils.isEmpty($scope.formData.clientId)) {
 			clientId = $scope.formData.clientId;
 		}
-		if(!utils.isEmpty($scope.selectedVote.empName)) {
-			empName = $scope.selectedVote.empName;
+		if(!utils.isEmpty($scope.formData.empName)) {
+			empName = $scope.formData.empName;
 		}
-		if(!utils.isEmpty($scope.selectedVote.empCode)) {
-			empCode = $scope.selectedVote.empCode;
+		if(!utils.isEmpty($scope.formData.empCode)) {
+			empCode = $scope.formData.empCode;
 		}
 		var params = {
 			pageNumber : 0,

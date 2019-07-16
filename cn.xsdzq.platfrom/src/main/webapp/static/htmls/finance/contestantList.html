@@ -21,22 +21,22 @@
             <form class="form-inline margin10">
                 <div class="form-group ">
                     <label  for="emp_name">员工姓名:</label>                 
-                        <input type="text" class="form-control input-300 " id="emp_name" name="emp_name"
-                        ng-model="formData.emp_name" placeholder="请输入员工姓名"></input>
+                        <input type="text" class="form-control input-300 " id="empName" name="empName"
+                        ng-model="formData.empName" placeholder="请输入员工姓名"></input>
 
                 </div>
                 &nbsp
                 <div class="form-group ">
                     <label  for="vote_from_user">员工编号:</label>                 
-                        <input type="text" class="form-control input-300 " id="vote_from_user" name="vote_from_user"
-                        ng-model="formData.vote_from_user" placeholder="请输入员工编号"></input>
+                        <input type="text" class="form-control input-300 " id="empCode" name="empCode"
+                        ng-model="formData.empCode" placeholder="请输入员工编号"></input>
 
                 </div>
                   &nbsp
                 <div class="form-group ">
                     <label  for="vote_from_user">隶属赛区:</label>                 
-                        <input type="text" class="form-control input-300 " id="vote_from_user" name="vote_from_user"
-                        ng-model="formData.vote_from_user" placeholder="请输入隶属赛区"></input>
+                        <input type="text" class="form-control input-300 " id="division" name="division"
+                        ng-model="formData.division" placeholder="请输入隶属赛区"></input>
 
                 </div>
                 &nbsp
@@ -104,9 +104,7 @@
                             aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">获得票数</div></th>
                         <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">获得时间</div></th> 
-                          <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">来源用户</div></th> 
-                    </tr>
+                   </tr>
                 </thead>
                 <tbody role="alert" aria-live="polite" aria-relevant="all">
                     <tr ng-repeat="empVote in empVoteList | filter:{title:search}">
@@ -119,7 +117,6 @@
                         <td ><div style="white-space:nowrap;">{{empVote.division}}</div></td>
                         <td ><div style="white-space:nowrap;">{{empVote.get_vote_amount}}</div></td>
                         <td ><div style="white-space:nowrap;">{{empVote.get_vote_time}}</div></td>
-                        <td ><div style="white-space:nowrap;">{{empVote.vote_from_user}}</div></td>
                     </tr>
                 </tbody>
                 <tfoot>

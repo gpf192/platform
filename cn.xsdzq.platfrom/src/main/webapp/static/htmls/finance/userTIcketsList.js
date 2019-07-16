@@ -16,7 +16,11 @@ function userTIcketsListController($scope, $http, $state, $stateParams, $gridSer
 			}
 		$scope.$emit("changeNavigation", data);
 	
-		$scope.voteFromList = [{
+		$scope.voteFromList = [
+			{name:"默认",
+				code : ""
+			},
+			{
 			name:"活动登录",
 			code:1
 		},{
