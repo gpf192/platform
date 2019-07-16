@@ -11,24 +11,25 @@ public class ProductDTO {
 	private String type;
 	private String coefficient;
 	
-	private Date beginDate;
+	private String beginDate;
 	
-	private Date endDate;	
+	private String endDate;	
 	private String initialAmount;//起始金额
 	
 	private int flag;//0-场内  1-场外
 	
 
-	public Date getBeginDate() {
+
+	public String getBeginDate() {
 		return beginDate;
 	}
-	public void setBeginDate(Date beginDate) {
+	public void setBeginDate(String beginDate) {
 		this.beginDate = beginDate;
 	}
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(Date endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 	public String getInitialAmount() {
@@ -83,19 +84,5 @@ public class ProductDTO {
 				+ coefficient + ", beginDate=" + beginDate + ", endDate=" + endDate + ", initialAmount=" + initialAmount
 				+ ", flag=" + flag + "]";
 	}
-	public ProductDTO(long id, String name, String code, String type, String coefficient, Date beginDate, Date endDate,
-			String initialAmount, int flag) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.code = code;
-		this.type = type;
-		this.coefficient = coefficient;
-		this.beginDate = beginDate;
-		this.endDate = endDate;
-		this.initialAmount = initialAmount;
-		this.flag = flag;
-	}
-
 	
 }

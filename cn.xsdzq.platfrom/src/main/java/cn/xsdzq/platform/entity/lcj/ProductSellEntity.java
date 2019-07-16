@@ -71,6 +71,9 @@ public class ProductSellEntity implements Serializable {
 	@Column(name = "deal_time")
 	private Date dealTime;//成交时间
 	
+	@Column(name = "flag")
+	private int flag;//0-场内  1-场外
+	
 	public long getId() {
 		return id;
 	}
@@ -164,6 +167,14 @@ public class ProductSellEntity implements Serializable {
 	}
 	public void setLc(String lc) {
 		this.lc = lc;
+	}
+	
+	
+	public int getFlag() {
+		return flag;
+	}
+	public void setFlag(int flag) {
+		this.flag = flag;
 	}
 	@Override
 	public String toString() {

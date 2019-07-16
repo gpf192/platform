@@ -79,8 +79,8 @@ public class LcjUtil {
 		dto.setCode(entity.getCode());
 		dto.setCoefficient(entity.getCoefficient());
 		
-		dto.setBeginDate(entity.getBeginDate());
-		dto.setEndDate(entity.getEndDate());
+		dto.setBeginDate(DateUtil.DateToStringAsMonth(entity.getBeginDate()));
+		dto.setEndDate(DateUtil.DateToStringAsMonth(entity.getEndDate()));
 		dto.setInitialAmount(entity.getInitialAmount());
 		dto.setFlag(entity.getFlag());
 	
@@ -95,8 +95,8 @@ public class LcjUtil {
 		entity.setType(dto.getType());
 		entity.setCoefficient(dto.getCoefficient());
 		
-		entity.setBeginDate(dto.getBeginDate());
-		entity.setEndDate(dto.getEndDate());
+		entity.setBeginDate(DateUtil.stringToDateAndSeconds(dto.getBeginDate()));
+		entity.setEndDate(DateUtil.stringToDateAndSeconds(dto.getEndDate()));
 		entity.setInitialAmount(dto.getInitialAmount());
 		entity.setFlag(dto.getFlag());
 
@@ -105,6 +105,7 @@ public class LcjUtil {
 	//产品销售数据
 	public static ProductSellDTO convertProductSellDTOByEntity(ProductSellEntity entity) {		
 		ProductSellDTO dto = new ProductSellDTO();
+		dto.setFlag(entity.getFlag());
 		dto.setId(entity.getId());
 		dto.setClientId(entity.getClientId());
 		dto.setUsername(entity.getUsername());
