@@ -6,51 +6,54 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import cn.xsdzq.platform.entity.lcj.PrizeRecordEntity;
+import cn.xsdzq.platform.entity.lcj.PrizeResultEntity;
+import cn.xsdzq.platform.entity.lcj.PrizeResultEntity;
 
 public interface PrizeRecordService {
-	int countAll();
-	List<PrizeRecordEntity> getAllPrizeRecord(int pageNumber, int pageSize);
-	List<PrizeRecordEntity> findByCreatetimeGreaterThanEqualAndCreatetimeLessThanEqualAndPrizeNameAndAccountOrderByCreatetime(Date beginDate, Date endDate, String prizeName, String account, int pageNumber, int pageSize);
-	int countByCreatetimeGreaterThanEqualAndCreatetimeLessThanEqualAndPrizeNameAndAccount(Date beginDate, Date endDate, String prizeName, String account);
 	
-	List<PrizeRecordEntity> findByCreatetimeGreaterThanEqualOrderByCreatetime(Date beginDate, int pageNumber, int pageSize);
-	int countByCreatetimeGreaterThanEqual(Date beginDate);
+
+	int countAll();	
+	List<PrizeResultEntity> getAllPrizeRecord(int pageNumber, int pageSize);
+	List<PrizeResultEntity> findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeEntity_nameAndUserEntity_clientIdOrderByRecordTime(Date beginDate, Date endDate, String PrizeEntity_name, String UserEntity_clientId, int pageNumber, int pageSize);
+	int countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeEntity_nameAndUserEntity_clientId(Date beginDate, Date endDate, String PrizeEntity_name, String UserEntity_clientId);
 	
-	List<PrizeRecordEntity> findByCreatetimeLessThanEqualOrderByCreatetime(Date endDate, int pageNumber, int pageSize);
-	int countByCreatetimeLessThanEqual(Date beginDate);
+	List<PrizeResultEntity> findByRecordTimeGreaterThanEqualOrderByRecordTime(Date beginDate, int pageNumber, int pageSize);
+	int countByRecordTimeGreaterThanEqual(Date beginDate);
 	
-	List<PrizeRecordEntity> findByPrizeNameOrderByCreatetime( String prizeName, int pageNumber, int pageSize);
-	int countByPrizeName(String prizeName);
+	List<PrizeResultEntity> findByRecordTimeLessThanEqualOrderByRecordTime(Date endDate, int pageNumber, int pageSize);
+	int countByRecordTimeLessThanEqual(Date beginDate);
 	
-	List<PrizeRecordEntity> findByAccountOrderByCreatetime( String account, int pageNumber, int pageSize);
-	int countByAccount(String account);
+	List<PrizeResultEntity> findByPrizeEntity_nameOrderByRecordTime( String PrizeEntity_name, int pageNumber, int pageSize);
+	int countByPrizeEntity_name(String PrizeEntity_name);
 	
-	List<PrizeRecordEntity> findByCreatetimeGreaterThanEqualAndCreatetimeLessThanEqualOrderByCreatetime(Date beginDate, Date endDate, int pageNumber, int pageSize);
-	int countByCreatetimeGreaterThanEqualAndCreatetimeLessThanEqual(Date beginDate, Date endDate);
+	List<PrizeResultEntity> findByUserEntity_clientIdOrderByRecordTime( String UserEntity_clientId, int pageNumber, int pageSize);
+	int countByUserEntity_clientId(String UserEntity_clientId);
 	
-	List<PrizeRecordEntity> findByCreatetimeGreaterThanEqualAndPrizeNameOrderByCreatetime(Date beginDate,  String prizeName,  int pageNumber, int pageSize);
-	int countByCreatetimeGreaterThanEqualAndPrizeName(Date beginDate, String prizeName);
+	List<PrizeResultEntity> findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualOrderByRecordTime(Date beginDate, Date endDate, int pageNumber, int pageSize);
+	int countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqual(Date beginDate, Date endDate);
 	
-	List<PrizeRecordEntity> findByCreatetimeGreaterThanEqualAndAccountOrderByCreatetime(Date beginDate,  String account,  int pageNumber, int pageSize);
-	int countByCreatetimeGreaterThanEqualAndAccount(Date beginDate, String account);
+	List<PrizeResultEntity> findByRecordTimeGreaterThanEqualAndPrizeEntity_nameOrderByRecordTime(Date beginDate,  String PrizeEntity_name,  int pageNumber, int pageSize);
+	int countByRecordTimeGreaterThanEqualAndPrizeEntity_name(Date beginDate, String PrizeEntity_name);
 	
-	List<PrizeRecordEntity> findByCreatetimeLessThanEqualAndPrizeNameOrderByCreatetime( Date endDate, String prizeName, int pageNumber, int pageSize);
-	int countByCreatetimeLessThanEqualAndPrizeName( Date endDate, String prizeName);
+	List<PrizeResultEntity> findByRecordTimeGreaterThanEqualAndUserEntity_clientIdOrderByRecordTime(Date beginDate,  String UserEntity_clientId,  int pageNumber, int pageSize);
+	int countByRecordTimeGreaterThanEqualAndUserEntity_clientId(Date beginDate, String UserEntity_clientId);
 	
-	List<PrizeRecordEntity> findByCreatetimeLessThanEqualAndAccountOrderByCreatetime(Date endDate, String account, int pageNumber, int pageSize);
-	int countByCreatetimeLessThanEqualAndAccount(Date endDate, String account);
+	List<PrizeResultEntity> findByRecordTimeLessThanEqualAndPrizeEntity_nameOrderByRecordTime( Date endDate, String PrizeEntity_name, int pageNumber, int pageSize);
+	int countByRecordTimeLessThanEqualAndPrizeEntity_name( Date endDate, String PrizeEntity_name);
 	
-	List<PrizeRecordEntity> findByPrizeNameAndAccountOrderByCreatetime(String prizeName, String account, int pageNumber, int pageSize);
-	int countByPrizeNameAndAccount (String prizeName, String account);
+	List<PrizeResultEntity> findByRecordTimeLessThanEqualAndUserEntity_clientIdOrderByRecordTime(Date endDate, String UserEntity_clientId, int pageNumber, int pageSize);
+	int countByRecordTimeLessThanEqualAndUserEntity_clientId(Date endDate, String UserEntity_clientId);
 	
-	List<PrizeRecordEntity> findByCreatetimeGreaterThanEqualAndCreatetimeLessThanEqualAndPrizeNameOrderByCreatetime(Date beginDate, Date endDate, String prizeName, int pageNumber, int pageSize);
-	int countByCreatetimeGreaterThanEqualAndCreatetimeLessThanEqualAndPrizeName(Date beginDate, Date endDate, String prizeName);
+	List<PrizeResultEntity> findByPrizeEntity_nameAndUserEntity_clientIdOrderByRecordTime(String PrizeEntity_name, String UserEntity_clientId, int pageNumber, int pageSize);
+	int countByPrizeEntity_nameAndUserEntity_clientId (String PrizeEntity_name, String UserEntity_clientId);
 	
-	List<PrizeRecordEntity> findByCreatetimeGreaterThanEqualAndPrizeNameAndAccountOrderByCreatetime(Date beginDate,  String prizeName, String account, int pageNumber, int pageSize);
-	int countByCreatetimeGreaterThanEqualAndPrizeNameAndAccount(Date beginDate,  String prizeName, String account);
+	List<PrizeResultEntity> findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeEntity_nameOrderByRecordTime(Date beginDate, Date endDate, String PrizeEntity_name, int pageNumber, int pageSize);
+	int countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeEntity_name(Date beginDate, Date endDate, String PrizeEntity_name);
 	
-	List<PrizeRecordEntity> findByCreatetimeLessThanEqualAndPrizeNameAndAccountOrderByCreatetime(Date endDate,  String prizeName, String account, int pageNumber, int pageSize);
-	int countByCreatetimeLessThanEqualAndPrizeNameAndAccount(Date endDate,  String prizeName, String account);
+	List<PrizeResultEntity> findByRecordTimeGreaterThanEqualAndPrizeEntity_nameAndUserEntity_clientIdOrderByRecordTime(Date beginDate,  String PrizeEntity_name, String UserEntity_clientId, int pageNumber, int pageSize);
+	int countByRecordTimeGreaterThanEqualAndPrizeEntity_nameAndUserEntity_clientId(Date beginDate,  String PrizeEntity_name, String UserEntity_clientId);
+	
+	List<PrizeResultEntity> findByRecordTimeLessThanEqualAndPrizeEntity_nameAndUserEntity_clientIdOrderByRecordTime(Date endDate,  String PrizeEntity_name, String UserEntity_clientId, int pageNumber, int pageSize);
+	int countByRecordTimeLessThanEqualAndPrizeEntity_nameAndUserEntity_clientId(Date endDate,  String PrizeEntity_name, String UserEntity_clientId);
 	
 }

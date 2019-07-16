@@ -4,31 +4,30 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import cn.xsdzq.platform.entity.lcj.EmpEntity;
-import cn.xsdzq.platform.entity.lcj.UserVoteEntity;
+import cn.xsdzq.platform.entity.lcj.UserTicketRecordEntity;
 
-public interface MyUserVoteRepository extends PagingAndSortingRepository<UserVoteEntity, Long> {
-	Page<UserVoteEntity> findByOrderById(Pageable pageable);
+public interface MyUserVoteRepository extends PagingAndSortingRepository<UserTicketRecordEntity, Long> {
+	Page<UserTicketRecordEntity> findByOrderById(Pageable pageable);
 	
-	Page<UserVoteEntity> findByUsernameAndAccountAndSourceIdOrderByAccount(String username, String account, String sourceId, Pageable pageable);
-	int countByUsernameAndAccountAndSourceId(String username, String account, String sourceId);
+	Page<UserTicketRecordEntity> findByUserEntity_usernameAndUserEntity_clientIdAndVotesSourceGainTime(String username, String clientId, String sourceId, Pageable pageable);
+	int countByUserEntity_usernameAndUserEntity_clientIdAndVotesSource(String username, String clientId, String sourceId);
 	
-	Page<UserVoteEntity> findByUsernameOrderByAccount(String username, Pageable pageable);
-	int countByUsername(String username);
+	Page<UserTicketRecordEntity> findByUserEntity_usernameGainTime(String username, Pageable pageable);
+	int countByUserEntity_username(String username);
 	
-	Page<UserVoteEntity> findByAccountOrderByAccount(String account, Pageable pageable);
-	int countByAccount(String account);
+	Page<UserTicketRecordEntity> findByUserEntity_clientIdGainTime(String clientId, Pageable pageable);
+	int countByUserEntity_clientId(String clientId);
 	
-	Page<UserVoteEntity> findBySourceIdOrderByAccount(String sourceId, Pageable pageable);
-	int countBySourceId(String sourceId);
+	Page<UserTicketRecordEntity> findByVotesSourceGainTime(String sourceId, Pageable pageable);
+	int countByVotesSource(String sourceId);
 	
-	Page<UserVoteEntity> findByUsernameAndAccountOrderByAccount(String username, String account, Pageable pageable);
-	int countByUsernameAndAccount(String username, String account);
+	Page<UserTicketRecordEntity> findByUserEntity_usernameAndUserEntity_clientIdGainTime(String username, String clientId, Pageable pageable);
+	int countByUserEntity_usernameAndUserEntity_clientId(String username, String clientId);
 	
-	Page<UserVoteEntity> findByUsernameAndSourceIdOrderByAccount(String username, String sourceId, Pageable pageable);
-	int countByUsernameAndSourceId(String username, String sourceId);
+	Page<UserTicketRecordEntity> findByUserEntity_usernameAndVotesSourceGainTime(String username, String sourceId, Pageable pageable);
+	int countByUserEntity_usernameAndVotesSource(String username, String sourceId);
 	
-	Page<UserVoteEntity> findByAccountAndSourceIdOrderByAccount(String account, String sourceId, Pageable pageable);
-	int countByAccountAndSourceId(String account, String sourceId);
+	Page<UserTicketRecordEntity> findByUserEntity_clientIdAndVotesSourceGainTime(String clientId, String sourceId, Pageable pageable);
+	int countByUserEntity_clientIdAndVotesSource(String clientId, String sourceId);
 	
 }

@@ -49,10 +49,31 @@ public class PrizeEntity implements Serializable {
 	@Column(name = "modifytime")
 	private Date modifytime;
 	
-	@Column(name = "winning_number")//中奖人数
-	private Integer winning_number;
+	@Column(name = "winning_number",columnDefinition="int default 0")//中奖人数
+	private int winning_number = 0;
 	
+	@Column(name = "type") // 奖品类型
+	private boolean type;
 	
+	@Column(name = "isShow") // 默认不显示
+	private boolean isShow = false;
+	
+	public boolean isType() {
+		return type;
+	}
+
+	public void setType(boolean type) {
+		this.type = type;
+	}
+
+	public boolean isShow() {
+		return isShow;
+	}
+
+	public void setShow(boolean isShow) {
+		this.isShow = isShow;
+	}
+
 	public long getId() {
 		return id;
 	}

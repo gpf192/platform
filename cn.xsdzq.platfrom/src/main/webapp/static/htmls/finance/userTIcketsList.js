@@ -59,13 +59,13 @@ function userTIcketsListController($scope, $http, $state, $stateParams, $gridSer
 	$scope.getEmpList = function(pageSize) {
 		var url = httpUtils.url.userTIcketsList;
 		var username = "";
-		var account = "";
+		var clientId = "";
 		var votes_source = "";
 		if(!utils.isEmpty($scope.formData.username)) {
 			username = $scope.formData.username;
 		}
-		if(!utils.isEmpty($scope.formData.account)) {
-			account = $scope.formData.account;
+		if(!utils.isEmpty($scope.formData.clientId)) {
+			clientId = $scope.formData.clientId;
 		}
 		if(!utils.isEmpty($scope.selectedVote.code)) {
 			votes_source = $scope.selectedVote.code;
@@ -74,7 +74,7 @@ function userTIcketsListController($scope, $http, $state, $stateParams, $gridSer
 			pageNumber : 0,
 			pageSize : pageSize,
 			username : username,
-			account : account,
+			clientId : clientId,
 			sourceId : votes_source
 		};
 		var settings = {
@@ -110,7 +110,7 @@ function userTIcketsListController($scope, $http, $state, $stateParams, $gridSer
 			};
 			for(k=0;k<$scope.userVoteList.length;k++){				
 				newObj["用户姓名"] = 	data.username;
-				newObj["资金账号"] = 	data.account;
+				newObj["客户号"] = 	data.clientId;
 				newObj["所得票数"] = 	data.total_votes;
 				newObj["得票来源"] = 	data.votes_source;
 				newObj["得票时间"] = 	data.gain_time;

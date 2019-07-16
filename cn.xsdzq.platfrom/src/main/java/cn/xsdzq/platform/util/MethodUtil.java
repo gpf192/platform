@@ -127,21 +127,34 @@ public class MethodUtil {
 		else return 9;
 	}
 	//员工得票统计
-	public static int getEmpVoteMethodNum (String empName, String voteFromUser) {
-		if("".equals(empName) && "".equals(voteFromUser) ) {
+	public static int getEmpVoteMethodNum (String empName, String empCode, String division) {
+		if("".equals(empName) && "".equals(empCode) && "".equals(division)) {
 			return 1;//全量查找
 		}
-		if(!"".equals(empName) && !"".equals(voteFromUser) ) {
-			return 2;// 查询条件 empName、voteFromUser
-		}		
-		if(!"".equals(empName) && "".equals(voteFromUser) ) {
+		if("".equals(empName) && "".equals(empCode) && "".equals(division)) {
+			return 2;// 查询条件 empName、empCode\division
+		}	
+		//1个条件
+		if(!"".equals(empName) && "".equals(empCode) && "".equals(division)) {
 			return 3;//查询条件 empName
 		}		
-		if("".equals(empName) && !"".equals(voteFromUser) ) {
-			return 4;//查询条件 voteFromUser
+		if("".equals(empName) && !"".equals(empCode) && "".equals(division)) {
+			return 4;//查询条件 empCode
 		}
-
-		else return 5;
+		if("".equals(empName) && "".equals(empCode) && !"".equals(division)) {
+			return 5;// 查询条件 division
+		}	
+		//2个
+		if(!"".equals(empName) && !"".equals(empCode) && "".equals(division)) {
+			return 6;//查询条件 empName、empCode
+		}		
+		if(!"".equals(empName) && "".equals(empCode) && !"".equals(division)) {
+			return 7;//查询条件 empName、division
+		}
+		if("".equals(empName) && !"".equals(empCode) && !"".equals(division)) {
+			return 8;//查询条件 empCode、division
+		}
+		else return 9;
 	}
 	
 	//用户投票数统计

@@ -4,18 +4,34 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import cn.xsdzq.platform.entity.lcj.EmpTicketRecordEntity;
 import cn.xsdzq.platform.entity.lcj.EmpVoteEntity;
 import cn.xsdzq.platform.entity.lcj.UserVoteEntity;
 
-public interface MyEmpVoteRepository extends PagingAndSortingRepository<EmpVoteEntity, Long> {
-	Page<EmpVoteEntity> findByOrderByWeightDesc(Pageable pageable);
+public interface MyEmpVoteRepository extends PagingAndSortingRepository<EmpTicketRecordEntity, Long> {
+	Page<EmpTicketRecordEntity> findByOrderByRecordTime(Pageable pageable);
 	
-	Page<EmpVoteEntity> findByEmpNameAndVoteFromUserOrderByWeightDesc(String empName, String voteFromUser, Pageable pageable);
-	int countByEmpNameAndVoteFromUser(String empName, String voteFromUser);
+	Page<EmpTicketRecordEntity> findByEmpEntity_empNameAndEmpEntity_empCodeAndEmpEntity_divisionOrderByRecordTimeDesc(String empName, String empCode,String division, Pageable pageable);
+	int countByEmpEntity_empNameAndEmpEntity_empCodeAndEmpEntity_division(String empName, String empCode,String division);
 	
-	Page<EmpVoteEntity> findByEmpNameOrderByWeightDesc(String empName , Pageable pageable);
-	int countByEmpName(String empName );
+	Page<EmpTicketRecordEntity> findByEmpEntity_empNameOrderByRecordTimeDesc(String empName, Pageable pageable);
+	int countByEmpEntity_empName(String empName);
 	
-	Page<EmpVoteEntity> findByVoteFromUserOrderByWeightDesc(String voteFromUser, Pageable pageable);
-	int countByVoteFromUser(String voteFromUser);
+	Page<EmpTicketRecordEntity> findByEmpEntity_empCodeOrderByRecordTimeDesc(String empCode, Pageable pageable);
+	int countByEmpEntity_empCode(String empCode);
+	
+	Page<EmpTicketRecordEntity> findByEmpEntity_divisionOrderByRecordTimeDesc(String division, Pageable pageable);
+	int countByEmpEntity_division(String division);
+	
+	Page<EmpTicketRecordEntity> findByEmpEntity_empNameAndEmpEntity_empCodeOrderByRecordTimeDesc(String empName, String empCode, Pageable pageable);
+	int countByEmpEntity_empNameAndEmpEntity_empCode(String empName, String empCode );
+	
+	Page<EmpTicketRecordEntity> findByEmpEntity_empNameAndEmpEntity_divisionOrderByRecordTimeDesc(String empName,String division, Pageable pageable);
+	int countByEmpEntity_empNameAndEmpEntity_division(String empName,String division);
+	
+	Page<EmpTicketRecordEntity> findByEmpEntity_empCodeAndEmpEntity_divisionOrderByRecordTimeDesc( String empCode,String division, Pageable pageable);
+	int countByEmpEntity_empCodeAndEmpEntity_division( String empCode,String division);
+	
+	
+	
 }

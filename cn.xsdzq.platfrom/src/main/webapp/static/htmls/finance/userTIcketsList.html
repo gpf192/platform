@@ -27,9 +27,9 @@
                 </div>
                 &nbsp
                 <div class="form-group ">
-                    <label  for="account">资金账号:</label>                 
-                        <input type="text" class="form-control input-300 " id="account" name="account"
-                        ng-model="formData.account" placeholder="请输入资金账号"></input>
+                    <label  for="clientId">客户号:</label>                 
+                        <input type="text" class="form-control input-300 " id="clientId" name="clientId"
+                        ng-model="formData.clientId" placeholder="请输入客户号"></input>
 
                 </div>
                 &nbsp
@@ -100,7 +100,7 @@
                     <tr ng-repeat="user in userVoteList | filter:{title:search}">
                         <td width="100">{{$index+selectNum["num"]*currentPage.page+1}}</td>
                         <td ><div style="white-space:nowrap;">{{user.username}}</div></td> 
-                        <td ><div style="white-space:nowrap;">{{user.account}}</div></td>
+                        <td ><div style="white-space:nowrap;">{{user.clientId}}</div></td>
                         <td ><div style="white-space:nowrap;">{{user.total_votes}}</div></td>
                         <td ><div style="white-space:nowrap;">{{user.votes_source}}</div></td>
                         <td ><div style="white-space:nowrap;">{{user.gain_time}}</div></td>

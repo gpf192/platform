@@ -1,23 +1,21 @@
 package cn.xsdzq.platform.model.lcj;
 
-import javax.persistence.Column;
-
 public class PrizeRecordDTO {
 	private long id;
 	
 	private String username;
 	
-	private String account;
+	private String clientId;
 	
 	private String prizeName;
 	
 	private String createtime;
 
-	public PrizeRecordDTO(long id, String username, String account, String prizeName, String createtime) {
+	public PrizeRecordDTO(long id, String username, String clientId, String prizeName, String createtime) {
 		super();
 		this.id = id;
 		this.username = username;
-		this.account = account;
+		this.clientId = clientId;
 		this.prizeName = prizeName;
 		this.createtime = createtime;
 	}
@@ -42,12 +40,14 @@ public class PrizeRecordDTO {
 		this.username = username;
 	}
 
-	public String getAccount() {
-		return account;
+
+
+	public String getClientId() {
+		return clientId;
 	}
 
-	public void setAccount(String account) {
-		this.account = account;
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
 	}
 
 	public String getPrizeName() {
@@ -68,8 +68,9 @@ public class PrizeRecordDTO {
 
 	@Override
 	public String toString() {
-		return "PrizeRecordDTO [id=" + id + ", username=" + username + ", account=" + account + ", prizeName="
+		return "PrizeRecordDTO [id=" + id + ", username=" + username + ", clientId=" + clientId + ", prizeName="
 				+ prizeName + ", createtime=" + createtime + "]";
 	}
 
+	
 }

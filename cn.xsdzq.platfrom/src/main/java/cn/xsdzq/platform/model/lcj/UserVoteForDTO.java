@@ -23,7 +23,7 @@ public class UserVoteForDTO implements Serializable{
 	 private String empCode;
 	 
 	 //使用票数
-	 private String voteNum;
+	 private int voteNum;
 	 
 	 //隶属营业部
 	 private String salesDepartment;
@@ -79,11 +79,11 @@ public class UserVoteForDTO implements Serializable{
 		this.empCode = empCode;
 	}
 
-	public String getVoteNum() {
+	public int getVoteNum() {
 		return voteNum;
 	}
 
-	public void setVoteNum(String voteNum) {
+	public void setVoteNum(int voteNum) {
 		this.voteNum = voteNum;
 	}
 

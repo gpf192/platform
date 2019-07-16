@@ -77,11 +77,17 @@ public class PrizeController extends BaseController {
 	@RequestMapping(value = "/getPrize", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> getPrize(HttpServletRequest request) {
-		List<PrizeEntity> infos = prizeService.getAllPrize();
-		List<PrizeDTO> infoDTOs = new ArrayList<PrizeDTO>();
-		for (PrizeEntity info : infos) {
-			PrizeDTO dto = LcjUtil.convertPrizeDTOByPrize(info);
-			infoDTOs.add(dto);
+		List<PrizeDTO> infoDTOs = null;
+		try {
+			List<PrizeEntity> infos = prizeService.getAllPrize();
+			infoDTOs = new ArrayList<PrizeDTO>();
+			for (PrizeEntity info : infos) {
+				PrizeDTO dto = LcjUtil.convertPrizeDTOByPrize(info);
+				infoDTOs.add(dto);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return GsonUtil.buildMap(0, "ok", infoDTOs);
 	}

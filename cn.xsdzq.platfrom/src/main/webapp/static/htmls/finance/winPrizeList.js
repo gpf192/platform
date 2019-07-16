@@ -48,7 +48,7 @@ function winPrizeListController($scope, $http, $state, httpUtils, layerUtils, $s
 		}
 		var beginTime = "";
 		var endTime = "";
-		var account = "";
+		var clientId = "";
 		var prizeName = "";
 		if(!utils.isEmpty($scope.formData.beginTime)) {
 			beginTime = $scope.formData.beginTime;
@@ -56,8 +56,8 @@ function winPrizeListController($scope, $http, $state, httpUtils, layerUtils, $s
 		if(!utils.isEmpty($scope.formData.endTime)) {
 			endTime = $scope.formData.endTime;
 		}
-		if(!utils.isEmpty($scope.formData.account)) {
-			account = $scope.formData.account;
+		if(!utils.isEmpty($scope.formData.clientId)) {
+			clientId = $scope.formData.clientId;
 		}
 		if(!utils.isEmpty($scope.formData.prizeName)) {
 			prizeName = $scope.formData.prizeName;
@@ -67,7 +67,7 @@ function winPrizeListController($scope, $http, $state, httpUtils, layerUtils, $s
 		var params = {
 			beginTime : beginTime,
 			endTime : endTime,
-			account :account,
+			clientId :clientId,
 			prizeName : prizeName,
 			pageNumber : 0,
 			pageSize : pageSize
@@ -107,7 +107,7 @@ function winPrizeListController($scope, $http, $state, httpUtils, layerUtils, $s
 			};
 			for(k=0;k<$scope.prizeList.length;k++){				
 				newObj["中奖用户姓名"] = 	data.username;
-				newObj["中奖用户资金账号"] = 	data.account;
+				newObj["中奖用户客户号"] = 	data.clientId;
 				newObj["奖品名称"] = 	data.prizeName;
 				newObj["中奖时间"] = 	data.createtime;
 				
