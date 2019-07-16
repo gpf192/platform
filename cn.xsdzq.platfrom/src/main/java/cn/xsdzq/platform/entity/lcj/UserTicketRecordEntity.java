@@ -19,7 +19,7 @@ import javax.persistence.Table;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
-@Table(name = "lcj_user_ticket_record")
+@Table(name = "13")
 @EntityListeners(AuditingEntityListener.class)
 public class UserTicketRecordEntity implements Serializable {
 

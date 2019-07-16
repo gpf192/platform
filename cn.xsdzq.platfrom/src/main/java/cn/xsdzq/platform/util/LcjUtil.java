@@ -105,6 +105,7 @@ public class LcjUtil {
 	//产品销售数据
 	public static ProductSellDTO convertProductSellDTOByEntity(ProductSellEntity entity) {		
 		ProductSellDTO dto = new ProductSellDTO();
+		dto.setFlag(entity.getFlag());
 		dto.setId(entity.getId());
 		dto.setClientId(entity.getClientId());
 		dto.setUsername(entity.getUsername());
