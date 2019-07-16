@@ -62,14 +62,20 @@ public class ProductController extends BaseController{
 			 @RequestParam int pageNumber,@RequestParam int pageSize) {
 		System.out.println("全量查询产品信息   +   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");		
 		int sum = 0 ;
-		List<ProductEntity> entitys = null;		
-			entitys = myProductService.getAllProduct(pageNumber, pageSize);
-			sum = myProductService.countAll();
-					
-		List<ProductDTO> productDTOs = new ArrayList<ProductDTO>();
-		for (ProductEntity entity : entitys) {
-			ProductDTO dto = LcjUtil.convertProductDTOByEntity(entity);
-			productDTOs.add(dto);
+		List<ProductDTO> productDTOs = null;
+		try {
+			List<ProductEntity> entitys = null;		
+				entitys = myProductService.getAllProduct(pageNumber, pageSize);
+				sum = myProductService.countAll();
+						
+			productDTOs = new ArrayList<ProductDTO>();
+			for (ProductEntity entity : entitys) {
+				ProductDTO dto = LcjUtil.convertProductDTOByEntity(entity);
+				productDTOs.add(dto);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		Pagination pagination = new Pagination(pageNumber, pageSize, sum);
 		return GsonUtil.buildMap(0, "ok", productDTOs, pagination);
