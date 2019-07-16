@@ -30,9 +30,11 @@ function turntablePrizeListController($scope, $http, $state, httpUtils, layerUti
 		var url = httpUtils.url.turntablePrizeList;
 		$http.get(url, {}).success(function(data) {
 			if (data.resCode == 0) {
-				var finalData = data.result;
-				customaryPrizeList =[].concat(finalData); ;
-				$scope.newPrizeList = [].concat(finalData);
+					if(!utils.isEmpty(data.result)) {
+						var finalData = data.result;
+						customaryPrizeList =[].concat(finalData); ;
+						$scope.newPrizeList = [].concat(finalData);	
+					}
 			}
 		});
 
@@ -150,6 +152,8 @@ function turntablePrizeListController($scope, $http, $state, httpUtils, layerUti
 				if (data.resCode == 0) {
 					layerUtils.iMsg(-1, "删除成功");
 					$scope.getPrizeList();
+				}else if (data.resCode = 1) {
+					 layerUtils.iMsg(-1, "已有中奖纪录 ，无法删除 ");
 				}
 			});
 		}, function() {

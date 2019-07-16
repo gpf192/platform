@@ -23,6 +23,15 @@ function addParticipantsController($scope, $http, $state, httpUtils, layerUtils,
 		$scope.formData.contract="";
 		$scope.formData.entry_time="";
 		
+		$scope.divisionFromList = [{
+			name:"新手赛区",
+			code:"0"
+		},{
+			name:"王者赛区",
+			code:"1"
+		}]
+		
+		$scope.selectedDivision = $scope.divisionFromList[0];
 		$http.get(httpUtils.url.departmentList, {}).success(function(data) {
 			if (data.resCode == 0) {
 				$scope.departments = data.result;
@@ -51,8 +60,8 @@ function addParticipantsController($scope, $http, $state, httpUtils, layerUtils,
 		if(!utils.isEmpty($scope.selectedName.code)) {
 			departmentCode = $scope.selectedName.code;
 		}
-		if(!utils.isEmpty($scope.formData.division)) {
-			division = $scope.formData.division;
+		if(!utils.isEmpty($scope.selectedDivision.code)) {
+			division = $scope.selectedDivision.code;
 		}
 		if(!utils.isEmpty($scope.formData.emp_category)) {
 			emp_category = $scope.formData.emp_category;
