@@ -113,15 +113,12 @@ function userTIcketsListController($scope, $http, $state, $stateParams, $gridSer
 				
 			};
 			for(k=0;k<$scope.userVoteList.length;k++){				
-				newObj["用户姓名"] = 	data.username;
+				newObj["客户姓名"] = 	data.username;
 				newObj["客户号"] = 	data.clientId;
 				newObj["所得票数"] = 	data.total_votes;
 				newObj["得票来源"] = 	data.votes_source;
 				newObj["得票时间"] = 	data.gain_time;
-				newObj["使用对象"] = 	data.vote_for;
-				newObj["使用票数"] = 	data.vote_for_amount;
 				newObj["隶属营业部"] = 	data.sales_department;
-				newObj["隶属赛区"] = 	data.division;
 			}
 			arr.push(newObj);
 		});

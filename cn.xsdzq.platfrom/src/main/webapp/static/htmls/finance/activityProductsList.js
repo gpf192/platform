@@ -8,7 +8,7 @@ function activityProductsListController($scope, $http, $state, $stateParams, $gr
 					goto:"activityProductsList"
 				},
 				"two" : {
-					name : "中奖纪录查询",
+					name : "参与活动产品信息 ",
 					goto:"activityProductsList"
 
 				}
@@ -170,8 +170,11 @@ function activityProductsListController($scope, $http, $state, $stateParams, $gr
 				newObj["产品代码"] = 	data.code;
 				newObj["产品名称"] = 	data.name;
 				newObj["产品类型"] = 	data.type;
+				newObj["起购金额"] = 	data.initial_amount;
+				newObj["转化系数"] = 	data.coefficient;
+				newObj["是否为场外基金"] = 	data.flag;
 				newObj["开放时间"] = 	data.begin_date;
-				newObj["票数系数"] = 	data.coefficient;
+				newObj["截止时间"] = 	data.end_date;
 			}
 			arr.push(newObj);
 		});

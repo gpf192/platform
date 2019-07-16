@@ -214,7 +214,6 @@ function contestantListController($scope, $http, $state, $stateParams, $gridServ
 				newObj["隶属赛区"] = 	data.division;
 				newObj["获得票数"] = 	data.get_vote_amount;
 				newObj["获得时间"] = 	data.get_vote_time;
-				newObj["来源用户"] = 	data.vote_from_user;
 			}
 			arr.push(newObj);
 		});
