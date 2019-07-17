@@ -7,7 +7,7 @@ public class PrizeDTO implements Serializable{
 	private String name;
 	private String pice;
 	private String rate;
-	private String amount;
+	private Integer amount;
 	private Integer winning_number;
 	
 	public PrizeDTO() {
@@ -38,14 +38,15 @@ public class PrizeDTO implements Serializable{
 		this.rate = rate;
 	}
 	
-	public String getAmount() {
+
+	
+	
+	public Integer getAmount() {
 		return amount;
 	}
-	public void setAmount(String amount) {
+	public void setAmount(Integer amount) {
 		this.amount = amount;
 	}
-	
-	
 	public Integer getWinning_number() {
 		return winning_number;
 	}
@@ -56,13 +57,15 @@ public class PrizeDTO implements Serializable{
 	public String toString() {
 		return "PrizeDTO [id=" + id + ", name=" + name + ", pice=" + pice + ", rate=" + rate + "]";
 	}
-	public PrizeDTO(long id, String name, String pice, String rate ,String amount) {
+	public PrizeDTO(long id, String name, String pice, String rate, Integer amount, Integer winning_number) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.pice = pice;
 		this.rate = rate;
 		this.amount = amount;
+		this.winning_number = winning_number;
 	}
+
 	
 }
