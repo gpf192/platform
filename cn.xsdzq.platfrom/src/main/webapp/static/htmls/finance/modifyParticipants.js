@@ -17,15 +17,27 @@ function modifyParticipantsController($scope, $http, $state, $stateParams, httpU
 		}
 			
 		$scope.$emit("changeNavigation", data);
-		var flag = utils.isEmptyObject($stateParams.contestant);
+		var flag = utils.isEmptyObject($stateParams.participant);
 		if(flag){
-			$state.go("contestantList");
+			$state.go("participantsList");
 			return;
 		}
 		
+		$scope.divisionFromList = [{
+			name:"新手赛区",
+			code:"0"
+		},{
+			name:"王者赛区",
+			code:"1"
+		}]
 		var departmentCode = $stateParams.participant.departmentCode;
-		angular.copy($stateParams.contestant,$scope.formData);
-		
+		var division = $stateParams.participant.division;
+		if(division == 0){
+			$scope.selectedDivision = $scope.divisionFromList[0];
+		}else if (division == 1) {
+			$scope.selectedDivision = $scope.divisionFromList[1];
+		}
+		angular.copy($stateParams.participant,$scope.formData);
 		$http.get(httpUtils.url.departmentList, {}).success(function(data) {
 			if (data.resCode == 0) {
 				$scope.departments = data.result;

@@ -22,6 +22,21 @@ function modifyProductController($scope, $http, $state, $stateParams, httpUtils,
 			$state.go("activityProductsList");
 			return;
 		}
+		
+		$scope.tradePlaceFromList = [{
+			name:"场内基金",
+			code:"0"
+		},{
+			name:"场外基金",
+			code:"1"
+		}]
+	var flag =	$stateParams.product.flag;
+		if(flag ==0) {
+			$scope.selectedTradePlace = $scope.tradePlaceFromList[0];
+		}else if(flag ==1) {
+			$scope.selectedTradePlace = $scope.tradePlaceFromList[1];
+		}
+		
 		angular.copy($stateParams.product,$scope.formData);
 	};
 	
@@ -63,7 +78,10 @@ function modifyProductController($scope, $http, $state, $stateParams, httpUtils,
 				name:$scope.formData.name,
 				type:$scope.formData.type,
 				begin_date:$scope.formData.begin_date,
-				coefficient:$scope.formData.coefficient	
+				coefficient:$scope.formData.coefficient	,
+				initialAmount:$scope.formData.initialAmount,
+				flag: $scope.selectedTradePlace.code,
+				endDate:$scope.formData.end_Date
 		}
 		$http.post(url, newProduct).success(function(data) {
 			if (data.resCode == 0) {
