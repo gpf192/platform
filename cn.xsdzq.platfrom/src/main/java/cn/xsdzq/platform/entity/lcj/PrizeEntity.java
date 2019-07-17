@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -30,49 +29,37 @@ public class PrizeEntity implements Serializable {
 
 	@Column(name = "name")
 	private String name;
-	
+
 	@Column(name = "price")
 	private String price;
-	
-	@Column(name = "rate")
-	private String rate;
-	
-	@Column(name = "amount")//奖品总量
-	private String amount;
-	
-	// 创建时间
 
+	@Column(name = "rate")
+	private String rate; // 动态计算
+
+	@Column(name = "image")
+	private String image;
+
+	@Column(name = "amount") // 奖品总量
+	private Integer amount;
+
+	@Column(name = "type") // 奖品类型
+	private boolean type;
+
+	@Column(name = "isShow") // 默认不显示
+	private boolean isShow = false;
+
+	@Column(name = "winning_number", columnDefinition = "int default 0") // 中奖人数
+	private int winningNumber = 0;
+
+	// 创建时间
 	@Column(name = "createtime")
+	@CreatedDate
 	private Date createtime;
 
 	// 修改时间
 	@Column(name = "modifytime")
+	@LastModifiedDate
 	private Date modifytime;
-	
-	@Column(name = "winning_number",columnDefinition="int default 0")//中奖人数
-	private int winningNumber = 0;
-	
-	@Column(name = "type") // 奖品类型
-	private boolean type;
-	
-	@Column(name = "isShow") // 默认不显示
-	private boolean isShow = false;
-	
-	public boolean isType() {
-		return type;
-	}
-
-	public void setType(boolean type) {
-		this.type = type;
-	}
-
-	public boolean isShow() {
-		return isShow;
-	}
-
-	public void setShow(boolean isShow) {
-		this.isShow = isShow;
-	}
 
 	public long getId() {
 		return id;
@@ -106,6 +93,34 @@ public class PrizeEntity implements Serializable {
 		this.rate = rate;
 	}
 
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public boolean isShow() {
+		return isShow;
+	}
+
+	public void setShow(boolean isShow) {
+		this.isShow = isShow;
+	}
+
+	public int getWinningNumber() {
+		return winningNumber;
+	}
+
+	public void setWinningNumber(int winningNumber) {
+		this.winningNumber = winningNumber;
+	}
+
+	public void setAmount(Integer amount) {
+		this.amount = amount;
+	}
+
 	public Date getCreatetime() {
 		return createtime;
 	}
@@ -122,30 +137,27 @@ public class PrizeEntity implements Serializable {
 		this.modifytime = modifytime;
 	}
 
-	public String getAmount() {
+	public int getAmount() {
 		return amount;
 	}
 
-	public void setAmount(String amount) {
+	public void setAmount(int amount) {
 		this.amount = amount;
 	}
 
-
-
-
-	public int getWinningNumber() {
-		return winningNumber;
+	public boolean isType() {
+		return type;
 	}
 
-	public void setWinningNumber(int winningNumber) {
-		this.winningNumber = winningNumber;
+	public void setType(boolean type) {
+		this.type = type;
 	}
 
 	@Override
 	public String toString() {
-		return "PrizeEntity [id=" + id + ", name=" + name + ", price=" + price + ", rate=" + rate + ", amount=" + amount
-				+ ", createtime=" + createtime + ", modifytime=" + modifytime + "]";
+		return "PrizeEntity [id=" + id + ", name=" + name + ", price=" + price + ", rate=" + rate + ", image=" + image
+				+ ", amount=" + amount + ", type=" + type + ", isShow=" + isShow + ", createtime=" + createtime
+				+ ", modifytime=" + modifytime + ", winning_number=" + winningNumber + "]";
 	}
-	
-	
+
 }
