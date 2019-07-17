@@ -68,18 +68,23 @@ function contestantListController($scope, $http, $state, $stateParams, $gridServ
 	$scope.getEmpList = function(pageSize) {
 		var url = httpUtils.url.contestantList;
 		var empName ="";
-		var vote_from_user = "";
-		if(!utils.isEmpty($scope.formData.emp_name)) {
-			empName = $scope.formData.emp_name;
+		var empCode = "";
+		var division = "";
+		if(!utils.isEmpty($scope.formData.empName)) {
+			empName = $scope.formData.empName;
 		}
-		if(!utils.isEmpty($scope.formData.vote_from_user)) {
-			vote_from_user = $scope.formData.vote_from_user;
+		if(!utils.isEmpty($scope.formData.empCode)) {
+			empCode = $scope.formData.empCode;
+		}
+		if(!utils.isEmpty($scope.formData.empCode)) {
+			division = $scope.formData.division;
 		}
 		var params = {
 			pageNumber : 0,
 			pageSize : pageSize,
 			empName : empName,
-			vote_from_user : vote_from_user
+			empCode : empCode,
+			division : division
 		};
 		var settings = {
 			url : url,
@@ -209,7 +214,6 @@ function contestantListController($scope, $http, $state, $stateParams, $gridServ
 				newObj["隶属赛区"] = 	data.division;
 				newObj["获得票数"] = 	data.get_vote_amount;
 				newObj["获得时间"] = 	data.get_vote_time;
-				newObj["来源用户"] = 	data.vote_from_user;
 			}
 			arr.push(newObj);
 		});
