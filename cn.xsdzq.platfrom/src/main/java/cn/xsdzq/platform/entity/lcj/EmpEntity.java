@@ -12,66 +12,69 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import cn.xsdzq.platform.entity.CategoryEntity;
-
 @Entity
 @Table(name = "lcj_employee_info")
 @EntityListeners(AuditingEntityListener.class)
-public class EmpEntity implements Serializable{
+public class EmpEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_sequence")
 	@SequenceGenerator(name = "employee_sequence", sequenceName = "sequence_employee", allocationSize = 1)
 	@Column(name = "id")
 	private long id;
-	
-	@Column(name = "emp_id", unique = true, nullable = false)
-	private int empId;
-	
-	@Column(name = "emp_name")
-	private String empName;//人员姓名
-	
-	@Column(name = "emp_code")
-	private String empCode;//人员编号
-	
-	@Column(name = "emp_type")
-	private String empType;//在编性质
-	
-	@Column(name = "emp_category")
-	private String empCategory;//人员类别
-	
-	@Column(name = "contract")
-	private String contract;//签约合同
-	
-	@Column(name = "entry_time")
-	private String entryTime;//入职时间
-	
-	@Column(name = "sales_department")
-	private String salesDepartment;//隶属营业部
-	
-	@Column(name = "division")
-	private String division;//隶属赛区
-	
-	@Column(name = "departmentCode", insertable = false, updatable = false)
-	private String departmentCode;
 
+	@Column(name = "emp_id", unique = true, nullable = false)
+	private String empId;
+
+	@Column(name = "emp_name")
+	private String empName;// 人员姓名
+
+	@Column(name = "emp_code")
+	private String empCode;// 人员编号
+
+	@Column(name = "emp_type")
+	private String empType;// 在编性质
+
+	@Column(name = "emp_category")
+	private String empCategory;// 人员类别
+
+	@Column(name = "contract")
+	private String contract;// 签约合同
+
+	@Column(name = "entry_time")
+	private String entryTime;// 入职时间
+
+	@Column(name = "sales_department")
+	private String salesDepartment;// 隶属营业部
+
+	@Column(name = "division")
+	private String division;// 隶属赛区
+
+	@Column(name = "department_code", insertable = false, updatable = false)
+	private String departmentCode;
+	
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER, optional = false)
-	@JoinColumn(name = "departmentCode", referencedColumnName = "code")
+	@JoinColumn(name = "department_code", referencedColumnName = "code")
 	private DepartmentEntity departmentEntity;
-	
-	
-	
-	public int getEmpId() {
+
+	public String getDepartmentCode() {
+		return departmentCode;
+	}
+
+	public void setDepartmentCode(String departmentCode) {
+		this.departmentCode = departmentCode;
+	}
+
+	public String getEmpId() {
 		return empId;
 	}
 
-	public void setEmpId(int empId) {
+	public void setEmpId(String empId) {
 		this.empId = empId;
 	}
 
@@ -147,16 +150,6 @@ public class EmpEntity implements Serializable{
 		this.division = division;
 	}
 
-
-
-	public String getDepartmentCode() {
-		return departmentCode;
-	}
-
-	public void setDepartmentCode(String departmentCode) {
-		this.departmentCode = departmentCode;
-	}
-
 	public DepartmentEntity getDepartmentEntity() {
 		return departmentEntity;
 	}
@@ -172,6 +165,4 @@ public class EmpEntity implements Serializable{
 				+ ", salesDepartment=" + salesDepartment + ", division=" + division + "]";
 	}
 
-	
-	
 }
