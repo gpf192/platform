@@ -1,5 +1,5 @@
-ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils' ];
-function paramListController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils) {
+ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils' ,'utils'];
+function paramListController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils,utils) {
 
 	$scope.formData = {};
 	
@@ -74,8 +74,12 @@ function paramListController($scope, $http, $state, $stateParams, $gridService, 
 	$scope.getParamList = function(pageSize) {
 		
 		var url = httpUtils.url.paramList;
+		var code = "";
+		if(!utils.isEmpty($scope.formData.code)) {
+			code = $scope.formData.code;
+		}
 		var params = {
-				code :1,
+				code :code,
 			pageNumber : 0,
 			pageSize : pageSize
 		};
@@ -89,7 +93,10 @@ function paramListController($scope, $http, $state, $stateParams, $gridService, 
 		$gridService.queryTableDatas($scope, tableElement, params, settings, $http);
 	};
 
-
+	$scope.newBuild = function() {
+		$state.go("addParam");
+	}
+	
 	//批量编辑
 	$scope.batchModifyInfo = function() {
 		if($scope.selected.length != 1){
@@ -132,7 +139,7 @@ function paramListController($scope, $http, $state, $stateParams, $gridService, 
         } 
 	
 		layerUtils.iConfirm("是否删除该参数？", function() {
-			var url = httpUtils.url.deleteInfo;
+			var url = httpUtils.url.deleteParam;
 			$http.post(url, param).success(function(data) {
 				if (data.resCode == 0) {
 					layerUtils.iMsg(-1, "删除成功");
