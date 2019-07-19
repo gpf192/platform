@@ -5,24 +5,24 @@ function modifyProductController($scope, $http, $state, $stateParams, httpUtils,
 	$scope.init=function(){
 		var data = {
 				"one" : {
-					name : "活动产品管理",
+					name : "活动数据统计",
 					goto:""
 
 				},
 				"two" : {
-					name : "修改活动产品",
-					goto:"modifyProduct"
+					name : "修改参赛选手得票数据",
+					goto:"modifyContestant"
 
 				}
 		}
 			
 		$scope.$emit("changeNavigation", data);
-		var flag = utils.isEmptyObject($stateParams.product);
+		var flag = utils.isEmptyObject($stateParams.contestant);
 		if(flag){
-			$state.go("activityProductsList");
+			$state.go("contestantList");
 			return;
 		}
-		angular.copy($stateParams.product,$scope.formData);
+		angular.copy($stateParams.contestant,$scope.formData);
 	};
 	
 
