@@ -1,5 +1,5 @@
-ngApp.$inject = ['$scope', '$http', '$state', 'httpUtils', 'layerUtils'];
-function addPrizeController($scope, $http, $state, httpUtils, layerUtils) {
+ngApp.$inject = ['$scope', '$http', '$state', '$stateParams', 'httpUtils', 'layerUtils','utils'];
+function modifyParamController($scope, $http, $state, httpUtils, $stateParams, layerUtils,utils) {
 	$scope.formData = {};
 	
 	$scope.init=function(){
@@ -12,7 +12,7 @@ function addPrizeController($scope, $http, $state, httpUtils, layerUtils) {
 				},
 				"two" : {
 					name : "修改参数",
-					goto:"addParam"
+					goto:"modifyParam"
 
 				}
 			}

@@ -41,16 +41,6 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">中奖概率：</label>
-                    <div class="col-sm-6">
-                        <input type="text" class="form-control" id="rate" name="rate"
-                            ng-model="formData.rate" placeholder="请输入中奖概率" />
-                    </div>
-                    <div class="col-sm-3">
-                      <label class="text-warning control-label">%</label>
-                    </div>
-                </div>
-                <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-9">
                         <button type="button" ng-click="newBuild()" id="newBuild"
                             class="btn btn-default btn-primary">确认新增</button>
@@ -101,8 +91,6 @@
                         <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1">奖品价值</th>
                         <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">中奖概率</th>
-                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1">已中奖人数</th>
                         <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1">剩余奖品数量</th>
@@ -118,7 +106,6 @@
                         <td class="col-sm-1">{{prize.name}}</td>
                         <td class="col-sm-1">{{prize.amount}}</td>
                         <td class="col-sm-1">{{prize.pice}}</td>
-                        <td class="col-sm-1">{{prize.rate}}</td>
                         <td class="col-sm-1">{{prize.winning_number}}</td>
                         <td class="col-sm-1">{{prize.amount-prize.winning_number}}</td>                  
                         <td class="col-sm-1 text-center">

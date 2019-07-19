@@ -37,6 +37,8 @@ function participantsListController($scope, $http, $state, $stateParams, $gridSe
 		$http.get(httpUtils.url.departmentList, {}).success(function(data) {
 			if (data.resCode == 0) {
 				$scope.departments = data.result;
+				var headerElement = {id: 0, code: "", name: "全部"};
+				$scope.departments.unshift(headerElement);
 				$scope.selectedName = $scope.departments[0];
 				console.log($scope.selectedName.code);
 				$scope.getEmpList(20000);

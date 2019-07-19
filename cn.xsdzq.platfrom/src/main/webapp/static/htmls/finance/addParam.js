@@ -1,5 +1,5 @@
-ngApp.$inject = ['$scope', '$http', '$state', 'httpUtils', 'layerUtils'];
-function addPrizeController($scope, $http, $state, httpUtils, layerUtils) {
+ngApp.$inject = ['$scope', '$http', '$state',  '$stateParams','httpUtils', 'layerUtils'];
+function addParamController($scope, $http, $state, $stateParams, httpUtils, layerUtils) {
 	$scope.formData = {};
 
 	$scope.init=function(){
