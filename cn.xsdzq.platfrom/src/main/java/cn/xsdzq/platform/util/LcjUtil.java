@@ -75,8 +75,13 @@ public class LcjUtil {
 		dto.setCode(entity.getCode());
 		dto.setCoefficient(entity.getCoefficient());
 		
-		dto.setBeginDate(DateUtil.DateToStringAsMonth(entity.getBeginDate()));
-		dto.setEndDate(DateUtil.DateToStringAsMonth(entity.getEndDate()));
+		try {
+			dto.setBeginDate(DateUtil.DateToStringAsMonth(entity.getBeginDate()));
+			dto.setEndDate(DateUtil.DateToStringAsMonth(entity.getEndDate()));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		dto.setInitialAmount(entity.getInitialAmount());
 		dto.setFlag(entity.getFlag());
 	
@@ -91,8 +96,8 @@ public class LcjUtil {
 		entity.setType(dto.getType());
 		entity.setCoefficient(dto.getCoefficient());
 		
-		entity.setBeginDate(DateUtil.stringToDateAndSeconds(dto.getBeginDate()));
-		entity.setEndDate(DateUtil.stringToDateAndSeconds(dto.getEndDate()));
+		entity.setBeginDate(DateUtil.stringToDate(dto.getBeginDate()));
+		entity.setEndDate(DateUtil.stringToDate(dto.getEndDate()));
 		entity.setInitialAmount(dto.getInitialAmount());
 		entity.setFlag(dto.getFlag());
 

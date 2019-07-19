@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.xsdzq.platform.controller.BaseController;
 import cn.xsdzq.platform.entity.lcj.EmpTicketRecordEntity;
-import cn.xsdzq.platform.entity.lcj.EmpVoteEntity;
 import cn.xsdzq.platform.entity.lcj.UserTicketRecordEntity;
 import cn.xsdzq.platform.entity.lcj.UserVoteEmpResultEntity;
 import cn.xsdzq.platform.model.Pagination;
