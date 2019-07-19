@@ -95,11 +95,11 @@ function userVoteForListController($scope, $http, $state, $stateParams, $gridSer
 			for(k=0;k<$scope.userVoteList.length;k++){				
 				newObj["客户姓名"] = 	data.username;
 				newObj["客户号"] = 	data.clientId;
-				newObj["投票时间"] = 	data.vote_time;
-				newObj["使用对象"] = 	data.emp_name;
-				newObj["使用对象员工编号"] = 	data.emp_code;
-				newObj["使用票数"] = 	data.emp_num;
-				newObj["隶属营业部"] = 	data.sales_department;
+				newObj["投票时间"] = 	data.voteTime;
+				newObj["使用对象"] = 	data.empName;
+				newObj["使用对象员工编号"] = 	data.empCode;
+				newObj["使用票数"] = 	data.voteNum;
+				newObj["隶属营业部"] = 	data.salesDepartment;
 				newObj["隶属赛区"] = 	data.division;
 			}
 			arr.push(newObj);
