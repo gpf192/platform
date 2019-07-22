@@ -85,6 +85,9 @@ function addProductController($scope, $http, $state, httpUtils, layerUtils,utils
 			if (data.resCode == 0) {
 				layerUtils.iMsg(-1,"添加成功");
 				$scope.formData={};
+			}else if (data.resCode == 1) {
+				layerUtils.iMsg(-1,"  产品代码已存在 ");
+				$scope.formData={};
 			} else {
 				layerUtils.iMsg(-1,"添加失败");
 			}
