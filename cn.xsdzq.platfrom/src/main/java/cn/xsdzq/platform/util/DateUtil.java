@@ -17,6 +17,20 @@ public class DateUtil {
 			}
 		return date1;
 	}
+	
+	public static Date stringToDate1(String date) {
+		 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		 Date date1 = null ;
+		
+			try {
+				date1 = sdf.parse(date);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return date1;
+	}
+	
 	public static Date stringToDateAndSeconds(String date) {
 		 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		 Date date1 = null ;
