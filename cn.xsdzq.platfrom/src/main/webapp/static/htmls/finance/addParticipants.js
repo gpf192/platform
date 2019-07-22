@@ -53,24 +53,45 @@ function addParticipantsController($scope, $http, $state, httpUtils, layerUtils,
 		
 		if(!utils.isEmpty($scope.formData.emp_name)) {
 			emp_name = $scope.formData.emp_name;
+		}else {
+			layerUtils.iMsg(-1,"人员姓名不能为空");
+			return;
 		}
 		if(!utils.isEmpty($scope.formData.emp_code)) {
 			emp_code = $scope.formData.emp_code;
+		}else {
+			layerUtils.iMsg(-1,"人员编号不能为空");
+			return;
 		}
 		if(!utils.isEmpty($scope.selectedName.code)) {
 			departmentCode = $scope.selectedName.code;
+		}else {
+			layerUtils.iMsg(-1,"隶属营业部不能为空");
+			return;
 		}
 		if(!utils.isEmpty($scope.selectedDivision.code)) {
 			division = $scope.selectedDivision.code;
+		}else {
+			layerUtils.iMsg(-1,"隶属赛区不能为空");
+			return;
 		}
 		if(!utils.isEmpty($scope.formData.emp_category)) {
 			emp_category = $scope.formData.emp_category;
+		}else {
+			layerUtils.iMsg(-1,"人员类别不能为空");
+			return;
 		}
 		if(!utils.isEmpty($scope.formData.contract)) {
 			contract = $scope.formData.contract;
+		}else {
+			layerUtils.iMsg(-1,"签约合同不能为空");
+			return;
 		}
 		if(!utils.isEmpty($scope.formData.entry_time)) {
 			entry_time = $scope.formData.entry_time;
+		}else {
+			layerUtils.iMsg(-1,"入职时间不能为空");
+			return;
 		}
 		var param = {
 				emp_name:emp_name,
