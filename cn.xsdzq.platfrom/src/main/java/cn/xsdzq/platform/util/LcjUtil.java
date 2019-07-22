@@ -25,10 +25,14 @@ public class LcjUtil {
 		dto.setId(entity.getId());
 		dto.setName(entity.getName());
 		
-		dto.setPice(entity.getPrice());
+		dto.setPrice(entity.getPrice());
 		dto.setRate(entity.getRate());
+		dto.setImage(entity.getImage());
 		dto.setAmount(entity.getAmount());
-		dto.setWinning_number(entity.getWinningNumber());
+		dto.setType(entity.isType());
+		dto.setShow(entity.isShow());
+		dto.setWinningNumber(entity.getWinningNumber());
+		dto.setCreatetime(DateUtil.DateToString(entity.getCreatetime()));
 		/*try {
 			dto.setCreatetime(DateUtil.DateToString(entity.getCreatetime()));		
 		} catch (Exception e) {
@@ -42,10 +46,15 @@ public class LcjUtil {
 		PrizeEntity entity = new PrizeEntity();
 		entity.setId(dto.getId());
 		entity.setName(dto.getName());
-		entity.setPrice(dto.getPice());
-		entity.setAmount(dto.getAmount());
+		
+		entity.setPrice(dto.getPrice());
 		entity.setRate(dto.getRate());
-		//entity.setWinning_number(dto.getWinning_number());
+		entity.setImage(dto.getImage());
+		entity.setAmount(dto.getAmount());
+		entity.setType(dto.isType());
+		entity.setShow(dto.isShow());
+		entity.setWinningNumber(dto.getWinningNumber());
+		entity.setCreatetime(DateUtil.stringToDate1(dto.getCreatetime()));
 		return entity;
 	}
 	//中奖纪录
