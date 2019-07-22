@@ -41,7 +41,7 @@ function participantsListController($scope, $http, $state, $stateParams, $gridSe
 				$scope.departments.unshift(headerElement);
 				$scope.selectedName = $scope.departments[0];
 				console.log($scope.selectedName.code);
-				$scope.getEmpList(20000);
+				$scope.getEmpList(50);
 			}
 		});
 		
@@ -132,7 +132,7 @@ function participantsListController($scope, $http, $state, $stateParams, $gridSe
 		      }        	
         }
 		console.log(param);
-		layerUtils.iConfirm("是否修该此产品信息？", function() {
+		layerUtils.iConfirm("是否修该此参赛人员信息？", function() {
 			$state.go("modifyParticipants", {
 				participant : param
 			});
@@ -156,13 +156,13 @@ function participantsListController($scope, $http, $state, $stateParams, $gridSe
 		        }
 		      }        	
         } 
-		layerUtils.iConfirm("是否删除该产品？", function() {
+		layerUtils.iConfirm("是否删除该参赛人员？", function() {
 			var url = httpUtils.url.deleteEmp;
 			$http.post(url, param).success(function(data) {
 				if (data.resCode == 0) {
 					layerUtils.iMsg(-1, "删除成功");
 					$scope.selected = [];
-					$scope.getEmpList(20000);
+					$scope.getEmpList(50);
 				}
 			});
 		}, function() {
