@@ -5,8 +5,7 @@ import javax.persistence.Column;
 public class UserVoteDTO {
 	private long id;
 	
-	private String username;
-	
+	private String username;	
 	private String clientId;//客户号
 	
 	private int total_votes;//所得总票数
@@ -40,6 +39,7 @@ public class UserVoteDTO {
 		this.id = id;
 	}
 
+
 	public String getUsername() {
 		return username;
 	}
@@ -47,8 +47,6 @@ public class UserVoteDTO {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
-
 
 	public String getClientId() {
 		return clientId;
@@ -124,7 +122,5 @@ public class UserVoteDTO {
 				+ division + ", sourceId=" + sourceId + "]";
 	}
 
-
-	
 	
 }

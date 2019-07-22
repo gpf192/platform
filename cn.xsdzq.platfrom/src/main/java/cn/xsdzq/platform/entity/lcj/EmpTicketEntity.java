@@ -49,6 +49,17 @@ public class EmpTicketEntity implements Serializable {
 	@LastModifiedDate
 	private Date modifytime;
 
+	@Column(name = "weight",columnDefinition="int default 0")
+	private int weight = 0;// 设置信息权重，初始为0
+	
+	public int getWeight() {
+		return weight;
+	}
+
+	public void setWeight(int weight) {
+		this.weight = weight;
+	}
+
 	public long getId() {
 		return id;
 	}

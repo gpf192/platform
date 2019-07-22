@@ -34,7 +34,7 @@ public class EmpEntity implements Serializable {
 	@Column(name = "emp_name")
 	private String empName;// 人员姓名
 
-	@Column(name = "emp_code")
+	@Column(name = "emp_code", unique = true, nullable = false)
 	private String empCode;// 人员编号
 
 	@Column(name = "emp_type")

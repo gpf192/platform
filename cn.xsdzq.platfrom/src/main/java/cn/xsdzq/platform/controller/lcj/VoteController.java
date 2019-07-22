@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.xsdzq.platform.controller.BaseController;
+import cn.xsdzq.platform.entity.lcj.EmpTicketEntity;
 import cn.xsdzq.platform.entity.lcj.EmpTicketRecordEntity;
 import cn.xsdzq.platform.entity.lcj.UserTicketRecordEntity;
 import cn.xsdzq.platform.entity.lcj.UserVoteEmpResultEntity;
@@ -28,6 +29,7 @@ import cn.xsdzq.platform.model.lcj.EmpVoteDTO;
 import cn.xsdzq.platform.model.lcj.UserVoteDTO;
 import cn.xsdzq.platform.model.lcj.UserVoteForDTO;
 import cn.xsdzq.platform.service.lcj.EmpVoteService;
+import cn.xsdzq.platform.service.lcj.MyEmpTicketService;
 import cn.xsdzq.platform.service.lcj.MyEmpVoteService;
 import cn.xsdzq.platform.service.lcj.MyUserVoteForService;
 import cn.xsdzq.platform.service.lcj.MyUserVoteService;
@@ -57,6 +59,10 @@ public class VoteController extends BaseController {
 	@Autowired
 	@Qualifier("empVoteServiceImpl")
 	private EmpVoteService empVoteService;
+	
+	@Autowired
+	@Qualifier("myEmpTicketServiceImpl")
+	private MyEmpTicketService myEmpTicketService;
 	
 	@RequestMapping(value = "/getUserVote", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
@@ -128,49 +134,49 @@ public class VoteController extends BaseController {
 		
 		//String voteFromUser = vote_from_user;
 		int sum = 0 ;
-		List<EmpTicketRecordEntity> entitys = null;
+		List<EmpTicketEntity> entitys = null;
 		int num = MethodUtil.getEmpVoteMethodNum(empName, empCode, division);
 		if(num == 1) {
-			entitys = myEmpVoteService.getAll(pageNumber, pageSize);
-			sum = myEmpVoteService.countAll();
+			entitys = myEmpTicketService.getAll(pageNumber, pageSize);
+			sum = myEmpTicketService.countAll();
 		}
 		if(num == 2) {
 			// 查询条件 empName、empCode\division
-			entitys = myEmpVoteService.findByEmpEntity_empNameAndEmpEntity_empCodeAndEmpEntity_divisionOrderByRecordTimeDesc(empName, empCode, division, pageNumber, pageSize);
-			sum = myEmpVoteService.countByEmpEntity_empNameAndEmpEntity_empCodeAndEmpEntity_division(empName, empCode, division);
+			entitys = myEmpTicketService.findByEmpEntity_empNameAndEmpEntity_empCodeAndEmpEntity_divisionOrderByWeightDescModifytimeDesc(empName, empCode, division, pageNumber, pageSize);
+			sum = myEmpTicketService.countByEmpEntity_empNameAndEmpEntity_empCodeAndEmpEntity_division(empName, empCode, division);
 		}
 		if(num == 3) {
 			//查询条件 empName
-			entitys = myEmpVoteService.findByEmpEntity_empNameOrderByRecordTimeDesc(empName, pageNumber, pageSize);
-			sum = myEmpVoteService.countByEmpEntity_empName(empName);
+			entitys = myEmpTicketService.findByEmpEntity_empNameOrderByWeightDescModifytimeDesc(empName, pageNumber, pageSize);
+			sum = myEmpTicketService.countByEmpEntity_empName(empName);
 		}
 		if(num == 4) {
 			//查询条件 empCode
-			entitys = myEmpVoteService.findByEmpEntity_empCodeOrderByRecordTimeDesc(empCode, pageNumber, pageSize);
-			sum = myEmpVoteService.countByEmpEntity_empCode(empCode);
+			entitys = myEmpTicketService.findByEmpEntity_empCodeOrderByWeightDescModifytimeDesc(empCode, pageNumber, pageSize);
+			sum = myEmpTicketService.countByEmpEntity_empCode(empCode);
 		}	
 		if(num == 5) {
 			// 查询条件 division
-			entitys = myEmpVoteService.findByEmpEntity_divisionOrderByRecordTimeDesc(division, pageNumber, pageSize);
-			sum = myEmpVoteService.countByEmpEntity_division( division);
+			entitys = myEmpTicketService.findByEmpEntity_divisionOrderByWeightDescModifytimeDesc(division, pageNumber, pageSize);
+			sum = myEmpTicketService.countByEmpEntity_division( division);
 		}
 		if(num == 6) {
 			//查询条件 empName、empCode
-			entitys = myEmpVoteService.findByEmpEntity_empNameAndEmpEntity_empCodeOrderByRecordTimeDesc(empName, empCode, pageNumber, pageSize);
-			sum = myEmpVoteService.countByEmpEntity_empNameAndEmpEntity_empCode(empName, empCode);
+			entitys = myEmpTicketService.findByEmpEntity_empNameAndEmpEntity_empCodeOrderByWeightDescModifytimeDesc(empName, empCode, pageNumber, pageSize);
+			sum = myEmpTicketService.countByEmpEntity_empNameAndEmpEntity_empCode(empName, empCode);
 		}
 		if(num == 7) {
 			//查询条件 empName、division
-			entitys = myEmpVoteService.findByEmpEntity_empNameAndEmpEntity_divisionOrderByRecordTimeDesc(empName, division, pageNumber, pageSize);
-			sum = myEmpVoteService.countByEmpEntity_empNameAndEmpEntity_division(empName, division);
+			entitys = myEmpTicketService.findByEmpEntity_empNameAndEmpEntity_divisionOrderByWeightDescModifytimeDesc(empName, division, pageNumber, pageSize);
+			sum = myEmpTicketService.countByEmpEntity_empNameAndEmpEntity_division(empName, division);
 		}
 		if(num == 8) {
 			//查询条件 empCode、division
-			entitys = myEmpVoteService.findByEmpEntity_empCodeAndEmpEntity_divisionOrderByRecordTimeDesc(empCode, division, pageNumber, pageSize);
-			sum = myEmpVoteService.countByEmpEntity_empCodeAndEmpEntity_division(empCode, division);
+			entitys = myEmpTicketService.findByEmpEntity_empCodeAndEmpEntity_divisionOrderByWeightDescModifytimeDesc(empCode, division, pageNumber, pageSize);
+			sum = myEmpTicketService.countByEmpEntity_empCodeAndEmpEntity_division(empCode, division);
 		}
 		List<EmpVoteDTO> DTOs = new ArrayList<EmpVoteDTO>();
-		for (EmpTicketRecordEntity entity : entitys) {
+		for (EmpTicketEntity entity : entitys) {
 			EmpVoteDTO dto = LcjUtil.convertEmpVoteDTOByEntity(entity);
 			DTOs.add(dto);
 		}
@@ -181,7 +187,7 @@ public class VoteController extends BaseController {
 	@RequestMapping(value = "/addWeight", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> addWeight(@RequestBody EmpVoteDTO dto) {
-		EmpTicketRecordEntity entity = LcjUtil.convertEmpVoteEntityByDTO(dto);
+		EmpTicketEntity entity = LcjUtil.convertEmpVoteEntityByDTO(dto);
 		empVoteService.addWeight(entity);
 		return GsonUtil.buildMap(0, "ok", null);
 	}
