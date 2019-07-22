@@ -54,7 +54,12 @@ public class LcjUtil {
 		entity.setType(dto.isType());
 		entity.setShow(dto.isShow());
 		entity.setWinningNumber(dto.getWinningNumber());
-		entity.setCreatetime(DateUtil.stringToDate1(dto.getCreatetime()));
+		try {
+			entity.setCreatetime(DateUtil.stringToDate1(dto.getCreatetime()));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return entity;
 	}
 	//中奖纪录
