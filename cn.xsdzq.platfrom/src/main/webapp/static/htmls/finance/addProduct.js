@@ -45,27 +45,51 @@ function addProductController($scope, $http, $state, httpUtils, layerUtils,utils
 		var endDate = "";
 		if(!utils.isEmpty($scope.formData.code)) {
 			code = $scope.formData.code;
+		}else {
+			layerUtils.iMsg(-1, "产品代码不能为空");
+			return;
 		}
 		if(!utils.isEmpty($scope.formData.name)) {
 			name = $scope.formData.name;
+		}else {
+			layerUtils.iMsg(-1, "产品名称不能为空");
+			return;
 		}
 		if(!utils.isEmpty($scope.formData.type)) {
 			type = $scope.formData.type;
+		}else {
+			layerUtils.iMsg(-1, "产品类型不能为空");
+			return;
 		}
 		if(!utils.isEmpty($scope.formData.coefficient)) {
 			coefficient = $scope.formData.coefficient;
+		}else {
+			layerUtils.iMsg(-1, "票数系数不能为空");
+			return;
 		}
 		if(!utils.isEmpty($scope.formData.initialAmount)) {
 			initialAmount = $scope.formData.initialAmount;
+		}else {
+			layerUtils.iMsg(-1, "起始金额不能为空");
+			return;
 		}
 		if(!utils.isEmpty( $scope.selectedTradePlace.code)) {
 			flag = $scope.selectedTradePlace.code;
+		}else {
+			layerUtils.iMsg(-1, "是否为场外基金不能为空");
+			return;
 		}
 		if(!utils.isEmpty($scope.formData.begin_date)) {
 			beginDate = $scope.formData.begin_date;
+		}else {
+			layerUtils.iMsg(-1, "开放时间不能为空");
+			return;
 		}
 		if(!utils.isEmpty($scope.formData.end_Date)) {
 			endDate = $scope.formData.end_Date;
+		}else {
+			layerUtils.iMsg(-1, "截止时间不能为空");
+			return;
 		}
 			if (endDate < beginDate) {
 				layerUtils.iMsg(-1, "结束时间不能早于开始时间！");
