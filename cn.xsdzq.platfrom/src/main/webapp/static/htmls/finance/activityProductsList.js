@@ -136,6 +136,8 @@ function activityProductsListController($scope, $http, $state, $stateParams, $gr
 					layerUtils.iMsg(-1, "删除成功");
 					$scope.selected = [];
 					$scope.getActivityProductsList(20000);
+				}else {
+					layerUtils.iMsg(-1, "删除失败");
 				}
 			});
 		}, function() {
