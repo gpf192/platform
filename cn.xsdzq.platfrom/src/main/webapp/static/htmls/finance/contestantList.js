@@ -213,6 +213,7 @@ function contestantListController($scope, $http, $state, $stateParams, $gridServ
 				newObj["隶属营业部"] = 	data.sales_department;
 				newObj["隶属赛区"] = 	data.division;
 				newObj["获得票数"] = 	data.get_vote_amount;
+				newObj["权重"] = 	data.weight;
 				newObj["获得时间"] = 	data.get_vote_time;
 			}
 			arr.push(newObj);

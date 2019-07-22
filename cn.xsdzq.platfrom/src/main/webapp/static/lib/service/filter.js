@@ -46,3 +46,36 @@ ngApp.filter('lockTransform', function() {
 	    
 	}
 });
+ngApp.filter('voteSourceFilter', function() { 
+	return function (value) {
+	    if(value == 1){
+	    	return "活动登录";
+	    }
+	    if(value == 2){
+	    	return "活动分享";
+	    }
+	    if(value == 3){
+	    	return "抽奖";
+	    }
+	    if(value == 4){
+	    	return "购买理财产品";
+	    }
+	    if(value == 5){
+	    	return "新开基金账户";
+	    }
+	    if(value == 6){
+	    	return "签约投顾";
+	    }
+	}
+});
+ngApp.filter('divisionFilter', function() { 
+	return function (value) {
+	    if(value == 0){
+	    	return "新手赛区";
+	    }
+	    if(value == 1){
+	    	return "王者赛区";
+	    }
+
+	}
+});
