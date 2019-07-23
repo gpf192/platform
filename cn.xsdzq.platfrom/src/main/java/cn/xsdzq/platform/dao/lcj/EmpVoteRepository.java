@@ -2,9 +2,9 @@ package cn.xsdzq.platform.dao.lcj;
 
 import org.springframework.stereotype.Repository;
 
-import cn.xsdzq.platform.entity.lcj.EmpTicketRecordEntity;
+import cn.xsdzq.platform.entity.lcj.EmpTicketEntity;
 
 @Repository
 public interface EmpVoteRepository {
-	void addWeight(EmpTicketRecordEntity entity);
+	void addWeight(EmpTicketEntity entity);
 }

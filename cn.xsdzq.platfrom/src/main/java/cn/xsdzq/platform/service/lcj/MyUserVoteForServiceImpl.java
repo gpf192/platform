@@ -38,7 +38,7 @@ public class MyUserVoteForServiceImpl implements MyUserVoteForService{
 			String clientId, String empName, String empCode, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<UserVoteEmpResultEntity> pages = myUserVoteForRepository.findByUserEntity_usernameAndUserEntity_clientIdAndEmpEntity_empNameAndEmpEntity_empCodeOrderByRecordTime( username,
+		Page<UserVoteEmpResultEntity> pages = myUserVoteForRepository.findByUserEntity_clientNameAndUserEntity_clientIdAndEmpEntity_empNameAndEmpEntity_empCodeOrderByRecordTime( username,
 				 clientId,  empName,  empCode,pageRequest);
 		List<UserVoteEmpResultEntity> infos = pages.getContent();
 		return infos;
@@ -48,7 +48,7 @@ public class MyUserVoteForServiceImpl implements MyUserVoteForService{
 	public int countByUserEntity_usernameAndUserEntity_clientIdAndEmpEntity_empNameAndEmpEntity_empCode(String username, String clientId, String empName,
 			String empCode) {
 		// TODO Auto-generated method stub
-		return myUserVoteForRepository.countByUserEntity_usernameAndUserEntity_clientIdAndEmpEntity_empNameAndEmpEntity_empCode( username,  clientId,  empName,
+		return myUserVoteForRepository.countByUserEntity_clientNameAndUserEntity_clientIdAndEmpEntity_empNameAndEmpEntity_empCode( username,  clientId,  empName,
 				 empCode);
 	}
 
@@ -57,7 +57,7 @@ public class MyUserVoteForServiceImpl implements MyUserVoteForService{
 			String empName, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<UserVoteEmpResultEntity> pages = myUserVoteForRepository.findByUserEntity_usernameAndUserEntity_clientIdAndEmpEntity_empNameOrderByRecordTime( username,
+		Page<UserVoteEmpResultEntity> pages = myUserVoteForRepository.findByUserEntity_clientNameAndUserEntity_clientIdAndEmpEntity_empNameOrderByRecordTime( username,
 				 clientId,  empName,pageRequest);
 		List<UserVoteEmpResultEntity> infos = pages.getContent();
 		return infos;
@@ -66,7 +66,7 @@ public class MyUserVoteForServiceImpl implements MyUserVoteForService{
 	@Override
 	public int countByUserEntity_usernameAndUserEntity_clientIdAndEmpEntity_empName(String username, String clientId, String empName) {
 		// TODO Auto-generated method stub
-		return myUserVoteForRepository.countByUserEntity_usernameAndUserEntity_clientIdAndEmpEntity_empName(username, clientId, empName);
+		return myUserVoteForRepository.countByUserEntity_clientNameAndUserEntity_clientIdAndEmpEntity_empName(username, clientId, empName);
 	}
 
 	@Override
@@ -74,7 +74,7 @@ public class MyUserVoteForServiceImpl implements MyUserVoteForService{
 			String empCode, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<UserVoteEmpResultEntity> pages = myUserVoteForRepository.findByUserEntity_usernameAndUserEntity_clientIdAndEmpEntity_empCodeOrderByRecordTime( username,
+		Page<UserVoteEmpResultEntity> pages = myUserVoteForRepository.findByUserEntity_clientNameAndUserEntity_clientIdAndEmpEntity_empCodeOrderByRecordTime( username,
 				 clientId,  empCode,pageRequest);
 		List<UserVoteEmpResultEntity> infos = pages.getContent();
 		return infos;
@@ -83,7 +83,7 @@ public class MyUserVoteForServiceImpl implements MyUserVoteForService{
 	@Override
 	public int countByUserEntity_usernameAndUserEntity_clientIdAndEmpEntity_empCode(String username, String clientId, String empCode) {
 		// TODO Auto-generated method stub
-		return myUserVoteForRepository.countByUserEntity_usernameAndUserEntity_clientIdAndEmpEntity_empCode(username, clientId, empCode);
+		return myUserVoteForRepository.countByUserEntity_clientNameAndUserEntity_clientIdAndEmpEntity_empCode(username, clientId, empCode);
 	}
 
 	@Override
@@ -91,7 +91,7 @@ public class MyUserVoteForServiceImpl implements MyUserVoteForService{
 			String empCode, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<UserVoteEmpResultEntity> pages = myUserVoteForRepository.findByUserEntity_usernameAndEmpEntity_empNameAndEmpEntity_empCodeOrderByRecordTime( username,
+		Page<UserVoteEmpResultEntity> pages = myUserVoteForRepository.findByUserEntity_clientNameAndEmpEntity_empNameAndEmpEntity_empCodeOrderByRecordTime( username,
 				empName,  empCode,pageRequest);
 		List<UserVoteEmpResultEntity> infos = pages.getContent();
 		return infos;
@@ -100,7 +100,7 @@ public class MyUserVoteForServiceImpl implements MyUserVoteForService{
 	@Override
 	public int countByUserEntity_usernameAndEmpEntity_empNameAndEmpEntity_empCode(String username, String empName, String empCode) {
 		// TODO Auto-generated method stub
-		return myUserVoteForRepository.countByUserEntity_usernameAndEmpEntity_empNameAndEmpEntity_empCode(username, empName, empCode);
+		return myUserVoteForRepository.countByUserEntity_clientNameAndEmpEntity_empNameAndEmpEntity_empCode(username, empName, empCode);
 	}
 
 	@Override
@@ -125,7 +125,7 @@ public class MyUserVoteForServiceImpl implements MyUserVoteForService{
 			int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<UserVoteEmpResultEntity> pages = myUserVoteForRepository.findByUserEntity_usernameAndUserEntity_clientIdOrderByRecordTime( username,
+		Page<UserVoteEmpResultEntity> pages = myUserVoteForRepository.findByUserEntity_clientNameAndUserEntity_clientIdOrderByRecordTime( username,
 				clientId,pageRequest);
 		List<UserVoteEmpResultEntity> infos = pages.getContent();
 		return infos;
@@ -134,7 +134,7 @@ public class MyUserVoteForServiceImpl implements MyUserVoteForService{
 	@Override
 	public int countByUserEntity_usernameAndUserEntity_clientId(String username, String clientId) {
 		// TODO Auto-generated method stub
-		return myUserVoteForRepository.countByUserEntity_usernameAndUserEntity_clientId(username, clientId);
+		return myUserVoteForRepository.countByUserEntity_clientNameAndUserEntity_clientId(username, clientId);
 	}
 
 	@Override
@@ -142,7 +142,7 @@ public class MyUserVoteForServiceImpl implements MyUserVoteForService{
 			int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<UserVoteEmpResultEntity> pages = myUserVoteForRepository.findByUserEntity_usernameAndEmpEntity_empNameOrderByRecordTime( username,
+		Page<UserVoteEmpResultEntity> pages = myUserVoteForRepository.findByUserEntity_clientNameAndEmpEntity_empNameOrderByRecordTime( username,
 				empName,pageRequest);
 		List<UserVoteEmpResultEntity> infos = pages.getContent();
 		return infos;
@@ -151,7 +151,7 @@ public class MyUserVoteForServiceImpl implements MyUserVoteForService{
 	@Override
 	public int countByUserEntity_usernameAndEmpEntity_empName(String username, String empName) {
 		// TODO Auto-generated method stub
-		 return myUserVoteForRepository.countByUserEntity_usernameAndEmpEntity_empName(username, empName);
+		 return myUserVoteForRepository.countByUserEntity_clientNameAndEmpEntity_empName(username, empName);
 	}
 
 	@Override
@@ -159,7 +159,7 @@ public class MyUserVoteForServiceImpl implements MyUserVoteForService{
 			int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<UserVoteEmpResultEntity> pages = myUserVoteForRepository.findByUserEntity_usernameAndEmpEntity_empCodeOrderByRecordTime( username,
+		Page<UserVoteEmpResultEntity> pages = myUserVoteForRepository.findByUserEntity_clientNameAndEmpEntity_empCodeOrderByRecordTime( username,
 				empCode,pageRequest);
 		List<UserVoteEmpResultEntity> infos = pages.getContent();
 		return infos;
@@ -168,7 +168,7 @@ public class MyUserVoteForServiceImpl implements MyUserVoteForService{
 	@Override
 	public int countByUserEntity_usernameAndEmpEntity_empCode(String username, String empCode) {
 		// TODO Auto-generated method stub
-		return myUserVoteForRepository.countByUserEntity_usernameAndEmpEntity_empCode(username, empCode);
+		return myUserVoteForRepository.countByUserEntity_clientNameAndEmpEntity_empCode(username, empCode);
 	}
 
 	@Override
@@ -229,7 +229,7 @@ public class MyUserVoteForServiceImpl implements MyUserVoteForService{
 	public List<UserVoteEmpResultEntity> findByUserEntity_usernameOrderByRecordTime(String username, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<UserVoteEmpResultEntity> pages = myUserVoteForRepository.findByUserEntity_usernameOrderByRecordTime( username, pageRequest);
+		Page<UserVoteEmpResultEntity> pages = myUserVoteForRepository.findByUserEntity_clientNameOrderByRecordTime( username, pageRequest);
 		List<UserVoteEmpResultEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -237,7 +237,7 @@ public class MyUserVoteForServiceImpl implements MyUserVoteForService{
 	@Override
 	public int countByUserEntity_username(String username) {
 		// TODO Auto-generated method stub
-		 return myUserVoteForRepository.countByUserEntity_username( username);
+		 return myUserVoteForRepository.countByUserEntity_clientName( username);
 	}
 
 	@Override

@@ -37,8 +37,8 @@ public class LcjUserEntity implements Serializable{
 	private String clientId;
 	
 	// 客户姓名
-	@Column(name = "username", unique = true, length = 100)
-	private String username;
+	@Column(name = "client_name", unique = true, length = 100)
+	private String clientName;
 
 	// 资金账号
 	@Column(name = "fund_account", unique = true, length = 100)
@@ -93,12 +93,12 @@ public class LcjUserEntity implements Serializable{
 		this.modifytime = modifytime;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getClientName() {
+		return clientName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
 	}
 
 	public Long getId() {

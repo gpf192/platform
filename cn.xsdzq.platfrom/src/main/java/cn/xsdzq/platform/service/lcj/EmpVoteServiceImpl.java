@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.xsdzq.platform.dao.lcj.EmpVoteRepository;
-import cn.xsdzq.platform.entity.lcj.EmpTicketRecordEntity;
+import cn.xsdzq.platform.entity.lcj.EmpTicketEntity;
 
 @Service(value = "empVoteServiceImpl")
 @Transactional(readOnly = true)
@@ -18,7 +18,7 @@ public class EmpVoteServiceImpl implements EmpVoteService{
 	
 	@Override
 	@Transactional
-	public void addWeight(EmpTicketRecordEntity entity) {
+	public void addWeight(EmpTicketEntity entity) {
 		// TODO Auto-generated method stub
 		empVoteRepository.addWeight(entity);
 	}

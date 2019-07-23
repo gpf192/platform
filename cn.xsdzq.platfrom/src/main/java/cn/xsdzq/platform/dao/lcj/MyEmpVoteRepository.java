@@ -7,6 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import cn.xsdzq.platform.entity.lcj.EmpTicketRecordEntity;
 
 public interface MyEmpVoteRepository extends PagingAndSortingRepository<EmpTicketRecordEntity, Long> {
+	//员工得票明细
 	Page<EmpTicketRecordEntity> findByOrderByRecordTime(Pageable pageable);
 	
 	Page<EmpTicketRecordEntity> findByEmpEntity_empNameAndEmpEntity_empCodeAndEmpEntity_divisionOrderByRecordTimeDesc(String empName, String empCode,String division, Pageable pageable);
@@ -28,8 +29,7 @@ public interface MyEmpVoteRepository extends PagingAndSortingRepository<EmpTicke
 	int countByEmpEntity_empNameAndEmpEntity_division(String empName,String division);
 	
 	Page<EmpTicketRecordEntity> findByEmpEntity_empCodeAndEmpEntity_divisionOrderByRecordTimeDesc( String empCode,String division, Pageable pageable);
-	int countByEmpEntity_empCodeAndEmpEntity_division( String empCode,String division);
-	
-	
+	int countByEmpEntity_empCodeAndEmpEntity_division( String empCode,String division);	
+
 	
 }
