@@ -44,25 +44,25 @@ function turntablePrizeListController($scope, $http, $state, httpUtils, layerUti
 
 	//添加和修改逻辑
 	$scope.newBuild = function() {
-		if(utils.isEmpty($scope.formData.pice)||utils.isEmpty($scope.formData.name)||utils.isEmpty($scope.formData.amount)) {
+		if(utils.isEmpty($scope.formData.price)||utils.isEmpty($scope.formData.name)||utils.isEmpty($scope.formData.amount)) {
 			layerUtils.iMsg(-1,"参数未填写!");
 			return;
 		}
 		if($scope.isModify) {
 			var childPrize = $scope.newPrizeList[modifyIndex];
 			var url = httpUtils.url.modifyPrize;
-			var newProduct = {id:childPrize.id,name:$scope.formData.name,amount:$scope.formData.amount,pice:$scope.formData.pice,rate:$scope.formData.rate};
+			var newProduct = {id:childPrize.id,name:$scope.formData.name,amount:$scope.formData.amount,price:$scope.formData.price,rate:$scope.formData.rate};
 			$http.post(url,newProduct).success(function(data) {
 				if (data.resCode == 0) {
 					$scope.isModify = false;
 					angular.element('#newBuild').text('确认新增');
 					childPrize.name = $scope.formData.name;
-					childPrize.pice = $scope.formData.pice;
+					childPrize.price = $scope.formData.price;
 					childPrize.amount = $scope.formData.amount;
 					childPrize.rate = $scope.formData.rate;
 					layerUtils.iMsg(-1,"修改成功");
 					$scope.formData.name="";
-					$scope.formData.pice="";
+					$scope.formData.price="";
 					$scope.formData.amount="";
 					$scope.formData.rate="";
 				}
@@ -74,12 +74,12 @@ function turntablePrizeListController($scope, $http, $state, httpUtils, layerUti
 				layerUtils.iMsg(-1,"奖品已满足8个");
 			}else {
 				//如果不满足的话就让添加并且更新列表 
-				var newProduct = {name:$scope.formData.name,amount:$scope.formData.amount,pice:$scope.formData.pice,rate:$scope.formData.rate};
+				var newProduct = {name:$scope.formData.name,amount:$scope.formData.amount,price:$scope.formData.price,rate:$scope.formData.rate};
 				$scope.newPrizeList.push(newProduct);
 				console.log("newPrizeList="+angular.toJson($scope.newPrizeList));
 				console.log("customaryPrizeList="+angular.toJson(customaryPrizeList));
 				$scope.formData.name="";
-				$scope.formData.pice="";
+				$scope.formData.price="";
 				$scope.formData.amount="";
 				$scope.formData.rate="";
 			}	
@@ -166,7 +166,7 @@ function turntablePrizeListController($scope, $http, $state, httpUtils, layerUti
 			$scope.isModify = false;
 			angular.element('#newBuild').text('确认新增');
 			$scope.formData.name="";
-			$scope.formData.pice="";
+			$scope.formData.price="";
 			$scope.formData.amount="";
 			$scope.formData.rate="";
 		}
