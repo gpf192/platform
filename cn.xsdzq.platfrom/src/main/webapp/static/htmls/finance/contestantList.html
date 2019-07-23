@@ -33,11 +33,12 @@
 
                 </div>
                   &nbsp
-                <div class="form-group ">
-                    <label  for="vote_from_user">隶属赛区:</label>                 
-                        <input type="text" class="form-control input-300 " id="division" name="division"
-                        ng-model="formData.division" placeholder="请输入隶属赛区"></input>
-
+                  <div class="form-group">
+                    <label >隶属赛区：</label>
+                 
+                        <select class="form-control "  ng-model="selectedDivision"
+                            ng-options="division.name for division in divisionFromList" ></select>
+                   
                 </div>
                 &nbsp
                 <input type="button" value="查询" class="btn btn-primary"

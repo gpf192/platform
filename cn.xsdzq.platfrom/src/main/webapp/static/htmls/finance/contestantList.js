@@ -15,6 +15,18 @@ function contestantListController($scope, $http, $state, $stateParams, $gridServ
 				}
 			}
 		$scope.$emit("changeNavigation", data);
+		$scope.divisionFromList = [{
+			name:"全部",
+			code:""
+		},{
+			name:"新手赛区",
+			code:"0"
+		},{
+			name:"王者赛区",
+			code:"1"
+		}]
+		
+		$scope.selectedDivision = $scope.divisionFromList[0];
 		$scope.getEmpList(20000);
 		$scope.currentPage = {
 				page : 0
@@ -76,8 +88,8 @@ function contestantListController($scope, $http, $state, $stateParams, $gridServ
 		if(!utils.isEmpty($scope.formData.empCode)) {
 			empCode = $scope.formData.empCode;
 		}
-		if(!utils.isEmpty($scope.formData.empCode)) {
-			division = $scope.formData.division;
+		if(!utils.isEmpty($scope.selectedDivision.code)) {
+			division =  $scope.selectedDivision.code;
 		}
 		var params = {
 			pageNumber : 0,
