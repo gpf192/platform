@@ -121,6 +121,10 @@ public class PrizeEntity implements Serializable {
 		this.amount = amount;
 	}
 
+	public Integer getAmount() {
+		return amount;
+	}
+
 	public Date getCreatetime() {
 		return createtime;
 	}
@@ -135,14 +139,6 @@ public class PrizeEntity implements Serializable {
 
 	public void setModifytime(Date modifytime) {
 		this.modifytime = modifytime;
-	}
-
-	public int getAmount() {
-		return amount;
-	}
-
-	public void setAmount(int amount) {
-		this.amount = amount;
 	}
 
 	public boolean isType() {

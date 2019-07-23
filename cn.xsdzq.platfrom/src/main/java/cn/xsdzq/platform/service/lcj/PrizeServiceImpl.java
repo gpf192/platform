@@ -44,7 +44,11 @@ public class PrizeServiceImpl implements PrizeService{
 	@Transactional
 	public void modifyPrize(PrizeEntity entity) {
 		// TODO Auto-generated method stub
-		prizeRepository.modifyPrize(entity);
+		PrizeEntity info = prizeRepository.getPrizeById(entity.getId());
+		info.setName(entity.getName());
+		info.setAmount(entity.getAmount());
+		info.setPrice(entity.getPrice());
+		prizeRepository.modifyPrize(info);
 	}
 
 }

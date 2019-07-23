@@ -52,7 +52,14 @@ public class PrizeRepositoryImpl implements PrizeRepository{
 	@Override
 	@Transactional
 	public void modifyPrize(PrizeEntity prizeEntity) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub				
 		em.merge(prizeEntity);
+	}
+	@Override
+	public PrizeEntity getPrizeById(long id) {
+		// TODO Auto-generated method stub
+		TypedQuery<PrizeEntity> sqlQuery = em.createQuery("SELECT c FROM PrizeEntity c WHERE c.id=?", PrizeEntity.class);
+		sqlQuery.setParameter(1, id);
+		return sqlQuery.getSingleResult();
 	}
 }

@@ -69,56 +69,67 @@ public class VoteController extends BaseController {
 	public Map<String, Object> getUserVote(HttpServletRequest request,  
 			@RequestParam String username, @RequestParam String clientId, @RequestParam String sourceId, 
 			 @RequestParam int pageNumber,@RequestParam int pageSize) {
-		System.out.println("全量查询用户投票数信息   +   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+		System.out.println("全量查询用户得票记录信息   +   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 			
 		int sum = 0 ;
 		List<UserTicketRecordEntity> entitys = null;
 		int num = MethodUtil.getUserVoteMethodNum(username, clientId, sourceId);
-		if(num == 1) {
-			//全量查找
-			entitys = myUserVoteService.getAll(pageNumber, pageSize);
-			sum = myUserVoteService.countAll();
-		}
-		if(num == 2) {
-			//三个条件一起查询
-			entitys = myUserVoteService.findByUserEntity_usernameAndUserEntity_clientIdAndVotesSourceOrderByGainTime(username, clientId, sourceId, pageNumber, pageSize);
-			sum = myUserVoteService.countByUserEntity_usernameAndUserEntity_clientIdAndVotesSource(username, clientId, sourceId);
-		}
-		if(num == 3) {
-			//查询条件：username
-			entitys = myUserVoteService.findByUserEntity_usernameOrderByGainTime(username, pageNumber, pageSize);
-			sum = myUserVoteService.countByUserEntity_username(username);
-		}
-		if(num == 4) {
-			//查询条件：account
-			entitys = myUserVoteService.findByUserEntity_clientIdOrderByGainTime(clientId, pageNumber, pageSize);
-			sum = myUserVoteService.countByUserEntity_clientId(clientId);
-		}
-		if(num == 5) {
-			//查询条件：surceId
-			entitys = myUserVoteService.findByVotesSourceOrderByGainTime(sourceId, pageNumber, pageSize);
-			sum = myUserVoteService.countByVotesSource(sourceId);
-		}
-		if(num == 6) {
-			//查询条件：username \account
-			entitys = myUserVoteService.findByUserEntity_usernameAndUserEntity_clientIdOrderByGainTime(username, clientId, pageNumber, pageSize);
-			sum = myUserVoteService.countByUserEntity_usernameAndUserEntity_clientId(username, clientId);
-		}
-		if(num == 7) {
-			////查询条件：username \surceId
-			entitys = myUserVoteService.findByUserEntity_usernameAndVotesSourceOrderByGainTime(username, sourceId, pageNumber, pageSize);
-			sum = myUserVoteService.countByUserEntity_usernameAndVotesSource(username, sourceId);
-		}
-		if(num == 8) {
-			//查询条件：account\ surceId
-			entitys = myUserVoteService.findByUserEntity_clientIdAndVotesSourceOrderByGainTime(clientId, sourceId, pageNumber, pageSize);
-			sum = myUserVoteService.countByUserEntity_clientIdAndVotesSource(clientId, sourceId);
+		try {
+			if(num == 1) {
+				//全量查找
+				entitys = myUserVoteService.getAll(pageNumber, pageSize);
+				sum = myUserVoteService.countAll();
+			}
+			if(num == 2) {
+				//三个条件一起查询
+				entitys = myUserVoteService.findByUserEntity_usernameAndUserEntity_clientIdAndVotesSourceOrderByGainTime(username, clientId, sourceId, pageNumber, pageSize);
+				sum = myUserVoteService.countByUserEntity_usernameAndUserEntity_clientIdAndVotesSource(username, clientId, sourceId);
+			}
+			if(num == 3) {
+				//查询条件：username
+				entitys = myUserVoteService.findByUserEntity_usernameOrderByGainTime(username, pageNumber, pageSize);
+				sum = myUserVoteService.countByUserEntity_username(username);
+			}
+			if(num == 4) {
+				//查询条件：account
+				entitys = myUserVoteService.findByUserEntity_clientIdOrderByGainTime(clientId, pageNumber, pageSize);
+				sum = myUserVoteService.countByUserEntity_clientId(clientId);
+			}
+			if(num == 5) {
+				//查询条件：surceId
+				entitys = myUserVoteService.findByVotesSourceOrderByGainTime(sourceId, pageNumber, pageSize);
+				sum = myUserVoteService.countByVotesSource(sourceId);
+			}
+			if(num == 6) {
+				//查询条件：username \account
+				entitys = myUserVoteService.findByUserEntity_usernameAndUserEntity_clientIdOrderByGainTime(username, clientId, pageNumber, pageSize);
+				sum = myUserVoteService.countByUserEntity_usernameAndUserEntity_clientId(username, clientId);
+			}
+			if(num == 7) {
+				////查询条件：username \surceId
+				entitys = myUserVoteService.findByUserEntity_usernameAndVotesSourceOrderByGainTime(username, sourceId, pageNumber, pageSize);
+				sum = myUserVoteService.countByUserEntity_usernameAndVotesSource(username, sourceId);
+			}
+			if(num == 8) {
+				//查询条件：account\ surceId
+				entitys = myUserVoteService.findByUserEntity_clientIdAndVotesSourceOrderByGainTime(clientId, sourceId, pageNumber, pageSize);
+				sum = myUserVoteService.countByUserEntity_clientIdAndVotesSource(clientId, sourceId);
+			}
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 		
 					
 		List<UserVoteDTO> DTOs = new ArrayList<UserVoteDTO>();
 		for (UserTicketRecordEntity entity : entitys) {
-			UserVoteDTO dto = LcjUtil.convertUserVoteDTOByEntity(entity);
+			UserVoteDTO dto = null;
+			try {
+				dto = LcjUtil.convertUserVoteDTOByEntity(entity);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			DTOs.add(dto);
 		}
 		Pagination pagination = new Pagination(pageNumber, pageSize, sum);
