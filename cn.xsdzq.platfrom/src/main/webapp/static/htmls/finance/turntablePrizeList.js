@@ -44,7 +44,7 @@ function turntablePrizeListController($scope, $http, $state, httpUtils, layerUti
 
 	//添加和修改逻辑
 	$scope.newBuild = function() {
-		if(utils.isEmpty($scope.formData.price)||utils.isEmpty($scope.formData.name)||utils.isEmpty($scope.formData.amount)) {
+		if(utils.isEmpty($scope.formData.name)||utils.isEmpty($scope.formData.amount)) {
 			layerUtils.iMsg(-1,"参数未填写!");
 			return;
 		}
