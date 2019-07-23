@@ -84,8 +84,7 @@
                             aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">得票来源</div></th>
                         <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">得票时间</div></th>
-                          <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">隶属营业部</div></th> 
+
                     </tr>
                 </thead>
                 <tbody role="alert" aria-live="polite" aria-relevant="all">
@@ -94,9 +93,9 @@
                         <td ><div style="white-space:nowrap;">{{user.username}}</div></td> 
                         <td ><div style="white-space:nowrap;">{{user.clientId}}</div></td>
                         <td ><div style="white-space:nowrap;">{{user.total_votes}}</div></td>
-                        <td ><div style="white-space:nowrap;">{{user.votes_source |voteSourceFilter}}</div></td>
+                        <td ><div style="white-space:nowrap;"><span
+                            ng-bind="user.votes_source |voteSourceFilter"></span></div></td>
                         <td ><div style="white-space:nowrap;">{{user.gain_time}}</div></td>
-                        <td ><div style="white-space:nowrap;">{{user.sales_department}}</div></td>
                     </tr>
                 </tbody>
                 <tfoot>

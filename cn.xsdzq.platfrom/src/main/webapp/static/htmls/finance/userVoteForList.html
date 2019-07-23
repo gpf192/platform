@@ -111,7 +111,8 @@
                         <td ><div style="white-space:nowrap;">{{user.empCode}}</div></td>
                         <td ><div style="white-space:nowrap;">{{user.voteNum}}</div></td>
                         <td ><div style="white-space:nowrap;">{{user.salesDepartment}}</div></td>
-                        <td ><div style="white-space:nowrap;">{{user.division}}</div></td>
+                        <td ><div style="white-space:nowrap;"><span
+                            ng-bind="empVote.division |divisionFilter"></span></div></td>
                     </tr>
                 </tbody>
                 <tfoot>
