@@ -95,9 +95,20 @@ public class ProductController extends BaseController{
 	@RequestMapping(value = "/deleteProduct", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> deletInfo(HttpServletRequest request, @RequestBody ProductDTO dto) {
-		ProductEntity entity = LcjUtil.convertEntityByProductDTO(dto);	
+		ProductEntity entity = null;
+		try {
+			entity = LcjUtil.convertEntityByProductDTO(dto);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}	
 		
-		productService.deleteProduct(entity);
+		try {
+			productService.deleteProduct(entity);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		User user = UserManageUtil.getUser();
 		String name = user.getUsername();
 		logger.info(" 删除理财节 产品  product 信息 action:" + "delete" + ";" + "user: " + name  +" productname: "+entity.getName()+" ;" );

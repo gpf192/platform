@@ -2,6 +2,7 @@ package cn.xsdzq.platform.util;
 
 import cn.xsdzq.platform.entity.lcj.DepartmentEntity;
 import cn.xsdzq.platform.entity.lcj.EmpEntity;
+import cn.xsdzq.platform.entity.lcj.EmpTicketEntity;
 import cn.xsdzq.platform.entity.lcj.EmpTicketRecordEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeResultEntity;
@@ -32,14 +33,13 @@ public class LcjUtil {
 		dto.setType(entity.isType());
 		dto.setShow(entity.isShow());
 		dto.setWinningNumber(entity.getWinningNumber());
-		dto.setCreatetime(DateUtil.DateToString(entity.getCreatetime()));
-		/*try {
-			dto.setCreatetime(DateUtil.DateToString(entity.getCreatetime()));		
+		try {
+			dto.setCreatetime(DateUtil.DateToString(entity.getCreatetime()));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
-		
+		}
+				
 		return dto;
 	}
 	public static PrizeEntity convertEntityByPrizeDTO(PrizeDTO dto) {
@@ -54,14 +54,19 @@ public class LcjUtil {
 		entity.setType(dto.isType());
 		entity.setShow(dto.isShow());
 		entity.setWinningNumber(dto.getWinningNumber());
-		entity.setCreatetime(DateUtil.stringToDate1(dto.getCreatetime()));
+		try {
+			entity.setCreatetime(DateUtil.stringToDate1(dto.getCreatetime()));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return entity;
 	}
 	//中奖纪录
 	public static PrizeRecordDTO convertPrizeRecordDTOByEntity(PrizeResultEntity entity) {		
 		PrizeRecordDTO dto = new PrizeRecordDTO();
 		dto.setId(entity.getId());
-		dto.setUsername(entity.getUserEntity().getClientId());
+		dto.setUsername(entity.getUserEntity().getClientName());
 		
 		dto.setClientId(entity.getUserEntity().getClientId());
 		dto.setPrizeName(entity.getPrizeEntity().getName());
@@ -105,8 +110,13 @@ public class LcjUtil {
 		entity.setType(dto.getType());
 		entity.setCoefficient(dto.getCoefficient());
 		
-		entity.setBeginDate(DateUtil.stringToDate(dto.getBeginDate()));
-		entity.setEndDate(DateUtil.stringToDate(dto.getEndDate()));
+		try {
+			entity.setBeginDate(DateUtil.stringToDate(dto.getBeginDate()));
+			entity.setEndDate(DateUtil.stringToDate(dto.getEndDate()));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		entity.setInitialAmount(dto.getInitialAmount());
 		entity.setFlag(dto.getFlag());
 
@@ -138,7 +148,7 @@ public class LcjUtil {
 		EmpDTO dto = new EmpDTO();
 		dto.setId(entity.getId());
 		dto.setEmp_name(entity.getEmpName());
-		dto.setEmp_code(entity.getEmpName());
+		dto.setEmp_code(entity.getEmpCode());
 		dto.setEmp_type(entity.getEmpType());
 		dto.setEmp_category(entity.getEmpCategory());
 		dto.setEntry_time(entity.getEntryTime());
@@ -153,6 +163,7 @@ public class LcjUtil {
 		EmpEntity entity = new EmpEntity();
 		entity.setId(dto.getId());
 		entity.setEmpName(dto.getEmp_name());
+		entity.setEmpId(dto.getEmp_code());
 		entity.setEmpCode(dto.getEmp_code());
 		entity.setEmpType(dto.getEmp_type());
 		entity.setEmpCategory(dto.getEmp_category());
@@ -168,7 +179,7 @@ public class LcjUtil {
 	public static UserVoteDTO convertUserVoteDTOByEntity(UserTicketRecordEntity entity) {		
 		UserVoteDTO dto = new UserVoteDTO();
 		dto.setId(entity.getId());
-		dto.setUsername(entity.getUserEntity().getUsername());
+		dto.setUsername(entity.getUserEntity().getClientName());
 		dto.setClientId(entity.getUserEntity().getClientId());
 		dto.setTotal_votes(entity.getNumber());
 		dto.setVotes_source(entity.getVotesSource());
@@ -181,21 +192,26 @@ public class LcjUtil {
 		return dto;
 	}
 	//参赛选手得票记录
-	public static EmpVoteDTO convertEmpVoteDTOByEntity(EmpTicketRecordEntity entity) {		
+	public static EmpVoteDTO convertEmpVoteDTOByEntity(EmpTicketEntity entity) {		
 		EmpVoteDTO dto = new EmpVoteDTO();
 		dto.setId(entity.getId());
 		dto.setEmp_name(entity.getEmpEntity().getEmpName());
 		dto.setEmp_code(entity.getEmpEntity().getEmpCode());
-		//dto.setWeight(entity.getWeight());
+		dto.setWeight(entity.getWeight());
 		dto.setDivision(entity.getEmpEntity().getDivision());		
 		dto.setSales_department(entity.getEmpEntity().getDepartmentEntity().getName());
 		dto.setGet_vote_amount(entity.getNumber());
-		dto.setGet_vote_time(DateUtil.DateToString(entity.getRecordTime()));
+		try {
+			dto.setGet_vote_time(DateUtil.DateToString(entity.getModifytime()));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return dto;
 	}
 	
-	public static EmpTicketRecordEntity convertEmpVoteEntityByDTO(EmpVoteDTO dto) {		
-		EmpTicketRecordEntity entity = new EmpTicketRecordEntity();
+	public static EmpTicketEntity convertEmpVoteEntityByDTO(EmpVoteDTO dto) {		
+		EmpTicketEntity entity = new EmpTicketEntity();
 		entity.setId(dto.getId());
 		//entity.setEmpName(dto.getEmp_name());
 		//entity.setEmpCode(dto.getEmp_code());
@@ -232,7 +248,7 @@ public class LcjUtil {
 		UserVoteForDTO dto = new UserVoteForDTO();
 		dto.setId(entity.getId());
 		dto.setClientId(entity.getUserEntity().getClientId());
-		dto.setUsername(entity.getUserEntity().getUsername());
+		dto.setUsername(entity.getUserEntity().getClientName());
 		dto.setVoteTime(DateUtil.DateToString(entity.getRecordTime()));
 		dto.setEmpName(entity.getEmpEntity().getEmpName());
 		dto.setEmpCode(entity.getEmpEntity().getEmpCode());

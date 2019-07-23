@@ -5,6 +5,7 @@ import java.util.List;
 import cn.xsdzq.platform.entity.lcj.EmpTicketRecordEntity;
 
 public interface MyEmpVoteService {
+	//员工得票明细记录
 	int countAll();
 	List<EmpTicketRecordEntity> getAll(int pageNumber, int pageSize);
 	

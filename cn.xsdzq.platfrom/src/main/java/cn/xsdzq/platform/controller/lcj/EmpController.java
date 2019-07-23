@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.xsdzq.platform.controller.BaseController;
-import cn.xsdzq.platform.entity.CategoryEntity;
 import cn.xsdzq.platform.entity.lcj.DepartmentEntity;
 import cn.xsdzq.platform.entity.lcj.EmpEntity;
 import cn.xsdzq.platform.model.Pagination;
