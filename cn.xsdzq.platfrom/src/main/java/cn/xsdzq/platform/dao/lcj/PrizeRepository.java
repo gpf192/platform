@@ -8,6 +8,7 @@ import cn.xsdzq.platform.entity.lcj.PrizeEntity;
 
 @Repository
 public interface PrizeRepository {
+	PrizeEntity getPrizeById(long id);
 	List<PrizeEntity> getAllPrize();
 	void deletePrize(PrizeEntity entity);
 

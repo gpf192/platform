@@ -45,15 +45,10 @@ public class LcjUtil {
 	public static PrizeEntity convertEntityByPrizeDTO(PrizeDTO dto) {
 		PrizeEntity entity = new PrizeEntity();
 		entity.setId(dto.getId());
-		entity.setName(dto.getName());
-		
-		entity.setPrice(dto.getPrice());
-		entity.setRate(dto.getRate());
-		entity.setImage(dto.getImage());
+		entity.setName(dto.getName());		
+		entity.setPrice(dto.getPrice());	
 		entity.setAmount(dto.getAmount());
-		entity.setType(dto.isType());
-		entity.setShow(dto.isShow());
-		entity.setWinningNumber(dto.getWinningNumber());
+		
 		try {
 			entity.setCreatetime(DateUtil.stringToDate1(dto.getCreatetime()));
 		} catch (Exception e) {
@@ -184,7 +179,12 @@ public class LcjUtil {
 		dto.setTotal_votes(entity.getNumber());
 		dto.setVotes_source(entity.getVotesSource());
 		dto.setSourceId(entity.getVotesSource());
-		dto.setGain_time(DateUtil.DateToString(entity.getGainTime()));
+		try {
+			dto.setGain_time(DateUtil.DateToString(entity.getGainTime()));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		/*dto.setVote_for(entity.getVoteFor());
 		dto.setVote_for_amount(entity.getVoteForAmount());
 		dto.setDivision(entity.getDivision());	*/	
