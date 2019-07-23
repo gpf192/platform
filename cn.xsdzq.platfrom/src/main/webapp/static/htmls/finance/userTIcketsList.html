@@ -94,7 +94,8 @@
                         <td ><div style="white-space:nowrap;">{{user.username}}</div></td> 
                         <td ><div style="white-space:nowrap;">{{user.clientId}}</div></td>
                         <td ><div style="white-space:nowrap;">{{user.total_votes}}</div></td>
-                        <td ><div style="white-space:nowrap;">{{user.votes_source |voteSourceFilter}}</div></td>
+                        <td ><div style="white-space:nowrap;"><span
+                            ng-bind="user.votes_source |voteSourceFilter"></span></div></td>
                         <td ><div style="white-space:nowrap;">{{user.gain_time}}</div></td>
                         <td ><div style="white-space:nowrap;">{{user.sales_department}}</div></td>
                     </tr>

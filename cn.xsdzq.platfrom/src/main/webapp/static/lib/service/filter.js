@@ -54,7 +54,7 @@ ngApp.filter('voteSourceFilter', function() {
 	    if(value == "2"){
 	    	return "活动分享";
 	    }
-	    if(value == "3"){
+	    if(value == "13"){
 	    	return "抽奖";
 	    }
 	    if(value == "4"){
