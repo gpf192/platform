@@ -133,11 +133,11 @@ function participantsListController($scope, $http, $state, $stateParams, $gridSe
 	//组装ecxel数据
 	function getExcelData() {
 		var arr =[];
-		angular.forEach($scope.userVoteList, function(data, index, datas) {
+		angular.forEach($scope.empList, function(data, index, datas) {
 			var newObj = {	
 				
 			};
-			for(k=0;k<$scope.userVoteList.length;k++){				
+			for(k=0;k<$scope.empList.length;k++){				
 				newObj["人员姓名"] = 	data.emp_name;
 				newObj["人员编号"] = 	data.emp_code;
 				newObj["在编性质"] = 	data.emp_type;
