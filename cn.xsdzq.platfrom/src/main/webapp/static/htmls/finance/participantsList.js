@@ -116,6 +116,46 @@ function participantsListController($scope, $http, $state, $stateParams, $gridSe
 	};
 	
 	
+	//导出为excel
+	$scope.exportToExcel=function(){ 
+		var excelArrs = getExcelData();
+		var myDate = new Date();
+		 alasql.promise('SELECT * INTO XLSX("参赛人员据统计表-' + myDate+ '.xlsx",{headers:true}) FROM ?',[excelArrs])
+			.then(function (data) {
+			  if(data == 1){
+				$timeout(function(){
+				  console.log('数据导出成功！');
+				})
+			  }
+			});
+	};
+	 
+	//组装ecxel数据
+	function getExcelData() {
+		var arr =[];
+		angular.forEach($scope.userVoteList, function(data, index, datas) {
+			var newObj = {	
+				
+			};
+			for(k=0;k<$scope.userVoteList.length;k++){				
+				newObj["人员姓名"] = 	data.emp_name;
+				newObj["人员编号"] = 	data.emp_code;
+				newObj["在编性质"] = 	data.emp_type;
+				newObj["人员类别"] = 	data.emp_category;
+				newObj["签约合同"] = 	data.contract;
+				newObj["入职时间"] = 	data.entry_time;
+				newObj["隶属营业部"] = 	data.sales_department;
+				if(data.division == 0) {
+					newObj["隶属赛区"] = "新手赛区";	
+				}else {
+					newObj["隶属赛区"] = "王者赛区";	
+				}
+			}
+			arr.push(newObj);
+		});
+		return arr;
+	}
+	
 	//编辑
 	$scope.batchModifyInfo = function() {
 		if($scope.selected.length != 1){
