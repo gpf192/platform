@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import cn.xsdzq.platform.entity.lcj.EmpEntity;
+import cn.xsdzq.platform.entity.lcj.EmpTicketEntity;
 
 @Repository
 public interface EmpRepository {
@@ -14,4 +15,7 @@ public interface EmpRepository {
 	void addEmp(EmpEntity entity);
 
 	void modifyEmp(EmpEntity entity);
+	void addEmpTicket(EmpTicketEntity entity);
+	EmpTicketEntity getEmpTicketByEmpId(String id);
+	void deleteEmpTicket(EmpTicketEntity entity);
 }

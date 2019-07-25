@@ -61,6 +61,18 @@ public class EmpEntity implements Serializable {
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "department_code", referencedColumnName = "code")
 	private DepartmentEntity departmentEntity;
+	
+	@Column(name = "enable", columnDefinition = "int default 1") // 中奖人数
+	private int enable = 1;//默认账户开启，1-开启   2-关闭
+	
+
+	public int getEnable() {
+		return enable;
+	}
+
+	public void setEnable(int enable) {
+		this.enable = enable;
+	}
 
 	public String getDepartmentCode() {
 		return departmentCode;
@@ -160,9 +172,10 @@ public class EmpEntity implements Serializable {
 
 	@Override
 	public String toString() {
-		return "EmpEntity [id=" + id + ", empName=" + empName + ", empCode=" + empCode + ", empType=" + empType
-				+ ", empCategory=" + empCategory + ", contract=" + contract + ", entryTime=" + entryTime
-				+ ", salesDepartment=" + salesDepartment + ", division=" + division + "]";
+		return "EmpEntity [id=" + id + ", empId=" + empId + ", empName=" + empName + ", empCode=" + empCode
+				+ ", empType=" + empType + ", empCategory=" + empCategory + ", contract=" + contract + ", entryTime="
+				+ entryTime + ", salesDepartment=" + salesDepartment + ", division=" + division + ", departmentCode="
+				+ departmentCode + ", departmentEntity=" + departmentEntity + ", enable=" + enable + "]";
 	}
 
 }
