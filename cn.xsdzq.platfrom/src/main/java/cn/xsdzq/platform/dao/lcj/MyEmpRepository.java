@@ -4,42 +4,40 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import cn.xsdzq.platform.entity.InfoEntity;
 import cn.xsdzq.platform.entity.lcj.EmpEntity;
 
 public interface MyEmpRepository extends PagingAndSortingRepository<EmpEntity, Long> {
-	Page<EmpEntity> findByOrderById(Pageable pageable);
+	Page<EmpEntity> findByEnableOrderById(int enable, Pageable pageable);
 	
-	/*Page<EmpEntity> findByContractAndDivisionOrderByDivision(String contract, String division, 
-			 Pageable pageable);*/
+	int countByEnable(int enable);
 	
 	
-	Page<EmpEntity> findByEmpNameAndEmpCodeAndDepartmentCodeOrderByEmpCode(String emp_name, String emp_code, 
+	Page<EmpEntity> findByEnableAndEmpNameAndEmpCodeAndDepartmentCodeOrderByEmpCode(int enable, String emp_name, String emp_code, 
 			String sales_department, Pageable pageable);
-	int countByEmpNameAndEmpCodeAndDepartmentCode(String emp_name, String emp_code, 
+	int countByEnableAndEmpNameAndEmpCodeAndDepartmentCode(int enable, String emp_name, String emp_code, 
 			String sales_department);
 	
-	Page<EmpEntity> findByEmpNameOrderByEmpCode(String emp_name, Pageable pageable);
-	int countByEmpName(String emp_name);
+	Page<EmpEntity> findByEnableAndEmpNameOrderByEmpCode(int enable, String emp_name, Pageable pageable);
+	int countByEnableAndEmpName(int enable,String emp_name);
 	
-	Page<EmpEntity> findByEmpCodeOrderByEmpCode(String c, Pageable pageable);
-	int countByEmpCode(String emp_code);
+	Page<EmpEntity> findByEnableAndEmpCodeOrderByEmpCode(int enable,String c, Pageable pageable);
+	int countByEnableAndEmpCode(int enable,String emp_code);
 	
-	Page<EmpEntity> findByDepartmentCodeOrderByEmpCode(String sales_department, Pageable pageable);
-	int countByDepartmentCode(String sales_department);
+	Page<EmpEntity> findByEnableAndDepartmentCodeOrderByEmpCode(int enable,String sales_department, Pageable pageable);
+	int countByEnableAndDepartmentCode(int enable,String sales_department);
 	
-	Page<EmpEntity> findByEmpNameAndEmpCodeOrderByEmpCode(String emp_name, String emp_code, 
+	Page<EmpEntity> findByEnableAndEmpNameAndEmpCodeOrderByEmpCode(int enable,String emp_name, String emp_code, 
 			 Pageable pageable);
-	int countByEmpNameAndEmpCode(String emp_name, String emp_code);
+	int countByEnableAndEmpNameAndEmpCode(int enable,String emp_name, String emp_code);
 	
-	Page<EmpEntity> findByEmpNameAndDepartmentCodeOrderByEmpCode(String emp_name, 
+	Page<EmpEntity> findByEnableAndEmpNameAndDepartmentCodeOrderByEmpCode(int enable,String emp_name, 
 			String sales_department, Pageable pageable);
-	int countByEmpNameAndDepartmentCode(String emp_name, 
+	int countByEnableAndEmpNameAndDepartmentCode(int enable,String emp_name, 
 			String sales_department);
 	
-	Page<EmpEntity> findByEmpCodeAndDepartmentCodeOrderByEmpCode(String emp_code, 
+	Page<EmpEntity> findByEnableAndEmpCodeAndDepartmentCodeOrderByEmpCode(int enable,String emp_code, 
 			String sales_department, Pageable pageable);
-	int countByEmpCodeAndDepartmentCode(String emp_code, 
+	int countByEnableAndEmpCodeAndDepartmentCode(int enable,String emp_code, 
 			String sales_department);
 	
 	

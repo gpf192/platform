@@ -142,49 +142,55 @@ public class VoteController extends BaseController {
 			@RequestParam String empName, @RequestParam String empCode,@RequestParam String division,
 			 @RequestParam int pageNumber,@RequestParam int pageSize) {
 		System.out.println("全量参赛人员得票数信息   +   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-		
+		System.out.println("empName:"+empName+"-empCode"+empCode+"-division"+division);
+
 		//String voteFromUser = vote_from_user;
 		int sum = 0 ;
 		List<EmpTicketEntity> entitys = null;
 		int num = MethodUtil.getEmpVoteMethodNum(empName, empCode, division);
-		if(num == 1) {
-			entitys = myEmpTicketService.getAll(pageNumber, pageSize);
-			sum = myEmpTicketService.countAll();
-		}
-		if(num == 2) {
-			// 查询条件 empName、empCode\division
-			entitys = myEmpTicketService.findByEmpEntity_empNameAndEmpEntity_empCodeAndEmpEntity_divisionOrderByWeightDescModifytimeDesc(empName, empCode, division, pageNumber, pageSize);
-			sum = myEmpTicketService.countByEmpEntity_empNameAndEmpEntity_empCodeAndEmpEntity_division(empName, empCode, division);
-		}
-		if(num == 3) {
-			//查询条件 empName
-			entitys = myEmpTicketService.findByEmpEntity_empNameOrderByWeightDescModifytimeDesc(empName, pageNumber, pageSize);
-			sum = myEmpTicketService.countByEmpEntity_empName(empName);
-		}
-		if(num == 4) {
-			//查询条件 empCode
-			entitys = myEmpTicketService.findByEmpEntity_empCodeOrderByWeightDescModifytimeDesc(empCode, pageNumber, pageSize);
-			sum = myEmpTicketService.countByEmpEntity_empCode(empCode);
-		}	
-		if(num == 5) {
-			// 查询条件 division
-			entitys = myEmpTicketService.findByEmpEntity_divisionOrderByWeightDescModifytimeDesc(division, pageNumber, pageSize);
-			sum = myEmpTicketService.countByEmpEntity_division( division);
-		}
-		if(num == 6) {
-			//查询条件 empName、empCode
-			entitys = myEmpTicketService.findByEmpEntity_empNameAndEmpEntity_empCodeOrderByWeightDescModifytimeDesc(empName, empCode, pageNumber, pageSize);
-			sum = myEmpTicketService.countByEmpEntity_empNameAndEmpEntity_empCode(empName, empCode);
-		}
-		if(num == 7) {
-			//查询条件 empName、division
-			entitys = myEmpTicketService.findByEmpEntity_empNameAndEmpEntity_divisionOrderByWeightDescModifytimeDesc(empName, division, pageNumber, pageSize);
-			sum = myEmpTicketService.countByEmpEntity_empNameAndEmpEntity_division(empName, division);
-		}
-		if(num == 8) {
-			//查询条件 empCode、division
-			entitys = myEmpTicketService.findByEmpEntity_empCodeAndEmpEntity_divisionOrderByWeightDescModifytimeDesc(empCode, division, pageNumber, pageSize);
-			sum = myEmpTicketService.countByEmpEntity_empCodeAndEmpEntity_division(empCode, division);
+		try {
+			if(num == 1) {
+				entitys = myEmpTicketService.getAll(pageNumber, pageSize);
+				sum = myEmpTicketService.countAll();
+			}
+			if(num == 2) {
+				// 查询条件 empName、empCode\division
+				entitys = myEmpTicketService.findByEmpEntity_empNameAndEmpEntity_empCodeAndEmpEntity_divisionOrderByWeightDescModifytimeDesc(empName, empCode, division, pageNumber, pageSize);
+				sum = myEmpTicketService.countByEmpEntity_empNameAndEmpEntity_empCodeAndEmpEntity_division(empName, empCode, division);
+			}
+			if(num == 3) {
+				//查询条件 empName
+				entitys = myEmpTicketService.findByEmpEntity_empNameOrderByWeightDescModifytimeDesc(empName, pageNumber, pageSize);
+				sum = myEmpTicketService.countByEmpEntity_empName(empName);
+			}
+			if(num == 4) {
+				//查询条件 empCode
+				entitys = myEmpTicketService.findByEmpEntity_empCodeOrderByWeightDescModifytimeDesc(empCode, pageNumber, pageSize);
+				sum = myEmpTicketService.countByEmpEntity_empCode(empCode);
+			}	
+			if(num == 5) {
+				// 查询条件 division
+				entitys = myEmpTicketService.findByEmpEntity_divisionOrderByWeightDescModifytimeDesc(division, pageNumber, pageSize);
+				sum = myEmpTicketService.countByEmpEntity_division( division);
+			}
+			if(num == 6) {
+				//查询条件 empName、empCode
+				entitys = myEmpTicketService.findByEmpEntity_empNameAndEmpEntity_empCodeOrderByWeightDescModifytimeDesc(empName, empCode, pageNumber, pageSize);
+				sum = myEmpTicketService.countByEmpEntity_empNameAndEmpEntity_empCode(empName, empCode);
+			}
+			if(num == 7) {
+				//查询条件 empName、division
+				entitys = myEmpTicketService.findByEmpEntity_empNameAndEmpEntity_divisionOrderByWeightDescModifytimeDesc(empName, division, pageNumber, pageSize);
+				sum = myEmpTicketService.countByEmpEntity_empNameAndEmpEntity_division(empName, division);
+			}
+			if(num == 8) {
+				//查询条件 empCode、division
+				entitys = myEmpTicketService.findByEmpEntity_empCodeAndEmpEntity_divisionOrderByWeightDescModifytimeDesc(empCode, division, pageNumber, pageSize);
+				sum = myEmpTicketService.countByEmpEntity_empCodeAndEmpEntity_division(empCode, division);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		List<EmpVoteDTO> DTOs = new ArrayList<EmpVoteDTO>();
 		for (EmpTicketEntity entity : entitys) {

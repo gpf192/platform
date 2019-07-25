@@ -29,7 +29,7 @@ public class PrizeRecordServiceImpl implements PrizeRecordService{
 	public List<PrizeResultEntity> getAllPrizeRecord(int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByOrderByRecordTime(pageRequest);
+		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByOrderByRecordTimeDesc(pageRequest);
 		List<PrizeResultEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -43,7 +43,7 @@ public class PrizeRecordServiceImpl implements PrizeRecordService{
 			Date beginDate, Date endDate, String PrizeEntity_name, String UserEntity_clientId, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeEntity_nameAndUserEntity_clientIdOrderByRecordTime(beginDate, endDate, PrizeEntity_name, UserEntity_clientId, pageable);
+		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeEntity_nameAndUserEntity_clientIdOrderByRecordTimeDesc(beginDate, endDate, PrizeEntity_name, UserEntity_clientId, pageable);
 		List<PrizeResultEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -57,7 +57,7 @@ public class PrizeRecordServiceImpl implements PrizeRecordService{
 			int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualOrderByRecordTime(beginDate, pageable);
+		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualOrderByRecordTimeDesc(beginDate, pageable);
 		List<PrizeResultEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -71,7 +71,7 @@ public class PrizeRecordServiceImpl implements PrizeRecordService{
 			int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeLessThanEqualOrderByRecordTime(endDate, pageable);
+		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeLessThanEqualOrderByRecordTimeDesc(endDate, pageable);
 		List<PrizeResultEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -84,7 +84,7 @@ public class PrizeRecordServiceImpl implements PrizeRecordService{
 	public List<PrizeResultEntity> findByPrizeEntity_nameOrderByRecordTime(String PrizeEntity_name, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByPrizeEntity_nameOrderByRecordTime(PrizeEntity_name, pageable);
+		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByPrizeEntity_nameOrderByRecordTimeDesc(PrizeEntity_name, pageable);
 		List<PrizeResultEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -97,7 +97,7 @@ public class PrizeRecordServiceImpl implements PrizeRecordService{
 	public List<PrizeResultEntity> findByUserEntity_clientIdOrderByRecordTime(String UserEntity_clientId, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByUserEntity_clientIdOrderByRecordTime(UserEntity_clientId, pageable);
+		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByUserEntity_clientIdOrderByRecordTimeDesc(UserEntity_clientId, pageable);
 		List<PrizeResultEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -111,7 +111,7 @@ public class PrizeRecordServiceImpl implements PrizeRecordService{
 			Date beginDate, Date endDate, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualOrderByRecordTime(beginDate, endDate, pageable);
+		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualOrderByRecordTimeDesc(beginDate, endDate, pageable);
 		List<PrizeResultEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -125,7 +125,7 @@ public class PrizeRecordServiceImpl implements PrizeRecordService{
 			String PrizeEntity_name, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualAndPrizeEntity_nameOrderByRecordTime(beginDate, PrizeEntity_name, pageable);
+		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualAndPrizeEntity_nameOrderByRecordTimeDesc(beginDate, PrizeEntity_name, pageable);
 		List<PrizeResultEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -139,7 +139,7 @@ public class PrizeRecordServiceImpl implements PrizeRecordService{
 			String UserEntity_clientId, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualAndUserEntity_clientIdOrderByRecordTime(beginDate, UserEntity_clientId, pageable);
+		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualAndUserEntity_clientIdOrderByRecordTimeDesc(beginDate, UserEntity_clientId, pageable);
 		List<PrizeResultEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -153,7 +153,7 @@ public class PrizeRecordServiceImpl implements PrizeRecordService{
 			String PrizeEntity_name, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeLessThanEqualAndPrizeEntity_nameOrderByRecordTime(endDate, PrizeEntity_name, pageable);
+		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeLessThanEqualAndPrizeEntity_nameOrderByRecordTimeDesc(endDate, PrizeEntity_name, pageable);
 		List<PrizeResultEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -167,7 +167,7 @@ public class PrizeRecordServiceImpl implements PrizeRecordService{
 			String UserEntity_clientId, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeLessThanEqualAndUserEntity_clientIdOrderByRecordTime(endDate, UserEntity_clientId, pageable);
+		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeLessThanEqualAndUserEntity_clientIdOrderByRecordTimeDesc(endDate, UserEntity_clientId, pageable);
 		List<PrizeResultEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -181,7 +181,7 @@ public class PrizeRecordServiceImpl implements PrizeRecordService{
 			int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByPrizeEntity_nameAndUserEntity_clientIdOrderByRecordTime(PrizeEntity_name, UserEntity_clientId, pageable);
+		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByPrizeEntity_nameAndUserEntity_clientIdOrderByRecordTimeDesc(PrizeEntity_name, UserEntity_clientId, pageable);
 		List<PrizeResultEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -195,7 +195,7 @@ public class PrizeRecordServiceImpl implements PrizeRecordService{
 			Date beginDate, Date endDate, String PrizeEntity_name, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeEntity_nameOrderByRecordTime(beginDate,endDate, PrizeEntity_name, pageable);
+		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeEntity_nameOrderByRecordTimeDesc(beginDate,endDate, PrizeEntity_name, pageable);
 		List<PrizeResultEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -210,7 +210,7 @@ public class PrizeRecordServiceImpl implements PrizeRecordService{
 			Date beginDate, String PrizeEntity_name, String UserEntity_clientId, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualAndPrizeEntity_nameAndUserEntity_clientIdOrderByRecordTime(beginDate, PrizeEntity_name, UserEntity_clientId, pageable);
+		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualAndPrizeEntity_nameAndUserEntity_clientIdOrderByRecordTimeDesc(beginDate, PrizeEntity_name, UserEntity_clientId, pageable);
 		List<PrizeResultEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -225,7 +225,7 @@ public class PrizeRecordServiceImpl implements PrizeRecordService{
 			String PrizeEntity_name, String UserEntity_clientId, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeLessThanEqualAndPrizeEntity_nameAndUserEntity_clientIdOrderByRecordTime(endDate, PrizeEntity_name, UserEntity_clientId, pageable);
+		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeLessThanEqualAndPrizeEntity_nameAndUserEntity_clientIdOrderByRecordTimeDesc(endDate, PrizeEntity_name, UserEntity_clientId, pageable);
 		List<PrizeResultEntity> infos = pages.getContent();
 		return infos;
 	}
