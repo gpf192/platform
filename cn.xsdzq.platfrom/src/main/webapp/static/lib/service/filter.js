@@ -54,7 +54,7 @@ ngApp.filter('voteSourceFilter', function() {
 	    if(value == "2"){
 	    	return "活动分享";
 	    }
-	    if(value == "13"){
+	    if(value == "3"){
 	    	return "抽奖";
 	    }
 	    if(value == "4"){
@@ -77,5 +77,25 @@ ngApp.filter('divisionFilter', function() {
 	    	return "王者赛区";
 	    }
 
+	}
+});
+
+ngApp.filter('riskLevelFilter', function() { 
+	return function (value) {
+	    if(value == "r1"){
+	    	return "低风险等级";
+	    }
+	    if(value == "r2"){
+	    	return "中低风险等级";
+	    }
+	    if(value == "r3"){
+	    	return "中风险等级";
+	    }
+	    if(value == "r4"){
+	    	return "中高风险等级";
+	    }
+	    if(value == "r5"){
+	    	return "高风险等级";
+	    }
 	}
 });
