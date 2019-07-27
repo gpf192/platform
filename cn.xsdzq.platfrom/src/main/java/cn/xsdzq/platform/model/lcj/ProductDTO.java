@@ -17,9 +17,23 @@ public class ProductDTO {
 	private String initialAmount;//起始金额
 	
 	private int flag;//0-场内  1-场外
+	private String riskLevel; //分险等级
 	
+	private String preferentialInfo;
 
 
+	public String getRiskLevel() {
+		return riskLevel;
+	}
+	public void setRiskLevel(String riskLevel) {
+		this.riskLevel = riskLevel;
+	}
+	public String getPreferentialInfo() {
+		return preferentialInfo;
+	}
+	public void setPreferentialInfo(String preferentialInfo) {
+		this.preferentialInfo = preferentialInfo;
+	}
 	public String getBeginDate() {
 		return beginDate;
 	}

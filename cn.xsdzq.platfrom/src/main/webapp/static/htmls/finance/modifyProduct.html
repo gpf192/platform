@@ -65,11 +65,25 @@
                             ng-options="x.name for x in tradePlaceFromList" ></select>
                       </div>
                 </div>
-        
+                <div class="form-group ">
+                    <label class="col-sm-3 control-label">产品风险等级:</label>
+                      <div class="col-sm-6">
+                        <select class="form-control" ng-model="selectedRiskLevel"
+                            ng-options="x.name for x in riskLevelFormList" ></select>
+                      </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">产品优惠信息：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="preferentialInfo" name="preferentialInfo"
+                            ng-model="formData.preferentialInfo " placeholder="请输入优惠信息" />
+                    </div>
+                </div>
+                    
                  <div class="form-group">
                     <label class="col-sm-3 control-label for="dtp_input2" >开放时间：</label>
                     <div class="input-group date form_date col-sm-6" data-date="" data-date-format="yyyy-MM-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-                        <input class="form-control" ng-model="formData.begin_date" size="16" type="text" value="" readonly>
+                        <input class="form-control" ng-model="formData.beginDate" size="16" type="text" value="" readonly>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                     </div>
@@ -79,7 +93,7 @@
                  <div class="form-group">
                     <label  class="col-sm-3 control-label for="dtp_input2"  >截止时间：</label>
                     <div class="input-group date form_date col-md-6" data-date="" data-date-format="yyyy-MM-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-                        <input class="form-control" ng-model="formData.end_Date"  size="16" type="text" value="" readonly>
+                        <input class="form-control" ng-model="formData.endDate"  size="16" type="text" value="" readonly>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                     </div>

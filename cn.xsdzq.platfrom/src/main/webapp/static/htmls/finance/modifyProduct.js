@@ -30,6 +30,22 @@ function modifyProductController($scope, $http, $state, $stateParams, httpUtils,
 			name:"场外基金",
 			code:"1"
 		}]
+		$scope.riskLevelFormList = [{
+			name:"低风险等级",
+			code:"r1"
+		},{
+			name:"中低风险等级",
+			code:"r2"
+		},{
+			name:"中风险等级",
+			code:"r3"
+		},{
+			name:"中高风险等级",
+			code:"r4"
+		},{
+			name:"高风险等级",
+			code:"r5"
+		}]
 	var flag =	$stateParams.product.flag;
 		if(flag ==0) {
 			$scope.selectedTradePlace = $scope.tradePlaceFromList[0];
@@ -37,6 +53,18 @@ function modifyProductController($scope, $http, $state, $stateParams, httpUtils,
 			$scope.selectedTradePlace = $scope.tradePlaceFromList[1];
 		}
 		
+		var risk = $stateParams.product.riskLevel;
+		if(risk =='r1') {
+			$scope.selectedRiskLevel = $scope.riskLevelFormList[0];
+		}else if(risk =='r2') {
+			$scope.selectedRiskLevel = $scope.riskLevelFormList[1];
+		}else if(risk =='r3') {
+			$scope.selectedRiskLevel = $scope.riskLevelFormList[2];
+		}else if(risk =='r4') {
+			$scope.selectedRiskLevel = $scope.riskLevelFormList[3];
+		}else if(risk =='r5') {
+			$scope.selectedRiskLevel = $scope.riskLevelFormList[4];
+		}
 		angular.copy($stateParams.product,$scope.formData);
 	};
 	
@@ -55,20 +83,33 @@ function modifyProductController($scope, $http, $state, $stateParams, httpUtils,
 			return;
 		}
 
-		if (angular.isEmpty($scope.formData.begin_date)) {
+		if (angular.isEmpty($scope.formData.beginDate)) {
 			layerUtils.iMsg(-1, "产品开放时间不能为空");
 			return;
 		}
+		if (angular.isEmpty($scope.formData.endDate)) {
+			layerUtils.iMsg(-1, "产品截止时间不能为空");
+			return;
+		}
 		
+		if ($scope.formData.endDate < $scope.formData.beginDate) {
+			layerUtils.iMsg(-1, "产品截止时间不能早于开始时间");
+			return;
+		}
 		if (angular.isEmpty($scope.formData.coefficient)) {
 			layerUtils.iMsg(-1, "产品系数不能为空");
 			return;
 		}
-		if(angular.equals($scope.formData,$stateParams.product)){
+	/*	if(angular.equals($scope.formData,$stateParams.product)){
 			layerUtils.iMsg(-1,"请修改后，重新提交");
 			return;
+		}*/
+		if(!utils.isEmpty( $scope.selectedRiskLevel.code)) {
+			riskLevel = $scope.selectedRiskLevel.code;
+		}else {
+			layerUtils.iMsg(-1, "产品风险等级不能为空");
+			return;
 		}
-	
 		console.log($scope.formData);
 		var url = httpUtils.url.modifyProduct;
 		
@@ -77,11 +118,13 @@ function modifyProductController($scope, $http, $state, $stateParams, httpUtils,
 				code:$scope.formData.code,
 				name:$scope.formData.name,
 				type:$scope.formData.type,
-				begin_date:$scope.formData.begin_date,
+				beginDate:$scope.formData.beginDate,
 				coefficient:$scope.formData.coefficient	,
 				initialAmount:$scope.formData.initialAmount,
 				flag: $scope.selectedTradePlace.code,
-				endDate:$scope.formData.end_Date
+				endDate:$scope.formData.endDate,
+				riskLevel:$scope.selectedRiskLevel.code,
+				preferentialInfo:$scope.formData.preferentialInfo
 		}
 		$http.post(url, newProduct).success(function(data) {
 			if (data.resCode == 0) {

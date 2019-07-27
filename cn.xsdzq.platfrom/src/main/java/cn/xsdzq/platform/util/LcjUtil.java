@@ -93,8 +93,8 @@ public class LcjUtil {
 		}
 		dto.setInitialAmount(entity.getInitialAmount());
 		dto.setFlag(entity.getFlag());
-	
-		
+		dto.setRiskLevel(entity.getRiskLevel());
+		dto.setPreferentialInfo(entity.getPreferentialInfo());
 		return dto;
 	}
 	public static ProductEntity convertEntityByProductDTO(ProductDTO dto) {
@@ -114,7 +114,8 @@ public class LcjUtil {
 		}
 		entity.setInitialAmount(dto.getInitialAmount());
 		entity.setFlag(dto.getFlag());
-
+		entity.setRiskLevel(dto.getRiskLevel());
+		entity.setPreferentialInfo(dto.getPreferentialInfo());
 		return entity;
 	}
 	//产品销售数据
