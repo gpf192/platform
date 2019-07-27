@@ -3,17 +3,17 @@ package cn.xsdzq.platform.model.lcj;
 import cn.xsdzq.platform.model.CategoryDTO;
 
 public class DepartmentDTO  implements Comparable<DepartmentDTO> {
-	private long id;
+	//private long id;
 	private String code;
 	private String name;
 	
-	public long getId() {
+/*	public long getId() {
 		return id;
 	}
 
 	public void setId(long id) {
 		this.id = id;
-	}
+	}*/
 
 	public String getCode() {
 		return code;

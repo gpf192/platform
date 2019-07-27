@@ -30,7 +30,7 @@ public class DepartmentController {
 	@Qualifier("departmentServiceImpl")
 	private DepartmentService departmentService;
 	
-	@RequestMapping(value = "/getDepartmentById", method = GET, produces = "application/json; charset=utf-8")
+/*	@RequestMapping(value = "/getDepartmentById", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public DepartmentDTO getDepartmentById() {
 		DepartmentEntity entity = departmentService.findDepartmentById(1);
@@ -40,7 +40,7 @@ public class DepartmentController {
 		dto.setCode(entity.getCode());
 		dto.setName(entity.getName());
 		return dto;
-	}
+	}*/
 
 	@RequestMapping(value = "/getAll", produces = "application/json; charset=utf-8")
 	@ResponseBody
