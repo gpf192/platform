@@ -18,15 +18,6 @@ public class DepartmentRepositoryImpl implements DepartmentRepository{
 	private EntityManager em;
 
 	@Override
-	public DepartmentEntity findDepartmentById(long id) {
-		// TODO Auto-generated method stub
-		TypedQuery<DepartmentEntity> sqlQuery = em.createQuery("SELECT c FROM DepartmentEntity c WHERE c.id=?",
-				DepartmentEntity.class);
-		sqlQuery.setParameter(1, id);
-		return sqlQuery.getSingleResult();
-	}
-
-	@Override
 	public List<DepartmentEntity> findAll() {
 		// TODO Auto-generated method stub
 		TypedQuery<DepartmentEntity> sqlQuery = em.createQuery("SELECT c FROM DepartmentEntity c", DepartmentEntity.class);

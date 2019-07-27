@@ -16,13 +16,6 @@ public class DepartmentServiceImpl implements DepartmentService{
 	private DepartmentRepository departmentRepository;
 
 	@Override
-	public DepartmentEntity findDepartmentById(long id) {
-		// TODO Auto-generated method stub
-		DepartmentEntity entity = departmentRepository.findDepartmentById(id);
-		return entity;
-	}
-
-	@Override
 	public List<DepartmentEntity> findAll() {
 		// TODO Auto-generated method stub
 		List<DepartmentEntity> list = departmentRepository.findAll();

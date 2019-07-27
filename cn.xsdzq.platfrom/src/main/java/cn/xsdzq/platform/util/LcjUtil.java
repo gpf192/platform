@@ -228,7 +228,6 @@ public class LcjUtil {
 	//部门 department
 	public static DepartmentEntity convertDepartmentEntityByDTO(DepartmentDTO dto) {
 		DepartmentEntity entity = new DepartmentEntity();
-		entity.setId(dto.getId());
 		entity.setCode(dto.getCode());
 		entity.setName(dto.getName());
 		
@@ -237,7 +236,6 @@ public class LcjUtil {
 
 	public static DepartmentDTO convertDepartmentDTOByEntity(DepartmentEntity entity) {
 		DepartmentDTO dto = new DepartmentDTO();
-		dto.setId(entity.getId());
 		dto.setCode(entity.getCode());
 		dto.setName(entity.getName());
 		
