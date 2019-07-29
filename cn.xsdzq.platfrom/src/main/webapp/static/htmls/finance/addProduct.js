@@ -31,19 +31,14 @@ function addProductController($scope, $http, $state, httpUtils, layerUtils,utils
 		}]
 		$scope.riskLevelFormList = [{
 				name:"低风险等级",
-				code:"r1"
 			},{
 				name:"中低风险等级",
-				code:"r2"
 			},{
 				name:"中风险等级",
-				code:"r3"
 			},{
 				name:"中高风险等级",
-				code:"r4"
 			},{
 				name:"高风险等级",
-				code:"r5"
 			}]
 		$scope.selectedTradePlace = $scope.tradePlaceFromList[0];
 		$scope.selectedRiskLevel = $scope.riskLevelFormList[0];
@@ -110,8 +105,8 @@ function addProductController($scope, $http, $state, httpUtils, layerUtils,utils
 			layerUtils.iMsg(-1, "截止时间不能为空");
 			return;
 		}
-		if(!utils.isEmpty( $scope.selectedRiskLevel.code)) {
-			riskLevel = $scope.selectedRiskLevel.code;
+		if(!utils.isEmpty( $scope.selectedRiskLevel.name)) {
+			riskLevel = $scope.selectedRiskLevel.name;
 		}else {
 			layerUtils.iMsg(-1, "产品风险等级不能为空");
 			return;

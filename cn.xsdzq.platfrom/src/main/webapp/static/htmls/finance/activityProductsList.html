@@ -95,8 +95,7 @@
                         <td >{{$index+selectNum["num"]*currentPage.page+1}}</td>
                         <td ><div style="white-space:nowrap;" >{{product.code}}</div> </td> 
                         <td ><div style="white-space:nowrap;" >{{product.name}}</div> </td> 
-                       <td ><div style="white-space:nowrap;" ><span
-                            ng-bind="product.riskLevel |riskLevelFilter"></span></div> </td> 
+                       <td ><div style="white-space:nowrap;" >{{product.riskLevel}}</div> </td> 
                         <td ><div style="white-space:nowrap;">{{product.type}}</div> </td>
                          <td ><div style="white-space:nowrap;">{{product.initialAmount}}</div> </td>
                         <td ><div style="white-space:nowrap;">{{product.preferentialInfo}}</div> </td>
