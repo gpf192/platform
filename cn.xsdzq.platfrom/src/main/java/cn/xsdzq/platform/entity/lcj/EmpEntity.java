@@ -49,11 +49,9 @@ public class EmpEntity implements Serializable {
 	@Column(name = "entry_time")
 	private String entryTime;// 入职时间
 
-	@Column(name = "sales_department")
-	private String salesDepartment;// 隶属营业部
 
 	@Column(name = "division")
-	private String division;// 隶属赛区
+	private String division;// 隶属赛区 0-新手  1-王者
 
 	@Column(name = "department_code", insertable = false, updatable = false)
 	private String departmentCode;
@@ -146,13 +144,7 @@ public class EmpEntity implements Serializable {
 		this.entryTime = entryTime;
 	}
 
-	public String getSalesDepartment() {
-		return salesDepartment;
-	}
 
-	public void setSalesDepartment(String salesDepartment) {
-		this.salesDepartment = salesDepartment;
-	}
 
 	public String getDivision() {
 		return division;
@@ -174,8 +166,9 @@ public class EmpEntity implements Serializable {
 	public String toString() {
 		return "EmpEntity [id=" + id + ", empId=" + empId + ", empName=" + empName + ", empCode=" + empCode
 				+ ", empType=" + empType + ", empCategory=" + empCategory + ", contract=" + contract + ", entryTime="
-				+ entryTime + ", salesDepartment=" + salesDepartment + ", division=" + division + ", departmentCode="
-				+ departmentCode + ", departmentEntity=" + departmentEntity + ", enable=" + enable + "]";
+				+ entryTime + ", division=" + division + ", departmentCode=" + departmentCode + ", departmentEntity="
+				+ departmentEntity + ", enable=" + enable + "]";
 	}
+
 
 }
