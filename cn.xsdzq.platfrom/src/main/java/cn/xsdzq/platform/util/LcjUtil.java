@@ -122,21 +122,20 @@ public class LcjUtil {
 	public static ProductSellDTO convertProductSellDTOByEntity(ProductSellEntity entity) {		
 		ProductSellDTO dto = new ProductSellDTO();
 		dto.setFlag(entity.getFlag());
-		dto.setId(entity.getId());
 		dto.setClientId(entity.getClientId());
-		dto.setUsername(entity.getUsername());
-		dto.setAccount(entity.getZj());
-		dto.setFinaccount(entity.getLc());
-		dto.setProduct_code(entity.getCode());
-		dto.setProduct_name(entity.getProductName());
-		dto.setProductType(entity.getProductType());
-		dto.setFoundType(entity.getFoundType());
-		dto.setDeal_amount(entity.getDealAmount());
-		dto.setDeal_share(entity.getDealShare());
-		dto.setDeal_time(entity.getDealTime());
-		dto.setVotes(entity.getVotes());
-		dto.setEmp_name(entity.getEmpName());
-		dto.setOrder_time(entity.getOrderTime());
+		dto.setClientName(entity.getClientName());		
+		
+		dto.setProductCode(entity.getProductCode());
+		dto.setProductName(entity.getProductName());
+		
+		dto.setFinanceAccount(entity.getFinanceAccount());
+		
+		dto.setDealTime(entity.getDealTime());
+		
+		dto.setDealAmount(entity.getDealAmount());
+		
+		dto.setFlag(entity.getFlag());
+		dto.setEmpName(entity.getEmpName());
 		return dto;
 	}
 	//参赛人员信息
