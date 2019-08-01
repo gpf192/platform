@@ -99,3 +99,13 @@ ngApp.filter('riskLevelFilter', function() {
 	    }
 	}
 });
+ngApp.filter('fundTypeFilter', function() { 
+	return function (value) {
+	    if(value == 0){
+	    	return "场内基金";
+	    }
+	    if(value == 1){
+	    	return "场外基金";
+	    }
+	}
+});
