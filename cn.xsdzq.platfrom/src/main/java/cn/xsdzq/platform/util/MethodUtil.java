@@ -214,59 +214,37 @@ public class MethodUtil {
 			else return 17;
 		}
 		//获取产品销售数据
-		public static int getProductSellMethodNum (String clientId, String code, String zj, String lc) {
-			if("".equals(clientId) && "".equals(code) && "".equals(zj) && "".equals(lc)) {
+		public static int getProductSellMethodNum (String clientId, String code, String zj) {
+			if("".equals(clientId) && "".equals(code) && "".equals(zj) ) {
 				return 1;//全量查找
 			}
-			if(!"".equals(clientId) && !"".equals(code) && !"".equals(zj) && !"".equals(lc)) {
-				return 2;//四个条件一起查询
+			if(!"".equals(clientId) && !"".equals(code) && !"".equals(zj) ) {
+				return 2;//三个条件一起查询
 			}
-			//三个条件
-			if(!"".equals(clientId) && !"".equals(code) && !"".equals(zj) && "".equals(lc)) {
-				return 3;//查询条件：clientId\code\zj\
-			}		
-			if(!"".equals(clientId) && !"".equals(code) && "".equals(zj) && !"".equals(lc)) {
-				return 4;//查询条件：clientId\code\\lc
+			//2个条件
+			
+			if(!"".equals(clientId) && !"".equals(code) && "".equals(zj) ) {
+				return 3;//查询条件：clientId\code
 			}	
-			if(!"".equals(clientId) && "".equals(code) && !"".equals(zj) && !"".equals(lc)) {
-				return 5;//查询条件：clientId\\zj\lc
+			if(!"".equals(clientId) && "".equals(code) && !"".equals(zj) ) {
+				return 4;//查询条件：clientId\\zj
 			}		
-			if("".equals(clientId) && !"".equals(code) && !"".equals(zj) && !"".equals(lc)) {
-				return 6;//查询条件：\code\zj\lc
-			}
-			//两个条件
-			if(!"".equals(clientId) && !"".equals(code) && "".equals(zj) && "".equals(lc)) {
-				return 7;//查询条件：clientId\code\\
-			}		
-			if(!"".equals(clientId) && "".equals(code) && !"".equals(zj) && "".equals(lc)) {
-				return 8;//查询条件：clientId\\zj\
-			}
-			if(!"".equals(clientId) && "".equals(code) && "".equals(zj) && !"".equals(lc)) {
-				return 9;//查询条件：clientId\\\lc
-			}		
-			if("".equals(clientId) && !"".equals(code) && !"".equals(zj) && "".equals(lc)) {
-				return 10;//查询条件：\code\zj\
-			}
-			if("".equals(clientId) && !"".equals(code) && "".equals(zj) && !"".equals(lc)) {
-				return 11;//查询条件：\code\\lc
-			}		
-			if("".equals(clientId) && "".equals(code) && !"".equals(zj) && !"".equals(lc)) {
-				return 12;//查询条件：\\zj\lc
-			}
-			//一个条件
-			if(!"".equals(clientId) && "".equals(code) && "".equals(zj) && "".equals(lc)) {
-				return 13;//查询条件：clientId\\\
-			}
-			if("".equals(clientId) && !"".equals(code) && "".equals(zj) && "".equals(lc)) {
-				return 14;//查询条件：\code\\
-			}
-			if("".equals(clientId) && "".equals(code) && !"".equals(zj) && "".equals(lc)) {
-				return 15;//查询条件：\\zj\
-			}
-			if("".equals(clientId) && "".equals(code) && "".equals(zj) && !"".equals(lc)) {
-				return 16;//查询条件：\\\lc
+			if("".equals(clientId) && !"".equals(code) && !"".equals(zj) ) {
+				return 5;//查询条件：\code\zj
 			}
 			
-			else return 17;
+			//一个条件
+			if(!"".equals(clientId) && "".equals(code) && "".equals(zj) ) {
+				return 6;//查询条件：clientId\\\
+			}
+			if("".equals(clientId) && !"".equals(code) && "".equals(zj)) {
+				return 7;//查询条件：\code\\
+			}
+			if("".equals(clientId) && "".equals(code) && !"".equals(zj) ) {
+				return 8;//查询条件：\\zj\
+			}
+			
+			
+			else return 9;
 		}
 }

@@ -5,132 +5,23 @@ import java.util.Date;
 import javax.persistence.Column;
 
 public class ProductSellDTO {
-	private long id;
 	private String clientId;//客户号
-	private String username;
 	
-	private String account;//资金账号
-	private String finaccount;//理财账号
-
-	private String product_code;//产品代码
+	private String clientName;//客户姓名
 	
-	private String product_name;
-	private String productType; //产品类型
-	private String foundType; //基金类型。0-场内，1-场外
-
+	private String productCode;//产品编号
 	
-	private String deal_share;//成交份额
+	private String productName;//产品名称
 	
-	private String deal_amount;//成交金额
+	private String financeAccount;//金融账号
 	
-	private String votes;//获得票数
+	private int dealTime;//成交日期
 	
-	private String emp_name;//对应服务员工
+	private String dealAmount;//成交金额
 	
-	private Date order_time;//委托时间
-	
-	private Date deal_time;//成交时间
-	
+	private String empName;//对应服务员工
+		
 	private int flag;//0-场内  1-场外
-
-	public int getFlag() {
-		return flag;
-	}
-
-	public void setFlag(int flag) {
-		this.flag = flag;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getAccount() {
-		return account;
-	}
-
-	public void setAccount(String account) {
-		this.account = account;
-	}
-
-	public String getProduct_code() {
-		return product_code;
-	}
-
-	public void setProduct_code(String product_code) {
-		this.product_code = product_code;
-	}
-
-	public String getProduct_name() {
-		return product_name;
-	}
-
-	public void setProduct_name(String product_name) {
-		this.product_name = product_name;
-	}
-
-	public String getDeal_share() {
-		return deal_share;
-	}
-
-	public void setDeal_share(String deal_share) {
-		this.deal_share = deal_share;
-	}
-
-	public String getDeal_amount() {
-		return deal_amount;
-	}
-
-	public void setDeal_amount(String deal_amount) {
-		this.deal_amount = deal_amount;
-	}
-
-	public String getVotes() {
-		return votes;
-	}
-
-	public void setVotes(String votes) {
-		this.votes = votes;
-	}
-
-	public String getEmp_name() {
-		return emp_name;
-	}
-
-	public void setEmp_name(String emp_name) {
-		this.emp_name = emp_name;
-	}
-
-	public Date getOrder_time() {
-		return order_time;
-	}
-
-	public void setOrder_time(Date order_time) {
-		this.order_time = order_time;
-	}
-
-	public Date getDeal_time() {
-		return deal_time;
-	}
-
-	public void setDeal_time(Date deal_time) {
-		this.deal_time = deal_time;
-	}
-	
-
-	
 
 	public String getClientId() {
 		return clientId;
@@ -140,58 +31,78 @@ public class ProductSellDTO {
 		this.clientId = clientId;
 	}
 
-	public String getFinaccount() {
-		return finaccount;
+	public String getClientName() {
+		return clientName;
 	}
 
-	public void setFinaccount(String finaccount) {
-		this.finaccount = finaccount;
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
 	}
 
-	public String getProductType() {
-		return productType;
+	public String getProductCode() {
+		return productCode;
 	}
 
-	public void setProductType(String productType) {
-		this.productType = productType;
+	public void setProductCode(String productCode) {
+		this.productCode = productCode;
 	}
 
-	public String getFoundType() {
-		return foundType;
+	public String getProductName() {
+		return productName;
 	}
 
-	public void setFoundType(String foundType) {
-		this.foundType = foundType;
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 
-	public ProductSellDTO(long id, String username, String account, String product_code, String product_name,
-			String deal_share, String deal_amount, String votes, String emp_name, Date order_time, Date deal_time) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.account = account;
-		this.product_code = product_code;
-		this.product_name = product_name;
-		this.deal_share = deal_share;
-		this.deal_amount = deal_amount;
-		this.votes = votes;
-		this.emp_name = emp_name;
-		this.order_time = order_time;
-		this.deal_time = deal_time;
+	public String getFinanceAccount() {
+		return financeAccount;
 	}
 
-	public ProductSellDTO() {
-		super();
+	public void setFinanceAccount(String financeAccount) {
+		this.financeAccount = financeAccount;
+	}
+
+	public int getDealTime() {
+		return dealTime;
+	}
+
+	public void setDealTime(int dealTime) {
+		this.dealTime = dealTime;
+	}
+
+	public String getDealAmount() {
+		return dealAmount;
+	}
+
+	public void setDealAmount(String dealAmount) {
+		this.dealAmount = dealAmount;
+	}
+
+	public String getEmpName() {
+		return empName;
+	}
+
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+
+	public int getFlag() {
+		return flag;
+	}
+
+	public void setFlag(int flag) {
+		this.flag = flag;
 	}
 
 	@Override
 	public String toString() {
-		return "ProductSellDTO [id=" + id + ", clientId=" + clientId + ", username=" + username + ", account=" + account
-				+ ", finaccount=" + finaccount + ", product_code=" + product_code + ", product_name=" + product_name
-				+ ", productType=" + productType + ", foundType=" + foundType + ", deal_share=" + deal_share
-				+ ", deal_amount=" + deal_amount + ", votes=" + votes + ", emp_name=" + emp_name + ", order_time="
-				+ order_time + ", deal_time=" + deal_time + "]";
+		return "ProductSellDTO [clientId=" + clientId + ", clientName=" + clientName + ", productCode=" + productCode
+				+ ", productName=" + productName + ", financeAccount=" + financeAccount + ", dealTime=" + dealTime
+				+ ", dealAmount=" + dealAmount + ", empName=" + empName + ", flag=" + flag + "]";
 	}
+
+	
 
 
 }

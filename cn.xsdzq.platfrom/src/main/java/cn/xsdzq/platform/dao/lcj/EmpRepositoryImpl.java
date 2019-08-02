@@ -60,6 +60,12 @@ public class EmpRepositoryImpl implements EmpRepository{
 		// TODO Auto-generated method stub
 		em.persist(entity);
 	}
+	
+	@Override
+	public void modifyEmpTicket(EmpTicketEntity entity) {
+		// TODO Auto-generated method stub
+		em.merge(entity);
+	}
 
 	@Override
 	@Transactional
@@ -77,5 +83,14 @@ public class EmpRepositoryImpl implements EmpRepository{
 		sqlQuery.setParameter(1, id);
 		return sqlQuery.getSingleResult();
 	}
+
+	@Override
+	public EmpEntity getEmpByEmpCode(String empCode) {
+		// TODO Auto-generated method stub
+		TypedQuery<EmpEntity> sqlQuery = em.createQuery("SELECT c FROM EmpEntity c WHERE c.empCode=?", EmpEntity.class);
+		sqlQuery.setParameter(1, empCode);
+		return sqlQuery.getSingleResult();
+	}
+
 
 }

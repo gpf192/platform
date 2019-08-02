@@ -40,22 +40,22 @@ function productsSellListController($scope, $http, $state, httpUtils, layerUtils
 		var url = httpUtils.url.productsSellList;
 		var clientId = "";
 		var financeAccount = "";
-		var code = "";
+		var productCode = "";
 		if(!utils.isEmpty($scope.formData.clientId)) {
 			clientId = $scope.formData.clientId;
 		}
 		if(!utils.isEmpty($scope.formData.financeAccount)) {
 			financeAccount = $scope.formData.financeAccount;
 		}
-		if(!utils.isEmpty($scope.formData.code)) {
-			code = $scope.formData.code;
+		if(!utils.isEmpty($scope.formData.productCode)) {
+			productCode = $scope.formData.productCode;
 		}
 		var params = {
 			pageNumber : 0,
 			pageSize : pageSize,
 			clientId : clientId,
 			financeAccount : financeAccount,
-			code : code
+			productCode : productCode
 		};
 		var settings = {
 			url : url,
@@ -92,14 +92,14 @@ function productsSellListController($scope, $http, $state, httpUtils, layerUtils
 			};
 			for(k=0;k<$scope.productsSellList.length;k++){				
 				newObj["客户号"] = 	data.clientId;
-				newObj["客户姓名"] = 	data.username;
+				newObj["客户姓名"] = 	data.clientName;
 				newObj["金融账号"] = 	data.financeAccount;
-				newObj["产品代码"] = 	data.code;
-				newObj["产品名称"] = 	data.product_name;
+				newObj["产品代码"] = 	data.productCode;
+				newObj["产品名称"] = 	data.productName;
 				newObj["是否为场外基金"] = 	data.flag;
-				newObj["成交时间"] = 	data.deal_time;
-				newObj["成交金额"] = 	data.deal_share;
-				newObj["对应服务员工"] = 	data.emp_name;
+				newObj["成交时间"] = 	data.dealTime;
+				newObj["成交金额"] = 	data.dealAmount;
+				newObj["对应服务员工"] = 	data.empName;
 			}
 			arr.push(newObj);
 		});

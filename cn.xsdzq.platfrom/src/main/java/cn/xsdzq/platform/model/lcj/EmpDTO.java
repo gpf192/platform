@@ -18,9 +18,7 @@ public class EmpDTO {
 	private String entry_time;//入职时间
 	
 	private String departmentCode;
-	
-	private String sales_department;//隶属营业部
-	
+		
 	private String division;//隶属赛区
 
 	public long getId() {
@@ -79,13 +77,7 @@ public class EmpDTO {
 		this.entry_time = entry_time;
 	}
 
-	public String getSales_department() {
-		return sales_department;
-	}
-
-	public void setSales_department(String sales_department) {
-		this.sales_department = sales_department;
-	}
+	
 
 	public String getDivision() {
 		return division;
@@ -104,22 +96,6 @@ public class EmpDTO {
 	}
 
 
-
-	public EmpDTO(long id, String emp_name, String emp_code, String emp_type, String emp_category, String contract,
-			String entry_time, String departmentCode, String sales_department, String division) {
-		super();
-		this.id = id;
-		this.emp_name = emp_name;
-		this.emp_code = emp_code;
-		this.emp_type = emp_type;
-		this.emp_category = emp_category;
-		this.contract = contract;
-		this.entry_time = entry_time;
-		this.departmentCode = departmentCode;
-		this.sales_department = sales_department;
-		this.division = division;
-	}
-
 	public EmpDTO() {
 		super();
 	}
@@ -128,9 +104,7 @@ public class EmpDTO {
 	public String toString() {
 		return "EmpDTO [id=" + id + ", emp_name=" + emp_name + ", emp_code=" + emp_code + ", emp_type=" + emp_type
 				+ ", emp_category=" + emp_category + ", contract=" + contract + ", entry_time=" + entry_time
-				+ ", departmentCode=" + departmentCode + ", sales_department=" + sales_department + ", division="
-				+ division + "]";
+				+ ", departmentCode=" + departmentCode + ", division=" + division + "]";
 	}
-
 	
 }

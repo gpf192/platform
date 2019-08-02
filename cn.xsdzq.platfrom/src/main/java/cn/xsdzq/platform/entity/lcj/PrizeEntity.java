@@ -45,7 +45,7 @@ public class PrizeEntity implements Serializable {
 	@Column(name = "type") // 奖品类型
 	private boolean type;
 
-	@Column(name = "isShow") // 默认不显示
+	@Column(name = "is_show") // 默认不显示
 	private boolean isShow = false;
 
 	@Column(name = "winning_number", columnDefinition = "int default 0") // 中奖人数

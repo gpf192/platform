@@ -149,10 +149,15 @@ public class EmpController extends BaseController {
 	@RequestMapping(value = "/modifyEmp", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> modifyEmp(HttpServletRequest request, @RequestBody EmpDTO dto) {
-		EmpEntity entity = LcjUtil.convertEntityByEmpDTO(dto);			
-		DepartmentEntity departmentEntity = departmentService.findDepartmentByCode(entity.getDepartmentCode());
-		entity.setDepartmentEntity(departmentEntity);
-		empService.modifyEmp(entity);
+		try {
+			EmpEntity entity = LcjUtil.convertEntityByEmpDTO(dto);			
+			DepartmentEntity departmentEntity = departmentService.findDepartmentByCode(entity.getDepartmentCode());
+			entity.setDepartmentEntity(departmentEntity);
+			empService.modifyEmp(entity);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//logger.info("action:" + "modify" + ";" + "user:" + name + ";" + "title:" + dto.getTitle() + ";");
 		return GsonUtil.buildMap(0, "ok", null);
 	}

@@ -29,9 +29,9 @@
                 &nbsp
                  
                 <div class="form-group ">
-                    <label  for="product_code">产品代码:</label>                 
-                        <input type="text" class="form-control input-300 " id="code" name="code"
-                        ng-model="formData.code" placeholder="请输入产品代码"></input>
+                    <label  for="productCode">产品代码:</label>                 
+                        <input type="text" class="form-control input-300 " id="productCode" name="productCode"
+                        ng-model="formData.productCode" placeholder="请输入产品代码"></input>
 
                 </div>
                <br>  <br> 
@@ -85,8 +85,7 @@
                             aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">客户姓名</div></th>
                         <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">金融账号</div></th>
-                          <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">理财账号</div></th>
+                         
                               <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">产品代码</div></th>
                              <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
@@ -105,17 +104,17 @@
                     <tr ng-repeat="product in productsSellList">
                         <td >{{$index+selectNum["num"]*currentPage.page+1}}</td>
                         <td ><div style="white-space:nowrap;" >{{product.clientId}}</div> </td> 
-                        <td ><div style="white-space:nowrap;" >{{product.username}}</div> </td> 
+                        <td ><div style="white-space:nowrap;" >{{product.clientName}}</div> </td> 
                         <td ><div style="white-space:nowrap;" >{{product.financeAccount}}</div> </td> 
-                        <td ><div style="white-space:nowrap;">{{product.code}}</div> </td>
-                       <td ><div style="white-space:nowrap;">{{product.product_name}}</div> </td>
+                        <td ><div style="white-space:nowrap;">{{product.productCode}}</div> </td>
+                       <td ><div style="white-space:nowrap;">{{product.productName}}</div> </td>
               
                            <td ><div style="white-space:nowrap;"><span
                             ng-bind="product.flag |fundTypeFilter"></span></div> </td>
     
-                         <td ><div style="white-space:nowrap;">{{product.deal_time}}</div> </td>
-                           <td ><div style="white-space:nowrap;" >{{product.deal_share}}</div> </td> 
-                        <td ><div style="white-space:nowrap;">{{product.emp_name}}</div> </td>
+                         <td ><div style="white-space:nowrap;">{{product.dealTime}}</div> </td>
+                           <td ><div style="white-space:nowrap;" >{{product.dealAmount}}</div> </td> 
+                        <td ><div style="white-space:nowrap;">{{product.empName}}</div> </td>
                     </tr>
                 </tbody>
                 <tfoot>
