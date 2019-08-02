@@ -16,6 +16,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class ProductSellEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
+	@Column(name = "lsh")
+	private String lsh;
 	
 	@Column(name = "client_id")
 	private String clientId;//客户号
@@ -116,11 +118,20 @@ public class ProductSellEntity implements Serializable {
 		this.flag = flag;
 	}
 
+	public String getLsh() {
+		return lsh;
+	}
+
+	public void setLsh(String lsh) {
+		this.lsh = lsh;
+	}
+
 	@Override
 	public String toString() {
-		return "ProductSellEntity [clientId=" + clientId + ", clientName=" + clientName + ", productCode=" + productCode
-				+ ", productName=" + productName + ", financeAccount=" + financeAccount + ", dealTime=" + dealTime
-				+ ", dealAmount=" + dealAmount + ", empName=" + empName + ", flag=" + flag + "]";
+		return "ProductSellEntity [lsh=" + lsh + ", clientId=" + clientId + ", clientName=" + clientName
+				+ ", productCode=" + productCode + ", productName=" + productName + ", financeAccount=" + financeAccount
+				+ ", dealTime=" + dealTime + ", dealAmount=" + dealAmount + ", empName=" + empName + ", flag=" + flag
+				+ "]";
 	}
 		
 	
