@@ -27,7 +27,7 @@ function contestantListController($scope, $http, $state, $stateParams, $gridServ
 		}]
 		
 		$scope.selectedDivision = $scope.divisionFromList[0];
-		$scope.getEmpList(20000);
+		$scope.getEmpList(100);
 		$scope.currentPage = {
 				page : 0
 			};
