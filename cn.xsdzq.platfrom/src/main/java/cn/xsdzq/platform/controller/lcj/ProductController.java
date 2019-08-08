@@ -88,7 +88,9 @@ public class ProductController extends BaseController{
 		// 插入创建人
 		
 		productService.addProduct(entity);
-		//logger.info("action:" + "add" + ";" + name + ";" + "title:" + dto.getTitle() + ";");
+		User user = UserManageUtil.getUser();
+		String name = user.getUsername();	
+		logger.info("action:" + "productAdd" + "; user: " + name + ";" + "productCode: " + entity.getCode() + " ;");
 		return GsonUtil.buildMap(0, "ok", null);
 	}
 
@@ -111,7 +113,7 @@ public class ProductController extends BaseController{
 		}
 		User user = UserManageUtil.getUser();
 		String name = user.getUsername();
-		logger.info(" 删除理财节 产品  product 信息 action:" + "delete" + ";" + "user: " + name  +" productname: "+entity.getName()+" ;" );
+		logger.info(" 删除理财节 产品  product 信息 action:" + "delete" + ";" + "user: " + name  +" productCode: "+entity.getCode()+" ;" );
 		return GsonUtil.buildMap(0, "ok", null);
 	}
 
@@ -121,7 +123,9 @@ public class ProductController extends BaseController{
 		ProductEntity entity = LcjUtil.convertEntityByProductDTO(dto);		
 		
 		productService.modifyProduct(entity);
-		//logger.info("action:" + "modify" + ";" + "user:" + name + ";" + "title:" + dto.getTitle() + ";");
+		User user = UserManageUtil.getUser();
+		String name = user.getUsername();
+		logger.info("action:" + "productModify" + ";" + "user:" + name + ";" + "productCode:" + entity.getCode() + ";");
 		return GsonUtil.buildMap(0, "ok", null);
 	}
 //产品销售数据查询

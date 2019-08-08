@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sun.xml.internal.stream.Entity;
+
 import cn.xsdzq.platform.controller.BaseController;
 import cn.xsdzq.platform.entity.lcj.DepartmentEntity;
 import cn.xsdzq.platform.entity.lcj.EmpEntity;
@@ -122,12 +124,15 @@ public class EmpController extends BaseController {
 			entity.setDepartmentEntity(departmentEntity);
 			
 			empService.addEmp(entity);
+			User user = UserManageUtil.getUser();
+			String name = user.getUsername();
+			logger.info("action:" + "addEmp" + "; byuser: " + name + ";" + "empCode:" + entity.getEmpCode() + ";");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw e;
 		}
-		//logger.info("action:" + "add" + ";" + name + ";" + "title:" + dto.getTitle() + ";");
+
 		return GsonUtil.buildMap(0, "ok", null);
 	}
 	
@@ -154,11 +159,14 @@ public class EmpController extends BaseController {
 			DepartmentEntity departmentEntity = departmentService.findDepartmentByCode(entity.getDepartmentCode());
 			entity.setDepartmentEntity(departmentEntity);
 			empService.modifyEmp(entity);
+			User user = UserManageUtil.getUser();
+			String name = user.getUsername();
+			logger.info("action:" + "modify" + ";" + "byuser:" + name + ";" + "empname:" + entity.getEmpName() + ";");
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//logger.info("action:" + "modify" + ";" + "user:" + name + ";" + "title:" + dto.getTitle() + ";");
 		return GsonUtil.buildMap(0, "ok", null);
 	}
 }
