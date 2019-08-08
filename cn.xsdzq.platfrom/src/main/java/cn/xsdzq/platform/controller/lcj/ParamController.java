@@ -77,6 +77,9 @@ public class ParamController {
 		ParamEntity entity = SysUtil.convertParamEntityByDTO(dto);	
 		
 		paramService.addInfo(entity);
+		User user = UserManageUtil.getUser();
+		String name = user.getUsername();
+		logger.info("action:" + "addParam" + "; byuser: " + name + ";" + "sysCode:" + entity.getCode() + ";"+ " sysValue:" + entity.getValue() + ";");
 		return GsonUtil.buildMap(0, "ok", null);
 	}
 	
@@ -88,7 +91,7 @@ public class ParamController {
 		paramService.deleteInfo(entity);
 		User user = UserManageUtil.getUser();
 		String name = user.getUsername();
-		logger.info(" 删除系统参数 信息 action:" + "delete" + ";" + "user: " + name  +" param code: "+entity.getCode()+" ;" );
+		logger.info(" 删除系统参数 信息 action:" + "deleteParam" + ";" + "user: " + name  +" sysCode: "+entity.getCode()+" ;" );
 		return GsonUtil.buildMap(0, "ok", null);
 	}
 
@@ -97,7 +100,10 @@ public class ParamController {
 	public Map<String, Object> modifyEmp(HttpServletRequest request, @RequestBody ParamDTO dto) {
 		ParamEntity entity = SysUtil.convertParamEntityByDTO(dto);			
 		
-		paramService.modifyInfo(entity);;
+		paramService.modifyInfo(entity);
+		User user = UserManageUtil.getUser();
+		String name = user.getUsername();
+		logger.info("action:" + "modifyParam" + "; byuser: " + name + ";" + "sysCode:" + entity.getCode() + ";"+ " sysValue:" + entity.getValue() + ";");
 		return GsonUtil.buildMap(0, "ok", null);
 	}
 }

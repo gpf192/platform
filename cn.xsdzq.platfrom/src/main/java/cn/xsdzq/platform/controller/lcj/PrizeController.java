@@ -95,7 +95,6 @@ public class PrizeController extends BaseController {
 	@ResponseBody
 	public Map<String, Object> addPrize(HttpServletRequest request, @RequestBody BatchPrizeJsonDTO jsondto) {
 		//解析json,批量添加
-		System.out.println("shanchu111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111");
 		System.out.println("batchPrizeJson: "+jsondto.getBatchPrizeJson());
 		List<PrizeDTO> dtoList = JSON.parseArray(jsondto.getBatchPrizeJson(),PrizeDTO.class);
 		for(PrizeDTO dto : dtoList) {
@@ -104,8 +103,9 @@ public class PrizeController extends BaseController {
 			entity.setCreatetime(date);			
 			prizeService.addPrize(entity);
 		}
-				
-		//logger.info("action:" + "add" + ";" + name + ";" + "title:" + dto.getTitle() + ";");
+		User user = UserManageUtil.getUser();
+		String name = user.getUsername();		
+		logger.info("action:" + " prize add" + "; user: " + name + ";" + "prizeBatchJson:" + jsondto.getBatchPrizeJson() + ";");
 		return GsonUtil.buildMap(0, "ok", null);
 	}
 
@@ -131,7 +131,9 @@ public class PrizeController extends BaseController {
 		Date date = new Date();
 		entity.setModifytime(date);
 		prizeService.modifyPrize(entity);
-	//	logger.info("action:" + "modify" + ";" + "user:" + name + ";" + "title:" + dto.getTitle() + ";");
+		User user = UserManageUtil.getUser();
+		String name = user.getUsername();
+		logger.info("action:" + "modify" + ";" + "user:" + name + ";" + "prize:" + entity.getName() + ";");
 		return GsonUtil.buildMap(0, "ok", null);
 	}
 }
