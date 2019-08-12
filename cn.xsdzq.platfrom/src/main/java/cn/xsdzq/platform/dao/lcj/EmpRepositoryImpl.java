@@ -6,9 +6,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import cn.xsdzq.platform.entity.InfoEntity;
 import cn.xsdzq.platform.entity.lcj.EmpEntity;
 import cn.xsdzq.platform.entity.lcj.EmpTicketEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeEntity;
@@ -92,5 +97,12 @@ public class EmpRepositoryImpl implements EmpRepository{
 		return sqlQuery.getSingleResult();
 	}
 
-
+	@Override
+	public List<EmpEntity> getEmpByCode(String empCode) {
+		// TODO Auto-generated method stub
+		TypedQuery<EmpEntity> sqlQuery = em.createQuery(
+				"SELECT c FROM EmpEntity c WHERE c.empCode = ?", EmpEntity.class);
+		sqlQuery.setParameter(1, empCode);				
+		return sqlQuery.getResultList();
+	}
 }
