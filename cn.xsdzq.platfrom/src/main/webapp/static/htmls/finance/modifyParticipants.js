@@ -55,43 +55,67 @@ function modifyParticipantsController($scope, $http, $state, $stateParams, httpU
 	
 
 	$scope.submit = function() {
-//		if (angular.isEmpty($scope.formData.code)) {
-//			layerUtils.iMsg(-1, "产品代码不能为空");
-//			return;
-//		}
-//		if (angular.isEmpty($scope.formData.name)) {
-//			layerUtils.iMsg(-1, "产品名称不能为空");
-//			return;
-//		}
-//		if (angular.isEmpty($scope.formData.type)) {
-//			layerUtils.iMsg(-1, "产品类型不能为空");
-//			return;
-//		}
-//		if (angular.isEmpty($scope.formData.name)) {
-//			layerUtils.iMsg(-1, "产品名称不能为空");
-//			return;
-//		}
-//		if (angular.isEmpty($scope.formData.begin_date)) {
-//			layerUtils.iMsg(-1, "产品开放时间不能为空");
-//			return;
-//		}
-//		
-//		if (angular.isEmpty($scope.formData.begin_date)) {
-//			layerUtils.iMsg(-1, "产品开放时间不能为空");
-//			return;
-//		}
-//		if (angular.isEmpty($scope.formData.coefficient)) {
-//			layerUtils.iMsg(-1, "产品系数不能为空");
-//			return;
-//		}
-//		if(angular.equals($scope.formData,$stateParams.product)){
-//			layerUtils.iMsg(-1,"请修改后，重新提交");
-//			return;
-//		}
-	
-		console.log($scope.formData);
 		var url = httpUtils.url.modifyEmp;
-		$http.post(url, $scope.formData).success(function(data) {
+		var emp_name = "";
+		var emp_code = "";
+		var departmentCode = "";
+		var division = "";
+		var emp_category = "";
+		var contract = "";
+		var entry_time = "";
+		if(!utils.isEmpty($scope.formData.emp_name)) {
+			emp_name = $scope.formData.emp_name;
+		}else {
+			layerUtils.iMsg(-1,"人员姓名不能为空");
+			return;
+		}
+		if(!utils.isEmpty($scope.formData.emp_code)) {
+			emp_code = $scope.formData.emp_code;
+		}else {
+			layerUtils.iMsg(-1,"人员编号不能为空");
+			return;
+		}
+		if(!utils.isEmpty($scope.selectedName.code)) {
+			departmentCode = $scope.selectedName.code;
+		}else {
+			layerUtils.iMsg(-1,"隶属营业部不能为空");
+			return;
+		}
+		if(!utils.isEmpty($scope.selectedDivision.code)) {
+			division = $scope.selectedDivision.code;
+		}else {
+			layerUtils.iMsg(-1,"隶属赛区不能为空");
+			return;
+		}
+		if(!utils.isEmpty($scope.formData.emp_category)) {
+			emp_category = $scope.formData.emp_category;
+		}else {
+			layerUtils.iMsg(-1,"人员类别不能为空");
+			return;
+		}
+		if(!utils.isEmpty($scope.formData.contract)) {
+			contract = $scope.formData.contract;
+		}else {
+			layerUtils.iMsg(-1,"签约合同不能为空");
+			return;
+		}
+		if(!utils.isEmpty($scope.formData.entry_time)) {
+			entry_time = $scope.formData.entry_time;
+		}else {
+			layerUtils.iMsg(-1,"入职时间不能为空");
+			return;
+		}
+		
+		var param = {
+				emp_name:emp_name,
+				emp_code:emp_code,
+				departmentCode:departmentCode,
+				division:division,
+				emp_category:emp_category,
+				contract:contract,
+				entry_time:entry_time,
+		}
+		$http.post(url, param).success(function(data) {
 			if (data.resCode == 0) {
 				layerUtils.iAlert("修改成功",function(){
 					$state.go("participantsList");
