@@ -148,6 +148,7 @@ public class LcjUtil {
 		dto.setEmp_category(entity.getEmpCategory());
 		dto.setEntry_time(entity.getEntryTime());
 		dto.setDepartmentCode(entity.getDepartmentCode());
+		dto.setSales_department(entity.getDepartmentEntity().getName());
 		dto.setContract(entity.getContract());
 		dto.setDivision(entity.getDivision());
 		DepartmentEntity depart = entity.getDepartmentEntity();

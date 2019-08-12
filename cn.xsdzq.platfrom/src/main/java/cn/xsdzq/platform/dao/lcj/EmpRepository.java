@@ -19,4 +19,6 @@ public interface EmpRepository {
 	void modifyEmpTicket(EmpTicketEntity entity);
 	EmpTicketEntity getEmpTicketByEmpId(String id);
 	void deleteEmpTicket(EmpTicketEntity entity);
+	List<EmpEntity> getEmpByCode(String empCode);
+
 }

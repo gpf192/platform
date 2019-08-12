@@ -34,21 +34,28 @@ public class EmpServiceImpl implements EmpService{
 	@Transactional
 	public void addEmp(EmpEntity entity) {
 		// TODO Auto-generated method stub
-		EmpEntity en = empRepository.getEmpByEmpCode(entity.getEmpCode()) ;
-		if(en == null) {
-			empRepository.addEmp(entity);
-			EmpTicketEntity et = new EmpTicketEntity();	
-			et.setEmpEntity(entity);
-			empRepository.addEmpTicket(et);
-		}else {
-			//删除的员工又重新添加 
-			// empRepository.addEmpAgain(entity);
-			entity.setId(en.getId());
-			entity.setEnable(1);
-			System.out.println("yuangongyicunzai __________________"+ entity.toString());
+		List<EmpEntity> en = empRepository.getEmpByCode(entity.getEmpCode());
+	
+	
+			if(en.size() == 0) {
+				empRepository.addEmp(entity);
+				EmpTicketEntity et = new EmpTicketEntity();	
+				et.setEmpEntity(entity);
+				empRepository.addEmpTicket(et);
+			}else {
+				//删除的员工又重新添加 
+				// empRepository.addEmpAgain(entity);
+				for(EmpEntity ent:en) {
+					entity.setId(ent.getId());
+					entity.setEnable(1);
+					System.out.println("yuangongyicunzai __________________"+ entity.toString());
 
-			empRepository.modifyEmp(entity);
-		}
+					empRepository.modifyEmp(entity);
+				}
+				
+			}
+		
+
 
 	}
 

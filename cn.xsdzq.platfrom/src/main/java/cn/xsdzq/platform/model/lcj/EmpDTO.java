@@ -18,6 +18,8 @@ public class EmpDTO {
 	private String entry_time;//入职时间
 	
 	private String departmentCode;
+	
+	private String sales_department;
 		
 	private String division;//隶属赛区
 
@@ -78,6 +80,14 @@ public class EmpDTO {
 	}
 
 	
+
+	public String getSales_department() {
+		return sales_department;
+	}
+
+	public void setSales_department(String sales_department) {
+		this.sales_department = sales_department;
+	}
 
 	public String getDivision() {
 		return division;
