@@ -107,6 +107,7 @@ function modifyParticipantsController($scope, $http, $state, $stateParams, httpU
 		}
 		
 		var param = {
+				id:$scope.formData.id,
 				emp_name:emp_name,
 				emp_code:emp_code,
 				departmentCode:departmentCode,
@@ -115,6 +116,7 @@ function modifyParticipantsController($scope, $http, $state, $stateParams, httpU
 				contract:contract,
 				entry_time:entry_time,
 		}
+		console.log(param);
 		$http.post(url, param).success(function(data) {
 			if (data.resCode == 0) {
 				layerUtils.iAlert("修改成功",function(){

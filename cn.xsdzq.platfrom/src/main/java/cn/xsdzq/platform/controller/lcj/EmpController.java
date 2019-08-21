@@ -155,8 +155,8 @@ public class EmpController extends BaseController {
 	@ResponseBody
 	public Map<String, Object> modifyEmp(HttpServletRequest request, @RequestBody EmpDTO dto) {
 		try {
-			EmpEntity entity = LcjUtil.convertEntityByEmpDTO(dto);			
-			DepartmentEntity departmentEntity = departmentService.findDepartmentByCode(entity.getDepartmentCode());
+			EmpEntity entity = LcjUtil.convertEntityByEmpDTO(dto);	
+			DepartmentEntity departmentEntity = departmentService.findDepartmentByCode(dto.getDepartmentCode());
 			entity.setDepartmentEntity(departmentEntity);
 			empService.modifyEmp(entity);
 			User user = UserManageUtil.getUser();
