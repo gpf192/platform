@@ -38,6 +38,9 @@ function userTIcketsListController($scope, $http, $state, $stateParams, $gridSer
 		},{
 			name:"签约投顾",
 			code:6
+		},{
+			name:"参与评选",
+			code:9
 		}]
 		$scope.selectedVote = $scope.voteFromList[0];
 		$scope.getEmpList(20000);
