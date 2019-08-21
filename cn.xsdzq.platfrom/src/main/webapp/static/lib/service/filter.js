@@ -66,6 +66,9 @@ ngApp.filter('voteSourceFilter', function() {
 	    if(value == "6"){
 	    	return "签约投顾";
 	    }
+	    if(value == "9") {
+	    	return "参与评选";
+	    }
 	}
 });
 ngApp.filter('divisionFilter', function() { 
