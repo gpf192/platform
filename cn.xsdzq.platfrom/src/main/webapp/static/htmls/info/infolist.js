@@ -175,15 +175,7 @@ function infoListController($scope, $http, $state, $stateParams, $gridService, h
 			return;
         }
 		console.log($scope.infoList[index]);
-		var info=$scope.infoList[index];
-		var text = "";
-		if(info.categoryId == 1202) {//测试
-			text = "http://106.39.93.45:8081/LP/infoDetail.html?infoId=" + info.id;
-		}else if (info.categoryId == 532606) {//生产
-			text = "https://activity.e95399.com/LP/infoDetail.html?infoId=" + info.id;
-		} else {
-			text=window.location.protocol+"//"+window.location.hostname+":"+window.location.port+"/front/#/detail/"+info.id;
-		}  
+		var text=window.location.protocol+"//"+window.location.hostname+":"+window.location.port+"/front/#/detail/"+$scope.infoList[index].id;  
 		if (window.clipboardData) {//如果是IE浏览器
 	        window.clipboardData.setData('text', text);
 	    } else {//非IE浏览器
@@ -241,8 +233,15 @@ function infoListController($scope, $http, $state, $stateParams, $gridService, h
 		      } 
         }
         console.log(param);
-        
-		var text=window.location.protocol+"//"+window.location.hostname+":"+window.location.port+"/front/#/detail/"+infoId;
+		var text = "";
+		if(param.categoryId == 1202) {//测试
+			text = "http://106.39.93.45:8081/LP/infoDetail.html?infoId=" + param.id;
+		}else if (param.categoryId == 532606) {//生产
+			text = "https://activity.e95399.com/LP/infoDetail.html?infoId=" + param.id;
+		} else {
+			text=window.location.protocol+"//"+window.location.hostname+":"+window.location.port+"/front/#/detail/"+param.id;
+		}  
+	
 		if (window.clipboardData) {//如果是IE浏览器
 	        window.clipboardData.setData('text', text);
 	    } else {//非IE浏览器
