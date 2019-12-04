@@ -237,7 +237,7 @@ function infoListController($scope, $http, $state, $stateParams, $gridService, h
 		if(param.categoryId == 1202) {//测试
 			text = "http://106.39.93.45:8081/LP/infoDetail.html?infoId=" + param.id;
 		}else if (param.categoryId == 532606) {//生产
-			text = "https://activity.e95399.com/LP/infoDetail.html?infoId=" + param.id;
+			text = "https://help.e95399.com/LP/infoDetail.html?infoId=" + param.id;
 		} else {
 			text=window.location.protocol+"//"+window.location.hostname+":"+window.location.port+"/front/#/detail/"+param.id;
 		}  
