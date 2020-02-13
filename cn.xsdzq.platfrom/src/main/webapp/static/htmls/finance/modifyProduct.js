@@ -30,6 +30,15 @@ function modifyProductController($scope, $http, $state, $stateParams, httpUtils,
 			name:"场外基金",
 			code:"1"
 		}]
+		
+		$scope.tradePlaceFromList1 = [{
+			name:"否",
+			code:"0"
+		},{
+			name:"是",
+			code:"1"
+		}]
+		
 		$scope.riskLevelFormList = [{
 			name:"低风险等级",
 			
@@ -51,6 +60,12 @@ function modifyProductController($scope, $http, $state, $stateParams, httpUtils,
 			$scope.selectedTradePlace = $scope.tradePlaceFromList[0];
 		}else if(flag ==1) {
 			$scope.selectedTradePlace = $scope.tradePlaceFromList[1];
+		}
+		var scanFlag =	$stateParams.product.scanFlag;
+		if(scanFlag ==0) {
+			$scope.selectedTradePlace1 = $scope.tradePlaceFromList1[0];
+		}else if(scanFlag ==1) {
+			$scope.selectedTradePlace1 = $scope.tradePlaceFromList1[1];
 		}
 		
 		var risk = $stateParams.product.riskLevel;
@@ -124,7 +139,8 @@ function modifyProductController($scope, $http, $state, $stateParams, httpUtils,
 				flag: $scope.selectedTradePlace.code,
 				endDate:$scope.formData.endDate,
 				riskLevel:$scope.selectedRiskLevel.name,
-				preferentialInfo:$scope.formData.preferentialInfo
+				preferentialInfo:$scope.formData.preferentialInfo,
+				scanFlag: $scope.selectedTradePlace1.code
 		}
 		$http.post(url, newProduct).success(function(data) {
 			if (data.resCode == 0) {

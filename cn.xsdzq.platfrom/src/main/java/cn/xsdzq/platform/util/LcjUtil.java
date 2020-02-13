@@ -1,5 +1,6 @@
 package cn.xsdzq.platform.util;
 
+import cn.xsdzq.platform.entity.lcj.AwardEntity;
 import cn.xsdzq.platform.entity.lcj.DepartmentEntity;
 import cn.xsdzq.platform.entity.lcj.EmpEntity;
 import cn.xsdzq.platform.entity.lcj.EmpTicketEntity;
@@ -10,6 +11,7 @@ import cn.xsdzq.platform.entity.lcj.ProductEntity;
 import cn.xsdzq.platform.entity.lcj.ProductSellEntity;
 import cn.xsdzq.platform.entity.lcj.UserTicketRecordEntity;
 import cn.xsdzq.platform.entity.lcj.UserVoteEmpResultEntity;
+import cn.xsdzq.platform.model.lcj.AwardDTO;
 import cn.xsdzq.platform.model.lcj.DepartmentDTO;
 import cn.xsdzq.platform.model.lcj.EmpDTO;
 import cn.xsdzq.platform.model.lcj.EmpVoteDTO;
@@ -95,6 +97,7 @@ public class LcjUtil {
 		dto.setFlag(entity.getFlag());
 		dto.setRiskLevel(entity.getRiskLevel());
 		dto.setPreferentialInfo(entity.getPreferentialInfo());
+		dto.setScanFlag(entity.getScanFlag());
 		return dto;
 	}
 	public static ProductEntity convertEntityByProductDTO(ProductDTO dto) {
@@ -116,6 +119,7 @@ public class LcjUtil {
 		entity.setFlag(dto.getFlag());
 		entity.setRiskLevel(dto.getRiskLevel());
 		entity.setPreferentialInfo(dto.getPreferentialInfo());
+		entity.setScanFlag(dto.getScanFlag());
 		return entity;
 	}
 	//产品销售数据
@@ -253,5 +257,28 @@ public class LcjUtil {
 		dto.setDivision(entity.getEmpEntity().getDivision());		
 		dto.setSalesDepartment(entity.getEmpEntity().getDepartmentEntity().getName());
 		return dto;
+	}
+	public static AwardDTO convertAwardDTOByEntity(AwardEntity entity) {		
+		AwardDTO dto = new AwardDTO();
+		dto.setId(entity.getId());
+		dto.setAwardName(entity.getAwardName());
+		dto.setAwardNameAlias(entity.getAwardNameAlias());
+		dto.setAwardValue(entity.getAwardValue());
+		dto.setImageName(entity.getImageName());
+		dto.setImageNumber(entity.getImageNumber());
+		dto.setIndex(entity.getIndex());
+				
+		return dto;
+	}
+	public static AwardEntity convertEntityByAwardDTO(AwardDTO dto) {
+		AwardEntity entity = new AwardEntity();
+		entity.setId(dto.getId());
+		entity.setAwardName(dto.getAwardName());
+		entity.setAwardNameAlias(dto.getAwardNameAlias());
+		entity.setAwardValue(dto.getAwardValue());
+		entity.setImageName(dto.getImageName());
+		entity.setImageNumber(dto.getImageNumber());
+		entity.setIndex(dto.getIndex());
+		return entity;
 	}
 }

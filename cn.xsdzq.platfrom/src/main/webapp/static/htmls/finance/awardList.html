@@ -1,0 +1,134 @@
+<script type="text/javascript" src="htmls/finance/awardList.js"></script>
+<div class="box border primary" ng-init="init()">
+    <div class="box-title">
+        <h4>
+            <i class="fa fa-bars"></i>新增组合奖信息
+        </h4>
+        <div class="tools hidden">
+            <a href="#box-config" data-toggle="modal" class="config"> <i
+                class="fa fa-cog"></i>
+            </a> <a href="javascript:;" class="reload"> <i class="fa fa-refresh"></i>
+            </a> <a href="javascript:;" class="collapse"> <i
+                class="fa fa-chevron-up"></i>
+            </a> <a href="javascript:;" class="remove"> <i class="fa fa-times"></i>
+            </a>
+        </div>
+    </div>
+    <div class="box-body big">
+        <form action="" class="form-horizontal">
+            <fieldset>
+                <legend> 新建组合奖 </legend>
+                <div class="form-group">
+                    <label for="versionId" class="col-sm-3 control-label">奖品名称：</label>
+                    <div class="col-sm-6">
+                        <input type="text" autocomplete="off" class="form-control" id="name"
+                            name="name" ng-model="formData.name"
+                            placeholder="请输入奖品名称" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">奖品单价：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="price" name="price"
+                            ng-model="formData.price" placeholder="请输入奖品单价" />
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-sm-3 control-label">奖品数量：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="amount" name="amount"
+                            ng-model="formData.amount" placeholder="请输入奖品数量" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-9">
+                        <button type="button" ng-click="newBuild()" id="newBuild"
+                            class="btn btn-default btn-primary">确认新增</button>
+                            <button type="button" ng-click="cancleModify()" ng-show="isModify" id="cancleModify"
+                            class="btn btn-default btn-primary">取消修改</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+
+    </div>
+    
+        <div class="box-body">
+        <div  class="dataTables_wrapper form-inline" role="grid">
+            <div class="row hide">
+                <div class="col-sm-12">
+                    <div class="pull-right">
+                        <div class="dataTables_filter" id="datatable1_filter">
+                            <label> <input type="text" aria-controls="datatable1"
+                                placeholder="Search" ng-model="search" class="form-control input-sm">
+                            </label> 
+                        </div>
+                    </div>
+                    <div class="pull-left hide">
+                        <div id="datatable1_length" class="dataTables_length">
+                            <label> 显示 <select size="1" name="datatable1_length"
+                                ng-model="selectNum"
+                                ng-options="row.num for row in selectNumList"
+                                aria-controls="datatable1" class="form-control input-sm">
+                            </select> 行
+                            </label>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <table id="datatable1" cellpadding="0" cellspacing="0" border="0"
+                class="datatable table table-striped table-bordered table-hover  text-center"
+                aria-describedby="datatable1_info">
+                <thead>
+                    <tr role="row">
+                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">序号</th>
+                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">奖品名称</th>
+                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">奖品总数</th>
+                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">奖品总价</th>
+                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">已中奖人数</th>
+                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">剩余奖品数量</th>
+                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">修改</th>
+                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">删除</th>
+                    </tr>
+                </thead>
+                <tbody role="alert" aria-live="polite" aria-relevant="all">
+                    <tr ng-repeat="prize in newPrizeList">
+                        <td class="col-sm-1">{{$index+1}}</td>
+                        <td class="col-sm-1">{{prize.name}}</td>
+                        <td class="col-sm-1">{{prize.amount}}</td>
+                        <td class="col-sm-1">{{prize.price*prize.amount}}</td>
+                        <td class="col-sm-1">{{prize.winningNumber}}</td>
+                        <td class="col-sm-1">{{prize.amount-prize.winningNumber}}</td>                  
+                        <td class="col-sm-1 text-center">
+                            <div>
+                                <button type="button" class="btn btn-warning btn-sm"
+                                    ng-click="modifyPrize($index)">
+                                    <i class="fa fa-pencil-square-o"></i><span> 修改</span>
+                                </button>
+                            </div>
+                        </td>
+                        <td class="col-sm-1">
+                            <div>
+                                <button type="button" class="btn btn-danger btn-sm"
+                                    ng-click="deletePrize($index)">
+                                    <i class="fa fa-trash-o"></i><span> 删除</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <button type="button" ng-click="release()"
+                            class="btn btn-default btn-primary">确认发布</button>
+    </div>
+</div>

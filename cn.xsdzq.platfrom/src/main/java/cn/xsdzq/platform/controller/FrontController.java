@@ -66,7 +66,7 @@ public class FrontController {
 		if (id > 0) {
 			InfoEntity info = myInfoService.getInfoEntityById(id);
 			logger.info(CommonUtil.getIpAdrress(request));
-			if (info != null) {
+			if (info != null && "approve".equals(info.getCheckedResult())) {
 				InfoDTO infoDTO = InfoUtil.convertInfoDTOByInfo(info);
 				// iInfoService.addPageViewById(id);
 				myInfoService.addPageViewById(id);
@@ -114,6 +114,7 @@ public class FrontController {
 			List<InfoDTO> infoDTOs = new ArrayList<InfoDTO>();
 			for (InfoEntity info : infos) {
 				InfoDTO dto = InfoUtil.convertInfoDTOByInfo(info);
+				dto.setContent("");
 				infoDTOs.add(dto);
 			}
 			int sum = myInfoService.countInfosByCategoryId(categoryId);

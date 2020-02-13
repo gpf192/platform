@@ -82,6 +82,8 @@
                             aria-controls="datatable1" rowspan="1" colspan="1">转化系数</th>
                              <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1">是否为场外基金</th>
+                            <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">是否扫描场内交易</th>
                         <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1">开放时间</th>
               <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
@@ -101,6 +103,7 @@
                         <td ><div style="white-space:nowrap;">{{product.preferentialInfo}}</div> </td>
                          <td ><div style="white-space:nowrap;">{{product.coefficient}}</div> </td>
                          <td ><div style="white-space:nowrap;">{{product.flag==0?"场内基金":"场外基金"}}</div> </td>
+                         <td ><div style="white-space:nowrap;">{{product.scanFlag==0?"否":"是"}}</div> </td>
                         <td ><div style="white-space:nowrap;">{{product.beginDate}}</div> </td>
                          <td ><div style="white-space:nowrap;">{{product.endDate}}</div> </td>
                         <!--

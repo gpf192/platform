@@ -20,7 +20,7 @@ public class ProductDTO {
 	private String riskLevel; //分险等级
 	
 	private String preferentialInfo;
-
+	private int scanFlag ;
 
 	public String getRiskLevel() {
 		return riskLevel;
@@ -91,6 +91,14 @@ public class ProductDTO {
 	}
 	public void setCoefficient(String coefficient) {
 		this.coefficient = coefficient;
+	}
+	
+	
+	public int getScanFlag() {
+		return scanFlag;
+	}
+	public void setScanFlag(int scanFlag) {
+		this.scanFlag = scanFlag;
 	}
 	@Override
 	public String toString() {
