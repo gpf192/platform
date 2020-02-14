@@ -8,13 +8,13 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import cn.xsdzq.platform.entity.CustomerMobileEntity;
 
 public interface MyKCRepository  extends PagingAndSortingRepository<CustomerMobileEntity, Long> {
-	Page<CustomerMobileEntity> findByOrderByCreatetimeDesc(Pageable pageable);
-	Page<CustomerMobileEntity> findByCreatetimeLessThanEqualAndCreatetimeGreaterThanEqualOrderByCreatetimeDesc(Date endDate, Date beginDate, Pageable pageable);
-	int countByCreatetimeLessThanEqualAndCreatetimeGreaterThanEqual(Date endDate, Date beginDate);
+	Page<CustomerMobileEntity> findByOrderByRecordTimeDesc(Pageable pageable);
+	Page<CustomerMobileEntity> findByRecordTimeLessThanEqualAndRecordTimeGreaterThanEqualOrderByRecordTimeDesc(Date endDate, Date beginDate, Pageable pageable);
+	int countByRecordTimeLessThanEqualAndRecordTimeGreaterThanEqual(Date endDate, Date beginDate);
 	
-	Page<CustomerMobileEntity> findByCreatetimeGreaterThanEqualOrderByCreatetimeDesc(Date beginDate, Pageable pageRequest);
-	int countByCreatetimeGreaterThanEqual(Date beginDate);
+	Page<CustomerMobileEntity> findByRecordTimeGreaterThanEqualOrderByRecordTimeDesc(Date beginDate, Pageable pageRequest);
+	int countByRecordTimeGreaterThanEqual(Date beginDate);
 	
-	Page<CustomerMobileEntity> findByCreatetimeLessThanEqualOrderByCreatetimeDesc(Date endDate, Pageable pageRequest);
-	int countByCreatetimeLessThanEqual(Date endDate);
+	Page<CustomerMobileEntity> findByRecordTimeLessThanEqualOrderByRecordTimeDesc(Date endDate, Pageable pageRequest);
+	int countByRecordTimeLessThanEqual(Date endDate);
 }

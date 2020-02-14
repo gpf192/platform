@@ -59,21 +59,21 @@ public class KCController extends BaseController {
 			System.out.println("按时区间查询");
 			endDate = DateUtil.stringToDateAndSeconds(endTime);
 			 beginDate = DateUtil.stringToDate(beginTime);
-			entitys = kcService.findByEndTimeLessThanEqualAndBeginTimeGreaterThanEqualOrderByCreatetimeDesc(endDate, beginDate,  pageNumber, pageSize);
+			entitys = kcService.findByEndTimeLessThanEqualAndBeginTimeGreaterThanEqualOrderByRecordTimeDesc(endDate, beginDate,  pageNumber, pageSize);
 			sum = kcService.countByEndTimeLessThanEqualAndBeginTimeGreaterThanEqual(endDate, beginDate);
 			
 		}
 		if(num == 3) {
 			System.out.println("按时间查询,只大于开始时间");
 			beginDate = DateUtil.stringToDate(beginTime);
-			entitys = kcService.findByBeginTimeGreaterThanEqualOrderByCreatetimeDesc(beginDate,  pageNumber, pageSize);
+			entitys = kcService.findByBeginTimeGreaterThanEqualOrderByRecordTimeDesc(beginDate,  pageNumber, pageSize);
 			sum = kcService.countByBeginTimeGreaterThanEqual(beginDate);
 			
 		}
 		if(num == 4) {
 			System.out.println("按时间查询,只小于结束时间" + endTime +" 23:59:59");			
 			endDate = DateUtil.stringToDateAndSeconds(endTime);
-			entitys = kcService.findByEndTimeLessThanEqualOrderByCreatetimeDesc(endDate, pageNumber, pageSize);
+			entitys = kcService.findByEndTimeLessThanEqualOrderByRecordTimeDesc(endDate, pageNumber, pageSize);
 			sum = kcService.countByEndTimeLessThanEqual(endDate);
 			
 		}

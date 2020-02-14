@@ -3,6 +3,7 @@ package cn.xsdzq.platform.model;
 public class KCDTO {
 	private long id;
 	private String name;
+	private String clientId;
 	private String phone;
 	private String createtime;
 	
@@ -10,13 +11,18 @@ public class KCDTO {
 
 	}
 
-	public KCDTO(long id, String name, String phone, String createtime) {
+	
+
+	public KCDTO(long id, String name, String clientId, String phone, String createtime) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.clientId = clientId;
 		this.phone = phone;
 		this.createtime = createtime;
 	}
+
+
 
 	public long getId() {
 		return id;
@@ -49,6 +55,19 @@ public class KCDTO {
 	public void setCreatetime(String createtime) {
 		this.createtime = createtime;
 	}
+
+	
+	public String getClientId() {
+		return clientId;
+	}
+
+
+
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
+	}
+
+
 
 	@Override
 	public String toString() {
