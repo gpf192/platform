@@ -53,4 +53,7 @@ public interface MyPrizeRecordRepository extends PagingAndSortingRepository<Priz
 	
 	Page<PrizeResultEntity> findByRecordTimeLessThanEqualAndPrizeEntity_nameAndUserEntity_clientIdOrderByRecordTimeDesc( Date endDate, String prizeName, String UserEntity_clientId, Pageable pageable);
 	int countByRecordTimeLessThanEqualAndPrizeEntity_nameAndUserEntity_clientId( Date endDate, String prizeName, String UserEntity_clientId);
+	
+	Page<PrizeResultEntity> findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndUserEntity_clientIdOrderByRecordTimeDesc(Date beginDate, Date endDate, String UserEntity_clientId , Pageable pageable);
+	int countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndUserEntity_clientId(Date beginDate, Date endDate, String UserEntity_clientId );
 }

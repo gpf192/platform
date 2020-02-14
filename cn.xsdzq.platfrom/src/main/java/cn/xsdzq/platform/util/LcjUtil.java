@@ -1,6 +1,7 @@
 package cn.xsdzq.platform.util;
 
 import cn.xsdzq.platform.entity.lcj.AwardEntity;
+import cn.xsdzq.platform.entity.lcj.AwardResultEntity;
 import cn.xsdzq.platform.entity.lcj.DepartmentEntity;
 import cn.xsdzq.platform.entity.lcj.EmpEntity;
 import cn.xsdzq.platform.entity.lcj.EmpTicketEntity;
@@ -12,6 +13,7 @@ import cn.xsdzq.platform.entity.lcj.ProductSellEntity;
 import cn.xsdzq.platform.entity.lcj.UserTicketRecordEntity;
 import cn.xsdzq.platform.entity.lcj.UserVoteEmpResultEntity;
 import cn.xsdzq.platform.model.lcj.AwardDTO;
+import cn.xsdzq.platform.model.lcj.AwardResultdDTO;
 import cn.xsdzq.platform.model.lcj.DepartmentDTO;
 import cn.xsdzq.platform.model.lcj.EmpDTO;
 import cn.xsdzq.platform.model.lcj.EmpVoteDTO;
@@ -280,5 +282,23 @@ public class LcjUtil {
 		entity.setImageNumber(dto.getImageNumber());
 		entity.setIndex(dto.getIndex());
 		return entity;
+	}
+	
+	//开门红组合奖兑奖记录
+	public static AwardResultdDTO convertAwardResultDTOByEntity(AwardResultEntity entity) {		
+		AwardResultdDTO dto = new AwardResultdDTO();
+		dto.setId(entity.getId());
+		dto.setUsername(entity.getUserEntity().getClientName());
+		
+		dto.setClientId(entity.getUserEntity().getClientId());
+		dto.setPrizeName(entity.getAwardEntity().getAwardName());
+		//dto.setCreatetime(entity.getCreatetime());
+		try {
+			dto.setCreatetime(DateUtil.DateToString(entity.getRecordTime()));		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return dto;
 	}
 }

@@ -9,14 +9,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.xsdzq.platform.dao.lcj.AwardRepository;
+import cn.xsdzq.platform.entity.UserEntity;
 import cn.xsdzq.platform.entity.lcj.AwardEntity;
+import cn.xsdzq.platform.entity.lcj.AwardResultEntity;
 
-@Service(value = "prizeServiceImpl")
+@Service(value = "awardServiceImpl")
 @Transactional(readOnly = true)
 public class AwardServiceImpl implements AwardService{
 	Logger logger = LogManager.getLogger(AwardServiceImpl.class.getName());
 	@Autowired
 	private AwardRepository awardRepository;
+	
+
+	
 	@Override
 	public List<AwardEntity> getAllAward() {
 		// TODO Auto-generated method stub
@@ -48,4 +53,5 @@ public class AwardServiceImpl implements AwardService{
 		info.setIndex(entity.getIndex());
 		awardRepository.modifyAward(info);
 	}
+	
 }

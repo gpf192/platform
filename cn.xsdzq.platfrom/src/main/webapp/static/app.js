@@ -220,10 +220,14 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/userVoteForList",
 		templateUrl : "htmls/finance/userVoteForList.html",
 		controller : "userVoteForListController"
-	}).state("awardList", {
+	}).state("turntableAwardList", {
 		url : "/finance/awardList",
 		templateUrl : "htmls/finance/awardList.html",
 		controller : "awardListController"
+	}).state("awardResultList", {
+		url : "/finance/awardResultList",
+		templateUrl : "htmls/finance/awardResultList.html",
+		controller : "awardResultListController"
 	}).state("modifyContestant", {
 		url : "/modifyContestant",
 		templateUrl : "htmls/finance/modifyContestant.html",

@@ -21,23 +21,45 @@
                 <div class="form-group">
                     <label for="versionId" class="col-sm-3 control-label">奖品名称：</label>
                     <div class="col-sm-6">
-                        <input type="text" autocomplete="off" class="form-control" id="name"
-                            name="name" ng-model="formData.name"
+                        <input type="text" autocomplete="off" class="form-control" id="awardName"
+                            name="awardName" ng-model="formData.awardName"
                             placeholder="请输入奖品名称" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="versionId" class="col-sm-3 control-label">奖品描述：</label>
+                    <div class="col-sm-6">
+                        <input type="text" autocomplete="off" class="form-control" id="awardNameAlias"
+                            name="awardNameAlias" ng-model="formData.awardNameAlias"
+                            placeholder="请输入奖品描述" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 control-label">奖品单价：</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="price" name="price"
-                            ng-model="formData.price" placeholder="请输入奖品单价" />
+                        <input type="text" class="form-control" id="awardValue" name="awardValue"
+                            ng-model="formData.awardValue" placeholder="请输入奖品单价" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">图片名称：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="imageName" name="imageName"
+                            ng-model="formData.imageName" placeholder="请输入奖品名称" />
                     </div>
                 </div>
                  <div class="form-group">
-                    <label class="col-sm-3 control-label">奖品数量：</label>
+                    <label class="col-sm-3 control-label">图片数量：</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="amount" name="amount"
-                            ng-model="formData.amount" placeholder="请输入奖品数量" />
+                        <input type="text" class="form-control" id="imageNumber" name="imageNumber"
+                            ng-model="formData.imageNumber" placeholder="请输入奖品数量" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">奖品序列：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="index" name="index"
+                            ng-model="formData.index" placeholder="请输入序列号" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -87,13 +109,17 @@
                         <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1">奖品名称</th>
                         <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">奖品总数</th>
+                            aria-controls="datatable1" rowspan="1" colspan="1">奖品描述</th>
+                         <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">奖品单价</th>
                         <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">奖品总价</th>
+                            aria-controls="datatable1" rowspan="1" colspan="1">图片名称</th>
+                    
                         <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">已中奖人数</th>
-                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">剩余奖品数量</th>
+                            aria-controls="datatable1" rowspan="1" colspan="1">图片数量</th>
+                         <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">奖品序列</th>
+                        
                         <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1">修改</th>
                         <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
@@ -103,11 +129,12 @@
                 <tbody role="alert" aria-live="polite" aria-relevant="all">
                     <tr ng-repeat="prize in newPrizeList">
                         <td class="col-sm-1">{{$index+1}}</td>
-                        <td class="col-sm-1">{{prize.name}}</td>
-                        <td class="col-sm-1">{{prize.amount}}</td>
-                        <td class="col-sm-1">{{prize.price*prize.amount}}</td>
-                        <td class="col-sm-1">{{prize.winningNumber}}</td>
-                        <td class="col-sm-1">{{prize.amount-prize.winningNumber}}</td>                  
+                        <td class="col-sm-1">{{prize.awardName}}</td>
+                        <td class="col-sm-1">{{prize.awardNameAlias}}</td>
+                        <td class="col-sm-1">{{prize.awardValue}}</td>
+                        <td class="col-sm-1">{{prize.imageName}}</td>
+                        <td class="col-sm-1">{{prize.imageNumber}}</td>    
+                        <td class="col-sm-1">{{prize.index}}</td>               
                         <td class="col-sm-1 text-center">
                             <div>
                                 <button type="button" class="btn btn-warning btn-sm"

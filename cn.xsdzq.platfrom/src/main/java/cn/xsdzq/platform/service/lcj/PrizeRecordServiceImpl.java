@@ -6,12 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.xsdzq.platform.dao.lcj.MyPrizeRecordRepository;
 import cn.xsdzq.platform.dao.lcj.PrizeResultRepository;
+import cn.xsdzq.platform.entity.lcj.AwardResultEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeResultEntity;
 
 @Service(value = "prizeRecordServiceImpl")
@@ -233,5 +233,21 @@ public class PrizeRecordServiceImpl implements PrizeRecordService{
 	public int countByRecordTimeLessThanEqualAndPrizeEntity_nameAndUserEntity_clientId(Date endDate, String PrizeEntity_name, String UserEntity_clientId) {
 		// TODO Auto-generated method stub
 		return myPrizeRecordRepository.countByRecordTimeLessThanEqualAndPrizeEntity_nameAndUserEntity_clientId(endDate, PrizeEntity_name, UserEntity_clientId);
+	}
+	
+	@Override
+	public List<PrizeResultEntity> findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndUserEntity_clientIdOrderByRecordTime(
+			Date beginDate, Date endDate, String UserEntity_clientId, int pageNumber, int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageable = new PageRequest(pageNumber, pageSize);
+		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndUserEntity_clientIdOrderByRecordTimeDesc(beginDate,endDate, UserEntity_clientId, pageable);
+		List<PrizeResultEntity> infos = pages.getContent();
+		return infos;
+	}
+	@Override
+	public int countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndUserEntity_clientId(Date beginDate,
+			Date endDate, String UserEntity_clientId) {
+		// TODO Auto-generated method stub
+		return myPrizeRecordRepository.countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndUserEntity_clientId(beginDate, endDate, UserEntity_clientId);
 	}
 }

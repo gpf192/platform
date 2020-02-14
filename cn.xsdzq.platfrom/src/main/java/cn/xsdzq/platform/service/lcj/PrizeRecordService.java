@@ -3,10 +3,6 @@ package cn.xsdzq.platform.service.lcj;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
-import cn.xsdzq.platform.entity.lcj.PrizeResultEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeResultEntity;
 
 public interface PrizeRecordService {
@@ -55,5 +51,8 @@ public interface PrizeRecordService {
 	
 	List<PrizeResultEntity> findByRecordTimeLessThanEqualAndPrizeEntity_nameAndUserEntity_clientIdOrderByRecordTime(Date endDate,  String PrizeEntity_name, String UserEntity_clientId, int pageNumber, int pageSize);
 	int countByRecordTimeLessThanEqualAndPrizeEntity_nameAndUserEntity_clientId(Date endDate,  String PrizeEntity_name, String UserEntity_clientId);
+	
+	List<PrizeResultEntity> findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndUserEntity_clientIdOrderByRecordTime(Date beginDate, Date endDate, String UserEntity_clientId, int pageNumber, int pageSize);
+	int countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndUserEntity_clientId(Date beginDate, Date endDate, String UserEntity_clientId);
 	
 }

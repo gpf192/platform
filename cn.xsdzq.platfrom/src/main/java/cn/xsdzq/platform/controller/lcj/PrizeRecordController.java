@@ -140,7 +140,13 @@ public class PrizeRecordController {
 			entitys = prizeRecordService.findByRecordTimeLessThanEqualAndPrizeEntity_nameAndUserEntity_clientIdOrderByRecordTime(endDate, prizeName, clientId, pageNumber, pageSize);
 			sum = prizeRecordService.countByRecordTimeLessThanEqualAndPrizeEntity_nameAndUserEntity_clientId(endDate, prizeName, clientId);
 		}		
-
+		if(num == 16) {
+			//查询条件 开始时间、 结束时间、 奖品名称
+			endDate = DateUtil.stringToDateAndSeconds(endTime);
+			beginDate = DateUtil.stringToDate(beginTime);
+			entitys = prizeRecordService.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndUserEntity_clientIdOrderByRecordTime(beginDate,endDate, clientId,pageNumber, pageSize);
+			sum = prizeRecordService.countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndUserEntity_clientId(beginDate,endDate, clientId);
+		}	
 					
 		List<PrizeRecordDTO> prizeRecordDTOs = new ArrayList<PrizeRecordDTO>();
 		for (PrizeResultEntity entity : entitys) {

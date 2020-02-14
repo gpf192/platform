@@ -10,11 +10,11 @@ function awardListController($scope, $http, $state, httpUtils, layerUtils, utils
 		var data = {
 				"one" : {
 					name : "转盘中奖管理",
-					goto:"turntablePrizeList"
+					goto:"turntableAwardList"
 				},
 				"two" : {
 					name : "转盘奖品查询",
-					goto:"turntablePrizeList"
+					goto:"turntableAwardList"
 
 				}
 			}
@@ -27,7 +27,7 @@ function awardListController($scope, $http, $state, httpUtils, layerUtils, utils
 	
 	$scope.getPrizeList = function() {
 		//1.请求存在的奖品列表
-		var url = httpUtils.url.turntablePrizeList;
+		var url = httpUtils.url.turntableAwardList;
 		$http.get(url, {}).success(function(data) {
 			if (data.resCode == 0) {
 					if(!utils.isEmpty(data.result)) {
@@ -44,45 +44,47 @@ function awardListController($scope, $http, $state, httpUtils, layerUtils, utils
 
 	//添加和修改逻辑
 	$scope.newBuild = function() {
-		if(utils.isEmpty($scope.formData.name)||utils.isEmpty($scope.formData.amount)) {
+		if(utils.isEmpty($scope.formData.awardName)||utils.isEmpty($scope.formData.awardValue)) {
 			layerUtils.iMsg(-1,"参数未填写!");
 			return;
 		}
 		if($scope.isModify) {
 			var childPrize = $scope.newPrizeList[modifyIndex];
-			var url = httpUtils.url.modifyPrize;
-			var newProduct = {id:childPrize.id,name:$scope.formData.name,amount:$scope.formData.amount,price:$scope.formData.price,rate:$scope.formData.rate};
+			var url = httpUtils.url.modifyAward;
+			var newProduct = {id:childPrize.id,awardName:$scope.formData.awardName,awardNameAlias:$scope.formData.awardNameAlias,awardValue:$scope.formData.awardValue,imageName:$scope.formData.imageName,imageNumber:$scope.formData.imageNumber,index:$scope.formData.index};
 			$http.post(url,newProduct).success(function(data) {
 				if (data.resCode == 0) {
 					$scope.isModify = false;
 					angular.element('#newBuild').text('确认新增');
-					childPrize.name = $scope.formData.name;
-					childPrize.price = $scope.formData.price;
-					childPrize.amount = $scope.formData.amount;
-					childPrize.rate = $scope.formData.rate;
+					childPrize.awardName = $scope.formData.awardName;
+					childPrize.awardNameAlias = $scope.formData.awardNameAlias;
+					childPrize.awardValue = $scope.formData.awardValue;
+					childPrize.imageName = $scope.formData.imageName;
+					childPrize.imageNumber = $scope.formData.imageNumber;
+					childPrize.index = $scope.formData.index;
 					layerUtils.iMsg(-1,"修改成功");
-					$scope.formData.name="";
-					$scope.formData.price="";
-					$scope.formData.amount="";
-					$scope.formData.rate="";
+					$scope.formData.awardName="";
+					$scope.formData.awardNameAlias="";
+					$scope.formData.awardValue="";
+					$scope.formData.imageName="";
+					$scope.formData.imageNumber="";
+					$scope.formData.index="";
 				}
 			});
 		}else {
-			//2.新建奖品 查看目前是否已经满足了八个产品
-			if($scope.newPrizeList.length == 8) {
-				//如果满足的话就不让添加
-				layerUtils.iMsg(-1,"奖品已满足8个");
-			}else {
+			
 				//如果不满足的话就让添加并且更新列表 
-				var newProduct = {name:$scope.formData.name,amount:$scope.formData.amount,price:$scope.formData.price,rate:$scope.formData.rate};
+				var newProduct = {awardName:$scope.formData.awardName,awardNameAlias:$scope.formData.awardNameAlias,awardValue:$scope.formData.awardValue,imageName:$scope.formData.imageName,imageNumber:$scope.formData.imageNumber,index:$scope.formData.index};
 				$scope.newPrizeList.push(newProduct);
 				console.log("newPrizeList="+angular.toJson($scope.newPrizeList));
 				console.log("customaryPrizeList="+angular.toJson(customaryPrizeList));
-				$scope.formData.name="";
-				$scope.formData.price="";
-				$scope.formData.amount="";
-				$scope.formData.rate="";
-			}	
+				$scope.formData.awardName="";
+				$scope.formData.awardNameAlias="";
+				$scope.formData.awardValue="";
+				$scope.formData.imageName="";
+				$scope.formData.imageNumber="";
+				$scope.formData.index="";
+			
 		}
 		
 	}
@@ -95,7 +97,7 @@ function awardListController($scope, $http, $state, httpUtils, layerUtils, utils
 			return;
 		}
 		//判断是否满足8个产品
-		if($scope.newPrizeList.length >= 8) {
+		
 			//如果满足8个产品
 			//比较现在修改过的对象和原来的对象是否一致
 			if(angular.toJson(customaryPrizeList) == angular.toJson($scope.newPrizeList)) {
@@ -105,7 +107,7 @@ function awardListController($scope, $http, $state, httpUtils, layerUtils, utils
 				layerUtils.iMsg(-1,"奖品没有更新");
 			}else {
 				//如果不一致提交更新
-				var url = httpUtils.url.addPrize;
+				var url = httpUtils.url.addAward;
 				$http.post(url,{batchPrizeJson:angular.toJson($scope.newPrizeList)}).success(function(data) {
 					if (data.resCode == 0) {
 						layerUtils.iMsg(-1,"奖品添加成功");
@@ -114,11 +116,7 @@ function awardListController($scope, $http, $state, httpUtils, layerUtils, utils
 				});
 
 			}
-		}else {
-			//如果不满足8个产品
-			//提示奖品必须有8个
-			layerUtils.iMsg(-1,"奖品不满足8个");
-		}
+		
 	}
 	
 
@@ -146,7 +144,7 @@ function awardListController($scope, $http, $state, httpUtils, layerUtils, utils
 		//删除功能 新的奖品列表对象 删除纪录
 		//删除一个元素
 		layerUtils.iConfirm("是否需要删除奖品", function() {
-			var url = httpUtils.url.deletePrize;
+			var url = httpUtils.url.deleteAward;
 			var prize=$scope.newPrizeList[index];
 			$http.post(url, prize).success(function(data) {
 				if (data.resCode == 0) {
@@ -165,10 +163,12 @@ function awardListController($scope, $http, $state, httpUtils, layerUtils, utils
 		if($scope.isModify) {
 			$scope.isModify = false;
 			angular.element('#newBuild').text('确认新增');
-			$scope.formData.name="";
-			$scope.formData.price="";
-			$scope.formData.amount="";
-			$scope.formData.rate="";
+			$scope.formData.awardName="";
+			$scope.formData.awardNameAlias="";
+			$scope.formData.awardValue="";
+			$scope.formData.imageName="";
+			$scope.formData.imageNumber="";
+			$scope.formData.index="";
 		}
 	}
 	
