@@ -166,8 +166,8 @@ public class FrontController {
 		logger.info(" post kechuang 科创版用户预约 ， name: "+name+",phone: "+phone);
 		if(name != null && phone != null) {
 			CustomerMobileEntity user = new CustomerMobileEntity();
-			user.setName(name);
-			user.setPhone(phone);
+			//user.setName(name);
+			//user.setPhone(phone);
 			customerKCService.addKCInfo(user);
 			return GsonUtil.buildMap(0, "ok", null);
 		}
@@ -190,8 +190,8 @@ public class FrontController {
 		logger.info(" kechuang 科创版用户预约 ， name: "+name+",phone: "+phone);
 		if(name != null && phone != null) {
 			CustomerMobileEntity user = new CustomerMobileEntity();
-			user.setName(name);
-			user.setPhone(phone);
+			//user.setName(name);
+			//user.setPhone(phone);
 			customerKCService.addKCInfo(user);
 			return GsonUtil.buildMap(0, "ok", null);
 		}
