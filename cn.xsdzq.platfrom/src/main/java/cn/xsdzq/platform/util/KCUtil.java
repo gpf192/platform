@@ -10,6 +10,7 @@ public class KCUtil {
 		dto.setName(entity.getUserEntity().getClientName());
 		dto.setClientId(entity.getUserEntity().getClientId());
 		dto.setPhone(entity.getUserEntity().getMobile());
+		dto.setPageEventId(entity.getPageEventId());
 		try {
 			dto.setCreatetime(DateUtil.DateToString(entity.getRecordTime()));		
 		} catch (Exception e) {

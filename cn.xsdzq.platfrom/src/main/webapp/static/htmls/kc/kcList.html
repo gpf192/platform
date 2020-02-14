@@ -78,6 +78,8 @@
 						<!-- <th class="col-sm-1 text-center"><input type="checkbox" ng-click="selectAll($event)" ng-checked="isSelectedAll()" /></th> -->				
 						<th class="col-sm-1 text-center">序号</th>		
 						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">预约内容</div></th>
+						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">姓名</div></th>
 						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">客户号</div></th>
@@ -93,6 +95,7 @@
 					<!-- 	 <td >
 							<input type="checkbox" name="selected" ng-checked="isSelected(info.id)" ng-click="updateSelection($event,info.id)" /></td>  -->	
 						<td >{{$index+selectNum["num"]*currentPage.page+1}}</td>
+						<td ><div style="white-space:nowrap;">{{info.pageEventId==1?"两融":"期权"}}</div></td>
 						<td ><div style="white-space:nowrap;">{{info.name}}</div></td>
 						<td ><div style="white-space:nowrap;">{{info.clientId}}</div></td>
 						<td ><div style="white-space:nowrap;">{{info.phone}}</div> </td>
