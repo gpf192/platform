@@ -109,7 +109,9 @@ function awardResultListController($scope, $http, $state, httpUtils, layerUtils,
 				newObj["用户姓名"] = 	data.username;
 				newObj["用户客户号"] = 	data.clientId;
 				newObj["组合奖名称"] = 	data.prizeName;
+				newObj["数量"] = 	data.awardNum;
 				newObj["兑奖时间"] = 	data.createtime;
+				newObj["营业部"] = 	data.departName;
 				
 			}
 			arr.push(newObj);

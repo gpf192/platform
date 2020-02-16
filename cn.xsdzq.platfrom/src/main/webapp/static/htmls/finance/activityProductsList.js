@@ -175,7 +175,7 @@ function activityProductsListController($scope, $http, $state, $stateParams, $gr
 				newObj["产品类型"] = 	data.type;
 				newObj["起购金额"] = 	data.initial_amount;
 				newObj["优惠信息"] = 	data.preferentialInfo;
-				newObj["转化系数"] = 	data.coefficient;
+				/*newObj["转化系数"] = 	data.coefficient;*/
 				newObj["是否为场外基金"] = 	data.flag;
 				newObj["是否扫描场内交易"] = 	data.scanFlag;
 				newObj["开放时间"] = 	data.begin_date;

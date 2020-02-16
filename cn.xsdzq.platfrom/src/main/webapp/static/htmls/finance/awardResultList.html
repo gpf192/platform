@@ -97,8 +97,12 @@
                             aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">兑奖用户客户号</div></th>
                         <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">奖品名称</div></th>
+                            <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">数量</div></th>
                         <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">兑奖时间</div></th>
+                           <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">营业部</div></th>
                     </tr>
                 </thead>
                 <tbody role="alert" aria-live="polite" aria-relevant="all">
@@ -107,7 +111,9 @@
                         <td ><div style="white-space:nowrap;" >{{prize.username}}</div> </td> 
                         <td ><div style="white-space:nowrap;">{{prize.clientId}}</div> </td>
                         <td ><div style="white-space:nowrap;">{{prize.prizeName}}</div> </td>
+                        <td ><div style="white-space:nowrap;">{{prize.awardNum}}</div> </td>
                          <td ><div style="white-space:nowrap;">{{prize.createtime}}</div> </td>
+                         <td ><div style="white-space:nowrap;">{{prize.departName}}</div> </td>
                     </tr>
                 </tbody>
                 <tfoot>

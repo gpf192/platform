@@ -8,8 +8,11 @@ public class AwardResultdDTO {
 	private String clientId;
 	
 	private String prizeName;
+	private Integer awardNum;
+
 	
 	private String createtime;
+	private String departName;
 
 	
 
@@ -18,14 +21,20 @@ public class AwardResultdDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public AwardResultdDTO(long id, String username, String clientId, String prizeName, String createtime) {
+	
+
+	public AwardResultdDTO(long id, String username, String clientId, String prizeName, Integer awardNum,
+			String createtime) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.clientId = clientId;
 		this.prizeName = prizeName;
+		this.awardNum = awardNum;
 		this.createtime = createtime;
 	}
+
+
 
 	public long getId() {
 		return id;
@@ -68,6 +77,26 @@ public class AwardResultdDTO {
 	public void setCreatetime(String createtime) {
 		this.createtime = createtime;
 	}
+
+	public Integer getAwardNum() {
+		return awardNum;
+	}
+
+	public void setAwardNum(Integer awardNum) {
+		this.awardNum = awardNum;
+	}
+
+	public String getDepartName() {
+		return departName;
+	}
+
+
+
+	public void setDepartName(String departName) {
+		this.departName = departName;
+	}
+
+
 
 	@Override
 	public String toString() {

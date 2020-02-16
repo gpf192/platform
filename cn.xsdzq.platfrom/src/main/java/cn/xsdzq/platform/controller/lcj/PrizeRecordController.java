@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.xsdzq.platform.entity.lcj.PrizeResultEntity;
+import cn.xsdzq.platform.entity.lcj.PrizeResultViewEntity;
 import cn.xsdzq.platform.model.Pagination;
 import cn.xsdzq.platform.model.lcj.PrizeRecordDTO;
 import cn.xsdzq.platform.service.lcj.PrizeRecordService;
@@ -46,7 +47,7 @@ public class PrizeRecordController {
 		Date beginDate = null;
 		
 		int sum = 0 ;
-		List<PrizeResultEntity> entitys = null;
+		List<PrizeResultViewEntity> entitys = null;
 		int num = MethodUtil.getPrizeRecordMethodNum(beginTime, endTime, prizeName, clientId);
 		if(num == 1) {
 			//全量查找
@@ -58,8 +59,8 @@ public class PrizeRecordController {
 			//四个条件一起查询
 			endDate = DateUtil.stringToDateAndSeconds(endTime);
 			beginDate = DateUtil.stringToDate(beginTime);
-			entitys = prizeRecordService.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeEntity_nameAndUserEntity_clientIdOrderByRecordTime(beginDate, endDate, prizeName, clientId, pageNumber, pageSize);
-			sum = prizeRecordService.countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeEntity_nameAndUserEntity_clientId(beginDate, endDate, prizeName, clientId);
+			entitys = prizeRecordService.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeCodeAndClientIdOrderByRecordTime(beginDate, endDate, prizeName, clientId, pageNumber, pageSize);
+			sum = prizeRecordService.countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeCodeAndClientId(beginDate, endDate, prizeName, clientId);
 		}		
 		if(num == 3) {
 			//查询条件  大于开始时间
@@ -75,13 +76,13 @@ public class PrizeRecordController {
 		}	
 		if(num == 5) {
 			//查询条件  奖品名称
-			entitys = prizeRecordService.findByPrizeEntity_nameOrderByRecordTime(prizeName, pageNumber, pageSize);
-			sum = prizeRecordService.countByPrizeEntity_name(prizeName);
+			entitys = prizeRecordService.findByPrizeCodeOrderByRecordTime(prizeName, pageNumber, pageSize);
+			sum = prizeRecordService.countByPrizeCode(prizeName);
 		}
 		if(num == 6) {
 			//查询条件  资金账号
-			entitys = prizeRecordService.findByUserEntity_clientIdOrderByRecordTime(clientId, pageNumber, pageSize);
-			sum = prizeRecordService.countByUserEntity_clientId(clientId);
+			entitys = prizeRecordService.findByClientIdOrderByRecordTime(clientId, pageNumber, pageSize);
+			sum = prizeRecordService.countByClientId(clientId);
 		}		
 		if(num == 7) {
 			//查询条件  大于开始时间、小于结束时间
@@ -93,63 +94,63 @@ public class PrizeRecordController {
 		if(num == 8) {
 			//查询条件  大于开始时间、奖品名称
 			beginDate = DateUtil.stringToDate(beginTime);
-			entitys = prizeRecordService.findByRecordTimeGreaterThanEqualAndPrizeEntity_nameOrderByRecordTime(beginDate, prizeName, pageNumber, pageSize);
-			sum = prizeRecordService.countByRecordTimeGreaterThanEqualAndPrizeEntity_name(beginDate, prizeName);
+			entitys = prizeRecordService.findByRecordTimeGreaterThanEqualAndPrizeCodeOrderByRecordTime(beginDate, prizeName, pageNumber, pageSize);
+			sum = prizeRecordService.countByRecordTimeGreaterThanEqualAndPrizeCode(beginDate, prizeName);
 		}		
 		if(num == 9) {
 			//查询条件  大于开始时间、资金账号
 			beginDate = DateUtil.stringToDate(beginTime);
-			entitys = prizeRecordService.findByRecordTimeGreaterThanEqualAndUserEntity_clientIdOrderByRecordTime(beginDate, clientId, pageNumber, pageSize);
-			sum = prizeRecordService.countByRecordTimeGreaterThanEqualAndUserEntity_clientId(beginDate, clientId);
+			entitys = prizeRecordService.findByRecordTimeGreaterThanEqualAndClientIdOrderByRecordTime(beginDate, clientId, pageNumber, pageSize);
+			sum = prizeRecordService.countByRecordTimeGreaterThanEqualAndClientId(beginDate, clientId);
 		}
 		if(num == 10) {
 			//查询条件  小于结束时间、奖品名称
 			endDate = DateUtil.stringToDateAndSeconds(endTime);
-			entitys = prizeRecordService.findByRecordTimeLessThanEqualAndPrizeEntity_nameOrderByRecordTime(endDate, prizeName, pageNumber, pageSize);
-			sum = prizeRecordService.countByRecordTimeLessThanEqualAndPrizeEntity_name(endDate, prizeName);
+			entitys = prizeRecordService.findByRecordTimeLessThanEqualAndPrizeCodeOrderByRecordTime(endDate, prizeName, pageNumber, pageSize);
+			sum = prizeRecordService.countByRecordTimeLessThanEqualAndPrizeCode(endDate, prizeName);
 		}		
 		if(num == 11) {
 			//查询条件    小于结束时间、资金账号
 			endDate = DateUtil.stringToDateAndSeconds(endTime);
-			entitys = prizeRecordService.findByRecordTimeLessThanEqualAndUserEntity_clientIdOrderByRecordTime(endDate, clientId, pageNumber, pageSize);
-			sum = prizeRecordService.countByRecordTimeLessThanEqualAndUserEntity_clientId(endDate, clientId);
+			entitys = prizeRecordService.findByRecordTimeLessThanEqualAndClientIdOrderByRecordTime(endDate, clientId, pageNumber, pageSize);
+			sum = prizeRecordService.countByRecordTimeLessThanEqualAndClientId(endDate, clientId);
 		}		
 		if(num == 12) {
 			//查询条件 奖品名称、资金账号
-			entitys = prizeRecordService.findByPrizeEntity_nameAndUserEntity_clientIdOrderByRecordTime(prizeName, clientId,pageNumber, pageSize);
-			sum = prizeRecordService.countByPrizeEntity_nameAndUserEntity_clientId(prizeName, clientId);
+			entitys = prizeRecordService.findByPrizeCodeAndClientIdOrderByRecordTime(prizeName, clientId,pageNumber, pageSize);
+			sum = prizeRecordService.countByPrizeCodeAndClientId(prizeName, clientId);
 		}
 		if(num == 13) {
 			//查询条件 开始时间、 结束时间、 奖品名称
 			endDate = DateUtil.stringToDateAndSeconds(endTime);
 			beginDate = DateUtil.stringToDate(beginTime);
-			entitys = prizeRecordService.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeEntity_nameOrderByRecordTime(beginDate,endDate, prizeName,pageNumber, pageSize);
-			sum = prizeRecordService.countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeEntity_name(beginDate,endDate, prizeName);
+			entitys = prizeRecordService.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeCodeOrderByRecordTime(beginDate,endDate, prizeName,pageNumber, pageSize);
+			sum = prizeRecordService.countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeCode(beginDate,endDate, prizeName);
 		}		
 		if(num == 14) {
 			//查询条件  开始时间、 奖品名称、资金账号
 		
 			beginDate = DateUtil.stringToDate(beginTime);
-			entitys = prizeRecordService.findByRecordTimeGreaterThanEqualAndPrizeEntity_nameAndUserEntity_clientIdOrderByRecordTime(beginDate, prizeName, clientId,pageNumber, pageSize);
-			sum = prizeRecordService.countByRecordTimeGreaterThanEqualAndPrizeEntity_nameAndUserEntity_clientId(beginDate, prizeName, clientId);
+			entitys = prizeRecordService.findByRecordTimeGreaterThanEqualAndPrizeCodeAndClientIdOrderByRecordTime(beginDate, prizeName, clientId,pageNumber, pageSize);
+			sum = prizeRecordService.countByRecordTimeGreaterThanEqualAndPrizeCodeAndClientId(beginDate, prizeName, clientId);
 		}
 		if(num == 15) {
 			//查询条件 结束时间、 奖品名称、资金账号
 			endDate = DateUtil.stringToDateAndSeconds(endTime);
 			beginDate = DateUtil.stringToDate(beginTime);
-			entitys = prizeRecordService.findByRecordTimeLessThanEqualAndPrizeEntity_nameAndUserEntity_clientIdOrderByRecordTime(endDate, prizeName, clientId, pageNumber, pageSize);
-			sum = prizeRecordService.countByRecordTimeLessThanEqualAndPrizeEntity_nameAndUserEntity_clientId(endDate, prizeName, clientId);
+			entitys = prizeRecordService.findByRecordTimeLessThanEqualAndPrizeCodeAndClientIdOrderByRecordTime(endDate, prizeName, clientId, pageNumber, pageSize);
+			sum = prizeRecordService.countByRecordTimeLessThanEqualAndPrizeCodeAndClientId(endDate, prizeName, clientId);
 		}		
 		if(num == 16) {
 			//查询条件 开始时间、 结束时间、 奖品名称
 			endDate = DateUtil.stringToDateAndSeconds(endTime);
 			beginDate = DateUtil.stringToDate(beginTime);
-			entitys = prizeRecordService.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndUserEntity_clientIdOrderByRecordTime(beginDate,endDate, clientId,pageNumber, pageSize);
-			sum = prizeRecordService.countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndUserEntity_clientId(beginDate,endDate, clientId);
+			entitys = prizeRecordService.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndClientIdOrderByRecordTime(beginDate,endDate, clientId,pageNumber, pageSize);
+			sum = prizeRecordService.countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndClientId(beginDate,endDate, clientId);
 		}	
 					
 		List<PrizeRecordDTO> prizeRecordDTOs = new ArrayList<PrizeRecordDTO>();
-		for (PrizeResultEntity entity : entitys) {
+		for (PrizeResultViewEntity entity : entitys) {
 			PrizeRecordDTO dto = LcjUtil.convertPrizeRecordDTOByEntity(entity);
 			prizeRecordDTOs.add(dto);
 		}

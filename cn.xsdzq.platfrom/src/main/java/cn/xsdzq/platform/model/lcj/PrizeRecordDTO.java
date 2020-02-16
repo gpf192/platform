@@ -11,13 +11,19 @@ public class PrizeRecordDTO {
 	
 	private String createtime;
 
-	public PrizeRecordDTO(long id, String username, String clientId, String prizeName, String createtime) {
+	private String departName;
+	private String prizeCode;
+	
+
+	public PrizeRecordDTO(long id, String username, String clientId, String prizeName, String createtime,
+			String departName) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.clientId = clientId;
 		this.prizeName = prizeName;
 		this.createtime = createtime;
+		this.departName = departName;
 	}
 
 	public PrizeRecordDTO() {
@@ -42,6 +48,14 @@ public class PrizeRecordDTO {
 
 
 
+	public String getPrizeCode() {
+		return prizeCode;
+	}
+
+	public void setPrizeCode(String prizeCode) {
+		this.prizeCode = prizeCode;
+	}
+
 	public String getClientId() {
 		return clientId;
 	}
@@ -64,6 +78,14 @@ public class PrizeRecordDTO {
 
 	public void setCreatetime(String createtime) {
 		this.createtime = createtime;
+	}
+
+	public String getDepartName() {
+		return departName;
+	}
+
+	public void setDepartName(String departName) {
+		this.departName = departName;
 	}
 
 	@Override

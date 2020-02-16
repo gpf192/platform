@@ -26,6 +26,7 @@ import com.alibaba.fastjson.JSON;
 import cn.xsdzq.platform.controller.BaseController;
 import cn.xsdzq.platform.entity.lcj.AwardEntity;
 import cn.xsdzq.platform.entity.lcj.AwardResultEntity;
+import cn.xsdzq.platform.entity.lcj.AwardResultViewEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeResultEntity;
 import cn.xsdzq.platform.model.Pagination;
 import cn.xsdzq.platform.model.lcj.AwardDTO;
@@ -126,7 +127,7 @@ public class AwardController extends BaseController {
 		Date beginDate = null;
 		
 		int sum = 0 ;
-		List<AwardResultEntity> entitys = null;
+		List<AwardResultViewEntity> entitys = null;
 		int num = MethodUtil.getAwardResultMethodNum(beginTime, endTime, prizeName, clientId);
 		if(num == 1) {
 			//全量查找
@@ -138,8 +139,8 @@ public class AwardController extends BaseController {
 			//四个条件一起查询
 			endDate = DateUtil.stringToDateAndSeconds(endTime);
 			beginDate = DateUtil.stringToDate(beginTime);
-			entitys = awardResultService.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndAwardEntity_imageNameAndUserEntity_clientIdOrderByRecordTime(beginDate, endDate, prizeName, clientId, pageNumber, pageSize);
-			sum = awardResultService.countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndAwardEntity_imageNameAndUserEntity_clientId(beginDate, endDate, prizeName, clientId);
+			entitys = awardResultService.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeCodeAndClientIdOrderByRecordTime(beginDate, endDate, prizeName, clientId, pageNumber, pageSize);
+			sum = awardResultService.countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeCodeAndClientId(beginDate, endDate, prizeName, clientId);
 		}		
 		if(num == 3) {
 			//查询条件  大于开始时间
@@ -155,13 +156,13 @@ public class AwardController extends BaseController {
 		}	
 		if(num == 5) {
 			//查询条件  奖品名称
-			entitys = awardResultService.findByAwardEntity_imageNameOrderByRecordTime(prizeName, pageNumber, pageSize);
-			sum = awardResultService.countByAwardEntity_imageName(prizeName);
+			entitys = awardResultService.findByPrizeCodeOrderByRecordTime(prizeName, pageNumber, pageSize);
+			sum = awardResultService.countByPrizeCode(prizeName);
 		}
 		if(num == 6) {
 			//查询条件  资金账号
-			entitys = awardResultService.findByUserEntity_clientIdOrderByRecordTime(clientId, pageNumber, pageSize);
-			sum = awardResultService.countByUserEntity_clientId(clientId);
+			entitys = awardResultService.findByClientIdOrderByRecordTime(clientId, pageNumber, pageSize);
+			sum = awardResultService.countByClientId(clientId);
 		}		
 		if(num == 7) {
 			//查询条件  大于开始时间、小于结束时间
@@ -173,63 +174,63 @@ public class AwardController extends BaseController {
 		if(num == 8) {
 			//查询条件  大于开始时间、奖品名称
 			beginDate = DateUtil.stringToDate(beginTime);
-			entitys = awardResultService.findByRecordTimeGreaterThanEqualAndAwardEntity_imageNameOrderByRecordTime(beginDate, prizeName, pageNumber, pageSize);
-			sum = awardResultService.countByRecordTimeGreaterThanEqualAndAwardEntity_imageName(beginDate, prizeName);
+			entitys = awardResultService.findByRecordTimeGreaterThanEqualAndPrizeCodeOrderByRecordTime(beginDate, prizeName, pageNumber, pageSize);
+			sum = awardResultService.countByRecordTimeGreaterThanEqualAndPrizeCode(beginDate, prizeName);
 		}		
 		if(num == 9) {
 			//查询条件  大于开始时间、资金账号
 			beginDate = DateUtil.stringToDate(beginTime);
-			entitys = awardResultService.findByRecordTimeGreaterThanEqualAndUserEntity_clientIdOrderByRecordTime(beginDate, clientId, pageNumber, pageSize);
-			sum = awardResultService.countByRecordTimeGreaterThanEqualAndUserEntity_clientId(beginDate, clientId);
+			entitys = awardResultService.findByRecordTimeGreaterThanEqualAndClientIdOrderByRecordTime(beginDate, clientId, pageNumber, pageSize);
+			sum = awardResultService.countByRecordTimeGreaterThanEqualAndClientId(beginDate, clientId);
 		}
 		if(num == 10) {
 			//查询条件  小于结束时间、奖品名称
 			endDate = DateUtil.stringToDateAndSeconds(endTime);
-			entitys = awardResultService.findByRecordTimeLessThanEqualAndAwardEntity_imageNameOrderByRecordTime(endDate, prizeName, pageNumber, pageSize);
-			sum = awardResultService.countByRecordTimeLessThanEqualAndAwardEntity_imageName(endDate, prizeName);
+			entitys = awardResultService.findByRecordTimeLessThanEqualAndPrizeCodeOrderByRecordTime(endDate, prizeName, pageNumber, pageSize);
+			sum = awardResultService.countByRecordTimeLessThanEqualAndPrizeCode(endDate, prizeName);
 		}		
 		if(num == 11) {
 			//查询条件    小于结束时间、资金账号
 			endDate = DateUtil.stringToDateAndSeconds(endTime);
-			entitys = awardResultService.findByRecordTimeLessThanEqualAndUserEntity_clientIdOrderByRecordTime(endDate, clientId, pageNumber, pageSize);
-			sum = awardResultService.countByRecordTimeLessThanEqualAndUserEntity_clientId(endDate, clientId);
+			entitys = awardResultService.findByRecordTimeLessThanEqualAndClientIdOrderByRecordTime(endDate, clientId, pageNumber, pageSize);
+			sum = awardResultService.countByRecordTimeLessThanEqualAndClientId(endDate, clientId);
 		}		
 		if(num == 12) {
 			//查询条件 奖品名称、资金账号
-			entitys = awardResultService.findByAwardEntity_imageNameAndUserEntity_clientIdOrderByRecordTime(prizeName, clientId,pageNumber, pageSize);
-			sum = awardResultService.countByAwardEntity_imageNameAndUserEntity_clientId(prizeName, clientId);
+			entitys = awardResultService.findByPrizeCodeAndClientIdOrderByRecordTime(prizeName, clientId,pageNumber, pageSize);
+			sum = awardResultService.countByPrizeCodeAndClientId(prizeName, clientId);
 		}
 		if(num == 13) {
 			//查询条件 开始时间、 结束时间、 奖品名称
 			endDate = DateUtil.stringToDateAndSeconds(endTime);
 			beginDate = DateUtil.stringToDate(beginTime);
-			entitys = awardResultService.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndAwardEntity_imageNameOrderByRecordTime(beginDate,endDate, prizeName,pageNumber, pageSize);
-			sum = awardResultService.countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndAwardEntity_imageName(beginDate,endDate, prizeName);
+			entitys = awardResultService.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeCodeOrderByRecordTime(beginDate,endDate, prizeName,pageNumber, pageSize);
+			sum = awardResultService.countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeCode(beginDate,endDate, prizeName);
 		}		
 		if(num == 14) {
 			//查询条件  开始时间、 奖品名称、资金账号
 		
 			beginDate = DateUtil.stringToDate(beginTime);
-			entitys = awardResultService.findByRecordTimeGreaterThanEqualAndAwardEntity_imageNameAndUserEntity_clientIdOrderByRecordTime(beginDate, prizeName, clientId,pageNumber, pageSize);
-			sum = awardResultService.countByRecordTimeGreaterThanEqualAndAwardEntity_imageNameAndUserEntity_clientId(beginDate, prizeName, clientId);
+			entitys = awardResultService.findByRecordTimeGreaterThanEqualAndPrizeCodeAndClientIdOrderByRecordTime(beginDate, prizeName, clientId,pageNumber, pageSize);
+			sum = awardResultService.countByRecordTimeGreaterThanEqualAndPrizeCodeAndClientId(beginDate, prizeName, clientId);
 		}
 		if(num == 15) {
 			//查询条件 结束时间、 奖品名称、资金账号
 			endDate = DateUtil.stringToDateAndSeconds(endTime);
 			beginDate = DateUtil.stringToDate(beginTime);
-			entitys = awardResultService.findByRecordTimeLessThanEqualAndAwardEntity_imageNameAndUserEntity_clientIdOrderByRecordTime(endDate, prizeName, clientId, pageNumber, pageSize);
-			sum = awardResultService.countByRecordTimeLessThanEqualAndAwardEntity_imageNameAndUserEntity_clientId(endDate, prizeName, clientId);
+			entitys = awardResultService.findByRecordTimeLessThanEqualAndPrizeCodeAndClientIdOrderByRecordTime(endDate, prizeName, clientId, pageNumber, pageSize);
+			sum = awardResultService.countByRecordTimeLessThanEqualAndPrizeCodeAndClientId(endDate, prizeName, clientId);
 		}		
 		if(num == 16) {
 			//查询条件 开始时间、 结束时间、 奖品名称
 			endDate = DateUtil.stringToDateAndSeconds(endTime);
 			beginDate = DateUtil.stringToDate(beginTime);
-			entitys = awardResultService.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndUserEntity_clientIdOrderByRecordTime(beginDate,endDate, clientId,pageNumber, pageSize);
-			sum = awardResultService.countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndUserEntity_clientId(beginDate,endDate, clientId);
+			entitys = awardResultService.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndClientIdOrderByRecordTime(beginDate,endDate, clientId,pageNumber, pageSize);
+			sum = awardResultService.countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndClientId(beginDate,endDate, clientId);
 		}	
 					
 		List<AwardResultdDTO> dtos = new ArrayList<AwardResultdDTO>();
-		for (AwardResultEntity entity : entitys) {
+		for (AwardResultViewEntity entity : entitys) {
 			AwardResultdDTO dto = LcjUtil.convertAwardResultDTOByEntity(entity);
 			dtos.add(dto);
 		}

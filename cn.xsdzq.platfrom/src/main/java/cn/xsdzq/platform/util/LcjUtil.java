@@ -2,12 +2,14 @@ package cn.xsdzq.platform.util;
 
 import cn.xsdzq.platform.entity.lcj.AwardEntity;
 import cn.xsdzq.platform.entity.lcj.AwardResultEntity;
+import cn.xsdzq.platform.entity.lcj.AwardResultViewEntity;
 import cn.xsdzq.platform.entity.lcj.DepartmentEntity;
 import cn.xsdzq.platform.entity.lcj.EmpEntity;
 import cn.xsdzq.platform.entity.lcj.EmpTicketEntity;
 import cn.xsdzq.platform.entity.lcj.EmpTicketRecordEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeResultEntity;
+import cn.xsdzq.platform.entity.lcj.PrizeResultViewEntity;
 import cn.xsdzq.platform.entity.lcj.ProductEntity;
 import cn.xsdzq.platform.entity.lcj.ProductSellEntity;
 import cn.xsdzq.platform.entity.lcj.UserTicketRecordEntity;
@@ -52,7 +54,7 @@ public class LcjUtil {
 		entity.setName(dto.getName());		
 		entity.setPrice(dto.getPrice());	
 		entity.setAmount(dto.getAmount());
-		
+		entity.setImage(dto.getImage());
 		try {
 			entity.setCreatetime(DateUtil.stringToDate1(dto.getCreatetime()));
 		} catch (Exception e) {
@@ -62,14 +64,15 @@ public class LcjUtil {
 		return entity;
 	}
 	//中奖纪录
-	public static PrizeRecordDTO convertPrizeRecordDTOByEntity(PrizeResultEntity entity) {		
+	public static PrizeRecordDTO convertPrizeRecordDTOByEntity(PrizeResultViewEntity entity) {		
 		PrizeRecordDTO dto = new PrizeRecordDTO();
 		dto.setId(entity.getId());
-		dto.setUsername(entity.getUserEntity().getClientName());
+		dto.setUsername(entity.getClientName());
 		
-		dto.setClientId(entity.getUserEntity().getClientId());
-		dto.setPrizeName(entity.getPrizeEntity().getName());
-		//dto.setCreatetime(entity.getCreatetime());
+		dto.setClientId(entity.getClientId());
+		dto.setPrizeName(entity.getPrizeName());
+		dto.setDepartName(entity.getDepartName());
+		dto.setPrizeCode(entity.getPrizeCode());
 		try {
 			dto.setCreatetime(DateUtil.DateToString(entity.getRecordTime()));		
 		} catch (Exception e) {
@@ -285,14 +288,15 @@ public class LcjUtil {
 	}
 	
 	//开门红组合奖兑奖记录
-	public static AwardResultdDTO convertAwardResultDTOByEntity(AwardResultEntity entity) {		
+	public static AwardResultdDTO convertAwardResultDTOByEntity(AwardResultViewEntity entity) {		
 		AwardResultdDTO dto = new AwardResultdDTO();
 		dto.setId(entity.getId());
-		dto.setUsername(entity.getUserEntity().getClientName());
+		dto.setUsername(entity.getClientName());
 		
-		dto.setClientId(entity.getUserEntity().getClientId());
-		dto.setPrizeName(entity.getAwardEntity().getAwardName());
-		//dto.setCreatetime(entity.getCreatetime());
+		dto.setClientId(entity.getClientId());
+		dto.setPrizeName(entity.getPrizeName());
+		dto.setAwardNum(entity.getAwardNumber());
+		dto.setDepartName(entity.getDepartName());
 		try {
 			dto.setCreatetime(DateUtil.DateToString(entity.getRecordTime()));		
 		} catch (Exception e) {

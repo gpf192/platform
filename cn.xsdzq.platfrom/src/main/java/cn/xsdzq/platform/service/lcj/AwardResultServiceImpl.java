@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.xsdzq.platform.dao.lcj.AwardResultRepository;
 import cn.xsdzq.platform.entity.lcj.AwardResultEntity;
+import cn.xsdzq.platform.entity.lcj.AwardResultViewEntity;
 
 @Service(value = "awardResultServiceImpl")
 @Transactional(readOnly = true)
@@ -21,11 +22,11 @@ public class AwardResultServiceImpl implements AwardResultService{
 	
 
 	@Override
-	public List<AwardResultEntity> getAllAwardResult(int pageNumber, int pageSize) {
+	public List<AwardResultViewEntity> getAllAwardResult(int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<AwardResultEntity> pages = awardResultRepository.findByOrderByRecordTimeDesc(pageRequest);
-		List<AwardResultEntity> infos = pages.getContent();
+		Page<AwardResultViewEntity> pages = awardResultRepository.findByOrderByRecordTimeDesc(pageRequest);
+		List<AwardResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
@@ -34,26 +35,26 @@ public class AwardResultServiceImpl implements AwardResultService{
 		return (int)awardResultRepository.count();
 	}
 	@Override
-	public List<AwardResultEntity> findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndAwardEntity_imageNameAndUserEntity_clientIdOrderByRecordTime(
-			Date beginDate, Date endDate, String AwardEntity_imageName, String UserEntity_clientId, int pageNumber, int pageSize) {
+	public List<AwardResultViewEntity> findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeCodeAndClientIdOrderByRecordTime(
+			Date beginDate, Date endDate, String prizeName, String ClientId, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<AwardResultEntity> pages = awardResultRepository.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndAwardEntity_imageNameAndUserEntity_clientIdOrderByRecordTimeDesc(beginDate, endDate, AwardEntity_imageName, UserEntity_clientId, pageable);
-		List<AwardResultEntity> infos = pages.getContent();
+		Page<AwardResultViewEntity> pages = awardResultRepository.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeCodeAndClientIdOrderByRecordTimeDesc(beginDate, endDate, prizeName, ClientId, pageable);
+		List<AwardResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
-	public int countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndAwardEntity_imageNameAndUserEntity_clientId(Date beginDate, Date endDate, String AwardEntity_imageName, String UserEntity_clientId) {
+	public int countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeCodeAndClientId(Date beginDate, Date endDate, String prizeName, String ClientId) {
 		// TODO Auto-generated method stub
-		return awardResultRepository.countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndAwardEntity_imageNameAndUserEntity_clientId(beginDate, endDate, AwardEntity_imageName, UserEntity_clientId);
+		return awardResultRepository.countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeCodeAndClientId(beginDate, endDate, prizeName, ClientId);
 	}
 	@Override
-	public List<AwardResultEntity> findByRecordTimeGreaterThanEqualOrderByRecordTime(Date beginDate, int pageNumber,
+	public List<AwardResultViewEntity> findByRecordTimeGreaterThanEqualOrderByRecordTime(Date beginDate, int pageNumber,
 			int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<AwardResultEntity> pages = awardResultRepository.findByRecordTimeGreaterThanEqualOrderByRecordTimeDesc(beginDate, pageable);
-		List<AwardResultEntity> infos = pages.getContent();
+		Page<AwardResultViewEntity> pages = awardResultRepository.findByRecordTimeGreaterThanEqualOrderByRecordTimeDesc(beginDate, pageable);
+		List<AwardResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
@@ -62,12 +63,12 @@ public class AwardResultServiceImpl implements AwardResultService{
 		return awardResultRepository.countByRecordTimeGreaterThanEqual(beginDate);
 	}
 	@Override
-	public List<AwardResultEntity> findByRecordTimeLessThanEqualOrderByRecordTime(Date endDate, int pageNumber,
+	public List<AwardResultViewEntity> findByRecordTimeLessThanEqualOrderByRecordTime(Date endDate, int pageNumber,
 			int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<AwardResultEntity> pages = awardResultRepository.findByRecordTimeLessThanEqualOrderByRecordTimeDesc(endDate, pageable);
-		List<AwardResultEntity> infos = pages.getContent();
+		Page<AwardResultViewEntity> pages = awardResultRepository.findByRecordTimeLessThanEqualOrderByRecordTimeDesc(endDate, pageable);
+		List<AwardResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
@@ -76,38 +77,38 @@ public class AwardResultServiceImpl implements AwardResultService{
 		return awardResultRepository.countByRecordTimeLessThanEqual(endDate);
 	}
 	@Override
-	public List<AwardResultEntity> findByAwardEntity_imageNameOrderByRecordTime(String AwardEntity_imageName, int pageNumber, int pageSize) {
+	public List<AwardResultViewEntity> findByPrizeCodeOrderByRecordTime(String prizeName, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<AwardResultEntity> pages = awardResultRepository.findByAwardEntity_imageNameOrderByRecordTimeDesc(AwardEntity_imageName, pageable);
-		List<AwardResultEntity> infos = pages.getContent();
+		Page<AwardResultViewEntity> pages = awardResultRepository.findByPrizeCodeOrderByRecordTimeDesc(prizeName, pageable);
+		List<AwardResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
-	public int countByAwardEntity_imageName(String AwardEntity_imageName) {
+	public int countByPrizeCode(String prizeName) {
 		// TODO Auto-generated method stub
-		return awardResultRepository.countByAwardEntity_imageName(AwardEntity_imageName);
+		return awardResultRepository.countByPrizeCode(prizeName);
 	}
 	@Override
-	public List<AwardResultEntity> findByUserEntity_clientIdOrderByRecordTime(String UserEntity_clientId, int pageNumber, int pageSize) {
+	public List<AwardResultViewEntity> findByClientIdOrderByRecordTime(String ClientId, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<AwardResultEntity> pages = awardResultRepository.findByUserEntity_clientIdOrderByRecordTimeDesc(UserEntity_clientId, pageable);
-		List<AwardResultEntity> infos = pages.getContent();
+		Page<AwardResultViewEntity> pages = awardResultRepository.findByClientIdOrderByRecordTimeDesc(ClientId, pageable);
+		List<AwardResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
-	public int countByUserEntity_clientId(String UserEntity_clientId) {
+	public int countByClientId(String ClientId) {
 		// TODO Auto-generated method stub
-		return awardResultRepository.countByUserEntity_clientId(UserEntity_clientId);
+		return awardResultRepository.countByClientId(ClientId);
 	}
 	@Override
-	public List<AwardResultEntity> findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualOrderByRecordTime(
+	public List<AwardResultViewEntity> findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualOrderByRecordTime(
 			Date beginDate, Date endDate, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<AwardResultEntity> pages = awardResultRepository.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualOrderByRecordTimeDesc(beginDate, endDate, pageable);
-		List<AwardResultEntity> infos = pages.getContent();
+		Page<AwardResultViewEntity> pages = awardResultRepository.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualOrderByRecordTimeDesc(beginDate, endDate, pageable);
+		List<AwardResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
@@ -116,133 +117,133 @@ public class AwardResultServiceImpl implements AwardResultService{
 		return awardResultRepository.countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqual(beginDate, endDate);
 	}
 	@Override
-	public List<AwardResultEntity> findByRecordTimeGreaterThanEqualAndAwardEntity_imageNameOrderByRecordTime(Date beginDate,
-			String AwardEntity_imageName, int pageNumber, int pageSize) {
+	public List<AwardResultViewEntity> findByRecordTimeGreaterThanEqualAndPrizeCodeOrderByRecordTime(Date beginDate,
+			String prizeName, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<AwardResultEntity> pages = awardResultRepository.findByRecordTimeGreaterThanEqualAndAwardEntity_imageNameOrderByRecordTimeDesc(beginDate, AwardEntity_imageName, pageable);
-		List<AwardResultEntity> infos = pages.getContent();
+		Page<AwardResultViewEntity> pages = awardResultRepository.findByRecordTimeGreaterThanEqualAndPrizeCodeOrderByRecordTimeDesc(beginDate, prizeName, pageable);
+		List<AwardResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
-	public int countByRecordTimeGreaterThanEqualAndAwardEntity_imageName(Date beginDate, String AwardEntity_imageName) {
+	public int countByRecordTimeGreaterThanEqualAndPrizeCode(Date beginDate, String prizeName) {
 		// TODO Auto-generated method stub
-		return awardResultRepository.countByRecordTimeGreaterThanEqualAndAwardEntity_imageName(beginDate, AwardEntity_imageName);
+		return awardResultRepository.countByRecordTimeGreaterThanEqualAndPrizeCode(beginDate, prizeName);
 	}
 	@Override
-	public List<AwardResultEntity> findByRecordTimeGreaterThanEqualAndUserEntity_clientIdOrderByRecordTime(Date beginDate,
-			String UserEntity_clientId, int pageNumber, int pageSize) {
+	public List<AwardResultViewEntity> findByRecordTimeGreaterThanEqualAndClientIdOrderByRecordTime(Date beginDate,
+			String ClientId, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<AwardResultEntity> pages = awardResultRepository.findByRecordTimeGreaterThanEqualAndUserEntity_clientIdOrderByRecordTimeDesc(beginDate, UserEntity_clientId, pageable);
-		List<AwardResultEntity> infos = pages.getContent();
+		Page<AwardResultViewEntity> pages = awardResultRepository.findByRecordTimeGreaterThanEqualAndClientIdOrderByRecordTimeDesc(beginDate, ClientId, pageable);
+		List<AwardResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
-	public int countByRecordTimeGreaterThanEqualAndUserEntity_clientId(Date beginDate, String UserEntity_clientId) {
+	public int countByRecordTimeGreaterThanEqualAndClientId(Date beginDate, String ClientId) {
 		// TODO Auto-generated method stub
-		return awardResultRepository.countByRecordTimeGreaterThanEqualAndUserEntity_clientId(beginDate, UserEntity_clientId);
+		return awardResultRepository.countByRecordTimeGreaterThanEqualAndClientId(beginDate, ClientId);
 	}
 	@Override
-	public List<AwardResultEntity> findByRecordTimeLessThanEqualAndAwardEntity_imageNameOrderByRecordTime(Date endDate,
-			String AwardEntity_imageName, int pageNumber, int pageSize) {
+	public List<AwardResultViewEntity> findByRecordTimeLessThanEqualAndPrizeCodeOrderByRecordTime(Date endDate,
+			String prizeName, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<AwardResultEntity> pages = awardResultRepository.findByRecordTimeLessThanEqualAndAwardEntity_imageNameOrderByRecordTimeDesc(endDate, AwardEntity_imageName, pageable);
-		List<AwardResultEntity> infos = pages.getContent();
+		Page<AwardResultViewEntity> pages = awardResultRepository.findByRecordTimeLessThanEqualAndPrizeCodeOrderByRecordTimeDesc(endDate, prizeName, pageable);
+		List<AwardResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
-	public int countByRecordTimeLessThanEqualAndAwardEntity_imageName(Date endDate, String AwardEntity_imageName) {
+	public int countByRecordTimeLessThanEqualAndPrizeCode(Date endDate, String prizeName) {
 		// TODO Auto-generated method stub
-		return awardResultRepository.countByRecordTimeLessThanEqualAndAwardEntity_imageName(endDate, AwardEntity_imageName);
+		return awardResultRepository.countByRecordTimeLessThanEqualAndPrizeCode(endDate, prizeName);
 	}
 	@Override
-	public List<AwardResultEntity> findByRecordTimeLessThanEqualAndUserEntity_clientIdOrderByRecordTime(Date endDate,
-			String UserEntity_clientId, int pageNumber, int pageSize) {
+	public List<AwardResultViewEntity> findByRecordTimeLessThanEqualAndClientIdOrderByRecordTime(Date endDate,
+			String ClientId, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<AwardResultEntity> pages = awardResultRepository.findByRecordTimeLessThanEqualAndUserEntity_clientIdOrderByRecordTimeDesc(endDate, UserEntity_clientId, pageable);
-		List<AwardResultEntity> infos = pages.getContent();
+		Page<AwardResultViewEntity> pages = awardResultRepository.findByRecordTimeLessThanEqualAndClientIdOrderByRecordTimeDesc(endDate, ClientId, pageable);
+		List<AwardResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
-	public int countByRecordTimeLessThanEqualAndUserEntity_clientId(Date endDate, String UserEntity_clientId) {
+	public int countByRecordTimeLessThanEqualAndClientId(Date endDate, String ClientId) {
 		// TODO Auto-generated method stub
-		return awardResultRepository.countByRecordTimeLessThanEqualAndUserEntity_clientId(endDate, UserEntity_clientId);
+		return awardResultRepository.countByRecordTimeLessThanEqualAndClientId(endDate, ClientId);
 	}
 	@Override
-	public List<AwardResultEntity> findByAwardEntity_imageNameAndUserEntity_clientIdOrderByRecordTime(String AwardEntity_imageName, String UserEntity_clientId,
+	public List<AwardResultViewEntity> findByPrizeCodeAndClientIdOrderByRecordTime(String prizeName, String ClientId,
 			int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<AwardResultEntity> pages = awardResultRepository.findByAwardEntity_imageNameAndUserEntity_clientIdOrderByRecordTimeDesc(AwardEntity_imageName, UserEntity_clientId, pageable);
-		List<AwardResultEntity> infos = pages.getContent();
+		Page<AwardResultViewEntity> pages = awardResultRepository.findByPrizeCodeAndClientIdOrderByRecordTimeDesc(prizeName, ClientId, pageable);
+		List<AwardResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
-	public int countByAwardEntity_imageNameAndUserEntity_clientId(String AwardEntity_imageName, String UserEntity_clientId) {
+	public int countByPrizeCodeAndClientId(String prizeName, String ClientId) {
 		// TODO Auto-generated method stub
-		return awardResultRepository.countByAwardEntity_imageNameAndUserEntity_clientId(AwardEntity_imageName, UserEntity_clientId);
+		return awardResultRepository.countByPrizeCodeAndClientId(prizeName, ClientId);
 	}
 	@Override
-	public List<AwardResultEntity> findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndAwardEntity_imageNameOrderByRecordTime(
-			Date beginDate, Date endDate, String AwardEntity_imageName, int pageNumber, int pageSize) {
+	public List<AwardResultViewEntity> findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeCodeOrderByRecordTime(
+			Date beginDate, Date endDate, String prizeName, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<AwardResultEntity> pages = awardResultRepository.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndAwardEntity_imageNameOrderByRecordTimeDesc(beginDate,endDate, AwardEntity_imageName, pageable);
-		List<AwardResultEntity> infos = pages.getContent();
+		Page<AwardResultViewEntity> pages = awardResultRepository.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeCodeOrderByRecordTimeDesc(beginDate,endDate, prizeName, pageable);
+		List<AwardResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
-	public int countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndAwardEntity_imageName(Date beginDate, Date endDate,
-			String AwardEntity_imageName) {
+	public int countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeCode(Date beginDate, Date endDate,
+			String prizeName) {
 		// TODO Auto-generated method stub
-		return awardResultRepository.countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndAwardEntity_imageName(beginDate,endDate, AwardEntity_imageName);
+		return awardResultRepository.countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeCode(beginDate,endDate, prizeName);
 	}
 	@Override
-	public List<AwardResultEntity> findByRecordTimeGreaterThanEqualAndAwardEntity_imageNameAndUserEntity_clientIdOrderByRecordTime(
-			Date beginDate, String AwardEntity_imageName, String UserEntity_clientId, int pageNumber, int pageSize) {
+	public List<AwardResultViewEntity> findByRecordTimeGreaterThanEqualAndPrizeCodeAndClientIdOrderByRecordTime(
+			Date beginDate, String prizeName, String ClientId, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<AwardResultEntity> pages = awardResultRepository.findByRecordTimeGreaterThanEqualAndAwardEntity_imageNameAndUserEntity_clientIdOrderByRecordTimeDesc(beginDate, AwardEntity_imageName, UserEntity_clientId, pageable);
-		List<AwardResultEntity> infos = pages.getContent();
+		Page<AwardResultViewEntity> pages = awardResultRepository.findByRecordTimeGreaterThanEqualAndPrizeCodeAndClientIdOrderByRecordTimeDesc(beginDate, prizeName, ClientId, pageable);
+		List<AwardResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
-	public int countByRecordTimeGreaterThanEqualAndAwardEntity_imageNameAndUserEntity_clientId(Date beginDate, String AwardEntity_imageName,
-			String UserEntity_clientId) {
+	public int countByRecordTimeGreaterThanEqualAndPrizeCodeAndClientId(Date beginDate, String prizeName,
+			String ClientId) {
 		// TODO Auto-generated method stub
-		return awardResultRepository.countByRecordTimeGreaterThanEqualAndAwardEntity_imageNameAndUserEntity_clientId(beginDate, AwardEntity_imageName, UserEntity_clientId);
+		return awardResultRepository.countByRecordTimeGreaterThanEqualAndPrizeCodeAndClientId(beginDate, prizeName, ClientId);
 	}
 	@Override
-	public List<AwardResultEntity> findByRecordTimeLessThanEqualAndAwardEntity_imageNameAndUserEntity_clientIdOrderByRecordTime(Date endDate,
-			String AwardEntity_imageName, String UserEntity_clientId, int pageNumber, int pageSize) {
+	public List<AwardResultViewEntity> findByRecordTimeLessThanEqualAndPrizeCodeAndClientIdOrderByRecordTime(Date endDate,
+			String prizeName, String ClientId, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<AwardResultEntity> pages = awardResultRepository.findByRecordTimeLessThanEqualAndAwardEntity_imageNameAndUserEntity_clientIdOrderByRecordTimeDesc(endDate, AwardEntity_imageName, UserEntity_clientId, pageable);
-		List<AwardResultEntity> infos = pages.getContent();
+		Page<AwardResultViewEntity> pages = awardResultRepository.findByRecordTimeLessThanEqualAndPrizeCodeAndClientIdOrderByRecordTimeDesc(endDate, prizeName, ClientId, pageable);
+		List<AwardResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
-	public int countByRecordTimeLessThanEqualAndAwardEntity_imageNameAndUserEntity_clientId(Date endDate, String AwardEntity_imageName, String UserEntity_clientId) {
+	public int countByRecordTimeLessThanEqualAndPrizeCodeAndClientId(Date endDate, String prizeName, String ClientId) {
 		// TODO Auto-generated method stub
-		return awardResultRepository.countByRecordTimeLessThanEqualAndAwardEntity_imageNameAndUserEntity_clientId(endDate, AwardEntity_imageName, UserEntity_clientId);
+		return awardResultRepository.countByRecordTimeLessThanEqualAndPrizeCodeAndClientId(endDate, prizeName, ClientId);
 	}
 	@Override
-	public List<AwardResultEntity> findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndUserEntity_clientIdOrderByRecordTime(
-			Date beginDate, Date endDate, String UserEntity_clientId, int pageNumber, int pageSize) {
+	public List<AwardResultViewEntity> findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndClientIdOrderByRecordTime(
+			Date beginDate, Date endDate, String ClientId, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<AwardResultEntity> pages = awardResultRepository.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndUserEntity_clientIdOrderByRecordTimeDesc(beginDate,endDate, UserEntity_clientId, pageable);
-		List<AwardResultEntity> infos = pages.getContent();
+		Page<AwardResultViewEntity> pages = awardResultRepository.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndClientIdOrderByRecordTimeDesc(beginDate,endDate, ClientId, pageable);
+		List<AwardResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
-	public int countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndUserEntity_clientId(Date beginDate,
-			Date endDate, String UserEntity_clientId) {
+	public int countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndClientId(Date beginDate,
+			Date endDate, String ClientId) {
 		// TODO Auto-generated method stub
-		return awardResultRepository.countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndUserEntity_clientId(beginDate, endDate, UserEntity_clientId);
+		return awardResultRepository.countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndClientId(beginDate, endDate, ClientId);
 	}
 	
 
