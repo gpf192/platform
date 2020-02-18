@@ -30,6 +30,9 @@ public class PrizeResultEntity implements Serializable {
 
 	@Column(name = "record_time", nullable = false)
 	private Date recordTime;
+	
+	@Column(name = "type", nullable = false)
+	private boolean type; // type 为0 表示减少 为1表示增加
 
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "client_id", referencedColumnName = "client_id")
@@ -70,5 +73,14 @@ public class PrizeResultEntity implements Serializable {
 	public void setPrizeEntity(PrizeEntity prizeEntity) {
 		this.prizeEntity = prizeEntity;
 	}
+
+	public boolean isType() {
+		return type;
+	}
+
+	public void setType(boolean type) {
+		this.type = type;
+	}
+	
 
 }

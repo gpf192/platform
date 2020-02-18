@@ -128,6 +128,11 @@ function awardListController($scope, $http, $state, httpUtils, layerUtils, utils
 			layerUtils.iMsg(-1,"目前在修改状态！");
 			return;
 		}
+		if($scope.newPrizeList[index].imageName!= 'qjfdj' ||$scope.newPrizeList[index].awardName!= '全家福大奖')
+		{
+			layerUtils.iMsg(-1,"非全家福大奖不可修改 ！");
+			return;
+		}
 		modifyIndex = index;
 		$scope.isModify = true;
 		angular.element('#newBuild').text('确认修改');
