@@ -13,6 +13,7 @@ public interface AwardService {
 	void deleteAward(AwardEntity entity);
 
 	void modifyAward(AwardEntity entity);
+	int getAwardResultNumber(AwardEntity awardEntity);
 	
 
 }

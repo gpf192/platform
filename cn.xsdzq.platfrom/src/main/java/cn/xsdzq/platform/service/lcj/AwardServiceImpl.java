@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.xsdzq.platform.dao.lcj.AwardRepository;
+import cn.xsdzq.platform.dao.lcj.MyAwardResultRepository;
 import cn.xsdzq.platform.entity.UserEntity;
 import cn.xsdzq.platform.entity.lcj.AwardEntity;
 import cn.xsdzq.platform.entity.lcj.AwardResultEntity;
@@ -20,7 +21,8 @@ public class AwardServiceImpl implements AwardService{
 	@Autowired
 	private AwardRepository awardRepository;
 	
-
+	@Autowired
+	private MyAwardResultRepository myAwardResultRepository;
 	
 	@Override
 	public List<AwardEntity> getAllAward() {
@@ -54,4 +56,13 @@ public class AwardServiceImpl implements AwardService{
 		awardRepository.modifyAward(info);
 	}
 	
+	@Override
+	public int getAwardResultNumber(AwardEntity awardEntity) {
+		int total = 0;
+		List<AwardResultEntity> awardResultEntities = myAwardResultRepository.findByAwardEntity(awardEntity);
+		for (AwardResultEntity awardResultEntity : awardResultEntities) {
+			total += awardResultEntity.getAwardNumber();
+		}
+		return total;
+	}
 }

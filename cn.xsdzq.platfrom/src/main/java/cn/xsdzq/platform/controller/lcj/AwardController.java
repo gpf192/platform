@@ -79,6 +79,7 @@ public class AwardController extends BaseController {
 		System.out.println("batchPrizeJson: "+jsondto.getBatchPrizeJson());
 		List<AwardDTO> dtoList = JSON.parseArray(jsondto.getBatchPrizeJson(),AwardDTO.class);
 		for(AwardDTO dto : dtoList) {
+		
 			AwardEntity entity = LcjUtil.convertEntityByAwardDTO(dto);
 			awardService.addAward(entity);
 		}
@@ -103,8 +104,21 @@ public class AwardController extends BaseController {
 	@RequestMapping(value = "/modifyAward", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> modifyAward(HttpServletRequest request, @RequestBody AwardDTO dto) {
-		AwardEntity entity = LcjUtil.convertEntityByAwardDTO(dto);	
 		
+		AwardEntity entity = LcjUtil.convertEntityByAwardDTO(dto);	
+		//判断  总数必须大于等于已经兑换的数量
+		if("qjfdj".equals(entity.getImageName())) {
+			int resultNumber = awardService.getAwardResultNumber(entity);//目前已经兑换的全家福奖个数
+			int total = entity.getImageNumber();//修改后的总数
+			
+			int residueNumber = total - resultNumber;
+			if (residueNumber < 0) {
+				String message = dto.getAwardName() + "修改失败！总数必须大于已经兑换的数量";
+				
+				return GsonUtil.buildMap(-1, message, null);			
+				}
+		}
+
 	
 		awardService.modifyAward(entity);
 		User user = UserManageUtil.getUser();

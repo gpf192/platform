@@ -23,7 +23,7 @@
                     <div class="col-sm-6">
                         <input type="text" autocomplete="off" class="form-control" id="awardName"
                             name="awardName" ng-model="formData.awardName"
-                            placeholder="请输入奖品名称" />
+                            placeholder="请输入奖项名称" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -31,14 +31,14 @@
                     <div class="col-sm-6">
                         <input type="text" autocomplete="off" class="form-control" id="awardNameAlias"
                             name="awardNameAlias" ng-model="formData.awardNameAlias"
-                            placeholder="请输入奖品描述" />
+                            placeholder="请输入奖项描述" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 control-label">奖项单价：</label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" id="awardValue" name="awardValue"
-                            ng-model="formData.awardValue" placeholder="请输入奖品单价" />
+                            ng-model="formData.awardValue" placeholder="请输入奖项单价" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -52,7 +52,7 @@
                     <label class="col-sm-3 control-label">奖项数量：</label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" id="imageNumber" name="imageNumber"
-                            ng-model="formData.imageNumber" placeholder="请输入奖品数量" />
+                            ng-model="formData.imageNumber" placeholder="非全家福大奖，可不输入数量" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -133,7 +133,7 @@
                         <td class="col-sm-1">{{prize.awardNameAlias}}</td>
                         <td class="col-sm-1">{{prize.awardValue}}</td>
                         <td class="col-sm-1">{{prize.imageName}}</td>
-                        <td class="col-sm-1">{{prize.imageNumber}}</td>    
+                        <td class="col-sm-1">{{prize.imageName=='qjfdj'?prize.imageNumber:'--'}}</td>    
                         <td class="col-sm-1">{{prize.index}}</td>               
                         <td class="col-sm-1 text-center">
                             <div>

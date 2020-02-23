@@ -70,6 +70,9 @@ function awardListController($scope, $http, $state, httpUtils, layerUtils, utils
 					$scope.formData.imageNumber="";
 					$scope.formData.index="";
 				}
+				if(data.resCode == -1){ 
+					layerUtils.iMsg(-1,data.respMsg);
+				}
 			});
 		}else {
 			
