@@ -60,6 +60,7 @@ ngApp.factory("httpUtils", [ function() {
 		modifyProduct: baseUrl + "product/modifyProduct",
 		deleteProduct : baseUrl + "product/deleteProduct",
 		productsSellList: baseUrl + "product/getProductSell",
+		productsSellCwList: baseUrl + "product/getCwProductSell",
 		
 		participantsList: baseUrl + "emp/getEmp",
 		addEmp: baseUrl + "emp/addEmp",

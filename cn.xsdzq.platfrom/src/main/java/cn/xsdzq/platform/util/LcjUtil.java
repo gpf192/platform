@@ -3,6 +3,7 @@ package cn.xsdzq.platform.util;
 import cn.xsdzq.platform.entity.lcj.AwardEntity;
 import cn.xsdzq.platform.entity.lcj.AwardResultEntity;
 import cn.xsdzq.platform.entity.lcj.AwardResultViewEntity;
+import cn.xsdzq.platform.entity.lcj.CwSellViewEntity;
 import cn.xsdzq.platform.entity.lcj.DepartmentEntity;
 import cn.xsdzq.platform.entity.lcj.EmpEntity;
 import cn.xsdzq.platform.entity.lcj.EmpTicketEntity;
@@ -127,8 +128,29 @@ public class LcjUtil {
 		entity.setScanFlag(dto.getScanFlag());
 		return entity;
 	}
-	//产品销售数据
+	//场内+场外产品销售数据
 	public static ProductSellDTO convertProductSellDTOByEntity(ProductSellEntity entity) {		
+		ProductSellDTO dto = new ProductSellDTO();
+		dto.setFlag(entity.getFlag());
+		dto.setClientId(entity.getClientId());
+		dto.setClientName(entity.getClientName());		
+		
+		dto.setProductCode(entity.getProductCode());
+		dto.setProductName(entity.getProductName());
+		
+		dto.setFinanceAccount(entity.getFinanceAccount());
+		
+		dto.setDealTime(entity.getDealTime());
+		
+		dto.setDealAmount(entity.getDealAmount());
+		
+		dto.setFlag(entity.getFlag());
+		dto.setEmpName(entity.getEmpName());
+		return dto;
+	}
+	
+	//场外产品销售数据
+	public static ProductSellDTO convertProductSellDTOByEntity(CwSellViewEntity entity) {		
 		ProductSellDTO dto = new ProductSellDTO();
 		dto.setFlag(entity.getFlag());
 		dto.setClientId(entity.getClientId());

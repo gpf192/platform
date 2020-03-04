@@ -181,6 +181,10 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/productsSellList",
 		templateUrl : "htmls/finance/productsSellList.html",
 		controller : "productsSellListController"
+	}).state("productsSellCwList", {
+		url : "/productsSellCwList",
+		templateUrl : "htmls/finance/productsSellCwList.html",
+		controller : "productsSellCwListController"
 	}).state("participantsList", {
 		url : "/participantsList",
 		templateUrl : "htmls/finance/participantsList.html",

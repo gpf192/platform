@@ -153,7 +153,8 @@ function kcListController($scope, $http, $state, $stateParams, $gridService, htt
 			for(;column < columns ; column++){
 				
 			}
-			for(k=0;k<$scope.infoList.length;k++){				
+			for(k=0;k<$scope.infoList.length;k++){
+				newObj["预约内容"] = 	(data.pageEventId==1?"两融":"期权");
 				newObj["姓名"] = 	data.name;
 				newObj["客户号"] = 	data.clientId;
 				newObj["手机号码"] = 	data.phone;
