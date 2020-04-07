@@ -3,20 +3,35 @@ package cn.xsdzq.platform.model;
 public class KCDTO {
 	private long id;
 	private String name;
+	private String clientId;
 	private String phone;
 	private String createtime;
-	
+	private String pageEventId;//1-两融，2-期权
 	public KCDTO() {
 
 	}
 
-	public KCDTO(long id, String name, String phone, String createtime) {
+
+	public KCDTO(long id, String name, String clientId, String phone, String createtime, String pageEventId) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.clientId = clientId;
 		this.phone = phone;
 		this.createtime = createtime;
+		this.pageEventId = pageEventId;
 	}
+
+
+	public String getPageEventId() {
+		return pageEventId;
+	}
+
+
+	public void setPageEventId(String pageEventId) {
+		this.pageEventId = pageEventId;
+	}
+
 
 	public long getId() {
 		return id;
@@ -49,6 +64,19 @@ public class KCDTO {
 	public void setCreatetime(String createtime) {
 		this.createtime = createtime;
 	}
+
+	
+	public String getClientId() {
+		return clientId;
+	}
+
+
+
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
+	}
+
+
 
 	@Override
 	public String toString() {

@@ -42,13 +42,13 @@
                 </div>
 
                 
-                   <div class="form-group">
+               <!--     <div class="form-group">
                     <label class="col-sm-3 control-label">票数系数：</label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" id="coefficient" name="coefficient"
                             ng-model="formData.coefficient" placeholder="请输入票数系数" />
                     </div>
-                </div>
+                </div> -->
                 
                    <div class="form-group">
                     <label class="col-sm-3 control-label">起始金额：</label>
@@ -78,6 +78,13 @@
                         <input type="text" class="form-control" id="preferentialInfo" name="preferentialInfo"
                             ng-model="formData.preferentialInfo " placeholder="请输入优惠信息" />
                     </div>
+                </div>
+                 <div class="form-group ">
+                    <label class="col-sm-3 control-label">是否扫描场内交易:</label>
+                      <div class="col-sm-6">
+                        <select class="form-control" ng-model="selectedTradePlace1"
+                            ng-options="x.name for x in tradePlaceFromList1" ></select>
+                      </div>
                 </div>
                     
                  <div class="form-group">

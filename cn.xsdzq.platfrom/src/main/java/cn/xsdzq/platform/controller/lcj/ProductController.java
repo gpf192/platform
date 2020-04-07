@@ -25,12 +25,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.xsdzq.platform.controller.BaseController;
 import cn.xsdzq.platform.entity.CategoryEntity;
 import cn.xsdzq.platform.entity.InfoEntity;
+import cn.xsdzq.platform.entity.lcj.CwSellViewEntity;
 import cn.xsdzq.platform.entity.lcj.ProductEntity;
 import cn.xsdzq.platform.entity.lcj.ProductSellEntity;
 import cn.xsdzq.platform.model.InfoDTO;
 import cn.xsdzq.platform.model.Pagination;
 import cn.xsdzq.platform.model.lcj.ProductDTO;
 import cn.xsdzq.platform.model.lcj.ProductSellDTO;
+import cn.xsdzq.platform.service.lcj.CwProductSellService;
 import cn.xsdzq.platform.service.lcj.MyProductSellService;
 import cn.xsdzq.platform.service.lcj.MyProductService;
 import cn.xsdzq.platform.service.lcj.ProductService;
@@ -55,6 +57,10 @@ public class ProductController extends BaseController{
 	@Autowired
 	@Qualifier("myProductSellServiceImpl")
 	private MyProductSellService myProductSellService;
+	
+	@Autowired
+	@Qualifier("cwProductSellServiceImpl")
+	private CwProductSellService cwProductSellService;
 	
 	@RequestMapping(value = "/getProduct", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
@@ -128,7 +134,7 @@ public class ProductController extends BaseController{
 		logger.info("action:" + "productModify" + ";" + "user:" + name + ";" + "productCode:" + entity.getCode() + ";");
 		return GsonUtil.buildMap(0, "ok", null);
 	}
-//产品销售数据查询
+//场内和场外产品销售数据查询
 	@RequestMapping(value = "/getProductSell", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> getProductSell(HttpServletRequest request,  
@@ -203,4 +209,80 @@ public class ProductController extends BaseController{
 		Pagination pagination = new Pagination(pageNumber, pageSize, sum);
 		return GsonUtil.buildMap(0, "ok", productSellDTOs, pagination);
 	}
+	
+	//场外产品销售数据查询
+		@RequestMapping(value = "/getCwProductSell", method = GET, produces = "application/json; charset=utf-8")
+		@ResponseBody
+		public Map<String, Object> getCwProductSell(HttpServletRequest request,  
+				@RequestParam String clientId, @RequestParam String productCode, 
+				@RequestParam String financeAccount, 
+				 @RequestParam int pageNumber,@RequestParam int pageSize) {
+			System.out.println("全量查询产品销售信息   +   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+			
+			int sum = 0 ;
+			List<CwSellViewEntity> entitys = null;
+			int num = MethodUtil.getProductSellMethodNum(clientId, productCode, financeAccount);
+			if(num == 1) {
+				//全量查找
+			
+				try {
+					entitys = cwProductSellService.getAllProductSell(pageNumber, pageSize);
+					sum = cwProductSellService.countAll();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(num == 2) {
+				//3个条件一起查询
+				System.out.println("into   2 ____");
+				entitys = cwProductSellService.findByClientIdAndProductCodeAndFinanceAccountOrderByDealTimeDesc(clientId, productCode, financeAccount, pageNumber, pageSize);
+				sum = cwProductSellService.countByClientIdAndProductCodeAndFinanceAccount(clientId, productCode, financeAccount);
+			}
+			if(num == 3) {
+				//查询条件：clientId\code\
+				entitys = cwProductSellService.findByClientIdAndProductCodeOrderByDealTimeDesc(clientId, productCode,  pageNumber, pageSize);
+				sum = cwProductSellService.countByClientIdAndProductCode(clientId, productCode);
+			}
+			if(num == 4) {
+				//查询条件：clientId\\\financeAccount
+				entitys = cwProductSellService.findByClientIdAndFinanceAccountOrderByDealTimeDesc(clientId, financeAccount, pageNumber, pageSize);
+				sum = cwProductSellService.countByClientIdAndFinanceAccount(clientId, financeAccount);
+			}
+			if(num == 5) {
+				//查询条件：\code\financeAccount
+				entitys = cwProductSellService.findByProductCodeAndFinanceAccountOrderByDealTimeDesc(productCode, financeAccount, pageNumber, pageSize);
+				sum = cwProductSellService.countByProductCodeAndFinanceAccount(productCode, financeAccount);
+			}
+			if(num == 6) {
+				//查询条件：//查询条件：clientId
+				entitys = cwProductSellService.findByClientIdOrderByDealTimeDesc(clientId, pageNumber, pageSize);
+				sum = cwProductSellService.countByClientId(clientId);
+			}
+			if(num == 7) {
+				////查询条件：\code\\
+				entitys = cwProductSellService.findByProductCodeOrderByDealTimeDesc(productCode, pageNumber, pageSize);
+				sum = cwProductSellService.countByProductCode(productCode);
+			}
+			if(num == 8) {
+				//查询条件：\\financeAccount\
+				entitys = cwProductSellService.findByFinanceAccountOrderByDealTimeDesc(financeAccount, pageNumber, pageSize);
+				sum = cwProductSellService.countByFinanceAccount(financeAccount);
+			}
+			
+						
+			List<ProductSellDTO> productSellDTOs = new ArrayList<ProductSellDTO>();
+			for (CwSellViewEntity entity : entitys) {
+				ProductSellDTO dto = null;
+				try {
+					dto = LcjUtil.convertProductSellDTOByEntity(entity);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				productSellDTOs.add(dto);
+			}
+			Pagination pagination = new Pagination(pageNumber, pageSize, sum);
+			return GsonUtil.buildMap(0, "ok", productSellDTOs, pagination);
+		}
 }

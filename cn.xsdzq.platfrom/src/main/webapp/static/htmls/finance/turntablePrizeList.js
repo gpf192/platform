@@ -60,18 +60,20 @@ function turntablePrizeListController($scope, $http, $state, httpUtils, layerUti
 					childPrize.price = $scope.formData.price;
 					childPrize.amount = $scope.formData.amount;
 					childPrize.rate = $scope.formData.rate;
+					
 					layerUtils.iMsg(-1,"修改成功");
 					$scope.formData.name="";
 					$scope.formData.price="";
 					$scope.formData.amount="";
 					$scope.formData.rate="";
+					
 				}
 			});
 		}else {
 			//2.新建奖品 查看目前是否已经满足了八个产品
-			if($scope.newPrizeList.length == 8) {
+			if($scope.newPrizeList.length == 12) {
 				//如果满足的话就不让添加
-				layerUtils.iMsg(-1,"奖品已满足8个");
+				layerUtils.iMsg(-1,"奖品已满足12个");
 			}else {
 				//如果不满足的话就让添加并且更新列表 
 				var newProduct = {name:$scope.formData.name,amount:$scope.formData.amount,price:$scope.formData.price,rate:$scope.formData.rate};
@@ -82,6 +84,7 @@ function turntablePrizeListController($scope, $http, $state, httpUtils, layerUti
 				$scope.formData.price="";
 				$scope.formData.amount="";
 				$scope.formData.rate="";
+				
 			}	
 		}
 		
@@ -95,7 +98,7 @@ function turntablePrizeListController($scope, $http, $state, httpUtils, layerUti
 			return;
 		}
 		//判断是否满足8个产品
-		if($scope.newPrizeList.length >= 8) {
+		if($scope.newPrizeList.length >= 12) {
 			//如果满足8个产品
 			//比较现在修改过的对象和原来的对象是否一致
 			if(angular.toJson(customaryPrizeList) == angular.toJson($scope.newPrizeList)) {
@@ -117,7 +120,7 @@ function turntablePrizeListController($scope, $http, $state, httpUtils, layerUti
 		}else {
 			//如果不满足8个产品
 			//提示奖品必须有8个
-			layerUtils.iMsg(-1,"奖品不满足8个");
+			layerUtils.iMsg(-1,"奖品不满足12个");
 		}
 	}
 	
@@ -169,6 +172,7 @@ function turntablePrizeListController($scope, $http, $state, httpUtils, layerUti
 			$scope.formData.price="";
 			$scope.formData.amount="";
 			$scope.formData.rate="";
+			
 		}
 	}
 	

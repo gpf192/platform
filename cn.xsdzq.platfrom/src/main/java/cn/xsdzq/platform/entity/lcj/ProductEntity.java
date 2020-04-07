@@ -54,6 +54,9 @@ public class ProductEntity {
 	@Column(name = "preferential_info", length = 1000)
 	private String preferentialInfo;//优惠信息
 	
+	@Column(name = "scan_flag")
+	private int scanFlag = 0;// 开门红 ,是否扫描场内，0-不扫场内， 1-扫场内
+	
 	public String getRiskLevel() {
 		return riskLevel;
 	}
@@ -142,5 +145,14 @@ public class ProductEntity {
 	public void setFlag(int flag) {
 		this.flag = flag;
 	}
+
+	public int getScanFlag() {
+		return scanFlag;
+	}
+
+	public void setScanFlag(int scanFlag) {
+		this.scanFlag = scanFlag;
+	}
+	
 	
 }

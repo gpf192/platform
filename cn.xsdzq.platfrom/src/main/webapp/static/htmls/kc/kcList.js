@@ -18,10 +18,10 @@ function kcListController($scope, $http, $state, $stateParams, $gridService, htt
 		
 		
 		var data = [{
-			name : "科创板预约",
+			name : "两融及期权预约",
 			goto:"infolist"
 		}, {
-			name : "科创板预约查询",
+			name : "两融及期权预约",
 			goto:"infolist"
 		}];
 		$scope.$emit("changeNavigation", data);
@@ -116,7 +116,7 @@ function kcListController($scope, $http, $state, $stateParams, $gridService, htt
 	$scope.exportToExcel=function(){ 
 		var excelArrs = getExcelData();
 		var myDate = new Date();
-		 alasql.promise('SELECT * INTO XLSX("科创板预约开户记录表-' + myDate+ '.xlsx",{headers:true}) FROM ?',[excelArrs])
+		 alasql.promise('SELECT * INTO XLSX("两融及期权预约开户记录表-' + myDate+ '.xlsx",{headers:true}) FROM ?',[excelArrs])
 			.then(function (data) {
 			  if(data == 1){
 				$timeout(function(){
@@ -153,8 +153,10 @@ function kcListController($scope, $http, $state, $stateParams, $gridService, htt
 			for(;column < columns ; column++){
 				
 			}
-			for(k=0;k<$scope.infoList.length;k++){				
+			for(k=0;k<$scope.infoList.length;k++){
+				newObj["预约内容"] = 	(data.pageEventId==1?"两融":"期权");
 				newObj["姓名"] = 	data.name;
+				newObj["客户号"] = 	data.clientId;
 				newObj["手机号码"] = 	data.phone;
 				newObj["预约时间"] = 	data.createtime;
 				

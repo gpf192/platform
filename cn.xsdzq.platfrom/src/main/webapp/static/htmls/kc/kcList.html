@@ -4,7 +4,7 @@
 <div class="box border primary" ng-init="init()">
 	<div class="box-title">
 		<h4>
-			<i class="fa fa-bars"></i>科创板预约记录查询
+			<i class="fa fa-bars"></i>两融及期权预约记录查询
 		</h4>
 		<div class="tools hidden">
 			<a href="#box-config" data-toggle="modal" class="config"> <i
@@ -78,8 +78,12 @@
 						<!-- <th class="col-sm-1 text-center"><input type="checkbox" ng-click="selectAll($event)" ng-checked="isSelectedAll()" /></th> -->				
 						<th class="col-sm-1 text-center">序号</th>		
 						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">预约内容</div></th>
+						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">姓名</div></th>
-													<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">客户号</div></th>
+						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">手机号码</div></th>
 						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">预约时间</div></th>
@@ -91,8 +95,9 @@
 					<!-- 	 <td >
 							<input type="checkbox" name="selected" ng-checked="isSelected(info.id)" ng-click="updateSelection($event,info.id)" /></td>  -->	
 						<td >{{$index+selectNum["num"]*currentPage.page+1}}</td>
+						<td ><div style="white-space:nowrap;">{{info.pageEventId==1?"两融":"期权"}}</div></td>
 						<td ><div style="white-space:nowrap;">{{info.name}}</div></td>
-						
+						<td ><div style="white-space:nowrap;">{{info.clientId}}</div></td>
 						<td ><div style="white-space:nowrap;">{{info.phone}}</div> </td>
 						<td ><div style="white-space:nowrap;" >{{info.createtime}}</div> </td> 					
 						

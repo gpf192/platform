@@ -29,6 +29,13 @@ function addProductController($scope, $http, $state, httpUtils, layerUtils,utils
 			name:"场外基金",
 			code:"1"
 		}]
+		$scope.tradePlaceFromList1 = [{
+			name:"否",
+			code:"0"
+		},{
+			name:"是",
+			code:"1"
+		}]
 		$scope.riskLevelFormList = [{
 				name:"低风险等级",
 			},{
@@ -41,6 +48,7 @@ function addProductController($scope, $http, $state, httpUtils, layerUtils,utils
 				name:"高风险等级",
 			}]
 		$scope.selectedTradePlace = $scope.tradePlaceFromList[0];
+		$scope.selectedTradePlace1 = $scope.tradePlaceFromList1[0];
 		$scope.selectedRiskLevel = $scope.riskLevelFormList[0];
 	};
 	
@@ -57,6 +65,8 @@ function addProductController($scope, $http, $state, httpUtils, layerUtils,utils
 		var endDate = "";
 		var riskLevel = "";
 		var preferentialInfo = "";
+		var scanFlag = "";
+		
 		if(!utils.isEmpty($scope.formData.code)) {
 			code = $scope.formData.code;
 		}else {
@@ -75,12 +85,12 @@ function addProductController($scope, $http, $state, httpUtils, layerUtils,utils
 			layerUtils.iMsg(-1, "产品类型不能为空");
 			return;
 		}
-		if(!utils.isEmpty($scope.formData.coefficient)) {
+		/*if(!utils.isEmpty($scope.formData.coefficient)) {
 			coefficient = $scope.formData.coefficient;
 		}else {
 			layerUtils.iMsg(-1, "票数系数不能为空");
 			return;
-		}
+		}*/
 		if(!utils.isEmpty($scope.formData.initialAmount)) {
 			initialAmount = $scope.formData.initialAmount;
 		}else {
@@ -91,6 +101,12 @@ function addProductController($scope, $http, $state, httpUtils, layerUtils,utils
 			flag = $scope.selectedTradePlace.code;
 		}else {
 			layerUtils.iMsg(-1, "是否为场外基金不能为空");
+			return;
+		}
+		if(!utils.isEmpty( $scope.selectedTradePlace1.code)) {
+			scanFlag = $scope.selectedTradePlace1.code;
+		}else {
+			layerUtils.iMsg(-1, "是否扫描场内交易");
 			return;
 		}
 		if(!utils.isEmpty($scope.formData.begin_date)) {
@@ -129,7 +145,8 @@ function addProductController($scope, $http, $state, httpUtils, layerUtils,utils
 				beginDate:beginDate,
 				endDate:endDate,
 				riskLevel:riskLevel,
-				preferentialInfo:preferentialInfo
+				preferentialInfo:preferentialInfo,
+				scanFlag:scanFlag
 		}
 		$http.post(url, param).success(function(data) {
 			if (data.resCode == 0) {

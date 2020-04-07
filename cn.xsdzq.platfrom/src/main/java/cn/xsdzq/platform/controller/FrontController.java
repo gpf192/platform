@@ -66,7 +66,7 @@ public class FrontController {
 		if (id > 0) {
 			InfoEntity info = myInfoService.getInfoEntityById(id);
 			logger.info(CommonUtil.getIpAdrress(request));
-			if (info != null) {
+			if (info != null && "approve".equals(info.getCheckedResult())) {
 				InfoDTO infoDTO = InfoUtil.convertInfoDTOByInfo(info);
 				// iInfoService.addPageViewById(id);
 				myInfoService.addPageViewById(id);
@@ -114,6 +114,7 @@ public class FrontController {
 			List<InfoDTO> infoDTOs = new ArrayList<InfoDTO>();
 			for (InfoEntity info : infos) {
 				InfoDTO dto = InfoUtil.convertInfoDTOByInfo(info);
+				dto.setContent("");
 				infoDTOs.add(dto);
 			}
 			int sum = myInfoService.countInfosByCategoryId(categoryId);
@@ -165,8 +166,8 @@ public class FrontController {
 		logger.info(" post kechuang 科创版用户预约 ， name: "+name+",phone: "+phone);
 		if(name != null && phone != null) {
 			CustomerMobileEntity user = new CustomerMobileEntity();
-			user.setName(name);
-			user.setPhone(phone);
+			//user.setName(name);
+			//user.setPhone(phone);
 			customerKCService.addKCInfo(user);
 			return GsonUtil.buildMap(0, "ok", null);
 		}
@@ -189,8 +190,8 @@ public class FrontController {
 		logger.info(" kechuang 科创版用户预约 ， name: "+name+",phone: "+phone);
 		if(name != null && phone != null) {
 			CustomerMobileEntity user = new CustomerMobileEntity();
-			user.setName(name);
-			user.setPhone(phone);
+			//user.setName(name);
+			//user.setPhone(phone);
 			customerKCService.addKCInfo(user);
 			return GsonUtil.buildMap(0, "ok", null);
 		}

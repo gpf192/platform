@@ -62,7 +62,7 @@ function winPrizeListController($scope, $http, $state, httpUtils, layerUtils, $s
 		if(!utils.isEmpty($scope.formData.prizeName)) {
 			prizeName = $scope.formData.prizeName;
 		}
-		
+		console.log(prizeName);
 		var url = httpUtils.url.winPrizeList;
 		var params = {
 			beginTime : beginTime,
@@ -106,10 +106,11 @@ function winPrizeListController($scope, $http, $state, httpUtils, layerUtils, $s
 				
 			};
 			for(k=0;k<$scope.prizeList.length;k++){				
-				newObj["中奖用户姓名"] = 	data.username;
-				newObj["中奖用户客户号"] = 	data.clientId;
-				newObj["奖品名称"] = 	data.prizeName;
-				newObj["中奖时间"] = 	data.createtime;
+				newObj["抽卡用户姓名"] = 	data.username;
+				newObj["抽卡用户客户号"] = 	data.clientId;
+				newObj["生肖卡名称"] = 	data.prizeName;
+				newObj["抽奖时间"] = 	data.createtime;
+				newObj["营业部"] = 	data.departName;
 				
 			}
 			arr.push(newObj);

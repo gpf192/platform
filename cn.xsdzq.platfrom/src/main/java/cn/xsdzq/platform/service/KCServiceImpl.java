@@ -20,7 +20,7 @@ public class KCServiceImpl implements KCService{
 	public List<CustomerMobileEntity> getKCInfos(int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<CustomerMobileEntity> pages = myKCRepository.findByOrderByCreatetimeDesc(pageRequest);
+		Page<CustomerMobileEntity> pages = myKCRepository.findByOrderByRecordTimeDesc(pageRequest);
 		List<CustomerMobileEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -30,48 +30,48 @@ public class KCServiceImpl implements KCService{
 		return (int)myKCRepository.count();
 	}
 	@Override
-	public List<CustomerMobileEntity> findByEndTimeLessThanEqualAndBeginTimeGreaterThanEqualOrderByCreatetimeDesc(
+	public List<CustomerMobileEntity> findByEndTimeLessThanEqualAndBeginTimeGreaterThanEqualOrderByRecordTimeDesc(
 			Date endDate, Date beginDate, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<CustomerMobileEntity> pages = myKCRepository.findByCreatetimeLessThanEqualAndCreatetimeGreaterThanEqualOrderByCreatetimeDesc(endDate, beginDate, pageRequest);//问题 ：无法排序
+		Page<CustomerMobileEntity> pages = myKCRepository.findByRecordTimeLessThanEqualAndRecordTimeGreaterThanEqualOrderByRecordTimeDesc(endDate, beginDate, pageRequest);//问题 ：无法排序
 		List<CustomerMobileEntity> plans = pages.getContent();
 		return plans;
 	}
 	@Override
 	public int countByEndTimeLessThanEqualAndBeginTimeGreaterThanEqual(Date endDate, Date beginDate) {
 		// TODO Auto-generated method stub
-		return (int) myKCRepository.countByCreatetimeLessThanEqualAndCreatetimeGreaterThanEqual(endDate, beginDate);
+		return (int) myKCRepository.countByRecordTimeLessThanEqualAndRecordTimeGreaterThanEqual(endDate, beginDate);
 	}
 	
 	@Override
-	public List<CustomerMobileEntity> findByBeginTimeGreaterThanEqualOrderByCreatetimeDesc(Date beginDate,
+	public List<CustomerMobileEntity> findByBeginTimeGreaterThanEqualOrderByRecordTimeDesc(Date beginDate,
 			int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<CustomerMobileEntity> pages = myKCRepository.findByCreatetimeGreaterThanEqualOrderByCreatetimeDesc(beginDate, pageRequest);//问题 ：无法排序
+		Page<CustomerMobileEntity> pages = myKCRepository.findByRecordTimeGreaterThanEqualOrderByRecordTimeDesc(beginDate, pageRequest);//问题 ：无法排序
 		List<CustomerMobileEntity> plans = pages.getContent();
 		return plans;
 	}
 	@Override
 	public int countByBeginTimeGreaterThanEqual(Date beginDate) {
 		// TODO Auto-generated method stub
-		return (int) myKCRepository.countByCreatetimeGreaterThanEqual(beginDate);
+		return (int) myKCRepository.countByRecordTimeGreaterThanEqual(beginDate);
 	}
 	
 	@Override
-	public List<CustomerMobileEntity> findByEndTimeLessThanEqualOrderByCreatetimeDesc(Date endDate, int pageNumber,
+	public List<CustomerMobileEntity> findByEndTimeLessThanEqualOrderByRecordTimeDesc(Date endDate, int pageNumber,
 			int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<CustomerMobileEntity> pages = myKCRepository.findByCreatetimeLessThanEqualOrderByCreatetimeDesc(endDate, pageRequest);//问题 ：无法排序
+		Page<CustomerMobileEntity> pages = myKCRepository.findByRecordTimeLessThanEqualOrderByRecordTimeDesc(endDate, pageRequest);//问题 ：无法排序
 		List<CustomerMobileEntity> plans = pages.getContent();
 		return plans;
 	}
 	@Override
 	public int countByEndTimeLessThanEqual(Date endDate) {
 		// TODO Auto-generated method stub
-		return (int) myKCRepository.countByCreatetimeLessThanEqual(endDate);
+		return (int) myKCRepository.countByRecordTimeLessThanEqual(endDate);
 	}
 	
 	

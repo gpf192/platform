@@ -6,13 +6,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.xsdzq.platform.dao.lcj.MyPrizeRecordRepository;
 import cn.xsdzq.platform.dao.lcj.PrizeResultRepository;
+import cn.xsdzq.platform.entity.lcj.AwardResultEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeResultEntity;
+import cn.xsdzq.platform.entity.lcj.PrizeResultViewEntity;
 
 @Service(value = "prizeRecordServiceImpl")
 @Transactional(readOnly = true)
@@ -24,13 +25,13 @@ public class PrizeRecordServiceImpl implements PrizeRecordService{
 	private PrizeResultRepository prizeResultRepository;
 	
 	
-	
+
 	@Override
-	public List<PrizeResultEntity> getAllPrizeRecord(int pageNumber, int pageSize) {
+	public List<PrizeResultViewEntity> getAllPrizeRecord(int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByOrderByRecordTimeDesc(pageRequest);
-		List<PrizeResultEntity> infos = pages.getContent();
+		Page<PrizeResultViewEntity> pages = myPrizeRecordRepository.findByOrderByRecordTimeDesc(pageRequest);
+		List<PrizeResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
@@ -39,26 +40,26 @@ public class PrizeRecordServiceImpl implements PrizeRecordService{
 		return (int)myPrizeRecordRepository.count();
 	}
 	@Override
-	public List<PrizeResultEntity> findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeEntity_nameAndUserEntity_clientIdOrderByRecordTime(
-			Date beginDate, Date endDate, String PrizeEntity_name, String UserEntity_clientId, int pageNumber, int pageSize) {
+	public List<PrizeResultViewEntity> findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeCodeAndClientIdOrderByRecordTime(
+			Date beginDate, Date endDate, String PrizeCode, String ClientId, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeEntity_nameAndUserEntity_clientIdOrderByRecordTimeDesc(beginDate, endDate, PrizeEntity_name, UserEntity_clientId, pageable);
-		List<PrizeResultEntity> infos = pages.getContent();
+		Page<PrizeResultViewEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeCodeAndClientIdOrderByRecordTimeDesc(beginDate, endDate, PrizeCode, ClientId, pageable);
+		List<PrizeResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
-	public int countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeEntity_nameAndUserEntity_clientId(Date beginDate, Date endDate, String PrizeEntity_name, String UserEntity_clientId) {
+	public int countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeCodeAndClientId(Date beginDate, Date endDate, String PrizeCode, String ClientId) {
 		// TODO Auto-generated method stub
-		return myPrizeRecordRepository.countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeEntity_nameAndUserEntity_clientId(beginDate, endDate, PrizeEntity_name, UserEntity_clientId);
+		return myPrizeRecordRepository.countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeCodeAndClientId(beginDate, endDate, PrizeCode, ClientId);
 	}
 	@Override
-	public List<PrizeResultEntity> findByRecordTimeGreaterThanEqualOrderByRecordTime(Date beginDate, int pageNumber,
+	public List<PrizeResultViewEntity> findByRecordTimeGreaterThanEqualOrderByRecordTime(Date beginDate, int pageNumber,
 			int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualOrderByRecordTimeDesc(beginDate, pageable);
-		List<PrizeResultEntity> infos = pages.getContent();
+		Page<PrizeResultViewEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualOrderByRecordTimeDesc(beginDate, pageable);
+		List<PrizeResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
@@ -67,12 +68,12 @@ public class PrizeRecordServiceImpl implements PrizeRecordService{
 		return myPrizeRecordRepository.countByRecordTimeGreaterThanEqual(beginDate);
 	}
 	@Override
-	public List<PrizeResultEntity> findByRecordTimeLessThanEqualOrderByRecordTime(Date endDate, int pageNumber,
+	public List<PrizeResultViewEntity> findByRecordTimeLessThanEqualOrderByRecordTime(Date endDate, int pageNumber,
 			int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeLessThanEqualOrderByRecordTimeDesc(endDate, pageable);
-		List<PrizeResultEntity> infos = pages.getContent();
+		Page<PrizeResultViewEntity> pages = myPrizeRecordRepository.findByRecordTimeLessThanEqualOrderByRecordTimeDesc(endDate, pageable);
+		List<PrizeResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
@@ -81,38 +82,38 @@ public class PrizeRecordServiceImpl implements PrizeRecordService{
 		return myPrizeRecordRepository.countByRecordTimeLessThanEqual(endDate);
 	}
 	@Override
-	public List<PrizeResultEntity> findByPrizeEntity_nameOrderByRecordTime(String PrizeEntity_name, int pageNumber, int pageSize) {
+	public List<PrizeResultViewEntity> findByPrizeCodeOrderByRecordTime(String PrizeCode, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByPrizeEntity_nameOrderByRecordTimeDesc(PrizeEntity_name, pageable);
-		List<PrizeResultEntity> infos = pages.getContent();
+		Page<PrizeResultViewEntity> pages = myPrizeRecordRepository.findByPrizeCodeOrderByRecordTimeDesc(PrizeCode, pageable);
+		List<PrizeResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
-	public int countByPrizeEntity_name(String PrizeEntity_name) {
+	public int countByPrizeCode(String PrizeCode) {
 		// TODO Auto-generated method stub
-		return myPrizeRecordRepository.countByPrizeEntity_name(PrizeEntity_name);
+		return myPrizeRecordRepository.countByPrizeCode(PrizeCode);
 	}
 	@Override
-	public List<PrizeResultEntity> findByUserEntity_clientIdOrderByRecordTime(String UserEntity_clientId, int pageNumber, int pageSize) {
+	public List<PrizeResultViewEntity> findByClientIdOrderByRecordTime(String ClientId, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByUserEntity_clientIdOrderByRecordTimeDesc(UserEntity_clientId, pageable);
-		List<PrizeResultEntity> infos = pages.getContent();
+		Page<PrizeResultViewEntity> pages = myPrizeRecordRepository.findByClientIdOrderByRecordTimeDesc(ClientId, pageable);
+		List<PrizeResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
-	public int countByUserEntity_clientId(String UserEntity_clientId) {
+	public int countByClientId(String ClientId) {
 		// TODO Auto-generated method stub
-		return myPrizeRecordRepository.countByUserEntity_clientId(UserEntity_clientId);
+		return myPrizeRecordRepository.countByClientId(ClientId);
 	}
 	@Override
-	public List<PrizeResultEntity> findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualOrderByRecordTime(
+	public List<PrizeResultViewEntity> findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualOrderByRecordTime(
 			Date beginDate, Date endDate, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualOrderByRecordTimeDesc(beginDate, endDate, pageable);
-		List<PrizeResultEntity> infos = pages.getContent();
+		Page<PrizeResultViewEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualOrderByRecordTimeDesc(beginDate, endDate, pageable);
+		List<PrizeResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
@@ -121,117 +122,133 @@ public class PrizeRecordServiceImpl implements PrizeRecordService{
 		return myPrizeRecordRepository.countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqual(beginDate, endDate);
 	}
 	@Override
-	public List<PrizeResultEntity> findByRecordTimeGreaterThanEqualAndPrizeEntity_nameOrderByRecordTime(Date beginDate,
-			String PrizeEntity_name, int pageNumber, int pageSize) {
+	public List<PrizeResultViewEntity> findByRecordTimeGreaterThanEqualAndPrizeCodeOrderByRecordTime(Date beginDate,
+			String PrizeCode, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualAndPrizeEntity_nameOrderByRecordTimeDesc(beginDate, PrizeEntity_name, pageable);
-		List<PrizeResultEntity> infos = pages.getContent();
+		Page<PrizeResultViewEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualAndPrizeCodeOrderByRecordTimeDesc(beginDate, PrizeCode, pageable);
+		List<PrizeResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
-	public int countByRecordTimeGreaterThanEqualAndPrizeEntity_name(Date beginDate, String PrizeEntity_name) {
+	public int countByRecordTimeGreaterThanEqualAndPrizeCode(Date beginDate, String PrizeCode) {
 		// TODO Auto-generated method stub
-		return myPrizeRecordRepository.countByRecordTimeGreaterThanEqualAndPrizeEntity_name(beginDate, PrizeEntity_name);
+		return myPrizeRecordRepository.countByRecordTimeGreaterThanEqualAndPrizeCode(beginDate, PrizeCode);
 	}
 	@Override
-	public List<PrizeResultEntity> findByRecordTimeGreaterThanEqualAndUserEntity_clientIdOrderByRecordTime(Date beginDate,
-			String UserEntity_clientId, int pageNumber, int pageSize) {
+	public List<PrizeResultViewEntity> findByRecordTimeGreaterThanEqualAndClientIdOrderByRecordTime(Date beginDate,
+			String ClientId, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualAndUserEntity_clientIdOrderByRecordTimeDesc(beginDate, UserEntity_clientId, pageable);
-		List<PrizeResultEntity> infos = pages.getContent();
+		Page<PrizeResultViewEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualAndClientIdOrderByRecordTimeDesc(beginDate, ClientId, pageable);
+		List<PrizeResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
-	public int countByRecordTimeGreaterThanEqualAndUserEntity_clientId(Date beginDate, String UserEntity_clientId) {
+	public int countByRecordTimeGreaterThanEqualAndClientId(Date beginDate, String ClientId) {
 		// TODO Auto-generated method stub
-		return myPrizeRecordRepository.countByRecordTimeGreaterThanEqualAndUserEntity_clientId(beginDate, UserEntity_clientId);
+		return myPrizeRecordRepository.countByRecordTimeGreaterThanEqualAndClientId(beginDate, ClientId);
 	}
 	@Override
-	public List<PrizeResultEntity> findByRecordTimeLessThanEqualAndPrizeEntity_nameOrderByRecordTime(Date endDate,
-			String PrizeEntity_name, int pageNumber, int pageSize) {
+	public List<PrizeResultViewEntity> findByRecordTimeLessThanEqualAndPrizeCodeOrderByRecordTime(Date endDate,
+			String PrizeCode, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeLessThanEqualAndPrizeEntity_nameOrderByRecordTimeDesc(endDate, PrizeEntity_name, pageable);
-		List<PrizeResultEntity> infos = pages.getContent();
+		Page<PrizeResultViewEntity> pages = myPrizeRecordRepository.findByRecordTimeLessThanEqualAndPrizeCodeOrderByRecordTimeDesc(endDate, PrizeCode, pageable);
+		List<PrizeResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
-	public int countByRecordTimeLessThanEqualAndPrizeEntity_name(Date endDate, String PrizeEntity_name) {
+	public int countByRecordTimeLessThanEqualAndPrizeCode(Date endDate, String PrizeCode) {
 		// TODO Auto-generated method stub
-		return myPrizeRecordRepository.countByRecordTimeLessThanEqualAndPrizeEntity_name(endDate, PrizeEntity_name);
+		return myPrizeRecordRepository.countByRecordTimeLessThanEqualAndPrizeCode(endDate, PrizeCode);
 	}
 	@Override
-	public List<PrizeResultEntity> findByRecordTimeLessThanEqualAndUserEntity_clientIdOrderByRecordTime(Date endDate,
-			String UserEntity_clientId, int pageNumber, int pageSize) {
+	public List<PrizeResultViewEntity> findByRecordTimeLessThanEqualAndClientIdOrderByRecordTime(Date endDate,
+			String ClientId, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeLessThanEqualAndUserEntity_clientIdOrderByRecordTimeDesc(endDate, UserEntity_clientId, pageable);
-		List<PrizeResultEntity> infos = pages.getContent();
+		Page<PrizeResultViewEntity> pages = myPrizeRecordRepository.findByRecordTimeLessThanEqualAndClientIdOrderByRecordTimeDesc(endDate, ClientId, pageable);
+		List<PrizeResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
-	public int countByRecordTimeLessThanEqualAndUserEntity_clientId(Date endDate, String UserEntity_clientId) {
+	public int countByRecordTimeLessThanEqualAndClientId(Date endDate, String ClientId) {
 		// TODO Auto-generated method stub
-		return myPrizeRecordRepository.countByRecordTimeLessThanEqualAndUserEntity_clientId(endDate, UserEntity_clientId);
+		return myPrizeRecordRepository.countByRecordTimeLessThanEqualAndClientId(endDate, ClientId);
 	}
 	@Override
-	public List<PrizeResultEntity> findByPrizeEntity_nameAndUserEntity_clientIdOrderByRecordTime(String PrizeEntity_name, String UserEntity_clientId,
+	public List<PrizeResultViewEntity> findByPrizeCodeAndClientIdOrderByRecordTime(String PrizeCode, String ClientId,
 			int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByPrizeEntity_nameAndUserEntity_clientIdOrderByRecordTimeDesc(PrizeEntity_name, UserEntity_clientId, pageable);
-		List<PrizeResultEntity> infos = pages.getContent();
+		Page<PrizeResultViewEntity> pages = myPrizeRecordRepository.findByPrizeCodeAndClientIdOrderByRecordTimeDesc(PrizeCode, ClientId, pageable);
+		List<PrizeResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
-	public int countByPrizeEntity_nameAndUserEntity_clientId(String PrizeEntity_name, String UserEntity_clientId) {
+	public int countByPrizeCodeAndClientId(String PrizeCode, String ClientId) {
 		// TODO Auto-generated method stub
-		return myPrizeRecordRepository.countByPrizeEntity_nameAndUserEntity_clientId(PrizeEntity_name, UserEntity_clientId);
+		return myPrizeRecordRepository.countByPrizeCodeAndClientId(PrizeCode, ClientId);
 	}
 	@Override
-	public List<PrizeResultEntity> findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeEntity_nameOrderByRecordTime(
-			Date beginDate, Date endDate, String PrizeEntity_name, int pageNumber, int pageSize) {
+	public List<PrizeResultViewEntity> findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeCodeOrderByRecordTime(
+			Date beginDate, Date endDate, String PrizeCode, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeEntity_nameOrderByRecordTimeDesc(beginDate,endDate, PrizeEntity_name, pageable);
-		List<PrizeResultEntity> infos = pages.getContent();
+		Page<PrizeResultViewEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeCodeOrderByRecordTimeDesc(beginDate,endDate, PrizeCode, pageable);
+		List<PrizeResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
-	public int countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeEntity_name(Date beginDate, Date endDate,
-			String PrizeEntity_name) {
+	public int countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeCode(Date beginDate, Date endDate,
+			String PrizeCode) {
 		// TODO Auto-generated method stub
-		return myPrizeRecordRepository.countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeEntity_name(beginDate,endDate, PrizeEntity_name);
+		return myPrizeRecordRepository.countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndPrizeCode(beginDate,endDate, PrizeCode);
 	}
 	@Override
-	public List<PrizeResultEntity> findByRecordTimeGreaterThanEqualAndPrizeEntity_nameAndUserEntity_clientIdOrderByRecordTime(
-			Date beginDate, String PrizeEntity_name, String UserEntity_clientId, int pageNumber, int pageSize) {
+	public List<PrizeResultViewEntity> findByRecordTimeGreaterThanEqualAndPrizeCodeAndClientIdOrderByRecordTime(
+			Date beginDate, String PrizeCode, String ClientId, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualAndPrizeEntity_nameAndUserEntity_clientIdOrderByRecordTimeDesc(beginDate, PrizeEntity_name, UserEntity_clientId, pageable);
-		List<PrizeResultEntity> infos = pages.getContent();
+		Page<PrizeResultViewEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualAndPrizeCodeAndClientIdOrderByRecordTimeDesc(beginDate, PrizeCode, ClientId, pageable);
+		List<PrizeResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
-	public int countByRecordTimeGreaterThanEqualAndPrizeEntity_nameAndUserEntity_clientId(Date beginDate, String PrizeEntity_name,
-			String UserEntity_clientId) {
+	public int countByRecordTimeGreaterThanEqualAndPrizeCodeAndClientId(Date beginDate, String PrizeCode,
+			String ClientId) {
 		// TODO Auto-generated method stub
-		return myPrizeRecordRepository.countByRecordTimeGreaterThanEqualAndPrizeEntity_nameAndUserEntity_clientId(beginDate, PrizeEntity_name, UserEntity_clientId);
+		return myPrizeRecordRepository.countByRecordTimeGreaterThanEqualAndPrizeCodeAndClientId(beginDate, PrizeCode, ClientId);
 	}
 	@Override
-	public List<PrizeResultEntity> findByRecordTimeLessThanEqualAndPrizeEntity_nameAndUserEntity_clientIdOrderByRecordTime(Date endDate,
-			String PrizeEntity_name, String UserEntity_clientId, int pageNumber, int pageSize) {
+	public List<PrizeResultViewEntity> findByRecordTimeLessThanEqualAndPrizeCodeAndClientIdOrderByRecordTime(Date endDate,
+			String PrizeCode, String ClientId, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageable = new PageRequest(pageNumber, pageSize);
-		Page<PrizeResultEntity> pages = myPrizeRecordRepository.findByRecordTimeLessThanEqualAndPrizeEntity_nameAndUserEntity_clientIdOrderByRecordTimeDesc(endDate, PrizeEntity_name, UserEntity_clientId, pageable);
-		List<PrizeResultEntity> infos = pages.getContent();
+		Page<PrizeResultViewEntity> pages = myPrizeRecordRepository.findByRecordTimeLessThanEqualAndPrizeCodeAndClientIdOrderByRecordTimeDesc(endDate, PrizeCode, ClientId, pageable);
+		List<PrizeResultViewEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
-	public int countByRecordTimeLessThanEqualAndPrizeEntity_nameAndUserEntity_clientId(Date endDate, String PrizeEntity_name, String UserEntity_clientId) {
+	public int countByRecordTimeLessThanEqualAndPrizeCodeAndClientId(Date endDate, String PrizeCode, String ClientId) {
 		// TODO Auto-generated method stub
-		return myPrizeRecordRepository.countByRecordTimeLessThanEqualAndPrizeEntity_nameAndUserEntity_clientId(endDate, PrizeEntity_name, UserEntity_clientId);
+		return myPrizeRecordRepository.countByRecordTimeLessThanEqualAndPrizeCodeAndClientId(endDate, PrizeCode, ClientId);
+	}
+	
+	@Override
+	public List<PrizeResultViewEntity> findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndClientIdOrderByRecordTime(
+			Date beginDate, Date endDate, String ClientId, int pageNumber, int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageable = new PageRequest(pageNumber, pageSize);
+		Page<PrizeResultViewEntity> pages = myPrizeRecordRepository.findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndClientIdOrderByRecordTimeDesc(beginDate,endDate, ClientId, pageable);
+		List<PrizeResultViewEntity> infos = pages.getContent();
+		return infos;
+	}
+	@Override
+	public int countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndClientId(Date beginDate,
+			Date endDate, String ClientId) {
+		// TODO Auto-generated method stub
+		return myPrizeRecordRepository.countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndClientId(beginDate, endDate, ClientId);
 	}
 }

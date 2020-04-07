@@ -1,15 +1,24 @@
 package cn.xsdzq.platform.util;
 
+import cn.xsdzq.platform.entity.LiveRecordEntity;
+import cn.xsdzq.platform.entity.lcj.AwardEntity;
+import cn.xsdzq.platform.entity.lcj.AwardResultEntity;
+import cn.xsdzq.platform.entity.lcj.AwardResultViewEntity;
+import cn.xsdzq.platform.entity.lcj.CwSellViewEntity;
 import cn.xsdzq.platform.entity.lcj.DepartmentEntity;
 import cn.xsdzq.platform.entity.lcj.EmpEntity;
 import cn.xsdzq.platform.entity.lcj.EmpTicketEntity;
 import cn.xsdzq.platform.entity.lcj.EmpTicketRecordEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeResultEntity;
+import cn.xsdzq.platform.entity.lcj.PrizeResultViewEntity;
 import cn.xsdzq.platform.entity.lcj.ProductEntity;
 import cn.xsdzq.platform.entity.lcj.ProductSellEntity;
 import cn.xsdzq.platform.entity.lcj.UserTicketRecordEntity;
 import cn.xsdzq.platform.entity.lcj.UserVoteEmpResultEntity;
+import cn.xsdzq.platform.model.LiveRecordDTO;
+import cn.xsdzq.platform.model.lcj.AwardDTO;
+import cn.xsdzq.platform.model.lcj.AwardResultdDTO;
 import cn.xsdzq.platform.model.lcj.DepartmentDTO;
 import cn.xsdzq.platform.model.lcj.EmpDTO;
 import cn.xsdzq.platform.model.lcj.EmpVoteDTO;
@@ -48,7 +57,7 @@ public class LcjUtil {
 		entity.setName(dto.getName());		
 		entity.setPrice(dto.getPrice());	
 		entity.setAmount(dto.getAmount());
-		
+		entity.setImage(dto.getImage());
 		try {
 			entity.setCreatetime(DateUtil.stringToDate1(dto.getCreatetime()));
 		} catch (Exception e) {
@@ -58,14 +67,15 @@ public class LcjUtil {
 		return entity;
 	}
 	//中奖纪录
-	public static PrizeRecordDTO convertPrizeRecordDTOByEntity(PrizeResultEntity entity) {		
+	public static PrizeRecordDTO convertPrizeRecordDTOByEntity(PrizeResultViewEntity entity) {		
 		PrizeRecordDTO dto = new PrizeRecordDTO();
 		dto.setId(entity.getId());
-		dto.setUsername(entity.getUserEntity().getClientName());
+		dto.setUsername(entity.getClientName());
 		
-		dto.setClientId(entity.getUserEntity().getClientId());
-		dto.setPrizeName(entity.getPrizeEntity().getName());
-		//dto.setCreatetime(entity.getCreatetime());
+		dto.setClientId(entity.getClientId());
+		dto.setPrizeName(entity.getPrizeName());
+		dto.setDepartName(entity.getDepartName());
+		dto.setPrizeCode(entity.getPrizeCode());
 		try {
 			dto.setCreatetime(DateUtil.DateToString(entity.getRecordTime()));		
 		} catch (Exception e) {
@@ -95,6 +105,7 @@ public class LcjUtil {
 		dto.setFlag(entity.getFlag());
 		dto.setRiskLevel(entity.getRiskLevel());
 		dto.setPreferentialInfo(entity.getPreferentialInfo());
+		dto.setScanFlag(entity.getScanFlag());
 		return dto;
 	}
 	public static ProductEntity convertEntityByProductDTO(ProductDTO dto) {
@@ -116,10 +127,32 @@ public class LcjUtil {
 		entity.setFlag(dto.getFlag());
 		entity.setRiskLevel(dto.getRiskLevel());
 		entity.setPreferentialInfo(dto.getPreferentialInfo());
+		entity.setScanFlag(dto.getScanFlag());
 		return entity;
 	}
-	//产品销售数据
+	//场内+场外产品销售数据
 	public static ProductSellDTO convertProductSellDTOByEntity(ProductSellEntity entity) {		
+		ProductSellDTO dto = new ProductSellDTO();
+		dto.setFlag(entity.getFlag());
+		dto.setClientId(entity.getClientId());
+		dto.setClientName(entity.getClientName());		
+		
+		dto.setProductCode(entity.getProductCode());
+		dto.setProductName(entity.getProductName());
+		
+		dto.setFinanceAccount(entity.getFinanceAccount());
+		
+		dto.setDealTime(entity.getDealTime());
+		
+		dto.setDealAmount(entity.getDealAmount());
+		
+		dto.setFlag(entity.getFlag());
+		dto.setEmpName(entity.getEmpName());
+		return dto;
+	}
+	
+	//场外产品销售数据
+	public static ProductSellDTO convertProductSellDTOByEntity(CwSellViewEntity entity) {		
 		ProductSellDTO dto = new ProductSellDTO();
 		dto.setFlag(entity.getFlag());
 		dto.setClientId(entity.getClientId());
@@ -252,6 +285,62 @@ public class LcjUtil {
 		dto.setVoteNum(entity.getNumber());
 		dto.setDivision(entity.getEmpEntity().getDivision());		
 		dto.setSalesDepartment(entity.getEmpEntity().getDepartmentEntity().getName());
+		return dto;
+	}
+	public static AwardDTO convertAwardDTOByEntity(AwardEntity entity) {		
+		AwardDTO dto = new AwardDTO();
+		dto.setId(entity.getId());
+		dto.setAwardName(entity.getAwardName());
+		dto.setAwardNameAlias(entity.getAwardNameAlias());
+		dto.setAwardValue(entity.getAwardValue());
+		dto.setImageName(entity.getImageName());
+		dto.setImageNumber(entity.getImageNumber());
+		dto.setIndex(entity.getIndex());
+				
+		return dto;
+	}
+	public static AwardEntity convertEntityByAwardDTO(AwardDTO dto) {
+		AwardEntity entity = new AwardEntity();
+		entity.setId(dto.getId());
+		entity.setAwardName(dto.getAwardName());
+		entity.setAwardNameAlias(dto.getAwardNameAlias());
+		entity.setAwardValue(dto.getAwardValue());
+		entity.setImageName(dto.getImageName());
+		entity.setImageNumber(dto.getImageNumber());
+		entity.setIndex(dto.getIndex());
+		return entity;
+	}
+	
+	//开门红组合奖兑奖记录
+	public static AwardResultdDTO convertAwardResultDTOByEntity(AwardResultViewEntity entity) {		
+		AwardResultdDTO dto = new AwardResultdDTO();
+		dto.setId(entity.getId());
+		dto.setUsername(entity.getClientName());
+		
+		dto.setClientId(entity.getClientId());
+		dto.setPrizeName(entity.getPrizeName());
+		dto.setAwardNum(entity.getAwardNumber());
+		dto.setDepartName(entity.getDepartName());
+		try {
+			dto.setCreatetime(DateUtil.DateToString(entity.getRecordTime()));		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return dto;
+	}
+	//直播用户登录记录
+	public static LiveRecordDTO convertLiveRecordDTOByEntity(LiveRecordEntity entity) {		
+		LiveRecordDTO dto = new LiveRecordDTO();
+		dto.setId(entity.getId());
+		dto.setClientId(entity.getUserEntity().getClientId());
+	
+		try {
+			dto.setRecordTime(DateUtil.DateToString(entity.getRecordTime()));		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return dto;
 	}
 }

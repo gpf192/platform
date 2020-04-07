@@ -43,9 +43,9 @@
     
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">  
         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>  
-        <property name="url" value="jdbc:oracle:thin:@DESKTOP-HMGN360:1521:orcl"/>  
-	 	<property name="username" value="xsdzq"/>  
-     	<property name="password" value="12345678"/>  
+        <property name="url" value="jdbc:oracle:thin:@192.168.113.135:1521:orcl"/>  
+	 	<property name="username" value="bzzx"/>  
+     	<property name="password" value="bzzx123456"/>  
         <!-- 连接池启动时的初始值 -->  
         <property name="initialSize" value="3" />  
         <!-- end -->  

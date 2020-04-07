@@ -181,6 +181,10 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/productsSellList",
 		templateUrl : "htmls/finance/productsSellList.html",
 		controller : "productsSellListController"
+	}).state("productsSellCwList", {
+		url : "/productsSellCwList",
+		templateUrl : "htmls/finance/productsSellCwList.html",
+		controller : "productsSellCwListController"
 	}).state("participantsList", {
 		url : "/participantsList",
 		templateUrl : "htmls/finance/participantsList.html",
@@ -220,6 +224,18 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/userVoteForList",
 		templateUrl : "htmls/finance/userVoteForList.html",
 		controller : "userVoteForListController"
+	}).state("turntableAwardList", {
+		url : "/finance/awardList",
+		templateUrl : "htmls/finance/awardList.html",
+		controller : "awardListController"
+	}).state("awardResultList", {
+		url : "/finance/awardResultList",
+		templateUrl : "htmls/finance/awardResultList.html",
+		controller : "awardResultListController"
+	}).state("liveLoginRecord", {
+		url : "/finance/liveLoginRecord",
+		templateUrl : "htmls/finance/liveLoginRecord.html",
+		controller : "liveLoginRecordController"
 	}).state("modifyContestant", {
 		url : "/modifyContestant",
 		templateUrl : "htmls/finance/modifyContestant.html",
