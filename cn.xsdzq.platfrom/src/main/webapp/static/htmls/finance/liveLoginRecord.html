@@ -19,34 +19,7 @@
     <div class="box-body">
         <div  class="dataTables_wrapper form-inline" role="grid">
             <form class="form-inline margin10">
-    
-                <div class="form-group">
-                    <label for="dtp_input2" >抽卡时间-起始</label>
-                    <div class="input-group date form_date col-md-5" data-date="" data-date-format="yyyy-MM-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-                        <input class="form-control" ng-model="formData.beginTime" size="16" type="text" value="" readonly>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                    </div>
-                    <input type="hidden" id="dtp_input2" value="" /><br/>
-                </div>
-                                <div class="form-group">
-                    <label for="dtp_input2" >抽卡时间-截止</label>
-                    <div class="input-group date form_date col-md-5" data-date="" data-date-format="yyyy-MM-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-                        <input class="form-control" ng-model="formData.endTime"  size="16" type="text" value="" readonly>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                    </div>
-                    <input type="hidden" id="dtp_input2" value="" /><br/>
-                </div>
-                  &nbsp
-                <div class="form-group ">
-                    <label  for="emp_name">生肖卡代码:</label>                 
-                        <input type="text" class="form-control input-300 " id="prizeName" name="prizeName"
-                        ng-model="formData.prizeName" placeholder="请输入生肖卡拼音，如：niu"></input>
-
-                </div>
-                &nbsp
-                 
+ 
                 <div class="form-group ">
                     <label  for="emp_name">客户号:</label>                 
                         <input type="text" class="form-control input-300 " id="clientId" name="clientId"
@@ -56,9 +29,7 @@
                  &nbsp
                 <input type="button" value="查询" class="btn btn-primary"
                             ng-click="getWinPrizeList(20000)" />
-                &nbsp
-                <input type="button" value="导出" class="btn btn-primary"
-                            ng-click="exportToExcel()" />
+         
             </form>
             <hr />
         
@@ -91,29 +62,21 @@
              
                     <tr role="row">
                         <th class="col-sm-1 text-center">序号</th>        
+                        
                         <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">抽卡用户姓名</div></th>
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">客户号</div></th>
+                       
                         <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">抽卡用户客户号</div></th>
-                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">生肖卡名称</div></th>
-                                                    <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">生肖卡代码</div></th>
-                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">抽卡时间</div></th>
-                            <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">营业部</div></th>
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">登录时间</div></th>
+                            
                     </tr>
                 </thead>
                 <tbody role="alert" aria-live="polite" aria-relevant="all">
                     <tr ng-repeat="prize in prizeList">
                         <td >{{$index+selectNum["num"]*currentPage.page+1}}</td>
-                        <td ><div style="white-space:nowrap;" >{{prize.username}}</div> </td> 
-                        <td ><div style="white-space:nowrap;">{{prize.clientId}}</div> </td>
-                        <td ><div style="white-space:nowrap;">{{prize.prizeName}}</div> </td>
-                        <td ><div style="white-space:nowrap;">{{prize.prizeCode}}</div> </td>
-                         <td ><div style="white-space:nowrap;">{{prize.createtime}}</div> </td>
-                          <td ><div style="white-space:nowrap;">{{prize.departName}}</div> </td>
+                        <td ><div style="white-space:nowrap;" >{{prize.clientId}}</div> </td> 
+                        <td ><div style="white-space:nowrap;">{{prize.recordTime}}</div> </td>
+                       
                     </tr>
                 </tbody>
                 <tfoot>

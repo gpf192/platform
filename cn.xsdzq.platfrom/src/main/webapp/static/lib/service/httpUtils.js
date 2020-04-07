@@ -74,9 +74,10 @@ ngApp.factory("httpUtils", [ function() {
 		addParam: baseUrl + "param/addParam",
 		modifyParam: baseUrl + "param/modifyParam",
 		deleteParam: baseUrl + "param/deleteParam",
-		addEmpVoteWeight: baseUrl + "vote/addWeight",
+		addEmpVoteWeight: baseUrl + "vote/addWeight",		
+		userVoteForList:baseUrl + "vote/getUserVoteFor",
 		
-		userVoteForList:baseUrl + "vote/getUserVoteFor"
+		getLoginRecord:baseUrl + "live/getLoginRecord"
 	};
 
 	function getUrl() {

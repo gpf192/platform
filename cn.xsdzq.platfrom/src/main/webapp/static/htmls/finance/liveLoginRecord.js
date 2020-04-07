@@ -40,35 +40,16 @@ function liveLoginRecordController($scope, $http, $state, httpUtils, layerUtils,
 	
 	
 	$scope.getWinPrizeList = function(pageSize) {
-		if( ($scope.formData.beginTime != '') && ($scope.formData.endTime != '')){
-			if ($scope.formData.endTime < $scope.formData.beginTime) {
-				layerUtils.iMsg(-1, "结束时间不能早于开始时间！");
-				return;
-			}
-		}
-		var beginTime = "";
-		var endTime = "";
-		var clientId = "";
-		var prizeName = "";
-		if(!utils.isEmpty($scope.formData.beginTime)) {
-			beginTime = $scope.formData.beginTime;
-		}
-		if(!utils.isEmpty($scope.formData.endTime)) {
-			endTime = $scope.formData.endTime;
-		}
+		
+
+		var clientId = "";	
+		
 		if(!utils.isEmpty($scope.formData.clientId)) {
 			clientId = $scope.formData.clientId;
-		}
-		if(!utils.isEmpty($scope.formData.prizeName)) {
-			prizeName = $scope.formData.prizeName;
-		}
-		console.log(prizeName);
-		var url = httpUtils.url.winPrizeList;
-		var params = {
-			beginTime : beginTime,
-			endTime : endTime,
+		}		
+		var url = httpUtils.url.getLoginRecord;
+		var params = {			
 			clientId :clientId,
-			prizeName : prizeName,
 			pageNumber : 0,
 			pageSize : pageSize
 		};
@@ -82,43 +63,7 @@ function liveLoginRecordController($scope, $http, $state, httpUtils, layerUtils,
 		$gridService.queryTableDatas($scope, tableElement, params, settings, $http);
 	};
 	
-	
-
-	//导出为excel
-	$scope.exportToExcel=function(){ 
-		var excelArrs = getExcelData();
-		var myDate = new Date();
-		 alasql.promise('SELECT * INTO XLSX("中奖记录表-' + myDate+ '.xlsx",{headers:true}) FROM ?',[excelArrs])
-			.then(function (data) {
-			  if(data == 1){
-				$timeout(function(){
-				  console.log('数据导出成功！');
-				})
-			  }
-			});
-	};
 	 
-	//组装ecxel数据
-	function getExcelData() {
-		var arr =[];
-		angular.forEach($scope.prizeList, function(data, index, datas) {
-			var newObj = {	
-				
-			};
-			for(k=0;k<$scope.prizeList.length;k++){				
-				newObj["抽卡用户姓名"] = 	data.username;
-				newObj["抽卡用户客户号"] = 	data.clientId;
-				newObj["生肖卡名称"] = 	data.prizeName;
-				newObj["抽奖时间"] = 	data.createtime;
-				newObj["营业部"] = 	data.departName;
-				
-			}
-			arr.push(newObj);
-		});
-		return arr;
-	}
-	 
-	
 }
 
 

@@ -1,5 +1,6 @@
 package cn.xsdzq.platform.util;
 
+import cn.xsdzq.platform.entity.LiveRecordEntity;
 import cn.xsdzq.platform.entity.lcj.AwardEntity;
 import cn.xsdzq.platform.entity.lcj.AwardResultEntity;
 import cn.xsdzq.platform.entity.lcj.AwardResultViewEntity;
@@ -15,6 +16,7 @@ import cn.xsdzq.platform.entity.lcj.ProductEntity;
 import cn.xsdzq.platform.entity.lcj.ProductSellEntity;
 import cn.xsdzq.platform.entity.lcj.UserTicketRecordEntity;
 import cn.xsdzq.platform.entity.lcj.UserVoteEmpResultEntity;
+import cn.xsdzq.platform.model.LiveRecordDTO;
 import cn.xsdzq.platform.model.lcj.AwardDTO;
 import cn.xsdzq.platform.model.lcj.AwardResultdDTO;
 import cn.xsdzq.platform.model.lcj.DepartmentDTO;
@@ -321,6 +323,20 @@ public class LcjUtil {
 		dto.setDepartName(entity.getDepartName());
 		try {
 			dto.setCreatetime(DateUtil.DateToString(entity.getRecordTime()));		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return dto;
+	}
+	//直播用户登录记录
+	public static LiveRecordDTO convertLiveRecordDTOByEntity(LiveRecordEntity entity) {		
+		LiveRecordDTO dto = new LiveRecordDTO();
+		dto.setId(entity.getId());
+		dto.setClientId(entity.getUserEntity().getClientId());
+	
+		try {
+			dto.setRecordTime(DateUtil.DateToString(entity.getRecordTime()));		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
