@@ -1,0 +1,244 @@
+package cn.xsdzq.platform.entity.thx;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+@Entity
+@Table(name = "thx_user_order_info")
+@EntityListeners(AuditingEntityListener.class)
+public class UserOrderEntity {
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_order_sequence")
+	@SequenceGenerator(name = "user_order_sequence", sequenceName = "sequence_user_order", allocationSize = 1)
+	@Column(name = "id")
+	private long id;//主键
+	
+	@Column(name = "user_id")
+	private String userId;//用户ID
+	
+	@Column(name = "goods_type")
+	private String goodsType;//产类型品
+	
+	@Column(name = "goods_id")
+	private String goodsId;//商品ID
+	
+	@Column(name = "certificate")
+	private String certificate;//用户身份证号码
+	
+	@Column(name = "product_name")
+	private String productName;//投顾产品名称
+	
+	@Column(name = "goods_risk")
+	private String goodsRisk;//产品风险等级
+	
+	@Column(name = "evaluation_result")
+	private String evaluationResult;//风险测评结果
+	
+	@Column(name = "broker_name")
+	private String brokerName;//所属券商名称
+	
+	@Column(name = "sales_name")
+	private String salesName;//所属营业部名称
+	
+	@Column(name = "tg_name")
+	private String tgName;//所属投顾姓名
+	
+	@Column(name = "service_cycle")
+	private String serviceCycle;//服务周期
+	
+	@Column(name = "amount")
+	private String amount;//订阅金额
+	
+	@Column(name = "book_time")
+	private String book_time;//订阅时间
+	
+	@Column(name = "book_origin")
+	private String bookOrigin;//订阅来源,1.手抄android2.手抄ios3.微信客户端4.股市教练安卓5.股市教练ios6.PC网页
+	
+	@Column(name = "assign_time")
+	private String assign_time;//获得名额时间
+	
+	@Column(name = "agreements")
+	private String agreements;//签署的所有协议
+	
+	@Column(name = "risk_revelation")
+	private String risk_revelation;//风险揭示书
+	
+	@Column(name = "match_instruction")
+	private String match_instruction;//适当性匹配说明,1：匹配 0：不匹配
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getGoodsType() {
+		return goodsType;
+	}
+
+	public void setGoodsType(String goodsType) {
+		this.goodsType = goodsType;
+	}
+
+	public String getGoodsId() {
+		return goodsId;
+	}
+
+	public void setGoodsId(String goodsId) {
+		this.goodsId = goodsId;
+	}
+
+	public String getCertificate() {
+		return certificate;
+	}
+
+	public void setCertificate(String certificate) {
+		this.certificate = certificate;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+	public String getGoodsRisk() {
+		return goodsRisk;
+	}
+
+	public void setGoodsRisk(String goodsRisk) {
+		this.goodsRisk = goodsRisk;
+	}
+
+	public String getEvaluationResult() {
+		return evaluationResult;
+	}
+
+	public void setEvaluationResult(String evaluationResult) {
+		this.evaluationResult = evaluationResult;
+	}
+
+	public String getBrokerName() {
+		return brokerName;
+	}
+
+	public void setBrokerName(String brokerName) {
+		this.brokerName = brokerName;
+	}
+
+	public String getSalesName() {
+		return salesName;
+	}
+
+	public void setSalesName(String salesName) {
+		this.salesName = salesName;
+	}
+
+	public String getTgName() {
+		return tgName;
+	}
+
+	public void setTgName(String tgName) {
+		this.tgName = tgName;
+	}
+
+	public String getServiceCycle() {
+		return serviceCycle;
+	}
+
+	public void setServiceCycle(String serviceCycle) {
+		this.serviceCycle = serviceCycle;
+	}
+
+	public String getAmount() {
+		return amount;
+	}
+
+	public void setAmount(String amount) {
+		this.amount = amount;
+	}
+
+	public String getBook_time() {
+		return book_time;
+	}
+
+	public void setBook_time(String book_time) {
+		this.book_time = book_time;
+	}
+
+	public String getBookOrigin() {
+		return bookOrigin;
+	}
+
+	public void setBookOrigin(String bookOrigin) {
+		this.bookOrigin = bookOrigin;
+	}
+
+	public String getAssign_time() {
+		return assign_time;
+	}
+
+	public void setAssign_time(String assign_time) {
+		this.assign_time = assign_time;
+	}
+
+	public String getAgreements() {
+		return agreements;
+	}
+
+	public void setAgreements(String agreements) {
+		this.agreements = agreements;
+	}
+
+	public String getRisk_revelation() {
+		return risk_revelation;
+	}
+
+	public void setRisk_revelation(String risk_revelation) {
+		this.risk_revelation = risk_revelation;
+	}
+
+	public String getMatch_instruction() {
+		return match_instruction;
+	}
+
+	public void setMatch_instruction(String match_instruction) {
+		this.match_instruction = match_instruction;
+	}
+
+	@Override
+	public String toString() {
+		return "UserOrderEntity [id=" + id + ", userId=" + userId + ", goodsType=" + goodsType + ", goodsId=" + goodsId
+				+ ", certificate=" + certificate + ", productName=" + productName + ", goodsRisk=" + goodsRisk
+				+ ", evaluationResult=" + evaluationResult + ", brokerName=" + brokerName + ", salesName=" + salesName
+				+ ", tgName=" + tgName + ", serviceCycle=" + serviceCycle + ", amount=" + amount + ", book_time="
+				+ book_time + ", bookOrigin=" + bookOrigin + ", assign_time=" + assign_time + ", agreements="
+				+ agreements + ", risk_revelation=" + risk_revelation + ", match_instruction=" + match_instruction
+				+ "]";
+	}
+	
+
+	
+}
