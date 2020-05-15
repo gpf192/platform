@@ -236,6 +236,16 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/finance/liveLoginRecord",
 		templateUrl : "htmls/finance/liveLoginRecord.html",
 		controller : "liveLoginRecordController"
+	}).state("userRiskList", {
+		url : "/thx/userRiskList",
+		templateUrl : "htmls/thx/userRiskList.html",
+		controller : "userRiskListController"
+			
+	}).state("userOrderList", {
+		url : "/thx/userOrderList",
+		templateUrl : "htmls/thx/userOrderList.html",
+		controller : "userOrderListController"
+			
 	}).state("modifyContestant", {
 		url : "/modifyContestant",
 		templateUrl : "htmls/finance/modifyContestant.html",
