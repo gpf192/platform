@@ -59,22 +59,22 @@ public class UserOrderEntity {
 	private String amount;//订阅金额
 	
 	@Column(name = "book_time")
-	private String book_time;//订阅时间
+	private String bookTime;//订阅时间
 	
 	@Column(name = "book_origin")
 	private String bookOrigin;//订阅来源,1.手抄android2.手抄ios3.微信客户端4.股市教练安卓5.股市教练ios6.PC网页
 	
 	@Column(name = "assign_time")
-	private String assign_time;//获得名额时间
+	private String assignTime;//获得名额时间
 	
 	@Column(name = "agreements")
 	private String agreements;//签署的所有协议
 	
 	@Column(name = "risk_revelation")
-	private String risk_revelation;//风险揭示书
+	private String riskRevelation;//风险揭示书
 	
 	@Column(name = "match_instruction")
-	private String match_instruction;//适当性匹配说明,1：匹配 0：不匹配
+	private String matchInstruction;//适当性匹配说明,1：匹配 0：不匹配
 
 	public long getId() {
 		return id;
@@ -180,12 +180,14 @@ public class UserOrderEntity {
 		this.amount = amount;
 	}
 
-	public String getBook_time() {
-		return book_time;
+	
+
+	public String getBookTime() {
+		return bookTime;
 	}
 
-	public void setBook_time(String book_time) {
-		this.book_time = book_time;
+	public void setBookTime(String bookTime) {
+		this.bookTime = bookTime;
 	}
 
 	public String getBookOrigin() {
@@ -196,13 +198,7 @@ public class UserOrderEntity {
 		this.bookOrigin = bookOrigin;
 	}
 
-	public String getAssign_time() {
-		return assign_time;
-	}
-
-	public void setAssign_time(String assign_time) {
-		this.assign_time = assign_time;
-	}
+	
 
 	public String getAgreements() {
 		return agreements;
@@ -212,20 +208,29 @@ public class UserOrderEntity {
 		this.agreements = agreements;
 	}
 
-	public String getRisk_revelation() {
-		return risk_revelation;
+
+	public String getAssignTime() {
+		return assignTime;
 	}
 
-	public void setRisk_revelation(String risk_revelation) {
-		this.risk_revelation = risk_revelation;
+	public void setAssignTime(String assignTime) {
+		this.assignTime = assignTime;
 	}
 
-	public String getMatch_instruction() {
-		return match_instruction;
+	public String getRiskRevelation() {
+		return riskRevelation;
 	}
 
-	public void setMatch_instruction(String match_instruction) {
-		this.match_instruction = match_instruction;
+	public void setRiskRevelation(String riskRevelation) {
+		this.riskRevelation = riskRevelation;
+	}
+
+	public String getMatchInstruction() {
+		return matchInstruction;
+	}
+
+	public void setMatchInstruction(String matchInstruction) {
+		this.matchInstruction = matchInstruction;
 	}
 
 	@Override
@@ -233,12 +238,12 @@ public class UserOrderEntity {
 		return "UserOrderEntity [id=" + id + ", userId=" + userId + ", goodsType=" + goodsType + ", goodsId=" + goodsId
 				+ ", certificate=" + certificate + ", productName=" + productName + ", goodsRisk=" + goodsRisk
 				+ ", evaluationResult=" + evaluationResult + ", brokerName=" + brokerName + ", salesName=" + salesName
-				+ ", tgName=" + tgName + ", serviceCycle=" + serviceCycle + ", amount=" + amount + ", book_time="
-				+ book_time + ", bookOrigin=" + bookOrigin + ", assign_time=" + assign_time + ", agreements="
-				+ agreements + ", risk_revelation=" + risk_revelation + ", match_instruction=" + match_instruction
-				+ "]";
+				+ ", tgName=" + tgName + ", serviceCycle=" + serviceCycle + ", amount=" + amount + ", bookTime="
+				+ bookTime + ", bookOrigin=" + bookOrigin + ", assignTime=" + assignTime + ", agreements=" + agreements
+				+ ", riskRevelation=" + riskRevelation + ", matchInstruction=" + matchInstruction + "]";
 	}
-	
+
+
 
 	
 }

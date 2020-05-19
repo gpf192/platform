@@ -5,15 +5,18 @@ function userRiskListController($scope, $http, $state, httpUtils, layerUtils, $s
 	$scope.init=function(){
 		var data = {
 				"one" : {
-					name : "活动产品管理",
+					name : "同花顺展业平台管理",
 					goto:"productsSellList"
 				},
 				"two" : {
-					name : "活动产品销售数据",
+					name : "用户风险评估查询",
 					goto:"productsSellList"
 
 				}
 			}
+		
+		$scope.formData.beginTime = '';
+		 $scope.formData.endTime = '';
 		$scope.$emit("changeNavigation", data);
 		$scope.getWinPrizeList(20000);
 		$scope.currentPage = {
@@ -37,25 +40,19 @@ function userRiskListController($scope, $http, $state, httpUtils, layerUtils, $s
 	
 	
 	$scope.getWinPrizeList = function(pageSize) {
-		var url = httpUtils.url.productsSellList;
-		var clientId = "";
-		var financeAccount = "";
-		var productCode = "";
-		if(!utils.isEmpty($scope.formData.clientId)) {
-			clientId = $scope.formData.clientId;
-		}
-		if(!utils.isEmpty($scope.formData.financeAccount)) {
-			financeAccount = $scope.formData.financeAccount;
-		}
-		if(!utils.isEmpty($scope.formData.productCode)) {
-			productCode = $scope.formData.productCode;
+		var url = httpUtils.url.getRiskInfo;
+		if( ($scope.formData.beginTime != '') && ($scope.formData.endTime != '')){
+			if ($scope.formData.endTime < $scope.formData.beginTime) {
+				layerUtils.iMsg(-1, "结束时间不能早于开始时间！");
+				return;
+			}
 		}
 		var params = {
+			beginTime : $scope.formData.beginTime,
+			endTime : $scope.formData.endTime,
 			pageNumber : 0,
-			pageSize : pageSize,
-			clientId : clientId,
-			financeAccount : financeAccount,
-			productCode : productCode
+			pageSize : pageSize
+			
 		};
 		var settings = {
 			url : url,
@@ -73,7 +70,7 @@ function userRiskListController($scope, $http, $state, httpUtils, layerUtils, $s
 	$scope.exportToExcel=function(){ 
 		var excelArrs = getExcelData();
 		var myDate = new Date();
-		 alasql.promise('SELECT * INTO XLSX("活动产品销售数据表-' + myDate+ '.xlsx",{headers:true}) FROM ?',[excelArrs])
+		 alasql.promise('SELECT * INTO XLSX("用户风险测评结果-' + myDate+ '.xlsx",{headers:true}) FROM ?',[excelArrs])
 			.then(function (data) {
 			  if(data == 1){
 				$timeout(function(){

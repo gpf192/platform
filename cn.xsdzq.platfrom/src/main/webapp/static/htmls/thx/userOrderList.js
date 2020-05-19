@@ -37,7 +37,7 @@ function userOrderListController($scope, $http, $state, httpUtils, layerUtils, $
 	
 	
 	$scope.getWinPrizeList = function(pageSize) {
-		var url = httpUtils.url.productsSellList;
+		var url = httpUtils.url.getUserOrder;
 		var clientId = "";
 		var financeAccount = "";
 		var productCode = "";
@@ -73,7 +73,7 @@ function userOrderListController($scope, $http, $state, httpUtils, layerUtils, $
 	$scope.exportToExcel=function(){ 
 		var excelArrs = getExcelData();
 		var myDate = new Date();
-		 alasql.promise('SELECT * INTO XLSX("活动产品销售数据表-' + myDate+ '.xlsx",{headers:true}) FROM ?',[excelArrs])
+		 alasql.promise('SELECT * INTO XLSX("用户订单数据-' + myDate+ '.xlsx",{headers:true}) FROM ?',[excelArrs])
 			.then(function (data) {
 			  if(data == 1){
 				$timeout(function(){
@@ -91,9 +91,9 @@ function userOrderListController($scope, $http, $state, httpUtils, layerUtils, $
 				
 			};
 			for(k=0;k<$scope.productsSellList.length;k++){				
-				newObj["客户号"] = 	data.clientId;
-				newObj["客户姓名"] = 	data.clientName;
-				newObj["金融账号"] = 	data.financeAccount;
+				newObj["产品类型"] = 	data.clientId;
+				newObj["商品ID"] = 	data.clientName;
+				newObj["用户ID"] = 	data.financeAccount;
 				newObj["产品代码"] = 	data.productCode;
 				newObj["产品名称"] = 	data.productName;
 				newObj["是否为场外基金"] = 	data.flag;

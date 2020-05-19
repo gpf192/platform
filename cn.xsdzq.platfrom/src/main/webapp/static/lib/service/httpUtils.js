@@ -77,6 +77,9 @@ ngApp.factory("httpUtils", [ function() {
 		addEmpVoteWeight: baseUrl + "vote/addWeight",		
 		userVoteForList:baseUrl + "vote/getUserVoteFor",
 		
+		getRiskInfo: baseUrl + "thx/getRiskInfo",		
+		getUserOrder:baseUrl + "thx/getUserOrder",
+		
 		getLoginRecord:baseUrl + "live/getLoginRecord"
 	};
 

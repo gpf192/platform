@@ -1,8 +1,10 @@
 package cn.xsdzq.platform.model.thx;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 
-public class UserRiskDTO {
+public class UserRiskDTO implements Serializable{
 	private long id;//主键
 	
 	private String userId;//用户ID
@@ -81,6 +83,13 @@ public class UserRiskDTO {
 
 	public void setEvaluationTime(String evaluationTime) {
 		this.evaluationTime = evaluationTime;
+	}
+
+	@Override
+	public String toString() {
+		return "UserRiskDTO [id=" + id + ", userId=" + userId + ", username=" + username + ", certificate="
+				+ certificate + ", mobile=" + mobile + ", evaluationAnswer=" + evaluationAnswer + ", evaluationResult="
+				+ evaluationResult + ", evaluationTime=" + evaluationTime + "]";
 	}
 	
 	
