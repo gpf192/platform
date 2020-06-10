@@ -86,7 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// add by fjx end  failureHandler(myAuthenctiationFailureHandler)
 		http.formLogin().usernameParameter("username").passwordParameter("password").loginPage("/login")
 				.defaultSuccessUrl("/static/index.html").successHandler(myAuthenctiationSuccessHandler).failureHandler(myAuthenctiationFailureHandler).and().logout().logoutSuccessUrl("/login").and()
-				.authorizeRequests().antMatchers("/platform/fund/*").permitAll().anyRequest().authenticated()
+				.authorizeRequests().anyRequest().authenticated()
 				.withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
 					@Override
 					public <O extends FilterSecurityInterceptor> O postProcess(O object) {
