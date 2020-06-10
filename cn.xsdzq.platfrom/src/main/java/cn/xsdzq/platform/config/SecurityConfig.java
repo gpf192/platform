@@ -1,6 +1,7 @@
 package cn.xsdzq.platform.config;
 
 import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+
 import cn.xsdzq.platform.dao.AuthorityRepository;
 import cn.xsdzq.platform.dao.UserRepository;
 import cn.xsdzq.platform.handler.MyAuthenctiationFailureHandler;
@@ -84,7 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// add by fjx end  failureHandler(myAuthenctiationFailureHandler)
 		http.formLogin().usernameParameter("username").passwordParameter("password").loginPage("/login")
 				.defaultSuccessUrl("/static/index.html").successHandler(myAuthenctiationSuccessHandler).failureHandler(myAuthenctiationFailureHandler).and().logout().logoutSuccessUrl("/login").and()
-				.authorizeRequests().anyRequest().authenticated()
+				.authorizeRequests().antMatchers("/platform/fund/*").permitAll().anyRequest().authenticated()
 				.withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
 					@Override
 					public <O extends FilterSecurityInterceptor> O postProcess(O object) {
