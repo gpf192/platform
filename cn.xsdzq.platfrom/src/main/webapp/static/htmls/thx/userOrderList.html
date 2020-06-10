@@ -1,6 +1,6 @@
 <script src="././exporttable/alasql.min.js" type="text/javascript"></script>
 <script src="././exporttable/xlsx.core.min.js" type="text/javascript"></script> 
-<script type="text/javascript" src="htmls/finance/productsSellList.js"></script>
+<script type="text/javascript" src="htmls/thx/userOrderList.js"></script>
 <div class="box border primary" ng-init="init()">
     <div class="box-title">
         <h4>
@@ -21,24 +21,24 @@
          <form class="form-inline margin10">
                 &nbsp  &nbsp
                 <div class="form-group ">
-                    <label  for="emp_name">客户号:</label>                 
+                    <label  for="emp_name">服务周期:</label>                 
                         <input type="text" class="form-control input-300 " id="clientId" name="clientId"
-                        ng-model="formData.clientId" placeholder="请输入客户号"></input>
+                        ng-model="formData.clientId" placeholder=""></input>
 
                 </div>
                 &nbsp
                  
                 <div class="form-group ">
-                    <label  for="productCode">产品代码:</label>                 
+                    <label  for="productCode">订阅时间:</label>                 
                         <input type="text" class="form-control input-300 " id="productCode" name="productCode"
-                        ng-model="formData.productCode" placeholder="请输入产品代码"></input>
+                        ng-model="formData.productCode" placeholder=""></input>
 
                 </div>
                <br>  <br> 
                 <div class="form-group ">
-                    <label  for="account">金融账号:</label>                 
+                    <label  for="account">获得名额时间:</label>                 
                         <input type="text" class="form-control input-300 " id="financeAccount" name="financeAccount"
-                        ng-model="formData.financeAccount" placeholder="请输入金融账号"></input>
+                        ng-model="formData.financeAccount" placeholder=""></input>
 
                 </div>
                
@@ -78,43 +78,49 @@
                 <thead>
              
                     <tr role="row">
-                        <th class="col-sm-1 text-center">序号</th>        
-                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">客户号</div></th>
-                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">客户姓名</div></th>
-                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">金融账号</div></th>
-                         
-                              <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">产品代码</div></th>
-                             <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">产品名称</div></th>
-                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">是否为场外基金</div></th>
-                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">成交时间</div></th>
-                         <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">成交金额</div></th>
-                         <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">对应服务员工</div></th>
+                      <th class="col-sm-1 text-center">序号</th>        
+                      <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                          aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">产品类型</div></th>
+                      <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                          aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">商品ID</div></th>
+                      <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                          aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">用户ID</div></th>
+                       
+                      <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                          aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">用户身份证号码</div></th>
+                      <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                          aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">投顾产品名称</div></th>
+                      <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                          aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">产品风险等级</div></th>
+                      <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                          aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">风险测评结果</div></th>
+                      <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                          aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">所属营业部名称</div></th>
+                      <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                          aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">所属投顾姓名</div></th>
+                      <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                          aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">订阅来源</div></th>
+                      <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                          aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">适当性匹配结果</div></th>
                     </tr>
                 </thead>
                 <tbody role="alert" aria-live="polite" aria-relevant="all">
                     <tr ng-repeat="product in productsSellList">
                         <td >{{$index+selectNum["num"]*currentPage.page+1}}</td>
-                        <td ><div style="white-space:nowrap;" >{{product.clientId}}</div> </td> 
-                        <td ><div style="white-space:nowrap;" >{{product.clientName}}</div> </td> 
-                        <td ><div style="white-space:nowrap;" >{{product.financeAccount}}</div> </td> 
-                        <td ><div style="white-space:nowrap;">{{product.productCode}}</div> </td>
-                       <td ><div style="white-space:nowrap;">{{product.productName}}</div> </td>
-              
-                           <td ><div style="white-space:nowrap;"><span
-                            ng-bind="product.flag |fundTypeFilter"></span></div> </td>
-    
-                         <td ><div style="white-space:nowrap;">{{product.dealTime}}</div> </td>
-                           <td ><div style="white-space:nowrap;" >{{product.dealAmount}}</div> </td> 
-                        <td ><div style="white-space:nowrap;">{{product.empName}}</div> </td>
+                        <td ><div style="white-space:nowrap;" >{{product.goodsType}}</div> </td> 
+                        <td ><div style="white-space:nowrap;" >{{product.goodsId}}</div> </td> 
+                        <td ><div style="white-space:nowrap;" >{{product.userId}}</div> </td> 
+                        <td ><div style="white-space:nowrap;">{{product.certificate}}</div> </td>
+                        <td ><div style="white-space:nowrap;">{{product.productName}}</div> </td>
+
+                        <td ><div style="white-space:nowrap;">{{product.goodsRisk}}</div> </td>
+                        <td ><div style="white-space:nowrap;" >{{product.evaluationResult}}</div> </td> 
+                        <td ><div style="white-space:nowrap;">{{product.salesName}}</div> </td>
+                        
+                         <td ><div style="white-space:nowrap;" >{{product.tgName}}</div> </td> 
+                        <td ><div style="white-space:nowrap;" >{{product.bookOrigin}}</div> </td> 
+                        <td ><div style="white-space:nowrap;" >{{product.matchInstruction}}</div> </td> 
+                        
                     </tr>
                 </tbody>
                 <tfoot>
