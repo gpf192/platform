@@ -5,7 +5,6 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,18 +28,18 @@ public class FundController {
 		logger.info(body);
 		Hello hello =new Hello();
 		hello.setName(body);
-		return GsonUtil.buildMap(0, "ok", null);	
+		return GsonUtil.buildMap(0, "ok", hello);	
 		
 	}
 	
 	@RequestMapping(value = "/orders", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> receiveGetFund(@RequestBody String body){
-		
+	public Map<String, Object> receiveGetFund(@RequestParam Map<String, String> params){
+		String body = params.toString();
 		logger.info(body);
 		Hello hello =new Hello();
 		hello.setName(body);
-		return GsonUtil.buildMap(0, "ok", null);	
+		return GsonUtil.buildMap(0, "ok", hello);	
 		
 	}
 	
