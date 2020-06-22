@@ -19,19 +19,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.xsdzq.platform.controller.BaseController;
-import cn.xsdzq.platform.entity.lcj.ProductEntity;
-import cn.xsdzq.platform.entity.thx.UserOrderEntity;
+import cn.xsdzq.platform.entity.thx.ThxOrderEntity;
 import cn.xsdzq.platform.entity.thx.UserRiskEntity;
 import cn.xsdzq.platform.model.Pagination;
-import cn.xsdzq.platform.model.lcj.ProductDTO;
 import cn.xsdzq.platform.model.thx.UserOrderDTO;
 import cn.xsdzq.platform.model.thx.UserRiskDTO;
-import cn.xsdzq.platform.service.lcj.MyProductService;
 import cn.xsdzq.platform.service.thx.UserOrderService;
 import cn.xsdzq.platform.service.thx.UserRiskService;
 import cn.xsdzq.platform.util.DateUtil;
 import cn.xsdzq.platform.util.GsonUtil;
-import cn.xsdzq.platform.util.LcjUtil;
 import cn.xsdzq.platform.util.MethodUtil;
 import cn.xsdzq.platform.util.ThxUtil;
 
@@ -105,12 +101,12 @@ public class userInfoController extends BaseController{
 		int sum = 0 ;
 		List<UserOrderDTO> userOrderDTOs = null;
 		try {
-			List<UserOrderEntity> entitys = null;		
+			List<ThxOrderEntity> entitys = null;		
 				entitys = userOrderService.getAllProduct(pageNumber, pageSize);
 				sum = userOrderService.countAll();
 						
 				userOrderDTOs = new ArrayList<UserOrderDTO>();
-			for (UserOrderEntity entity : entitys) {
+			for (ThxOrderEntity entity : entitys) {
 				UserOrderDTO dto = ThxUtil.convertUserOrderDTOByEntity(entity);
 				userOrderDTOs.add(dto);
 			}

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.xsdzq.platform.dao.thx.UserOrderRepository;
-import cn.xsdzq.platform.entity.thx.UserOrderEntity;
+import cn.xsdzq.platform.entity.thx.ThxOrderEntity;
 
 @Service(value = "userOrderServiceImpl")
 @Transactional(readOnly = true)
@@ -23,11 +23,11 @@ public class UserOrderServiceImpl implements UserOrderService{
 	}
 
 	@Override
-	public List<UserOrderEntity> getAllProduct(int pageNumber, int pageSize) {
+	public List<ThxOrderEntity> getAllProduct(int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<UserOrderEntity> pages = userOrderRepository.findByOrderById(pageRequest);
-		List<UserOrderEntity> infos = pages.getContent();
+		Page<ThxOrderEntity> pages = userOrderRepository.findByOrderById(pageRequest);
+		List<ThxOrderEntity> infos = pages.getContent();
 		return infos;
 	}
 

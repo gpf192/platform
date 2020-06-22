@@ -1,9 +1,14 @@
 package cn.xsdzq.platform.entity.thx;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -11,10 +16,16 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @Table(name = "thx_order_info")
 @EntityListeners(AuditingEntityListener.class)
-public class ThxOrderEntity {
+public class ThxOrderEntity implements Serializable{
+	private static final long serialVersionUID = 1L;
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "thx_order_sequence")
+	@SequenceGenerator(name = "thx_order_sequence", sequenceName = "sequence_thx_order", allocationSize = 1)
+	@Column(name = "id")
+	private long id;//主键
+	
 	@Column(name = "order_id")
-	private String orderId;//主键ID
+	private String orderId;//
 	
 	@Column(name = "user_id")
 	private String userId;//用户ID
@@ -102,6 +113,14 @@ public class ThxOrderEntity {
 	
 	@Column(name = "occupation")
 	private String occupation;//  occupation
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public String getOrderId() {
 		return orderId;

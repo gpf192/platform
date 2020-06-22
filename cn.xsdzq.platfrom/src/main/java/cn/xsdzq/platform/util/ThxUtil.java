@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cn.xsdzq.platform.entity.thx.ThxOrderEntity;
-import cn.xsdzq.platform.entity.thx.UserOrderEntity;
 import cn.xsdzq.platform.entity.thx.UserRiskEntity;
 import cn.xsdzq.platform.model.thx.UserOrderDTO;
 import cn.xsdzq.platform.model.thx.UserRiskDTO;
@@ -24,9 +23,11 @@ public class ThxUtil {
 		return dto;
 	}
 
-	public static UserOrderDTO convertUserOrderDTOByEntity(UserOrderEntity entity) {		
+	public static UserOrderDTO convertUserOrderDTOByEntity(ThxOrderEntity entity) {		
 		UserOrderDTO dto = new UserOrderDTO();
 		dto.setId(entity.getId());
+		dto.setOrderId(entity.getOrderId());
+		dto.setOrderStatus(entity.getOrderStatus());
 		dto.setUserId(entity.getUserId());
 		dto.setGoodsType(entity.getGoodsType());
 		dto.setGoodsId(entity.getGoodsId());
