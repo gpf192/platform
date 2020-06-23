@@ -97,13 +97,35 @@
                       <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
                           aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">产品风险等级</div></th>
                       <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                          aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">风险测评结果</div></th>
+                          aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">用户风险等级</div></th>
+                            <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                          aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">风险测评答案</div></th>
+                            <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                          aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">所属券商</div></th>
                       <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
                           aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">所属营业部名称</div></th>
                       <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
                           aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">所属投顾姓名</div></th>
+                          <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                          aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">投顾证书编号</div></th>
+                          <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                          aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">服务周期</div></th>
+                          <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                          aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">服务开始日期</div></th>
+                          <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                          aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">服务结束日期</div></th>
+                          <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                          aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">订阅金额</div></th>
+                          <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                          aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">订阅时间</div></th>
+                         
                       <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
                           aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">订阅来源</div></th>
+                          
+                           <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                          aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">签署的所有协议</div></th>
+                          <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                          aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">风险揭示书</div></th>
                       <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
                           aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">适当性匹配结果</div></th>
                     </tr>
@@ -121,10 +143,21 @@
 
                         <td ><div style="white-space:nowrap;">{{product.goodsRisk}}</div> </td>
                         <td ><div style="white-space:nowrap;" >{{product.evaluationResult}}</div> </td> 
+                        <td ><div style="white-space:nowrap;">{{product.evaluationAnswer}}</div> </td>
+                        <td ><div style="white-space:nowrap;">{{product.brokerName}}</div> </td>
                         <td ><div style="white-space:nowrap;">{{product.salesName}}</div> </td>
                         
                          <td ><div style="white-space:nowrap;" >{{product.tgName}}</div> </td> 
+                         <td ><div style="white-space:nowrap;" >{{product.tgCertification}}</div> </td>
+                         <td ><div style="white-space:nowrap;" >{{product.serviceCycle}}</div> </td>
+                           <td ><div style="white-space:nowrap;" >{{product.serviceCycleStart}}</div> </td>
+                            <td ><div style="white-space:nowrap;" >{{product.serviceCycleEnd}}</div> </td>
+                             <td ><div style="white-space:nowrap;" >{{product.amount}}</div> </td>
+                              <td ><div style="white-space:nowrap;" >{{product.bookTime}}</div> </td>
+                           
                         <td ><div style="white-space:nowrap;" >{{product.bookOrigin}}</div> </td> 
+                          <td ><div style="white-space:nowrap;" >{{product.agreements}}</div> </td> 
+                            <td ><div style="white-space:nowrap;" >{{product.riskRevelation}}</div> </td> 
                         <td ><div style="white-space:nowrap;" >{{product.matchInstruction}}</div> </td> 
                         
                     </tr>

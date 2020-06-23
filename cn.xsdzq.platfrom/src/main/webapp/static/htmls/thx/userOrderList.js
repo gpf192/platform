@@ -91,15 +91,32 @@ function userOrderListController($scope, $http, $state, httpUtils, layerUtils, $
 				
 			};
 			for(k=0;k<$scope.productsSellList.length;k++){				
-				newObj["产品类型"] = 	data.clientId;
-				newObj["商品ID"] = 	data.clientName;
-				newObj["用户ID"] = 	data.financeAccount;
-				newObj["产品代码"] = 	data.productCode;
-				newObj["产品名称"] = 	data.productName;
-				newObj["是否为场外基金"] = 	data.flag;
-				newObj["成交时间"] = 	data.dealTime;
-				newObj["成交金额"] = 	data.dealAmount;
-				newObj["对应服务员工"] = 	data.empName;
+				newObj["订单号"] = 		data.orderId;
+				newObj["订单状态"] = 		data.orderStatus;
+				newObj["产品类型"] = 		data.goodsType;
+				newObj["商品ID"] = 		data.goodsId;
+				newObj["用户ID"] = 		data.userId;
+				newObj["用户身份证号码"] = 	data.certificate;
+				newObj["投顾产品名称"] = 	data.productName;
+				newObj["产品风险等级"] = 	data.goodsRisk;
+				newObj["用户风险等级"] = 	data.evaluationResult;
+				
+				newObj["风险测评答案"] = 	data.evaluationAnswer;
+				newObj["所属券商"] = 		data.brokerName;
+				newObj["所属营业部名称"] = 	data.salesName;
+				newObj["所属投顾姓名"] = 	data.tgName;
+				newObj["投顾证书编号"] = 	data.tgCertification;
+				newObj["服务周期"] = 		data.serviceCycle;
+				newObj["服务开始日期"] = 	data.serviceCycleStart;
+				newObj["服务结束日期"] = 	data.serviceCycleEnd;
+				newObj["订阅金额"] = 		data.amount;
+				
+				newObj["订阅时间"] = 		data.bookTime;
+				newObj["订阅来源"] = 		data.bookOrigin;
+				newObj["签署的所有协议"] = 	data.agreements;
+				newObj["风险揭示书"] = 		data.riskRevelation;
+				newObj["适当性匹配结果"] = 	data.matchInstruction;
+				
 			}
 			arr.push(newObj);
 		});
