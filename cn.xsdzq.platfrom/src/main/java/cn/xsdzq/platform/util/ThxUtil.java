@@ -29,6 +29,12 @@ public class ThxUtil {
 		dto.setOrderId(entity.getOrderId());
 		dto.setOrderStatus(entity.getOrderStatus());
 		dto.setUserId(entity.getUserId());
+		try {
+			dto.setUsername(AES.Decrypt(entity.getUsername()));
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		dto.setGoodsType(entity.getGoodsType());
 		dto.setGoodsId(entity.getGoodsId());
 		dto.setCertificate(entity.getCertificate());;
@@ -37,7 +43,18 @@ public class ThxUtil {
 		dto.setEvaluationResult(entity.getEvaluationResult());
 		dto.setBrokerName(entity.getBrokerName());
 		dto.setSalesName(entity.getSalesName());
-		dto.setTgName(entity.getTgName());
+		try {
+			dto.setTgName(AES.Decrypt(entity.getTgName()));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			dto.setTgCertification(AES.Decrypt(entity.getTgCertification()));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		dto.setServiceCycle(entity.getServiceCycle());
 		dto.setAmount(entity.getAmount());
 		dto.setBookTime(entity.getBookTime());
@@ -46,6 +63,12 @@ public class ThxUtil {
 		dto.setAgreements(entity.getAgreements());
 		dto.setRiskRevelation(entity.getRiskRevelation());
 		dto.setMatchInstruction(entity.getMatchInstruction());
+		try {
+			dto.setAddress(AES.Decrypt(entity.getAddress()));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		return dto;

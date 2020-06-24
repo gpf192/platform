@@ -38,24 +38,29 @@ function userOrderListController($scope, $http, $state, httpUtils, layerUtils, $
 	
 	$scope.getWinPrizeList = function(pageSize) {
 		var url = httpUtils.url.getUserOrder;
-		var clientId = "";
-		var financeAccount = "";
-		var productCode = "";
-		if(!utils.isEmpty($scope.formData.clientId)) {
-			clientId = $scope.formData.clientId;
+		var orderId = "";
+		var username = "";
+		var tgName = "";
+		var productName = "";
+		if(!utils.isEmpty($scope.formData.orderId)) {
+			orderId = $scope.formData.orderID;
 		}
-		if(!utils.isEmpty($scope.formData.financeAccount)) {
-			financeAccount = $scope.formData.financeAccount;
+		if(!utils.isEmpty($scope.formData.username)) {
+			username = $scope.formData.username;
 		}
-		if(!utils.isEmpty($scope.formData.productCode)) {
-			productCode = $scope.formData.productCode;
+		if(!utils.isEmpty($scope.formData.tgName)) {
+			tgName = $scope.formData.tgName;
+		}
+		if(!utils.isEmpty($scope.formData.productName)) {
+			productName = $scope.formData.productName;
 		}
 		var params = {
 			pageNumber : 0,
 			pageSize : pageSize,
-			clientId : clientId,
-			financeAccount : financeAccount,
-			productCode : productCode
+			orderID : orderId,
+			username : username,
+			tgName : tgName,
+			productName: productName
 		};
 		var settings = {
 			url : url,

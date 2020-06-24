@@ -95,11 +95,97 @@ public class userInfoController extends BaseController{
 
 	@RequestMapping(value = "/getUserOrder", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Map<String, Object> getUserOrder(HttpServletRequest request,  
+	public Map<String, Object> getUserOrder(HttpServletRequest request, 
+			@RequestParam String username, @RequestParam String orderId,
+			@RequestParam String tgName, @RequestParam String productName,
 			 @RequestParam int pageNumber,@RequestParam int pageSize) {
 		System.out.println("全量查询用户订单 信息   +   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");		
 		int sum = 0 ;
+		
+		int num = MethodUtil.getUserOrderForMethodNum(username, orderId, tgName, productName);
 		List<UserOrderDTO> userOrderDTOs = null;
+		List<ThxOrderEntity> entitys = null;
+		if(num == 1) {
+			//全量查找
+			entitys = userOrderService.getAllProduct(pageNumber, pageSize);
+			sum = userOrderService.countAll();	
+		}
+		if(num == 2) {
+			//4个条件一起查询
+			System.out.println("into   2 ____");
+			entitys = userOrderService.findByUsernameAndOrderIdAndTgNameAndProductNameOrderByOrderId(username, orderId, tgName, productName, pageNumber, pageSize);
+			sum = userOrderService.countByUsernameAndOrderIdAndTgNameAndProductName(username, orderId, tgName, productName);
+		}
+		if(num == 3) {
+			//查询条件：username\orderId\tgName\
+			entitys = userOrderService.findByUsernameAndOrderIdAndTgNameOrderByOrderId(username, orderId, tgName, pageNumber, pageSize);
+			sum = userOrderService.countByUsernameAndOrderIdAndTgName(username, orderId, tgName);
+		}
+		if(num == 4) {
+			//查询条件：username\orderId\\productName
+			entitys = userOrderService.findByUsernameAndOrderIdAndProductNameOrderByOrderId(username, orderID, productName, pageNumber, pageSize);
+			sum = userOrderService.countByUsernameAndOrderIdAndProductName(username, orderId, productName);
+		}
+		if(num == 5) {
+			//查询条件：username\\empName\empCode
+			entitys = userOrderService.findByUsernameAndTgNameAndProductNameOrderByOrderId(username, tgName, productName, pageNumber, pageSize);
+			sum = userOrderService.countByUsernameAndTgNameAndProductName(username, tgName, productName);
+		}
+		if(num == 6) {
+			//查询条件：\orderId\tgName\productName
+			entitys = userOrderService.findByOrderIdAndTgNameAndProductNameOrderByOrderId(orderId, tgName, productName, pageNumber, pageSize);
+			sum = userOrderService.countByOrderIdAndTgNameAndProductName(orderId, tgName, productName);
+		}
+		if(num == 7) {
+			////查询条件：username\clientId\\
+			entitys = userOrderService;
+			sum = userOrderService;
+		}
+		if(num == 8) {
+			//查询条件：username\\empName\
+			entitys = userOrderService;
+			sum = userOrderService;
+		}
+		if(num == 9) {
+			//username\\\empCode
+			entitys = userOrderService;
+			sum = userOrderService;
+		}
+		if(num == 10) {
+			//查询条件：\clientId\empName\
+			entitys = userOrderService;
+			sum = userOrderService;
+		}
+		if(num == 11) {
+			//查询条件：\clientId\\empCode
+			entitys = userOrderService;
+			sum = userOrderService;
+		}
+		if(num == 12) {
+			//查询条件：\\empName\empCode
+			entitys = userOrderService;
+			sum = userOrderService;
+		}
+		if(num == 13) {
+			//查询条件：username 
+			entitys = userOrderService;
+			sum = userOrderService;
+		}
+		if(num == 14) {
+			////查询条件： \clientId
+			entitys = userOrderService;
+			sum = userOrderService;
+		}
+		if(num == 15) {
+			//查询条件：empName
+			entitys = userOrderService;
+			sum = userOrderService;
+		}
+		if(num == 16) {
+			//查询条件：empCode
+			entitys = userOrderService;
+			sum = userOrderService;
+		}
 		try {
 			List<ThxOrderEntity> entitys = null;		
 				entitys = userOrderService.getAllProduct(pageNumber, pageSize);
