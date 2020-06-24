@@ -329,36 +329,36 @@ public class MethodUtil {
 				return 6;//查询条件：\orderId\tgName\productName
 			}
 			//两个条件
-			if(!"".equals(username) && !"".equals(clientId) && "".equals(empName) && "".equals(empCode)) {
-				return 7;//查询条件：username\clientId\\
+			if(!"".equals(username) && !"".equals(orderId) && "".equals(tgName) && "".equals(productName)) {
+				return 7;//查询条件：username\orderId\\
 			}		
-			if(!"".equals(username) && "".equals(clientId) && !"".equals(empName) && "".equals(empCode)) {
-				return 8;//查询条件：username\\empName\
+			if(!"".equals(username) && "".equals(orderId) && !"".equals(tgName) && "".equals(productName)) {
+				return 8;//查询条件：username\\tgName\
 			}
-			if(!"".equals(username) && "".equals(clientId) && "".equals(empName) && !"".equals(empCode)) {
-				return 9;//查询条件：username\\\empCode
+			if(!"".equals(username) && "".equals(orderId) && "".equals(tgName) && !"".equals(productName)) {
+				return 9;//查询条件：username\\\productName
 			}		
-			if("".equals(username) && !"".equals(clientId) && !"".equals(empName) && "".equals(empCode)) {
-				return 10;//查询条件：\clientId\empName\
+			if("".equals(username) && !"".equals(orderId) && !"".equals(tgName) && "".equals(productName)) {
+				return 10;//查询条件：\orderId\tgName\
 			}
-			if("".equals(username) && !"".equals(clientId) && "".equals(empName) && !"".equals(empCode)) {
-				return 11;//查询条件：\clientId\\empCode
+			if("".equals(username) && !"".equals(orderId) && "".equals(tgName) && !"".equals(productName)) {
+				return 11;//查询条件：\orderId\\productName
 			}		
-			if("".equals(username) && "".equals(clientId) && !"".equals(empName) && !"".equals(empCode)) {
-				return 12;//查询条件：\\empName\empCode
+			if("".equals(username) && "".equals(orderId) && !"".equals(tgName) && !"".equals(productName)) {
+				return 12;//查询条件：\\tgName\productName
 			}
 			//一个条件
-			if(!"".equals(username) && "".equals(clientId) && "".equals(empName) && "".equals(empCode)) {
+			if(!"".equals(username) && "".equals(orderId) && "".equals(tgName) && "".equals(productName)) {
 				return 13;//查询条件：username\\\
 			}
-			if("".equals(username) && !"".equals(clientId) && "".equals(empName) && "".equals(empCode)) {
-				return 14;//查询条件：\clientId\\
+			if("".equals(username) && !"".equals(orderId) && "".equals(tgName) && "".equals(productName)) {
+				return 14;//查询条件：\orderId\\
 			}
-			if("".equals(username) && "".equals(clientId) && !"".equals(empName) && "".equals(empCode)) {
-				return 15;//查询条件：\\empName\
+			if("".equals(username) && "".equals(orderId) && !"".equals(tgName) && "".equals(productName)) {
+				return 15;//查询条件：\\tgName\
 			}
-			if("".equals(username) && "".equals(clientId) && "".equals(empName) && !"".equals(empCode)) {
-				return 16;//查询条件：\\\empCode
+			if("".equals(username) && "".equals(orderId) && "".equals(tgName) && !"".equals(productName)) {
+				return 16;//查询条件：\\\productName
 			}
 			
 			else return 17;

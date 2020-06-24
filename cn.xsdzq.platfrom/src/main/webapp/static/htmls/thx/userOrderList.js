@@ -78,7 +78,7 @@ function userOrderListController($scope, $http, $state, httpUtils, layerUtils, $
 	$scope.exportToExcel=function(){ 
 		var excelArrs = getExcelData();
 		var myDate = new Date();
-		 alasql.promise('SELECT * INTO XLSX("用户订单数据-' + myDate+ '.xlsx",{headers:true}) FROM ?',[excelArrs])
+		 alasql.promise('SELECT * INTO XLSX("同花顺用户订单数据-' + myDate+ '.xlsx",{headers:true}) FROM ?',[excelArrs])
 			.then(function (data) {
 			  if(data == 1){
 				$timeout(function(){
@@ -101,7 +101,9 @@ function userOrderListController($scope, $http, $state, httpUtils, layerUtils, $
 				newObj["产品类型"] = 		data.goodsType;
 				newObj["商品ID"] = 		data.goodsId;
 				newObj["用户ID"] = 		data.userId;
+				newObj["用户姓名"] = 		data.username;
 				newObj["用户身份证号码"] = 	data.certificate;
+				newObj["用户身份证有效期"] = 	data.expiredate;
 				newObj["投顾产品名称"] = 	data.productName;
 				newObj["产品风险等级"] = 	data.goodsRisk;
 				newObj["用户风险等级"] = 	data.evaluationResult;
@@ -121,6 +123,11 @@ function userOrderListController($scope, $http, $state, httpUtils, layerUtils, $
 				newObj["签署的所有协议"] = 	data.agreements;
 				newObj["风险揭示书"] = 		data.riskRevelation;
 				newObj["适当性匹配结果"] = 	data.matchInstruction;
+				
+				newObj["联系地址"] = 		data.address;
+				newObj["职业"] = 		data.occupation;
+				newObj["用户手机号"] = 	data.mobile;
+				newObj["风测时间"] = 		data.evaluationTime;
 				
 			}
 			arr.push(newObj);

@@ -113,5 +113,161 @@ public class UserOrderServiceImpl implements UserOrderService{
 		// TODO Auto-generated method stub
 		return (int)userOrderRepository.countByOrderIdAndTgNameAndProductName(orderId, tgName, productName);
 	}
+
+	@Override
+	public List<ThxOrderEntity> findByUsernameAndOrderIdOrderByOrderId(String username, String orderId, int pageNumber,
+			int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		Page<ThxOrderEntity> pages = userOrderRepository.findByUsernameAndOrderIdOrderByOrderId(username, orderId, pageRequest);
+		List<ThxOrderEntity> infos = pages.getContent();
+		return infos;
+	}
+
+	@Override
+	public int countByUsernameAndOrderId(String username, String orderId) {
+		// TODO Auto-generated method stub
+		return (int)userOrderRepository.countByUsernameAndOrderId( username,  orderId);
+	}
+
+	@Override
+	public List<ThxOrderEntity> findByUsernameAndTgNameOrderByOrderId(String username, String tgName, int pageNumber,
+			int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		Page<ThxOrderEntity> pages = userOrderRepository.findByUsernameAndTgNameOrderByOrderId(username, tgName, pageRequest);
+		List<ThxOrderEntity> infos = pages.getContent();
+		return infos;
+	}
+
+	@Override
+	public int countByUsernameAndTgName(String username, String tgName) {
+		// TODO Auto-generated method stub
+		return (int)userOrderRepository.countByUsernameAndTgName(username, tgName);
+	}
+
+	@Override
+	public List<ThxOrderEntity> findByUsernameAndProductNameOrderByOrderId(String username, String productName,
+			int pageNumber, int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		Page<ThxOrderEntity> pages = userOrderRepository.findByUsernameAndProductNameOrderByOrderId(username, productName, pageRequest);
+		List<ThxOrderEntity> infos = pages.getContent();
+		return infos;
+	}
+
+	@Override
+	public int countByUsernameAndProductName(String username, String productName) {
+		// TODO Auto-generated method stub
+		return (int)userOrderRepository.countByUsernameAndProductName(username, productName);
+	}
+
+	@Override
+	public List<ThxOrderEntity> findByOrderIdAndTgNameOrderByOrderId(String orderId, String tgName, int pageNumber,
+			int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		Page<ThxOrderEntity> pages = userOrderRepository.findByOrderIdAndTgNameOrderByOrderId(orderId, tgName,  pageRequest);
+		List<ThxOrderEntity> infos = pages.getContent();
+		return infos;
+	}
+
+	@Override
+	public int countByOrderIdAndTgName(String orderId, String tgName) {
+		// TODO Auto-generated method stub
+		return (int)userOrderRepository.countByOrderIdAndTgName(orderId, tgName);
+	}
+
+	@Override
+	public List<ThxOrderEntity> findByOrderIdAndProductNameOrderByOrderId(String orderId, String productName,
+			int pageNumber, int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		Page<ThxOrderEntity> pages = userOrderRepository.findByOrderIdAndProductNameOrderByOrderId(orderId, productName,  pageRequest);
+		List<ThxOrderEntity> infos = pages.getContent();
+		return infos;
+	}
+
+	@Override
+	public int countByOrderIdAndProductName(String orderId, String productName) {
+		// TODO Auto-generated method stub
+		return  (int)userOrderRepository.countByOrderIdAndProductName(orderId, productName);
+	}
+
+	@Override
+	public List<ThxOrderEntity> findByTgNameAndProductNameOrderByOrderId(String tgName, String productName,
+			int pageNumber, int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		Page<ThxOrderEntity> pages = userOrderRepository.findByTgNameAndProductNameOrderByOrderId(tgName, productName,  pageRequest);
+		List<ThxOrderEntity> infos = pages.getContent();
+		return infos;
+	}
+
+	@Override
+	public int countByTgNameAndProductName(String tgName, String productName) {
+		// TODO Auto-generated method stub
+		return  (int)userOrderRepository.countByTgNameAndProductName(tgName, productName);
+	}
+
+	@Override
+	public List<ThxOrderEntity> findByUsernameOrderByOrderId(String username, int pageNumber, int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		Page<ThxOrderEntity> pages = userOrderRepository.findByUsernameOrderByOrderId(username,  pageRequest);
+		List<ThxOrderEntity> infos = pages.getContent();
+		return infos;
+	}
+
+	@Override
+	public int countByUsername(String username) {
+		// TODO Auto-generated method stub
+		return  (int)userOrderRepository.countByUsername(username);
+	}
+
+	@Override
+	public List<ThxOrderEntity> findByOrderIdOrderByOrderId(String orderId, int pageNumber, int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		Page<ThxOrderEntity> pages = userOrderRepository.findByOrderIdOrderByOrderId(orderId,  pageRequest);
+		List<ThxOrderEntity> infos = pages.getContent();
+		return infos;
+	}
+
+	@Override
+	public int countByOrderId(String orderId) {
+		// TODO Auto-generated method stub
+		return  (int)userOrderRepository.countByOrderId(orderId);
+	}
+
+	@Override
+	public List<ThxOrderEntity> findByTgNameOrderByOrderId(String tgName, int pageNumber, int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		Page<ThxOrderEntity> pages = userOrderRepository.findByTgNameOrderByOrderId(tgName,  pageRequest);
+		List<ThxOrderEntity> infos = pages.getContent();
+		return infos;
+	}
+
+	@Override
+	public int countByTgName(String tgName) {
+		// TODO Auto-generated method stub
+		return  (int)userOrderRepository.countByTgName(tgName);
+	}
+
+	@Override
+	public List<ThxOrderEntity> findByProductNameOrderByOrderId(String productName, int pageNumber, int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		Page<ThxOrderEntity> pages = userOrderRepository.findByProductNameOrderByOrderId(productName,  pageRequest);
+		List<ThxOrderEntity> infos = pages.getContent();
+		return infos;
+	}
+
+	@Override
+	public int countByProductName(String productName) {
+		// TODO Auto-generated method stub
+		return  (int)userOrderRepository.countByProductName(productName);
+	}
 	
 }

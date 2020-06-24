@@ -37,7 +37,8 @@ public class ThxUtil {
 		}
 		dto.setGoodsType(entity.getGoodsType());
 		dto.setGoodsId(entity.getGoodsId());
-		dto.setCertificate(entity.getCertificate());;
+		dto.setCertificate(entity.getCertificate());
+		dto.setExpiredate(entity.getExpiredate());
 		dto.setProductName(entity.getProductName());
 		dto.setGoodsRisk(entity.getGoodsRisk());
 		dto.setEvaluationResult(entity.getEvaluationResult());
@@ -69,8 +70,9 @@ public class ThxUtil {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+		dto.setOccupation(entity.getOccupation());
+		dto.setMobile(entity.getMobile());
+		dto.setEvaluationTime(entity.getEvaluationTime());
 		return dto;
 	}
 	
@@ -80,6 +82,7 @@ public class ThxUtil {
 		t.setUserId(map.get("userid"));
 		t.setGoodsType(map.get("goods_type"));
 		t.setGoodsId(map.get("goods_id"));
+		t.setCertificate(map.get("certificate"));
 		t.setProductName(map.get("product_name"));
 		t.setGoodsRisk(map.get("goods_risk"));
 		
@@ -94,6 +97,7 @@ public class ThxUtil {
 		t.setAssignTime(map.get("assign_time"));
 		t.setAgreements(map.get("agreements"));
 		t.setRiskRevelation(map.get("risk_revelation"));
+
 		t.setTgCertification(map.get("tg_certification"));
 		t.setServiceCycleStart(map.get("service_cycle_start"));
 		t.setServiceCycleEnd(map.get("service_cycle_end"));
@@ -101,7 +105,7 @@ public class ThxUtil {
 		t.setOrderStatus(map.get("order_status"));
 		t.setUsername(map.get("username"));
 		t.setMobile(map.get("mobile"));
-		t.setCertificate(map.get("certificate"));
+		
 		t.setAddress(map.get("address"));
 		t.setExpiredate(map.get("expiredate"));
 		t.setEvaluationResult(map.get("evaluation_result"));

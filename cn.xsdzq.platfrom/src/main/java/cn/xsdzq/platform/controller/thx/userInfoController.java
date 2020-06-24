@@ -123,11 +123,11 @@ public class userInfoController extends BaseController{
 		}
 		if(num == 4) {
 			//查询条件：username\orderId\\productName
-			entitys = userOrderService.findByUsernameAndOrderIdAndProductNameOrderByOrderId(username, orderID, productName, pageNumber, pageSize);
+			entitys = userOrderService.findByUsernameAndOrderIdAndProductNameOrderByOrderId(username, orderId, productName, pageNumber, pageSize);
 			sum = userOrderService.countByUsernameAndOrderIdAndProductName(username, orderId, productName);
 		}
 		if(num == 5) {
-			//查询条件：username\\empName\empCode
+			//查询条件：username\\tgName\productName
 			entitys = userOrderService.findByUsernameAndTgNameAndProductNameOrderByOrderId(username, tgName, productName, pageNumber, pageSize);
 			sum = userOrderService.countByUsernameAndTgNameAndProductName(username, tgName, productName);
 		}
@@ -137,69 +137,62 @@ public class userInfoController extends BaseController{
 			sum = userOrderService.countByOrderIdAndTgNameAndProductName(orderId, tgName, productName);
 		}
 		if(num == 7) {
-			////查询条件：username\clientId\\
-			entitys = userOrderService;
-			sum = userOrderService;
+			////查询条件：username\orderId\\
+			entitys = userOrderService.findByUsernameAndOrderIdOrderByOrderId(username, orderId, pageNumber, pageSize);
+			sum = userOrderService.countByUsernameAndOrderId(username, orderId);
 		}
 		if(num == 8) {
-			//查询条件：username\\empName\
-			entitys = userOrderService;
-			sum = userOrderService;
+			//查询条件：username\\tgName\
+			entitys = userOrderService.findByUsernameAndTgNameOrderByOrderId(username, tgName, pageNumber, pageSize);
+			sum = userOrderService.countByUsernameAndTgName(username, tgName);
 		}
 		if(num == 9) {
-			//username\\\empCode
-			entitys = userOrderService;
-			sum = userOrderService;
+			//username\\\productName
+			entitys = userOrderService.findByUsernameAndProductNameOrderByOrderId(username, productName, pageNumber, pageSize);
+			sum = userOrderService.countByUsernameAndProductName(username, productName);
 		}
 		if(num == 10) {
-			//查询条件：\clientId\empName\
-			entitys = userOrderService;
-			sum = userOrderService;
+			//查询条件：\orderId\tgName\
+			entitys = userOrderService.findByOrderIdAndTgNameOrderByOrderId(orderId, tgName, pageNumber, pageSize);
+			sum = userOrderService.countByOrderIdAndTgName(orderId, tgName);
 		}
 		if(num == 11) {
-			//查询条件：\clientId\\empCode
-			entitys = userOrderService;
-			sum = userOrderService;
+			//查询条件：\orderId\\productName
+			entitys = userOrderService.findByOrderIdAndProductNameOrderByOrderId(orderId, productName, pageNumber, pageSize);
+			sum = userOrderService.countByOrderIdAndProductName(orderId, productName);
 		}
 		if(num == 12) {
-			//查询条件：\\empName\empCode
-			entitys = userOrderService;
-			sum = userOrderService;
+			//查询条件：\\tgName\productName
+			entitys = userOrderService.findByTgNameAndProductNameOrderByOrderId(tgName, productName, pageNumber, pageSize);
+			sum = userOrderService.countByTgNameAndProductName(tgName, productName);
 		}
 		if(num == 13) {
 			//查询条件：username 
-			entitys = userOrderService;
-			sum = userOrderService;
+			entitys = userOrderService.findByUsernameOrderByOrderId(username, pageNumber, pageSize);
+			sum = userOrderService.countByUsername(username);
 		}
 		if(num == 14) {
-			////查询条件： \clientId
-			entitys = userOrderService;
-			sum = userOrderService;
+			////查询条件： \orderId
+			entitys = userOrderService.findByOrderIdOrderByOrderId(orderId, pageNumber, pageSize);
+			sum = userOrderService.countByOrderId(orderId);
 		}
 		if(num == 15) {
-			//查询条件：empName
-			entitys = userOrderService;
-			sum = userOrderService;
+			//查询条件：tgName
+			entitys = userOrderService.findByTgNameOrderByOrderId(tgName, pageNumber, pageSize);
+			sum = userOrderService.countByTgName(tgName);
 		}
 		if(num == 16) {
-			//查询条件：empCode
-			entitys = userOrderService;
-			sum = userOrderService;
+			//查询条件：productName
+			entitys = userOrderService.findByProductNameOrderByOrderId(productName, pageNumber, pageSize);
+			sum = userOrderService.countByProductName(productName);
 		}
-		try {
-			List<ThxOrderEntity> entitys = null;		
-				entitys = userOrderService.getAllProduct(pageNumber, pageSize);
-				sum = userOrderService.countAll();
 						
-				userOrderDTOs = new ArrayList<UserOrderDTO>();
+			userOrderDTOs = new ArrayList<UserOrderDTO>();
 			for (ThxOrderEntity entity : entitys) {
 				UserOrderDTO dto = ThxUtil.convertUserOrderDTOByEntity(entity);
 				userOrderDTOs.add(dto);
 			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		Pagination pagination = new Pagination(pageNumber, pageSize, sum);
 		return GsonUtil.buildMap(0, "ok", userOrderDTOs, pagination);
 	}
