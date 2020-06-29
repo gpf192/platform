@@ -37,13 +37,15 @@ function userOrderListController($scope, $http, $state, httpUtils, layerUtils, $
 	
 	
 	$scope.getWinPrizeList = function(pageSize) {
+		console.log('11111111');
 		var url = httpUtils.url.getUserOrder;
 		var orderId = "";
 		var username = "";
 		var tgName = "";
 		var productName = "";
+		
 		if(!utils.isEmpty($scope.formData.orderId)) {
-			orderId = $scope.formData.orderID;
+			orderId = $scope.formData.orderId;
 		}
 		if(!utils.isEmpty($scope.formData.username)) {
 			username = $scope.formData.username;
@@ -57,8 +59,8 @@ function userOrderListController($scope, $http, $state, httpUtils, layerUtils, $
 		var params = {
 			pageNumber : 0,
 			pageSize : pageSize,
-			orderID : orderId,
 			username : username,
+			orderId : orderId,
 			tgName : tgName,
 			productName: productName
 		};
@@ -68,6 +70,8 @@ function userOrderListController($scope, $http, $state, httpUtils, layerUtils, $
 			pageSize : pageSize,
 			putDataList : "productsSellList"
 		};
+		
+		console.log('1112222222');
 		var tableElement = angular.element("#datatable1");
 		$gridService.queryTableDatas($scope, tableElement, params, settings, $http);
 	};

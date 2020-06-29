@@ -37,7 +37,7 @@ public class UserOrderServiceImpl implements UserOrderService{
 			String orderId, String tgName, String productName, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<ThxOrderEntity> pages = userOrderRepository.findByUsernameAndOrderIdAndTgNameAndProductNameOrderByOrderId(username, orderId, tgName, productName, pageRequest);
+		Page<ThxOrderEntity> pages = userOrderRepository.findByUsernameLikeAndOrderIdLikeAndTgNameLikeAndProductNameLikeOrderByOrderId(username, orderId, tgName, productName, pageRequest);
 		List<ThxOrderEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -46,7 +46,7 @@ public class UserOrderServiceImpl implements UserOrderService{
 	public int countByUsernameAndOrderIdAndTgNameAndProductName(String username, String orderId, String tgName,
 			String productName) {
 		// TODO Auto-generated method stub
-		return (int)userOrderRepository.countByUsernameAndOrderIdAndTgNameAndProductName(username, orderId, tgName, productName);
+		return (int)userOrderRepository.countByUsernameLikeAndOrderIdLikeAndTgNameLikeAndProductNameLike(username, orderId, tgName, productName);
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class UserOrderServiceImpl implements UserOrderService{
 			String tgName, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<ThxOrderEntity> pages = userOrderRepository.findByUsernameAndOrderIdAndTgNameOrderByOrderId(username, orderId, tgName, pageRequest);
+		Page<ThxOrderEntity> pages = userOrderRepository.findByUsernameLikeAndOrderIdLikeAndTgNameLikeOrderByOrderId(username, orderId, tgName, pageRequest);
 		List<ThxOrderEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -62,7 +62,7 @@ public class UserOrderServiceImpl implements UserOrderService{
 	@Override
 	public int countByUsernameAndOrderIdAndTgName(String username, String orderId, String tgName) {
 		// TODO Auto-generated method stub
-		return (int)userOrderRepository.countByUsernameAndOrderIdAndTgName(username, orderId, tgName);
+		return (int)userOrderRepository.countByUsernameLikeAndOrderIdLikeAndTgNameLike(username, orderId, tgName);
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class UserOrderServiceImpl implements UserOrderService{
 			String orderId,  String productName, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<ThxOrderEntity> pages = userOrderRepository.findByUsernameAndOrderIdAndProductNameOrderByOrderId(username, orderId, productName, pageRequest);
+		Page<ThxOrderEntity> pages = userOrderRepository.findByUsernameLikeAndOrderIdLikeAndProductNameLikeOrderByOrderId(username, orderId, productName, pageRequest);
 		List<ThxOrderEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -79,7 +79,7 @@ public class UserOrderServiceImpl implements UserOrderService{
 	public int countByUsernameAndOrderIdAndProductName(String username, String orderId,  
 			String productName) {
 		// TODO Auto-generated method stub
-		return (int)userOrderRepository.countByUsernameAndOrderIdAndProductName(username, orderId, productName);
+		return (int)userOrderRepository.countByUsernameLikeAndOrderIdLikeAndProductNameLike(username, orderId, productName);
 	}
 
 	@Override
@@ -87,7 +87,7 @@ public class UserOrderServiceImpl implements UserOrderService{
 			String productName, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<ThxOrderEntity> pages = userOrderRepository.findByUsernameAndTgNameAndProductNameOrderByOrderId(username, tgName, productName, pageRequest);
+		Page<ThxOrderEntity> pages = userOrderRepository.findByUsernameLikeAndTgNameLikeAndProductNameLikeOrderByOrderId(username, tgName, productName, pageRequest);
 		List<ThxOrderEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -95,7 +95,7 @@ public class UserOrderServiceImpl implements UserOrderService{
 	@Override
 	public int countByUsernameAndTgNameAndProductName(String username, String tgName, String productName) {
 		// TODO Auto-generated method stub
-		return (int)userOrderRepository.countByUsernameAndTgNameAndProductName(username, tgName, productName);
+		return (int)userOrderRepository.countByUsernameLikeAndTgNameLikeAndProductNameLike(username, tgName, productName);
 	}
 
 	@Override
@@ -103,7 +103,7 @@ public class UserOrderServiceImpl implements UserOrderService{
 			String productName, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<ThxOrderEntity> pages = userOrderRepository.findByOrderIdAndTgNameAndProductNameOrderByOrderId(orderId, tgName, productName, pageRequest);
+		Page<ThxOrderEntity> pages = userOrderRepository.findByOrderIdLikeAndTgNameLikeAndProductNameLikeOrderByOrderId(orderId, tgName, productName, pageRequest);
 		List<ThxOrderEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -111,7 +111,7 @@ public class UserOrderServiceImpl implements UserOrderService{
 	@Override
 	public int countByOrderIdAndTgNameAndProductName(String orderId, String tgName, String productName) {
 		// TODO Auto-generated method stub
-		return (int)userOrderRepository.countByOrderIdAndTgNameAndProductName(orderId, tgName, productName);
+		return (int)userOrderRepository.countByOrderIdLikeAndTgNameLikeAndProductNameLike(orderId, tgName, productName);
 	}
 
 	@Override
@@ -119,7 +119,7 @@ public class UserOrderServiceImpl implements UserOrderService{
 			int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<ThxOrderEntity> pages = userOrderRepository.findByUsernameAndOrderIdOrderByOrderId(username, orderId, pageRequest);
+		Page<ThxOrderEntity> pages = userOrderRepository.findByUsernameLikeAndOrderIdLikeOrderByOrderId(username, orderId, pageRequest);
 		List<ThxOrderEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -127,7 +127,7 @@ public class UserOrderServiceImpl implements UserOrderService{
 	@Override
 	public int countByUsernameAndOrderId(String username, String orderId) {
 		// TODO Auto-generated method stub
-		return (int)userOrderRepository.countByUsernameAndOrderId( username,  orderId);
+		return (int)userOrderRepository.countByUsernameLikeAndOrderIdLike( username,  orderId);
 	}
 
 	@Override
@@ -135,7 +135,7 @@ public class UserOrderServiceImpl implements UserOrderService{
 			int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<ThxOrderEntity> pages = userOrderRepository.findByUsernameAndTgNameOrderByOrderId(username, tgName, pageRequest);
+		Page<ThxOrderEntity> pages = userOrderRepository.findByUsernameLikeAndTgNameLikeOrderByOrderId(username, tgName, pageRequest);
 		List<ThxOrderEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -143,7 +143,7 @@ public class UserOrderServiceImpl implements UserOrderService{
 	@Override
 	public int countByUsernameAndTgName(String username, String tgName) {
 		// TODO Auto-generated method stub
-		return (int)userOrderRepository.countByUsernameAndTgName(username, tgName);
+		return (int)userOrderRepository.countByUsernameLikeAndTgNameLike(username, tgName);
 	}
 
 	@Override
@@ -151,7 +151,7 @@ public class UserOrderServiceImpl implements UserOrderService{
 			int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<ThxOrderEntity> pages = userOrderRepository.findByUsernameAndProductNameOrderByOrderId(username, productName, pageRequest);
+		Page<ThxOrderEntity> pages = userOrderRepository.findByUsernameLikeAndProductNameLikeOrderByOrderId(username, productName, pageRequest);
 		List<ThxOrderEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -159,7 +159,7 @@ public class UserOrderServiceImpl implements UserOrderService{
 	@Override
 	public int countByUsernameAndProductName(String username, String productName) {
 		// TODO Auto-generated method stub
-		return (int)userOrderRepository.countByUsernameAndProductName(username, productName);
+		return (int)userOrderRepository.countByUsernameLikeAndProductNameLike(username, productName);
 	}
 
 	@Override
@@ -167,7 +167,7 @@ public class UserOrderServiceImpl implements UserOrderService{
 			int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<ThxOrderEntity> pages = userOrderRepository.findByOrderIdAndTgNameOrderByOrderId(orderId, tgName,  pageRequest);
+		Page<ThxOrderEntity> pages = userOrderRepository.findByOrderIdLikeAndTgNameLikeOrderByOrderId(orderId, tgName,  pageRequest);
 		List<ThxOrderEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -175,7 +175,7 @@ public class UserOrderServiceImpl implements UserOrderService{
 	@Override
 	public int countByOrderIdAndTgName(String orderId, String tgName) {
 		// TODO Auto-generated method stub
-		return (int)userOrderRepository.countByOrderIdAndTgName(orderId, tgName);
+		return (int)userOrderRepository.countByOrderIdLikeAndTgNameLike(orderId, tgName);
 	}
 
 	@Override
@@ -183,7 +183,7 @@ public class UserOrderServiceImpl implements UserOrderService{
 			int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<ThxOrderEntity> pages = userOrderRepository.findByOrderIdAndProductNameOrderByOrderId(orderId, productName,  pageRequest);
+		Page<ThxOrderEntity> pages = userOrderRepository.findByOrderIdLikeAndProductNameLikeOrderByOrderId(orderId, productName,  pageRequest);
 		List<ThxOrderEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -191,7 +191,7 @@ public class UserOrderServiceImpl implements UserOrderService{
 	@Override
 	public int countByOrderIdAndProductName(String orderId, String productName) {
 		// TODO Auto-generated method stub
-		return  (int)userOrderRepository.countByOrderIdAndProductName(orderId, productName);
+		return  (int)userOrderRepository.countByOrderIdLikeAndProductNameLike(orderId, productName);
 	}
 
 	@Override
@@ -199,7 +199,7 @@ public class UserOrderServiceImpl implements UserOrderService{
 			int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<ThxOrderEntity> pages = userOrderRepository.findByTgNameAndProductNameOrderByOrderId(tgName, productName,  pageRequest);
+		Page<ThxOrderEntity> pages = userOrderRepository.findByTgNameLikeAndProductNameLikeOrderByOrderId(tgName, productName,  pageRequest);
 		List<ThxOrderEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -207,14 +207,14 @@ public class UserOrderServiceImpl implements UserOrderService{
 	@Override
 	public int countByTgNameAndProductName(String tgName, String productName) {
 		// TODO Auto-generated method stub
-		return  (int)userOrderRepository.countByTgNameAndProductName(tgName, productName);
+		return  (int)userOrderRepository.countByTgNameLikeAndProductNameLike(tgName, productName);
 	}
 
 	@Override
 	public List<ThxOrderEntity> findByUsernameOrderByOrderId(String username, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<ThxOrderEntity> pages = userOrderRepository.findByUsernameOrderByOrderId(username,  pageRequest);
+		Page<ThxOrderEntity> pages = userOrderRepository.findByUsernameLikeOrderByOrderId(username,  pageRequest);
 		List<ThxOrderEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -222,14 +222,14 @@ public class UserOrderServiceImpl implements UserOrderService{
 	@Override
 	public int countByUsername(String username) {
 		// TODO Auto-generated method stub
-		return  (int)userOrderRepository.countByUsername(username);
+		return  (int)userOrderRepository.countByUsernameLike(username);
 	}
 
 	@Override
 	public List<ThxOrderEntity> findByOrderIdOrderByOrderId(String orderId, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<ThxOrderEntity> pages = userOrderRepository.findByOrderIdOrderByOrderId(orderId,  pageRequest);
+		Page<ThxOrderEntity> pages = userOrderRepository.findByOrderIdLikeOrderByOrderId(orderId,  pageRequest);
 		List<ThxOrderEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -237,14 +237,14 @@ public class UserOrderServiceImpl implements UserOrderService{
 	@Override
 	public int countByOrderId(String orderId) {
 		// TODO Auto-generated method stub
-		return  (int)userOrderRepository.countByOrderId(orderId);
+		return  (int)userOrderRepository.countByOrderIdLike(orderId);
 	}
 
 	@Override
 	public List<ThxOrderEntity> findByTgNameOrderByOrderId(String tgName, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<ThxOrderEntity> pages = userOrderRepository.findByTgNameOrderByOrderId(tgName,  pageRequest);
+		Page<ThxOrderEntity> pages = userOrderRepository.findByTgNameLikeOrderByOrderId(tgName,  pageRequest);
 		List<ThxOrderEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -252,14 +252,14 @@ public class UserOrderServiceImpl implements UserOrderService{
 	@Override
 	public int countByTgName(String tgName) {
 		// TODO Auto-generated method stub
-		return  (int)userOrderRepository.countByTgName(tgName);
+		return  (int)userOrderRepository.countByTgNameLike(tgName);
 	}
 
 	@Override
 	public List<ThxOrderEntity> findByProductNameOrderByOrderId(String productName, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<ThxOrderEntity> pages = userOrderRepository.findByProductNameOrderByOrderId(productName,  pageRequest);
+		Page<ThxOrderEntity> pages = userOrderRepository.findByProductNameLikeOrderByOrderId(productName,  pageRequest);
 		List<ThxOrderEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -267,7 +267,7 @@ public class UserOrderServiceImpl implements UserOrderService{
 	@Override
 	public int countByProductName(String productName) {
 		// TODO Auto-generated method stub
-		return  (int)userOrderRepository.countByProductName(productName);
+		return  (int)userOrderRepository.countByProductNameLike(productName);
 	}
 	
 }

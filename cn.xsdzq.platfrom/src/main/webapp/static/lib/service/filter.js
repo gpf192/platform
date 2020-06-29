@@ -197,7 +197,7 @@ ngApp.filter('matchInstructionFilter', function() {
 	}
 });
 
-order_status
+
 ngApp.filter('orderStatusFilter', function() { 
 	return function (value) {
 	    if(value == "1"){
