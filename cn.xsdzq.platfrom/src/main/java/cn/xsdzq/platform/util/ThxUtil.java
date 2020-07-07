@@ -74,7 +74,14 @@ public class ThxUtil {
 		t.setUserId(map.get("userid"));
 		t.setGoodsType(map.get("goods_type"));
 		t.setGoodsId(map.get("goods_id"));
-		t.setCertificate(map.get("certificate"));
+		try {
+			t.setCertificate(AES.Decrypt(map.get("certificate")));
+		} catch (Exception e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		//t.setCertificate(map.get("certificate"));
+		
 		t.setProductName(map.get("product_name"));
 		t.setGoodsRisk(map.get("goods_risk"));
 		
