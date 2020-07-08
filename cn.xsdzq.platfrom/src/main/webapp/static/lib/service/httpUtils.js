@@ -42,6 +42,7 @@ ngApp.factory("httpUtils", [ function() {
 		getInfosByCategoryIdForH5 : baseUrl + "info/getInfosByCategoryIdForH5",
 		modifyCheckResult : baseUrl + "info/modifyCheckResult",
 		kcList : baseUrl + "kechuang/getKCInfos",
+		dzhgg : baseUrl + "dzh/getDzhgg",
 		turntablePrizeList : baseUrl + "prize/getPrize",
 		winPrizeList: baseUrl + "prizeRecord/getPrizeRecord",
 		addPrize : baseUrl + "prize/addPrize",
