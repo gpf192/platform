@@ -1,5 +1,5 @@
-ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils' ];
-function dzhggController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils) {
+ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils','utils' ];
+function dzhggController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils,utils) {
 
 	$scope.formData = {};
 	$scope.formData.category = {};
@@ -26,6 +26,20 @@ function dzhggController($scope, $http, $state, $stateParams, $gridService, http
 		}];
 		$scope.$emit("changeNavigation", data);
 		$scope.getOpinionBy(2000);
+		$http.get(httpUtils.url.dzhActivityList, {}).success(function(data) {
+			if (data.resCode == 0) {
+				$scope.categoryList = data.result;
+				//设置筛选条件为默认
+				for(var k = 0; k < $scope.categoryList.length; k++){
+					if($scope.categoryList[k].name == "全部"){
+						$scope.formData.category = $scope.categoryList[k];	
+					}
+				}
+				
+			}
+		});
+		
+	
 		
 		$scope.currentPage = {
 			page : 0
@@ -83,17 +97,37 @@ function dzhggController($scope, $http, $state, $stateParams, $gridService, http
     
     // end
 	$scope.getOpinionBy = function(pageSize) {
-		if( ($scope.formData.beginTime != '') && ($scope.formData.endTime != '')){
-			if ($scope.formData.endTime < $scope.formData.beginTime) {
-				layerUtils.iMsg(-1, "结束时间不能早于开始时间！");
-				return;
-			}
+
+		var url = httpUtils.url.dzhgg;
+		
+		var activity = "";
+		var name = "";
+		var phone = "";
+		//var activity = $scope.formData.category.name;
+		/*if(!utils.isEmpty($scope.formData.category.name) || !$scope.formData.category.name == "全部" ) {
+			activity = $scope.formData.category.name;
+		}*/
+		/*if($scope.formData.category.name == "全部"){
+			
+			activity = "";
+		}else{
+			activity = $scope.formData.category.name;
+		}*/
+		if(!utils.isEmpty($scope.formData.category.name)) {
+			activity = $scope.formData.category.name;
+		}
+		if(!utils.isEmpty($scope.formData.name)) {
+			name = $scope.formData.name;
+		}
+		if(!utils.isEmpty($scope.formData.phone)) {
+			phone = $scope.formData.phone;
 		}
 		
-		var url = httpUtils.url.dzhgg;
 		var params = {
-			beginTime : $scope.formData.beginTime,
-			endTime : $scope.formData.endTime,
+				
+			activity : activity,
+			name : name,
+			phone: phone,
 			pageNumber : 0,
 			pageSize : pageSize
 		};
