@@ -5,10 +5,15 @@ import java.io.Serializable;
 import javax.persistence.Column;
 
 public class UserOrderDTO implements Serializable{
-private long id;//主键
+	private long id;//主键
+	
+	
+	private String orderId;//
+	
 	
 	private String userId;//用户ID
 	
+
 	private String goodsType;//产类型品
 	
 	private String goodsId;//商品ID
@@ -42,6 +47,28 @@ private long id;//主键
 	private String riskRevelation;//风险揭示书
 	
 	private String matchInstruction;//适当性匹配说明,1：匹配 0：不匹配
+	
+	private String tgCertification;//
+	
+	private String serviceCycleStart;//
+	
+	private String serviceCycleEnd;//
+	
+	private String orderStatus;//
+	
+	private String username;//
+	
+	private String mobile;//  
+	
+	private String address;//  
+	
+	private String expiredate;//  
+	
+	private String evaluationTime;//  
+	
+	private String evaluationAnswer;//  
+	
+	private String occupation;//  occupation
 
 	public long getId() {
 		return id;
@@ -49,6 +76,14 @@ private long id;//主键
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public String getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
 	}
 
 	public String getUserId() {
@@ -147,7 +182,6 @@ private long id;//主键
 		this.amount = amount;
 	}
 
-	
 	public String getBookTime() {
 		return bookTime;
 	}
@@ -164,7 +198,13 @@ private long id;//主键
 		this.bookOrigin = bookOrigin;
 	}
 
-	
+	public String getAssignTime() {
+		return assignTime;
+	}
+
+	public void setAssignTime(String assignTime) {
+		this.assignTime = assignTime;
+	}
 
 	public String getAgreements() {
 		return agreements;
@@ -172,16 +212,6 @@ private long id;//主键
 
 	public void setAgreements(String agreements) {
 		this.agreements = agreements;
-	}
-
-	
-
-	public String getAssignTime() {
-		return assignTime;
-	}
-
-	public void setAssignTime(String assignTime) {
-		this.assignTime = assignTime;
 	}
 
 	public String getRiskRevelation() {
@@ -200,16 +230,107 @@ private long id;//主键
 		this.matchInstruction = matchInstruction;
 	}
 
+	public String getTgCertification() {
+		return tgCertification;
+	}
+
+	public void setTgCertification(String tgCertification) {
+		this.tgCertification = tgCertification;
+	}
+
+	public String getServiceCycleStart() {
+		return serviceCycleStart;
+	}
+
+	public void setServiceCycleStart(String serviceCycleStart) {
+		this.serviceCycleStart = serviceCycleStart;
+	}
+
+	public String getServiceCycleEnd() {
+		return serviceCycleEnd;
+	}
+
+	public void setServiceCycleEnd(String serviceCycleEnd) {
+		this.serviceCycleEnd = serviceCycleEnd;
+	}
+
+	public String getOrderStatus() {
+		return orderStatus;
+	}
+
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getExpiredate() {
+		return expiredate;
+	}
+
+	public void setExpiredate(String expiredate) {
+		this.expiredate = expiredate;
+	}
+
+	public String getEvaluationTime() {
+		return evaluationTime;
+	}
+
+	public void setEvaluationTime(String evaluationTime) {
+		this.evaluationTime = evaluationTime;
+	}
+
+	public String getEvaluationAnswer() {
+		return evaluationAnswer;
+	}
+
+	public void setEvaluationAnswer(String evaluationAnswer) {
+		this.evaluationAnswer = evaluationAnswer;
+	}
+
+	public String getOccupation() {
+		return occupation;
+	}
+
+	public void setOccupation(String occupation) {
+		this.occupation = occupation;
+	}
+
 	@Override
 	public String toString() {
-		return "UserOrderDTO [id=" + id + ", userId=" + userId + ", goodsType=" + goodsType + ", goodsId=" + goodsId
-				+ ", certificate=" + certificate + ", productName=" + productName + ", goodsRisk=" + goodsRisk
-				+ ", evaluationResult=" + evaluationResult + ", brokerName=" + brokerName + ", salesName=" + salesName
-				+ ", tgName=" + tgName + ", serviceCycle=" + serviceCycle + ", amount=" + amount + ", book_time="
-				+ bookTime + ", bookOrigin=" + bookOrigin + ", assign_time=" + assignTime + ", agreements="
-				+ agreements + ", risk_revelation=" + riskRevelation + ", match_instruction=" + matchInstruction
-				+ "]";
+		return "UserOrderDTO [id=" + id + ", orderId=" + orderId + ", userId=" + userId + ", goodsType=" + goodsType
+				+ ", goodsId=" + goodsId + ", certificate=" + certificate + ", productName=" + productName
+				+ ", goodsRisk=" + goodsRisk + ", evaluationResult=" + evaluationResult + ", brokerName=" + brokerName
+				+ ", salesName=" + salesName + ", tgName=" + tgName + ", serviceCycle=" + serviceCycle + ", amount="
+				+ amount + ", bookTime=" + bookTime + ", bookOrigin=" + bookOrigin + ", assignTime=" + assignTime
+				+ ", agreements=" + agreements + ", riskRevelation=" + riskRevelation + ", matchInstruction="
+				+ matchInstruction + ", tgCertification=" + tgCertification + ", serviceCycleStart=" + serviceCycleStart
+				+ ", serviceCycleEnd=" + serviceCycleEnd + ", orderStatus=" + orderStatus + ", username=" + username
+				+ ", mobile=" + mobile + ", address=" + address + ", expiredate=" + expiredate + ", evaluationTime="
+				+ evaluationTime + ", evaluationAnswer=" + evaluationAnswer + ", occupation=" + occupation + "]";
 	}
-	
+
 	
 }

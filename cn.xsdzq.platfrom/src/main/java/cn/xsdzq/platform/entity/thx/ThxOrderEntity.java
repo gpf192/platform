@@ -1,5 +1,7 @@
 package cn.xsdzq.platform.entity.thx;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -12,15 +14,18 @@ import javax.persistence.Table;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
-@Table(name = "thx_user_order_info")
+@Table(name = "thx_order_info")
 @EntityListeners(AuditingEntityListener.class)
-public class UserOrderEntity {
+public class ThxOrderEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_order_sequence")
-	@SequenceGenerator(name = "user_order_sequence", sequenceName = "sequence_user_order", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "thx_order_sequence")
+	@SequenceGenerator(name = "thx_order_sequence", sequenceName = "sequence_thx_order", allocationSize = 1)
 	@Column(name = "id")
 	private long id;//主键
+	
+	@Column(name = "order_id")
+	private String orderId;//
 	
 	@Column(name = "user_id")
 	private String userId;//用户ID
@@ -75,6 +80,39 @@ public class UserOrderEntity {
 	
 	@Column(name = "match_instruction")
 	private String matchInstruction;//适当性匹配说明,1：匹配 0：不匹配
+	
+	@Column(name = "tg_certification")
+	private String tgCertification;//
+	
+	@Column(name = "service_cycle_start")
+	private String serviceCycleStart;//
+	
+	@Column(name = "service_cycle_end")
+	private String serviceCycleEnd;//
+	
+	@Column(name = "order_status")
+	private String orderStatus;//
+	
+	@Column(name = "username")
+	private String username;//
+	
+	@Column(name = "mobile")
+	private String mobile;//  
+	
+	@Column(name = "address")
+	private String address;//  
+	
+	@Column(name = "expiredate")
+	private String expiredate;//  
+	
+	@Column(name = "evaluation_time")
+	private String evaluationTime;//  
+	
+	@Column(name = "evaluation_answer")
+	private String evaluationAnswer;//  
+	
+	@Column(name = "occupation")
+	private String occupation;//  occupation
 
 	public long getId() {
 		return id;
@@ -82,6 +120,14 @@ public class UserOrderEntity {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public String getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
 	}
 
 	public String getUserId() {
@@ -180,8 +226,6 @@ public class UserOrderEntity {
 		this.amount = amount;
 	}
 
-	
-
 	public String getBookTime() {
 		return bookTime;
 	}
@@ -198,7 +242,13 @@ public class UserOrderEntity {
 		this.bookOrigin = bookOrigin;
 	}
 
-	
+	public String getAssignTime() {
+		return assignTime;
+	}
+
+	public void setAssignTime(String assignTime) {
+		this.assignTime = assignTime;
+	}
 
 	public String getAgreements() {
 		return agreements;
@@ -206,15 +256,6 @@ public class UserOrderEntity {
 
 	public void setAgreements(String agreements) {
 		this.agreements = agreements;
-	}
-
-
-	public String getAssignTime() {
-		return assignTime;
-	}
-
-	public void setAssignTime(String assignTime) {
-		this.assignTime = assignTime;
 	}
 
 	public String getRiskRevelation() {
@@ -233,17 +274,106 @@ public class UserOrderEntity {
 		this.matchInstruction = matchInstruction;
 	}
 
+	public String getTgCertification() {
+		return tgCertification;
+	}
+
+	public void setTgCertification(String tgCertification) {
+		this.tgCertification = tgCertification;
+	}
+
+	public String getServiceCycleStart() {
+		return serviceCycleStart;
+	}
+
+	public void setServiceCycleStart(String serviceCycleStart) {
+		this.serviceCycleStart = serviceCycleStart;
+	}
+
+	public String getServiceCycleEnd() {
+		return serviceCycleEnd;
+	}
+
+	public void setServiceCycleEnd(String serviceCycleEnd) {
+		this.serviceCycleEnd = serviceCycleEnd;
+	}
+
+	public String getOrderStatus() {
+		return orderStatus;
+	}
+
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getExpiredate() {
+		return expiredate;
+	}
+
+	public void setExpiredate(String expiredate) {
+		this.expiredate = expiredate;
+	}
+
+	public String getEvaluationTime() {
+		return evaluationTime;
+	}
+
+	public void setEvaluationTime(String evaluationTime) {
+		this.evaluationTime = evaluationTime;
+	}
+
+	public String getEvaluationAnswer() {
+		return evaluationAnswer;
+	}
+
+	public void setEvaluationAnswer(String evaluationAnswer) {
+		this.evaluationAnswer = evaluationAnswer;
+	}
+
+	public String getOccupation() {
+		return occupation;
+	}
+
+	public void setOccupation(String occupation) {
+		this.occupation = occupation;
+	}
+
 	@Override
 	public String toString() {
-		return "UserOrderEntity [id=" + id + ", userId=" + userId + ", goodsType=" + goodsType + ", goodsId=" + goodsId
-				+ ", certificate=" + certificate + ", productName=" + productName + ", goodsRisk=" + goodsRisk
+		return "ThxOrderEntity [orderId=" + orderId + ", userId=" + userId + ", goodsType=" + goodsType + ", goodsId="
+				+ goodsId + ", certificate=" + certificate + ", productName=" + productName + ", goodsRisk=" + goodsRisk
 				+ ", evaluationResult=" + evaluationResult + ", brokerName=" + brokerName + ", salesName=" + salesName
 				+ ", tgName=" + tgName + ", serviceCycle=" + serviceCycle + ", amount=" + amount + ", bookTime="
 				+ bookTime + ", bookOrigin=" + bookOrigin + ", assignTime=" + assignTime + ", agreements=" + agreements
-				+ ", riskRevelation=" + riskRevelation + ", matchInstruction=" + matchInstruction + "]";
+				+ ", riskRevelation=" + riskRevelation + ", matchInstruction=" + matchInstruction + ", tgCertification="
+				+ tgCertification + ", serviceCycleStart=" + serviceCycleStart + ", serviceCycleEnd=" + serviceCycleEnd
+				+ ", orderStatus=" + orderStatus + ", username=" + username + ", mobile=" + mobile + ", address="
+				+ address + ", expiredate=" + expiredate + ", evaluationTime=" + evaluationTime + ", evaluationAnswer="
+				+ evaluationAnswer + ", occupation=" + occupation + "]";
 	}
 
-
-
-	
 }

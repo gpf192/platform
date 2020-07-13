@@ -19,19 +19,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.xsdzq.platform.controller.BaseController;
-import cn.xsdzq.platform.entity.lcj.ProductEntity;
-import cn.xsdzq.platform.entity.thx.UserOrderEntity;
+import cn.xsdzq.platform.entity.thx.ThxOrderEntity;
 import cn.xsdzq.platform.entity.thx.UserRiskEntity;
 import cn.xsdzq.platform.model.Pagination;
-import cn.xsdzq.platform.model.lcj.ProductDTO;
 import cn.xsdzq.platform.model.thx.UserOrderDTO;
 import cn.xsdzq.platform.model.thx.UserRiskDTO;
-import cn.xsdzq.platform.service.lcj.MyProductService;
 import cn.xsdzq.platform.service.thx.UserOrderService;
 import cn.xsdzq.platform.service.thx.UserRiskService;
 import cn.xsdzq.platform.util.DateUtil;
 import cn.xsdzq.platform.util.GsonUtil;
-import cn.xsdzq.platform.util.LcjUtil;
 import cn.xsdzq.platform.util.MethodUtil;
 import cn.xsdzq.platform.util.ThxUtil;
 
@@ -99,25 +95,104 @@ public class userInfoController extends BaseController{
 
 	@RequestMapping(value = "/getUserOrder", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Map<String, Object> getUserOrder(HttpServletRequest request,  
+	public Map<String, Object> getUserOrder(HttpServletRequest request, 
+			@RequestParam String username, @RequestParam String orderId,
+			@RequestParam String tgName, @RequestParam String productName,
 			 @RequestParam int pageNumber,@RequestParam int pageSize) {
 		System.out.println("全量查询用户订单 信息   +   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");		
 		int sum = 0 ;
+		
+		int num = MethodUtil.getUserOrderForMethodNum(username, orderId, tgName, productName);
 		List<UserOrderDTO> userOrderDTOs = null;
-		try {
-			List<UserOrderEntity> entitys = null;		
-				entitys = userOrderService.getAllProduct(pageNumber, pageSize);
-				sum = userOrderService.countAll();
+		List<ThxOrderEntity> entitys = null;
+		if(num == 1) {
+			//全量查找
+			entitys = userOrderService.getAllProduct(pageNumber, pageSize);
+			sum = userOrderService.countAll();	
+		}
+		if(num == 2) {
+			//4个条件一起查询
+			System.out.println("into   2 ____");
+			entitys = userOrderService.findByUsernameAndOrderIdAndTgNameAndProductNameOrderByOrderId("%"+username+"%", "%"+orderId+"%", "%"+tgName+"%", "%"+productName+"%", pageNumber, pageSize);
+			sum = userOrderService.countByUsernameAndOrderIdAndTgNameAndProductName("%"+username, "%"+orderId+"%", "%"+tgName+"%", "%"+productName+"%");
+		}
+		if(num == 3) {
+			//查询条件：username\orderId\tgName\
+			entitys = userOrderService.findByUsernameAndOrderIdAndTgNameOrderByOrderId("%"+username+"%", "%"+orderId+"%", "%"+tgName+"%", pageNumber, pageSize);
+			sum = userOrderService.countByUsernameAndOrderIdAndTgName("%"+username+"%", "%"+orderId+"%", "%"+tgName+"%");
+		}
+		if(num == 4) {
+			//查询条件：username\orderId\\productName
+			entitys = userOrderService.findByUsernameAndOrderIdAndProductNameOrderByOrderId("%"+username+"%", "%"+orderId+"%", "%"+productName+"%", pageNumber, pageSize);
+			sum = userOrderService.countByUsernameAndOrderIdAndProductName("%"+username+"%", "%"+orderId+"%", "%"+productName+"%");
+		}
+		if(num == 5) {
+			//查询条件：username\\tgName\productName
+			entitys = userOrderService.findByUsernameAndTgNameAndProductNameOrderByOrderId("%"+username+"%", "%"+tgName+"%", "%"+productName+"%", pageNumber, pageSize);
+			sum = userOrderService.countByUsernameAndTgNameAndProductName("%"+username+"%","%"+ tgName+"%", "%"+productName+"%");
+		}
+		if(num == 6) {
+			//查询条件：\orderId\tgName\productName
+			entitys = userOrderService.findByOrderIdAndTgNameAndProductNameOrderByOrderId("%"+orderId+"%", "%"+tgName+"%", "%"+productName+"%", pageNumber, pageSize);
+			sum = userOrderService.countByOrderIdAndTgNameAndProductName("%"+orderId+"%", "%"+tgName+"%", "%"+productName+"%");
+		}
+		if(num == 7) {
+			////查询条件：username\orderId\\
+			entitys = userOrderService.findByUsernameAndOrderIdOrderByOrderId("%"+username+"%", "%"+orderId+"%", pageNumber, pageSize);
+			sum = userOrderService.countByUsernameAndOrderId("%"+username+"%", "%"+orderId+"%");
+		}
+		if(num == 8) {
+			//查询条件：username\\tgName\
+			entitys = userOrderService.findByUsernameAndTgNameOrderByOrderId("%"+username+"%", "%"+tgName+"%", pageNumber, pageSize);
+			sum = userOrderService.countByUsernameAndTgName("%"+username+"%","%"+ tgName+"%");
+		}
+		if(num == 9) {
+			//username\\\productName
+			entitys = userOrderService.findByUsernameAndProductNameOrderByOrderId("%"+username+"%", "%"+productName+"%", pageNumber, pageSize);
+			sum = userOrderService.countByUsernameAndProductName("%"+username+"%", "%"+productName+"%");
+		}
+		if(num == 10) {
+			//查询条件：\orderId\tgName\
+			entitys = userOrderService.findByOrderIdAndTgNameOrderByOrderId("%"+orderId+"%", "%"+tgName+"%", pageNumber, pageSize);
+			sum = userOrderService.countByOrderIdAndTgName("%"+orderId+"%", "%"+tgName+"%");
+		}
+		if(num == 11) {
+			//查询条件：\orderId\\productName
+			entitys = userOrderService.findByOrderIdAndProductNameOrderByOrderId("%"+orderId+"%", "%"+productName+"%", pageNumber, pageSize);
+			sum = userOrderService.countByOrderIdAndProductName("%"+orderId+"%", "%"+productName+"%");
+		}
+		if(num == 12) {
+			//查询条件：\\tgName\productName
+			entitys = userOrderService.findByTgNameAndProductNameOrderByOrderId("%"+tgName+"%", "%"+productName+"%", pageNumber, pageSize);
+			sum = userOrderService.countByTgNameAndProductName("%"+tgName+"%", "%"+productName+"%");
+		}
+		if(num == 13) {
+			//查询条件：username 
+			entitys = userOrderService.findByUsernameOrderByOrderId("%"+username+"%", pageNumber, pageSize);
+			sum = userOrderService.countByUsername("%"+username+"%");
+		}
+		if(num == 14) {
+			////查询条件： \orderId	
+			entitys = userOrderService.findByOrderIdOrderByOrderId("%"+orderId+"%", pageNumber, pageSize);
+			sum = userOrderService.countByOrderId("%"+orderId+"%");
+		}
+		if(num == 15) {
+			//查询条件：tgName
+			entitys = userOrderService.findByTgNameOrderByOrderId("%"+tgName+"%", pageNumber, pageSize);
+			sum = userOrderService.countByTgName("%"+tgName+"%");
+		}
+		if(num == 16) {
+			//查询条件：productName
+			entitys = userOrderService.findByProductNameOrderByOrderId("%"+productName+"%", pageNumber, pageSize);
+			sum = userOrderService.countByProductName("%"+productName+"%");
+		}
 						
-				userOrderDTOs = new ArrayList<UserOrderDTO>();
-			for (UserOrderEntity entity : entitys) {
+			userOrderDTOs = new ArrayList<UserOrderDTO>();
+			for (ThxOrderEntity entity : entitys) {
 				UserOrderDTO dto = ThxUtil.convertUserOrderDTOByEntity(entity);
 				userOrderDTOs.add(dto);
 			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		Pagination pagination = new Pagination(pageNumber, pageSize, sum);
 		return GsonUtil.buildMap(0, "ok", userOrderDTOs, pagination);
 	}

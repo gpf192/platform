@@ -412,7 +412,7 @@ ngApp.factory("$gridService", ['$compile','commonUtils',function($compile,common
 				if (settings.totleRecord == "0") {
 					//console.log(settings.totleRecord);
 					element.find('tfoot').remove();
-					var content = "<tfoot><tr><td  colspan='8'><div>查询无数据</div></td></tr></tfoot>";
+					var content = "<tfoot><tr><td  colspan='30'><div>查询无数据</div></td></tr></tfoot>";
 					element.append(content);
 				} else {
 					element.find('tfoot').remove();
