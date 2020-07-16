@@ -54,6 +54,8 @@
 						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">电话</th>
 						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1">锁定状态</th>
+						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">角色管理</th>
 						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">修改</th>
@@ -68,6 +70,7 @@
 						<td class="col-sm-1">{{user.alias}}</td>
 						<td class="col-sm-1">{{user.department}}</td>
 						<td class="col-sm-1">{{user.phone}}</td>
+						<td class="col-sm-1"><span ng-bind="user.lockFlag |lockTransform"></span></td>										    
 						<td class="col-sm-1 text-center">
 							<div>
 								<button type="button" class="btn btn-info btn-sm"

@@ -1,12 +1,23 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
+<<<<<<< HEAD
 encoding//src/main/webapp/static/htmls/addrelate/addrelate.html=UTF-8
 encoding//src/main/webapp/static/htmls/admin/addauthority.html=UTF-8
 encoding//src/main/webapp/static/htmls/admin/addrole.js=UTF-8
+=======
+encoding//src/main/webapp/static/htmls/admin/addauthority.html=UTF-8
+>>>>>>> f408a9975586ad0a48ef8df257958477212aa08c
 encoding//src/main/webapp/static/htmls/category/categorylist.html=UTF-8
 encoding//src/main/webapp/static/htmls/category/modifycategory.html=UTF-8
 encoding//src/main/webapp/static/htmls/category/newcategory.html=UTF-8
+encoding//src/main/webapp/static/htmls/finance/activityProductsList.html=UTF-8
+encoding//src/main/webapp/static/htmls/finance/addParticipants.html=UTF-8
+encoding//src/main/webapp/static/htmls/finance/contestantList.html=UTF-8
+encoding//src/main/webapp/static/htmls/finance/divisionList.html=UTF-8
+encoding//src/main/webapp/static/htmls/finance/participantsList.html=UTF-8
+encoding//src/main/webapp/static/htmls/finance/turntablePrizeList.html=UTF-8
+encoding//src/main/webapp/static/htmls/finance/userTIcketsList.html=UTF-8
 encoding//src/main/webapp/static/htmls/info/checkdetail.html=UTF-8
 encoding//src/main/webapp/static/htmls/info/checklist.html=UTF-8
 encoding//src/main/webapp/static/htmls/info/infolist.html=UTF-8

@@ -40,7 +40,49 @@ ngApp.factory("httpUtils", [ function() {
 		checkList : baseUrl + "info/getUncheckedInfo",
 		getCommonInfos : baseUrl + "info/getCommonInfos",
 		getInfosByCategoryIdForH5 : baseUrl + "info/getInfosByCategoryIdForH5",
-		modifyCheckResult : baseUrl + "info/modifyCheckResult"
+		modifyCheckResult : baseUrl + "info/modifyCheckResult",
+		kcList : baseUrl + "kechuang/getKCInfos",
+		dzhgg : baseUrl + "dzh/getDzhgg",
+		dzhActivityList : baseUrl + "dzh/getDzhActivity",
+		turntablePrizeList : baseUrl + "prize/getPrize",
+		winPrizeList: baseUrl + "prizeRecord/getPrizeRecord",
+		addPrize : baseUrl + "prize/addPrize",
+		modifyPrize : baseUrl + "prize/modifyPrize",
+		deletePrize : baseUrl + "prize/deletePrize",
+		
+		turntableAwardList : baseUrl + "award/getAward",
+		addAward : baseUrl + "award/addAward",
+		modifyAward : baseUrl + "award/modifyAward",
+		deleteAward : baseUrl + "award/deleteAward",
+		
+		awardResultList : baseUrl + "award/getAwardResult",
+		
+		activityProductsList : baseUrl + "product/getProduct",
+		addProduct : baseUrl + "product/addProduct",
+		modifyProduct: baseUrl + "product/modifyProduct",
+		deleteProduct : baseUrl + "product/deleteProduct",
+		productsSellList: baseUrl + "product/getProductSell",
+		productsSellCwList: baseUrl + "product/getCwProductSell",
+		
+		participantsList: baseUrl + "emp/getEmp",
+		addEmp: baseUrl + "emp/addEmp",
+		modifyEmp: baseUrl + "emp/modifyEmp",
+		deleteEmp: baseUrl + "emp/deleteEmp",
+		
+		userTIcketsList: baseUrl + "vote/getUserVote",
+		contestantList: baseUrl + "vote/getEmpVote",
+		departmentList : baseUrl + "department/getAll",
+		paramList: baseUrl + "param/getParam",
+		addParam: baseUrl + "param/addParam",
+		modifyParam: baseUrl + "param/modifyParam",
+		deleteParam: baseUrl + "param/deleteParam",
+		addEmpVoteWeight: baseUrl + "vote/addWeight",		
+		userVoteForList:baseUrl + "vote/getUserVoteFor",
+		
+		getRiskInfo: baseUrl + "thx/getRiskInfo",		
+		getUserOrder:baseUrl + "thx/getUserOrder",
+		
+		getLoginRecord:baseUrl + "live/getLoginRecord"
 	};
 
 	function getUrl() {

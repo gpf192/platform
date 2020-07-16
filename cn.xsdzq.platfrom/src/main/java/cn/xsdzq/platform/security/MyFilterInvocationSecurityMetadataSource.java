@@ -24,6 +24,8 @@ public class MyFilterInvocationSecurityMetadataSource implements FilterInvocatio
 			// put("/front/**", "ROLE_ANONYMOUS");
 			put("/login", "ROLE_ANONYMOUS");
 			put("/loginin/**", "ROLE_ANONYMOUS");
+			put("/fund/**", "ROLE_ANONYMOUS");
+			
 		}
 	};
 

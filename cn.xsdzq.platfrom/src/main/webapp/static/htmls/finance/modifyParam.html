@@ -1,0 +1,52 @@
+<script type="text/javascript" src="htmls/finance/modifyParam.js"></script>
+<div class="box border primary" ng-init="init()">
+    <div class="box-title">
+        <h4>
+            <i class="fa fa-bars"></i>修改参数信息
+        </h4>
+        <div class="tools hidden">
+            <a href="#box-config" data-toggle="modal" class="config"> <i
+                class="fa fa-cog"></i>
+            </a> <a href="javascript:;" class="reload"> <i class="fa fa-refresh"></i>
+            </a> <a href="javascript:;" class="collapse"> <i
+                class="fa fa-chevron-up"></i>
+            </a> <a href="javascript:;" class="remove"> <i class="fa fa-times"></i>
+            </a>
+        </div>
+    </div>
+    <div class="box-body big">
+        <form action="" class="form-horizontal">
+            <fieldset>
+                <legend> 修改参数 </legend>
+                <div class="form-group">
+                    <label for="versionId" class="col-sm-3 control-label">参数标题：</label>
+                    <div class="col-sm-6">
+                        <input type="text" autocomplete="off" class="form-control" id="title"
+                            name="title" ng-model="formData.title"
+                            placeholder="请输入参数标题" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">参数编码：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="code" name="code"
+                            ng-model="formData.code" placeholder="请输入参数编码" />
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-sm-3 control-label">参数值：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="value" name="value"
+                            ng-model="formData.value" placeholder="请输入参数值" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-9">
+                        <button type="button" ng-click="newBuild()" id="newBuild"
+                            class="btn btn-default btn-primary">确认修改</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

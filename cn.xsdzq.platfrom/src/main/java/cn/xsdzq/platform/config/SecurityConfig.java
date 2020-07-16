@@ -20,8 +20,9 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 
 import cn.xsdzq.platform.dao.AuthorityRepository;
 import cn.xsdzq.platform.dao.UserRepository;
+import cn.xsdzq.platform.handler.MyAuthenctiationFailureHandler;
+import cn.xsdzq.platform.handler.MyAuthenctiationSuccessHandler;
 import cn.xsdzq.platform.security.AjaxAuthenticationEntryPoint;
-import cn.xsdzq.platform.security.AjaxRequestMatcher;
 import cn.xsdzq.platform.security.MyAccessDecisionManager;
 
 import cn.xsdzq.platform.security.MyFilterInvocationSecurityMetadataSource;
@@ -39,9 +40,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private UserRepository userRepository;
 
 	@Autowired
-
 	private AuthorityRepository authorityRepository;
-
+	@Autowired
+	MyAuthenctiationSuccessHandler myAuthenctiationSuccessHandler;
+	
+	@Autowired
+    MyAuthenctiationFailureHandler myAuthenctiationFailureHandler;
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		// TODO Auto-generated method stub
@@ -53,9 +57,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// auth.userDetailsService(new
 		// MyUserService(userRepository)).passwordEncoder(new XsdPasswordEncoder());
 		auth.userDetailsService(new MyUserService(userRepository)).passwordEncoder(new BCryptPasswordEncoder());
-
 	}
-
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// TODO Auto-generated method stub
@@ -81,9 +84,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// http.formLogin().usernameParameter("username").passwordParameter("password").loginPage("/login")
 		// .defaultSuccessUrl("/static/index.html").and().logout().logoutSuccessUrl("/login").and()
 		// .authorizeRequests().and().headers().frameOptions().disable();
-		// add by fjx end
+		// add by fjx end  failureHandler(myAuthenctiationFailureHandler)
 		http.formLogin().usernameParameter("username").passwordParameter("password").loginPage("/login")
-				.defaultSuccessUrl("/static/index.html").and().logout().logoutSuccessUrl("/login").and()
+				.defaultSuccessUrl("/static/index.html").successHandler(myAuthenctiationSuccessHandler).failureHandler(myAuthenctiationFailureHandler).and().logout().logoutSuccessUrl("/login").and()
 				.authorizeRequests().anyRequest().authenticated()
 				.withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
 					@Override

@@ -12,7 +12,9 @@ public class UserDTO {
 	private String alias;
 
 	private int level;
-
+	
+	private int lockFlag;
+	
 	@NotBlank(message = "密码不能为空")
 	private String password;
 
@@ -68,6 +70,14 @@ public class UserDTO {
 
 	public int getLevel() {
 		return level;
+	}
+
+	public int getLockFlag() {
+		return lockFlag;
+	}
+
+	public void setLockFlag(int lockFlag) {
+		this.lockFlag = lockFlag;
 	}
 
 	public void setLevel(int level) {

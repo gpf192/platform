@@ -12,6 +12,7 @@ public class UserUtil {
 		userEntity.setPassword(userDTO.getPassword());
 		userEntity.setAlias(userDTO.getAlias());
 		userEntity.setLevel(userDTO.getLevel());
+		userEntity.setLockFlag(userDTO.getLockFlag());
 		userEntity.setDepartment(userDTO.getDepartment());
 		userEntity.setPhone(userDTO.getPhone());
 		userEntity.setEnabled(userDTO.isEnabled());
@@ -25,6 +26,7 @@ public class UserUtil {
 		userEntity.setPassword(userDTO.getPassword());
 		userEntity.setAlias(userDTO.getAlias());
 		userEntity.setLevel(userDTO.getLevel());
+		userEntity.setLockFlag(userDTO.getLockFlag());
 		userEntity.setDepartment(userDTO.getDepartment());
 		userEntity.setPhone(userDTO.getPhone());
 		userEntity.setEnabled(userDTO.isEnabled());
@@ -36,9 +38,10 @@ public class UserUtil {
 		UserDTO userDTO = new UserDTO();
 		userDTO.setId(userEntity.getId());
 		userDTO.setUsername(userEntity.getUsername());
-		userDTO.setPassword(userEntity.getPassword());
+		//userDTO.setPassword(userEntity.getPassword());
 		userDTO.setAlias(userEntity.getAlias());
 		userDTO.setLevel(userEntity.getLevel());
+		userDTO.setLockFlag(userEntity.getLockFlag());
 		userDTO.setDepartment(userEntity.getDepartment());
 		userDTO.setPhone(userEntity.getPhone());
 		userDTO.setEnabled(userEntity.isEnabled());
@@ -52,6 +55,7 @@ public class UserUtil {
 		userDTO.setUsername(userEntity.getUsername());
 		userDTO.setAlias(userEntity.getAlias());
 		userDTO.setLevel(userEntity.getLevel());
+		userDTO.setLockFlag(userEntity.getLockFlag());
 		userDTO.setDepartment(userEntity.getDepartment());
 		userDTO.setPhone(userEntity.getPhone());
 		userDTO.setEnabled(userEntity.isEnabled());

@@ -27,7 +27,7 @@ function userListController($scope, $http, $state, httpUtils, layerUtils) {
 	}
 	
 	$scope.getUserList = function() {
-		$http.get(httpUtils.url.userList, {}).success(function(data) {
+		$http.post(httpUtils.url.userList, {}).success(function(data) {
 			if (data.resCode == 0) {
 				$scope.users = data.result;
 			}

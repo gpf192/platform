@@ -125,6 +125,136 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/category/sort",
 		templateUrl : "htmls/admin/sortcategory.html",
 		controller : "sortCategoryController"
+	}).state("kcList", {
+		url : "/kc/kcList",
+		templateUrl : "htmls/kc/kcList.html",
+		controller : "kcListController"
+	}).state("dzhgg", {
+		url : "/dzh/dzhgg",
+		templateUrl : "htmls/dzh/dzhgg.html",
+		controller : "dzhggController"
+	}).state("fundList", {
+		url : "/finance/fundList",
+		templateUrl : "htmls/finance/fundList.html",
+		controller : "fundListController"
+	}).state("divisionList", {
+		url : "/finance/divisionList",
+		templateUrl : "htmls/finance/divisionList.html",
+		controller : "divisionListController"
+	}).state("oddsList", {
+		url : "/finance/oddsList",
+		templateUrl : "htmls/finance/oddsList.html",
+		controller : "oddsListController"
+	}).state("rankList", {
+		url : "/finance/rankList",
+		templateUrl : "htmls/finance/rankList.html",
+		controller : "rankListController"
+	}).state("shareList", {
+		url : "/finance/shareList",
+		templateUrl : "htmls/finance/shareList.html",
+		controller : "shareListController"
+	}).state("turntablePrizeList", {
+		url : "/turntablePrizeList",
+		templateUrl : "htmls/finance/turntablePrizeList.html",
+		controller : "turntablePrizeListController"
+	}).state("addPrize", {
+		url : "/addPrize",
+		templateUrl : "htmls/finance/addPrize.html",
+		controller : "addPrizeController"
+	}).state("winPrizeList", {
+		url : "/winPrizeList",
+		templateUrl : "htmls/finance/winPrizeList.html",
+		controller : "winPrizeListController"
+	}).state("activityProductsList", {
+		url : "/activityProductsList",
+		templateUrl : "htmls/finance/activityProductsList.html",
+		controller : "activityProductsListController"
+	}).state("newProduct", {
+		url : "/newProduct",
+		templateUrl : "htmls/finance/newProduct.html",
+		controller : "newProductListController"
+	}).state("userTIcketsList", {
+		url : "/userTIcketsList",
+		templateUrl : "htmls/finance/userTIcketsList.html",
+		controller : "userTIcketsListController"
+	}).state("contestantList", {
+		url : "/contestantList",
+		templateUrl : "htmls/finance/contestantList.html",
+		controller : "contestantListController"
+	}).state("productsSellList", {
+		url : "/productsSellList",
+		templateUrl : "htmls/finance/productsSellList.html",
+		controller : "productsSellListController"
+	}).state("productsSellCwList", {
+		url : "/productsSellCwList",
+		templateUrl : "htmls/finance/productsSellCwList.html",
+		controller : "productsSellCwListController"
+	}).state("participantsList", {
+		url : "/participantsList",
+		templateUrl : "htmls/finance/participantsList.html",
+		controller : "participantsListController"
+	}).state("addEmp", {
+		url : "/addParticipants",
+		templateUrl : "htmls/finance/addParticipants.html",
+		controller : "addParticipantsController"
+	}).state("modifyParticipants", {
+		url : "/modifyParticipants",
+		templateUrl : "htmls/finance/modifyParticipants.html",
+		controller : "modifyParticipantsController",
+		params:{participant:{}}
+	}).state("addProduct", {
+		url : "/addProduct",
+		templateUrl : "htmls/finance/addProduct.html",
+		controller : "addProductController"
+	}).state("modifyProduct", {
+		url : "/finance/modifyProduct",
+		templateUrl : "htmls/finance/modifyProduct.html",
+		controller : "modifyProductController",
+		params:{product:{}}
+	}).state("paramList", {
+		url : "/finance/paramList",
+		templateUrl : "htmls/finance/paramList.html",
+		controller : "paramListController",
+	}).state("modifyParam", {
+		url : "/finance/modifyParam",
+		templateUrl : "htmls/finance/modifyParam.html",
+		controller : "modifyParamController",
+		params:{param:{}}
+	}).state("addParam", {
+		url : "/finance/addParam",
+		templateUrl : "htmls/finance/addParam.html",
+		controller : "addParamController",
+	}).state("userVoteForList", {
+		url : "/userVoteForList",
+		templateUrl : "htmls/finance/userVoteForList.html",
+		controller : "userVoteForListController"
+	}).state("turntableAwardList", {
+		url : "/finance/awardList",
+		templateUrl : "htmls/finance/awardList.html",
+		controller : "awardListController"
+	}).state("awardResultList", {
+		url : "/finance/awardResultList",
+		templateUrl : "htmls/finance/awardResultList.html",
+		controller : "awardResultListController"
+	}).state("liveLoginRecord", {
+		url : "/finance/liveLoginRecord",
+		templateUrl : "htmls/finance/liveLoginRecord.html",
+		controller : "liveLoginRecordController"
+	}).state("userRiskList", {
+		url : "/thx/userRiskList",
+		templateUrl : "htmls/thx/userRiskList.html",
+		controller : "userRiskListController"
+			
+	}).state("userOrderList", {
+		url : "/thx/userOrderList",
+		templateUrl : "htmls/thx/userOrderList.html",
+		controller : "userOrderListController"
+			
+	}).state("modifyContestant", {
+		url : "/modifyContestant",
+		templateUrl : "htmls/finance/modifyContestant.html",
+		controller : "modifyContestantController",
+		params:{contestant:{}}
 	}).state("demo", {
 		url : "/demo",
 		templateUrl : "htmls/demo/demo.html",

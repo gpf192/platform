@@ -1,0 +1,206 @@
+<script type="text/javascript" src="htmls/info/rankList.js"></script>
+<script type="text/javascript">
+$(function(){
+	 var onSampleResized = function(e){  
+		    var onSampleResized = $(e.currentTarget).find("th"); 
+		  };  
+
+		 $("#datatable1").colResizable({
+		    liveDrag:true,
+		    gripInnerHtml:"<div class='grip'></div>", 
+		    draggingClass:"dragging", 
+		    onResize:onSampleResized
+		  }); 
+	});
+</script>
+<div class="box border primary" ng-init="init()">
+	<div class="box-title">
+		<h4>
+			<i class="fa fa-bars"></i>排名查询
+		</h4>
+		<div class="tools hidden">
+			<a href="#box-config" data-toggle="modal" class="config"> <i
+				class="fa fa-cog"></i>
+			</a> <a href="javascript:;" class="reload"> <i class="fa fa-refresh"></i>
+			</a> <a href="javascript:;" class="collapse"> <i
+				class="fa fa-chevron-up"></i>
+			</a> <a href="javascript:;" class="remove"> <i class="fa fa-times"></i>
+			</a>
+		</div>
+	</div>
+	<div class="box-body">
+		<div class="dataTables_wrapper form-inline" role="grid" >
+			<form class="form-inline margin10">
+				<div class="form-group ">
+					<label class="control-label text-right">栏目查询:</label>
+					<select class="form-control" ng-model="formData.category"
+							ng-options="item.title for item in categoryList"></select>
+				</div>
+				&nbsp
+				<div class="form-group ">
+					<label  for="searchTitle">文章标题:</label>
+					<input type="text" class="form-control input-300 " id="searchTitle" name="title"
+						ng-model="formData.title" placeholder="请输入关键字"></input>
+				</div>
+				&nbsp
+				<div class="form-group ">
+					<label class=" control-label text-right">审核状态:</label>
+					<select  class="form-control" ng-model="approveResult"
+							ng-options="key for (key, value) in approveResultOption" ></select>
+				</div>
+				&nbsp
+				<input type="button" value="查询" class="btn btn-primary"
+								ng-click="getInfosByCategoryId(10)" />
+			</form>
+			
+			<hr />
+			<div class="row hide" ng-show="infoList.length>0">
+				<div class="col-sm-12">
+					<div class="pull-right">
+						<div class="dataTables_filter" id="datatable1_filter">
+							<label> 
+							<input type="text" aria-controls="datatable1" ng-model="search" placeholder="Search" class="form-control input-sm">
+							</label>
+						</div>
+					</div>
+					<div class="pull-left">
+						<div id="datatable1_length" class="dataTables_length">
+							<label> 显示 
+								<select size="1" name="datatable1_length" ng-model="selectNum"
+									ng-options="row.num for row in selectNumList"
+									aria-controls="datatable1" class="form-control input-sm">
+								</select> 行
+							</label>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>			
+			<table id="datatable1" cellpadding="0" cellspacing="0" border="0" width="80%"
+				class="datatable table table-striped table-bordered table-hover dataTable text-center"
+				aria-describedby="datatable1_info">
+				<thead>
+					<div>
+						&nbsp &nbsp
+						<button type="button" class="btn btn-primary btn-sm" ng-click="batchAddWeight()">
+								<i class="fa fa-plus"></i><span> 置顶</span>
+						</button>
+						&nbsp &nbsp
+						<button  type="button" class="btn btn-primary btn-sm"
+									ng-click="batchCopyUrl()">
+									<i class="fa fa-copy"></i><span> 复制</span>
+						</button>
+						&nbsp &nbsp
+						<button  type="button" class="btn btn-info btn-sm"
+									ng-click="batchModifyInfo()">
+									<i class="fa fa-pencil-square-o"></i><span> 编辑</span>
+						</button>
+						&nbsp &nbsp
+						<button  type="button" class="btn btn-danger btn-sm"
+									ng-click="batchDeleteInfo()">
+									<i class="fa fa-trash-o"></i><span> 删除</span>
+						</button>
+						
+					 </div>
+					 &nbsp				
+					<tr role="row">
+					
+						<th class="col-sm-1 text-center"><input type="checkbox" ng-click="selectAll($event)" ng-checked="isSelectedAll()" /></th>					
+						<th class="col-sm-1 text-center">序号</th>		
+						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">文章标题</div></th>
+						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">栏目名称</div></th>
+						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">发布时间</div></th>
+						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">发布人</div></th>
+						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">审核状态</div></th>	
+						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">浏览量</div></th>
+					</tr>
+				</thead>
+				<tbody role="alert" aria-live="polite" aria-relevant="all">
+					<tr ng-repeat="info in infoList | filter:{title:search}">
+						<td >
+							<input type="checkbox" name="selected" ng-checked="isSelected(info.id)" ng-click="updateSelection($event,info.id)" /></td>	
+						<td >{{$index+selectNum["num"]*currentPage.page+1}}</td>
+						<td ng-click="viewInfo($index)" style="cursor:pointer"><div style="white-space:nowrap;">{{info.title}}</div></td>
+						<td ><div style="white-space:nowrap;" >{{info.categoryTitle}}</div> </td> 
+						<td ><div style="white-space:nowrap;">{{info.modifytime}}</div> </td>
+						<td ><div style="white-space:nowrap;">{{info.createdBy}}</div> </td>
+						<td ><div style="white-space:nowrap;" ><span
+						    ng-bind="info.checked_result |transfera"></span></div></td>				 
+						<td ><span
+						    ng-bind="info.pageView"></span></td>
+						    <!-- 
+						<td>
+							<button type="button" class="btn btn-primary btn-sm" ng-click="addWeight($index)">
+								<i class="fa fa-plus"></i><span> 置顶</span>
+							</button>
+						</td>
+						<td class="col-sm-1 text-center">
+							<div>
+								<button ng-if="info.checked_result == ('generate')||info.checked_result == ('reject')" type="button" class="btn btn-info btn-sm"
+									ng-click="modifyInfo($index)">
+									<i class="fa fa-pencil-square-o"></i><span> 编辑</span>
+								</button>
+								
+								
+							</div>
+						</td>
+						<td class="col-sm-1">
+							<div>
+								<button ng-if="info.checked_result == ('approve')" type="button" class="btn btn-primary btn-sm"
+									ng-click="copyUrl($index)">
+									<i class="fa fa-copy"></i><span> 复制</span>
+								</button>
+							</div>
+						</td>
+						<td class="col-sm-1">
+							<div>
+								<button ng-if="info.checked_result == ('generate')||info.checked_result == ('reject')" type="button" class="btn btn-danger btn-sm"
+									ng-click="deleteInfo($index)">
+									<i class="fa fa-trash-o"></i><span> 删除</span>
+								</button>
+							</div>
+						</td>
+						-->
+					</tr>
+				</tbody>
+				<tfoot>
+			</table>
+			<div class="row hide">
+				<div class="col-sm-12" ng-model="pagination">
+					<div class="pull-left">
+						<div class="dataTables_info" id="datatable1_info">
+							第 {{pagination.pageNumber+1}} 页     /  共  {{pagination.totalItems}} 记录
+						</div>
+					</div>
+					<div class="pull-right">
+						<div class="dataTables_paginate paging_bs_full"
+							id="datatable1_paginate">
+							<ul class="pagination">
+								<li class="disabled" id="page_first"
+									ng-click="getUserList('first')"><a tabindex="0"
+									class="paginate_button first" id="datatable1_first">首页</a></li>
+								<li class="disabled" id="page_previous"><a tabindex="0"
+									ng-click="getUserList('previous')"
+									class="paginate_button previous" id="datatable1_previous">上一页</a>
+								</li>
+								<li id="page_next"><a tabindex="0"
+									ng-click="getUserList('next')" class="paginate_button next"
+									id="datatable1_next">下一页</a></li>
+								<li id="page_last" ng-click="getUserList('last')"><a
+									tabindex="0" class="paginate_button last" id="datatable1_last">尾页</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,126 @@
+<script src="././exporttable/alasql.min.js" type="text/javascript"></script>
+<script src="././exporttable/xlsx.core.min.js" type="text/javascript"></script> 
+<script type="text/javascript" src="htmls/dzh/dzhgg.js"></script>
+<div class="box border primary" ng-init="init()">
+	<div class="box-title">
+		<h4>
+			<i class="fa fa-bars"></i>客户信息管理
+		</h4>
+		<div class="tools hidden">
+			<a href="#box-config" data-toggle="modal" class="config"> <i
+				class="fa fa-cog"></i>
+			</a> <a href="javascript:;" class="reload"> <i class="fa fa-refresh"></i>
+			</a> <a href="javascript:;" class="collapse"> <i
+				class="fa fa-chevron-up"></i>
+			</a> <a href="javascript:;" class="remove"> <i class="fa fa-times"></i>
+			</a>
+		</div>
+	</div>
+	<div class="box-body">
+		<div class="dataTables_wrapper form-inline" role="grid">
+			<form class="form-inline margin10">
+                <div class="form-group ">
+                	<label class="control-label text-right">活动名称:</label>					
+						<select class="form-control" ng-model="formData.category"
+							ng-options="item.name for item in categoryList"></select>					
+				</div>
+                &nbsp   
+               <div class="form-group ">
+                    <label  for="productCode">姓名:</label>                 
+                        <input type="text" class="form-control input-300 " id="username" name="username"
+                        ng-model="formData.name" placeholder=""></input>
+
+                </div>
+                &nbsp 
+                <div class="form-group ">
+                    <label  for="account">手机号:</label>                 
+                        <input type="text" class="form-control input-300 " id="tgName" name="tgName"
+                        ng-model="formData.phone" placeholder=""></input>
+
+                </div> 
+              &nbsp
+				<input type="button" value="查询" class="btn btn-primary"
+								ng-click="getOpinionBy(2000)" />
+				
+				 &nbsp
+                <input type="button" value="导出" class="btn btn-primary"
+                            ng-click="exportToExcel()" />
+			</form>
+			
+			<hr />
+				
+			<table id="datatable1" cellpadding="0" cellspacing="0" border="0" width="80%"
+				class="datatable table table-striped table-bordered table-hover dataTable text-center"
+				aria-describedby="datatable1_info">
+				<thead>
+					
+					 &nbsp				
+					<tr role="row">
+					
+						<!-- <th class="col-sm-1 text-center"><input type="checkbox" ng-click="selectAll($event)" ng-checked="isSelectedAll()" /></th> -->				
+						<th class="col-sm-1 text-center">序号</th>		
+						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">活动名称</div></th>
+						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">客户姓名</div></th>
+					
+						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">手机号</div></th>
+						<th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+							aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">时间</div></th>
+						
+					</tr>
+				</thead>
+				<tbody role="alert" aria-live="polite" aria-relevant="all">
+					<tr ng-repeat="info in infoList | filter:{title:search}">
+					<!-- 	 <td >
+							<input type="checkbox" name="selected" ng-checked="isSelected(info.id)" ng-click="updateSelection($event,info.id)" /></td>  -->	
+						<td >{{$index+selectNum["num"]*currentPage.page+1}}</td>
+						<td ><div style="white-space:nowrap;">{{info.activity}}</div></td>
+						<td ><div style="white-space:nowrap;">{{info.name}}</div></td>
+						<td ><div style="white-space:nowrap;">{{info.phone}}</div> </td>
+						<td ><div style="white-space:nowrap;" >{{info.recordtime}}</div> </td> 					
+						
+					</tr>
+				</tbody>
+				<tfoot>
+			</table>
+		
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+    $('.form_datetime').datetimepicker({
+       // language:  'uk',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+        showMeridian: 1
+    });
+	$('.form_date').datetimepicker({
+        language:  'zh-CN',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0
+    });
+	$('.form_time').datetimepicker({
+        language:  'zh-CN',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 1,
+		minView: 0,
+		maxView: 1,
+		forceParse: 0
+    });
+	$('#datetimepicker').datetimepicker('setStartDate', '2012-01-01');
+
+</script>

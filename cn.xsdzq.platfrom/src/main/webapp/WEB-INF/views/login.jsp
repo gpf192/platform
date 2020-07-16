@@ -29,7 +29,7 @@
 						<h3>新时代后台管理系统</h3>
 					</div>
 					 -->
-					<div class="col-sm-5 text-center error-msg">
+					<div class="col-sm-12 text-center error-msg">
 						<c:if test="${not empty error}">
 							<div class="error">${error}</div>
 						</c:if>
