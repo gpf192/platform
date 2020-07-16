@@ -57,7 +57,15 @@ ngApp.controller("indexController", function($scope, $state, $http, httpUtils) {
 	
 	$scope.gotoMenu = function(first,second,state,$event){
 		$event.stopPropagation();
-		$state.go(state);
+//		$state.go(state);
+		if(first==1&&second==0) {
+			$state.go("integralallocation")
+		}else {
+			$state.go(state);
+		}
+		console.log('first'+first);
+		console.log('second'+second);
+//		$state.go("integralallocation")
 		//console.log("1"+window.location.url()); 
 		console.log("2 "+window.location.hash); 
 		//var hashPath = window.location.hash;

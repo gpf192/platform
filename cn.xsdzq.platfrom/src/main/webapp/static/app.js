@@ -129,6 +129,10 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/demo",
 		templateUrl : "htmls/demo/demo.html",
 		controller : "demoController"
+	}).state("integralallocation", {
+		url : "/integral/integralallocation",
+		templateUrl : "htmls/integral/integralallocation.html",
+		controller : "integralallocationController"
 	});
 
 	$urlRouterProvider.otherwise("/");

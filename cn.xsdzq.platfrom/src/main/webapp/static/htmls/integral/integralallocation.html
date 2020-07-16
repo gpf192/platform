@@ -1,0 +1,58 @@
+<script type="text/javascript" src="htmls/integral/integralallocation.js"></script>
+<script type="text/javascript">
+$(function(){
+	 var onSampleResized = function(e){  
+		    var onSampleResized = $(e.currentTarget).find("th"); 
+		  };  
+
+		 $("#datatable2").colResizable({
+		    liveDrag:true,
+		    gripInnerHtml:"<div class='grip'></div>", 
+		    draggingClass:"dragging", 
+		    onResize:onSampleResized
+		  }); 
+	});
+</script>
+<div class="box border primary overflow-x-scroll"  ng-init="init()">
+	<div class="box-title">
+		<h4>
+			<i class="fa fa-bars"></i>积分配置
+		</h4>
+		<div class="tools hidden">
+			<a href="#box-config" data-toggle="modal" class="config"> <i
+				class="fa fa-cog"></i>
+			</a> <a href="javascript:;" class="reload"> <i class="fa fa-refresh"></i>
+			</a> <a href="javascript:;" class="collapse"> <i
+				class="fa fa-chevron-up"></i>
+			</a> <a href="javascript:;" class="remove"> <i class="fa fa-times"></i>
+			</a>
+		</div>
+	</div>
+	<div class="box-body">
+		<div class="dataTables_wrapper form-inline" role="grid">
+			<form class="form-inline margin10">
+			&nbsp	
+				<div class="form-group ">
+					<label  for="integralType">积分类型:</label>					
+						<input type="text" class="form-control input-300 " id="integralType" name="title"
+						ng-model="formData.title" placeholder="请输入关键字"></input>
+				</div>
+				&nbsp
+				<div class="form-group ">
+					<label  for="searchTitle">项目名称:</label>					
+						<input type="text" class="form-control input-300 " id="searchTitle" name="title"
+						ng-model="formData.title" placeholder="请输入关键字"></input>
+
+				</div>
+				&nbsp
+				<input type="button" value="查询" class="btn btn-primary"
+							ng-click="getCheckInfosByCategoryId(10)" />
+			</form>
+
+
+
+			
+		</div>
+		
+	</div>	
+</div>
