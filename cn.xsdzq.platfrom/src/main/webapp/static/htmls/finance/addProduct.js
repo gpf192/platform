@@ -85,12 +85,12 @@ function addProductController($scope, $http, $state, httpUtils, layerUtils,utils
 			layerUtils.iMsg(-1, "产品类型不能为空");
 			return;
 		}
-		/*if(!utils.isEmpty($scope.formData.coefficient)) {
+		if(!utils.isEmpty($scope.formData.coefficient)) {
 			coefficient = $scope.formData.coefficient;
 		}else {
 			layerUtils.iMsg(-1, "票数系数不能为空");
 			return;
-		}*/
+		}
 		if(!utils.isEmpty($scope.formData.initialAmount)) {
 			initialAmount = $scope.formData.initialAmount;
 		}else {

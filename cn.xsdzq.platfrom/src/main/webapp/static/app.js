@@ -173,6 +173,10 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/winPrizeList",
 		templateUrl : "htmls/finance/winPrizeList.html",
 		controller : "winPrizeListController"
+	}).state("LcjPrizeResultList", {
+		url : "/winLcjPrizeResultList",
+		templateUrl : "htmls/finance/lcjPrizeResultList.html",
+		controller : "lcjPrizeResultListController"
 	}).state("activityProductsList", {
 		url : "/activityProductsList",
 		templateUrl : "htmls/finance/activityProductsList.html",

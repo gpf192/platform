@@ -10,6 +10,7 @@ import cn.xsdzq.platform.entity.lcj.EmpEntity;
 import cn.xsdzq.platform.entity.lcj.EmpTicketEntity;
 import cn.xsdzq.platform.entity.lcj.EmpTicketRecordEntity;
 import cn.xsdzq.platform.entity.lcj.LcjPrizeEntity;
+import cn.xsdzq.platform.entity.lcj.LcjPrizeResultViewEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeResultEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeResultViewEntity;
@@ -107,7 +108,7 @@ public class LcjUtil {
 	}
 	
 	
-	//中奖纪录
+	//中奖纪录--开门红
 	public static PrizeRecordDTO convertPrizeRecordDTOByEntity(PrizeResultViewEntity entity) {		
 		PrizeRecordDTO dto = new PrizeRecordDTO();
 		dto.setId(entity.getId());
@@ -125,7 +126,25 @@ public class LcjUtil {
 		}
 		return dto;
 	}
+	//818
 	
+	public static PrizeRecordDTO convertLcjPrizeResultDTOByEntity(LcjPrizeResultViewEntity entity) {		
+		PrizeRecordDTO dto = new PrizeRecordDTO();
+		dto.setId(entity.getId());
+		dto.setUsername(entity.getClientName());
+		
+		dto.setClientId(entity.getClientId());
+		dto.setPrizeName(entity.getPrizeName());
+		dto.setDepartName(entity.getDepartName());
+		dto.setPrizeCode(entity.getPrizeCode());
+		try {
+			dto.setCreatetime(DateUtil.DateToString(entity.getRecordTime()));		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return dto;
+	}
 	//产品信息
 	public static ProductDTO convertProductDTOByEntity(ProductEntity entity) {		
 		ProductDTO dto = new ProductDTO();

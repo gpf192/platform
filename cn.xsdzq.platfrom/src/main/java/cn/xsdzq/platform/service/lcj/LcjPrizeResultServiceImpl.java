@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import cn.xsdzq.platform.dao.lcj.LcjPrizeResultViewRepository;
 import cn.xsdzq.platform.entity.lcj.LcjPrizeResultViewEntity;
 
-@Service(value = "lcjPrizeRecordServiceImpl")
+@Service(value = "lcjPrizeResultServiceImpl")
 @Transactional(readOnly = true)
 public class LcjPrizeResultServiceImpl implements LcjPrizeResultService{
 	@Autowired

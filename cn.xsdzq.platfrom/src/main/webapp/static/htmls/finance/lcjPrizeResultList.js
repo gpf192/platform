@@ -63,7 +63,7 @@ function lcjPrizeResultListController($scope, $http, $state, httpUtils, layerUti
 			prizeName = $scope.formData.prizeName;
 		}
 		console.log(prizeName);
-		var url = httpUtils.url.winPrizeList;
+		var url = httpUtils.url.winLcjPrizeResultList;
 		var params = {
 			beginTime : beginTime,
 			endTime : endTime,
