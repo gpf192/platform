@@ -98,7 +98,7 @@ function lcjPrizeListController($scope, $http, $state, httpUtils, layerUtils, ut
 			return;
 		}
 		//判断是否满足8个产品
-		if($scope.newPrizeList.length >= 12) {
+		if($scope.newPrizeList.length >= 8) {
 			//如果满足8个产品
 			//比较现在修改过的对象和原来的对象是否一致
 			if(angular.toJson(customaryPrizeList) == angular.toJson($scope.newPrizeList)) {
@@ -120,7 +120,7 @@ function lcjPrizeListController($scope, $http, $state, httpUtils, layerUtils, ut
 		}else {
 			//如果不满足8个产品
 			//提示奖品必须有8个
-			layerUtils.iMsg(-1,"奖品不满足12个");
+			layerUtils.iMsg(-1,"奖品不满足8个");
 		}
 	}
 	

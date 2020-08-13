@@ -103,13 +103,25 @@ function userVoteForListController($scope, $http, $state, $stateParams, $gridSer
 	};
 	 
 	//组装ecxel数据
+	 //赛区  0-新手  1-王者
+	 function divisionCheck(value) {
+		    if(value == "1"){
+		    	return "王者赛区";	 
+		    }
+		    if(value == "0"){
+		    	return "新手赛区";
+		    }
+		    
+		 
+		}
+	 
 	function getExcelData() {
 		var arr =[];
-		angular.forEach($scope.userVoteList, function(data, index, datas) {
+		angular.forEach($scope.userVoteForList, function(data, index, datas) {
 			var newObj = {	
 				
 			};
-			for(k=0;k<$scope.userVoteList.length;k++){				
+			for(k=0;k<$scope.userVoteForList.length;k++){				
 				newObj["客户姓名"] = 	data.username;
 				newObj["客户号"] = 	data.clientId;
 				newObj["投票时间"] = 	data.voteTime;
@@ -117,7 +129,7 @@ function userVoteForListController($scope, $http, $state, $stateParams, $gridSer
 				newObj["使用对象员工编号"] = 	data.empCode;
 				newObj["使用票数"] = 	data.voteNum;
 				newObj["隶属营业部"] = 	data.salesDepartment;
-				newObj["隶属赛区"] = 	data.division;
+				newObj["隶属赛区"] = 	divisionCheck(data.division);
 			}
 			arr.push(newObj);
 		});

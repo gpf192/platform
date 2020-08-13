@@ -71,13 +71,13 @@ public class EmpController extends BaseController {
 		}
 		if(num == 2) {
 			//查询条件 emp_name, emp_code, sales_department
-			entitys = myEmpService.findByEmp_nameAndEmp_codeAndSales_departmentOrderByEmp_code(emp_name, emp_code, departmentCode, pageNumber, pageSize);
-			sum = myEmpService.countEmpEntityByEmp_nameAndEmp_codeAndSales_department(emp_name, emp_code, departmentCode);
+			entitys = myEmpService.findByEmp_nameAndEmp_codeAndSales_departmentOrderByEmp_code("%"+emp_name+"%", emp_code, departmentCode, pageNumber, pageSize);
+			sum = myEmpService.countEmpEntityByEmp_nameAndEmp_codeAndSales_department("%"+emp_name+"%", emp_code, departmentCode);
 		}
 		if(num == 3) {
 			//查询条件  名字
-			entitys = myEmpService.findEmpEntityByEmp_nameOrderByEmp_code(emp_name, pageNumber, pageSize);
-			sum = myEmpService.countEmpEntityByEmp_name(emp_name);
+			entitys = myEmpService.findEmpEntityByEmp_nameOrderByEmp_code("%"+emp_name+"%", pageNumber, pageSize);
+			sum = myEmpService.countEmpEntityByEmp_name("%"+emp_name+"%");
 		}
 		if(num == 4) {
 			//查询条件  code
@@ -91,13 +91,13 @@ public class EmpController extends BaseController {
 		}
 		if(num == 6) {
 			//查询条件  姓名、code
-			entitys = myEmpService.findEmpEntityByEmp_nameAndEmp_codeOrderByEmp_code(emp_name, emp_code, pageNumber, pageSize);
-			sum = myEmpService.countEmpEntityByEmp_nameAndEmp_code(emp_name, emp_code);
+			entitys = myEmpService.findEmpEntityByEmp_nameAndEmp_codeOrderByEmp_code("%"+emp_name+"%", emp_code, pageNumber, pageSize);
+			sum = myEmpService.countEmpEntityByEmp_nameAndEmp_code("%"+emp_name+"%", emp_code);
 		}
 		if(num == 7) {
 			//查询条件  姓名、部门
-			entitys = myEmpService.findEmpEntityByEmp_nameAndSales_departmentOrderByEmp_code(emp_name, departmentCode, pageNumber, pageSize);
-			sum = myEmpService.countEmpEntityByEmp_nameAndSales_department(emp_name, departmentCode);
+			entitys = myEmpService.findEmpEntityByEmp_nameAndSales_departmentOrderByEmp_code("%"+emp_name+"%", departmentCode, pageNumber, pageSize);
+			sum = myEmpService.countEmpEntityByEmp_nameAndSales_department("%"+emp_name+"%", departmentCode);
 		}
 		if(num == 8) {
 			//查询条件  code、部门

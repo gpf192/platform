@@ -42,6 +42,9 @@ public class LcjPrizeRecordEntity implements Serializable {
 	@Column(name = "record_time", nullable = false)
 	private Date recordTime;
 
+	@Column(name = "serial_num")
+	private String serialNum; // 扫描的产品交易流水号
+	
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "client_id", referencedColumnName = "client_id")
 	private LcjUserEntity userEntity;
@@ -101,4 +104,13 @@ public class LcjPrizeRecordEntity implements Serializable {
 	public void setUserEntity(LcjUserEntity userEntity) {
 		this.userEntity = userEntity;
 	}
+
+	public String getSerialNum() {
+		return serialNum;
+	}
+
+	public void setSerialNum(String serialNum) {
+		this.serialNum = serialNum;
+	}
+	
 }

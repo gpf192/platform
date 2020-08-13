@@ -112,8 +112,8 @@ function activityProductsListController($scope, $http, $state, $stateParams, $gr
 		})
 
 	}
-	//删除
-	$scope.batchDeleteInfo = function() {
+	//单条删除
+	/*$scope.batchDeleteInfo = function() {
 		if($scope.selected.length != 1){
         	layerUtils.iMsg(-1, "请选择单条记录删除！");
 			return;
@@ -140,6 +140,40 @@ function activityProductsListController($scope, $http, $state, $stateParams, $gr
 					layerUtils.iMsg(-1, "删除失败");
 				}
 			});
+		}, function() {
+			console.log("取消");
+		});
+	}*/
+	//批量删除
+	$scope.batchDeleteInfo = function() {
+		if($scope.selected.length == 0){
+        	layerUtils.iMsg(-1, "请选择要删除的记录！");
+			return;
+        }
+		
+		
+		
+		layerUtils.iConfirm("是否删除该产品？", function() {
+			for (var h = 0; h < $scope.selected.length; h++) {			
+	        	var infoId = $scope.selected[h];	
+	  	      for (var i = 0; i < $scope.activityProductsList.length; i++) {
+			        var tempInfo = $scope.activityProductsList[i];
+			        if(tempInfo.id == infoId){
+			        	var param = tempInfo;
+			        }
+			      } 
+	  	    var url = httpUtils.url.deleteProduct;
+			$http.post(url, param).success(function(data) {
+				if (data.resCode != 0) {
+					layerUtils.iMsg(-1, "删除失败");
+					
+				}
+			});
+	        } 
+			layerUtils.iMsg(-1, "删除成功");
+			$scope.selected = [];
+			$scope.getActivityProductsList(20000);
+			
 		}, function() {
 			console.log("取消");
 		});

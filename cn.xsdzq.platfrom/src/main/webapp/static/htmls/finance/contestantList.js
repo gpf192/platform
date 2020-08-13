@@ -229,19 +229,29 @@ function contestantListController($scope, $http, $state, $stateParams, $gridServ
 			  }
 			});
 	};
-	 
+	 //赛区  0-新手  1-王者
+	 function divisionCheck(value) {
+		    if(value == "1"){
+		    	return "王者赛区";	 
+		    }
+		    if(value == "0"){
+		    	return "新手赛区";
+		    }
+		    
+		 
+		}
 	//组装ecxel数据
 	function getExcelData() {
 		var arr =[];
-		angular.forEach($scope.userVoteList, function(data, index, datas) {
+		angular.forEach($scope.empVoteList, function(data, index, datas) {
 			var newObj = {	
 				
 			};
-			for(k=0;k<$scope.userVoteList.length;k++){				
+			for(k=0;k<$scope.empVoteList.length;k++){				
 				newObj["员工姓名"] = 	data.emp_name;
 				newObj["员工编号"] = 	data.emp_code;
 				newObj["隶属营业部"] = 	data.sales_department;
-				newObj["隶属赛区"] = 	data.division;
+				newObj["隶属赛区"] = 	divisionCheck(data.division);
 				newObj["获得票数"] = 	data.get_vote_amount;
 				newObj["权重"] = 	data.weight;
 				newObj["获得时间"] = 	data.get_vote_time;
