@@ -3,7 +3,18 @@ function lcjPrizeResultListController($scope, $http, $state, httpUtils, layerUti
 	
 	$scope.formData = {};
 	$scope.prizeList = [];
+	  $scope.prizeNameOption = {
+	            
+	            '50元京东E卡' :"award1",
+	            '100元京东E卡' :"award3",
+	           ' 500元京东E卡' :"award8",
+	           ' 华为手机' :"award7",
+	           ' 额外投票权' :"award6",
+	           ' 谢谢参与':"xiexie"
+	        }; 
 	$scope.init=function(){
+		//审核状态 默认为查询 全部
+		$scope.prizeName = $scope.prizeNameOption['50元京东E卡'];
 		var data = {
 				"one" : {
 					name : "转盘中奖管理",
@@ -18,7 +29,7 @@ function lcjPrizeResultListController($scope, $http, $state, httpUtils, layerUti
 		$scope.$emit("changeNavigation", data);
 		$scope.formData.beginTime = '';
 		$scope.formData.endTime = '';
-		$scope.getWinPrizeList(20000);
+		$scope.getWinPrizeList(100);
 		$scope.currentPage = {
 				page : 0
 			};
@@ -59,16 +70,16 @@ function lcjPrizeResultListController($scope, $http, $state, httpUtils, layerUti
 		if(!utils.isEmpty($scope.formData.clientId)) {
 			clientId = $scope.formData.clientId;
 		}
-		if(!utils.isEmpty($scope.formData.prizeName)) {
+		/*if(!utils.isEmpty($scope.formData.prizeName)) {
 			prizeName = $scope.formData.prizeName;
-		}
+		}*/
 		console.log(prizeName);
 		var url = httpUtils.url.winLcjPrizeResultList;
 		var params = {
 			beginTime : beginTime,
 			endTime : endTime,
 			clientId :clientId,
-			prizeName : prizeName,
+			prizeName :$scope.prizeName,
 			pageNumber : 0,
 			pageSize : pageSize
 		};

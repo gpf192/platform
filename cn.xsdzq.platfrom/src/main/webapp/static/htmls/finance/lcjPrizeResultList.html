@@ -39,12 +39,18 @@
                     <input type="hidden" id="dtp_input2" value="" /><br/>
                 </div>
                   &nbsp
-                <div class="form-group ">
+           <!--      <div class="form-group ">
                     <label  for="emp_name">奖品代码:</label>                 
                         <input type="text" class="form-control input-300 " id="prizeName" name="prizeName"
                         ng-model="formData.prizeName" placeholder="请输入奖品名称"></input>
 
-                </div>
+                </div> -->
+                
+                <div class="form-group ">
+					<label class=" control-label text-right">奖品名称:</label>
+					<select  class="form-control" ng-model="prizeName"
+							ng-options="key for (key, value) in prizeNameOption" ></select>
+				</div>
                 &nbsp
                  
                 <div class="form-group ">
@@ -55,7 +61,7 @@
                 </div>
                  &nbsp
                 <input type="button" value="查询" class="btn btn-primary"
-                            ng-click="getWinPrizeList(20000)" />
+                            ng-click="getWinPrizeList(100)" />
                 &nbsp
                 <input type="button" value="导出" class="btn btn-primary"
                             ng-click="exportToExcel()" />
