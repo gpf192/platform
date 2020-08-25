@@ -112,8 +112,8 @@ function activityProductsListController($scope, $http, $state, $stateParams, $gr
 		})
 
 	}
-	//删除
-	$scope.batchDeleteInfo = function() {
+	//单条删除
+	/*$scope.batchDeleteInfo = function() {
 		if($scope.selected.length != 1){
         	layerUtils.iMsg(-1, "请选择单条记录删除！");
 			return;
@@ -143,14 +143,66 @@ function activityProductsListController($scope, $http, $state, $stateParams, $gr
 		}, function() {
 			console.log("取消");
 		});
+	}*/
+	//批量删除
+	$scope.batchDeleteInfo = function() {
+		if($scope.selected.length == 0){
+        	layerUtils.iMsg(-1, "请选择要删除的记录！");
+			return;
+        }
+		
+		
+		
+		layerUtils.iConfirm("是否删除该产品？", function() {
+			for (var h = 0; h < $scope.selected.length; h++) {			
+	        	var infoId = $scope.selected[h];	
+	  	      for (var i = 0; i < $scope.activityProductsList.length; i++) {
+			        var tempInfo = $scope.activityProductsList[i];
+			        if(tempInfo.id == infoId){
+			        	var param = tempInfo;
+			        }
+			      } 
+	  	    var url = httpUtils.url.deleteProduct;
+			$http.post(url, param).success(function(data) {
+				if (data.resCode != 0) {
+					layerUtils.iMsg(-1, "删除失败");
+					
+				}
+			});
+	        } 
+			layerUtils.iMsg(-1, "删除成功");
+			$scope.selected = [];
+			$scope.getActivityProductsList(20000);
+			
+		}, function() {
+			console.log("取消");
+		});
 	}
 	
 
 	//导出为excel
+	
+	Date.prototype.Format = function (fmt) {  
+	    var o = {
+	        "M+": this.getMonth() + 1, //月份 
+	        "d+": this.getDate(), //日 
+	        "h+": this.getHours(), //小时 
+	        "m+": this.getMinutes(), //分 
+	        "s+": this.getSeconds(), //秒 
+	        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+	        "S": this.getMilliseconds() //毫秒 
+	    };
+	    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+	    for (var k in o)
+	    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+	    return fmt;
+	}
+	
+	
 	$scope.exportToExcel=function(){ 
 		console.log("lalal")
 		var excelArrs = getExcelData();
-		var myDate = new Date();
+		var myDate = new Date().Format("yyyyMMddhhmmss");
 		 alasql.promise('SELECT * INTO XLSX("参与活动产品表-' + myDate+ '.xlsx",{headers:true}) FROM ?',[excelArrs])
 			.then(function (data) {
 			  if(data == 1){
@@ -175,7 +227,7 @@ function activityProductsListController($scope, $http, $state, $stateParams, $gr
 				newObj["产品类型"] = 	data.type;
 				newObj["起购金额"] = 	data.initial_amount;
 				newObj["优惠信息"] = 	data.preferentialInfo;
-				/*newObj["转化系数"] = 	data.coefficient;*/
+				newObj["转化系数"] = 	data.coefficient;
 				newObj["是否为场外基金"] = 	data.flag;
 				newObj["是否扫描场内交易"] = 	data.scanFlag;
 				newObj["开放时间"] = 	data.begin_date;

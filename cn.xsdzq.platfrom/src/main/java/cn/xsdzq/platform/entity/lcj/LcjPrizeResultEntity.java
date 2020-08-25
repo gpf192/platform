@@ -16,15 +16,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-/**
- * 开门红
- * @author Administrator
- *
- */
+
+
 @Entity
-@Table(name = "lcj_prize_result")
+@Table(name = "lcj818_prize_result")
 @EntityListeners(AuditingEntityListener.class)
-public class PrizeResultEntity implements Serializable {
+public class LcjPrizeResultEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -34,9 +31,6 @@ public class PrizeResultEntity implements Serializable {
 
 	@Column(name = "record_time", nullable = false)
 	private Date recordTime;
-	
-	@Column(name = "type", nullable = false)
-	private boolean type; // type 为0 表示减少 为1表示增加
 
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "client_id", referencedColumnName = "client_id")
@@ -44,7 +38,7 @@ public class PrizeResultEntity implements Serializable {
 
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "prize_id", referencedColumnName = "id")
-	private PrizeEntity prizeEntity;
+	private LcjPrizeEntity prizeEntity;
 
 	public Long getId() {
 		return id;
@@ -70,21 +64,11 @@ public class PrizeResultEntity implements Serializable {
 		this.userEntity = userEntity;
 	}
 
-	public PrizeEntity getPrizeEntity() {
+	public LcjPrizeEntity getPrizeEntity() {
 		return prizeEntity;
 	}
 
-	public void setPrizeEntity(PrizeEntity prizeEntity) {
+	public void setPrizeEntity(LcjPrizeEntity prizeEntity) {
 		this.prizeEntity = prizeEntity;
 	}
-
-	public boolean isType() {
-		return type;
-	}
-
-	public void setType(boolean type) {
-		this.type = type;
-	}
-	
-
 }

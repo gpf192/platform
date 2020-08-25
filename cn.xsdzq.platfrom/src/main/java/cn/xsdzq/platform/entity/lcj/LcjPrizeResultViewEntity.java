@@ -10,15 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-/**
- * 开门红
- * @author Administrator
- *
- */
+
 @Entity
-@Table(name = "lcj_prize_result_view")
+@Table(name = "lcj818_prize_result_view")
 @EntityListeners(AuditingEntityListener.class)
-public class PrizeResultViewEntity implements Serializable {
+public class LcjPrizeResultViewEntity implements Serializable {
 	@Id
 	private long id;
 
@@ -96,5 +92,4 @@ public class PrizeResultViewEntity implements Serializable {
 	public void setDepartName(String departName) {
 		this.departName = departName;
 	}
-
 }

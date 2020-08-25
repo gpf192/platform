@@ -50,6 +50,13 @@ ngApp.factory("httpUtils", [ function() {
 		modifyPrize : baseUrl + "prize/modifyPrize",
 		deletePrize : baseUrl + "prize/deletePrize",
 		
+		lcjPrizeList : baseUrl + "prize/getLcjPrize",
+		addLcjPrize : baseUrl + "prize/addLcjPrize",
+		modifyLcjPrize : baseUrl + "prize/modifyLcjPrize",
+		deleteLcjPrize : baseUrl + "prize/deleteLcjPrize",
+		winLcjPrizeResultList: baseUrl + "prizeRecord/getLcjPrizeResult",
+
+		
 		turntableAwardList : baseUrl + "award/getAward",
 		addAward : baseUrl + "award/addAward",
 		modifyAward : baseUrl + "award/modifyAward",

@@ -16,7 +16,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
+/**
+ * 开门红
+ * @author Administrator
+ *
+ */
 @Entity
 @Table(name = "lcj_prize_record")
 @EntityListeners(AuditingEntityListener.class)
