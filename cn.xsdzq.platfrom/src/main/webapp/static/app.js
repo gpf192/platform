@@ -271,6 +271,54 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/demo",
 		templateUrl : "htmls/demo/demo.html",
 		controller : "demoController"
+	}).state("integralallocation", {
+		url : "/integral/integralallocation",
+		templateUrl : "htmls/integral/integralallocation.html",
+		controller : "integralallocationController"
+	}).state("integraladd", {
+		url : "/integral/integraladd",
+		templateUrl : "htmls/integral/integraladd.html",
+		controller : "integraladdController"
+	}).state("integralquery", {
+		url : "/integral/integralquery",
+		templateUrl : "htmls/integral/integralquery.html",
+		controller : "integralqueryController"
+	}).state("integraldetail", {
+		url : "/integral/integraldetail",
+		templateUrl : "htmls/integral/integraldetail.html",
+		controller : "integraldetailController"
+	}).state("integralsource", {
+		url : "/integral/integralsource",
+		templateUrl : "htmls/integral/integralsource.html",
+		controller : "integralsourceController"
+	}).state("commodityclassify", {
+		url : "/commodity/commodityclassify",
+		templateUrl : "htmls/commodity/commodityclassify.html",
+		controller : "commodityclassifyController"
+	}).state("commodityclassifyadd", {
+		url : "/commodity/commodityclassifyadd",
+		templateUrl : "htmls/commodity/commodityclassifyadd.html",
+		controller : "commodityclassifyaddController"
+	}).state("commodityadd", {
+		url : "/commodity/commodityadd",
+		templateUrl : "htmls/commodity/commodityadd.html",
+		controller : "commodityaddController"
+	}).state("···", {
+		url : "/commodity/cardadd",
+		templateUrl : "htmls/commodity/cardadd.html",
+		controller : "cardaddController"
+	}).state("cardmanage", {
+		url : "/commodity/cardmanage",
+		templateUrl : "htmls/commodity/cardmanage.html",
+		controller : "cardmanageController"
+	}).state("exchangerecords", {
+		url : "/commodity/exchangerecords", 
+		templateUrl : "htmls/commodity/exchangerecords.html",
+		controller : "exchangerecordsController"
+	}).state("commoditymanage", {
+		url : "/commodity/commoditymanage",
+		templateUrl : "htmls/commodity/commoditymanage.html",
+		controller : "commoditymanageController"
 	});
 
 	$urlRouterProvider.otherwise("/");
