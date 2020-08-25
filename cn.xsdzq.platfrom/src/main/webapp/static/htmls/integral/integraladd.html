@@ -1,0 +1,70 @@
+<script type="text/javascript" src="htmls/integral/integraladd.js"></script>
+<script type="text/javascript">
+</script>
+<div class="box border primary" ng-init="init()">
+    <div class="box-title">
+        <h4>
+            <i class="fa fa-bars"></i>新增积分项目
+        </h4>
+        <div class="tools hidden">
+            <a href="#box-config" data-toggle="modal" class="config"> <i
+                class="fa fa-cog"></i>
+            </a> <a href="javascript:;" class="reload"> <i class="fa fa-refresh"></i>
+            </a> <a href="javascript:;" class="collapse"> <i
+                class="fa fa-chevron-up"></i>
+            </a> <a href="javascript:;" class="remove"> <i class="fa fa-times"></i>
+            </a>
+        </div>
+    </div>
+    <div class="box-body big">
+        <form action="" class="form-horizontal">
+            <fieldset>
+                <legend> 新增积分项目</legend>
+                <div class="form-group">
+                    <label for="versionId" class="col-sm-3 control-label">积分类型：</label>
+                    <div class="col-sm-6">
+                        <input type="text" autocomplete="off" class="form-control" id="emp_name"
+                            name="emp_name" ng-model="formData.emp_name"
+                            placeholder="请输入内容" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">项目名称：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="emp_code" name="emp_code"
+                            ng-model="formData.emp_code" placeholder="请输入内容" />
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-sm-3 control-label">积分名称：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="emp_category" name="emp_category"
+                            ng-model="formData.emp_category" placeholder="请输入内容" />
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">积分值：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="contract" name="contract"
+                            ng-model="formData.contract" placeholder="请输入内容" />
+                    </div>
+                </div>         
+                <div class="form-group ">
+                    <label  class="col-sm-3 control-label">是否启用:</label>
+                       <div class="col-sm-6">
+                        <select class="form-control"  ng-model="selectedName"
+                            ng-options="department.name for department in departments" ></select>
+                     </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-9">
+                        <button type="button" ng-click="newBuild()" id="newBuild"
+                            class="btn btn-default btn-primary">保存</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+
+    </div>
+   
+</div>

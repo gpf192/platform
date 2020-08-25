@@ -1,48 +1,49 @@
-<script type="text/javascript" src="htmls/integral/integralallocation.js"></script>
+<script type="text/javascript" src="htmls/commodity/exchangerecords.js"></script>
 <script type="text/javascript">
-$(function(){
-	 var onSampleResized = function(e){  
-		    var onSampleResized = $(e.currentTarget).find("th"); 
-		  };  
-
-		 $("#datatable2").colResizable({
-		    liveDrag:true,
-		    gripInnerHtml:"<div class='grip'></div>", 
-		    draggingClass:"dragging", 
-		    onResize:onSampleResized
-		  }); 
-	});
 </script>
-<div class="box border primary overflow-x-scroll"  ng-init="init()">
-	<div class="box-title">
-		<h4>
-			<i class="fa fa-bars"></i>积分配置
-		</h4>
-		<div class="tools hidden">
-			<a href="#box-config" data-toggle="modal" class="config"> <i
-				class="fa fa-cog"></i>
-			</a> <a href="javascript:;" class="reload"> <i class="fa fa-refresh"></i>
-			</a> <a href="javascript:;" class="collapse"> <i
-				class="fa fa-chevron-up"></i>
-			</a> <a href="javascript:;" class="remove"> <i class="fa fa-times"></i>
-			</a>
-		</div>
-	</div>
-	<div class="box-body">
-		<div class="dataTables_wrapper form-inline" role="grid">
+<div class="box border primary" ng-init="init()">
+    <div class="box-title">
+        <h4>
+            <i class="fa fa-bars"></i>兑换纪录
+        </h4>
+        <div class="tools hidden">
+            <a href="#box-config" data-toggle="modal" class="config"> <i
+                class="fa fa-cog"></i>
+            </a> <a href="javascript:;" class="reload"> <i class="fa fa-refresh"></i>
+            </a> <a href="javascript:;" class="collapse"> <i
+                class="fa fa-chevron-up"></i>
+            </a> <a href="javascript:;" class="remove"> <i class="fa fa-times"></i>
+            </a>
+        </div>
+    </div>
+    <div class="box-body">
+    <div class="dataTables_wrapper form-inline" role="grid">
 			<form class="form-inline margin10">
-			&nbsp	
-				<div class="form-group ">
-					<label  for="integralType">积分类型:</label>					
-						<input type="text" class="form-control input-300 " id="integralType" name="title"
-						ng-model="formData.title" placeholder="请输入关键字"></input>
-				</div>
+			
 				&nbsp
 				<div class="form-group ">
-					<label  for="searchTitle">项目名称:</label>					
+					<label  for="searchTitle">商品名称:</label>					
 						<input type="text" class="form-control input-300 " id="searchTitle" name="title"
 						ng-model="formData.title" placeholder="请输入关键字"></input>
 
+				</div>
+				&nbsp	
+				<div class="form-group ">
+					<label  for="integralType">客户号:</label>					
+						<input type="text" class="form-control input-300 " id="integralType" name="title"
+						ng-model="formData.title" placeholder="请输入关键字"></input>
+				</div>
+				&nbsp	
+				<div class="form-group ">
+					<label  for="integralType">客户姓名:</label>					
+						<input type="text" class="form-control input-300 " id="integralType" name="title"
+						ng-model="formData.title" placeholder="请输入关键字"></input>
+				</div>
+				&nbsp	
+				<div class="form-group ">
+					<label  for="integralType">手机号:</label>					
+						<input type="text" class="form-control input-300 " id="integralType" name="title"
+						ng-model="formData.title" placeholder="请输入关键字"></input>
 				</div>
 				&nbsp
 				<input type="button" value="查询" class="btn btn-primary"
@@ -71,7 +72,7 @@ $(function(){
                     <div class="clearfix"></div>
                 </div>
             </div>
-          
+            
               <table id="datatable1" cellpadding="0" cellspacing="0" border="0" width="80%"
                 class="datatable table table-striped table-bordered table-hover dataTable text-center"
                 aria-describedby="datatable1_info">
@@ -79,7 +80,7 @@ $(function(){
                         <div>
        <button type="button" ng-click="newBuild()"
                                     class="btn btn-default btn-primary">新增</button>
-                                 
+                                    
                         &nbsp &nbsp
                         <button  type="button" class="btn btn-info btn-sm"
                                     ng-click="batchModifyInfo()">
@@ -97,16 +98,10 @@ $(function(){
                         <th class="col-sm-1 text-center"><input type="checkbox" ng-click="selectAll($event)" ng-checked="isSelectedAll()" /></th>
                         <th class="col-sm-1 text-center">序号</th>        
                         <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">积分类型</th>
+                            aria-controls="datatable1" rowspan="1" colspan="1">商品分类</th>
                         <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">项目名称</th>
-                              <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">积分名称</th>
-                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">积分值</th>
-                              <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1">是否启用</th>
-                                         <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                              <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1">创建时间</th>
                     </tr>
                 </thead>
@@ -121,26 +116,11 @@ $(function(){
                         <td ><div style="white-space:nowrap;">{{product.type}}</div> </td>
                          <td ><div style="white-space:nowrap;">{{product.initialAmount}}</div> </td>
                         <td ><div style="white-space:nowrap;">{{product.preferentialInfo}}</div> </td>
-                       
-                    
-                        <!--
-                        <td class="col-sm-1 text-center">
-                            <div>
-                                <button type="button" class="btn btn-warning btn-sm"
-                                    ng-click="modifyPrize($index+selectNum['num']*currentPage.page+1)">
-                                    <i class="fa fa-pencil-square-o"></i><span> 修改</span>
-                                </button>
-                            </div>
-                        </td>
-                        <td class="col-sm-1">
-                            <div>
-                                <button type="button" class="btn btn-danger btn-sm"
-                                    ng-click="deletePrize($index+selectNum['num']*currentPage.page+1)">
-                                    <i class="fa fa-trash-o"></i><span> 删除</span>
-                                </button>
-                            </div>
-                        </td>
-                          -->
+                         <!-- <td ><div style="white-space:nowrap;">{{product.coefficient}}</div> </td> -->
+                         <td ><div style="white-space:nowrap;">{{product.flag==0?"场内基金":"场外基金"}}</div> </td>
+                         <td ><div style="white-space:nowrap;">{{product.scanFlag==0?"否":"是"}}</div> </td>
+                        <td ><div style="white-space:nowrap;">{{product.beginDate}}</div> </td>
+                         <td ><div style="white-space:nowrap;">{{product.endDate}}</div> </td>
                     </tr>
                 </tbody>
                 <tfoot>
@@ -176,10 +156,6 @@ $(function(){
                 </div>
             </div>
         </div>
-  
-
-			
-		</div>
-		
-	</div>	
+    </div>
+   
 </div>
