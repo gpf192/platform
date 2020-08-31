@@ -3,18 +3,22 @@ package cn.xsdzq.platform.controller.mall;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.xsdzq.mall.service.MallUserService;
-import com.xsdzq.mall.util.GsonUtil;
+import cn.xsdzq.platform.service.mall.MallUserService;
+import cn.xsdzq.platform.util.GsonUtil;
+
+
 
 @RestController
 @RequestMapping(value = "/mall/user")
 public class MallUserController {
 
 	@Autowired
+	@Qualifier("mallUserServiceImpl")
 	private MallUserService mallUserService;
 
 	@PostMapping(value = "/add")

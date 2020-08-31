@@ -9,12 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.xsdzq.mall.dao.PresentCategoryRepository;
-import com.xsdzq.mall.entity.PresentCategoryEntity;
-import com.xsdzq.mall.model.PresentCategory;
-import com.xsdzq.mall.service.PresentCategoryService;
+import cn.xsdzq.platform.dao.mall.PresentCategoryRepository;
+import cn.xsdzq.platform.entity.mall.PresentCategoryEntity;
+import cn.xsdzq.platform.model.mall.PresentCategory;
+import cn.xsdzq.platform.service.mall.PresentCategoryService;
 
-@Service
+
+
+@Service(value = "presentCategoryServiceImpl")
 @Transactional(readOnly = true)
 public class PresentCategoryServiceImpl implements PresentCategoryService {
 
@@ -43,6 +45,7 @@ public class PresentCategoryServiceImpl implements PresentCategoryService {
 
 
 	@Override
+	@Transactional
 	public void deletePresentCategory(PresentCategory presentCategory) {
 		// TODO Auto-generated method stub
 		PresentCategoryEntity entity = new PresentCategoryEntity();

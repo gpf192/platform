@@ -2,7 +2,8 @@ package cn.xsdzq.platform.service.mall;
 
 import java.util.List;
 
-import com.xsdzq.mall.entity.PresentResultEntity;
+import cn.xsdzq.platform.entity.mall.PresentResultEntity;
+
 
 public interface PresentResultService {
 

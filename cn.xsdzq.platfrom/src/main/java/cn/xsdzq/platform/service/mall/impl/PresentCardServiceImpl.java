@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.xsdzq.mall.dao.PresentCardRepository;
-import com.xsdzq.mall.entity.PresentCardEntity;
-import com.xsdzq.mall.service.PresentCardService;
+import cn.xsdzq.platform.dao.mall.PresentCardRepository;
+import cn.xsdzq.platform.entity.mall.PresentCardEntity;
+import cn.xsdzq.platform.service.mall.PresentCardService;
+
+
 
 @Service
 @Transactional(readOnly = true)

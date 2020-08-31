@@ -4,9 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.xsdzq.mall.dao.PresentRecordRepository;
-import com.xsdzq.mall.entity.PresentRecordEntity;
-import com.xsdzq.mall.service.PresentRecordService;
+import cn.xsdzq.platform.dao.mall.PresentRecordRepository;
+import cn.xsdzq.platform.entity.mall.PresentRecordEntity;
+
+
 
 public class PresentRecordServiceImpl implements PresentRecordService {
 

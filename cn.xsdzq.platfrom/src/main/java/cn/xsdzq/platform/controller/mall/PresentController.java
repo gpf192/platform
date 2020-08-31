@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.xsdzq.mall.entity.PresentEntity;
-import com.xsdzq.mall.service.PresentService;
-import com.xsdzq.mall.util.GsonUtil;
+import cn.xsdzq.platform.entity.mall.PresentEntity;
+import cn.xsdzq.platform.service.mall.PresentService;
+import cn.xsdzq.platform.util.GsonUtil;
+
 
 @RestController
 @RequestMapping(value = "/mall/present")

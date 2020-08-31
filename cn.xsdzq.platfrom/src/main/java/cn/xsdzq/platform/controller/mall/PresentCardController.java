@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.xsdzq.mall.entity.PresentCardEntity;
-import com.xsdzq.mall.service.PresentCardService;
-import com.xsdzq.mall.util.GsonUtil;
+import cn.xsdzq.platform.entity.mall.PresentCardEntity;
+import cn.xsdzq.platform.service.mall.PresentCardService;
+import cn.xsdzq.platform.util.GsonUtil;
+
 
 @RestController
 @RequestMapping(value = "/mall/card")

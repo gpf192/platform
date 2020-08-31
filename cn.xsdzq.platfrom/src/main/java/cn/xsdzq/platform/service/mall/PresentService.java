@@ -2,8 +2,9 @@ package cn.xsdzq.platform.service.mall;
 
 import java.util.List;
 
-import com.xsdzq.mall.entity.PresentCategoryEntity;
-import com.xsdzq.mall.entity.PresentEntity;
+import cn.xsdzq.platform.entity.mall.PresentCategoryEntity;
+import cn.xsdzq.platform.entity.mall.PresentEntity;
+
 
 public interface PresentService {
 

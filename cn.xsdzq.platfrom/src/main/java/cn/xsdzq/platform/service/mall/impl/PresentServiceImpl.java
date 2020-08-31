@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.xsdzq.mall.dao.PresentRepository;
-import com.xsdzq.mall.entity.PresentCategoryEntity;
-import com.xsdzq.mall.entity.PresentEntity;
-import com.xsdzq.mall.service.PresentService;
+import cn.xsdzq.platform.dao.mall.PresentRepository;
+import cn.xsdzq.platform.entity.mall.PresentCategoryEntity;
+import cn.xsdzq.platform.entity.mall.PresentEntity;
+import cn.xsdzq.platform.service.mall.PresentService;
+
+
 
 @Service
 @Transactional(readOnly = true)
