@@ -59,7 +59,7 @@ ngApp.controller("indexController", function($scope, $state, $http, httpUtils) {
 		$event.stopPropagation();
 //		$state.go(state);
 		if(first==1&&second==0) {
-			$state.go("integraladd")
+			$state.go("commodityclassify")
 		}else {
 			$state.go(state);
 		}
