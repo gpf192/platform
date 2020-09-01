@@ -82,7 +82,7 @@ function commodityclassifyController($scope, $http, $state, $stateParams, $gridS
 	};
 	
 	$scope.newBuild = function() {
-		$state.go("addProduct");
+		$state.go("commodityclassifyadd");
 	}
 	
 	//编辑
@@ -104,8 +104,8 @@ function commodityclassifyController($scope, $http, $state, $stateParams, $gridS
 
 		layerUtils.iConfirm("是否修该此产品信息？", function() {
 			console.log(param);
-			$state.go("modifyProduct", {
-				product : param
+			$state.go("commodityclassifymodify", {
+				param : param
 			});
 		}, function() {
 			console.log("取消");
@@ -146,81 +146,4 @@ function commodityclassifyController($scope, $http, $state, $stateParams, $gridS
 	}
 	
 
-	//导出为excel
-	$scope.exportToExcel=function(){ 
-		console.log("lalal")
-		var excelArrs = getExcelData();
-		var myDate = new Date();
-		 alasql.promise('SELECT * INTO XLSX("参与活动产品表-' + myDate+ '.xlsx",{headers:true}) FROM ?',[excelArrs])
-			.then(function (data) {
-			  if(data == 1){
-				$timeout(function(){
-				  console.log('数据导出成功！');
-				})
-			  }
-			});
-	};
-	 
-	//组装ecxel数据
-	function getExcelData() {
-		var arr =[];
-		angular.forEach($scope.activityProductsList, function(data, index, datas) {
-			var newObj = {	
-				
-			};
-			for(k=0;k<$scope.activityProductsList.length;k++){				
-				newObj["产品代码"] = 	data.code;
-				newObj["产品名称"] = 	data.name;
-				newObj["产品风险等级"] = 	data.riskLevel;
-				newObj["产品类型"] = 	data.type;
-				newObj["起购金额"] = 	data.initial_amount;
-				newObj["优惠信息"] = 	data.preferentialInfo;
-				/*newObj["转化系数"] = 	data.coefficient;*/
-				newObj["是否为场外基金"] = 	data.flag;
-				newObj["是否扫描场内交易"] = 	data.scanFlag;
-				newObj["开放时间"] = 	data.begin_date;
-				newObj["截止时间"] = 	data.end_date;
-			}
-			arr.push(newObj);
-		});
-		return arr;
-	}
-//	var excelInput = document.getElementById("sendFile");
-//	function newBatchesBuild() {
-//		excelInput.addEventListener("change",function() {
-//
-//		});
-//	}
-//	
-//	newBatchesBuild();
-	$scope.newBatchesBuild = function() {
-		if(excelInput.files.length<=0) {
-		 	layerUtils.iMsg(-1, "请选择文件！");
-			return;
-		}
-		var loadExcel;
-		var excelFile = excelInput.files[0];
-	    var reader = new FileReader();
-	    reader.readAsBinaryString(excelFile);
-	    reader.onload = function(e) {
-	    	   var data = e.target.result;
-	    	   loadExcel = XLSX.read(data, {
-                   type: 'binary'
-               });
-               for(var i=0;i<loadExcel.SheetNames.length;i++){
-            	 var data = XLSX.utils.sheet_to_json(loadExcel.Sheets[loadExcel.SheetNames[i]]);
-            	 data.forEach(function(item) {
-            		 var url = httpUtils.url.addProduct;
-            			$http.post(url, item).success(function(data) {
-            				if (data.resCode == 0) {
-            				
-            				} else {
-            					
-            				}
-            			});
-            	 })
-               }
-	    }
-	    
-	}
 }

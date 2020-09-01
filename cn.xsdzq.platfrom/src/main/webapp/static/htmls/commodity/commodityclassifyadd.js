@@ -18,15 +18,14 @@ function commodityclassifyaddController($scope, $http, $state, $stateParams, $gr
 		
 		$scope.formData.name="";
 		$scope.formData.flag= "";
-		$scope.tradePlaceFromList = [{
+		$scope.flagList = [{
 			name:"否",
 			code:"0"
 		},{
 			name:"是",
 			code:"1"
 		}]
-		scope.selectedTradePlace = $scope.tradePlaceFromList[0];
-		
+		scope.flagModel = $scope.flagList[0];
 	};
 	
 	
