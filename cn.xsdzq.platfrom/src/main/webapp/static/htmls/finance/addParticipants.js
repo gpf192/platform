@@ -19,6 +19,7 @@ function addParticipantsController($scope, $http, $state, httpUtils, layerUtils,
 		$scope.formData.emp_name="";
 		$scope.formData.emp_code="";
 		$scope.formData.division="";
+		$scope.formData.emp_type = "";
 		$scope.formData.emp_category="";
 		$scope.formData.contract="";
 		$scope.formData.entry_time="";
@@ -47,6 +48,7 @@ function addParticipantsController($scope, $http, $state, httpUtils, layerUtils,
 		var emp_code = "";
 		var departmentCode = "";
 		var division = "";
+		var emp_type = "";
 		var emp_category = "";
 		var contract = "";
 		var entry_time = "";
@@ -75,6 +77,12 @@ function addParticipantsController($scope, $http, $state, httpUtils, layerUtils,
 			layerUtils.iMsg(-1,"隶属赛区不能为空");
 			return;
 		}
+		if(!utils.isEmpty($scope.formData.emp_type)) {
+			emp_type = $scope.formData.emp_type;
+		}else {
+			layerUtils.iMsg(-1,"在编性质不能为空");
+			return;
+		}
 		if(!utils.isEmpty($scope.formData.emp_category)) {
 			emp_category = $scope.formData.emp_category;
 		}else {
@@ -98,6 +106,7 @@ function addParticipantsController($scope, $http, $state, httpUtils, layerUtils,
 				emp_code:emp_code,
 				departmentCode:departmentCode,
 				division:division,
+				emp_type:emp_type,
 				emp_category:emp_category,
 				contract:contract,
 				entry_time:entry_time,

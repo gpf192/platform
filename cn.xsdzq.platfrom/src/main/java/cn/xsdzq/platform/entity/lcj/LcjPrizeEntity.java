@@ -15,15 +15,12 @@ import javax.persistence.Table;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-/**
- * 开门红
- * @author Administrator
- *
- */
+
 @Entity
-@Table(name = "lcj_prize_info")
+@Table(name = "lcj818_prize_info")
 @EntityListeners(AuditingEntityListener.class)
-public class PrizeEntity implements Serializable {
+public class LcjPrizeEntity implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "prize_sequence")
@@ -49,7 +46,7 @@ public class PrizeEntity implements Serializable {
 	@Column(name = "type") // 奖品类型
 	private boolean type;
 
-	@Column(name = "is_show") // 默认不显示
+	@Column(name = "isShow") // 默认不显示
 	private boolean isShow = false;
 
 	@Column(name = "winning_number", columnDefinition = "int default 0") // 中奖人数
@@ -125,10 +122,6 @@ public class PrizeEntity implements Serializable {
 		this.amount = amount;
 	}
 
-	public Integer getAmount() {
-		return amount;
-	}
-
 	public Date getCreatetime() {
 		return createtime;
 	}
@@ -145,6 +138,14 @@ public class PrizeEntity implements Serializable {
 		this.modifytime = modifytime;
 	}
 
+	public int getAmount() {
+		return amount;
+	}
+
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+
 	public boolean isType() {
 		return type;
 	}
@@ -159,5 +160,4 @@ public class PrizeEntity implements Serializable {
 				+ ", amount=" + amount + ", type=" + type + ", isShow=" + isShow + ", createtime=" + createtime
 				+ ", modifytime=" + modifytime + ", winning_number=" + winningNumber + "]";
 	}
-
 }

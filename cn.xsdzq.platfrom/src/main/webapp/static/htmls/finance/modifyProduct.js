@@ -113,10 +113,10 @@ function modifyProductController($scope, $http, $state, $stateParams, httpUtils,
 			layerUtils.iMsg(-1, "产品截止时间不能早于开始时间");
 			return;
 		}
-		/*if (angular.isEmpty($scope.formData.coefficient)) {
+		if (angular.isEmpty($scope.formData.coefficient)) {
 			layerUtils.iMsg(-1, "产品系数不能为空");
 			return;
-		}*/
+		}
 	/*	if(angular.equals($scope.formData,$stateParams.product)){
 			layerUtils.iMsg(-1,"请修改后，重新提交");
 			return;

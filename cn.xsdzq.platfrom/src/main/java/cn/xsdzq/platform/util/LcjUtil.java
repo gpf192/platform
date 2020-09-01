@@ -9,6 +9,8 @@ import cn.xsdzq.platform.entity.lcj.DepartmentEntity;
 import cn.xsdzq.platform.entity.lcj.EmpEntity;
 import cn.xsdzq.platform.entity.lcj.EmpTicketEntity;
 import cn.xsdzq.platform.entity.lcj.EmpTicketRecordEntity;
+import cn.xsdzq.platform.entity.lcj.LcjPrizeEntity;
+import cn.xsdzq.platform.entity.lcj.LcjPrizeResultViewEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeResultEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeResultViewEntity;
@@ -51,6 +53,28 @@ public class LcjUtil {
 				
 		return dto;
 	}
+	//818
+	public static PrizeDTO convertPrizeDTOByLcjPrize(LcjPrizeEntity entity) {		
+		PrizeDTO dto = new PrizeDTO();
+		dto.setId(entity.getId());
+		dto.setName(entity.getName());
+		
+		dto.setPrice(entity.getPrice());
+		dto.setRate(entity.getRate());
+		dto.setImage(entity.getImage());
+		dto.setAmount(entity.getAmount());
+		dto.setType(entity.isType());
+		dto.setShow(entity.isShow());
+		dto.setWinningNumber(entity.getWinningNumber());
+		try {
+			dto.setCreatetime(DateUtil.DateToString(entity.getCreatetime()));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
+		return dto;
+	}
 	public static PrizeEntity convertEntityByPrizeDTO(PrizeDTO dto) {
 		PrizeEntity entity = new PrizeEntity();
 		entity.setId(dto.getId());
@@ -66,7 +90,25 @@ public class LcjUtil {
 		}
 		return entity;
 	}
-	//中奖纪录
+	
+	public static LcjPrizeEntity convertLcjEntityByPrizeDTO(PrizeDTO dto) {
+		LcjPrizeEntity entity = new LcjPrizeEntity();
+		entity.setId(dto.getId());
+		entity.setName(dto.getName());		
+		entity.setPrice(dto.getPrice());	
+		entity.setAmount(dto.getAmount());
+		entity.setImage(dto.getImage());
+		try {
+			entity.setCreatetime(DateUtil.stringToDate1(dto.getCreatetime()));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return entity;
+	}
+	
+	
+	//中奖纪录--开门红
 	public static PrizeRecordDTO convertPrizeRecordDTOByEntity(PrizeResultViewEntity entity) {		
 		PrizeRecordDTO dto = new PrizeRecordDTO();
 		dto.setId(entity.getId());
@@ -84,7 +126,25 @@ public class LcjUtil {
 		}
 		return dto;
 	}
+	//818
 	
+	public static PrizeRecordDTO convertLcjPrizeResultDTOByEntity(LcjPrizeResultViewEntity entity) {		
+		PrizeRecordDTO dto = new PrizeRecordDTO();
+		dto.setId(entity.getId());
+		dto.setUsername(entity.getClientName());
+		
+		dto.setClientId(entity.getClientId());
+		dto.setPrizeName(entity.getPrizeName());
+		dto.setDepartName(entity.getDepartName());
+		dto.setPrizeCode(entity.getPrizeCode());
+		try {
+			dto.setCreatetime(DateUtil.DateToString(entity.getRecordTime()));		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return dto;
+	}
 	//产品信息
 	public static ProductDTO convertProductDTOByEntity(ProductEntity entity) {		
 		ProductDTO dto = new ProductDTO();

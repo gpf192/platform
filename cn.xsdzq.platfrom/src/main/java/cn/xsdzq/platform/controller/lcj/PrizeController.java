@@ -26,9 +26,11 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 
 import cn.xsdzq.platform.controller.BaseController;
+import cn.xsdzq.platform.entity.lcj.LcjPrizeEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeEntity;
 import cn.xsdzq.platform.model.lcj.BatchPrizeJsonDTO;
 import cn.xsdzq.platform.model.lcj.PrizeDTO;
+import cn.xsdzq.platform.service.lcj.LcjPrizeService;
 import cn.xsdzq.platform.service.lcj.MyPrizeService;
 import cn.xsdzq.platform.service.lcj.PrizeService;
 import cn.xsdzq.platform.util.GsonUtil;
@@ -46,6 +48,10 @@ public class PrizeController extends BaseController {
 	@Autowired
 	@Qualifier("myPrizeServiceImpl")
 	private MyPrizeService myPrizeService;
+	
+	@Autowired
+	@Qualifier("lcjPrizeServiceImpl")
+	private LcjPrizeService lcjPrizeService;
 	
 	/*@RequestMapping(value = "/getPrize", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
@@ -91,6 +97,8 @@ public class PrizeController extends BaseController {
 		}
 		return GsonUtil.buildMap(0, "ok", infoDTOs);
 	}
+	
+	
 	@RequestMapping(value = "/addPrize", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> addPrize(HttpServletRequest request, @RequestBody BatchPrizeJsonDTO jsondto) {
@@ -131,6 +139,77 @@ public class PrizeController extends BaseController {
 		Date date = new Date();
 		entity.setModifytime(date);
 		prizeService.modifyPrize(entity);
+		User user = UserManageUtil.getUser();
+		String name = user.getUsername();
+		logger.info("action:" + "modify" + ";" + "user:" + name + ";" + "prize:" + entity.getName() + ";");
+		return GsonUtil.buildMap(0, "ok", null);
+	}
+	
+	/**
+	 * //818接口
+	 * @param request
+	 * @return
+	 */
+	
+	@RequestMapping(value = "/getLcjPrize", method = GET, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> getLcjPrize(HttpServletRequest request) {
+		List<PrizeDTO> infoDTOs = null;
+		try {
+			List<LcjPrizeEntity> infos = lcjPrizeService.getAllPrize();
+			infoDTOs = new ArrayList<PrizeDTO>();
+			for (LcjPrizeEntity info : infos) {
+				PrizeDTO dto = LcjUtil.convertPrizeDTOByLcjPrize(info);
+				infoDTOs.add(dto);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return GsonUtil.buildMap(0, "ok", infoDTOs);
+	}
+	
+
+	@RequestMapping(value = "/addLcjPrize", method = POST, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> addLcjPrize(HttpServletRequest request, @RequestBody BatchPrizeJsonDTO jsondto) {
+		//解析json,批量添加
+		System.out.println("batchPrizeJson: "+jsondto.getBatchPrizeJson());
+		List<PrizeDTO> dtoList = JSON.parseArray(jsondto.getBatchPrizeJson(),PrizeDTO.class);
+		for(PrizeDTO dto : dtoList) {
+			LcjPrizeEntity entity = LcjUtil.convertLcjEntityByPrizeDTO(dto);
+			Date date = new Date();
+			entity.setCreatetime(date);			
+			lcjPrizeService.addPrize(entity);
+		}
+		User user = UserManageUtil.getUser();
+		String name = user.getUsername();		
+		logger.info("action:" + " prize add" + "; user: " + name + ";" + "prizeBatchJson:" + jsondto.getBatchPrizeJson() + ";");
+		return GsonUtil.buildMap(0, "ok", null);
+	}
+
+	@RequestMapping(value = "/deleteLcjPrize", method = POST, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> deleteLcjPrize(HttpServletRequest request, @RequestBody PrizeDTO dto) {
+		LcjPrizeEntity entity = LcjUtil.convertLcjEntityByPrizeDTO(dto);
+		User user = UserManageUtil.getUser();
+		String name = user.getUsername();
+		
+		lcjPrizeService.deletePrize(entity);
+		
+		logger.info(" 删除理财节奖品信息 action:" + "delete" + ";" + "user: " + name  +" prize: "+entity.getName()+" ;" );
+		return GsonUtil.buildMap(0, "ok", null);
+	}
+
+	@RequestMapping(value = "/modifyLcjPrize", method = POST, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> modifyLcjPrize(HttpServletRequest request, @RequestBody PrizeDTO dto) {
+		LcjPrizeEntity entity = LcjUtil.convertLcjEntityByPrizeDTO(dto);	
+		
+	
+		Date date = new Date();
+		entity.setModifytime(date);
+		lcjPrizeService.modifyPrize(entity);
 		User user = UserManageUtil.getUser();
 		String name = user.getUsername();
 		logger.info("action:" + "modify" + ";" + "user:" + name + ";" + "prize:" + entity.getName() + ";");

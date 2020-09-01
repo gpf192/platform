@@ -18,15 +18,11 @@ import javax.persistence.Table;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-/**
- * 开门红
- * @author Administrator
- *
- */
+
 @Entity
-@Table(name = "lcj_prize_number")
+@Table(name = "lcj818_prize_number")
 @EntityListeners(AuditingEntityListener.class)
-public class PrizeNumberEntity implements Serializable {
+public class LcjPrizeNumberEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -96,5 +92,4 @@ public class PrizeNumberEntity implements Serializable {
 		return "PrizeNumberEntity [id=" + id + ", number=" + number + ", userEntity=" + userEntity.toString()
 				+ ", createtime=" + createtime + ", modifytime=" + modifytime + "]";
 	}
-
 }

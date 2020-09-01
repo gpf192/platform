@@ -199,9 +199,27 @@ function contestantListController($scope, $http, $state, $stateParams, $gridServ
 	
 	
 	//导出为excel
+	
+	Date.prototype.Format = function (fmt) {  
+	    var o = {
+	        "M+": this.getMonth() + 1, //月份 
+	        "d+": this.getDate(), //日 
+	        "h+": this.getHours(), //小时 
+	        "m+": this.getMinutes(), //分 
+	        "s+": this.getSeconds(), //秒 
+	        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+	        "S": this.getMilliseconds() //毫秒 
+	    };
+	    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+	    for (var k in o)
+	    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+	    return fmt;
+	}
+	
+	
 	$scope.exportToExcel=function(){ 
 		var excelArrs = getExcelData();
-		var myDate = new Date();
+		var myDate = new Date().Format("yyyyMMddhhmmss");
 		 alasql.promise('SELECT * INTO XLSX("参赛选手得票数据统计表-' + myDate+ '.xlsx",{headers:true}) FROM ?',[excelArrs])
 			.then(function (data) {
 			  if(data == 1){
@@ -211,19 +229,29 @@ function contestantListController($scope, $http, $state, $stateParams, $gridServ
 			  }
 			});
 	};
-	 
+	 //赛区  0-新手  1-王者
+	 function divisionCheck(value) {
+		    if(value == "1"){
+		    	return "王者赛区";	 
+		    }
+		    if(value == "0"){
+		    	return "新手赛区";
+		    }
+		    
+		 
+		}
 	//组装ecxel数据
 	function getExcelData() {
 		var arr =[];
-		angular.forEach($scope.userVoteList, function(data, index, datas) {
+		angular.forEach($scope.empVoteList, function(data, index, datas) {
 			var newObj = {	
 				
 			};
-			for(k=0;k<$scope.userVoteList.length;k++){				
+			for(k=0;k<$scope.empVoteList.length;k++){				
 				newObj["员工姓名"] = 	data.emp_name;
 				newObj["员工编号"] = 	data.emp_code;
 				newObj["隶属营业部"] = 	data.sales_department;
-				newObj["隶属赛区"] = 	data.division;
+				newObj["隶属赛区"] = 	divisionCheck(data.division);
 				newObj["获得票数"] = 	data.get_vote_amount;
 				newObj["权重"] = 	data.weight;
 				newObj["获得时间"] = 	data.get_vote_time;

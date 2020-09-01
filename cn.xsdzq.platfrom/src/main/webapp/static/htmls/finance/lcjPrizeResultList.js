@@ -1,9 +1,20 @@
 ngApp.$inject = ['$scope', '$http', '$state', 'httpUtils', 'layerUtils', '$stateParams', '$gridService','utils'];
-function winPrizeListController($scope, $http, $state, httpUtils, layerUtils, $stateParams, $gridService,utils) {
+function lcjPrizeResultListController($scope, $http, $state, httpUtils, layerUtils, $stateParams, $gridService,utils) {
 	
 	$scope.formData = {};
 	$scope.prizeList = [];
+	  $scope.prizeNameOption = {
+	            
+	            '50元京东E卡' :"award1",
+	            '100元京东E卡' :"award3",
+	           ' 500元京东E卡' :"award8",
+	           ' 华为手机' :"award7",
+	           ' 额外投票权' :"award6",
+	           ' 谢谢参与':"xiexie"
+	        }; 
 	$scope.init=function(){
+		//审核状态 默认为查询 全部
+		$scope.prizeName = $scope.prizeNameOption['50元京东E卡'];
 		var data = {
 				"one" : {
 					name : "转盘中奖管理",
@@ -18,7 +29,7 @@ function winPrizeListController($scope, $http, $state, httpUtils, layerUtils, $s
 		$scope.$emit("changeNavigation", data);
 		$scope.formData.beginTime = '';
 		$scope.formData.endTime = '';
-		$scope.getWinPrizeList(20000);
+		$scope.getWinPrizeList(100);
 		$scope.currentPage = {
 				page : 0
 			};
@@ -59,16 +70,16 @@ function winPrizeListController($scope, $http, $state, httpUtils, layerUtils, $s
 		if(!utils.isEmpty($scope.formData.clientId)) {
 			clientId = $scope.formData.clientId;
 		}
-		if(!utils.isEmpty($scope.formData.prizeName)) {
+		/*if(!utils.isEmpty($scope.formData.prizeName)) {
 			prizeName = $scope.formData.prizeName;
-		}
+		}*/
 		console.log(prizeName);
-		var url = httpUtils.url.winPrizeList;
+		var url = httpUtils.url.winLcjPrizeResultList;
 		var params = {
 			beginTime : beginTime,
 			endTime : endTime,
 			clientId :clientId,
-			prizeName : prizeName,
+			prizeName :$scope.prizeName,
 			pageNumber : 0,
 			pageSize : pageSize
 		};
@@ -85,6 +96,7 @@ function winPrizeListController($scope, $http, $state, httpUtils, layerUtils, $s
 	
 
 	//导出为excel
+	
 	Date.prototype.Format = function (fmt) {  
 	    var o = {
 	        "M+": this.getMonth() + 1, //月份 
@@ -100,7 +112,6 @@ function winPrizeListController($scope, $http, $state, httpUtils, layerUtils, $s
 	    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
 	    return fmt;
 	}
-	
 	
 	$scope.exportToExcel=function(){ 
 		var excelArrs = getExcelData();

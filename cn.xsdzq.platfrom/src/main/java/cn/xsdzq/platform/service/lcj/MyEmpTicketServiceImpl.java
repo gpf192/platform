@@ -38,7 +38,7 @@ public class MyEmpTicketServiceImpl implements MyEmpTicketService{
 			int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<EmpTicketEntity> pages = myEmpTicketRepository.findByEmpEntity_empNameAndEmpEntity_empCodeAndEmpEntity_divisionOrderByWeightDescModifytimeDesc(empName, empCode, division, pageRequest);
+		Page<EmpTicketEntity> pages = myEmpTicketRepository.findByEmpEntity_empNameLikeAndEmpEntity_empCodeAndEmpEntity_divisionOrderByWeightDescModifytimeDesc(empName, empCode, division, pageRequest);
 		List<EmpTicketEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -46,7 +46,7 @@ public class MyEmpTicketServiceImpl implements MyEmpTicketService{
 	@Override
 	public int countByEmpEntity_empNameAndEmpEntity_empCodeAndEmpEntity_division(String empName, String empCode,String division) {
 		// TODO Auto-generated method stub
-		return myEmpTicketRepository.countByEmpEntity_empNameAndEmpEntity_empCodeAndEmpEntity_division(empName, empCode, division);
+		return myEmpTicketRepository.countByEmpEntity_empNameLikeAndEmpEntity_empCodeAndEmpEntity_division(empName, empCode, division);
 	}
 	
 	@Override
@@ -54,7 +54,7 @@ public class MyEmpTicketServiceImpl implements MyEmpTicketService{
 			int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<EmpTicketEntity> pages = myEmpTicketRepository.findByEmpEntity_empNameOrderByWeightDescModifytimeDesc(empName, pageRequest);
+		Page<EmpTicketEntity> pages = myEmpTicketRepository.findByEmpEntity_empNameLikeOrderByWeightDescModifytimeDesc(empName, pageRequest);
 		List<EmpTicketEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -62,7 +62,7 @@ public class MyEmpTicketServiceImpl implements MyEmpTicketService{
 	@Override
 	public int countByEmpEntity_empName(String empName) {
 		// TODO Auto-generated method stub
-		return myEmpTicketRepository.countByEmpEntity_empName(empName );
+		return myEmpTicketRepository.countByEmpEntity_empNameLike(empName );
 	}
 	
 	@Override
@@ -102,7 +102,7 @@ public class MyEmpTicketServiceImpl implements MyEmpTicketService{
 			String empCode, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<EmpTicketEntity> pages = myEmpTicketRepository.findByEmpEntity_empNameAndEmpEntity_empCodeOrderByWeightDescModifytimeDesc(empName, empCode, pageRequest);
+		Page<EmpTicketEntity> pages = myEmpTicketRepository.findByEmpEntity_empNameLikeAndEmpEntity_empCodeOrderByWeightDescModifytimeDesc(empName, empCode, pageRequest);
 		List<EmpTicketEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -110,7 +110,7 @@ public class MyEmpTicketServiceImpl implements MyEmpTicketService{
 	@Override
 	public int countByEmpEntity_empNameAndEmpEntity_empCode(String empName, String empCode) {
 		// TODO Auto-generated method stub
-		return myEmpTicketRepository.countByEmpEntity_empNameAndEmpEntity_empCode(empName, empCode);
+		return myEmpTicketRepository.countByEmpEntity_empNameLikeAndEmpEntity_empCode(empName, empCode);
 	}
 
 	@Override
@@ -118,7 +118,7 @@ public class MyEmpTicketServiceImpl implements MyEmpTicketService{
 			String division, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<EmpTicketEntity> pages = myEmpTicketRepository.findByEmpEntity_empNameAndEmpEntity_divisionOrderByWeightDescModifytimeDesc(empName, division, pageRequest);
+		Page<EmpTicketEntity> pages = myEmpTicketRepository.findByEmpEntity_empNameLikeAndEmpEntity_divisionOrderByWeightDescModifytimeDesc(empName, division, pageRequest);
 		List<EmpTicketEntity> infos = pages.getContent();
 		return infos;	
 		}
@@ -126,7 +126,7 @@ public class MyEmpTicketServiceImpl implements MyEmpTicketService{
 	@Override
 	public int countByEmpEntity_empNameAndEmpEntity_division(String empName, String division) {
 		// TODO Auto-generated method stub
-		return myEmpTicketRepository.countByEmpEntity_empNameAndEmpEntity_division(empName, division);
+		return myEmpTicketRepository.countByEmpEntity_empNameLikeAndEmpEntity_division(empName, division);
 	}
 
 	@Override

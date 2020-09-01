@@ -12,13 +12,13 @@ public interface MyEmpRepository extends PagingAndSortingRepository<EmpEntity, L
 	int countByEnable(int enable);
 	
 	
-	Page<EmpEntity> findByEnableAndEmpNameAndEmpCodeAndDepartmentCodeOrderByEmpCode(int enable, String emp_name, String emp_code, 
+	Page<EmpEntity> findByEnableAndEmpNameLikeAndEmpCodeAndDepartmentCodeOrderByEmpCode(int enable, String emp_name, String emp_code, 
 			String sales_department, Pageable pageable);
-	int countByEnableAndEmpNameAndEmpCodeAndDepartmentCode(int enable, String emp_name, String emp_code, 
+	int countByEnableAndEmpNameLikeAndEmpCodeAndDepartmentCode(int enable, String emp_name, String emp_code, 
 			String sales_department);
 	
-	Page<EmpEntity> findByEnableAndEmpNameOrderByEmpCode(int enable, String emp_name, Pageable pageable);
-	int countByEnableAndEmpName(int enable,String emp_name);
+	Page<EmpEntity> findByEnableAndEmpNameLikeOrderByEmpCode(int enable, String emp_name, Pageable pageable);
+	int countByEnableAndEmpNameLike(int enable,String emp_name);
 	
 	Page<EmpEntity> findByEnableAndEmpCodeOrderByEmpCode(int enable,String c, Pageable pageable);
 	int countByEnableAndEmpCode(int enable,String emp_code);
@@ -26,13 +26,13 @@ public interface MyEmpRepository extends PagingAndSortingRepository<EmpEntity, L
 	Page<EmpEntity> findByEnableAndDepartmentCodeOrderByEmpCode(int enable,String sales_department, Pageable pageable);
 	int countByEnableAndDepartmentCode(int enable,String sales_department);
 	
-	Page<EmpEntity> findByEnableAndEmpNameAndEmpCodeOrderByEmpCode(int enable,String emp_name, String emp_code, 
+	Page<EmpEntity> findByEnableAndEmpNameLikeAndEmpCodeOrderByEmpCode(int enable,String emp_name, String emp_code, 
 			 Pageable pageable);
-	int countByEnableAndEmpNameAndEmpCode(int enable,String emp_name, String emp_code);
+	int countByEnableAndEmpNameLikeAndEmpCode(int enable,String emp_name, String emp_code);
 	
-	Page<EmpEntity> findByEnableAndEmpNameAndDepartmentCodeOrderByEmpCode(int enable,String emp_name, 
+	Page<EmpEntity> findByEnableAndEmpNameLikeAndDepartmentCodeOrderByEmpCode(int enable,String emp_name, 
 			String sales_department, Pageable pageable);
-	int countByEnableAndEmpNameAndDepartmentCode(int enable,String emp_name, 
+	int countByEnableAndEmpNameLikeAndDepartmentCode(int enable,String emp_name, 
 			String sales_department);
 	
 	Page<EmpEntity> findByEnableAndEmpCodeAndDepartmentCodeOrderByEmpCode(int enable,String emp_code, 
