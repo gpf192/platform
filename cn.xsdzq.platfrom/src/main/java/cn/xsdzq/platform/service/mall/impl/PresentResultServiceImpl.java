@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.xsdzq.mall.dao.PresentResultRepository;
-import com.xsdzq.mall.entity.PresentResultEntity;
-import com.xsdzq.mall.service.PresentResultService;
+import cn.xsdzq.platform.dao.mall.PresentResultRepository;
+import cn.xsdzq.platform.entity.mall.PresentResultEntity;
+import cn.xsdzq.platform.service.mall.PresentResultService;
+
+
 
 public class PresentResultServiceImpl implements PresentResultService {
 

@@ -59,6 +59,9 @@ public class PresentEntity implements Serializable {
 
 	@Column(name = "status")
 	private String status;//状态，上上架/下架
+	
+	@Column(name = "categoryId", insertable = false, updatable = false)
+	private long categoryId;
 
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "categoryId", referencedColumnName = "id")

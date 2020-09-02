@@ -11,5 +11,5 @@ import cn.xsdzq.platform.entity.mall.PresentEntity;
 
 public interface PresentRepository extends JpaRepository<PresentEntity, Long> {
 	List<PresentEntity> findByName(String name);
-	List<PresentEntity> findByPresentCategoryEntity(PresentCategoryEntity entity);
+	List<PresentEntity> findByCategoryId(long categoryId);
 }

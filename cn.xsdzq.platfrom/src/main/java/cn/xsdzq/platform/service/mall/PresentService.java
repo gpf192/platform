@@ -12,7 +12,7 @@ public interface PresentService {
 
 	public List<PresentEntity> getPresentEntities();
 	public List<PresentEntity> getPresentEntitiesByName(String name);
-	public List<PresentEntity> getPresentEntitiesByCategory(PresentCategoryEntity entity);
+	public List<PresentEntity> getPresentEntitiesByCategoryId(long categoryId) ;
 	public void deletePresent(PresentEntity present);
 
 }

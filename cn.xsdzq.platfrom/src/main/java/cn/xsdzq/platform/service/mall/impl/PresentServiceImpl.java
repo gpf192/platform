@@ -42,9 +42,9 @@ public class PresentServiceImpl implements PresentService {
 	}
 
 	@Override
-	public List<PresentEntity> getPresentEntitiesByCategory(PresentCategoryEntity entity) {
+	public List<PresentEntity> getPresentEntitiesByCategoryId(long categoryId) {
 		// TODO Auto-generated method stub
-		return presentRepository.findByPresentCategoryEntity(entity);
+		return presentRepository.findByCategoryId(categoryId);
 	}
 
 	@Override

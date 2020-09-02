@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import cn.xsdzq.platform.dao.mall.PresentRecordRepository;
 import cn.xsdzq.platform.entity.mall.PresentRecordEntity;
+import cn.xsdzq.platform.service.mall.PresentRecordService;
 
 
 
