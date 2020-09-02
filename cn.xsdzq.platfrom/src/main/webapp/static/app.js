@@ -299,14 +299,29 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/commodity/commodityclassifyadd",
 		templateUrl : "htmls/commodity/commodityclassifyadd.html",
 		controller : "commodityclassifyaddController"
+	}).state("commodityclassifymodify", {
+		url : "/commodity/commodityclassifymodify",
+		templateUrl : "htmls/commodity/commodityclassifymodify.html",
+		controller : "commodityclassifymodifyController",
+		params:{param:{}}
 	}).state("commodityadd", {
 		url : "/commodity/commodityadd",
 		templateUrl : "htmls/commodity/commodityadd.html",
 		controller : "commodityaddController"
-	}).state("···", {
+	}).state("commoditymodify", {
+		url : "/commodity/commoditymodify",
+		templateUrl : "htmls/commodity/commoditymodify.html",
+		controller : "commoditymodifyController",
+		params:{param:{}}
+	}).state("cardadd", {
 		url : "/commodity/cardadd",
 		templateUrl : "htmls/commodity/cardadd.html",
 		controller : "cardaddController"
+	}).state("cardmodify", {
+		url : "/commodity/cardmodify",
+		templateUrl : "htmls/commodity/cardmodify.html",
+		controller : "cardmodifyController",
+		params:{param:{}}
 	}).state("cardmanage", {
 		url : "/commodity/cardmanage",
 		templateUrl : "htmls/commodity/cardmanage.html",
@@ -320,6 +335,7 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl : "htmls/commodity/commoditymanage.html",
 		controller : "commoditymanageController"
 	});
+	
 
 	$urlRouterProvider.otherwise("/");
 });

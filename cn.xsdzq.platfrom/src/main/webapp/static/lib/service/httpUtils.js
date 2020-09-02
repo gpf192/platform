@@ -89,7 +89,19 @@ ngApp.factory("httpUtils", [ function() {
 		getRiskInfo: baseUrl + "thx/getRiskInfo",		
 		getUserOrder:baseUrl + "thx/getUserOrder",
 		
-		getLoginRecord:baseUrl + "live/getLoginRecord"
+		getLoginRecord:baseUrl + "live/getLoginRecord",
+		
+		commodityClassify:baseUrl + "mall/category/all",
+		addCommodityClassify:baseUrl + "mall/category/add",
+		deleteCommodityClassify:baseUrl + "mall/category/delete",
+		commodity:baseUrl + "mall/present/all",
+		addCommodity:baseUrl + "mall/present/add",
+		deleteCommodity:baseUrl + "mall/present/delete",
+		card:baseUrl + "mall/card/all",
+		addCard:baseUrl + "mall/card/add",
+		deleteCard:baseUrl + "mall/card/delete",
+		exchangeRecords:baseUrl + "mall/card/PresentResult"
+		
 	};
 
 	function getUrl() {

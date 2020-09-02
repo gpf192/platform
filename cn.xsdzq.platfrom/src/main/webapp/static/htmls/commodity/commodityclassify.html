@@ -1,10 +1,10 @@
-<script type="text/javascript" src="htmls/commodity/commoditymanage.js"></script>
+<script type="text/javascript" src="htmls/commodity/commodityclassify.js"></script>
 <script type="text/javascript">
 </script>
 <div class="box border primary" ng-init="init()">
     <div class="box-title">
         <h4>
-            <i class="fa fa-bars"></i>商品管理
+            <i class="fa fa-bars"></i>商品管理分类
         </h4>
         <div class="tools hidden">
             <a href="#box-config" data-toggle="modal" class="config"> <i
@@ -17,20 +17,6 @@
         </div>
     </div>
     <div class="box-body">
-    <div class="dataTables_wrapper form-inline" role="grid">
-			<form class="form-inline margin10">
-			
-				&nbsp
-				<div class="form-group ">
-					<label  for="searchTitle">商品名称:</label>					
-						<input type="text" class="form-control input-300 " id="searchTitle" name="title"
-						ng-model="formData.title" placeholder="请输入关键字"></input>
-
-				</div>
-				&nbsp
-				<input type="button" value="查询" class="btn btn-primary"
-							ng-click="getCheckInfosByCategoryId(10)" />
-			</form>
         <div  class="dataTables_wrapper form-inline" role="grid">
             <div class="row hide" ng-show="activityProductsList.length>0">
                 <div class="col-sm-12">
@@ -88,21 +74,14 @@
                     </tr>
                 </thead>
                 <tbody role="alert" aria-live="polite" aria-relevant="all">
-                    <tr ng-repeat="product in activityProductsList">
+                    <tr ng-repeat="commodity in commodityclassifyList">
                     <td >
-                            <input type="checkbox" name="selected" ng-checked="isSelected(product.id)" ng-click="updateSelection($event,product.id)" /></td>  
+                            <input type="checkbox" name="selected" ng-checked="isSelected(commodity.id)" ng-click="updateSelection($event,commodity.id)" /></td>  
                         <td >{{$index+selectNum["num"]*currentPage.page+1}}</td>
-                        <td ><div style="white-space:nowrap;" >{{product.code}}</div> </td> 
-                        <td ><div style="white-space:nowrap;" >{{product.name}}</div> </td> 
-                       <td ><div style="white-space:nowrap;" >{{product.riskLevel}}</div> </td> 
-                        <td ><div style="white-space:nowrap;">{{product.type}}</div> </td>
-                         <td ><div style="white-space:nowrap;">{{product.initialAmount}}</div> </td>
-                        <td ><div style="white-space:nowrap;">{{product.preferentialInfo}}</div> </td>
-                         <!-- <td ><div style="white-space:nowrap;">{{product.coefficient}}</div> </td> -->
-                         <td ><div style="white-space:nowrap;">{{product.flag==0?"场内基金":"场外基金"}}</div> </td>
-                         <td ><div style="white-space:nowrap;">{{product.scanFlag==0?"否":"是"}}</div> </td>
-                        <td ><div style="white-space:nowrap;">{{product.beginDate}}</div> </td>
-                         <td ><div style="white-space:nowrap;">{{product.endDate}}</div> </td>
+                        <td ><div style="white-space:nowrap;" >{{commodity.code}}</div> </td> 
+                        <td ><div style="white-space:nowrap;" >{{commodity.name}}</div> </td> 
+                       <td ><div style="white-space:nowrap;" >{{commodity.flag}}</div> </td> 
+                        <td ><div style="white-space:nowrap;">{{commodity.createtime}}</div> </td>
                     </tr>
                 </tbody>
                 <tfoot>

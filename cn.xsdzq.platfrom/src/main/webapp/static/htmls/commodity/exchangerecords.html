@@ -48,7 +48,12 @@
 				&nbsp
 				<input type="button" value="查询" class="btn btn-primary"
 							ng-click="getCheckInfosByCategoryId(10)" />
+					 &nbsp
+                <input type="button" value="导出" class="btn btn-primary"
+                            ng-click="exportToExcel()" />
 			</form>
+			<br/>
+			<br/>
         <div  class="dataTables_wrapper form-inline" role="grid">
             <div class="row hide" ng-show="activityProductsList.length>0">
                 <div class="col-sm-12">
@@ -76,51 +81,44 @@
               <table id="datatable1" cellpadding="0" cellspacing="0" border="0" width="80%"
                 class="datatable table table-striped table-bordered table-hover dataTable text-center"
                 aria-describedby="datatable1_info">
-                <thead>
-                        <div>
-       <button type="button" ng-click="newBuild()"
-                                    class="btn btn-default btn-primary">新增</button>
-                                    
-                        &nbsp &nbsp
-                        <button  type="button" class="btn btn-info btn-sm"
-                                    ng-click="batchModifyInfo()">
-                                    <i class="fa fa-pencil-square-o"></i><span> 编辑</span>
-                        </button>
-                        &nbsp &nbsp
-                        <button  type="button" class="btn btn-danger btn-sm"
-                                    ng-click="batchDeleteInfo()">
-                                    <i class="fa fa-trash-o"></i><span> 删除</span>
-                        </button>
-                        
-                     </div>
-                     &nbsp           
+                <thead>           
                     <tr role="row">
-                        <th class="col-sm-1 text-center"><input type="checkbox" ng-click="selectAll($event)" ng-checked="isSelectedAll()" /></th>
                         <th class="col-sm-1 text-center">序号</th>        
                         <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">商品分类</th>
+                            aria-controls="datatable1" rowspan="1" colspan="1">客户姓名</th>
                         <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">是否启用</th>
+                            aria-controls="datatable1" rowspan="1" colspan="1">客户号</th>
                               <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">创建时间</th>
+                            aria-controls="datatable1" rowspan="1" colspan="1">营业部</th>
+                              <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">手机号</th>
+                            <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">商品名称</th>
+                            <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">卡号</th>
+                              <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">密码</th>
+                               <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">实际价格（元）</th>
+                             <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">消费积分</th>
+                             <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">兑换时间</th>
                     </tr>
                 </thead>
                 <tbody role="alert" aria-live="polite" aria-relevant="all">
-                    <tr ng-repeat="product in activityProductsList">
-                    <td >
-                            <input type="checkbox" name="selected" ng-checked="isSelected(product.id)" ng-click="updateSelection($event,product.id)" /></td>  
+                    <tr ng-repeat="record in exchangerecordsList">
                         <td >{{$index+selectNum["num"]*currentPage.page+1}}</td>
-                        <td ><div style="white-space:nowrap;" >{{product.code}}</div> </td> 
-                        <td ><div style="white-space:nowrap;" >{{product.name}}</div> </td> 
-                       <td ><div style="white-space:nowrap;" >{{product.riskLevel}}</div> </td> 
-                        <td ><div style="white-space:nowrap;">{{product.type}}</div> </td>
-                         <td ><div style="white-space:nowrap;">{{product.initialAmount}}</div> </td>
-                        <td ><div style="white-space:nowrap;">{{product.preferentialInfo}}</div> </td>
-                         <!-- <td ><div style="white-space:nowrap;">{{product.coefficient}}</div> </td> -->
-                         <td ><div style="white-space:nowrap;">{{product.flag==0?"场内基金":"场外基金"}}</div> </td>
-                         <td ><div style="white-space:nowrap;">{{product.scanFlag==0?"否":"是"}}</div> </td>
-                        <td ><div style="white-space:nowrap;">{{product.beginDate}}</div> </td>
-                         <td ><div style="white-space:nowrap;">{{product.endDate}}</div> </td>
+                        <td ><div style="white-space:nowrap;" >{{record.clientName}}</div> </td> 
+                        <td ><div style="white-space:nowrap;" >{{record.clientId}}</div> </td> 
+                       <td ><div style="white-space:nowrap;" >{{record.department}}</div> </td> 
+                        <td ><div style="white-space:nowrap;">{{record.mobile}}</div> </td>
+                         <td ><div style="white-space:nowrap;">{{record.presentName}}</div> </td>
+                        <td ><div style="white-space:nowrap;">{{record.cardId}}</div> </td>
+                         <td ><div style="white-space:nowrap;">{{record.password}}</div> </td>
+                         <td ><div style="white-space:nowrap;">{{record.price}}</div> </td>
+                        <td ><div style="white-space:nowrap;">{{record.integral}}</div> </td>
+                         <td ><div style="white-space:nowrap;">{{record.recordTime}}</div> </td>
                     </tr>
                 </tbody>
                 <tfoot>
