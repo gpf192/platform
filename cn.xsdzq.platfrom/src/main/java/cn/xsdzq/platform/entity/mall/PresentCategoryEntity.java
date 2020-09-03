@@ -9,6 +9,7 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,15 +29,16 @@ public class PresentCategoryEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", unique = true)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "present_Category_sequence")
+	@SequenceGenerator(name = "present_Category_sequence", sequenceName = "present_Category_sequence", allocationSize = 1)
+	@Column(name = "id")
 	private long id;
 
 	@Column(name = "name", unique = true)
 	private String name;
 
 	@Column(name = "flag")
-	private boolean flag;//是否启用
+	private String flag;//是否启用
 
 	// 创建时间
 	@Column(name = "createtime")
@@ -66,11 +68,13 @@ public class PresentCategoryEntity implements Serializable {
 		this.name = name;
 	}
 
-	public boolean isFlag() {
+
+
+	public String getFlag() {
 		return flag;
 	}
 
-	public void setFlag(boolean flag) {
+	public void setFlag(String flag) {
 		this.flag = flag;
 	}
 

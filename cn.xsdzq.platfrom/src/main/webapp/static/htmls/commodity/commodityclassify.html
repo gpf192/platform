@@ -78,9 +78,9 @@
                     <td >
                             <input type="checkbox" name="selected" ng-checked="isSelected(commodity.id)" ng-click="updateSelection($event,commodity.id)" /></td>  
                         <td >{{$index+selectNum["num"]*currentPage.page+1}}</td>
-                        <td ><div style="white-space:nowrap;" >{{commodity.code}}</div> </td> 
+                         
                         <td ><div style="white-space:nowrap;" >{{commodity.name}}</div> </td> 
-                       <td ><div style="white-space:nowrap;" >{{commodity.flag}}</div> </td> 
+                       <td ><div style="white-space:nowrap;" >{{commodity.flag==1?"是":"否"}}</div> </td> 
                         <td ><div style="white-space:nowrap;">{{commodity.createtime}}</div> </td>
                     </tr>
                 </tbody>

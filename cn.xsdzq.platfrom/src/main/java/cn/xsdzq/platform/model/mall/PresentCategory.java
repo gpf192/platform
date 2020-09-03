@@ -4,7 +4,7 @@ public class PresentCategory {
 
 	private Long id;
 	private String name;
-	private Boolean flag;
+	private String flag;
 
 	public long getId() {
 		return id;
@@ -22,12 +22,18 @@ public class PresentCategory {
 		this.name = name;
 	}
 
-	public boolean isFlag() {
+	
+
+	public String getFlag() {
 		return flag;
 	}
 
-	public void setFlag(boolean flag) {
+	public void setFlag(String flag) {
 		this.flag = flag;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	@Override

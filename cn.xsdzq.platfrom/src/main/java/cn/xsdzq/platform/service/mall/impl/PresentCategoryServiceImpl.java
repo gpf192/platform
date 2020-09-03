@@ -32,7 +32,7 @@ public class PresentCategoryServiceImpl implements PresentCategoryService {
 
 		PresentCategoryEntity presentCategoryEntity = new PresentCategoryEntity();
 		presentCategoryEntity.setName(presentCategory.getName());
-		presentCategoryEntity.setFlag(presentCategory.isFlag());
+		presentCategoryEntity.setFlag(presentCategory.getFlag());
 		presentCategoryRepository.save(presentCategoryEntity);
 	}
 
@@ -51,7 +51,7 @@ public class PresentCategoryServiceImpl implements PresentCategoryService {
 		PresentCategoryEntity entity = new PresentCategoryEntity();
 		entity.setId(presentCategory.getId());
 		entity.setName(presentCategory.getName());
-		entity.setFlag(presentCategory.isFlag());
+		entity.setFlag(presentCategory.getFlag());
 		
 		presentCategoryRepository.delete(entity);
 	}
