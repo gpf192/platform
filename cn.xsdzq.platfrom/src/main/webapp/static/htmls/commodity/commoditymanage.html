@@ -106,7 +106,7 @@
                     <td >
                             <input type="checkbox" name="selected" ng-checked="isSelected(product.id)" ng-click="updateSelection($event,product.id)" /></td>  
                         <td >{{$index+selectNum["num"]*currentPage.page+1}}</td>
-                        <td ><div style="white-space:nowrap;" >{{commodity.presentCategory}}</div> </td> 
+                        <td ><div style="white-space:nowrap;" >{{commodity.presentCategory.name}}</div> </td> 
                         <td ><div style="white-space:nowrap;" >{{commodity.name}}</div> </td> 
                        <td ><div style="white-space:nowrap;" >{{commodity.faceValue}}</div> </td> 
                         <td ><div style="white-space:nowrap;">{{commodity.value}}</div> </td>

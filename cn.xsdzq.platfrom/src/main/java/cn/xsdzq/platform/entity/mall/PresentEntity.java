@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -32,8 +33,9 @@ public class PresentEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", unique = true)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "present_sequence")
+	@SequenceGenerator(name = "present_sequence", sequenceName = "present_sequence", allocationSize = 1)
+	@Column(name = "id")
 	private long id;
 
 	@Column(name = "name", unique = true)
