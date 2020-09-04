@@ -1,5 +1,5 @@
-ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils' ];
-function commodityclassifyaddController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils) {
+ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils','utils' ];
+function commodityclassifyaddController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils,utils) {
 	$scope.formData = {};
 	$scope.init=function(){
 		var data = {
@@ -25,7 +25,7 @@ function commodityclassifyaddController($scope, $http, $state, $stateParams, $gr
 			name:"是",
 			code:"1"
 		}]
-		scope.flagModel = $scope.flagList[0];
+		$scope.flagModel = $scope.flagList[1];
 	};
 	
 	
@@ -42,8 +42,8 @@ function commodityclassifyaddController($scope, $http, $state, $stateParams, $gr
 			layerUtils.iMsg(-1, "分类名称不能为空");
 			return;
 		}
-		if(!utils.isEmpty($scope.formData.flag)) {
-			flag = $scope.selectedTradePlace.code;
+		if(!utils.isEmpty($scope.flagModel.code)) {
+			flag = $scope.flagModel.code;
 		}else {
 			layerUtils.iMsg(-1, "是否启用不能为空");
 			return;
