@@ -12,5 +12,6 @@ public interface PresentCategoryService {
 
 	public List<PresentCategoryEntity> getCategoryEntities();
 	public void deletePresentCategory(PresentCategory presentCategory);
+	public PresentCategoryEntity findById(long id);
 
 }

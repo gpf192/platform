@@ -3,6 +3,7 @@ package cn.xsdzq.platform.model.mall;
 public class PresentDTO {
 	private long id;
 	private String name;
+	private long categoryId;
 	private String categoryName;
 	private float faceValue;//面值	
 	private float value;//实际价格
@@ -11,6 +12,13 @@ public class PresentDTO {
 	private int convertNumber;//已兑换	
 	private int storeUnused;//剩余库存
 	private String status;//状态，上上架/下架
+	
+	public long getCategoryId() {
+		return categoryId;
+	}
+	public void setCategoryId(long categoryId) {
+		this.categoryId = categoryId;
+	}
 	public long getId() {
 		return id;
 	}
@@ -73,9 +81,10 @@ public class PresentDTO {
 	}
 	@Override
 	public String toString() {
-		return "PresentModel [id=" + id + ", name=" + name + ", faceValue=" + faceValue + ", value=" + value
-				+ ", description=" + description + ", storeNumber=" + storeNumber + ", convertNumber=" + convertNumber
-				+ ", storeUnused=" + storeUnused + ", status=" + status + "]";
-	}	
+		return "PresentDTO [id=" + id + ", name=" + name + ", categoryId=" + categoryId + ", categoryName="
+				+ categoryName + ", faceValue=" + faceValue + ", value=" + value + ", description=" + description
+				+ ", storeNumber=" + storeNumber + ", convertNumber=" + convertNumber + ", storeUnused=" + storeUnused
+				+ ", status=" + status + "]";
+	}
 	
 }

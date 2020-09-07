@@ -56,4 +56,12 @@ public class PresentCategoryServiceImpl implements PresentCategoryService {
 		presentCategoryRepository.delete(entity);
 	}
 
+	@Override
+	public PresentCategoryEntity findById(long id) {
+		// TODO Auto-generated method stub
+		PresentCategoryEntity p = presentCategoryRepository.findById(id).get();
+		
+		return p;
+	}
+
 }

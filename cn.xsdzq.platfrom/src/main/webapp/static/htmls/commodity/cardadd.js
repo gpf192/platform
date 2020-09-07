@@ -1,5 +1,5 @@
-ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils' ];
-function cardaddController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils) {
+ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils','utils' ];
+function cardaddController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils,utils) {
 
 	$scope.formData = {};
 	$scope.init=function(){
@@ -17,15 +17,15 @@ function cardaddController($scope, $http, $state, $stateParams, $gridService, ht
 			}
 			$scope.$emit("changeNavigation", data);
 		$scope.formData.cardId="";
-		$scope.formData.password	
-		$scope.presentCategoryList = [{
+		$scope.formData.password="";	
+		/*$scope.presentCategoryList = [{
 			name:"京东E卡",
 			code:"0"
 		},{
 			name:"爱奇艺月卡",
 			code:"1"
 		}]
-		scope.presentCategoryModel = $scope.presentCategoryList[0];
+		scope.presentCategoryModel = $scope.presentCategoryList[0];*/
 		$scope.presentNameList = [{
 			name:"100元京东E卡",
 			code:"0"
@@ -33,15 +33,15 @@ function cardaddController($scope, $http, $state, $stateParams, $gridService, ht
 			name:"200元京东E卡",
 			code:"1"
 		}]
-		scope.presentNameModel = $scope.presentNameList[0];
+		$scope.presentNameModel = $scope.presentNameList[0];
 		$scope.cardStatusList = [{
 			name:"上架",
-			code:"0"
+			code:"1"
 		},{
 			name:"下架",
-			code:"1"
+			code:"0"
 		}]
-		scope.cardStatusModel = $scope.cardStatusList[0];
+		$scope.cardStatusModel = $scope.cardStatusList[0];
 	};
 	
 	
@@ -54,12 +54,12 @@ function cardaddController($scope, $http, $state, $stateParams, $gridService, ht
 		var password="";
 		var cardStatus="";
 		
-		if(!utils.isEmpty($scope.presentCategoryModel.code)) {
+		/*if(!utils.isEmpty($scope.presentCategoryModel.code)) {
 			presentCategory = $scope.presentCategoryModel.code;
 		}else {
 			layerUtils.iMsg(-1, "商品分类不能为空");
 			return;
-		}
+		}*/
 		if(!utils.isEmpty($scope.presentNameModel.name)) {
 			presentName = $scope.presentNameModel.name;
 		}else {

@@ -79,6 +79,14 @@ public class PresentEntity implements Serializable {
 	@LastModifiedDate
 	private Date modifytime;
 
+	public long getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(long categoryId) {
+		this.categoryId = categoryId;
+	}
+
 	public long getId() {
 		return id;
 	}
@@ -178,10 +186,13 @@ public class PresentEntity implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Present [id=" + id + ", name=" + name + ", faceValue=" + faceValue + ", value=" + value
+		return "PresentEntity [id=" + id + ", name=" + name + ", faceValue=" + faceValue + ", value=" + value
 				+ ", description=" + description + ", storeNumber=" + storeNumber + ", convertNumber=" + convertNumber
-				+ ", storeUnused=" + storeUnused + ", status=" + status + ", presentCategory=" + presentCategory
-				+ ", createtime=" + createtime + ", modifytime=" + modifytime + "]";
+				+ ", storeUnused=" + storeUnused + ", status=" + status + ", categoryId=" + categoryId
+				+ ", presentCategory=" + presentCategory + ", createtime=" + createtime + ", modifytime=" + modifytime
+				+ "]";
 	}
+
+	
 
 }

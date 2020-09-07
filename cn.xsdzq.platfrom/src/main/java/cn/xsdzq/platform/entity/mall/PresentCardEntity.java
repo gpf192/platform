@@ -48,11 +48,14 @@ public class PresentCardEntity implements Serializable {
 	private String password;
 
 	@Column(name = "card_status")
-	private String cardStatus;//卡券状态， 上架/下架
+	private String cardStatus;//卡券状态， 上架1/下架0
 
 	@Column(name = "convert_status")
-	private String convertStatus;//兑换状态，已兑换/未兑换
-
+	private String convertStatus;//兑换状态，已兑换1/未兑换0
+	
+	@Column(name = "presentId", insertable = false, updatable = false)
+	private long presentId;
+	
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "presentId", referencedColumnName = "id")
 	private PresentEntity present;//二级目录

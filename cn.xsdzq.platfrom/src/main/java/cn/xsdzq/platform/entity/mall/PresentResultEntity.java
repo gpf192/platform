@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -18,12 +19,17 @@ import javax.persistence.Table;
 public class PresentResultEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", unique = true, length = 20)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "present_result_sequence")
+	@SequenceGenerator(name = "present_result_sequence", sequenceName = "present_result_sequence", allocationSize = 1)
+	@Column(name = "id")
 	private Long id;
 
 	@Column(name = "record_time", nullable = false)
 	private Date recordTime;
+	
+	@Column(name = "integral_expense", nullable = false)
+	private int integralExpense ;//消耗积分
+
 
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "client_id", referencedColumnName = "client_id")
@@ -32,6 +38,14 @@ public class PresentResultEntity {
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "card_id", referencedColumnName = "id")
 	private PresentCardEntity presentCardEntity;
+
+	public int getIntegralExpense() {
+		return integralExpense;
+	}
+
+	public void setIntegralExpense(int integralExpense) {
+		this.integralExpense = integralExpense;
+	}
 
 	public Long getId() {
 		return id;

@@ -34,7 +34,7 @@
 				</div>
 				&nbsp
 				<input type="button" value="查询" class="btn btn-primary"
-							ng-click="getCheckInfosByCategoryId(10)" />
+							ng-click="getCardList(100)" />
 			</form>
         <div  class="dataTables_wrapper form-inline" role="grid">
             <div class="row hide" ng-show="activityProductsList.length>0">
@@ -88,8 +88,8 @@
                             aria-controls="datatable1" rowspan="1" colspan="1">卡号</th>
                         <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1">密码</th>
-                              <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">商品分类</th>
+                              <!-- <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">商品分类</th> -->
                             <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1">商品名称</th>
                             <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
@@ -107,10 +107,10 @@
                         <td >{{$index+selectNum["num"]*currentPage.page+1}}</td>
                         <td ><div style="white-space:nowrap;" >{{card.cardId}}</div> </td> 
                         <td ><div style="white-space:nowrap;" >{{card.password}}</div> </td> 
-                       <td ><div style="white-space:nowrap;" >{{card.presentCategory}}</div> </td> 
-                        <td ><div style="white-space:nowrap;">{{card.presentName}}</div> </td>
-                         <td ><div style="white-space:nowrap;">{{card.cardStatus}}</div> </td>
-                        <td ><div style="white-space:nowrap;">{{card.convertStatus}}</div> </td>
+<!--                        <td ><div style="white-space:nowrap;" >{{card.presentCategory}}</div> </td> 
+ -->                        <td ><div style="white-space:nowrap;">{{card.presentName}}</div> </td>
+                         <td ><div style="white-space:nowrap;">{{card.cardStatus==0?"下架":"上架"}}</div> </td>
+                        <td ><div style="white-space:nowrap;">{{card.convertStatus==0?"未兑换":"已兑换"}}</div> </td>
                         <td ><div style="white-space:nowrap;">{{card.createDate}}</div> </td>
                     </tr>
                 </tbody>

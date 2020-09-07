@@ -15,7 +15,7 @@ function cardmanageController($scope, $http, $state, $stateParams, $gridService,
 				}
 			}
 		$scope.$emit("changeNavigation", data);
-		$scope.getCardList(20000);
+		$scope.getCardList(100);
 		
 		$scope.currentPage = {
 				page : 0
@@ -136,7 +136,7 @@ function cardmanageController($scope, $http, $state, $stateParams, $gridService,
 				if (data.resCode == 0) {
 					layerUtils.iMsg(-1, "删除成功");
 					$scope.selected = [];
-					$scope.getCardList(20000);
+					$scope.getCardList(100);
 				}else {
 					layerUtils.iMsg(-1, "删除失败");
 				}
