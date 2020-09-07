@@ -9,6 +9,7 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -23,9 +24,10 @@ public class MallUserEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", unique = true, length = 20)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mall_user_sequence")
+	@SequenceGenerator(name = "mall_user_sequence", sequenceName = "sequence_mall_user", allocationSize = 1)
+	@Column(name = "id")
+	private Long id;//与后台工程序列名保持一致
 
 	// 客户号
 	@Column(name = "client_id", unique = true, nullable = false, length = 100)

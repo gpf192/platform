@@ -36,7 +36,7 @@ public class PresentCategoryEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "present_Category_sequence")
-	@SequenceGenerator(name = "present_Category_sequence", sequenceName = "present_Category_sequence", allocationSize = 1)
+	@SequenceGenerator(name = "present_Category_sequence", sequenceName = "sequence_present_Category", allocationSize = 1)
 	@Column(name = "id")
 	private long id;
 
