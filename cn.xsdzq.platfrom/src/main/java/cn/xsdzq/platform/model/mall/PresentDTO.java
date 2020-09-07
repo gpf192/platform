@@ -1,8 +1,9 @@
 package cn.xsdzq.platform.model.mall;
 
-public class PresentModel {
+public class PresentDTO {
 	private long id;
 	private String name;
+	private String categoryName;
 	private float faceValue;//面值	
 	private float value;//实际价格
 	private String description;	
@@ -63,6 +64,12 @@ public class PresentModel {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public String getCategoryName() {
+		return categoryName;
+	}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 	@Override
 	public String toString() {
