@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -40,7 +41,11 @@ public class PresentEntity implements Serializable {
 
 	@Column(name = "name", unique = true)
 	private String name;
-
+	
+	@Lob
+	@Column(name = "image", nullable = true)
+	private String image;
+	
 	@Column(name = "face_value", precision = 2)
 	private float faceValue;//面值
 
@@ -184,15 +189,22 @@ public class PresentEntity implements Serializable {
 		this.modifytime = modifytime;
 	}
 
-	@Override
-	public String toString() {
-		return "PresentEntity [id=" + id + ", name=" + name + ", faceValue=" + faceValue + ", value=" + value
-				+ ", description=" + description + ", storeNumber=" + storeNumber + ", convertNumber=" + convertNumber
-				+ ", storeUnused=" + storeUnused + ", status=" + status + ", categoryId=" + categoryId
-				+ ", presentCategory=" + presentCategory + ", createtime=" + createtime + ", modifytime=" + modifytime
-				+ "]";
+	public String getImage() {
+		return image;
 	}
 
-	
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	@Override
+	public String toString() {
+		return "PresentEntity [id=" + id + ", name=" + name + ", image=" + image + ", faceValue=" + faceValue
+				+ ", value=" + value + ", description=" + description + ", storeNumber=" + storeNumber
+				+ ", convertNumber=" + convertNumber + ", storeUnused=" + storeUnused + ", status=" + status
+				+ ", categoryId=" + categoryId + ", presentCategory=" + presentCategory + ", createtime=" + createtime
+				+ ", modifytime=" + modifytime + "]";
+	}
+
 
 }

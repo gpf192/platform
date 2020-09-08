@@ -15,7 +15,7 @@ function commoditymanageController($scope, $http, $state, $stateParams, $gridSer
 				}
 			}
 		$scope.$emit("changeNavigation", data);
-		$scope.getCommodityList(20000);
+		$scope.getCommodityList(100);
 		
 		$scope.currentPage = {
 				page : 0
@@ -115,32 +115,33 @@ function commoditymanageController($scope, $http, $state, $stateParams, $gridSer
 	}
 	//删除
 	$scope.batchDeleteInfo = function() {
-		if($scope.selected.length != 1){
-        	layerUtils.iMsg(-1, "请选择单条记录删除！");
+		
+		if($scope.selected.length == 0){
+        	layerUtils.iMsg(-1, "请选择要删除的记录！");
 			return;
         }
-		
-		for (var h = 0; h < $scope.selected.length; h++) {			
-        	var infoId = $scope.selected[h];	
-  	      for (var i = 0; i < $scope.commodityList.length; i++) {
-		        var tempInfo = $scope.commodityList[i];
-		        if(tempInfo.id == infoId){
-		        	var param = tempInfo;
-		        }
-		      }        	
-        } 
-		
-		layerUtils.iConfirm("是否删除该产品？", function() {
-			var url = httpUtils.url.deleteCommodity;
+
+		layerUtils.iConfirm("是否删除该商品？", function() {
+			for (var h = 0; h < $scope.selected.length; h++) {			
+	        	var infoId = $scope.selected[h];	
+	  	      for (var i = 0; i < $scope.commodityList.length; i++) {
+			        var tempInfo = $scope.commodityList[i];
+			        if(tempInfo.id == infoId){
+			        	var param = tempInfo;
+			        }
+			      }  
+	  	    var url = httpUtils.url.deleteCommodity;
+	  	    console.log(param.id);
 			$http.post(url, param).success(function(data) {
-				if (data.resCode == 0) {
-					layerUtils.iMsg(-1, "删除成功");
-					$scope.selected = [];
-					$scope.getcommodityList(20000);
-				}else {
-					layerUtils.iMsg(-1, "删除失败");
+				if (data.resCode != 0) {
+					layerUtils.iMsg(-1, "删除失败");	
 				}
 			});
+	        }
+			layerUtils.iMsg(-1, "删除成功");
+			$scope.selected = [];
+			$scope.getCommodityList(100);
+			
 		}, function() {
 			console.log("取消");
 		});
@@ -176,7 +177,6 @@ function commoditymanageController($scope, $http, $state, $stateParams, $gridSer
 				newObj["产品类型"] = 	data.type;
 				newObj["起购金额"] = 	data.initial_amount;
 				newObj["优惠信息"] = 	data.preferentialInfo;
-				/*newObj["转化系数"] = 	data.coefficient;*/
 				newObj["是否为场外基金"] = 	data.flag;
 				newObj["是否扫描场内交易"] = 	data.scanFlag;
 				newObj["开放时间"] = 	data.begin_date;

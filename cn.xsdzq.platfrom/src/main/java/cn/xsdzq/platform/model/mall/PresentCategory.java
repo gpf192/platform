@@ -5,6 +5,7 @@ public class PresentCategory {
 	private Long id;
 	private String name;
 	private String flag;
+	private String createtime;
 
 	public long getId() {
 		return id;
@@ -36,9 +37,19 @@ public class PresentCategory {
 		this.id = id;
 	}
 
+	public String getCreatetime() {
+		return createtime;
+	}
+
+	public void setCreatetime(String createtime) {
+		this.createtime = createtime;
+	}
+
 	@Override
 	public String toString() {
-		return "PresentCategory [id=" + id + ", name=" + name + ", flag=" + flag + "]";
+		return "PresentCategory [id=" + id + ", name=" + name + ", flag=" + flag + ", createtime=" + createtime + "]";
 	}
+
+	
 
 }

@@ -1,11 +1,12 @@
-ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils' ];
-function commoditymodifyController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils) {
+ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils', 'utils' ];
+function commoditymodifyController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils,utils) {
 
 	$scope.formData = {};
+	$scope.presentCategoryList = [];
 	$scope.init=function(){
 		var data = {
 				"one" : {
-					name : "",
+					name : "商品管理",
 					goto:""
 
 				},
@@ -22,20 +23,17 @@ function commoditymodifyController($scope, $http, $state, $stateParams, $gridSer
 			return;
 		}
 		
-		$scope.formData.name="";
-		$scope.formData.presentCategory="";
-		$scope.formData.faceValue="";
-		$scope.formData.value="";
-		$scope.formData.storeNumber="";
-		
-		$scope.presentCategoryList = [{
-			name:"京东E卡",
-			code:"0"
-		},{
-			name:"爱奇艺月卡",
-			code:"1"
-		}]
-	
+		//分类下拉框复制
+		$http.get(httpUtils.url.commodityClassify, {}).success(function(data) {
+			if (data.resCode == 0) {
+				$scope.presentCategoryList = data.result;
+				for(var i=0;i<data.result.length;i++){
+					if($scope.formData.categoryId==data.result[i].id){
+						$scope.formData.presentCategoryModel = $scope.presentCategoryList[i];
+					}
+				}
+			}
+		});
 		$scope.presentStatusList = [{
 			name:"上架",
 			code:"0"
@@ -43,12 +41,7 @@ function commoditymodifyController($scope, $http, $state, $stateParams, $gridSer
 			name:"下架",
 			code:"1"
 		}]		
-		var presentCategory =	$stateParams.param.presentCategory;
-		if(presentCategory ==0) {
-			$scope.presentCategoryModel = $scope.presentCategoryList[0];
-		}else if(flag ==1) {
-			$scope.presentCategoryModel = $scope.presentCategoryList[1];
-		}
+		
 		
 		var status = $stateParams.param.status;
 		if(status ==0) {
@@ -98,36 +91,33 @@ function commoditymodifyController($scope, $http, $state, $stateParams, $gridSer
 			return;
 		}
 		
-		if(!utils.isEmpty($scope.presentCategoryModel.code)) {
-			presentCategory = $scope.presentCategoryModel.code;
-		}else {
-			layerUtils.iMsg(-1, "商品分类不能为空");
-			return;
-		}
-
+	
 		if(!utils.isEmpty($scope.presentStatusModel.code)) {
 			status = $scope.presentStatusModel.code;
 		}else {
 			layerUtils.iMsg(-1, "商品状态不能为空");
 			return;
 		}
-		
+		console.log($scope.formData.id+"--9");
 		var param = {
+				id:$scope.formData.id,
+				categoryId:$scope.formData.presentCategoryModel.id,
 				name:name,
 				faceValue:faceValue,
 				value:value,
 				storeNumber:storeNumber,
 				presentCategory:presentCategory,
-				status:status
+				status:status,
+				description:$scope.formData.description
 		}
 		$http.post(url, param).success(function(data) {
 			if (data.resCode == 0) {
-				layerUtils.iMsg(-1,"添加成功");
-				$scope.formData={};
-			}else if (data.resCode == 1) {
-				$scope.formData={};
+				layerUtils.iAlert("修改成功",function(){
+				$state.go("commoditymanage");
+			});
+			
 			} else {
-				layerUtils.iMsg(-1,"添加失败");
+				layerUtils.iMsg(-1, data.resMsg);
 			}
 		});
 	}

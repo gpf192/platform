@@ -132,11 +132,20 @@ public class PresentCardEntity implements Serializable {
 		this.convertDate = convertDate;
 	}
 
+	public long getPresentId() {
+		return presentId;
+	}
+
+	public void setPresentId(long presentId) {
+		this.presentId = presentId;
+	}
+
 	@Override
 	public String toString() {
-		return "PresentCard [id=" + id + ", cardId=" + cardId + ", password=" + password + ", cardStatus=" + cardStatus
-				+ ", convertStatus=" + convertStatus + ", Present=" + present + ", createDate=" + createDate
-				+ ", convertDate=" + convertDate + "]";
+		return "PresentCardEntity [id=" + id + ", cardId=" + cardId + ", password=" + password + ", cardStatus="
+				+ cardStatus + ", convertStatus=" + convertStatus + ", presentId=" + presentId + ", present=" + present
+				+ ", createDate=" + createDate + ", convertDate=" + convertDate + "]";
 	}
+
 
 }

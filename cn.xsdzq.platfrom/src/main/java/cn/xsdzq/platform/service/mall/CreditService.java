@@ -1,5 +1,11 @@
 package cn.xsdzq.platform.service.mall;
 
-public interface CreditService {
+import java.util.List;
 
+import cn.xsdzq.platform.entity.mall.CreditEntity;
+public interface CreditService {
+	public void addCredit(CreditEntity entity);
+
+	public List<CreditEntity> getCreditEntities();
+	public void deleteCredit(CreditEntity entity);
 }

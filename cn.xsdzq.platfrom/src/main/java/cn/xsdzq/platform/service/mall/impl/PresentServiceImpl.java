@@ -13,7 +13,7 @@ import cn.xsdzq.platform.service.mall.PresentService;
 
 
 
-@Service
+@Service(value = "presentServiceImpl")
 @Transactional(readOnly = true)
 public class PresentServiceImpl implements PresentService {
 
@@ -49,9 +49,16 @@ public class PresentServiceImpl implements PresentService {
 
 	@Override
 	@Transactional
-	public void deletePresent(PresentEntity present) {
+	public void deletePresent(long id) {
 		// TODO Auto-generated method stub
-		presentRepository.delete(present);
+		PresentEntity p = presentRepository.findById(id).get();
+		presentRepository.delete(p);
+	}
+
+	@Override
+	public PresentEntity findById(long id) {
+		PresentEntity p = presentRepository.findById(id).get();
+		return p;
 	}
 
 }

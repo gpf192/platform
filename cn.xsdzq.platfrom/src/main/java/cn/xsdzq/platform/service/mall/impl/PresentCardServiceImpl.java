@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.xsdzq.platform.dao.mall.PresentCardRepository;
 import cn.xsdzq.platform.entity.mall.PresentCardEntity;
+import cn.xsdzq.platform.model.mall.PresentCardDTO;
 import cn.xsdzq.platform.service.mall.PresentCardService;
 
 
@@ -32,6 +33,20 @@ public class PresentCardServiceImpl implements PresentCardService {
 	public List<PresentCardEntity> getPresentCardEntities() {
 		// TODO Auto-generated method stub
 		return presentCardRepository.findAll();
+	}
+
+	@Override
+	@Transactional
+	public void deletePresentCard(PresentCardDTO dto) {
+		// TODO Auto-generated method stub
+		PresentCardEntity entity = presentCardRepository.findById(dto.getId()).get();
+		presentCardRepository.delete(entity);
+	}
+
+	@Override
+	public PresentCardEntity findById(long id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

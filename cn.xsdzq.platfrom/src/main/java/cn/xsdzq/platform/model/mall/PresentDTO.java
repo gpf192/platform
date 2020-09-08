@@ -3,6 +3,8 @@ package cn.xsdzq.platform.model.mall;
 public class PresentDTO {
 	private long id;
 	private String name;
+	private String image;
+
 	private long categoryId;
 	private String categoryName;
 	private float faceValue;//面值	
@@ -46,6 +48,12 @@ public class PresentDTO {
 	public String getDescription() {
 		return description;
 	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
 	public void setDescription(String description) {
 		this.description = description;
 	}
@@ -81,10 +89,11 @@ public class PresentDTO {
 	}
 	@Override
 	public String toString() {
-		return "PresentDTO [id=" + id + ", name=" + name + ", categoryId=" + categoryId + ", categoryName="
-				+ categoryName + ", faceValue=" + faceValue + ", value=" + value + ", description=" + description
-				+ ", storeNumber=" + storeNumber + ", convertNumber=" + convertNumber + ", storeUnused=" + storeUnused
-				+ ", status=" + status + "]";
+		return "PresentDTO [id=" + id + ", name=" + name + ", image=" + image + ", categoryId=" + categoryId
+				+ ", categoryName=" + categoryName + ", faceValue=" + faceValue + ", value=" + value + ", description="
+				+ description + ", storeNumber=" + storeNumber + ", convertNumber=" + convertNumber + ", storeUnused="
+				+ storeUnused + ", status=" + status + "]";
 	}
+
 	
 }

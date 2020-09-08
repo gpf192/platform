@@ -115,32 +115,32 @@ function cardmanageController($scope, $http, $state, $stateParams, $gridService,
 	}
 	//删除
 	$scope.batchDeleteInfo = function() {
-		if($scope.selected.length != 1){
-        	layerUtils.iMsg(-1, "请选择单条记录删除！");
+	
+		if($scope.selected.length == 0){
+        	layerUtils.iMsg(-1, "请选择要删除的记录！");
 			return;
         }
-		
-		for (var h = 0; h < $scope.selected.length; h++) {			
-        	var infoId = $scope.selected[h];	
-  	      for (var i = 0; i < $scope.cardList.length; i++) {
-		        var tempInfo = $scope.cardList[i];
-		        if(tempInfo.id == infoId){
-		        	var param = tempInfo;
-		        }
-		      }        	
-        } 
-		
-		layerUtils.iConfirm("是否删除该产品？", function() {
-			var url = httpUtils.url.deleteCard;
+
+		layerUtils.iConfirm("是否删除该卡券？", function() {
+			for (var h = 0; h < $scope.selected.length; h++) {			
+	        	var infoId = $scope.selected[h];	
+	  	      for (var i = 0; i < $scope.cardList.length; i++) {
+			        var tempInfo = $scope.cardList[i];
+			        if(tempInfo.id == infoId){
+			        	var param = tempInfo;
+			        }
+			      }  
+	  	    var url = httpUtils.url.deleteCard;
 			$http.post(url, param).success(function(data) {
-				if (data.resCode == 0) {
-					layerUtils.iMsg(-1, "删除成功");
-					$scope.selected = [];
-					$scope.getCardList(100);
-				}else {
-					layerUtils.iMsg(-1, "删除失败");
+				if (data.resCode != 0) {
+					layerUtils.iMsg(-1, "删除失败");	
 				}
 			});
+	        }
+			layerUtils.iMsg(-1, "删除成功");
+			$scope.selected = [];
+			$scope.getCardList(50);
+			
 		}, function() {
 			console.log("取消");
 		});
@@ -186,14 +186,7 @@ function cardmanageController($scope, $http, $state, $stateParams, $gridService,
 		});
 		return arr;
 	}
-//	var excelInput = document.getElementById("sendFile");
-//	function newBatchesBuild() {
-//		excelInput.addEventListener("change",function() {
-//
-//		});
-//	}
-//	
-//	newBatchesBuild();
+
 	$scope.newBatchesBuild = function() {
 		if(excelInput.files.length<=0) {
 		 	layerUtils.iMsg(-1, "请选择文件！");

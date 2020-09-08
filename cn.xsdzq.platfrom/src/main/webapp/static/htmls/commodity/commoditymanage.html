@@ -104,15 +104,14 @@
                 <tbody role="alert" aria-live="polite" aria-relevant="all">
                     <tr ng-repeat="commodity in commodityList">
                     <td >
-                            <input type="checkbox" name="selected" ng-checked="isSelected(product.id)" ng-click="updateSelection($event,product.id)" /></td>  
+                            <input type="checkbox" name="selected" ng-checked="isSelected(commodity.id)" ng-click="updateSelection($event,commodity.id)" /></td>  
                         <td >{{$index+selectNum["num"]*currentPage.page+1}}</td>
-                        <td ><div style="white-space:nowrap;" >{{commodity.presentCategory.name}}</div> </td> 
+                        <td ><div style="white-space:nowrap;" >{{commodity.categoryName}}</div> </td> 
                         <td ><div style="white-space:nowrap;" >{{commodity.name}}</div> </td> 
                        <td ><div style="white-space:nowrap;" >{{commodity.faceValue}}</div> </td> 
                         <td ><div style="white-space:nowrap;">{{commodity.value}}</div> </td>
                          <td ><div style="white-space:nowrap;">{{commodity.description}}</div> </td>
                         <td ><div style="white-space:nowrap;">{{commodity.storeNumber}}</div> </td>
-                         <!-- <td ><div style="white-space:nowrap;">{{product.coefficient}}</div> </td> -->
                          <td ><div style="white-space:nowrap;">{{commodity.convertNumber}}</div> </td>
                           <td ><div style="white-space:nowrap;">{{commodity.storeUnused}}</div> </td>
                          <td ><div style="white-space:nowrap;">{{commodity.status==0?"已上架":"已下架"}}</div> </td>

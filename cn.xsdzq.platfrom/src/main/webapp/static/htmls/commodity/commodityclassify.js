@@ -14,7 +14,7 @@ function commodityclassifyController($scope, $http, $state, $stateParams, $gridS
 				}
 			}
 		$scope.$emit("changeNavigation", data);
-		$scope.getCommodityclassifyList(20000);
+		$scope.getCommodityclassifyList(100);
 		
 		$scope.currentPage = {
 				page : 0

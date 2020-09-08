@@ -42,6 +42,33 @@
                             ng-model="formData.name" placeholder="请输入内容" />
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">商品描述：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="description" name="description"
+                            ng-model="formData.description" placeholder="请输入内容" />
+                    </div>
+                </div>
+                <div class="form-group">
+					<label for="moduleId" class="col-sm-2 control-label">图片</label>
+					<div class="col-sm-6">
+						<input type="file" name="photo" id="image"  accept="image/jpg,image/jpeg,image/png,image/gif" />
+					</div>
+					<div class="col-sm-4">
+						
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="moduleId" class="col-sm-2 control-label"></label>
+					<div class="col-sm-6">
+						<img  src="" class="img-responsive" id="tempImage" />
+					</div>
+					<div class="col-sm-4">
+		
+					</div>
+				</div>
+				
+                
           		<div class="form-group">
                     <label class="col-sm-3 control-label">商品面值：</label>
                     <div class="col-sm-6">
