@@ -33,7 +33,7 @@ $(function(){
 			<form class="form-inline margin10">
 			&nbsp	
 				<div class="form-group ">
-					<label  for="integralType">积分类型:</label>					
+					<label  for="integralType">项目编码:</label>					
 						<input type="text" class="form-control input-300 " id="integralType" name="title"
 						ng-model="formData.title" placeholder="请输入关键字"></input>
 				</div>
@@ -46,7 +46,7 @@ $(function(){
 				</div>
 				&nbsp
 				<input type="button" value="查询" class="btn btn-primary"
-							ng-click="getCheckInfosByCategoryId(10)" />
+							ng-click="getCommodityclassifyList(100)" />
 			</form>
         <div  class="dataTables_wrapper form-inline" role="grid">
             <div class="row hide" ng-show="activityProductsList.length>0">
@@ -97,11 +97,11 @@ $(function(){
                         <th class="col-sm-1 text-center"><input type="checkbox" ng-click="selectAll($event)" ng-checked="isSelectedAll()" /></th>
                         <th class="col-sm-1 text-center">序号</th>        
                         <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">积分类型</th>
+                            aria-controls="datatable1" rowspan="1" colspan="1">项目编码</th>
                         <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1">项目名称</th>
                               <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">积分名称</th>
+                            aria-controls="datatable1" rowspan="1" colspan="1">积分名称（前端展示）</th>
                         <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1">积分值</th>
                               <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
@@ -111,36 +111,19 @@ $(function(){
                     </tr>
                 </thead>
                 <tbody role="alert" aria-live="polite" aria-relevant="all">
-                    <tr ng-repeat="product in activityProductsList">
+                    <tr ng-repeat="product in commodityclassifyList">
                     <td >
-                            <input type="checkbox" name="selected" ng-checked="isSelected(product.id)" ng-click="updateSelection($event,product.id)" /></td>  
+                        <input type="checkbox" name="selected" ng-checked="isSelected(product.id)" ng-click="updateSelection($event,product.id)" /></td>  
                         <td >{{$index+selectNum["num"]*currentPage.page+1}}</td>
-                        <td ><div style="white-space:nowrap;" >{{product.code}}</div> </td> 
-                        <td ><div style="white-space:nowrap;" >{{product.name}}</div> </td> 
-                       <td ><div style="white-space:nowrap;" >{{product.riskLevel}}</div> </td> 
-                        <td ><div style="white-space:nowrap;">{{product.type}}</div> </td>
-                         <td ><div style="white-space:nowrap;">{{product.initialAmount}}</div> </td>
-                        <td ><div style="white-space:nowrap;">{{product.preferentialInfo}}</div> </td>
+                        <td ><div style="white-space:nowrap;" >{{product.categoryCode}}</div> </td> 
+                        <td ><div style="white-space:nowrap;" >{{product.categoryName}}</div> </td> 
+                       <td ><div style="white-space:nowrap;" >{{product.frontName}}</div> </td> 
+                        <td ><div style="white-space:nowrap;">{{product.integralValue}}</div> </td>
+                         <td ><div style="white-space:nowrap;">{{product.flag==0?"否":"是"}}</div> </td>
+                        <td ><div style="white-space:nowrap;">{{product.createtime}}</div> </td>
                        
                     
-                        <!--
-                        <td class="col-sm-1 text-center">
-                            <div>
-                                <button type="button" class="btn btn-warning btn-sm"
-                                    ng-click="modifyPrize($index+selectNum['num']*currentPage.page+1)">
-                                    <i class="fa fa-pencil-square-o"></i><span> 修改</span>
-                                </button>
-                            </div>
-                        </td>
-                        <td class="col-sm-1">
-                            <div>
-                                <button type="button" class="btn btn-danger btn-sm"
-                                    ng-click="deletePrize($index+selectNum['num']*currentPage.page+1)">
-                                    <i class="fa fa-trash-o"></i><span> 删除</span>
-                                </button>
-                            </div>
-                        </td>
-                          -->
+                       
                     </tr>
                 </tbody>
                 <tfoot>

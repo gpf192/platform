@@ -64,7 +64,7 @@ public class PresentUtil {
 		dto.setPassword(entity.getPassword());
 		dto.setCardStatus(entity.getCardStatus());
 		dto.setConvertStatus(entity.getConvertStatus());
-		//dto.setCreateDate(DateUtil.DateToString(entity.getCreateDate()));
+		dto.setCreateDate(DateUtil.DateToString(entity.getCreateDate()));
 		return dto;
 	}
 	

@@ -43,7 +43,7 @@ function userTIcketsListController($scope, $http, $state, $stateParams, $gridSer
 			code:9
 		}]
 		$scope.selectedVote = $scope.voteFromList[0];
-		$scope.getEmpList(20000);
+		$scope.getEmpList(100);
 		$scope.currentPage = {
 				page : 0
 			};

@@ -1,5 +1,6 @@
 package cn.xsdzq.platform.service.mall.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -24,6 +25,8 @@ public class CreditServiceImpl implements CreditService{
 	@Transactional
 	public void addCredit(CreditEntity entity) {
 		// TODO Auto-generated method stub
+		
+		entity.setCreatetime(new Date());
 		creditCategoryRepository.save(entity);
 	}
 
@@ -35,8 +38,9 @@ public class CreditServiceImpl implements CreditService{
 
 	@Override
 	@Transactional
-	public void deleteCredit(CreditEntity entity) {
+	public void deleteCredit(long id) {
 		// TODO Auto-generated method stub
+		CreditEntity entity = creditCategoryRepository.findById(id).get();
 		creditCategoryRepository.delete(entity);
 	}
 

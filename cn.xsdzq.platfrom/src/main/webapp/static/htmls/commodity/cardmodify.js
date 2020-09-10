@@ -17,6 +17,7 @@ function cardmodifyController($scope, $http, $state, $stateParams, $gridService,
 				}
 			}
 			$scope.$emit("changeNavigation", data);
+		
 		var param = utils.isEmptyObject($stateParams.param);
 		if(param){
 			$state.go("cardmanage");

@@ -66,8 +66,8 @@ public class CreditController {
 	@ResponseBody
 	public Map<String, Object> deleteCredit(@RequestBody CreditDTO creditDTO) {
 		//有子分类不可删除
-		CreditEntity entity = CreditUtil.convertCreditEntityByDTO(creditDTO);
-		creditService.deleteCredit(entity);
+		//CreditEntity entity = CreditUtil.convertCreditEntityByDTO(creditDTO);
+		creditService.deleteCredit(creditDTO.getId());
 		return GsonUtil.buildMap(0, "success", null);
 	}
 }

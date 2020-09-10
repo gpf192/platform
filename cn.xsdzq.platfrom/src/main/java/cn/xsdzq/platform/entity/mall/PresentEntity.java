@@ -83,6 +83,40 @@ public class PresentEntity implements Serializable {
 	@Column(name = "modifytime", nullable = true)
 	@LastModifiedDate
 	private Date modifytime;
+	 
+	 @Column(name = "big_image")
+	 private String bigImage;
+	 
+	 @Column(name = "is_hot")
+	 private boolean isHot;
+	 
+	 @Column(name = "tip")
+	 private String tip;
+	 
+	 
+	public String getBigImage() {
+		return bigImage;
+	}
+
+	public void setBigImage(String bigImage) {
+		this.bigImage = bigImage;
+	}
+
+	public boolean isHot() {
+		return isHot;
+	}
+
+	public void setHot(boolean isHot) {
+		this.isHot = isHot;
+	}
+
+	public String getTip() {
+		return tip;
+	}
+
+	public void setTip(String tip) {
+		this.tip = tip;
+	}
 
 	public long getCategoryId() {
 		return categoryId;
@@ -203,8 +237,10 @@ public class PresentEntity implements Serializable {
 				+ ", value=" + value + ", description=" + description + ", storeNumber=" + storeNumber
 				+ ", convertNumber=" + convertNumber + ", storeUnused=" + storeUnused + ", status=" + status
 				+ ", categoryId=" + categoryId + ", presentCategory=" + presentCategory + ", createtime=" + createtime
-				+ ", modifytime=" + modifytime + "]";
+				+ ", modifytime=" + modifytime + ", bigImage=" + bigImage + ", isHot=" + isHot + ", tip=" + tip + "]";
 	}
+
+	
 
 
 }

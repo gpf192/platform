@@ -104,7 +104,7 @@ function cardmanageController($scope, $http, $state, $stateParams, $gridService,
         } 
 
 		layerUtils.iConfirm("是否修该此产品信息？", function() {
-			console.log(param);
+			console.log(param);// integraldetail   cardmodify
 			$state.go("cardmodify", {
 				param : param
 			});

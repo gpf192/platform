@@ -7,5 +7,5 @@ public interface CreditService {
 	public void addCredit(CreditEntity entity);
 
 	public List<CreditEntity> getCreditEntities();
-	public void deleteCredit(CreditEntity entity);
+	public void deleteCredit(long id);
 }

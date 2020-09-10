@@ -21,39 +21,39 @@
             <fieldset>
                 <legend> 新增积分项目</legend>
                 <div class="form-group">
-                    <label for="versionId" class="col-sm-3 control-label">积分类型：</label>
+                    <label for="versionId" class="col-sm-3 control-label">项目编码：</label>
                     <div class="col-sm-6">
-                        <input type="text" autocomplete="off" class="form-control" id="emp_name"
-                            name="emp_name" ng-model="formData.emp_name"
+                        <input type="text" autocomplete="off" class="form-control" id="categoryName"
+                            name="categoryName" ng-model="formData.categoryName"
                             placeholder="请输入内容" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 control-label">项目名称：</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="emp_code" name="emp_code"
-                            ng-model="formData.emp_code" placeholder="请输入内容" />
+                        <input type="text" class="form-control" id="categoryCode" name="categoryCode"
+                            ng-model="formData.categoryCode" placeholder="请输入内容" />
                     </div>
                 </div>
                  <div class="form-group">
-                    <label class="col-sm-3 control-label">积分名称：</label>
+                    <label class="col-sm-3 control-label">前端展示名称：</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="emp_category" name="emp_category"
-                            ng-model="formData.emp_category" placeholder="请输入内容" />
+                        <input type="text" class="form-control" id="frontName" name="frontName"
+                            ng-model="formData.frontName" placeholder="请输入内容" />
                     </div>
                 </div> 
                 <div class="form-group">
                     <label class="col-sm-3 control-label">积分值：</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="contract" name="contract"
-                            ng-model="formData.contract" placeholder="请输入内容" />
+                        <input type="text" class="form-control" id="integralValue" name="integralValue"
+                            ng-model="formData.integralValue" placeholder="请输入内容" />
                     </div>
                 </div>         
                 <div class="form-group ">
                     <label  class="col-sm-3 control-label">是否启用:</label>
                        <div class="col-sm-6">
-                        <select class="form-control"  ng-model="selectedName"
-                            ng-options="department.name for department in departments" ></select>
+                        <select class="form-control"  ng-model="flagModel"
+                            ng-options="x.name for x in flagList" ></select>
                      </div>
                 </div>
                 <div class="form-group">

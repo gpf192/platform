@@ -25,8 +25,8 @@ public class CreditEntity implements Serializable {
 	//积分表 分散在record表中。
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mall_Category_sequence")
-	@SequenceGenerator(name = "mall_Category_sequence", sequenceName = "sequence_mall_Category", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mall_credit_sequence")
+	@SequenceGenerator(name = "mall_credit_sequence", sequenceName = "sequence_mall_credit", allocationSize = 1)
 	@Column(name = "id")
 	private long id;
 	

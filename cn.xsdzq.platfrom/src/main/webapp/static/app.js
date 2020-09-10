@@ -286,7 +286,8 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 	}).state("integraldetail", {
 		url : "/integral/integraldetail",
 		templateUrl : "htmls/integral/integraldetail.html",
-		controller : "integraldetailController"
+		controller : "integraldetailController",
+		params:{param:{}}
 	}).state("integralsource", {
 		url : "/integral/integralsource",
 		templateUrl : "htmls/integral/integralsource.html",
