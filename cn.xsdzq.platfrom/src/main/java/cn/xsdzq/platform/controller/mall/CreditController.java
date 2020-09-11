@@ -25,23 +25,15 @@ import cn.xsdzq.platform.entity.CategoryEntity;
 import cn.xsdzq.platform.entity.mall.CreditEntity;
 import cn.xsdzq.platform.entity.mall.CreditImportRecordEntity;
 import cn.xsdzq.platform.entity.mall.CreditUserTotalEntity;
-import cn.xsdzq.platform.entity.mall.PresentCardEntity;
-import cn.xsdzq.platform.entity.mall.PresentCategoryEntity;
-import cn.xsdzq.platform.model.CategoryDTO;
 import cn.xsdzq.platform.model.Pagination;
 import cn.xsdzq.platform.model.mall.CreditDTO;
 import cn.xsdzq.platform.model.mall.CreditImportRecordDTO;
 import cn.xsdzq.platform.model.mall.CreditUserTotalDTO;
-import cn.xsdzq.platform.model.mall.PresentCardDTO;
-import cn.xsdzq.platform.model.mall.PresentCategory;
 import cn.xsdzq.platform.service.mall.CreditImportRecordService;
 import cn.xsdzq.platform.service.mall.CreditService;
 import cn.xsdzq.platform.service.mall.CreditUserTotalService;
-import cn.xsdzq.platform.service.mall.PresentCategoryService;
-import cn.xsdzq.platform.util.CategoryUtil;
 import cn.xsdzq.platform.util.GsonUtil;
 import cn.xsdzq.platform.util.mall.CreditUtil;
-import cn.xsdzq.platform.util.mall.PresentUtil;
 
 @RestController
 @RequestMapping(value = "/mall/credit")

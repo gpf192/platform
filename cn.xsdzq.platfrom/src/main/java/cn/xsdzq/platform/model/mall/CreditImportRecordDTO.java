@@ -5,7 +5,7 @@ public class CreditImportRecordDTO {
 	private long id;
 	private String clientName;//客户姓名
 	private String clientId;//客户id
-	private String mobil;//手机号，每次导入即更新
+	private String mobile;//手机号，每次导入即更新
 	private String departmentDesc;//营业部名称
 	private String departmentCode;//营业部编码, 每次导入即更新
 	private String categoryName;//项目名称
@@ -38,12 +38,12 @@ public class CreditImportRecordDTO {
 		this.clientId = clientId;
 	}
 
-	public String getMobil() {
-		return mobil;
+	public String getMobile() {
+		return mobile;
 	}
 
-	public void setMobil(String mobil) {
-		this.mobil = mobil;
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
 
 	public String getDepartmentDesc() {
@@ -104,8 +104,8 @@ public class CreditImportRecordDTO {
 
 	@Override
 	public String toString() {
-		return "CreditImportRecordDTO [id=" + id + ", clientName=" + clientName + ", clientId=" + clientId + ", mobil="
-				+ mobil + ", departmentDesc=" + departmentDesc + ", departmentCode=" + departmentCode
+		return "CreditImportRecordDTO [id=" + id + ", clientName=" + clientName + ", clientId=" + clientId + ", mobile="
+				+ mobile + ", departmentDesc=" + departmentDesc + ", departmentCode=" + departmentCode
 				+ ", categoryName=" + categoryName + ", categoryCode=" + categoryCode + ", num=" + num + ", beginDate="
 				+ beginDate + ", endDate=" + endDate + "]";
 	}

@@ -283,15 +283,19 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/integral/integralquery",
 		templateUrl : "htmls/integral/integralquery.html",
 		controller : "integralqueryController"
-	}).state("integraldetail", {
-		url : "/integral/integraldetail",
-		templateUrl : "htmls/integral/integraldetail.html",
-		controller : "integraldetailController",
+	}).state("integralModify", {
+		url : "/integral/integralModify",
+		templateUrl : "htmls/integral/integralModify.html",
+		controller : "integralModifyController",
 		params:{param:{}}
-	}).state("integralsource", {
-		url : "/integral/integralsource",
-		templateUrl : "htmls/integral/integralsource.html",
-		controller : "integralsourceController"
+	}).state("integralUserDetail", {
+		url : "/integral/integralUserDetail",
+		templateUrl : "htmls/integral/integralUserDetail.html",
+		controller : "integralUserDetailController"
+	}).state("integralImport", {
+		url : "/integral/integralImport",
+		templateUrl : "htmls/integral/integralImport.html",
+		controller : "integralImportController"
 	}).state("commodityclassify", {
 		url : "/commodity/commodityclassify",
 		templateUrl : "htmls/commodity/commodityclassify.html",

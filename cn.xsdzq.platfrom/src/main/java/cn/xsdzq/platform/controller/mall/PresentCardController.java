@@ -54,7 +54,6 @@ public class PresentCardController {
 		PresentCardEntity entity = PresentUtil.convertPresentCardEntityByDTO(dto);
 		PresentEntity p = presentService.findById(dto.getPresentId());
 		entity.setPresent(p);
-		entity.setCreateDate(new Date());
 		presentCardService.addPresentCard(entity);
 		return GsonUtil.buildMap(0, "success", null);
 	}

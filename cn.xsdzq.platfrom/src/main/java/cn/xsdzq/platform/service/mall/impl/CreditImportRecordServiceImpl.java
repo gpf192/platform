@@ -14,7 +14,7 @@ import cn.xsdzq.platform.dao.mall.CreditImportRecordRepository;
 import cn.xsdzq.platform.entity.mall.CreditImportRecordEntity;
 import cn.xsdzq.platform.service.mall.CreditImportRecordService;
 
-@Service(value = "creditUserTotalServiceImpl")
+@Service(value = "creditImportRecordServiceImpl")
 @Transactional(readOnly = true)
 public class CreditImportRecordServiceImpl implements CreditImportRecordService{
 	private static final Logger logger = LoggerFactory.getLogger(CreditImportRecordServiceImpl.class);

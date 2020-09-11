@@ -1,5 +1,5 @@
 ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils', 'utils'  ];
-function integraldetailController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils,utils) {
+function integralModifyController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils,utils) {
 
 		
 	$scope.formData = {};

@@ -19,6 +19,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 /**
  * 实物卡
@@ -67,6 +68,20 @@ public class PresentCardEntity implements Serializable {
 
 	@Column(name = "convert_date")
 	private Date convertDate;
+
+	
+	// 修改时间
+		@Column(name = "modifytime", nullable = true)
+		@LastModifiedDate
+		private Date modifytime;
+		
+	public Date getModifytime() {
+			return modifytime;
+		}
+
+		public void setModifytime(Date modifytime) {
+			this.modifytime = modifytime;
+		}
 
 	public long getId() {
 		return id;

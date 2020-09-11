@@ -1,5 +1,6 @@
 package cn.xsdzq.platform.service.mall.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,9 @@ public class PresentCardServiceImpl implements PresentCardService {
 	@Transactional
 	public void addPresentCard(PresentCardEntity presentCard) {
 		// TODO Auto-generated method stub
-		
+		PresentCardEntity p = presentCardRepository.findById(presentCard.getId()).get();
+		presentCard.setCreateDate(p.getCreateDate());
+		presentCard.setModifytime(new Date());
 		presentCardRepository.save(presentCard);
 
 	}

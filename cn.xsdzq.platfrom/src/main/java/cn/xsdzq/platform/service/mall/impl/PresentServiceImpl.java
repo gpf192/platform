@@ -1,5 +1,6 @@
 package cn.xsdzq.platform.service.mall.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,9 @@ public class PresentServiceImpl implements PresentService {
 	@Transactional
 	public void addPresent(PresentEntity present) {
 		// TODO Auto-generated method stub
-
+		PresentEntity p = presentRepository.findById(present.getId()).get();
+		present.setCreatetime(p.getCreatetime());
+		present.setModifytime(new Date());
 		presentRepository.save(present);
 
 	}

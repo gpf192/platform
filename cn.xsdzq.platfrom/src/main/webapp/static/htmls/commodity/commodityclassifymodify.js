@@ -63,17 +63,17 @@ function commodityclassifymodifyController($scope, $http, $state, $stateParams, 
 		}
 
 		var param = {
+				id:$scope.formData.id,
 				name:name,
-				flag:flag,
+				flag:flag
 		}
 		$http.post(url, param).success(function(data) {
 			if (data.resCode == 0) {
 				layerUtils.iMsg(-1,"添加成功");
-				$scope.formData={};
-			}else if (data.resCode == 1) {
-//				layerUtils.iMsg(-1,"  产品代码已存在 ");
-				$scope.formData={};
-			} else {
+				//$scope.formData={};
+				$state.go("commodityclassify");
+				}
+			 else {
 				layerUtils.iMsg(-1,"添加失败");
 			}
 		});

@@ -51,6 +51,7 @@ public class PresentUtil {
 		dto.setConvertNumber(entity.getConvertNumber());
 		dto.setStoreUnused(entity.getStoreUnused());;
 		dto.setStatus(entity.getStatus());
+		dto.setCreatetime(DateUtil.DateToString(entity.getCreatetime()));
 		return dto;
 	}
 	

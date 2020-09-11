@@ -106,7 +106,9 @@ ngApp.factory("httpUtils", [ function() {
 		addCreditCategory:baseUrl + "mall/credit/add",
 		deleteCreditCategory:baseUrl + "mall/credit/delete",
 		getUserCreditTotal:baseUrl + "mall/credit/getUserCreditTotal",
-		getCreditImportRecord :baseUrl + "mall/credit/getCreditImportRecord"
+		getCreditImportRecord :baseUrl + "mall/credit/getCreditImportRecord",
+		
+		importExcel:baseUrl + "uploadExcel/upload"
 	};
 
 	function getUrl() {

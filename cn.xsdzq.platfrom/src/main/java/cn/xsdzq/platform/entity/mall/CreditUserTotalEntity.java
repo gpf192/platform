@@ -40,8 +40,8 @@ public class CreditUserTotalEntity implements Serializable {
 	@Column(name = "client_id")
 	private String clientId;//客户id
 	
-	@Column(name = "mobil")
-	private String mobil;//手机号，每次导入即更新
+	@Column(name = "mobile")
+	private String mobile;//手机号，每次导入即更新
 	
 	@Column(name = "department_desc")
 	private String departmentDesc;//营业部名称
@@ -76,12 +76,12 @@ public class CreditUserTotalEntity implements Serializable {
 		this.clientId = clientId;
 	}
 
-	public String getMobil() {
-		return mobil;
+	public String getMobile() {
+		return mobile;
 	}
 
-	public void setMobil(String mobil) {
-		this.mobil = mobil;
+	public void setMobil(String mobile) {
+		this.mobile = mobile;
 	}
 
 	public String getDepartmentDesc() {
@@ -110,8 +110,8 @@ public class CreditUserTotalEntity implements Serializable {
 
 	@Override
 	public String toString() {
-		return "UserTotalCreditEntity [id=" + id + ", clientName=" + clientName + ", clientId=" + clientId + ", mobil="
-				+ mobil + ", departmentDesc=" + departmentDesc + ", departmentCode=" + departmentCode + ", total="
+		return "UserTotalCreditEntity [id=" + id + ", clientName=" + clientName + ", clientId=" + clientId + ", mobile="
+				+ mobile + ", departmentDesc=" + departmentDesc + ", departmentCode=" + departmentCode + ", total="
 				+ total + "]";
 	}
 	

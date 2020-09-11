@@ -14,7 +14,14 @@ public class PresentDTO {
 	private int convertNumber;//已兑换	
 	private int storeUnused;//剩余库存
 	private String status;//状态，上上架/下架
+	private String createtime;
 	
+	public String getCreatetime() {
+		return createtime;
+	}
+	public void setCreatetime(String createtime) {
+		this.createtime = createtime;
+	}
 	public long getCategoryId() {
 		return categoryId;
 	}

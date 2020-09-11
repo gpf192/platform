@@ -1,5 +1,6 @@
 package cn.xsdzq.platform.service.mall.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,8 +32,10 @@ public class PresentCategoryServiceImpl implements PresentCategoryService {
 		// TODO Auto-generated method stub
 
 		PresentCategoryEntity presentCategoryEntity = new PresentCategoryEntity();
+		presentCategoryEntity.setId(presentCategory.getId());
 		presentCategoryEntity.setName(presentCategory.getName());
 		presentCategoryEntity.setFlag(presentCategory.getFlag());
+		presentCategoryEntity.setCreatetime(new Date());
 		presentCategoryRepository.save(presentCategoryEntity);
 	}
 

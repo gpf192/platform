@@ -48,7 +48,7 @@ public class PresentController {
 	public Map<String, Object> addPresent(@RequestBody PresentDTO presentEntity) {
 		
 		PresentEntity entity = PresentUtil.convertPresentEntityByDto(presentEntity);
-		System.out.println(entity.toString());
+		
 		PresentCategoryEntity c = presentCategoryService.findById(presentEntity.getCategoryId());
 		entity.setPresentCategory(c);
 		presentService.addPresent(entity);

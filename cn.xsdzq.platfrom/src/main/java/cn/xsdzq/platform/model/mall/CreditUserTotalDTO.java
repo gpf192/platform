@@ -4,7 +4,7 @@ public class CreditUserTotalDTO {
 	private long id;	
 	private String clientName;//客户姓名
 	private String clientId;//客户id
-	private String mobil;//手机号，每次导入即更新
+	private String mobile;//手机号，每次导入即更新
 	private String departmentDesc;//营业部名称
 	private String departmentCode;//营业部编码, 每次导入即更新
 	private long total;//总分数
@@ -26,11 +26,11 @@ public class CreditUserTotalDTO {
 	public void setClientId(String clientId) {
 		this.clientId = clientId;
 	}
-	public String getMobil() {
-		return mobil;
+	public String getMobile() {
+		return mobile;
 	}
-	public void setMobil(String mobil) {
-		this.mobil = mobil;
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
 	public String getDepartmentDesc() {
 		return departmentDesc;
@@ -52,8 +52,8 @@ public class CreditUserTotalDTO {
 	}
 	@Override
 	public String toString() {
-		return "CreditUserTotalDTO [id=" + id + ", clientName=" + clientName + ", clientId=" + clientId + ", mobil="
-				+ mobil + ", departmentDesc=" + departmentDesc + ", departmentCode=" + departmentCode + ", total="
+		return "CreditUserTotalDTO [id=" + id + ", clientName=" + clientName + ", clientId=" + clientId + ", mobile="
+				+ mobile + ", departmentDesc=" + departmentDesc + ", departmentCode=" + departmentCode + ", total="
 				+ total + "]";
 	}
 	

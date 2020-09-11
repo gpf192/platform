@@ -41,7 +41,7 @@ public class CreditUtil {
 		dto.setClientName(entity.getClientName());
 		dto.setDepartmentCode(entity.getDepartmentCode());
 		dto.setDepartmentDesc(entity.getDepartmentDesc());
-		dto.setMobil(entity.getMobil());
+		dto.setMobile(entity.getMobile());
 		dto.setTotal(entity.getTotal());
 		
 		return dto;
@@ -54,7 +54,7 @@ public class CreditUtil {
 		dto.setClientName(entity.getClientName());
 		dto.setDepartmentCode(entity.getDepartmentCode());
 		dto.setDepartmentDesc(entity.getDepartmentDesc());
-		dto.setMobil(entity.getMobil());
+		dto.setMobile(entity.getMobile());
 		dto.setCategoryName(entity.getCategoryName());
 		dto.setCategoryCode(entity.getCategoryCode());
 		dto.setNum(entity.getNum());
