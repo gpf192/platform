@@ -56,4 +56,10 @@ public class DateUtil {
 		return sdf.format(date);
 			
 	}
+	public static int DateToStringAsDayWithoutLine(Date date) {
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+		
+		return  Integer.parseInt(sdf.format(date)) ;
+			
+	}
 }

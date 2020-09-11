@@ -5,6 +5,7 @@ import java.util.List;
 import cn.xsdzq.platform.entity.mall.CreditImportRecordEntity;
 
 public interface CreditImportRecordService {
+	void addRecord(CreditImportRecordEntity entity);
 	List<CreditImportRecordEntity> findByOrderByBeginDateDesc(int pageNumber, int pageSize);
 	int countAll();
 	

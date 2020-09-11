@@ -40,6 +40,12 @@
                             ng-click="importToExcel()" />
                             
                <input id="input-zh" type="file" class="file" data-show-preview="false">
+               
+               <input type="button" value="确认" class="btn btn-primary"
+                            ng-click="submit()" />
+                            
+               <input type="button" value="清空当前数据" class="btn btn-primary"
+                            ng-click="deletTemp()" />
             </form>
             <hr />
                         <div class="row hide" ng-show="productsSellList.length>0">

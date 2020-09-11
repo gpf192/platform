@@ -49,4 +49,10 @@ public class CreditImportRecordServiceImpl implements CreditImportRecordService{
 		// TODO Auto-generated method stub
 		return creditImportRecordRepository.countByClientId(clientId);
 	}
+	@Override
+	@Transactional
+	public void addRecord(CreditImportRecordEntity entity) {
+		// TODO Auto-generated method stub
+		creditImportRecordRepository.save(entity);
+	}
 }

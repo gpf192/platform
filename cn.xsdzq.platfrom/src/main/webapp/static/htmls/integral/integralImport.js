@@ -17,7 +17,7 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 		$scope.$emit("changeNavigation", data);
 	
 		
-		//$scope.getEmpList(100);
+		$scope.getEmpList(100);
 		$scope.currentPage = {
 				page : 0
 			};
@@ -38,7 +38,7 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 	};
 	
 	$scope.getEmpList = function(pageSize) {
-		var url = httpUtils.url.getCreditImportRecord;
+		var url = httpUtils.url.getCreditImportTemp;
 		var username = "";
 		var clientId = "";
 		var votes_source = "";
@@ -69,13 +69,8 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 	//导入
 	$scope.importToExcel=function(){
 		console.log("daoru");
-		var url = httpUtils.url.importExcel;
 		//var url = httpUtils.url.importExcel;
-		/*document.getElementById('input-zh').fileinput({
-			  language: 'zh',
-			  uploadUrl: url,
-			  allowedFileExtensions : ['xls', 'xlsx']
-			 });*/
+		
 		 var form = new FormData();
 		 var temfile = document.querySelector('input[type=file]').files[0];
     	//var temfile = document.getElementById('input-zh').files[0];
@@ -98,9 +93,34 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 	};
 		
 		
-		
-		
-		
+		//确认提交
+	$scope.submit=function(){
+		var url = httpUtils.url.submitImportTempToCredit;
+		$http.post(url, param).success(function(data) {
+			if (data.resCode == 0) {
+				layerUtils.iMsg(-1,"提交成功");
+			//	$scope.formData={};
+				$scope.getEmpList(100);//此时再次查询 应该是没有数据
+			}else {
+				layerUtils.iMsg(-1,"添加失败");
+				$scope.getEmpList(100);
+			}
+		});
+	}
+		//清空当前数据 deletTemp
+	$scope.deletTemp=function(){
+		var url = httpUtils.url.deleteTempData;
+		$http.post(url, param).success(function(data) {
+			if (data.resCode == 0) {
+				layerUtils.iMsg(-1,"删除成功");
+			//	$scope.formData={};
+				$scope.getEmpList(100);//此时再次查询 应该是没有数据
+			} else {
+				layerUtils.iMsg(-1,"删除失败");
+				$scope.getEmpList(100)
+			}
+		});
+	}
 	
 	//导出为excel
 	

@@ -52,4 +52,18 @@ public class CreditUserTotalServiceImpl implements CreditUserTotalService{
 		// TODO Auto-generated method stub
 		return pageCreditUserTotalRepository.countByClientId(clientId);
 	}
+
+	@Override
+	public CreditUserTotalEntity findByClientId(String clientId) {
+		// TODO Auto-generated method stub
+		CreditUserTotalEntity entity = pageCreditUserTotalRepository.findByClientId(clientId);
+		return entity;
+	}
+
+	@Override
+	@Transactional
+	public void addEntity(CreditUserTotalEntity entity) {
+		// TODO Auto-generated method stub
+		pageCreditUserTotalRepository.save(entity);
+	}
 }
