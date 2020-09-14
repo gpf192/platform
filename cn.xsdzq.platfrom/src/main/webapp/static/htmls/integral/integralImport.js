@@ -14,8 +14,7 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 
 				}
 			}
-		$scope.$emit("changeNavigation", data);
-	
+		$scope.$emit("changeNavigation", data);	
 		
 		$scope.getEmpList(100);
 		$scope.currentPage = {
@@ -68,11 +67,14 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 
 	//导入
 	$scope.importToExcel=function(){
-		console.log("daoru");
-		//var url = httpUtils.url.importExcel;
+//		console.log("daoru");
 		
 		 var form = new FormData();
 		 var temfile = document.querySelector('input[type=file]').files[0];
+		 if(temfile == null){
+			 layerUtils.iMsg(-1, "请选择附件");
+				return;
+		 }
     	//var temfile = document.getElementById('input-zh').files[0];
 		 form.append('upfile', temfile);
       
@@ -85,6 +87,7 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 	        }).success(function (data) {
 	        	if (data.resCode == 0) {
 	        		//同步上传，上传附件后，插入表
+	        		$scope.getEmpList(100);
 	        		//$scope.addImage();
 	        	}else {
 					layerUtils.iMsg(-1, "附件上传失败");
@@ -95,22 +98,40 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 		
 		//确认提交
 	$scope.submit=function(){
-		var url = httpUtils.url.submitImportTempToCredit;
-		$http.post(url, param).success(function(data) {
+		layerUtils.iConfirm("是否提交当前数据？提交后不可删除。", function() {
+		//var url = httpUtils.url.submitImportTempToCredit;
+			var url = httpUtils.url.submit;
+
+		var param = {
+				categoryName:1,
+				categoryCode:1,
+				integralValue:1,
+				frontName:1,
+				flag:1
+		}
+		
+		$http.post(url,param).success(function(data) {
+			console.log("www");
+
 			if (data.resCode == 0) {
+				console.log("rrrr");
 				layerUtils.iMsg(-1,"提交成功");
-			//	$scope.formData={};
 				$scope.getEmpList(100);//此时再次查询 应该是没有数据
 			}else {
+				console.log("tttt");
 				layerUtils.iMsg(-1,"添加失败");
 				$scope.getEmpList(100);
 			}
 		});
+		}, function() {
+			console.log("取消");
+		});
 	}
 		//清空当前数据 deletTemp
 	$scope.deletTemp=function(){
+		layerUtils.iConfirm("是否清空当前临时数据？", function() {
 		var url = httpUtils.url.deleteTempData;
-		$http.post(url, param).success(function(data) {
+		$http.post(url).success(function(data) {
 			if (data.resCode == 0) {
 				layerUtils.iMsg(-1,"删除成功");
 			//	$scope.formData={};
@@ -120,9 +141,12 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 				$scope.getEmpList(100)
 			}
 		});
+		}, function() {
+			console.log("取消");
+		});
 	}
 	
-	//导出为excel
+
 	
 	Date.prototype.Format = function (fmt) {  
 	    var o = {
@@ -139,11 +163,12 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 	    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
 	    return fmt;
 	}
-	
-	$scope.exportToExcel=function(){ 
+	//ecxel导入模板下载 getExcelData
+
+	$scope.templateDownLoad=function(){ 
 		var excelArrs = getExcelData();
 		var myDate = new Date().Format("yyyyMMddhhmmss");
-		 alasql.promise('SELECT * INTO XLSX("客户积分查询-' + myDate+ '.xlsx",{headers:true}) FROM ?',[excelArrs])
+		 alasql.promise('SELECT * INTO XLSX("积分明细导入模板-' + myDate+ '.xlsx",{headers:true}) FROM ?',[excelArrs])
 			.then(function (data) {
 			  if(data == 1){
 				$timeout(function(){
@@ -153,24 +178,30 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 			});
 	};
 	 
-	//组装ecxel数据
 	function getExcelData() {
 		var arr =[];
-		angular.forEach($scope.userVoteList, function(data, index, datas) {
+		//angular.forEach($scope.userVoteList, function(data, index, datas) {
 			var newObj = {	
 				
 			};
-			for(k=0;k<$scope.userVoteList.length;k++){				
-				newObj["客户姓名"] = 	data.userName;
-				newObj["客户号"] = 	data.clientId;
-				newObj["手机号"] = 	data.mobile;
-				newObj["营业部"] = 	data.departmentDesc;
-				newObj["总积分"] = 	data.total;
-				
-			}
+							
+				newObj["clientName"] ="" ;
+				newObj["clientId"]  ="";
+				newObj["mobile"]  ="" ;
+				newObj["departmentDesc"] ="" ;
+				newObj["departmentCode"]  ="";
+				newObj["categoryName"]  ="";
+				newObj["categoryCode"] ="" ;
+				newObj["num"]  =""	;
+				newObj["beginDate"]   =""	;
+				newObj["endDate"] ="" ;
+
+			
 			arr.push(newObj);
-		});
+		//});
 		return arr;
 	}
+	
+	
 	
 }

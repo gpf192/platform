@@ -42,16 +42,19 @@ public class ImportExcelUtil {
 
   list = new ArrayList<List<Object>>();
   //遍历Excel中所有的sheet
-  for (int i = 0; i < work.getNumberOfSheets(); i++) {
+ // for (int i = 0; i < work.getNumberOfSheets(); i++) {
+  //注：只选择当前第一个sheet表，选全部 后续报错
+  for (int i = 0; i < 1; i++) {
    sheet = work.getSheetAt(i);
    if(sheet==null){continue;}
 
 
    //遍历当前sheet中的所有行
-   System.out.println(sheet.getLastRowNum());
-  // for (int j = sheet.getFirstRowNum(); j <=sheet.getLastRowNum(); j++)
+   System.out.println(sheet.getLastRowNum()+" %%");
+   System.out.println(sheet.getFirstRowNum()+" First");
+   for (int j = sheet.getFirstRowNum(); j <=sheet.getLastRowNum(); j++)
 
-   for (int j = sheet.getFirstRowNum(); j <=sheet.getLastRowNum()-11; j++)//少加11行
+  // for (int j = sheet.getFirstRowNum(); j <=sheet.getLastRowNum()-11; j++)//少加11行
    {
     row = sheet.getRow(j);
 //    if(row==null||row.getFirstCellNum()==j)

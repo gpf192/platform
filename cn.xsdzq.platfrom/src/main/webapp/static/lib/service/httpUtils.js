@@ -110,7 +110,8 @@ ngApp.factory("httpUtils", [ function() {
 		
 		importExcel:baseUrl + "mall/credit/upload",
 		getCreditImportTemp :baseUrl + "mall/credit/getCreditImportTemp",
-		submitImportTempToCredit:baseUrl + "mall/credit/submitImportTempToCredit",
+		//submitImportTempToCredit:baseUrl + "mall/credit/submitImportTempToCredit",
+		submit:baseUrl + "mall/credit/submit",
 		deleteTempData:baseUrl + "mall/credit/deleteTempData"
 
 

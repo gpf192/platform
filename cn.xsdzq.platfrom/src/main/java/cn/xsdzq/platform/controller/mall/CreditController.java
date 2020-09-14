@@ -34,6 +34,8 @@ import cn.xsdzq.platform.model.mall.CreditDTO;
 import cn.xsdzq.platform.model.mall.CreditImportRecordDTO;
 import cn.xsdzq.platform.model.mall.CreditImportTempDTO;
 import cn.xsdzq.platform.model.mall.CreditUserTotalDTO;
+import cn.xsdzq.platform.model.mall.InfoVo;
+import cn.xsdzq.platform.model.mall.PresentCardDTO;
 import cn.xsdzq.platform.service.mall.CreditImportRecordService;
 import cn.xsdzq.platform.service.mall.CreditImportTempService;
 import cn.xsdzq.platform.service.mall.CreditService;
@@ -157,10 +159,10 @@ public class CreditController {
 		   vo.setCode(String.valueOf(lo.get(0))); 
 		   vo.setName(String.valueOf(lo.get(1))); 
 		   vo.setDate(String.valueOf(lo.get(2))); 
-		   vo.setMoney(String.valueOf(lo.get(3))); 
+		   vo.setMoney(String.valueOf(lo.get(3)));*/ 
 		
-		   System.out.println("打印信息-->机构:"+vo.getCode()+" 名称："+vo.getName()+" 时间："+vo.getDate()+" 资产："+vo.getMoney()); 
-		  */
+		  // System.out.println("打印信息-->机构:"+vo.getCode()+" 名称："+vo.getName()+" 时间："+vo.getDate()+" 资产："+vo.getMoney()); 
+		  
 		   
 		  } 
 		  return GsonUtil.buildMap(0, "success", null);
@@ -189,14 +191,16 @@ public class CreditController {
 		return GsonUtil.buildMap(0, "ok", dtos,pagination);
 	}
 	//正式提交
-	@RequestMapping(value = "/submitImportTempToCredit", method = POST, produces = "application/json; charset=utf-8")
-	@ResponseBody
-	public Map<String, Object> submitImportTempToCredit( ) {
+	@PostMapping(value = "/submit")	
+	//public Map<String, Object> submitImportTempToCredit(@RequestBody CreditDTO creditDTO ) {
+		public Map<String, Object> submit(@RequestBody CreditDTO creditDTO ) {
+		System.out.println("提交————————————————————————————————————————***********");
 		//查询临时表数据
 		List<CreditImportTempEntity> entities = creditImportTempService.findAllTemp();
 		//循环每条数据并插入正式表，同时总分表加上相应数据,判断导入数据的时效性
 		for(CreditImportTempEntity entity:entities) {
 			CreditImportRecordEntity record = CreditUtil.changeTempToRecord(entity);
+			System.out.println("record: "+ record.toString());
 			//插入总分表   begin
 			CreditUserTotalEntity userTotalEntity = new CreditUserTotalEntity();
 			userTotalEntity = creditUserTotalService.findByClientId(record.getClientId());
@@ -216,14 +220,16 @@ public class CreditController {
 				userTotalEntity.setTotal(userTotalEntity.getTotal()+record.getNum());
 				creditUserTotalService.addEntity(userTotalEntity);//更新
 			}
-			
+			System.out.println("总分表插入完成----");
 			//插入总分表   end
 			//插入正式记录表
-			creditImportRecordService.addRecord(record);
+			creditImportRecordService.addRecord(record);	
 
 		}
+		System.out.println("总记录插入完成----");
 		//最后清空临时表数据
 		creditImportTempService.deleteAllTemp();
+		System.out.println("清空临时表入完成----");
 		return GsonUtil.buildMap(0, "success", null);
 	}
 	
