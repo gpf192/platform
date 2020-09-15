@@ -154,6 +154,7 @@ public class CreditController {
 		   List<Object> lo = listob.get(i); //每行数据
 		   //循环每行数据并插入
 		   CreditImportTempEntity entity = CreditUtil.toCreditImportTempEntity(lo);
+		   System.out.println("temp : "+entity.toString());
 		   creditImportTempService.add(entity);
 		   /*InfoVo vo = new InfoVo(); 
 		   vo.setCode(String.valueOf(lo.get(0))); 
@@ -191,21 +192,25 @@ public class CreditController {
 		return GsonUtil.buildMap(0, "ok", dtos,pagination);
 	}
 	//正式提交
-	@PostMapping(value = "/submit")	
-	//public Map<String, Object> submitImportTempToCredit(@RequestBody CreditDTO creditDTO ) {
-		public Map<String, Object> submit(@RequestBody CreditDTO creditDTO ) {
+	@RequestMapping(value = "/submit", method = POST, produces = "application/json; charset=utf-8")	
+	@ResponseBody
+	public Map<String, Object> submit() {
+		//public Map<String, Object> submit(@RequestBody CreditDTO creditDTO ) {
 		System.out.println("提交————————————————————————————————————————***********");
 		//查询临时表数据
 		List<CreditImportTempEntity> entities = creditImportTempService.findAllTemp();
+		System.out.println("size :"+entities.size());
 		//循环每条数据并插入正式表，同时总分表加上相应数据,判断导入数据的时效性
 		for(CreditImportTempEntity entity:entities) {
 			CreditImportRecordEntity record = CreditUtil.changeTempToRecord(entity);
+			System.out.println("entity: "+ entity.toString());
 			System.out.println("record: "+ record.toString());
 			//插入总分表   begin
-			CreditUserTotalEntity userTotalEntity = new CreditUserTotalEntity();
-			userTotalEntity = creditUserTotalService.findByClientId(record.getClientId());
+			CreditUserTotalEntity userTotalEntity =  creditUserTotalService.findByClientId(record.getClientId());
+			
 			//如果用户总分数表无此用户，则新增
 			if(userTotalEntity == null) {
+				userTotalEntity = new CreditUserTotalEntity();
 				userTotalEntity.setClientId(record.getClientId());
 				userTotalEntity.setClientName(record.getClientName());
 

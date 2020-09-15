@@ -16,16 +16,16 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 			}
 		$scope.$emit("changeNavigation", data);	
 		
-		$scope.getEmpList(100);
+		$scope.getEmpList(50);
 		$scope.currentPage = {
 				page : 0
 			};
 			$scope.selectNumList = [{
-				num : 10
-			}, {
 				num : 50
 			}, {
 				num : 100
+			}, {
+				num : 150
 			}];
 			$scope.selectNum = $scope.selectNumList[0];	
 			$scope.$watch("selectNum.num", function(newValue, oldValue) {
@@ -57,7 +57,7 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 		};
 		var settings = {
 			url : url,
-			showPage : 1,
+			showPage : 7,
 			pageSize : pageSize,
 			putDataList : "userVoteList"
 		};
@@ -87,8 +87,7 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 	        }).success(function (data) {
 	        	if (data.resCode == 0) {
 	        		//同步上传，上传附件后，插入表
-	        		$scope.getEmpList(100);
-	        		//$scope.addImage();
+	        		$scope.getEmpList(50);
 	        	}else {
 					layerUtils.iMsg(-1, "附件上传失败");
 				}
@@ -110,17 +109,17 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 				flag:1
 		}
 		
-		$http.post(url,param).success(function(data) {
+		$http.post(url).success(function(data) {
 			console.log("www");
 
 			if (data.resCode == 0) {
 				console.log("rrrr");
 				layerUtils.iMsg(-1,"提交成功");
-				$scope.getEmpList(100);//此时再次查询 应该是没有数据
+				$scope.getEmpList(50);//此时再次查询 应该是没有数据
 			}else {
 				console.log("tttt");
 				layerUtils.iMsg(-1,"添加失败");
-				$scope.getEmpList(100);
+				$scope.getEmpList(50);
 			}
 		});
 		}, function() {
@@ -135,10 +134,10 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 			if (data.resCode == 0) {
 				layerUtils.iMsg(-1,"删除成功");
 			//	$scope.formData={};
-				$scope.getEmpList(100);//此时再次查询 应该是没有数据
+				$scope.getEmpList(50);//此时再次查询 应该是没有数据
 			} else {
 				layerUtils.iMsg(-1,"删除失败");
-				$scope.getEmpList(100)
+				$scope.getEmpList(50)
 			}
 		});
 		}, function() {

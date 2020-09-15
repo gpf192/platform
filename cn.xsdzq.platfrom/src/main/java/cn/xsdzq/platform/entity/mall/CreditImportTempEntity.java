@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
-@Table(name = "credit_import_Temp")
+@Table(name = "mall_credit_import_Temp")
 @EntityListeners(AuditingEntityListener.class)
 public class CreditImportTempEntity implements Serializable{
 	private static final long serialVersionUID = 1L;

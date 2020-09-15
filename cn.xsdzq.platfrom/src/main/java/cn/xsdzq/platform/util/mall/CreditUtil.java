@@ -102,16 +102,16 @@ public class CreditUtil {
 	//导入表格的临时类转换为正式实体类
 	public static CreditImportRecordEntity changeTempToRecord(CreditImportTempEntity temp) {
 		CreditImportRecordEntity entity = new CreditImportRecordEntity();
-		entity.setClientId(entity.getClientId());
-		entity.setClientName(entity.getClientName());
-		entity.setDepartmentCode(entity.getDepartmentCode());
-		entity.setDepartmentDesc(entity.getDepartmentDesc());
-		entity.setMobile(entity.getMobile());
-		entity.setCategoryName(entity.getCategoryName());
-		entity.setCategoryCode(entity.getCategoryCode());
-		entity.setNum(entity.getNum());
-		entity.setBeginDate(entity.getBeginDate());
-		entity.setEndDate(entity.getEndDate());
+		entity.setClientId(temp.getClientId());
+		entity.setClientName(temp.getClientName());
+		entity.setDepartmentCode(temp.getDepartmentCode());
+		entity.setDepartmentDesc(temp.getDepartmentDesc());
+		entity.setMobile(temp.getMobile());
+		entity.setCategoryName(temp.getCategoryName());
+		entity.setCategoryCode(temp.getCategoryCode());
+		entity.setNum(temp.getNum());
+		entity.setBeginDate(temp.getBeginDate());
+		entity.setEndDate(temp.getEndDate());
 		return entity;
 	}
 

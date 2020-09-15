@@ -47,7 +47,7 @@ public class CreditImportRecordEntity implements Serializable {
 	@Column(name = "category_name")
 	private String categoryName;//项目名称
 	
-	@Column(name = "category_code", unique = true)
+	@Column(name = "category_code")
 	private String categoryCode;//项目编码，唯一
 	
 	@Column(name = "num")
