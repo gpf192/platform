@@ -62,8 +62,9 @@
             </form>
             <form class="form-inline margin10">
             <div class="col-sm-10 sort-img-tip">
-					<span class="text-warning">注：导入附件，检查无误后，确认提交可生效。</span>
-					<span class="text-warning">积分和日期字段必须为数字格式，如：日期格式为“20200101”。</span>
+					<span class="text-warning">注：1.导入附件，检查无误后，确认提交可生效。<br/> 
+					2.附件只支持1个sheet表，模板中每列的顺序不可改变。</span><br/>
+					<span class="text-warning">3.积分必须为整数格式，日期字段格式为年月日，如“20200101”。</span>
 					
 				</div>
             </form>
@@ -106,10 +107,12 @@
                             aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">手机号</div></th>
                         <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">营业部</div></th>
-                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">项目编码</div></th>
                             <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">营业部编码</div></th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">项目名称</div></th>
+                            <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">项目编码</div></th>
                             <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">积分变化</div></th>
                             <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
@@ -125,6 +128,7 @@
                        <td ><div style="white-space:nowrap;" >{{user.clientId}}</div> </td> 
                        <td ><div style="white-space:nowrap;" >{{user.mobile}}</div> </td> 
                        <td ><div style="white-space:nowrap;">{{user.departmentDesc}}</div> </td>
+                       <td ><div style="white-space:nowrap;">{{user.departmentCode}}</div> </td>                     
                        <td ><div style="white-space:nowrap;">{{user.categoryName}}</div> </td>
                        <td ><div style="white-space:nowrap;">{{user.categoryCode}}</div> </td>
                        <td ><div style="white-space:nowrap;">{{user.num}}</div> </td>

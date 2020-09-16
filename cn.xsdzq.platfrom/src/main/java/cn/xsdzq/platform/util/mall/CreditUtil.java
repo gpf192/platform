@@ -56,7 +56,9 @@ public class CreditUtil {
 		dto.setId(entity.getId());
 		dto.setClientId(entity.getMallUserEntity().getClientId());
 		dto.setClientName(entity.getMallUserEntity().getClientName());
-		
+		dto.setMobile(entity.getMallUserEntity().getMobile());
+		dto.setDepartmentDesc(entity.getMallUserEntity().getDepartmentName());
+		dto.setDepartmentCode(entity.getMallUserEntity().getDepartmentCode());
 		dto.setCategoryName(entity.getItem());
 		dto.setCategoryCode(entity.getItemCode());
 		dto.setNum(entity.getIntegralNumber());
@@ -91,7 +93,7 @@ public class CreditUtil {
 		   vo.setDepartmentCode(String.valueOf(lo.get(4)));
 		   vo.setCategoryName(String.valueOf(lo.get(5)));
 		   vo.setCategoryCode(String.valueOf(lo.get(6)));
-		   vo.setNum(Integer.parseInt(String.valueOf(lo.get(7))));
+		   vo.setNum(String.valueOf(lo.get(7)));
 		   vo.setBeginDate(String.valueOf(lo.get(8)));
 		   vo.setEndDate(String.valueOf(lo.get(9)));
 		   

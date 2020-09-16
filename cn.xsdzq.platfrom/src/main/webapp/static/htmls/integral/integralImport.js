@@ -67,7 +67,6 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 
 	//导入
 	$scope.importToExcel=function(){
-//		console.log("daoru");
 		
 		 var form = new FormData();
 		 var temfile = document.querySelector('input[type=file]').files[0];
@@ -116,8 +115,8 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 				layerUtils.iMsg(-1,"提交成功");
 				$scope.getEmpList(50);//此时再次查询 应该是没有数据
 			}else {
-				//layerUtils.iMsg(-1,"添加失败");
-				$scope.getEmpList(50);
+				layerUtils.iMsg(-1,data.respMsg);
+				//$scope.getEmpList(50);
 			}
 		});
 		}, function() {
@@ -187,8 +186,8 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 				newObj["mobile"]  ="" ;
 				newObj["departmentDesc"] ="" ;
 				newObj["departmentCode"]  ="";
-				newObj["categoryName"]  ="";
-				newObj["categoryCode"] ="" ;
+				newObj["itemName"]  ="";
+				newObj["itemCode"] ="" ;
 				newObj["num"]  =""	;
 				newObj["beginDate"]   =""	;
 				newObj["endDate"] ="" ;

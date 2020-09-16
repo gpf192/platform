@@ -53,7 +53,7 @@ public class MallUserServiceImpl implements MallUserService {
 	@Transactional
 	public void addCreditScore(CreditImportTempEntity temp) {
 		// TODO Auto-generated method stub	
-		
+		int tempNum = Integer.parseInt(temp.getNum());//分数String转化为整数
 		//临时表导入的数据作为参数
 		
 		// 2.用户的查找和新增
@@ -92,9 +92,10 @@ public class MallUserServiceImpl implements MallUserService {
 		creditRecordEntity.setItemCode(temp.getCategoryCode());
 		//creditRecordEntity.setReason("兑换奖品");
 		//creditRecordEntity.setReasonCode("10");
-		creditRecordEntity.setIntegralNumber(temp.getNum());//导入积分
+		creditRecordEntity.setIntegralNumber(tempNum);//导入积分
 		creditRecordEntity.setDateFlag(nowFlag);
-		
+		creditRecordEntity.setBeginDate(temp.getBeginDate());
+		creditRecordEntity.setEndDate(temp.getEndDate());
 		creditRecordEntity.setGroupTime(DateUtil.Dateymd(new Date()));//20200810
 		creditRecordEntity.setRecordTime(new Date());
 		creditRecordRepository.save(creditRecordEntity);
@@ -104,8 +105,8 @@ public class MallUserServiceImpl implements MallUserService {
 		MallUserInfoEntity myMallUserInfoEntity = mallUserInfoRepository.findByMallUserEntity(owner);
 		//判断当前导入的 temp    分数失效日期是否小于当天， 小于当天 不加入
 		if(Integer.parseInt(temp.getEndDate()) >= DateUtil.DateToStringAsDayWithoutLine(new Date())) {
-			myMallUserInfoEntity.setCreditScore(temp.getNum() + myMallUserInfoEntity.getCreditScore());
-			myMallUserInfoEntity.setSumScore(temp.getNum() + myMallUserInfoEntity.getSumScore());
+			myMallUserInfoEntity.setCreditScore(tempNum + myMallUserInfoEntity.getCreditScore());
+			myMallUserInfoEntity.setSumScore(tempNum + myMallUserInfoEntity.getSumScore());
 			myMallUserInfoEntity.setModifytime(new Date());
 		}		
 		mallUserInfoRepository.save(myMallUserInfoEntity);

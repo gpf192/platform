@@ -39,8 +39,10 @@ import cn.xsdzq.platform.service.mall.CreditImportRecordService;
 import cn.xsdzq.platform.service.mall.CreditImportTempService;
 import cn.xsdzq.platform.service.mall.CreditService;
 import cn.xsdzq.platform.service.mall.MallUserService;
+import cn.xsdzq.platform.util.DateUtil;
 import cn.xsdzq.platform.util.GsonUtil;
 import cn.xsdzq.platform.util.ImportExcelUtil;
+import cn.xsdzq.platform.util.PublicUtil;
 import cn.xsdzq.platform.util.mall.CreditUtil;
 
 @RestController
@@ -156,6 +158,7 @@ public class CreditController {
 		   System.out.println("temp : "+entity.toString());
 		   creditImportTempService.add(entity);
 		  } 
+		
 		  return GsonUtil.buildMap(0, "success", null);
 		} 
 	//清空临时数据
@@ -188,6 +191,24 @@ public class CreditController {
 		//查询临时表数据
 		List<CreditImportTempEntity> temps = creditImportTempService.findAllTemp();
 		System.out.println("size :"+temps.size());
+		//判断数据格式
+		  //判断字段格式
+		  
+			for (CreditImportTempEntity entity : temps) {
+				if(!PublicUtil.isInteger(entity.getNum())) {
+					//num不为数字
+					return GsonUtil.buildMap(1, "client_id:"+entity.getClientId()+"导入积分格式错误", null);
+				}
+				if(!PublicUtil.isInteger(entity.getBeginDate()) || !PublicUtil.isInteger(entity.getEndDate()) ) {
+					return GsonUtil.buildMap(1, "client_id:"+entity.getClientId()+"导入日期格式错误", null);
+
+				}
+				if(Integer.parseInt(entity.getEndDate()) < Integer.parseInt(DateUtil.Dateymd(new Date())) ) {
+					return GsonUtil.buildMap(1, "client_id:"+entity.getClientId()+"失效日期小于当前日期，无法导入", null);
+
+				}
+			}
+			
 		//循环每条数据并插入正式表，同时总分表加上相应数据,判断导入数据的时效性
 		//判断导入数据的失效日期，如果小于当天 ，提示无法导入 
 		
