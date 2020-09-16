@@ -87,9 +87,11 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 	        }).success(function (data) {
 	        	if (data.resCode == 0) {
 	        		//同步上传，上传附件后，插入表
+	        		layerUtils.iMsg(-1, "导入成功");
 	        		$scope.getEmpList(50);
 	        	}else {
 					layerUtils.iMsg(-1, "附件上传失败");
+					//$scope.getEmpList(50);
 				}
 	        })
 	};
@@ -110,15 +112,11 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 		}
 		
 		$http.post(url).success(function(data) {
-			console.log("www");
-
 			if (data.resCode == 0) {
-				console.log("rrrr");
 				layerUtils.iMsg(-1,"提交成功");
 				$scope.getEmpList(50);//此时再次查询 应该是没有数据
 			}else {
-				console.log("tttt");
-				layerUtils.iMsg(-1,"添加失败");
+				//layerUtils.iMsg(-1,"添加失败");
 				$scope.getEmpList(50);
 			}
 		});

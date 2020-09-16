@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import cn.xsdzq.platform.entity.mall.MallUserEntity;
 
 
-public interface UserRepository extends JpaRepository<MallUserEntity, Long> {
+public interface MallUserRepository extends JpaRepository<MallUserEntity, Long> {
 
 	MallUserEntity findByClientId(String clientId);
 

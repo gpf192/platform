@@ -5,6 +5,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DateUtil {
+	public static String getStandardDate(Date date) {
+		SimpleDateFormat sFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String standardString = sFormat.format(date);
+		return standardString;
+	}
+	
 	public static Date stringToDate(String date) {
 		 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		 Date date1 = null ;
@@ -60,6 +66,12 @@ public class DateUtil {
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
 		
 		return  Integer.parseInt(sdf.format(date)) ;
+			
+	}
+	public static String Dateymd(Date date) {
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+		
+		return  sdf.format(date) ;
 			
 	}
 }

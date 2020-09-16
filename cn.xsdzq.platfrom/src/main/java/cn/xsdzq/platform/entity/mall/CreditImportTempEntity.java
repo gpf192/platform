@@ -47,7 +47,7 @@ public class CreditImportTempEntity implements Serializable{
 	private String categoryCode;//项目编码
 	
 	@Column(name = "num")
-	private long num;//导入分数
+	private int num;//导入分数
 	
 	@Column(name = "begin_date")
 	private String beginDate;//生效日期
@@ -121,11 +121,12 @@ public class CreditImportTempEntity implements Serializable{
 		this.categoryCode = categoryCode;
 	}
 
-	public long getNum() {
+
+	public int getNum() {
 		return num;
 	}
 
-	public void setNum(long num) {
+	public void setNum(int num) {
 		this.num = num;
 	}
 

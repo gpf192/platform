@@ -18,7 +18,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
-@Table(name = "mall_credit_category")
+@Table(name = "mall_credit")
 @EntityListeners(AuditingEntityListener.class)
 public class CreditEntity implements Serializable {
 	

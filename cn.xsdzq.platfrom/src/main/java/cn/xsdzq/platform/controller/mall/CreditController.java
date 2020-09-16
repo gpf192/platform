@@ -25,22 +25,20 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+
 import cn.xsdzq.platform.entity.mall.CreditEntity;
-import cn.xsdzq.platform.entity.mall.CreditImportRecordEntity;
+import cn.xsdzq.platform.entity.mall.CreditRecordEntity;
 import cn.xsdzq.platform.entity.mall.CreditImportTempEntity;
-import cn.xsdzq.platform.entity.mall.CreditUserTotalEntity;
+import cn.xsdzq.platform.entity.mall.MallUserInfoEntity;
 import cn.xsdzq.platform.model.Pagination;
 import cn.xsdzq.platform.model.mall.CreditDTO;
 import cn.xsdzq.platform.model.mall.CreditImportRecordDTO;
 import cn.xsdzq.platform.model.mall.CreditImportTempDTO;
 import cn.xsdzq.platform.model.mall.CreditUserTotalDTO;
-import cn.xsdzq.platform.model.mall.InfoVo;
-import cn.xsdzq.platform.model.mall.PresentCardDTO;
 import cn.xsdzq.platform.service.mall.CreditImportRecordService;
 import cn.xsdzq.platform.service.mall.CreditImportTempService;
 import cn.xsdzq.platform.service.mall.CreditService;
-import cn.xsdzq.platform.service.mall.CreditUserTotalService;
-import cn.xsdzq.platform.util.DateUtil;
+import cn.xsdzq.platform.service.mall.MallUserService;
 import cn.xsdzq.platform.util.GsonUtil;
 import cn.xsdzq.platform.util.ImportExcelUtil;
 import cn.xsdzq.platform.util.mall.CreditUtil;
@@ -54,9 +52,6 @@ public class CreditController {
 	@Qualifier("creditServiceImpl")
 	private CreditService creditService;
 	
-	@Autowired
-	@Qualifier("creditUserTotalServiceImpl")
-	private CreditUserTotalService creditUserTotalService;
 	
 	@Autowired
 	@Qualifier("creditImportRecordServiceImpl")
@@ -65,6 +60,10 @@ public class CreditController {
 	@Autowired
 	@Qualifier("creditImportTempServiceImpl")
 	private CreditImportTempService creditImportTempService;
+	
+	@Autowired
+	private MallUserService mallUserService;
+
 	
 	@PostMapping(value = "/add")
 	public Map<String, Object> addCredit(@RequestBody CreditDTO creditDTO) {
@@ -102,13 +101,13 @@ public class CreditController {
 	@GetMapping(value = "/getUserCreditTotal")
 	public Map<String, Object> getUserCreditTotal(HttpServletRequest request, @RequestParam int pageNumber,@RequestParam int pageSize) {
 		int sum = 0 ;
-		List<CreditUserTotalEntity> presentCardEntities = creditUserTotalService.findByOrderByTotalDesc(pageNumber, pageSize);
+		List<MallUserInfoEntity> presentCardEntities = mallUserService.findByOrderByCreditScoreDesc(pageNumber, pageSize);
 		List<CreditUserTotalDTO> dtos = new ArrayList<CreditUserTotalDTO>();
-		for (CreditUserTotalEntity entity : presentCardEntities) {
+		for (MallUserInfoEntity entity : presentCardEntities) {
 			CreditUserTotalDTO dto = CreditUtil.convertCreditUserTotalDTOByEntity(entity);
 			dtos.add(dto);
 		}
-		sum = creditUserTotalService.countAll();
+		sum = mallUserService.countAll();
 		Pagination pagination = new Pagination(pageNumber, pageSize, sum);
 		return GsonUtil.buildMap(0, "ok", dtos,pagination);
 	}
@@ -117,9 +116,9 @@ public class CreditController {
 	@GetMapping(value = "/getCreditImportRecord")
 	public Map<String, Object> getCreditImportRecord(HttpServletRequest request, @RequestParam int pageNumber,@RequestParam int pageSize) {
 		int sum = 0 ;
-		List<CreditImportRecordEntity> presentCardEntities = creditImportRecordService.findByOrderByBeginDateDesc(pageNumber, pageSize);
+		List<CreditRecordEntity> presentCardEntities = creditImportRecordService.findByOrderByBeginDateDesc(pageNumber, pageSize);
 		List<CreditImportRecordDTO> dtos = new ArrayList<CreditImportRecordDTO>();
-		for (CreditImportRecordEntity entity : presentCardEntities) {
+		for (CreditRecordEntity entity : presentCardEntities) {
 			CreditImportRecordDTO dto = CreditUtil.convertCreditImportRecordDTOByEntity(entity);
 			dtos.add(dto);
 		}
@@ -156,15 +155,6 @@ public class CreditController {
 		   CreditImportTempEntity entity = CreditUtil.toCreditImportTempEntity(lo);
 		   System.out.println("temp : "+entity.toString());
 		   creditImportTempService.add(entity);
-		   /*InfoVo vo = new InfoVo(); 
-		   vo.setCode(String.valueOf(lo.get(0))); 
-		   vo.setName(String.valueOf(lo.get(1))); 
-		   vo.setDate(String.valueOf(lo.get(2))); 
-		   vo.setMoney(String.valueOf(lo.get(3)));*/ 
-		
-		  // System.out.println("打印信息-->机构:"+vo.getCode()+" 名称："+vo.getName()+" 时间："+vo.getDate()+" 资产："+vo.getMoney()); 
-		  
-		   
 		  } 
 		  return GsonUtil.buildMap(0, "success", null);
 		} 
@@ -195,41 +185,15 @@ public class CreditController {
 	@RequestMapping(value = "/submit", method = POST, produces = "application/json; charset=utf-8")	
 	@ResponseBody
 	public Map<String, Object> submit() {
-		//public Map<String, Object> submit(@RequestBody CreditDTO creditDTO ) {
-		System.out.println("提交————————————————————————————————————————***********");
 		//查询临时表数据
-		List<CreditImportTempEntity> entities = creditImportTempService.findAllTemp();
-		System.out.println("size :"+entities.size());
+		List<CreditImportTempEntity> temps = creditImportTempService.findAllTemp();
+		System.out.println("size :"+temps.size());
 		//循环每条数据并插入正式表，同时总分表加上相应数据,判断导入数据的时效性
-		for(CreditImportTempEntity entity:entities) {
-			CreditImportRecordEntity record = CreditUtil.changeTempToRecord(entity);
-			System.out.println("entity: "+ entity.toString());
-			System.out.println("record: "+ record.toString());
-			//插入总分表   begin
-			CreditUserTotalEntity userTotalEntity =  creditUserTotalService.findByClientId(record.getClientId());
-			
-			//如果用户总分数表无此用户，则新增
-			if(userTotalEntity == null) {
-				userTotalEntity = new CreditUserTotalEntity();
-				userTotalEntity.setClientId(record.getClientId());
-				userTotalEntity.setClientName(record.getClientName());
-
-				userTotalEntity.setDepartmentCode(record.getDepartmentCode());
-				userTotalEntity.setDepartmentDesc(record.getDepartmentDesc());
-				userTotalEntity.setMobil(record.getMobile());
-				userTotalEntity.setTotal(0);
-				creditUserTotalService.addEntity(userTotalEntity);
-			}
-			//总分数更新,判断当前时间小于失效时间的数据，注意数据格式 20200918
-			if(Integer.parseInt(record.getEndDate()) >= DateUtil.DateToStringAsDayWithoutLine(new Date())) {
-				userTotalEntity.setTotal(userTotalEntity.getTotal()+record.getNum());
-				creditUserTotalService.addEntity(userTotalEntity);//更新
-			}
-			System.out.println("总分表插入完成----");
-			//插入总分表   end
-			//插入正式记录表
-			creditImportRecordService.addRecord(record);	
-
+		//判断导入数据的失效日期，如果小于当天 ，提示无法导入 
+		
+		for(CreditImportTempEntity temp:temps) {
+			//插入用户表，插入总分表   //插入正式记录表 end	
+			mallUserService.addCreditScore(temp);								
 		}
 		System.out.println("总记录插入完成----");
 		//最后清空临时表数据

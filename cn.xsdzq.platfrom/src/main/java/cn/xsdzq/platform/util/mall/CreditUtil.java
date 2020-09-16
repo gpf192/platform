@@ -3,9 +3,9 @@ package cn.xsdzq.platform.util.mall;
 import java.util.List;
 
 import cn.xsdzq.platform.entity.mall.CreditEntity;
-import cn.xsdzq.platform.entity.mall.CreditImportRecordEntity;
+import cn.xsdzq.platform.entity.mall.CreditRecordEntity;
 import cn.xsdzq.platform.entity.mall.CreditImportTempEntity;
-import cn.xsdzq.platform.entity.mall.CreditUserTotalEntity;
+import cn.xsdzq.platform.entity.mall.MallUserInfoEntity;
 import cn.xsdzq.platform.model.mall.CreditDTO;
 import cn.xsdzq.platform.model.mall.CreditImportRecordDTO;
 import cn.xsdzq.platform.model.mall.CreditImportTempDTO;
@@ -38,30 +38,28 @@ public class CreditUtil {
 		return entity;
 		}
 	
-	public static CreditUserTotalDTO convertCreditUserTotalDTOByEntity(CreditUserTotalEntity entity) {
+	public static CreditUserTotalDTO convertCreditUserTotalDTOByEntity(MallUserInfoEntity entity) {
 		CreditUserTotalDTO dto = new CreditUserTotalDTO();
 		dto.setId(entity.getId());
-		dto.setClientId(entity.getClientId());
-		dto.setClientName(entity.getClientName());
-		dto.setDepartmentCode(entity.getDepartmentCode());
-		dto.setDepartmentDesc(entity.getDepartmentDesc());
-		dto.setMobile(entity.getMobile());
-		dto.setTotal(entity.getTotal());
+		dto.setClientId(entity.getMallUserEntity().getClientId());
+		dto.setClientName(entity.getMallUserEntity().getClientName());
+		dto.setDepartmentCode(entity.getMallUserEntity().getDepartmentCode());
+		dto.setDepartmentDesc(entity.getMallUserEntity().getDepartmentName());
+		dto.setMobile(entity.getMallUserEntity().getMobile());
+		dto.setTotal(entity.getCreditScore());
 		
 		return dto;
 	}
 	
-	public static CreditImportRecordDTO convertCreditImportRecordDTOByEntity(CreditImportRecordEntity entity) {
+	public static CreditImportRecordDTO convertCreditImportRecordDTOByEntity(CreditRecordEntity entity) {
 		CreditImportRecordDTO dto = new CreditImportRecordDTO();
 		dto.setId(entity.getId());
-		dto.setClientId(entity.getClientId());
-		dto.setClientName(entity.getClientName());
-		dto.setDepartmentCode(entity.getDepartmentCode());
-		dto.setDepartmentDesc(entity.getDepartmentDesc());
-		dto.setMobile(entity.getMobile());
-		dto.setCategoryName(entity.getCategoryName());
-		dto.setCategoryCode(entity.getCategoryCode());
-		dto.setNum(entity.getNum());
+		dto.setClientId(entity.getMallUserEntity().getClientId());
+		dto.setClientName(entity.getMallUserEntity().getClientName());
+		
+		dto.setCategoryName(entity.getItem());
+		dto.setCategoryCode(entity.getItemCode());
+		dto.setNum(entity.getIntegralNumber());
 		dto.setBeginDate(entity.getBeginDate());
 		dto.setEndDate(entity.getEndDate());
 		return dto;
@@ -93,23 +91,23 @@ public class CreditUtil {
 		   vo.setDepartmentCode(String.valueOf(lo.get(4)));
 		   vo.setCategoryName(String.valueOf(lo.get(5)));
 		   vo.setCategoryCode(String.valueOf(lo.get(6)));
-		   vo.setNum(Long.parseLong(String.valueOf(lo.get(7))));
+		   vo.setNum(Integer.parseInt(String.valueOf(lo.get(7))));
 		   vo.setBeginDate(String.valueOf(lo.get(8)));
 		   vo.setEndDate(String.valueOf(lo.get(9)));
 		   
 		return vo;
 	}
-	//导入表格的临时类转换为正式实体类
-	public static CreditImportRecordEntity changeTempToRecord(CreditImportTempEntity temp) {
-		CreditImportRecordEntity entity = new CreditImportRecordEntity();
-		entity.setClientId(temp.getClientId());
-		entity.setClientName(temp.getClientName());
-		entity.setDepartmentCode(temp.getDepartmentCode());
-		entity.setDepartmentDesc(temp.getDepartmentDesc());
-		entity.setMobile(temp.getMobile());
-		entity.setCategoryName(temp.getCategoryName());
-		entity.setCategoryCode(temp.getCategoryCode());
-		entity.setNum(temp.getNum());
+	//导入表格的临时类转换为正式实体类,  不用此方法 
+	public static CreditRecordEntity changeTempToRecord(CreditImportTempEntity temp) {
+		CreditRecordEntity entity = new CreditRecordEntity();
+	//	entity.setClientId(temp.getClientId());
+		//entity.setClientName(temp.getClientName());
+		//entity.setDepartmentCode(temp.getDepartmentCode());
+		//entity.setDepartmentDesc(temp.getDepartmentDesc());
+		//entity.setMobile(temp.getMobile());
+		//entity.setCategoryName(temp.getCategoryName());
+		//entity.setCategoryCode(temp.getCategoryCode());
+		//entity.setNum(temp.getNum());
 		entity.setBeginDate(temp.getBeginDate());
 		entity.setEndDate(temp.getEndDate());
 		return entity;
