@@ -4,6 +4,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -25,11 +26,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-
+import cn.xsdzq.platform.entity.CategoryEntity;
+import cn.xsdzq.platform.entity.lcj.EmpEntity;
 import cn.xsdzq.platform.entity.mall.CreditEntity;
 import cn.xsdzq.platform.entity.mall.CreditRecordEntity;
 import cn.xsdzq.platform.entity.mall.CreditImportTempEntity;
 import cn.xsdzq.platform.entity.mall.MallUserInfoEntity;
+import cn.xsdzq.platform.model.CategoryDTO;
 import cn.xsdzq.platform.model.Pagination;
 import cn.xsdzq.platform.model.mall.CreditDTO;
 import cn.xsdzq.platform.model.mall.CreditImportRecordDTO;
@@ -39,9 +42,11 @@ import cn.xsdzq.platform.service.mall.CreditImportRecordService;
 import cn.xsdzq.platform.service.mall.CreditImportTempService;
 import cn.xsdzq.platform.service.mall.CreditService;
 import cn.xsdzq.platform.service.mall.MallUserService;
+import cn.xsdzq.platform.util.CategoryUtil;
 import cn.xsdzq.platform.util.DateUtil;
 import cn.xsdzq.platform.util.GsonUtil;
 import cn.xsdzq.platform.util.ImportExcelUtil;
+import cn.xsdzq.platform.util.MethodUtil;
 import cn.xsdzq.platform.util.PublicUtil;
 import cn.xsdzq.platform.util.mall.CreditUtil;
 
@@ -75,17 +80,56 @@ public class CreditController {
 		creditService.addCredit(entity);
 		return GsonUtil.buildMap(0, "success", null);
 	}
-
+	
+	@RequestMapping(value = "/getAllItems", produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> getAllItems() {
+		List<CreditEntity> list = creditService.getCreditEntities();
+		List<CreditDTO> cDtos = new ArrayList<CreditDTO>();
+		for (CreditEntity entity : list) {
+			CreditDTO dto = CreditUtil.convertCreditDTOByEntity(entity);
+			cDtos.add(dto);
+		}
+		
+		return GsonUtil.buildMap(0, "ok", cDtos);
+	}
+	
+//分页查询项目类型
 	@GetMapping(value = "/all")
-	public Map<String, Object> getCredit() {
-
-		List<CreditEntity> entities = creditService.getCreditEntities();
+	public Map<String, Object> getCredit(HttpServletRequest request, @RequestParam String name, @RequestParam String code,
+			@RequestParam int pageNumber,@RequestParam int pageSize) {
+		int sum = 0 ;
+		
+		List<CreditEntity> entities = null;
+		int num = MethodUtil.getMethodNum(name, code);
+		
+		if(num == 1) {
+			//全量查找
+			entities = creditService.findByOrderByCategoryCodeDesc(pageNumber, pageSize);
+			sum = creditService.countAll();
+		}
+		if(num == 2) {
+			//按两者
+			entities = creditService.findByCategoryNameLikeAndCategoryCodeLikeOrderByCategoryCodeDesc(name, code, pageNumber, pageSize);
+			sum = creditService.countByCategoryNameLikeAndCategoryCodeLike(name, code);
+		}
+		if(num == 3) {
+			//按前者
+			entities = creditService.findByCategoryNameLikeOrderByCategoryCodeDesc(name, pageNumber, pageSize);
+			sum = creditService.countByCategoryNameLike(name);
+		}
+		if(num == 4) {
+			//按后者
+			entities = creditService.findByCategoryCodeLikeOrderByCategoryCodeDesc(code, pageNumber, pageSize);
+			sum = creditService.countByCategoryCodeLike(code);
+		}
 		List<CreditDTO> cDtos = new ArrayList<CreditDTO>();
 		for (CreditEntity entity : entities) {
 			CreditDTO dto = CreditUtil.convertCreditDTOByEntity(entity);
 			cDtos.add(dto);
 		}
-		return GsonUtil.buildMap(0, "ok", cDtos);
+		Pagination pagination = new Pagination(pageNumber, pageSize, sum);
+		return GsonUtil.buildMap(0, "ok", cDtos,pagination);
 	}
 	
 
@@ -99,25 +143,115 @@ public class CreditController {
 	}
 	
 	
-	//查询用户总积分数
+	//分页查询用户总积分数
 	@GetMapping(value = "/getUserCreditTotal")
-	public Map<String, Object> getUserCreditTotal(HttpServletRequest request, @RequestParam int pageNumber,@RequestParam int pageSize) {
+	public Map<String, Object> getUserCreditTotal(HttpServletRequest request, @RequestParam String username,@RequestParam String clientId,
+			@RequestParam String mobile,@RequestParam int pageNumber,@RequestParam int pageSize) {
 		int sum = 0 ;
-		List<MallUserInfoEntity> presentCardEntities = mallUserService.findByOrderByCreditScoreDesc(pageNumber, pageSize);
+		
+		int num = MethodUtil.getEmpMethodNum(username,clientId,mobile);
+		List<MallUserInfoEntity> entities = null;
+		if(num == 1) {
+			//全量查找
+			entities = mallUserService.findByOrderByCreditScoreDesc(pageNumber, pageSize);
+			sum = mallUserService.countAll();
+		}
+		if(num == 2) {
+			//全部
+			entities = mallUserService.findByMallUserEntity_clientNameLikeAndClentIdLikeAndMallUserEntity_moblieLikeOrderByCreditScoreDesc(username, clientId, 
+					mobile, pageNumber, pageSize);
+			sum = mallUserService.countByMallUserEntity_clientNameLikeAndClentIdLikeAndMallUserEntity_moblieLike(username, clientId, mobile);
+		}
+		if(num == 3) {
+			//按a
+			entities = mallUserService.findByMallUserEntity_clientNameLikeOrderByCreditScoreDesc(username, pageNumber, pageSize);
+			sum = mallUserService.countByMallUserEntity_clientNameLike(username);
+		}
+		if(num == 4) {
+			//b
+			entities = mallUserService.findByClientIdLikeOrderByCreditScoreDesc(clientId, pageNumber, pageSize);
+			sum = mallUserService.countByClientIdLike(clientId);
+		}
+		
+		if(num == 5) {
+			//c
+			entities =mallUserService.findByMallUserEntity_moblieLikeOrderByCreditScoreDesc(mobile, pageNumber, pageSize) ;
+			sum = mallUserService.countByMallUserEntity_moblieLike(mobile);
+		}
+		if(num == 6) {
+			//按ab
+			entities =mallUserService.findByMallUserEntity_clientNameLikeAndClentIdLikeOrderByCreditScoreDesc(username, clientId, pageNumber, pageSize);
+			sum = mallUserService.countByMallUserEntity_clientNameLikeAndClentIdLike(username, clientId);
+		}
+		if(num == 7) {
+			//按ac
+			entities = mallUserService.findByMallUserEntity_clientNameLikeAndMallUserEntity_moblieLikeOrderByCreditScoreDesc(username, mobile, pageNumber, pageSize);
+			sum = mallUserService.countByMallUserEntity_clientNameLikeAndMallUserEntity_moblieLike(username, mobile);
+		}
+		if(num == 8) {
+			//按bc
+			entities = mallUserService.findByClientIdLikeAndMallUserEntity_moblieLikeOrderByCreditScoreDesc(clientId, mobile, pageNumber, pageSize);
+			sum = mallUserService.countByClientIdLikeAndMallUserEntity_moblieLike(clientId, mobile);
+		}
+
 		List<CreditUserTotalDTO> dtos = new ArrayList<CreditUserTotalDTO>();
-		for (MallUserInfoEntity entity : presentCardEntities) {
+		for (MallUserInfoEntity entity : entities) {
 			CreditUserTotalDTO dto = CreditUtil.convertCreditUserTotalDTOByEntity(entity);
 			dtos.add(dto);
 		}
-		sum = mallUserService.countAll();
 		Pagination pagination = new Pagination(pageNumber, pageSize, sum);
 		return GsonUtil.buildMap(0, "ok", dtos,pagination);
 	}
 	
-	//查询用户积分导入明细
+	//分页查询用户积分明细
 	@GetMapping(value = "/getCreditImportRecord")
-	public Map<String, Object> getCreditImportRecord(HttpServletRequest request, @RequestParam int pageNumber,@RequestParam int pageSize) {
-		int sum = 0 ;
+	public Map<String, Object> getCreditImportRecord(HttpServletRequest request, @RequestParam String username,
+			@RequestParam String clientId,
+			@RequestParam String itemCode,@RequestParam int pageNumber,@RequestParam int pageSize) {
+		int sum = 0 ;		
+		int num = MethodUtil.getEmpMethodNum(username,clientId,itemCode);
+		List<CreditRecordEntity> entities = null;
+		if(num == 1) {
+			//全量查找
+			entities = creditImportRecordService.;
+			sum = creditImportRecordService.;
+		}
+		if(num == 2) {
+			//abc
+			entities = creditImportRecordService.;
+			sum = creditImportRecordService.;
+		}
+		if(num == 3) {
+			//abc
+			entities = creditImportRecordService.;
+			sum = creditImportRecordService.;
+		}
+		if(num == 4) {
+			//abc
+			entities = creditImportRecordService.;
+			sum = creditImportRecordService.;
+		}
+		if(num == 5) {
+			//abc
+			entities = creditImportRecordService.;
+			sum = creditImportRecordService.;
+		}
+		if(num == 6) {
+			//abc
+			entities = creditImportRecordService.;
+			sum = creditImportRecordService.;
+		}
+		if(num == 7) {
+			//abc
+			entities = creditImportRecordService.;
+			sum = creditImportRecordService.;
+		}
+		if(num == 8) {
+			//abc
+			entities = creditImportRecordService.;
+			sum = creditImportRecordService.;
+		}
+		
 		List<CreditRecordEntity> presentCardEntities = creditImportRecordService.findByOrderByBeginDateDesc(pageNumber, pageSize);
 		List<CreditImportRecordDTO> dtos = new ArrayList<CreditImportRecordDTO>();
 		for (CreditRecordEntity entity : presentCardEntities) {
@@ -135,17 +269,12 @@ public class CreditController {
 		  MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;  
 		  InputStream in =null; 
 		  List<List<Object>> listob = null; 
-		  MultipartFile file = multipartRequest.getFile("upfile"); 
-		  System.out.println("111------"+file.getOriginalFilename()+" size: "+file.getSize()+" tostring: "+file.toString());
-	
+		  MultipartFile file = multipartRequest.getFile("upfile"); 	
 		  if(file.isEmpty()){ 
 		   throw new Exception("文件不存在！"); 
 		  } 
-
 		  in = file.getInputStream(); 
-		  System.out.println("2222------");
 		  listob = new ImportExcelUtil().getBankListByExcel(in,file.getOriginalFilename()); 
-			System.out.println("5555------");
 
 		  in.close(); 
 		System.out.println("end------");
@@ -165,6 +294,10 @@ public class CreditController {
 	 @RequestMapping(value = "/deleteTempData", method = POST, produces = "application/json; charset=utf-8")
 		@ResponseBody
 		public Map<String, Object> deleteTempData() {
+			List<CreditImportTempEntity> temps = creditImportTempService.findAllTemp();
+			  if(temps.size()==0) {
+					return GsonUtil.buildMap(1, "当前无数据", null);	 
+			  }
 		 	creditImportTempService.deleteAllTemp();
 			return GsonUtil.buildMap(0, "success", null);
 		}
@@ -193,7 +326,10 @@ public class CreditController {
 		System.out.println("size :"+temps.size());
 		//判断数据格式
 		  //判断字段格式
-		  
+		  if(temps.size()==0) {
+				return GsonUtil.buildMap(1, "当前无数据，请先导入", null);
+ 
+		  }
 			for (CreditImportTempEntity entity : temps) {
 				if(!PublicUtil.isInteger(entity.getNum())) {
 					//num不为数字
@@ -205,6 +341,15 @@ public class CreditController {
 				}
 				if(Integer.parseInt(entity.getEndDate()) < Integer.parseInt(DateUtil.Dateymd(new Date())) ) {
 					return GsonUtil.buildMap(1, "client_id:"+entity.getClientId()+"失效日期小于当前日期，无法导入", null);
+
+				}
+				if(Integer.parseInt(entity.getEndDate()) < Integer.parseInt(DateUtil.Dateymd(new Date())) ) {
+					return GsonUtil.buildMap(1, "client_id:"+entity.getClientId()+"失效日期小于当前日期，无法导入", null);
+
+				}
+
+				if(PublicUtil.stringToInt(entity.getEndDate()) < PublicUtil.stringToInt(entity.getBeginDate()) ) {
+					return GsonUtil.buildMap(1, "client_id:"+entity.getClientId()+"失效日期小于生效日期，无法导入", null);
 
 				}
 			}

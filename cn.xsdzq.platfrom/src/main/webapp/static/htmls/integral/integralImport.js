@@ -133,7 +133,7 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 			//	$scope.formData={};
 				$scope.getEmpList(50);//此时再次查询 应该是没有数据
 			} else {
-				layerUtils.iMsg(-1,"删除失败");
+				layerUtils.iMsg(-1,data.respMsg);
 				$scope.getEmpList(50)
 			}
 		});

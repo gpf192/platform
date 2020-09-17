@@ -44,6 +44,9 @@ public class MallUserInfoEntity implements Serializable {
 	@Column(name = "user_level", columnDefinition = "tinyint default 0")
 	private int userLevel = 0;
 	
+	@Column(name = "client_id", insertable = false, updatable = false)
+	private String clientId ;
+	
 	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "client_id", referencedColumnName = "client_id")
 	private MallUserEntity mallUserEntity;
@@ -58,6 +61,14 @@ public class MallUserInfoEntity implements Serializable {
 	@LastModifiedDate
 	private Date modifytime;
 
+
+	public String getClientId() {
+		return clientId;
+	}
+
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
+	}
 
 	public Long getId() {
 		return id;
@@ -113,6 +124,13 @@ public class MallUserInfoEntity implements Serializable {
 
 	public void setModifytime(Date modifytime) {
 		this.modifytime = modifytime;
+	}
+
+	@Override
+	public String toString() {
+		return "MallUserInfoEntity [id=" + id + ", creditScore=" + creditScore + ", sumScore=" + sumScore
+				+ ", userLevel=" + userLevel + ", clientId=" + clientId + ", mallUserEntity=" + mallUserEntity
+				+ ", createtime=" + createtime + ", modifytime=" + modifytime + "]";
 	}
 
 }

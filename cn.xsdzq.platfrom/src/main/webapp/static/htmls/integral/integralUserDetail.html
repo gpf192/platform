@@ -36,10 +36,9 @@
 				</div>
 				&nbsp
 				<div class="form-group ">
-					<label  for="searchTitle">手机号:</label>					
-						<input type="text" class="form-control input-300 " id="mobil" name="mobil"
-						ng-model="formData.mobil" placeholder="请输入关键字"></input>
-
+					<label class="control-label text-right">项目类别:</label>
+					<select class="form-control" ng-model="formData.category"
+							ng-options="item.categoryName for item in categoryList"></select>
 				</div>
 				&nbsp
 				<input type="button" value="查询" class="btn btn-primary"
@@ -95,7 +94,7 @@
                             <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">积分变化</div></th>
                             <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">生成时间</div></th>
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">生效时间</div></th>
                             <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">失效时间</div></th>
                     </tr>

@@ -9,7 +9,14 @@ public class PublicUtil {
 	        Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");  
 	        return pattern.matcher(str).matches();  
 	  }
+	  
+	  public static int stringToInt(String str) {  
+	         
+	        return Integer.parseInt(str) ;
+	  }
+	  
 	public static void main(String[] args) {
-		System.out.println(!isInteger("jj"));
+		//System.out.println(!isInteger("jj"));
+		System.out.println(stringToInt("20200105") < stringToInt("20200106"));
 	}
 }

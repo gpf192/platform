@@ -2,6 +2,7 @@ ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', '
 function integralUserDetailController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils,utils) {
 	$scope.userVoteList= [];
 	$scope.formData = {};
+	$scope.categoryList = [];
 	$scope.init=function(){
 		var data = {
 				"one" : {
@@ -15,18 +16,29 @@ function integralUserDetailController($scope, $http, $state, $stateParams, $grid
 				}
 			}
 		$scope.$emit("changeNavigation", data);
-	
+		$http.get(httpUtils.url.getAllItems, {}).success(function(data) {
+			if (data.resCode == 0) {
+				$scope.categoryList = data.result;
+				//设置筛选条件为默认
+				for(var k = 0; k < $scope.categoryList.length; k++){
+					if($scope.categoryList[k].categoryName == "全部"){
+						$scope.formData.category = $scope.categoryList[k];	
+					}
+				}
+				$scope.getEmpList(100);
+			}
+		});
 		
-		$scope.getEmpList(100);
+		
 		$scope.currentPage = {
 				page : 0
 			};
 			$scope.selectNumList = [{
-				num : 10
-			}, {
-				num : 50
-			}, {
 				num : 100
+			}, {
+				num : 150
+			}, {
+				num : 200
 			}];
 			$scope.selectNum = $scope.selectNumList[0];	
 			$scope.$watch("selectNum.num", function(newValue, oldValue) {
@@ -41,24 +53,24 @@ function integralUserDetailController($scope, $http, $state, $stateParams, $grid
 		var url = httpUtils.url.getCreditImportRecord;
 		var username = "";
 		var clientId = "";
-		var votes_source = "";
+		var itemCode = "";
 		if(!utils.isEmpty($scope.formData.username)) {
-			username = $scope.formData.username;
+			username = "%"+$scope.formData.username+"%";
 		}
 		if(!utils.isEmpty($scope.formData.clientId)) {
-			clientId = $scope.formData.clientId;
+			clientId = "%"+$scope.formData.clientId+"%";
 		}
-		
+		console.log("11-"+$scope.formData.category.categoryCode);
 		var params = {
 			pageNumber : 0,
 			pageSize : pageSize,
 			username : username,
 			clientId : clientId,
-			sourceId : votes_source
+			itemCode : $scope.formData.category.categoryCode
 		};
 		var settings = {
 			url : url,
-			showPage : 1,
+			showPage : 7,
 			pageSize : pageSize,
 			putDataList : "userVoteList"
 		};
@@ -109,7 +121,13 @@ function integralUserDetailController($scope, $http, $state, $stateParams, $grid
 				newObj["客户号"] = 	data.clientId;
 				newObj["手机号"] = 	data.mobile;
 				newObj["营业部"] = 	data.departmentDesc;
-				newObj["总积分"] = 	data.total;
+				newObj["营业部编码"] = 	data.departmentDesc;
+				
+				newObj["项目名称"] = 	data.userName;
+				newObj["项目编码"] = 	data.clientId;
+				newObj["积分变化"] = 	data.mobile;
+				newObj["生成时间"] = 	data.departmentDesc;
+				newObj["失效时间"] = 	data.departmentDesc;
 				
 			}
 			arr.push(newObj);

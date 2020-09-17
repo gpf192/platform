@@ -1,6 +1,7 @@
 ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils' ];
 function integralallocationController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils) {
 	$scope.commodityclassifyList = [];
+	$scope.formData = {};
 	$scope.init=function(){
 		var data = {
 				"one" : {
@@ -8,23 +9,23 @@ function integralallocationController($scope, $http, $state, $stateParams, $grid
 					goto:""
 				},
 				"two" : {
-					name : "商品类别配置 ",
+					name : "项目类别配置 ",
 					goto:"commodityclassify"
 
 				}
 			}
 		$scope.$emit("changeNavigation", data);
-		$scope.getCommodityclassifyList(100);
+		$scope.getCommodityclassifyList(50);
 		
 		$scope.currentPage = {
 				page : 0
 			};
 			$scope.selectNumList = [{
-				num : 10
-			}, {
 				num : 50
 			}, {
 				num : 100
+			}, {
+				num : 150
 			}];
 			$scope.selectNum = $scope.selectNumList[0];	
 			$scope.$watch("selectNum.num", function(newValue, oldValue) {
@@ -66,8 +67,20 @@ function integralallocationController($scope, $http, $state, $stateParams, $grid
 	
 	$scope.getCommodityclassifyList = function(pageSize) {
 		
+		var name = "";
+		var code = "";
+		if (!angular.isEmpty($scope.formData.name) ) {
+			//如果用户未输入或者输入为空格 ， 该参数赋值为空
+			name = "%"+$scope.formData.name+"%";		
+		}
+		if (!angular.isEmpty($scope.formData.code) ) {
+			//如果用户未输入或者输入为空格 ， 该参数赋值为空
+			code = "%"+$scope.formData.code+"%";		
+		}
 		var url = httpUtils.url.getCreditCategory;
 		var params = {
+			name:name,
+			code:code,
 			pageNumber : 0,
 			pageSize : pageSize
 		};
@@ -103,7 +116,7 @@ function integralallocationController($scope, $http, $state, $stateParams, $grid
         } 
 
 		layerUtils.iConfirm("是否修该此产品信息？", function() {
-			console.log(param);// cardmodify   integraldetail
+			console.log(param);
 			$state.go("integralModify", {
 				param : param
 			});
@@ -139,7 +152,7 @@ function integralallocationController($scope, $http, $state, $stateParams, $grid
 	        }
 			layerUtils.iMsg(-1, "删除成功");
 			$scope.selected = [];
-			$scope.getCommodityclassifyList(100);
+			$scope.getCommodityclassifyList(50);
 			
 		}, function() {
 			console.log("取消");

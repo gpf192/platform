@@ -43,11 +43,11 @@ public class CreditRecordEntity implements Serializable {
 	private String reasonCode;
 	
 		
-	// 项目名称
+	// 项目名称，
 	@Column(name = "item")
 	private String item;
 
-		// 项目代码
+		// 项目代码，此处不与项目类关联， 保持导入记录明细，避免项目类被删除后，找不到记录
 	@Column(name = "item_code")
 	private String itemCode;
 	
@@ -76,6 +76,9 @@ public class CreditRecordEntity implements Serializable {
 	@Column(name = "record_time", nullable = false)
 	private Date recordTime;
 	
+	@Column(name = "client_id", insertable = false, updatable = false)
+	private String clientId;
+
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "client_id", referencedColumnName = "client_id")
 	private MallUserEntity mallUserEntity;

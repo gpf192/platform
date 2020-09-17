@@ -11,11 +11,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+import cn.xsdzq.platform.dao.mall.CreditCategoryRepository;
 import cn.xsdzq.platform.dao.mall.CreditRecordRepository;
 import cn.xsdzq.platform.dao.mall.MallUserInfoRepository;
 import cn.xsdzq.platform.dao.mall.MallUserRepository;
 import cn.xsdzq.platform.dao.mall.PageMallUserInfoRepository;
+import cn.xsdzq.platform.entity.mall.CreditEntity;
 import cn.xsdzq.platform.entity.mall.CreditImportTempEntity;
 import cn.xsdzq.platform.entity.mall.CreditRecordEntity;
 import cn.xsdzq.platform.entity.mall.MallUserEntity;
@@ -42,6 +43,8 @@ public class MallUserServiceImpl implements MallUserService {
 	@Autowired
 	private PageMallUserInfoRepository pageMallUserInfoRepository;
 	
+	@Autowired
+	private CreditCategoryRepository creditCategoryRepository;
 	
 	@Override
 	public void addMallUser(MallUserEntity mallUserEntity) {
@@ -80,8 +83,18 @@ public class MallUserServiceImpl implements MallUserService {
 			owner.setDepartmentName(temp.getDepartmentDesc());
 			mallUserRepository.save(owner);//此处测试是否更新
 		}
-		// 3.项目的定义是不是需要
-
+		// 3.项目的类别，查询是否存在项目code，不存在则新建
+		CreditEntity creditEntity = creditCategoryRepository.findByCategoryCode(temp.getCategoryCode());
+		if (creditEntity == null){
+			creditEntity = new CreditEntity();
+			creditEntity.setCategoryCode(temp.getCategoryCode());
+			creditEntity.setCategoryName(temp.getCategoryName());
+			creditEntity.setIntegralValue(temp.getNum());
+			creditEntity.setFlag("1");
+			creditEntity.setCreatetime(new Date());
+			
+			creditCategoryRepository.save(creditEntity);
+		}
 		// 4.导入附件记录
 		//此处只写增加记录
 		String nowFlag = DateUtil.getStandardDate(new Date());
@@ -119,7 +132,7 @@ public class MallUserServiceImpl implements MallUserService {
 		MallUserEntity mallUserEntity = mallUserRepository.findByClientId(clientId);
 		return mallUserEntity;
 	}
-
+	//分页查询
 	@Override
 	public List<MallUserInfoEntity> findByOrderByCreditScoreDesc(int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
@@ -135,22 +148,130 @@ public class MallUserServiceImpl implements MallUserService {
 		// TODO Auto-generated method stub
 		return (int) pageMallUserInfoRepository.count();
 	}
-
+//
 	@Override
-	public List<MallUserInfoEntity> findByClientIdOrderByCreditScoreDesc(String clientId, int pageNumber,
+	public List<MallUserInfoEntity> findByMallUserEntity_clientNameLikeOrderByCreditScoreDesc(String username, int pageNumber,
 			int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<MallUserInfoEntity> pages = pageMallUserInfoRepository.findByMallUserEntity_ClientIdOrderByCreditScoreDesc(clientId, pageRequest);
+		Page<MallUserInfoEntity> pages = pageMallUserInfoRepository.findByMallUserEntity_clientNameLikeOrderByCreditScoreDesc(username, pageRequest);
 			
 		List<MallUserInfoEntity> infos = pages.getContent();
 		return infos;
 	}
 
 	@Override
-	public int countByClientId(String clientId) {
+	public int countByMallUserEntity_clientNameLike(String username) {
 		// TODO Auto-generated method stub
-		return pageMallUserInfoRepository.countByMallUserEntity_ClientId(clientId);
+		return pageMallUserInfoRepository.countByMallUserEntity_clientNameLike(username);
+	}
+
+	@Override
+	public List<MallUserInfoEntity> findByClientIdLikeOrderByCreditScoreDesc(String clientId, int pageNumber,
+			int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		Page<MallUserInfoEntity> pages = pageMallUserInfoRepository.findByClientIdLikeOrderByCreditScoreDesc(clientId, pageRequest);
+			
+		List<MallUserInfoEntity> infos = pages.getContent();
+		return infos;
+	}
+
+	@Override
+	public int countByClientIdLike(String clientId) {
+		// TODO Auto-generated method stub
+		return pageMallUserInfoRepository.countByClientIdLike(clientId);
+
+	}
+
+	@Override
+	public List<MallUserInfoEntity> findByMallUserEntity_moblieLikeOrderByCreditScoreDesc(String moblie, int pageNumber,
+			int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		Page<MallUserInfoEntity> pages = pageMallUserInfoRepository.findByMallUserEntity_mobileLikeOrderByCreditScoreDesc(moblie, pageRequest);
+			
+		List<MallUserInfoEntity> infos = pages.getContent();
+		return infos;
+	}
+
+	@Override
+	public int countByMallUserEntity_moblieLike(String moblie) {
+		// TODO Auto-generated method stub
+		return pageMallUserInfoRepository.countByMallUserEntity_mobileLike(moblie);
+
+	}
+//
+	@Override
+	public List<MallUserInfoEntity> findByMallUserEntity_clientNameLikeAndClentIdLikeOrderByCreditScoreDesc(
+			String username, String clientId, int pageNumber, int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		Page<MallUserInfoEntity> pages = pageMallUserInfoRepository.findByMallUserEntity_clientNameLikeAndClientIdLikeOrderByCreditScoreDesc( username,  clientId, pageRequest);
+			
+		List<MallUserInfoEntity> infos = pages.getContent();
+		return infos;
+	}
+
+	@Override
+	public int countByMallUserEntity_clientNameLikeAndClentIdLike(String username, String clientId) {
+		// TODO Auto-generated method stub
+		return pageMallUserInfoRepository.countByMallUserEntity_clientNameLikeAndClientIdLike(username, clientId);
+	}
+
+	@Override
+	public List<MallUserInfoEntity> findByMallUserEntity_clientNameLikeAndMallUserEntity_moblieLikeOrderByCreditScoreDesc(
+			String username, String moblie, int pageNumber, int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		Page<MallUserInfoEntity> pages = pageMallUserInfoRepository.findByMallUserEntity_clientNameLikeAndMallUserEntity_mobileLikeOrderByCreditScoreDesc( username,  moblie, pageRequest);
+			
+		List<MallUserInfoEntity> infos = pages.getContent();
+		return infos;
+	}
+
+	@Override
+	public int countByMallUserEntity_clientNameLikeAndMallUserEntity_moblieLike(String username, String moblie) {
+		// TODO Auto-generated method stub
+		return pageMallUserInfoRepository.countByMallUserEntity_clientNameLikeAndMallUserEntity_mobileLike(username, moblie);
+
+	}
+
+	@Override
+	public List<MallUserInfoEntity> findByClientIdLikeAndMallUserEntity_moblieLikeOrderByCreditScoreDesc(
+			String clientId, String moblie, int pageNumber, int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		Page<MallUserInfoEntity> pages = pageMallUserInfoRepository.findByClientIdLikeAndMallUserEntity_mobileLikeOrderByCreditScoreDesc( clientId,  moblie, pageRequest);
+			
+		List<MallUserInfoEntity> infos = pages.getContent();
+		return infos;
+	}
+
+	@Override
+	public int countByClientIdLikeAndMallUserEntity_moblieLike(String clientId, String moblie) {
+		// TODO Auto-generated method stub
+		return pageMallUserInfoRepository.countByClientIdLikeAndMallUserEntity_mobileLike(clientId, moblie);
+
+	}
+//
+	@Override
+	public List<MallUserInfoEntity> findByMallUserEntity_clientNameLikeAndClentIdLikeAndMallUserEntity_moblieLikeOrderByCreditScoreDesc(
+			String username, String clientId, String moblie, int pageNumber, int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		Page<MallUserInfoEntity> pages = pageMallUserInfoRepository.findByMallUserEntity_clientNameLikeAndClientIdLikeAndMallUserEntity_mobileLikeOrderByCreditScoreDesc( username,  clientId, moblie, pageRequest);
+			
+		List<MallUserInfoEntity> infos = pages.getContent();
+		return infos;
+	}
+
+	@Override
+	public int countByMallUserEntity_clientNameLikeAndClentIdLikeAndMallUserEntity_moblieLike(String username,
+			String clientId, String moblie) {
+		// TODO Auto-generated method stub
+		return pageMallUserInfoRepository.countByMallUserEntity_clientNameLikeAndClientIdLikeAndMallUserEntity_mobileLike(username, clientId, moblie);
+
 	}
 
 

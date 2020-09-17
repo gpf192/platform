@@ -9,7 +9,7 @@ function integralqueryController($scope, $http, $state, $stateParams, $gridServi
 					goto:""
 				},
 				"two" : {
-					name : "客户积分查询",
+					name : "客户总积分查询",
 					goto:"userTIcketsList"
 
 				}
@@ -22,11 +22,11 @@ function integralqueryController($scope, $http, $state, $stateParams, $gridServi
 				page : 0
 			};
 			$scope.selectNumList = [{
-				num : 10
-			}, {
-				num : 50
-			}, {
 				num : 100
+			}, {
+				num : 150
+			}, {
+				num : 200
 			}];
 			$scope.selectNum = $scope.selectNumList[0];	
 			$scope.$watch("selectNum.num", function(newValue, oldValue) {
@@ -41,12 +41,15 @@ function integralqueryController($scope, $http, $state, $stateParams, $gridServi
 		var url = httpUtils.url.getUserCreditTotal;
 		var username = "";
 		var clientId = "";
-		var votes_source = "";
+		var mobile = "";
 		if(!utils.isEmpty($scope.formData.username)) {
-			username = $scope.formData.username;
+			username = "%"+$scope.formData.username+"%";
 		}
 		if(!utils.isEmpty($scope.formData.clientId)) {
-			clientId = $scope.formData.clientId;
+			clientId = "%"+$scope.formData.clientId+"%";
+		}
+		if(!utils.isEmpty($scope.formData.mobile)) {
+			mobile = "%"+$scope.formData.mobile+"%";
 		}
 		
 		var params = {
@@ -54,11 +57,11 @@ function integralqueryController($scope, $http, $state, $stateParams, $gridServi
 			pageSize : pageSize,
 			username : username,
 			clientId : clientId,
-			sourceId : votes_source
+			mobile : mobile
 		};
 		var settings = {
 			url : url,
-			showPage : 1,
+			showPage : 7,
 			pageSize : pageSize,
 			putDataList : "userVoteList"
 		};

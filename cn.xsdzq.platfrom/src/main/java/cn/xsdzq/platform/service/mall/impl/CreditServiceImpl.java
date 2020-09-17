@@ -6,11 +6,15 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.xsdzq.platform.dao.mall.CreditCategoryRepository;
+import cn.xsdzq.platform.dao.mall.PageCreditRepository;
 import cn.xsdzq.platform.entity.mall.CreditEntity;
+import cn.xsdzq.platform.entity.mall.PresentCardEntity;
 import cn.xsdzq.platform.service.mall.CreditService;
 
 @Service(value = "creditServiceImpl")
@@ -20,6 +24,9 @@ public class CreditServiceImpl implements CreditService{
 
 	@Autowired
 	private CreditCategoryRepository creditCategoryRepository;
+	
+	@Autowired
+	private PageCreditRepository pageCreditRepository;
 
 	@Override
 	@Transactional
@@ -42,6 +49,75 @@ public class CreditServiceImpl implements CreditService{
 		// TODO Auto-generated method stub
 		CreditEntity entity = creditCategoryRepository.findById(id).get();
 		creditCategoryRepository.delete(entity);
+	}
+
+	@Override
+	public CreditEntity getByCategoryCode(String code) {
+		// TODO Auto-generated method stub
+		return creditCategoryRepository.findByCategoryCode(code);
+	}
+	// 分页查询
+	@Override
+	public List<CreditEntity> findByOrderByCategoryCodeDesc(int pageNumber, int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		Page<CreditEntity> pages = pageCreditRepository.findByOrderByCategoryCodeDesc(pageRequest);	
+		List<CreditEntity> infos = pages.getContent();
+		return infos;
+	}
+
+	@Override
+	public int countAll() {
+		// TODO Auto-generated method stub
+		return (int) pageCreditRepository.count();	
+	}
+
+	@Override
+	public List<CreditEntity> findByCategoryCodeLikeOrderByCategoryCodeDesc(String code, int pageNumber, int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		Page<CreditEntity> pages = pageCreditRepository.findByCategoryCodeLikeOrderByCategoryCodeDesc(code, pageRequest);	
+		List<CreditEntity> infos = pages.getContent();
+		return infos;
+	}
+
+	@Override
+	public int countByCategoryCodeLike(String code) {
+		// TODO Auto-generated method stub
+		return pageCreditRepository.countByCategoryCodeLike(code);
+	}
+
+	@Override
+	public List<CreditEntity> findByCategoryNameLikeOrderByCategoryCodeDesc(String name, int pageNumber,
+			int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		Page<CreditEntity> pages = pageCreditRepository.findByCategoryNameLikeOrderByCategoryCodeDesc(name, pageRequest);	
+		List<CreditEntity> infos = pages.getContent();
+		return infos;
+	}
+
+	@Override
+	public int countByCategoryNameLike(String name) {
+		// TODO Auto-generated method stub
+		return pageCreditRepository.countByCategoryNameLike(name);
+	}
+
+
+	@Override
+	public List<CreditEntity> findByCategoryNameLikeAndCategoryCodeLikeOrderByCategoryCodeDesc(String name, String code,
+			int pageNumber, int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		Page<CreditEntity> pages = pageCreditRepository.findByCategoryNameLikeAndCategoryCodeLikeOrderByCategoryCodeDesc(name, code,pageRequest);	
+		List<CreditEntity> infos = pages.getContent();
+		return infos;
+	}
+
+	@Override
+	public int countByCategoryNameLikeAndCategoryCodeLike(String name, String code) {
+		// TODO Auto-generated method stub
+		return pageCreditRepository.countByCategoryNameLikeAndCategoryCodeLike(name, code);
 	}
 
 }
