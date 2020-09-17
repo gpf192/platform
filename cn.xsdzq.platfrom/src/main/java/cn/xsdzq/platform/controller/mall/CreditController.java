@@ -213,52 +213,50 @@ public class CreditController {
 		List<CreditRecordEntity> entities = null;
 		if(num == 1) {
 			//全量查找
-			entities = creditImportRecordService.;
-			sum = creditImportRecordService.;
+			entities = creditImportRecordService.findByOrderByRecordTimeDesc(pageNumber, pageSize);
+			sum = creditImportRecordService.countAll();
 		}
 		if(num == 2) {
 			//abc
-			entities = creditImportRecordService.;
-			sum = creditImportRecordService.;
+			entities = creditImportRecordService.findByMallUserEntity_ClientNameLikeAndClientIdLikeAndItemCodeLikeOrderByRecordTimeDesc(username, clientId, itemCode, pageNumber, pageSize);
+			sum = creditImportRecordService.countByMallUserEntity_ClientNameLikeAndClientIdLikeItemCodeLike(username, clientId, itemCode);
 		}
 		if(num == 3) {
-			//abc
-			entities = creditImportRecordService.;
-			sum = creditImportRecordService.;
+			//a
+			entities = creditImportRecordService.findByMallUserEntity_ClientNameLikeOrderByRecordTimeDesc(username, pageNumber, pageSize);
+			sum = creditImportRecordService.countByMallUserEntity_ClientNameLike(username);
 		}
 		if(num == 4) {
-			//abc
-			entities = creditImportRecordService.;
-			sum = creditImportRecordService.;
+			//b
+			entities = creditImportRecordService.findByClientIdLikeOrderByRecordTimeDesc(clientId, pageNumber, pageSize);
+			sum = creditImportRecordService.countByClientIdLike(clientId);
 		}
 		if(num == 5) {
-			//abc
-			entities = creditImportRecordService.;
-			sum = creditImportRecordService.;
+			//c
+			entities = creditImportRecordService.findByItemCodeLikeOrderByRecordTimeDesc(itemCode, pageNumber, pageSize);
+			sum = creditImportRecordService.countByItemCodeLike(itemCode);
 		}
 		if(num == 6) {
-			//abc
-			entities = creditImportRecordService.;
-			sum = creditImportRecordService.;
+			//ab
+			entities = creditImportRecordService.findByMallUserEntity_ClientNameLikeAndClientIdLikeOrderByRecordTimeDesc(username, clientId, pageNumber, pageSize);
+			sum = creditImportRecordService.countByMallUserEntity_ClientNameLikeAndClientIdLike(username, clientId);
 		}
 		if(num == 7) {
-			//abc
-			entities = creditImportRecordService.;
-			sum = creditImportRecordService.;
+			//ac
+			entities = creditImportRecordService.findByMallUserEntity_ClientNameLikeAndItemCodeLikeOrderByRecordTimeDesc(username, itemCode, pageNumber, pageSize);
+			sum = creditImportRecordService.countByMallUserEntity_ClientNameLikeAndItemCodeLike(username, itemCode);
 		}
 		if(num == 8) {
-			//abc
-			entities = creditImportRecordService.;
-			sum = creditImportRecordService.;
+			//bc
+			entities = creditImportRecordService.findByClientIdLikeAndItemCodeLikeOrderByRecordTimeDesc(clientId, itemCode, pageNumber, pageSize);
+			sum = creditImportRecordService.countByClientIdLikeAndItemCodeLike(clientId, itemCode);
 		}
 		
-		List<CreditRecordEntity> presentCardEntities = creditImportRecordService.findByOrderByBeginDateDesc(pageNumber, pageSize);
 		List<CreditImportRecordDTO> dtos = new ArrayList<CreditImportRecordDTO>();
-		for (CreditRecordEntity entity : presentCardEntities) {
+		for (CreditRecordEntity entity : entities) {
 			CreditImportRecordDTO dto = CreditUtil.convertCreditImportRecordDTOByEntity(entity);
 			dtos.add(dto);
 		}
-		sum = creditImportRecordService.countAll();
 		Pagination pagination = new Pagination(pageNumber, pageSize, sum);
 		return GsonUtil.buildMap(0, "ok", dtos,pagination);
 	}

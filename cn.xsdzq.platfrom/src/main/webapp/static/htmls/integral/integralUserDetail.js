@@ -60,13 +60,16 @@ function integralUserDetailController($scope, $http, $state, $stateParams, $grid
 		if(!utils.isEmpty($scope.formData.clientId)) {
 			clientId = "%"+$scope.formData.clientId+"%";
 		}
-		console.log("11-"+$scope.formData.category.categoryCode);
+		if(!"全部"== $scope.formData.category.categoryName){
+			itemCode = "%"+$scope.formData.category.categoryCode+"%";
+		}
+		//console.log("11-"+$scope.formData.category.categoryCode);
 		var params = {
 			pageNumber : 0,
 			pageSize : pageSize,
 			username : username,
 			clientId : clientId,
-			itemCode : $scope.formData.category.categoryCode
+			itemCode : itemCode
 		};
 		var settings = {
 			url : url,
