@@ -150,7 +150,7 @@ public class CreditImportRecordServiceImpl implements CreditImportRecordService{
 	public int countByMallUserEntity_ClientNameLikeAndClientIdLikeItemCodeLike(String username, String clientId,
 			String itemCode) {
 		// TODO Auto-generated method stub
-		return creditImportRecordRepository.countByMallUserEntity_ClientNameLikeAndClientIdLikeItemCodeLike(username,clientId, itemCode);
+		return creditImportRecordRepository.countByMallUserEntity_ClientNameLikeAndClientIdLikeAndItemCodeLike(username,clientId, itemCode);
 
 	}
 	

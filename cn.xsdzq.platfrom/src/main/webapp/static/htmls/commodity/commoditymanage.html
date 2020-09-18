@@ -23,13 +23,21 @@
 				&nbsp
 				<div class="form-group ">
 					<label  for="searchTitle">商品名称:</label>					
+						<input type="text" class="form-control input-300 " id="name" name="name"
+						ng-model="formData.name" placeholder="请输入关键字"></input>
+
+				</div>
+				&nbsp
+				&nbsp
+				<div class="form-group ">
+					<label  for="searchTitle">商品分类:</label>					
 						<input type="text" class="form-control input-300 " id="searchTitle" name="title"
 						ng-model="formData.title" placeholder="请输入关键字"></input>
 
 				</div>
 				&nbsp
 				<input type="button" value="查询" class="btn btn-primary"
-							ng-click="getCheckInfosByCategoryId(10)" />
+							ng-click="getCommodityList(50)" />
 			</form>
         <div  class="dataTables_wrapper form-inline" role="grid">
             <div class="row hide" ng-show="activityProductsList.length>0">
@@ -80,10 +88,12 @@
                         <th class="col-sm-1 text-center"><input type="checkbox" ng-click="selectAll($event)" ng-checked="isSelectedAll()" /></th>
                         <th class="col-sm-1 text-center">序号</th>        
                         <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">商品分类</th>
+                            aria-controls="datatable1" rowspan="1" colspan="1">所属分类</th>
                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1">商品名称</th>
-                            <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                       <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">商品代码</th>
+                       <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1">商品面值（元）</th>
                             <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1">实际价格（元）</th>
@@ -104,17 +114,19 @@
                 <tbody role="alert" aria-live="polite" aria-relevant="all">
                     <tr ng-repeat="commodity in commodityList">
                     <td >
-                            <input type="checkbox" name="selected" ng-checked="isSelected(commodity.id)" ng-click="updateSelection($event,commodity.id)" /></td>  
+                        <input type="checkbox" name="selected" ng-checked="isSelected(commodity.id)" ng-click="updateSelection($event,commodity.id)" /></td>  
                         <td >{{$index+selectNum["num"]*currentPage.page+1}}</td>
                         <td ><div style="white-space:nowrap;" >{{commodity.categoryName}}</div> </td> 
                         <td ><div style="white-space:nowrap;" >{{commodity.name}}</div> </td> 
-                       <td ><div style="white-space:nowrap;" >{{commodity.faceValue}}</div> </td> 
+                        <td ><div style="white-space:nowrap;" >{{commodity.code}}</div> </td> 
+                       
+                        <td ><div style="white-space:nowrap;" >{{commodity.faceValue}}</div> </td> 
                         <td ><div style="white-space:nowrap;">{{commodity.value}}</div> </td>
-                         <td ><div style="white-space:nowrap;">{{commodity.description}}</div> </td>
+                        <td ><div style="white-space:nowrap;">{{commodity.description}}</div> </td>
                         <td ><div style="white-space:nowrap;">{{commodity.storeNumber}}</div> </td>
-                         <td ><div style="white-space:nowrap;">{{commodity.convertNumber}}</div> </td>
-                          <td ><div style="white-space:nowrap;">{{commodity.storeUnused}}</div> </td>
-                         <td ><div style="white-space:nowrap;">{{commodity.status==0?"已上架":"已下架"}}</div> </td>
+                        <td ><div style="white-space:nowrap;">{{commodity.convertNumber}}</div> </td>
+                        <td ><div style="white-space:nowrap;">{{commodity.storeUnused}}</div> </td>
+                        <td ><div style="white-space:nowrap;">{{commodity.status==0?"已上架":"已下架"}}</div> </td>
                         <td ><div style="white-space:nowrap;">{{commodity.createtime}}</div> </td>
                  
                     </tr>

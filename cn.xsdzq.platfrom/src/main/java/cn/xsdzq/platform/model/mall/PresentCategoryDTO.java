@@ -1,11 +1,21 @@
 package cn.xsdzq.platform.model.mall;
 
-public class PresentCategory {
+public class PresentCategoryDTO {
 
 	private Long id;
 	private String name;
+	private String code;
 	private String flag;
 	private String createtime;
+	private int isNew;//0新增，1更改
+
+	public int getIsNew() {
+		return isNew;
+	}
+
+	public void setIsNew(int isNew) {
+		this.isNew = isNew;
+	}
 
 	public long getId() {
 		return id;
@@ -45,11 +55,20 @@ public class PresentCategory {
 		this.createtime = createtime;
 	}
 
-	@Override
-	public String toString() {
-		return "PresentCategory [id=" + id + ", name=" + name + ", flag=" + flag + ", createtime=" + createtime + "]";
+	public String getCode() {
+		return code;
 	}
 
-	
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	@Override
+	public String toString() {
+		return "PresentCategoryDTO [id=" + id + ", name=" + name + ", code=" + code + ", flag=" + flag + ", createtime="
+				+ createtime + "]";
+	}
+
+
 
 }

@@ -17,6 +17,7 @@ function commoditymodifyController($scope, $http, $state, $stateParams, $gridSer
 				}
 			}
 			$scope.$emit("changeNavigation", data);
+		
 		var param = utils.isEmptyObject($stateParams.param);
 		if(param){
 			$state.go("commoditymanage");
@@ -50,9 +51,49 @@ function commoditymodifyController($scope, $http, $state, $stateParams, $gridSer
 			$scope.presentStatusModel = $scope.presentStatusList[1];
 		}
 		angular.copy($stateParams.param,$scope.formData);
+		
+		document.getElementById("tempImage").src=$scope.formData.presentImage;
 	};
 	
-	
+
+	//图片上传元素添加监听
+	var readFront;
+	var imageInput = document.getElementById("image");
+	var tempImage = document.getElementById("tempImage");
+	var src1 = tempImage.src;
+	function imageLoad(){
+		imageInput.addEventListener("change", function() {
+			layerUtils.iLoading(true);
+			if (FileReader) {
+				var imgageFile = imageInput.files[0];
+				var fileType = imgageFile.type;
+				var immeArray = ['image/jpg', 'image/jpeg', 'image/png'];
+				var flag = false;
+				for (var i = 0; i < immeArray.length; i++) {
+					if (fileType == immeArray[i]) {
+						flag = true;
+					}
+				}
+				if (!flag) {
+					layerUtils.iMsg(-1, "上传文件的类型不正确，请选择图片上传！");
+					return false;
+				}
+				readFront = new FileReader();
+				readFront.readAsDataURL(imgageFile);
+				readFront.onload = function() {
+					layerUtils.iLoading(false);
+					var contentFront = readFront.result;
+					tempImage.src = "";
+					tempImage.src = contentFront;
+					//console.log(tempImage.src);
+				}
+			}else {
+				layerUtils.iAlert("当前浏览器不支持，请切换浏览器，推荐使用chrome浏览器");
+				//需要处理不支持的情况
+			}
+		});
+	}
+	imageLoad();
 	$scope.newBuild = function() {
 		var url = httpUtils.url.addCommodity;
 
@@ -62,14 +103,20 @@ function commoditymodifyController($scope, $http, $state, $stateParams, $gridSer
 		var value="";
 		var storeNumber="";
 		var status="";
-
+		var presentImage="";
+		var code="";
 		if(!utils.isEmpty($scope.formData.name)) {
 			name = $scope.formData.name;
 		}else {
 			layerUtils.iMsg(-1, "商品名称不能为空");
 			return;
 		}
-		
+		if(!utils.isEmpty($scope.formData.code)) {
+			code = $scope.formData.code;
+		}else {
+			layerUtils.iMsg(-1, "商品代码不能为空");
+			return;
+		}
 		if(!utils.isEmpty($scope.formData.faceValue)) {
 			faceValue = $scope.formData.faceValue;
 		}else {
@@ -99,12 +146,20 @@ function commoditymodifyController($scope, $http, $state, $stateParams, $gridSer
 			return;
 		}
 		console.log($scope.formData.id+"--9");
+		var image = tempImage.src;
+		//判断是否上传了图片
+		if(src1.length == image.length){
+			image = "";
+		}
+		$scope.formData.image=image;
 		var param = {
 				id:$scope.formData.id,
 				categoryId:$scope.formData.presentCategoryModel.id,
 				name:name,
+				code:code,
 				faceValue:faceValue,
 				value:value,
+				presentImage:$scope.formData.image,
 				storeNumber:storeNumber,
 				presentCategory:presentCategory,
 				status:status,

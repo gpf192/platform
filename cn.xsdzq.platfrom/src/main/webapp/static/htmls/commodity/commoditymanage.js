@@ -15,17 +15,17 @@ function commoditymanageController($scope, $http, $state, $stateParams, $gridSer
 				}
 			}
 		$scope.$emit("changeNavigation", data);
-		$scope.getCommodityList(100);
+		$scope.getCommodityList(50);
 		
 		$scope.currentPage = {
 				page : 0
 			};
 			$scope.selectNumList = [{
-				num : 10
-			}, {
 				num : 50
 			}, {
 				num : 100
+			}, {
+				num : 150
 			}];
 			$scope.selectNum = $scope.selectNumList[0];	
 			$scope.$watch("selectNum.num", function(newValue, oldValue) {
@@ -67,8 +67,10 @@ function commoditymanageController($scope, $http, $state, $stateParams, $gridSer
 	
 	$scope.getCommodityList = function(pageSize) {
 		
-		var url = httpUtils.url.commodity;
+		var url = httpUtils.url.getAllPresentPage;
 		var params = {
+				name:name,
+								
 			pageNumber : 0,
 			pageSize : pageSize
 		};
@@ -140,7 +142,7 @@ function commoditymanageController($scope, $http, $state, $stateParams, $gridSer
 	        }
 			layerUtils.iMsg(-1, "删除成功");
 			$scope.selected = [];
-			$scope.getCommodityList(100);
+			$scope.getCommodityList(50);
 			
 		}, function() {
 			console.log("取消");
@@ -148,80 +150,4 @@ function commoditymanageController($scope, $http, $state, $stateParams, $gridSer
 	}
 	
 
-	//导出为excel
-	$scope.exportToExcel=function(){ 
-		console.log("lalal")
-		var excelArrs = getExcelData();
-		var myDate = new Date();
-		 alasql.promise('SELECT * INTO XLSX("参与活动产品表-' + myDate+ '.xlsx",{headers:true}) FROM ?',[excelArrs])
-			.then(function (data) {
-			  if(data == 1){
-				$timeout(function(){
-				  console.log('数据导出成功！');
-				})
-			  }
-			});
-	};
-	 
-	//组装ecxel数据
-	function getExcelData() {
-		var arr =[];
-		angular.forEach($scope.activityProductsList, function(data, index, datas) {
-			var newObj = {	
-				
-			};
-			for(k=0;k<$scope.activityProductsList.length;k++){				
-				newObj["产品代码"] = 	data.code;
-				newObj["产品名称"] = 	data.name;
-				newObj["产品风险等级"] = 	data.riskLevel;
-				newObj["产品类型"] = 	data.type;
-				newObj["起购金额"] = 	data.initial_amount;
-				newObj["优惠信息"] = 	data.preferentialInfo;
-				newObj["是否为场外基金"] = 	data.flag;
-				newObj["是否扫描场内交易"] = 	data.scanFlag;
-				newObj["开放时间"] = 	data.begin_date;
-				newObj["截止时间"] = 	data.end_date;
-			}
-			arr.push(newObj);
-		});
-		return arr;
-	}
-//	var excelInput = document.getElementById("sendFile");
-//	function newBatchesBuild() {
-//		excelInput.addEventListener("change",function() {
-//
-//		});
-//	}
-//	
-//	newBatchesBuild();
-	$scope.newBatchesBuild = function() {
-		if(excelInput.files.length<=0) {
-		 	layerUtils.iMsg(-1, "请选择文件！");
-			return;
-		}
-		var loadExcel;
-		var excelFile = excelInput.files[0];
-	    var reader = new FileReader();
-	    reader.readAsBinaryString(excelFile);
-	    reader.onload = function(e) {
-	    	   var data = e.target.result;
-	    	   loadExcel = XLSX.read(data, {
-                   type: 'binary'
-               });
-               for(var i=0;i<loadExcel.SheetNames.length;i++){
-            	 var data = XLSX.utils.sheet_to_json(loadExcel.Sheets[loadExcel.SheetNames[i]]);
-            	 data.forEach(function(item) {
-            		 var url = httpUtils.url.addProduct;
-            			$http.post(url, item).success(function(data) {
-            				if (data.resCode == 0) {
-            				
-            				} else {
-            					
-            				}
-            			});
-            	 })
-               }
-	    }
-	    
-	}
 }

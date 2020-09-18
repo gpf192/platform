@@ -3,7 +3,9 @@ package cn.xsdzq.platform.model.mall;
 public class PresentDTO {
 	private long id;
 	private String name;
-	private String image;
+	private String code;
+
+	private String presentImage;
 
 	private long categoryId;
 	private String categoryName;
@@ -16,6 +18,12 @@ public class PresentDTO {
 	private String status;//状态，上上架/下架
 	private String createtime;
 	
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
 	public String getCreatetime() {
 		return createtime;
 	}
@@ -55,12 +63,7 @@ public class PresentDTO {
 	public String getDescription() {
 		return description;
 	}
-	public String getImage() {
-		return image;
-	}
-	public void setImage(String image) {
-		this.image = image;
-	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
@@ -94,13 +97,21 @@ public class PresentDTO {
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
+	public String getPresentImage() {
+		return presentImage;
+	}
+	public void setPresentImage(String presentImage) {
+		this.presentImage = presentImage;
+	}
 	@Override
 	public String toString() {
-		return "PresentDTO [id=" + id + ", name=" + name + ", image=" + image + ", categoryId=" + categoryId
-				+ ", categoryName=" + categoryName + ", faceValue=" + faceValue + ", value=" + value + ", description="
-				+ description + ", storeNumber=" + storeNumber + ", convertNumber=" + convertNumber + ", storeUnused="
-				+ storeUnused + ", status=" + status + "]";
+		return "PresentDTO [id=" + id + ", name=" + name + ", code=" + code + ", presentImage=" + presentImage
+				+ ", categoryId=" + categoryId + ", categoryName=" + categoryName + ", faceValue=" + faceValue
+				+ ", value=" + value + ", description=" + description + ", storeNumber=" + storeNumber
+				+ ", convertNumber=" + convertNumber + ", storeUnused=" + storeUnused + ", status=" + status
+				+ ", createtime=" + createtime + "]";
 	}
+	
 
 	
 }

@@ -208,6 +208,7 @@ public class CreditController {
 	public Map<String, Object> getCreditImportRecord(HttpServletRequest request, @RequestParam String username,
 			@RequestParam String clientId,
 			@RequestParam String itemCode,@RequestParam int pageNumber,@RequestParam int pageSize) {
+		System.out.println(username+"--"+clientId+"--"+itemCode);
 		int sum = 0 ;		
 		int num = MethodUtil.getEmpMethodNum(username,clientId,itemCode);
 		List<CreditRecordEntity> entities = null;
@@ -218,6 +219,7 @@ public class CreditController {
 		}
 		if(num == 2) {
 			//abc
+			System.out.println("*******************_______________+++++++++++++++++++++++++++");
 			entities = creditImportRecordService.findByMallUserEntity_ClientNameLikeAndClientIdLikeAndItemCodeLikeOrderByRecordTimeDesc(username, clientId, itemCode, pageNumber, pageSize);
 			sum = creditImportRecordService.countByMallUserEntity_ClientNameLikeAndClientIdLikeItemCodeLike(username, clientId, itemCode);
 		}
@@ -343,12 +345,13 @@ public class CreditController {
 				}
 				if(Integer.parseInt(entity.getEndDate()) < Integer.parseInt(DateUtil.Dateymd(new Date())) ) {
 					return GsonUtil.buildMap(1, "client_id:"+entity.getClientId()+"失效日期小于当前日期，无法导入", null);
-
 				}
 
 				if(PublicUtil.stringToInt(entity.getEndDate()) < PublicUtil.stringToInt(entity.getBeginDate()) ) {
 					return GsonUtil.buildMap(1, "client_id:"+entity.getClientId()+"失效日期小于生效日期，无法导入", null);
-
+				}
+				if( PublicUtil.stringToInt(entity.getNum()) <= 0) {
+					return GsonUtil.buildMap(1, "client_id:"+entity.getClientId()+"分数必须为正数", null);
 				}
 			}
 			

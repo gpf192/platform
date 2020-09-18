@@ -29,7 +29,7 @@
                 <legend> 新增商品</legend>
          
                <div class="form-group ">
-                    <label  class="col-sm-3 control-label">商品分类:</label>
+                    <label  class="col-sm-3 control-label">所属分类:</label>
                        <div class="col-sm-6">
                         <select class="form-control" ng-model="formData.presentCategoryModel"
                             ng-options="x.name for x in presentCategoryList" ></select>
@@ -40,6 +40,13 @@
                     <div class="col-sm-6">
                         <input type="text" class="form-control" id="name" name="name"
                             ng-model="formData.name" placeholder="请输入内容" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">商品代码：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="code" name="code"
+                            ng-model="formData.code" placeholder="请输入内容" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -73,21 +80,21 @@
                     <label class="col-sm-3 control-label">商品面值：</label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" id="faceValue" name="faceValue"
-                            ng-model="formData.faceValue" placeholder="请输入内容" />
+                            ng-model="formData.faceValue" placeholder="请输入内容" oninput="value=value.replace(/[^\d.]/g,'')" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 control-label">实际价格：</label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" id="value" name="value"
-                            ng-model="formData.value" placeholder="请输入内容" />
+                            ng-model="formData.value" placeholder="请输入内容" oninput="value=value.replace(/[^\d.]/g,'')" />
                     </div>
                 </div>
                <div class="form-group">
                     <label class="col-sm-3 control-label">商品库存：</label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" id="storeNumber" name="storeNumber"
-                            ng-model="formData.storeNumber" placeholder="请输入内容" />
+                            ng-model="formData.storeNumber" placeholder="请输入内容" oninput="value=value.replace(/[^\d.]/g,'')" />
                     </div>
                 </div>
              

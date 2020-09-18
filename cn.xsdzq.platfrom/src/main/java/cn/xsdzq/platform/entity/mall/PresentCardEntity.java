@@ -37,8 +37,8 @@ public class PresentCardEntity implements Serializable {
 	 * default entity id
 	 */
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "present_card_sequence")
-	@SequenceGenerator(name = "present_card_sequence", sequenceName = "present_card_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_present_card")
+	@SequenceGenerator(name = "sequence_present_card", sequenceName = "sequence_present_card", allocationSize = 1)
 	@Column(name = "id")
 	private long id;
 
@@ -68,9 +68,31 @@ public class PresentCardEntity implements Serializable {
 
 	@Column(name = "convert_date")
 	private Date convertDate;
+	
+	@Column(name = "createdBy")
+	private String createdBy;
+	
+	@Column(name = "modifyBy")
+	private String modifyBy;
 
 	
-	// 修改时间
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public String getModifyBy() {
+		return modifyBy;
+	}
+
+	public void setModifyBy(String modifyBy) {
+		this.modifyBy = modifyBy;
+	}
+
+		// 修改时间
 		@Column(name = "modifytime", nullable = true)
 		@LastModifiedDate
 		private Date modifytime;
@@ -159,7 +181,8 @@ public class PresentCardEntity implements Serializable {
 	public String toString() {
 		return "PresentCardEntity [id=" + id + ", cardId=" + cardId + ", password=" + password + ", cardStatus="
 				+ cardStatus + ", convertStatus=" + convertStatus + ", presentId=" + presentId + ", present=" + present
-				+ ", createDate=" + createDate + ", convertDate=" + convertDate + "]";
+				+ ", createDate=" + createDate + ", convertDate=" + convertDate + ", createdBy=" + createdBy
+				+ ", modifyBy=" + modifyBy + ", modifytime=" + modifytime + "]";
 	}
 
 

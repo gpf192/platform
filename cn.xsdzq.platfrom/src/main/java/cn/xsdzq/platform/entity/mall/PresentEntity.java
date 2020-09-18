@@ -16,6 +16,8 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -34,24 +36,36 @@ public class PresentEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "present_sequence")
-	@SequenceGenerator(name = "present_sequence", sequenceName = "present_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_present")
+	@SequenceGenerator(name = "sequence_present", sequenceName = "sequence_present", allocationSize = 1)
 	@Column(name = "id")
 	private long id;
 
-	@Column(name = "name", unique = true)
-	private String name;
+	@Column(name = "code", unique = true)
+	private String code;
 	
-	@Lob
-	@Column(name = "image", nullable = true)
-	private String image;
+	@Column(name = "name")
+	private String name;
 	
 	@Column(name = "face_value", precision = 2)
 	private float faceValue;//面值
 
 	@Column(name = "value", precision = 2)
 	private float value;//实际价格
-
+	
+	@Lob
+	@Column(name = "image", nullable = true)
+	private String image;
+	
+	 @Column(name = "big_image")
+	 private String bigImage;
+	 
+	 @Column(name = "is_hot")
+	 private boolean isHot;
+	 
+	 @Column(name = "tip")
+	 private String tip;
+	 
 	@Column(name = "description")
 	private String description;
 
@@ -63,7 +77,10 @@ public class PresentEntity implements Serializable {
 
 	@Column(name = "store_unused")
 	private int storeUnused;//剩余库存
-
+	
+	@Column(name = "sort")
+	private int sort;
+	
 	@Column(name = "status")
 	private String status;//状态，上上架/下架
 	
@@ -77,23 +94,30 @@ public class PresentEntity implements Serializable {
 	// 创建时间
 	@Column(name = "createtime")
 	@CreatedDate
+    @Temporal(TemporalType.TIMESTAMP)
 	private Date createtime;
 
 	// 修改时间
 	@Column(name = "modifytime", nullable = true)
 	@LastModifiedDate
 	private Date modifytime;
-	 
-	 @Column(name = "big_image")
-	 private String bigImage;
-	 
-	 @Column(name = "is_hot")
-	 private boolean isHot;
-	 
-	 @Column(name = "tip")
-	 private String tip;
-	 
-	 
+	 	 
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public int getSort() {
+		return sort;
+	}
+
+	public void setSort(int sort) {
+		this.sort = sort;
+	}
+
 	public String getBigImage() {
 		return bigImage;
 	}
@@ -233,14 +257,14 @@ public class PresentEntity implements Serializable {
 
 	@Override
 	public String toString() {
-		return "PresentEntity [id=" + id + ", name=" + name + ", image=" + image + ", faceValue=" + faceValue
-				+ ", value=" + value + ", description=" + description + ", storeNumber=" + storeNumber
-				+ ", convertNumber=" + convertNumber + ", storeUnused=" + storeUnused + ", status=" + status
-				+ ", categoryId=" + categoryId + ", presentCategory=" + presentCategory + ", createtime=" + createtime
-				+ ", modifytime=" + modifytime + ", bigImage=" + bigImage + ", isHot=" + isHot + ", tip=" + tip + "]";
+		return "PresentEntity [id=" + id + ", code=" + code + ", name=" + name + ", faceValue=" + faceValue + ", value="
+				+ value + ", image=" + image + ", bigImage=" + bigImage + ", isHot=" + isHot + ", tip=" + tip
+				+ ", description=" + description + ", storeNumber=" + storeNumber + ", convertNumber=" + convertNumber
+				+ ", storeUnused=" + storeUnused + ", sort=" + sort + ", status=" + status + ", categoryId="
+				+ categoryId + ", presentCategory=" + presentCategory + ", createtime=" + createtime + ", modifytime="
+				+ modifytime + "]";
 	}
 
-	
 
 
 }

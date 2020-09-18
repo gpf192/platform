@@ -25,9 +25,9 @@ public class PresentServiceImpl implements PresentService {
 	@Transactional
 	public void addPresent(PresentEntity present) {
 		// TODO Auto-generated method stub
-		PresentEntity p = presentRepository.findById(present.getId()).get();
+		/*PresentEntity p = presentRepository.findById(present.getId()).get();
 		present.setCreatetime(p.getCreatetime());
-		present.setModifytime(new Date());
+		present.setModifytime(new Date());*/
 		presentRepository.save(present);
 
 	}

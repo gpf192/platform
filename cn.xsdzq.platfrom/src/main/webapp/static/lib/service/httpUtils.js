@@ -92,9 +92,12 @@ ngApp.factory("httpUtils", [ function() {
 		getLoginRecord:baseUrl + "live/getLoginRecord",
 		
 		commodityClassify:baseUrl + "mall/category/all",
+		getAllPage:baseUrl + "mall/category/getAllPage",
 		addCommodityClassify:baseUrl + "mall/category/add",
 		deleteCommodityClassify:baseUrl + "mall/category/delete",
+		
 		commodity:baseUrl + "mall/present/all",
+		getAllPresentPage:baseUrl + "mall/present/getAllPresentPage",
 		addCommodity:baseUrl + "mall/present/add",
 		deleteCommodity:baseUrl + "mall/present/delete",
 		card:baseUrl + "mall/card/all",
@@ -111,7 +114,6 @@ ngApp.factory("httpUtils", [ function() {
 		
 		importExcel:baseUrl + "mall/credit/upload",
 		getCreditImportTemp :baseUrl + "mall/credit/getCreditImportTemp",
-		//submitImportTempToCredit:baseUrl + "mall/credit/submitImportTempToCredit",
 		submit:baseUrl + "mall/credit/submit",
 		deleteTempData:baseUrl + "mall/credit/deleteTempData"
 

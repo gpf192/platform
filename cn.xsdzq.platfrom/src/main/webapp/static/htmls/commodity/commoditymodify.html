@@ -29,7 +29,7 @@
                 <legend> 修改商品</legend>
          
                <div class="form-group ">
-                    <label  class="col-sm-3 control-label">商品分类:</label>
+                    <label  class="col-sm-3 control-label">所属分类:</label>
                        <div class="col-sm-6">
                         <select class="form-control" ng-model="formData.presentCategoryModel"
                             ng-options="x.name for x in presentCategoryList" ></select>
@@ -42,6 +42,13 @@
                             ng-model="formData.name" placeholder="请输入内容" />
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">商品代码：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="code" name="code"
+                            ng-model="formData.code" placeholder="请输入内容" />
+                    </div>
+                </div>
                  <div class="form-group">
                     <label class="col-sm-3 control-label">商品描述：</label>
                     <div class="col-sm-6">
@@ -49,6 +56,24 @@
                             ng-model="formData.description" placeholder="请输入内容" />
                     </div>
                 </div>
+                <div class="form-group">
+					<label for="moduleId" class="col-sm-2 control-label">图片</label>
+					<div class="col-sm-6">
+						<input type="file" name="photo" id="image"  accept="image/jpg,image/jpeg,image/png,image/gif" />
+					</div>
+					<div class="col-sm-4">
+						
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="moduleId" class="col-sm-2 control-label"></label>
+					<div class="col-sm-6">
+						<img  src="" class="img-responsive" id="tempImage" />
+					</div>
+					<div class="col-sm-4">
+		
+					</div>
+				</div>
                 
           		<div class="form-group">
                     <label class="col-sm-3 control-label">商品面值：</label>

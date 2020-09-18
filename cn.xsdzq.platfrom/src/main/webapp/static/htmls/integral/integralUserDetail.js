@@ -54,16 +54,17 @@ function integralUserDetailController($scope, $http, $state, $stateParams, $grid
 		var username = "";
 		var clientId = "";
 		var itemCode = "";
-		if(!utils.isEmpty($scope.formData.username)) {
-			username = "%"+$scope.formData.username+"%";
+		if(!utils.isEmpty($scope.formData.clientName)) {
+			username = "%"+$scope.formData.clientName+"%";
 		}
 		if(!utils.isEmpty($scope.formData.clientId)) {
 			clientId = "%"+$scope.formData.clientId+"%";
 		}
-		if(!"全部"== $scope.formData.category.categoryName){
+		if("全部" != $scope.formData.category.categoryName){
 			itemCode = "%"+$scope.formData.category.categoryCode+"%";
 		}
-		//console.log("11-"+$scope.formData.category.categoryCode);
+		//console.log(itemCode);
+	//console.log("11-"+$scope.formData.category.categoryName+"--"+$scope.formData.category.categoryCode);
 		var params = {
 			pageNumber : 0,
 			pageSize : pageSize,

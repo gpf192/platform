@@ -47,12 +47,19 @@ function commodityclassifymodifyController($scope, $http, $state, $stateParams, 
 		
 		var name = "";
 		var flag = "";
+		var code = "";
 		
 		
 		if(!utils.isEmpty($scope.formData.name)) {
 			name = $scope.formData.name;
 		}else {
 			layerUtils.iMsg(-1, "分类名称不能为空");
+			return;
+		}
+		if(!utils.isEmpty($scope.formData.code)) {
+			code = $scope.formData.code;
+		}else {
+			layerUtils.iMsg(-1, "分类代码不能为空");
 			return;
 		}
 		if(!utils.isEmpty($scope.formData.flag)) {
@@ -64,8 +71,10 @@ function commodityclassifymodifyController($scope, $http, $state, $stateParams, 
 
 		var param = {
 				id:$scope.formData.id,
+				code:code,
 				name:name,
-				flag:flag
+				flag:flag,
+				isNew:1
 		}
 		$http.post(url, param).success(function(data) {
 			if (data.resCode == 0) {

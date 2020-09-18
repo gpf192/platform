@@ -4,28 +4,41 @@ import cn.xsdzq.platform.entity.mall.PresentCardEntity;
 import cn.xsdzq.platform.entity.mall.PresentCategoryEntity;
 import cn.xsdzq.platform.entity.mall.PresentEntity;
 import cn.xsdzq.platform.model.mall.PresentCardDTO;
-import cn.xsdzq.platform.model.mall.PresentCategory;
+import cn.xsdzq.platform.model.mall.PresentCategoryDTO;
 import cn.xsdzq.platform.model.mall.PresentDTO;
 import cn.xsdzq.platform.util.DateUtil;
 
 public class PresentUtil {
 	
-	public static PresentCategory convertPresentCategoryDTOByEntity(PresentCategoryEntity entity) {
+	public static PresentCategoryDTO convertPresentCategoryDTOByEntity(PresentCategoryEntity entity) {
 			
-		PresentCategory dto = new PresentCategory();
+		PresentCategoryDTO dto = new PresentCategoryDTO();
 		
 		dto.setId(entity.getId());
 		dto.setName(entity.getName());
+		dto.setCode( entity.getCode());
 		dto.setFlag(entity.getFlag());
 		dto.setCreatetime(DateUtil.DateToString(entity.getCreatetime()));
 		return dto;
 		}
-
+	public static PresentCategoryEntity convertPresentCategoryEntityByDto(PresentCategoryDTO dto) {
+		
+		PresentCategoryEntity entity = new PresentCategoryEntity();
+		if(dto.getIsNew() == 1 ) {
+			entity.setId(dto.getId());
+		}
+		
+		entity.setName(dto.getName());
+		entity.setCode(dto.getCode());
+		entity.setFlag(dto.getFlag());
+		return entity;
+	}
 	public static PresentEntity  convertPresentEntityByDto(PresentDTO dto) {
 		PresentEntity entity = new PresentEntity();
 		entity.setId(dto.getId());
 		entity.setName(dto.getName());
-		entity.setImage(dto.getImage());
+		entity.setCode(dto.getCode());
+		entity.setImage(dto.getPresentImage());
 		entity.setCategoryId(dto.getCategoryId());
 		entity.setDescription(dto.getDescription());
 		entity.setFaceValue(dto.getFaceValue());
@@ -43,7 +56,8 @@ public class PresentUtil {
 		dto.setCategoryName(entity.getPresentCategory().getName());
 		dto.setCategoryId(entity.getCategoryId());
 		dto.setName(entity.getName());
-		dto.setImage(entity.getImage());
+		dto.setCode(entity.getCode());
+		dto.setPresentImage(entity.getImage());
 		dto.setFaceValue(entity.getFaceValue());
 		dto.setValue(entity.getValue());
 		dto.setDescription(entity.getDescription());

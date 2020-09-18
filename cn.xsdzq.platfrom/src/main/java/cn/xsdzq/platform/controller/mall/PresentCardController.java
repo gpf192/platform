@@ -25,7 +25,7 @@ import cn.xsdzq.platform.entity.mall.PresentEntity;
 import cn.xsdzq.platform.model.InfoDTO;
 import cn.xsdzq.platform.model.Pagination;
 import cn.xsdzq.platform.model.mall.PresentCardDTO;
-import cn.xsdzq.platform.model.mall.PresentCategory;
+import cn.xsdzq.platform.model.mall.PresentCategoryDTO;
 import cn.xsdzq.platform.service.IInfoService;
 import cn.xsdzq.platform.service.mall.PagePresentCardService;
 import cn.xsdzq.platform.service.mall.PresentCardService;
