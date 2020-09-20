@@ -24,8 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 import cn.xsdzq.platform.entity.mall.PresentCategoryEntity;
 import cn.xsdzq.platform.entity.mall.PresentEntity;
 import cn.xsdzq.platform.model.Pagination;
-import cn.xsdzq.platform.model.mall.PresentCardDTO;
-import cn.xsdzq.platform.model.mall.PresentCategoryDTO;
 import cn.xsdzq.platform.model.mall.PresentDTO;
 import cn.xsdzq.platform.service.mall.PresentCategoryService;
 import cn.xsdzq.platform.service.mall.PresentService;
@@ -78,30 +76,30 @@ public class PresentController {
 	public Map<String, Object> getAllPage(HttpServletRequest request,@RequestParam String name,@RequestParam String categoryName,@RequestParam int pageNumber,@RequestParam int pageSize) {
 		int sum = 0 ;
 		int num = MethodUtil.getMethodNum(name, categoryName);
+		List<PresentEntity> entities =null;
 		if(num == 1) {
 			//全量查找
-			entities = presentService;
-			sum = presentService;
+			entities = presentService.findByOrderByCreatetimeDesc(pageNumber, pageSize);
+			sum = presentService.countAll();
 		}
 		if(num == 2) {
-			//全量查找
-			entities = presentService;
-			sum = presentService;
+			//ab查找
+			entities = presentService.findByNameAndPresentCategory_nameOrderByCreatetimeDesc(name, categoryName, pageNumber, pageSize);
+			sum = presentService.countByNameAndPresentCategory_name(name, categoryName);
 		}
 		if(num == 3) {
-			//全量查找
-			entities = presentService;
-			sum = presentService;
+			//a查找
+			entities = presentService.findByNameOrderByCreatetimeDesc(categoryName, pageNumber, pageSize);
+			sum = presentService.countByName(categoryName);
 		}
 		if(num == 4) {
-			//全量查找
-			entities = presentService;
-			sum = presentService;
+			//b查找
+			entities = presentService.findByPresentCategory_nameOrderByCreatetimeDesc(categoryName, pageNumber, pageSize);
+			sum = presentService.countByPresentCategory_name(categoryName);
 		}
-		List<PresentEntity> list = presentService.findByOrderByCreatetimeDesc(pageNumber, pageSize);
 		List<PresentDTO> cDtos = new ArrayList<PresentDTO>();
-		for (PresentEntity category : list) {
-			PresentDTO dto = PresentUtil.convertPresentDTOByEntity(category);
+		for (PresentEntity entity : entities) {
+			PresentDTO dto = PresentUtil.convertPresentDTOByEntity(entity);
 			cDtos.add(dto);
 		}
 		
