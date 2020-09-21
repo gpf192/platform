@@ -73,9 +73,9 @@ public class PresentController {
 	}
 	
 	@GetMapping(value = "/getAllPresentPage")
-	public Map<String, Object> getAllPage(HttpServletRequest request,@RequestParam String name,@RequestParam String categoryName,@RequestParam int pageNumber,@RequestParam int pageSize) {
+	public Map<String, Object> getAllPage(HttpServletRequest request,@RequestParam String name,@RequestParam String categoryCode,@RequestParam int pageNumber,@RequestParam int pageSize) {
 		int sum = 0 ;
-		int num = MethodUtil.getMethodNum(name, categoryName);
+		int num = MethodUtil.getMethodNum(name, categoryCode);
 		List<PresentEntity> entities =null;
 		if(num == 1) {
 			//全量查找
@@ -84,18 +84,18 @@ public class PresentController {
 		}
 		if(num == 2) {
 			//ab查找
-			entities = presentService.findByNameAndPresentCategory_nameOrderByCreatetimeDesc(name, categoryName, pageNumber, pageSize);
-			sum = presentService.countByNameAndPresentCategory_name(name, categoryName);
+			entities = presentService.findByNameAndPresentCategory_nameOrderByCreatetimeDesc(name, categoryCode, pageNumber, pageSize);
+			sum = presentService.countByNameAndPresentCategory_name(name, categoryCode);
 		}
 		if(num == 3) {
 			//a查找
-			entities = presentService.findByNameOrderByCreatetimeDesc(categoryName, pageNumber, pageSize);
-			sum = presentService.countByName(categoryName);
+			entities = presentService.findByNameOrderByCreatetimeDesc(categoryCode, pageNumber, pageSize);
+			sum = presentService.countByName(categoryCode);
 		}
 		if(num == 4) {
 			//b查找
-			entities = presentService.findByPresentCategory_nameOrderByCreatetimeDesc(categoryName, pageNumber, pageSize);
-			sum = presentService.countByPresentCategory_name(categoryName);
+			entities = presentService.findByPresentCategory_nameOrderByCreatetimeDesc(categoryCode, pageNumber, pageSize);
+			sum = presentService.countByPresentCategory_name(categoryCode);
 		}
 		List<PresentDTO> cDtos = new ArrayList<PresentDTO>();
 		for (PresentEntity entity : entities) {

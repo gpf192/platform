@@ -22,32 +22,31 @@
 			
 				&nbsp
 				<div class="form-group ">
-					<label  for="searchTitle">商品名称:</label>					
-						<input type="text" class="form-control input-300 " id="searchTitle" name="title"
-						ng-model="formData.title" placeholder="请输入关键字"></input>
-
+					<label class="control-label text-right">商品分类:</label>
+					<select class="form-control" ng-model="formData.category"
+							ng-options="item.name for item in categoryList"></select>
 				</div>
 				&nbsp	
 				<div class="form-group ">
 					<label  for="integralType">客户号:</label>					
-						<input type="text" class="form-control input-300 " id="integralType" name="title"
-						ng-model="formData.title" placeholder="请输入关键字"></input>
+						<input type="text" class="form-control input-300 " id="clientId" name="clientId"
+						ng-model="formData.clientId" placeholder="请输入关键字"></input>
 				</div>
 				&nbsp	
-				<div class="form-group ">
+				<!-- <div class="form-group ">
 					<label  for="integralType">客户姓名:</label>					
-						<input type="text" class="form-control input-300 " id="integralType" name="title"
-						ng-model="formData.title" placeholder="请输入关键字"></input>
-				</div>
+						<input type="text" class="form-control input-300 " id="clientName" name="clientName"
+						ng-model="formData.clientName" placeholder="请输入关键字"></input>
+				</div> -->
 				&nbsp	
 				<div class="form-group ">
 					<label  for="integralType">手机号:</label>					
-						<input type="text" class="form-control input-300 " id="integralType" name="title"
-						ng-model="formData.title" placeholder="请输入关键字"></input>
+						<input type="text" class="form-control input-300 " id="mobile" name="mobile"
+						ng-model="formData.mobile" placeholder="请输入关键字"></input>
 				</div>
 				&nbsp
 				<input type="button" value="查询" class="btn btn-primary"
-							ng-click="getCheckInfosByCategoryId(10)" />
+							ng-click="getExchangeRecordsList(100)" />
 					 &nbsp
                 <input type="button" value="导出" class="btn btn-primary"
                             ng-click="exportToExcel()" />
@@ -107,17 +106,17 @@
                     </tr>
                 </thead>
                 <tbody role="alert" aria-live="polite" aria-relevant="all">
-                    <tr ng-repeat="record in exchangerecordsList">
+                    <tr ng-repeat="record in exchangeRecordsList">
                         <td >{{$index+selectNum["num"]*currentPage.page+1}}</td>
                         <td ><div style="white-space:nowrap;" >{{record.clientName}}</div> </td> 
                         <td ><div style="white-space:nowrap;" >{{record.clientId}}</div> </td> 
-                       <td ><div style="white-space:nowrap;" >{{record.department}}</div> </td> 
+                       <td ><div style="white-space:nowrap;" >{{record.departmentName}}</div> </td> 
                         <td ><div style="white-space:nowrap;">{{record.mobile}}</div> </td>
                          <td ><div style="white-space:nowrap;">{{record.presentName}}</div> </td>
                         <td ><div style="white-space:nowrap;">{{record.cardId}}</div> </td>
                          <td ><div style="white-space:nowrap;">{{record.password}}</div> </td>
                          <td ><div style="white-space:nowrap;">{{record.price}}</div> </td>
-                        <td ><div style="white-space:nowrap;">{{record.integral}}</div> </td>
+                        <td ><div style="white-space:nowrap;">{{record.integralNum}}</div> </td>
                          <td ><div style="white-space:nowrap;">{{record.recordTime}}</div> </td>
                     </tr>
                 </tbody>

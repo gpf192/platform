@@ -7,11 +7,20 @@ public class PresentCardDTO {
 	private String cardId;
 	private String presentName;
 	private String password;
-	private String cardStatus;//卡券状态， 上架1/下架0
-	private String convertStatus;//兑换状态，已兑换1/未兑换0
+	private int cardStatus;//卡券状态， 上架1/下架0
+	private int convertStatus;//兑换状态，已兑换1/未兑换0
 	private long presentId;
 	private PresentEntity present;//二级目录
 	private String createDate;
+	private int isNew;//0代表新增，1代表更新
+	
+	
+	public int getIsNew() {
+		return isNew;
+	}
+	public void setIsNew(int isNew) {
+		this.isNew = isNew;
+	}
 	public long getId() {
 		return id;
 	}
@@ -30,16 +39,17 @@ public class PresentCardDTO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getCardStatus() {
+	
+	public int getCardStatus() {
 		return cardStatus;
 	}
-	public void setCardStatus(String cardStatus) {
+	public void setCardStatus(int cardStatus) {
 		this.cardStatus = cardStatus;
 	}
-	public String getConvertStatus() {
+	public int getConvertStatus() {
 		return convertStatus;
 	}
-	public void setConvertStatus(String convertStatus) {
+	public void setConvertStatus(int convertStatus) {
 		this.convertStatus = convertStatus;
 	}
 	public long getPresentId() {
@@ -70,9 +80,9 @@ public class PresentCardDTO {
 	}
 	@Override
 	public String toString() {
-		return "PresentCardDTO [id=" + id + ", cardId=" + cardId + ", password=" + password + ", cardStatus="
-				+ cardStatus + ", convertStatus=" + convertStatus + ", presentId=" + presentId + ", present=" + present
-				+ ", createDate=" + createDate + "]";
+		return "PresentCardDTO [id=" + id + ", cardId=" + cardId + ", presentName=" + presentName + ", password="
+				+ password + ", cardStatus=" + cardStatus + ", convertStatus=" + convertStatus + ", presentId="
+				+ presentId + ", present=" + present + ", createDate=" + createDate + ", isNew=" + isNew + "]";
 	}
 	
 	

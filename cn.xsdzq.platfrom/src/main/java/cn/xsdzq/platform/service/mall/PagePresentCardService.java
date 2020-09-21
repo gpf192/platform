@@ -8,6 +8,12 @@ public interface PagePresentCardService {
 	List<PresentCardEntity> findByOrderByCreateDateDesc(int pageNumber, int pageSize);
 	int countAll();
 	
-	List<PresentCardEntity> findByCardIdOrderByCreateDateDesc(String cardId, int pageNumber, int pageSize);
-	int countByCardId(String cardId);
+	List<PresentCardEntity> findByCardIdLikeOrderByCreateDateDesc(String cardId, int pageNumber, int pageSize);
+	int countByCardIdLike(String cardId);
+	
+	List<PresentCardEntity> findByPresentIdOrderByCreateDateDesc(long presentId, int pageNumber, int pageSize);
+	int countByPresentId(long presentId);
+	
+	List<PresentCardEntity> findByCardIdLikeAndPresentIdOrderByCreateDateDesc(String cardId, long presentId,int pageNumber, int pageSize);
+	int countByCardIdLikeAndPresentId(String cardId,long presentId);
 }

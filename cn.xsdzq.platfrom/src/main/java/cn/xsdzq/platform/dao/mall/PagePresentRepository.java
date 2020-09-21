@@ -7,14 +7,15 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import cn.xsdzq.platform.entity.mall.PresentEntity;
 
 public interface PagePresentRepository extends  PagingAndSortingRepository<PresentEntity, Long> {
-	Page<PresentEntity> findByOrderByCreatetimeDesc(Pageable pageable);
+	Page<PresentEntity> findByNameNotOrderByCreatetimeDesc(String all,Pageable pageable);
+	int countByNameNot(String all);
 	
-	Page<PresentEntity> findByNameOrderByCreatetimeDesc(String  name , Pageable pageable);
-	int countByName(String name);
+	Page<PresentEntity> findByNameLikeAndNameNotOrderByCreatetimeDesc(String  name , String all,Pageable pageable);
+	int countByNameLikeAndNameNot(String name,String all);
 	
-	Page<PresentEntity> findByPresentCategory_nameOrderByCreatetimeDesc(String  categoryName , Pageable pageable);
-	int countByPresentCategory_name(String categoryName);
+	Page<PresentEntity> findByPresentCategory_codeLikeAndNameNotOrderByCreatetimeDesc(String  categoryName ,String all, Pageable pageable);
+	int countByPresentCategory_codeLikeAndNameNot(String categoryName,String all);
 	
-	Page<PresentEntity> findByNameAndPresentCategory_nameOrderByCreatetimeDesc(String  name ,String categoryName, Pageable pageable);
-	int countByNameAndPresentCategory_name(String name,String categoryName);
+	Page<PresentEntity> findByNameLikeAndPresentCategory_codeLikeAndNameNotOrderByCreatetimeDesc(String  name ,String categoryName,String all,Pageable pageable);
+	int countByNameLikeAndPresentCategory_codeLikeAndNameNot(String name,String categoryName,String all);
 }

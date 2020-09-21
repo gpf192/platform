@@ -1,6 +1,7 @@
-ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils' ];
-function cardmanageController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils) {
-
+ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils', 'utils' ];
+function cardmanageController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils,utils) {
+	$scope.formData = {};
+	$scope.categoryList = [];
 	$scope.cardList = [];
 	$scope.init=function(){
 		var data = {
@@ -15,17 +16,28 @@ function cardmanageController($scope, $http, $state, $stateParams, $gridService,
 				}
 			}
 		$scope.$emit("changeNavigation", data);
-		$scope.getCardList(100);
+		$http.get(httpUtils.url.commodity, {}).success(function(data) {
+			if (data.resCode == 0) {
+				$scope.categoryList = data.result;
+				//设置筛选条件为默认
+				for(var k = 0; k < $scope.categoryList.length; k++){
+					if($scope.categoryList[k].name == "全部"){
+						$scope.formData.category = $scope.categoryList[k];	
+					}
+				}
+				$scope.getCardList(50);
+			}
+		});
 		
 		$scope.currentPage = {
 				page : 0
 			};
 			$scope.selectNumList = [{
-				num : 10
-			}, {
 				num : 50
 			}, {
 				num : 100
+			}, {
+				num : 150
 			}];
 			$scope.selectNum = $scope.selectNumList[0];	
 			$scope.$watch("selectNum.num", function(newValue, oldValue) {
@@ -66,9 +78,19 @@ function cardmanageController($scope, $http, $state, $stateParams, $gridService,
 	    };
 	
 	$scope.getCardList = function(pageSize) {
-		
+		var cardId = "";
+		var presentId = "";
+		if(!utils.isEmpty($scope.formData.cardId)) {
+			cardId = "%"+$scope.formData.cardId+"%";
+		}
+		if("全部" != $scope.formData.category.name){
+			presentId = $scope.formData.category.id;
+		}
+		console.log(cardId+"--"+presentId);
 		var url = httpUtils.url.card;
 		var params = {
+			cardId:cardId,	
+			presentId:presentId,
 			pageNumber : 0,
 			pageSize : pageSize
 		};

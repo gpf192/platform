@@ -81,8 +81,9 @@ function cardmodifyController($scope, $http, $state, $stateParams, $gridService,
 				presentId:$scope.formData.presentNameModel.id,				
 				cardId:cardId,
 				password:$scope.formData.password,
-				//present : present,
-				cardStatus:cardStatus
+				cardStatus:cardStatus,
+				isNew:1//更新
+				
 		}
 		console.log(param.id+" s-- "+param.presentId+" -");
 		console.log("-55"+$scope.formData.presentNameModel.id);
@@ -92,7 +93,7 @@ function cardmodifyController($scope, $http, $state, $stateParams, $gridService,
 					$state.go("cardmanage");
 				});
 			} else {
-				layerUtils.iMsg(-1, data.resMsg);
+				layerUtils.iMsg(-1, "修改失败");
 			}
 		});
 	}

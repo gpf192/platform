@@ -3,9 +3,11 @@ package cn.xsdzq.platform.util.mall;
 import cn.xsdzq.platform.entity.mall.PresentCardEntity;
 import cn.xsdzq.platform.entity.mall.PresentCategoryEntity;
 import cn.xsdzq.platform.entity.mall.PresentEntity;
+import cn.xsdzq.platform.entity.mall.PresentResultEntity;
 import cn.xsdzq.platform.model.mall.PresentCardDTO;
 import cn.xsdzq.platform.model.mall.PresentCategoryDTO;
 import cn.xsdzq.platform.model.mall.PresentDTO;
+import cn.xsdzq.platform.model.mall.PresentResultDTO;
 import cn.xsdzq.platform.util.DateUtil;
 
 public class PresentUtil {
@@ -91,6 +93,26 @@ public class PresentUtil {
 		entity.setPassword(dto.getPassword());
 		entity.setCardStatus(dto.getCardStatus());
 		entity.setPresentId(dto.getPresentId());
+		entity.setConvertStatus(dto.getConvertStatus());
 		return entity;
 	}
+	
+	//兑换记录
+	public static PresentResultDTO  convertDTOByPresentResultEntity(PresentResultEntity entity) {
+		 
+			
+		PresentResultDTO dto = new PresentResultDTO();
+		dto.setClientName(entity.getMallUserEntity().getClientName());
+		dto.setClientId(entity.getMallUserEntity().getClientId());
+		dto.setDepartmentName(entity.getMallUserEntity().getDepartmentName());
+		dto.setMobile(entity.getMallUserEntity().getMobile());
+		dto.setPresentName(entity.getPresentCardEntity().getPresent().getName());
+		dto.setCardId(entity.getPresentCardEntity().getCardId());
+		dto.setPassword(entity.getPresentCardEntity().getPassword());
+		dto.setPrice(entity.getPresentCardEntity().getPresent().getValue());
+		dto.setIntegralNum(entity.getIntegralNumber());
+		dto.setRecordTime(DateUtil.DateToString(entity.getRecordTime()));
+		return dto;
+	}
+	
 }

@@ -22,19 +22,19 @@
 			&nbsp	
 				<div class="form-group ">
 					<label  for="integralType">卡号:</label>					
-						<input type="text" class="form-control input-300 " id="integralType" name="title"
-						ng-model="formData.title" placeholder="请输入关键字"></input>
+						<input type="text" class="form-control input-300 " id="cardId" name="cardId"
+						ng-model="formData.cardId" placeholder="请输入关键字"></input>
 				</div>
 				&nbsp
+			
 				<div class="form-group ">
-					<label  for="searchTitle">商品名称:</label>					
-						<input type="text" class="form-control input-300 " id="searchTitle" name="title"
-						ng-model="formData.title" placeholder="请输入关键字"></input>
-
+					<label class="control-label text-right">商品分类:</label>
+					<select class="form-control" ng-model="formData.category"
+							ng-options="item.name for item in categoryList"></select>
 				</div>
 				&nbsp
 				<input type="button" value="查询" class="btn btn-primary"
-							ng-click="getCardList(100)" />
+							ng-click="getCardList(50)" />
 			</form>
         <div  class="dataTables_wrapper form-inline" role="grid">
             <div class="row hide" ng-show="activityProductsList.length>0">

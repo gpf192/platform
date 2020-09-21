@@ -7,6 +7,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import cn.xsdzq.platform.entity.mall.PresentCategoryEntity;
 
 public interface PagePresentCategoryRepository extends  PagingAndSortingRepository<PresentCategoryEntity, Long> {
-	Page<PresentCategoryEntity> findByOrderByCreatetimeDesc(Pageable pageable);
-
+	Page<PresentCategoryEntity> findByNameNotOrderByCreatetimeDesc(String all, Pageable pageable);
+	int countByNameNot(String all);
 }

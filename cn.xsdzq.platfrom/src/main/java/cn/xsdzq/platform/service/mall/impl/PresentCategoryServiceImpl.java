@@ -73,7 +73,7 @@ public class PresentCategoryServiceImpl implements PresentCategoryService {
 	public List<PresentCategoryEntity> findByOrderByCreatetimeDesc(int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<PresentCategoryEntity> pages = pagePresentCategoryRepository.findByOrderByCreatetimeDesc(pageRequest);	
+		Page<PresentCategoryEntity> pages = pagePresentCategoryRepository.findByNameNotOrderByCreatetimeDesc("全部",pageRequest);	
 		List<PresentCategoryEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -81,7 +81,7 @@ public class PresentCategoryServiceImpl implements PresentCategoryService {
 	@Override
 	public int countAll() {
 		// TODO Auto-generated method stub
-		return (int)pagePresentCategoryRepository.count();
+		return pagePresentCategoryRepository.countByNameNot("全部");
 	}
 
 }

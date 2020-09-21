@@ -1,6 +1,7 @@
-ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils' ];
-function exchangerecordsController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils) {
-
+ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils', 'utils' ];
+function exchangerecordsController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils,utils) {
+	$scope.formData = {};
+	$scope.categoryList = [];
 	$scope.exchangeRecordsList = [];
 	$scope.init=function(){
 		var data = {
@@ -15,16 +16,28 @@ function exchangerecordsController($scope, $http, $state, $stateParams, $gridSer
 				}
 			}
 		$scope.$emit("changeNavigation", data);
-		$scope.getExchangeRecordsList(20000);
+		$http.get(httpUtils.url.commodity, {}).success(function(data) {
+			if (data.resCode == 0) {
+				$scope.categoryList = data.result;
+				//设置筛选条件为默认
+				for(var k = 0; k < $scope.categoryList.length; k++){
+					if($scope.categoryList[k].name == "全部"){
+						$scope.formData.category = $scope.categoryList[k];	
+					}
+				}
+				$scope.getExchangeRecordsList(100);
+			}
+		});
+		
 		$scope.currentPage = {
 				page : 0
 			};
 			$scope.selectNumList = [{
-				num : 10
-			}, {
-				num : 50
-			}, {
 				num : 100
+			}, {
+				num : 150
+			}, {
+				num : 200
 			}];
 			$scope.selectNum = $scope.selectNumList[0];	
 			$scope.$watch("selectNum.num", function(newValue, oldValue) {
@@ -38,28 +51,34 @@ function exchangerecordsController($scope, $http, $state, $stateParams, $gridSer
 	
 	$scope.getExchangeRecordsList = function(pageSize) {
 		var url = httpUtils.url.exchangeRecords;
-//		var clientId = "";
-//		var financeAccount = "";
-//		var productCode = "";
-//		if(!utils.isEmpty($scope.formData.clientId)) {
-//			clientId = $scope.formData.clientId;
-//		}
-//		if(!utils.isEmpty($scope.formData.financeAccount)) {
-//			financeAccount = $scope.formData.financeAccount;
-//		}
-//		if(!utils.isEmpty($scope.formData.productCode)) {
-//			productCode = $scope.formData.productCode;
-//		}
+		var presentId = "";
+		var clientId = "";
+		//var clientName = "";
+		var mobile = "";
+		if("全部" != $scope.formData.category.name){
+			presentId = $scope.formData.category.id;
+		}
+		if(!utils.isEmpty($scope.formData.clientId)) {
+			clientId = "%"+$scope.formData.clientId+"%";
+		}
+		/*if(!utils.isEmpty($scope.formData.clientName)) {
+			clientName = $scope.formData.clientName;
+		}*/
+		if(!utils.isEmpty($scope.formData.mobile)) {
+			mobile = "%"+$scope.formData.mobile+"%";
+		}
 		var params = {
+			presentId:presentId,
+			clientId:clientId,
+			//clientName:clientName,
+			mobile:mobile,
 			pageNumber : 0,
 			pageSize : pageSize,
-//			clientId : clientId,
-//			financeAccount : financeAccount,
-//			productCode : productCode
+
 		};
 		var settings = {
 			url : url,
-			showPage : 1,
+			showPage : 7,
 			pageSize : pageSize,
 			putDataList : "exchangeRecordsList"
 		};
@@ -73,7 +92,7 @@ function exchangerecordsController($scope, $http, $state, $stateParams, $gridSer
 	$scope.exportToExcel=function(){ 
 		var excelArrs = getExcelData();
 		var myDate = new Date();
-		 alasql.promise('SELECT * INTO XLSX("商品兑换记录数据表-' + myDate+ '.xlsx",{headers:true}) FROM ?',[excelArrs])
+		 alasql.promise('SELECT * INTO XLSX("商品兑换记录表-' + myDate+ '.xlsx",{headers:true}) FROM ?',[excelArrs])
 			.then(function (data) {
 			  if(data == 1){
 				$timeout(function(){

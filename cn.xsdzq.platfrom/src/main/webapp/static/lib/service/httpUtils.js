@@ -103,7 +103,7 @@ ngApp.factory("httpUtils", [ function() {
 		card:baseUrl + "mall/card/all",
 		addCard:baseUrl + "mall/card/add",
 		deleteCard:baseUrl + "mall/card/delete",
-		exchangeRecords:baseUrl + "mall/card/PresentResult",
+		exchangeRecords:baseUrl + "mall/card/exchangeRecords",
 		
 		getCreditCategory:baseUrl + "mall/credit/all",
 		getAllItems:baseUrl + "mall/credit/getAllItems",

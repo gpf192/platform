@@ -54,6 +54,10 @@ function cardaddController($scope, $http, $state, $stateParams, $gridService, ht
 			layerUtils.iMsg(-1, "卡号不能为空");
 			return;
 		}
+		if(!utils.isEmpty($scope.formData.password)) {
+			password = $scope.formData.password;
+		}
+		
 		if(!utils.isEmpty($scope.cardStatusModel.code)) {
 			cardStatus = $scope.cardStatusModel.code;
 		}else {
@@ -64,16 +68,17 @@ function cardaddController($scope, $http, $state, $stateParams, $gridService, ht
 		var param = {
 				presentId:$scope.formData.presentNameModel.id,
 				cardId:cardId,
-				password:$scope.formData.password,
+				password:password,
 				cardStatus:cardStatus,
+				convertStatus:0,
+				isNew:0//代表新增
 		}
-		console.log($scope.formData.presentNameModel.id+"--00");
+		console.log(presentId+cardId+password+cardStatus+"--end");
 		$http.post(url, param).success(function(data) {
 			if (data.resCode == 0) {
 				layerUtils.iMsg(-1,"添加成功");
-				$scope.formData={};
-			}else if (data.resCode == 1) {
-				$scope.formData={};
+				$state.go("cardmanage");
+				
 			} else {
 				layerUtils.iMsg(-1,"添加失败");
 			}

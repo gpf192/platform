@@ -61,7 +61,7 @@ public class CreditServiceImpl implements CreditService{
 	public List<CreditEntity> findByOrderByCategoryCodeDesc(int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<CreditEntity> pages = pageCreditRepository.findByOrderByCategoryCodeDesc(pageRequest);	
+		Page<CreditEntity> pages = pageCreditRepository.findByCategoryNameNotOrderByCategoryCodeDesc("全部",pageRequest);	
 		List<CreditEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -69,14 +69,14 @@ public class CreditServiceImpl implements CreditService{
 	@Override
 	public int countAll() {
 		// TODO Auto-generated method stub
-		return (int) pageCreditRepository.count();	
+		return pageCreditRepository.countByCategoryNameNot("全部");	
 	}
 
 	@Override
 	public List<CreditEntity> findByCategoryCodeLikeOrderByCategoryCodeDesc(String code, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<CreditEntity> pages = pageCreditRepository.findByCategoryCodeLikeOrderByCategoryCodeDesc(code, pageRequest);	
+		Page<CreditEntity> pages = pageCreditRepository.findByCategoryCodeLikeAndCategoryNameNotOrderByCategoryCodeDesc(code,"全部", pageRequest);	
 		List<CreditEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -84,7 +84,7 @@ public class CreditServiceImpl implements CreditService{
 	@Override
 	public int countByCategoryCodeLike(String code) {
 		// TODO Auto-generated method stub
-		return pageCreditRepository.countByCategoryCodeLike(code);
+		return pageCreditRepository.countByCategoryCodeLikeAndCategoryNameNot(code,"全部");
 	}
 
 	@Override
@@ -92,7 +92,7 @@ public class CreditServiceImpl implements CreditService{
 			int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<CreditEntity> pages = pageCreditRepository.findByCategoryNameLikeOrderByCategoryCodeDesc(name, pageRequest);	
+		Page<CreditEntity> pages = pageCreditRepository.findByCategoryNameLikeAndCategoryNameNotOrderByCategoryCodeDesc(name,"全部", pageRequest);	
 		List<CreditEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -100,7 +100,7 @@ public class CreditServiceImpl implements CreditService{
 	@Override
 	public int countByCategoryNameLike(String name) {
 		// TODO Auto-generated method stub
-		return pageCreditRepository.countByCategoryNameLike(name);
+		return pageCreditRepository.countByCategoryNameLikeAndCategoryNameNot(name,"全部");
 	}
 
 
@@ -109,7 +109,7 @@ public class CreditServiceImpl implements CreditService{
 			int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<CreditEntity> pages = pageCreditRepository.findByCategoryNameLikeAndCategoryCodeLikeOrderByCategoryCodeDesc(name, code,pageRequest);	
+		Page<CreditEntity> pages = pageCreditRepository.findByCategoryNameLikeAndCategoryCodeLikeOrderByCategoryCodeDesc(name, code,"全部",pageRequest);	
 		List<CreditEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -117,7 +117,7 @@ public class CreditServiceImpl implements CreditService{
 	@Override
 	public int countByCategoryNameLikeAndCategoryCodeLike(String name, String code) {
 		// TODO Auto-generated method stub
-		return pageCreditRepository.countByCategoryNameLikeAndCategoryCodeLike(name, code);
+		return pageCreditRepository.countByCategoryNameLikeAndCategoryCodeLikeAndCategoryNameNot(name, code,"全部");
 	}
 
 }

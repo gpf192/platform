@@ -1,7 +1,8 @@
-ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils' ];
-function commoditymanageController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils) {
-
+ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils' , 'utils'];
+function commoditymanageController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils,utils) {
+	$scope.formData = {};
 	$scope.commodityList = [];
+	$scope.categoryList = [];
 	$scope.init=function(){
 		var data = {
 				"one" : {
@@ -15,7 +16,19 @@ function commoditymanageController($scope, $http, $state, $stateParams, $gridSer
 				}
 			}
 		$scope.$emit("changeNavigation", data);
-		$scope.getCommodityList(50);
+		$http.get(httpUtils.url.commodityClassify, {}).success(function(data) {
+			if (data.resCode == 0) {
+				$scope.categoryList = data.result;
+				//设置筛选条件为默认
+				for(var k = 0; k < $scope.categoryList.length; k++){
+					if($scope.categoryList[k].name == "全部"){
+						$scope.formData.category = $scope.categoryList[k];	
+					}
+				}
+				$scope.getCommodityList(50);
+			}
+		});
+		
 		
 		$scope.currentPage = {
 				page : 0
@@ -66,11 +79,19 @@ function commoditymanageController($scope, $http, $state, $stateParams, $gridSer
 	    };
 	
 	$scope.getCommodityList = function(pageSize) {
-		
+		var name = "";
+		var categoryCode = "";
+		if(!utils.isEmpty($scope.formData.name)) {
+			name = "%"+$scope.formData.name+"%";
+		}
+		if("全部" != $scope.formData.category.name){
+			categoryCode = "%"+$scope.formData.category.code+"%";
+		}
+		console.log(categoryCode+"-"+name);
 		var url = httpUtils.url.getAllPresentPage;
 		var params = {
 				name:name,
-								
+				categoryCode:categoryCode,		
 			pageNumber : 0,
 			pageSize : pageSize
 		};

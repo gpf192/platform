@@ -1,6 +1,5 @@
 package cn.xsdzq.platform.service.mall.impl;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.xsdzq.platform.dao.mall.PagePresentRepository;
 import cn.xsdzq.platform.dao.mall.PresentRepository;
-import cn.xsdzq.platform.entity.mall.PresentCardEntity;
-import cn.xsdzq.platform.entity.mall.PresentCategoryEntity;
 import cn.xsdzq.platform.entity.mall.PresentEntity;
 import cn.xsdzq.platform.service.mall.PresentService;
 
@@ -75,7 +72,7 @@ public class PresentServiceImpl implements PresentService {
 	public List<PresentEntity> findByOrderByCreatetimeDesc(int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<PresentEntity> pages = pagePresentRepository.findByOrderByCreatetimeDesc(pageRequest);	
+		Page<PresentEntity> pages = pagePresentRepository.findByNameNotOrderByCreatetimeDesc("全部",pageRequest);	
 		List<PresentEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -83,14 +80,14 @@ public class PresentServiceImpl implements PresentService {
 	@Override
 	public int countAll() {
 		// TODO Auto-generated method stub
-		return (int) pagePresentRepository.count();
+		return  pagePresentRepository.countByNameNot("全部");
 	}
 //
 	@Override
 	public List<PresentEntity> findByNameOrderByCreatetimeDesc(String name, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<PresentEntity> pages = pagePresentRepository.findByNameOrderByCreatetimeDesc(name, pageRequest);	
+		Page<PresentEntity> pages = pagePresentRepository.findByNameLikeAndNameNotOrderByCreatetimeDesc(name, "全部",pageRequest);	
 		List<PresentEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -98,7 +95,7 @@ public class PresentServiceImpl implements PresentService {
 	@Override
 	public int countByName(String name) {
 		// TODO Auto-generated method stub
-		return pagePresentRepository.countByName(name);
+		return pagePresentRepository.countByNameLikeAndNameNot(name,"全部");
 	}
 //
 	@Override
@@ -106,7 +103,7 @@ public class PresentServiceImpl implements PresentService {
 			int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<PresentEntity> pages = pagePresentRepository.findByPresentCategory_nameOrderByCreatetimeDesc(categoryName, pageRequest);	
+		Page<PresentEntity> pages = pagePresentRepository.findByPresentCategory_codeLikeAndNameNotOrderByCreatetimeDesc(categoryName,"全部", pageRequest);	
 		List<PresentEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -114,7 +111,7 @@ public class PresentServiceImpl implements PresentService {
 	@Override
 	public int countByPresentCategory_name(String categoryName) {
 		// TODO Auto-generated method stub
-		return pagePresentRepository.countByPresentCategory_name(categoryName);
+		return pagePresentRepository.countByPresentCategory_codeLikeAndNameNot(categoryName,"全部");
 	}
 //
 	@Override
@@ -122,7 +119,7 @@ public class PresentServiceImpl implements PresentService {
 			int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<PresentEntity> pages = pagePresentRepository.findByNameAndPresentCategory_nameOrderByCreatetimeDesc(name,categoryName, pageRequest);	
+		Page<PresentEntity> pages = pagePresentRepository.findByNameLikeAndPresentCategory_codeLikeAndNameNotOrderByCreatetimeDesc(name,categoryName,"全部", pageRequest);	
 		List<PresentEntity> infos = pages.getContent();
 		return infos;
 	}
@@ -130,7 +127,7 @@ public class PresentServiceImpl implements PresentService {
 	@Override
 	public int countByNameAndPresentCategory_name(String name, String categoryName) {
 		// TODO Auto-generated method stub
-		return pagePresentRepository.countByNameAndPresentCategory_name(name,categoryName);
+		return pagePresentRepository.countByNameLikeAndPresentCategory_codeLikeAndNameNot(name,categoryName,"全部");
 	}
 
 }

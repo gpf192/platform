@@ -35,18 +35,51 @@ public class PagePresentCardServiceImpl implements PagePresentCardService{
 	}
 
 	@Override
-	public List<PresentCardEntity> findByCardIdOrderByCreateDateDesc(String cardId, int pageNumber, int pageSize) {
+	public List<PresentCardEntity> findByCardIdLikeOrderByCreateDateDesc(String cardId, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<PresentCardEntity> pages = pagePresentCardRepository.findByCardIdOrderByCreateDateDesc(cardId, pageRequest);
+		Page<PresentCardEntity> pages = pagePresentCardRepository.findByCardIdLikeOrderByCreateDateDesc(cardId, pageRequest);
 			
 		List<PresentCardEntity> infos = pages.getContent();
 		return infos;
 	}
 
 	@Override
-	public int countByCardId(String cardId) {
+	public int countByCardIdLike(String cardId) {
 		// TODO Auto-generated method stub
-		return pagePresentCardRepository.countByCardId(cardId);
+		return pagePresentCardRepository.countByCardIdLike(cardId);
+	}
+
+	@Override
+	public List<PresentCardEntity> findByPresentIdOrderByCreateDateDesc(long presentId, int pageNumber, int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		Page<PresentCardEntity> pages = pagePresentCardRepository.findByPresentIdOrderByCreateDateDesc(presentId, pageRequest);
+			
+		List<PresentCardEntity> infos = pages.getContent();
+		return infos;
+	}
+
+	@Override
+	public int countByPresentId(long presentId) {
+		// TODO Auto-generated method stub
+		return pagePresentCardRepository.countByPresentId(presentId);
+	}
+
+	@Override
+	public List<PresentCardEntity> findByCardIdLikeAndPresentIdOrderByCreateDateDesc(String cardId, long presentId,
+			int pageNumber, int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+		Page<PresentCardEntity> pages = pagePresentCardRepository.findByCardIdLikeAndPresentIdOrderByCreateDateDesc(cardId, presentId, pageRequest);
+			
+		List<PresentCardEntity> infos = pages.getContent();
+		return infos;
+	}
+
+	@Override
+	public int countByCardIdLikeAndPresentId(String cardId, long presentId) {
+		// TODO Auto-generated method stub
+		return pagePresentCardRepository.countByCardIdLikeAndPresentId(cardId, presentId);
 	}
 }

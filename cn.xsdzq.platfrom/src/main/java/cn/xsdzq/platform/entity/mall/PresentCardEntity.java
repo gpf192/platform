@@ -49,10 +49,10 @@ public class PresentCardEntity implements Serializable {
 	private String password;
 
 	@Column(name = "card_status")
-	private String cardStatus;//卡券状态， 上架1/下架0
+	private int cardStatus;//卡券状态， 上架1/下架0
 
 	@Column(name = "convert_status")
-	private String convertStatus;//兑换状态，已兑换1/未兑换0
+	private int convertStatus;//兑换状态，已兑换1/未兑换0
 	
 	@Column(name = "presentId", insertable = false, updatable = false)
 	private long presentId;
@@ -75,6 +75,9 @@ public class PresentCardEntity implements Serializable {
 	@Column(name = "modifyBy")
 	private String modifyBy;
 
+	// 修改时间
+	@Column(name = "modifytime")
+	private Date modifytime;
 	
 	public String getCreatedBy() {
 		return createdBy;
@@ -92,10 +95,7 @@ public class PresentCardEntity implements Serializable {
 		this.modifyBy = modifyBy;
 	}
 
-		// 修改时间
-		@Column(name = "modifytime", nullable = true)
-		@LastModifiedDate
-		private Date modifytime;
+
 		
 	public Date getModifytime() {
 			return modifytime;
@@ -129,19 +129,21 @@ public class PresentCardEntity implements Serializable {
 		this.password = password;
 	}
 
-	public String getCardStatus() {
+	
+
+	public int getCardStatus() {
 		return cardStatus;
 	}
 
-	public void setCardStatus(String cardStatus) {
+	public void setCardStatus(int cardStatus) {
 		this.cardStatus = cardStatus;
 	}
 
-	public String getConvertStatus() {
+	public int getConvertStatus() {
 		return convertStatus;
 	}
 
-	public void setConvertStatus(String convertStatus) {
+	public void setConvertStatus(int convertStatus) {
 		this.convertStatus = convertStatus;
 	}
 

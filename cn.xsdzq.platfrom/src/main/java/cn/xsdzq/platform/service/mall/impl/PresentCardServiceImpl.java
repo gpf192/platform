@@ -25,9 +25,9 @@ public class PresentCardServiceImpl implements PresentCardService {
 	@Transactional
 	public void addPresentCard(PresentCardEntity presentCard) {
 		// TODO Auto-generated method stub
-		PresentCardEntity p = presentCardRepository.findById(presentCard.getId()).get();
-		presentCard.setCreateDate(p.getCreateDate());
-		presentCard.setModifytime(new Date());
+		//PresentCardEntity p = presentCardRepository.findById(presentCard.getId()).get();
+		//presentCard.setCreateDate(p.getCreateDate());
+		//presentCard.setModifytime(new Date());
 		presentCardRepository.save(presentCard);
 
 	}
@@ -49,7 +49,7 @@ public class PresentCardServiceImpl implements PresentCardService {
 	@Override
 	public PresentCardEntity findById(long id) {
 		// TODO Auto-generated method stub
-		return null;
+		return presentCardRepository.findById(id).get();
 	}
 
 }

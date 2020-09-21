@@ -6,7 +6,7 @@ function commodityaddController($scope, $http, $state, $stateParams, $gridServic
 	$scope.init=function(){
 		var data = {
 				"one" : {
-					name : "",
+					name : "商品管理",
 					goto:""
 
 				},

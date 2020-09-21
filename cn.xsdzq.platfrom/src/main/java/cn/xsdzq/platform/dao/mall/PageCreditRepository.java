@@ -7,14 +7,15 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import cn.xsdzq.platform.entity.mall.CreditEntity;
 
 public interface PageCreditRepository extends PagingAndSortingRepository<CreditEntity, Long>{
-	Page<CreditEntity> findByOrderByCategoryCodeDesc(Pageable pageable);
+	Page<CreditEntity> findByCategoryNameNotOrderByCategoryCodeDesc(String all,Pageable pageable);
+	int countByCategoryNameNot(String all);
 	
-	Page<CreditEntity> findByCategoryCodeLikeOrderByCategoryCodeDesc(String code, Pageable pageable);
-	int countByCategoryCodeLike(String code);
+	Page<CreditEntity> findByCategoryCodeLikeAndCategoryNameNotOrderByCategoryCodeDesc(String code,String all, Pageable pageable);
+	int countByCategoryCodeLikeAndCategoryNameNot(String code,String all);
 	
-	Page<CreditEntity> findByCategoryNameLikeOrderByCategoryCodeDesc(String name, Pageable pageable);
-	int countByCategoryNameLike(String name);
+	Page<CreditEntity> findByCategoryNameLikeAndCategoryNameNotOrderByCategoryCodeDesc(String name,String all, Pageable pageable);
+	int countByCategoryNameLikeAndCategoryNameNot(String name,String all);
 	
-	Page<CreditEntity> findByCategoryNameLikeAndCategoryCodeLikeOrderByCategoryCodeDesc(String name, String code, Pageable pageable);
-	int countByCategoryNameLikeAndCategoryCodeLike(String name, String code);
+	Page<CreditEntity> findByCategoryNameLikeAndCategoryCodeLikeOrderByCategoryCodeDesc(String name, String code,String all, Pageable pageable);
+	int countByCategoryNameLikeAndCategoryCodeLikeAndCategoryNameNot(String name, String code,String all);
 }
