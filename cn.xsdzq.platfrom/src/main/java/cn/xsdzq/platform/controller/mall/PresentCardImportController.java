@@ -136,9 +136,12 @@ public class PresentCardImportController {
  
 		  }
 		//检查当前临时表中cardId是否有重复
-		  if(PresentUtil.isRepeat(temps)) {
-			  return GsonUtil.buildMap(1, "附件中"+"cardId:"+"有重复，无法导入", null);
+		  if(temps.size()>1) {
+			  if(PresentUtil.isRepeat(temps)) {
+				  return GsonUtil.buildMap(1, "附件中"+"cardId:"+"有重复，无法导入", null);
+			  } 
 		  }
+		  
 		for (CardImportTempEntity entity : temps) {
 			PresentEntity present =  presentService.getPresentEntitiesByCode(entity.getPresentCode());
 			if(present == null) {
