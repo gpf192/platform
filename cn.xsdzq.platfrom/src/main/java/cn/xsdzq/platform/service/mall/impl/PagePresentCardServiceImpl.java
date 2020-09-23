@@ -82,4 +82,16 @@ public class PagePresentCardServiceImpl implements PagePresentCardService{
 		// TODO Auto-generated method stub
 		return pagePresentCardRepository.countByCardIdLikeAndPresentId(cardId, presentId);
 	}
+
+	@Override
+	public int countByPresentIdAndConvertStatusAndCardStatus(long presentId,int convertStatus, int cardStatus) {
+		// TODO Auto-generated method stub
+		return pagePresentCardRepository.countByPresentIdAndConvertStatusAndCardStatus( presentId,convertStatus, cardStatus);
+	}
+
+	@Override
+	public int countByPresentIdAndCardStatus(long presentId,int cardStatus) {
+		// TODO Auto-generated method stub
+		return pagePresentCardRepository.countByPresentIdAndCardStatus(presentId,cardStatus);
+	}
 }

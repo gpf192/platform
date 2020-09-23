@@ -69,12 +69,12 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 	$scope.importToExcel=function(){
 		
 		 var form = new FormData();
-		 var temfile = document.querySelector('input[type=file]').files[0];
+		var temfile = document.getElementById('input-zh').files[0];
+		// var temfile = document.querySelector('input[type=file]').files[0];
 		 if(temfile == null){
 			 layerUtils.iMsg(-1, "请选择附件");
 				return;
 		 }
-    	//var temfile = document.getElementById('input-zh').files[0];
 		 form.append('upfile', temfile);
       
 		 $http({
@@ -87,7 +87,7 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 	        	if (data.resCode == 0) {
 	        		//同步上传，上传附件后，插入表
 	        		layerUtils.iMsg(-1, "导入成功");
-	        		$scope.getEmpList(50);
+	        		//$scope.getEmpList(50);
 	        	}else {
 					layerUtils.iMsg(-1, "附件上传失败");
 					//$scope.getEmpList(50);

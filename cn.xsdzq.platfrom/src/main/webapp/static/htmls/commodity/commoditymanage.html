@@ -96,20 +96,30 @@
                             aria-controls="datatable1" rowspan="1" colspan="1">商品代码</th>
                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1">商品面值（元）</th>
-                            <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">实际价格（元）</th>
-                            <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">商品描述</th>
-                            <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">总库存数量</th>
-                            <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">已兑换数量</th>
-                            <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">剩余库存数量</th>
-                            <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">状态</th>
-                              <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
-                            aria-controls="datatable1" rowspan="1" colspan="1">创建时间</th>
+                       <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                       aria-controls="datatable1" rowspan="1" colspan="1">实际价格（元）</th>
+                       <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                       aria-controls="datatable1" rowspan="1" colspan="1">产品介绍</th>
+                       <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                       aria-controls="datatable1" rowspan="1" colspan="1">简介</th>
+                       <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                       aria-controls="datatable1" rowspan="1" colspan="1">使用说明</th>
+                       <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                       aria-controls="datatable1" rowspan="1" colspan="1">小图</th>
+                       <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                       aria-controls="datatable1" rowspan="1" colspan="1">大图</th>
+                       <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                       aria-controls="datatable1" rowspan="1" colspan="1">是否热门</th>
+                       <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                       aria-controls="datatable1" rowspan="1" colspan="1">总数量</th>
+                       <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                       aria-controls="datatable1" rowspan="1" colspan="1">已兑换数量</th>
+                       <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                       aria-controls="datatable1" rowspan="1" colspan="1">剩余库存数量</th>
+                       <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                       aria-controls="datatable1" rowspan="1" colspan="1">状态</th>
+                         <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                       aria-controls="datatable1" rowspan="1" colspan="1">创建时间</th>
                     </tr>
                 </thead>
                 <tbody role="alert" aria-live="polite" aria-relevant="all">
@@ -123,7 +133,18 @@
                        
                         <td ><div style="white-space:nowrap;" >{{commodity.faceValue}}</div> </td> 
                         <td ><div style="white-space:nowrap;">{{commodity.value}}</div> </td>
-                        <td ><div style="white-space:nowrap;">{{commodity.description}}</div> </td>
+                        <td ><div style="white-space:nowrap;"><span
+						    ng-bind="commodity.description |omitFilter"></span></div> </td>
+                        <td ><div style="white-space:nowrap;"><span
+						    ng-bind="commodity.tip |omitFilter"></span></div> </td>
+
+                        <td ><div style="white-space:nowrap;"><span
+						    ng-bind="commodity.explain |omitFilter"></span></div> </td>
+
+                        <td ><div style="white-space:nowrap;">{{commodity.image}}</div> </td>
+                        <td ><div style="white-space:nowrap;">{{commodity.bigImage}}</div> </td>
+                        <td ><div style="white-space:nowrap;">{{commodity.isHot}}</div> </td>
+                        
                         <td ><div style="white-space:nowrap;">{{commodity.storeNumber}}</div> </td>
                         <td ><div style="white-space:nowrap;">{{commodity.convertNumber}}</div> </td>
                         <td ><div style="white-space:nowrap;">{{commodity.storeUnused}}</div> </td>

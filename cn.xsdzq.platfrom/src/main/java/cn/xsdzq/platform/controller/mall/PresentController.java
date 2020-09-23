@@ -25,6 +25,7 @@ import cn.xsdzq.platform.entity.mall.PresentCategoryEntity;
 import cn.xsdzq.platform.entity.mall.PresentEntity;
 import cn.xsdzq.platform.model.Pagination;
 import cn.xsdzq.platform.model.mall.PresentDTO;
+import cn.xsdzq.platform.service.mall.PagePresentCardService;
 import cn.xsdzq.platform.service.mall.PresentCategoryService;
 import cn.xsdzq.platform.service.mall.PresentService;
 import cn.xsdzq.platform.util.GsonUtil;
@@ -46,6 +47,11 @@ public class PresentController {
 	@Qualifier("presentCategoryServiceImpl")
 	private PresentCategoryService presentCategoryService;
 	
+	@Autowired
+	@Qualifier("pagePresentCardServiceImpl")
+	private PagePresentCardService pagePresentCardService;
+	
+	
 	@PostMapping("/add")
 	public Map<String, Object> addPresent(@RequestBody PresentDTO presentEntity) {
 		
@@ -53,7 +59,7 @@ public class PresentController {
 		System.out.println(entity.toString());
 		PresentCategoryEntity c = presentCategoryService.findById(presentEntity.getCategoryId());
 		entity.setPresentCategory(c);
-		entity.setCreatetime(new Date());
+		//entity.setCreatetime(new Date());
 		presentService.addPresent(entity);
 		return GsonUtil.buildMap(0, "success", null);
 	}
@@ -99,7 +105,17 @@ public class PresentController {
 		}
 		List<PresentDTO> cDtos = new ArrayList<PresentDTO>();
 		for (PresentEntity entity : entities) {
+			//查询每个present下面有多少个卡券,总数=已兑换（上架状态）+库存（未兑换且上架状态）+下架（未兑换状态）
+			//已兑换
+			int convertNumber = pagePresentCardService.countByPresentIdAndConvertStatusAndCardStatus(entity.getId(),1,1);//已兑换并且上架，已兑换的只有上架状态
+			//库存
+			int storeUnused = pagePresentCardService.countByPresentIdAndConvertStatusAndCardStatus(entity.getId(), 0,1);//剩余库存
+			//已下架
+			int xiajia = pagePresentCardService.countByPresentIdAndCardStatus(entity.getId(),0 );
 			PresentDTO dto = PresentUtil.convertPresentDTOByEntity(entity);
+			dto.setStoreNumber(convertNumber+storeUnused+xiajia);//总库存实时计算
+			dto.setConvertNumber(convertNumber);
+			dto.setStoreUnused(storeUnused);
 			cDtos.add(dto);
 		}
 		

@@ -161,15 +161,14 @@ function commodityclassifyController($scope, $http, $state, $stateParams, $gridS
 			        if(tempInfo.id == infoId){
 			        	var param = tempInfo;
 			        }
-			      }  
+			  }  
 	  	    var url = httpUtils.url.deleteCommodityClassify;
 			$http.post(url, param).success(function(data) {
 				if (data.resCode != 0) {
-					layerUtils.iMsg(-1, "删除失败");	
+					layerUtils.iMsg(-1, "删除失败，含有关联子项");	
 				}
 			});
 	        }
-			layerUtils.iMsg(-1, "删除成功");
 			$scope.getCommodityclassifyList(10);
 			
 		}, function() {

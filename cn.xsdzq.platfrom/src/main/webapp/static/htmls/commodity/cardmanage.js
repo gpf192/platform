@@ -124,6 +124,10 @@ function cardmanageController($scope, $http, $state, $stateParams, $gridService,
 		        }
 		      }        	
         } 
+		if(param.convertStatus==1){
+			layerUtils.iMsg(-1, "已兑换卡券无法编辑！");
+			return;
+		}
 
 		layerUtils.iConfirm("是否修该此产品信息？", function() {
 			console.log(param);// integraldetail   cardmodify
@@ -142,26 +146,40 @@ function cardmanageController($scope, $http, $state, $stateParams, $gridService,
         	layerUtils.iMsg(-1, "请选择要删除的记录！");
 			return;
         }
-
+		for (var h = 0; h < $scope.selected.length; h++) {			
+        	var infoId = $scope.selected[h];	
+  	      for (var i = 0; i < $scope.cardList.length; i++) {
+		        var tempInfo = $scope.cardList[i];
+		        if(tempInfo.id == infoId){
+		        	var param = tempInfo;
+		        }
+		        if(param.convertStatus==1){
+					layerUtils.iMsg(-1, "已兑换卡券无法删除！");
+					return;
+				}
+		      }  
+  	      }
 		layerUtils.iConfirm("是否删除该卡券？", function() {
 			for (var h = 0; h < $scope.selected.length; h++) {			
 	        	var infoId = $scope.selected[h];	
-	  	      for (var i = 0; i < $scope.cardList.length; i++) {
-			        var tempInfo = $scope.cardList[i];
-			        if(tempInfo.id == infoId){
-			        	var param = tempInfo;
-			        }
-			      }  
-	  	    var url = httpUtils.url.deleteCard;
-			$http.post(url, param).success(function(data) {
-				if (data.resCode != 0) {
-					layerUtils.iMsg(-1, "删除失败");	
-				}
-			});
+		  	      for (var i = 0; i < $scope.cardList.length; i++) {
+				        var tempInfo = $scope.cardList[i];
+				        if(tempInfo.id == infoId){
+				        	var param = tempInfo;
+				        }
+				      }  
+		  	      
+		  	    var url = httpUtils.url.deleteCard;
+				$http.post(url, param).success(function(data) {
+					if (data.resCode != 0) {
+						layerUtils.iMsg(-1, "删除失败,部分卡券无法删除");	
+					}
+				});
 	        }
 			layerUtils.iMsg(-1, "删除成功");
-			$scope.selected = [];
+			
 			$scope.getCardList(50);
+			$scope.selected = [];
 			
 		}, function() {
 			console.log("取消");

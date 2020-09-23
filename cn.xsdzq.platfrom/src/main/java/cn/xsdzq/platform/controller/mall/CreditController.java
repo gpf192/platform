@@ -4,7 +4,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -25,14 +24,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-import cn.xsdzq.platform.entity.CategoryEntity;
-import cn.xsdzq.platform.entity.lcj.EmpEntity;
 import cn.xsdzq.platform.entity.mall.CreditEntity;
 import cn.xsdzq.platform.entity.mall.CreditRecordEntity;
 import cn.xsdzq.platform.entity.mall.CreditImportTempEntity;
 import cn.xsdzq.platform.entity.mall.MallUserInfoEntity;
-import cn.xsdzq.platform.model.CategoryDTO;
 import cn.xsdzq.platform.model.Pagination;
 import cn.xsdzq.platform.model.mall.CreditDTO;
 import cn.xsdzq.platform.model.mall.CreditImportRecordDTO;
@@ -42,7 +40,6 @@ import cn.xsdzq.platform.service.mall.CreditImportRecordService;
 import cn.xsdzq.platform.service.mall.CreditImportTempService;
 import cn.xsdzq.platform.service.mall.CreditService;
 import cn.xsdzq.platform.service.mall.MallUserService;
-import cn.xsdzq.platform.util.CategoryUtil;
 import cn.xsdzq.platform.util.DateUtil;
 import cn.xsdzq.platform.util.GsonUtil;
 import cn.xsdzq.platform.util.ImportExcelUtil;
@@ -263,13 +260,16 @@ public class CreditController {
 		return GsonUtil.buildMap(0, "ok", dtos,pagination);
 	}
 	//导入excel
-	 @RequestMapping(value="/upload",method={RequestMethod.GET,RequestMethod.POST}) 
+	 @RequestMapping(value="/upload",method={RequestMethod.POST}) 
 	 public Map<String, Object>  uploadExcel(HttpServletRequest request) throws Exception { 
 		 System.out.println("进入接口===================================(**********************************");
-		  MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;  
-		  InputStream in =null; 
+		 //
+		 MultipartResolver resolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+		 MultipartHttpServletRequest multipartRequest = resolver.resolveMultipart(request); 
+		 InputStream in =null; 
 		  List<List<Object>> listob = null; 
-		  MultipartFile file = multipartRequest.getFile("upfile"); 	
+		 MultipartFile file = multipartRequest.getFile("upfile"); 
+		
 		  if(file.isEmpty()){ 
 		   throw new Exception("文件不存在！"); 
 		  } 

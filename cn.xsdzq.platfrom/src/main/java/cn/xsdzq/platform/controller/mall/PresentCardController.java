@@ -22,12 +22,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cn.xsdzq.platform.entity.mall.PresentCardEntity;
 import cn.xsdzq.platform.entity.mall.PresentEntity;
+import cn.xsdzq.platform.entity.mall.PresentRecordEntity;
 import cn.xsdzq.platform.entity.mall.PresentResultEntity;
 import cn.xsdzq.platform.model.Pagination;
 import cn.xsdzq.platform.model.mall.PresentCardDTO;
-import cn.xsdzq.platform.model.mall.PresentResultDTO;
+import cn.xsdzq.platform.model.mall.PresentRecodDTO;
 import cn.xsdzq.platform.service.mall.PagePresentCardService;
 import cn.xsdzq.platform.service.mall.PresentCardService;
+import cn.xsdzq.platform.service.mall.PresentRecordService;
 import cn.xsdzq.platform.service.mall.PresentResultService;
 import cn.xsdzq.platform.service.mall.PresentService;
 import cn.xsdzq.platform.util.GsonUtil;
@@ -51,14 +53,16 @@ public class PresentCardController {
 	private PagePresentCardService pagePresentCardService;
 	
 	@Autowired
-	@Qualifier("presentResultServiceImpl")
-	private PresentResultService presentResultService;
+	@Qualifier("presentRecordServiceImpl")
+	private PresentRecordService presentRecordService;
 	
 	@PostMapping(value = "/add")
 	public Map<String, Object> addCard(@RequestBody PresentCardDTO dto) {
 		System.out.println(dto.toString());
 		PresentCardEntity entity = PresentUtil.convertPresentCardEntityByDTO(dto);
 		PresentEntity p = presentService.findById(dto.getPresentId());
+		p.setStoreUnused(p.getStoreUnused()+1);//库存+1
+		presentService.addPresent(p);
 		entity.setPresent(p);
 		User user = UserManageUtil.getUser();
 		String name = user.getUsername();
@@ -122,6 +126,9 @@ public class PresentCardController {
 	@RequestMapping(value = "/delete", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> deletePresentCard(HttpServletRequest request,  @RequestBody PresentCardDTO dto) {		
+		PresentEntity p = presentService.findById(dto.getPresentId());
+		p.setStoreUnused(p.getStoreUnused()-1);//库存-1
+		presentService.addPresent(p);
 		presentCardService.deletePresentCard(dto);
 		
 		return GsonUtil.buildMap(0, "success", null);
@@ -135,48 +142,48 @@ public class PresentCardController {
 		int sum = 0 ;
 		int num = MethodUtil.getEmpMethodNum(presentId,clientId, clientId);
 		
-		List<PresentResultEntity> entities = null;
+		List<PresentRecordEntity> entities = null;
 		long pid = 0;
 		if(!"".equals(presentId)) {
 			pid = Long.parseLong(presentId);
 		}
 		if(num == 1) {
-			entities = presentResultService.findByOrderByRecordTimeDesc(pageNumber, pageSize);
-			sum = presentResultService.countAll();
+			entities = presentRecordService.findByOrderByRecordTimeDesc(pageNumber, pageSize);
+			sum = presentRecordService.countAll();
 			System.out.println(entities.size()+"--"+sum);
 		}
 		if(num == 2) {
-			entities = presentResultService.findByPresentCardEntity_presentIdAndMallUserEntity_clientIdLikeAndMallUserEntity_mobileLikeOrderByRecordTimeDesc(pid, clientId, mobile, pageNumber, pageSize);
-			sum = presentResultService.countByPresentCardEntity_presentIdAndMallUserEntity_clientIdLikeAndMallUserEntity_mobileLike(pid, clientId, mobile);
+			entities = presentRecordService.findByPresentCardEntity_presentIdAndMallUserEntity_clientIdLikeAndMallUserEntity_mobileLikeOrderByRecordTimeDesc(pid, clientId, mobile, pageNumber, pageSize);
+			sum = presentRecordService.countByPresentCardEntity_presentIdAndMallUserEntity_clientIdLikeAndMallUserEntity_mobileLike(pid, clientId, mobile);
 		}
 		if(num == 3) {
-			entities = presentResultService.findByPresentCardEntity_presentIdOrderByRecordTimeDesc(pid, pageNumber, pageSize);
-			sum = presentResultService.countByPresentCardEntity_presentId(pid);
+			entities = presentRecordService.findByPresentCardEntity_presentIdOrderByRecordTimeDesc(pid, pageNumber, pageSize);
+			sum = presentRecordService.countByPresentCardEntity_presentId(pid);
 		}
 		if(num == 4) {
-			entities = presentResultService.findByMallUserEntity_clientIdLikeOrderByRecordTimeDesc(clientId, pageNumber, pageSize);
-			sum = presentResultService.countByMallUserEntity_clientIdLike(clientId);
+			entities = presentRecordService.findByMallUserEntity_clientIdLikeOrderByRecordTimeDesc(clientId, pageNumber, pageSize);
+			sum = presentRecordService.countByMallUserEntity_clientIdLike(clientId);
 		}
 		if(num == 5) {
-			entities = presentResultService.findByMallUserEntity_mobileLikeOrderByRecordTimeDesc(mobile, pageNumber, pageSize);
-			sum = presentResultService.countByMallUserEntity_mobileLike(mobile);
+			entities = presentRecordService.findByMallUserEntity_mobileLikeOrderByRecordTimeDesc(mobile, pageNumber, pageSize);
+			sum = presentRecordService.countByMallUserEntity_mobileLike(mobile);
 		}
 		if(num == 6) {
-			entities = presentResultService.findByPresentCardEntity_presentIdAndMallUserEntity_clientIdLikeOrderByRecordTimeDesc(pid, clientId, pageNumber, pageSize);
-			sum = presentResultService.countByPresentCardEntity_presentIdAndMallUserEntity_clientIdLike(pid, clientId);
+			entities = presentRecordService.findByPresentCardEntity_presentIdAndMallUserEntity_clientIdLikeOrderByRecordTimeDesc(pid, clientId, pageNumber, pageSize);
+			sum = presentRecordService.countByPresentCardEntity_presentIdAndMallUserEntity_clientIdLike(pid, clientId);
 		}
 		if(num == 7) {
-			entities = presentResultService.findByPresentCardEntity_presentIdAndMallUserEntity_mobileLikeOrderByRecordTimeDesc(pid, mobile, pageNumber, pageSize);
-			sum = presentResultService.countByPresentCardEntity_presentIdAndMallUserEntity_mobileLike(pid, mobile);
+			entities = presentRecordService.findByPresentCardEntity_presentIdAndMallUserEntity_mobileLikeOrderByRecordTimeDesc(pid, mobile, pageNumber, pageSize);
+			sum = presentRecordService.countByPresentCardEntity_presentIdAndMallUserEntity_mobileLike(pid, mobile);
 		}
 		if(num == 8) {
-			entities = presentResultService.findByMallUserEntity_clientIdLikeAndMallUserEntity_mobileLikeOrderByRecordTimeDesc(clientId, mobile, pageNumber, pageSize);
-			sum = presentResultService.countByMallUserEntity_clientIdLikeAndMallUserEntity_mobileLike(clientId, mobile);
+			entities = presentRecordService.findByMallUserEntity_clientIdLikeAndMallUserEntity_mobileLikeOrderByRecordTimeDesc(clientId, mobile, pageNumber, pageSize);
+			sum = presentRecordService.countByMallUserEntity_clientIdLikeAndMallUserEntity_mobileLike(clientId, mobile);
 		}
-		List<PresentResultDTO> dtos = new ArrayList<PresentResultDTO>();
-		for (PresentResultEntity entity : entities) {
-			PresentResultDTO dto = PresentUtil.convertDTOByPresentResultEntity(entity);
-			System.out.println(dto.toString());
+		List<PresentRecodDTO> dtos = new ArrayList<PresentRecodDTO>();
+		for (PresentRecordEntity entity : entities) {
+			PresentRecodDTO dto = PresentUtil.convertDTOByPresentRecordEntity(entity);
+			//System.out.println(dto.toString());
 			dtos.add(dto);
 		}
 		Pagination pagination = new Pagination(pageNumber, pageSize, sum);

@@ -157,12 +157,10 @@ function commoditymanageController($scope, $http, $state, $stateParams, $gridSer
 	  	    console.log(param.id);
 			$http.post(url, param).success(function(data) {
 				if (data.resCode != 0) {
-					layerUtils.iMsg(-1, "删除失败");	
+					layerUtils.iMsg(-1, "删除失败,含有关联子项");	
 				}
 			});
 	        }
-			layerUtils.iMsg(-1, "删除成功");
-			$scope.selected = [];
 			$scope.getCommodityList(50);
 			
 		}, function() {

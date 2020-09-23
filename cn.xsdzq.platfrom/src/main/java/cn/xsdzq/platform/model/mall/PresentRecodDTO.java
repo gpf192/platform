@@ -1,6 +1,6 @@
 package cn.xsdzq.platform.model.mall;
 
-public class PresentResultDTO {
+public class PresentRecodDTO {
 	private String clientName;
 	private String clientId;
 	private String departmentName;
@@ -8,7 +8,7 @@ public class PresentResultDTO {
 	private String presentName;
 	private String cardId;
 	private String password;
-	private float price;
+	private double price;
 	private int integralNum;
 	private String recordTime;
 	public String getClientName() {
@@ -54,13 +54,13 @@ public class PresentResultDTO {
 		this.password = password;
 	}
 
-	public float getPrice() {
+	
+	public double getPrice() {
 		return price;
 	}
-	public void setPrice(float price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
-	
 	public int getIntegralNum() {
 		return integralNum;
 	}

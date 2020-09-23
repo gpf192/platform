@@ -53,7 +53,6 @@ public class PresentEntity implements Serializable {
 	@Column(name = "value", precision = 2)
 	private float value;//实际价格
 	
-	@Lob
 	@Column(name = "image", nullable = true)
 	private String image;
 	
@@ -64,19 +63,23 @@ public class PresentEntity implements Serializable {
 	 private boolean isHot;
 	 
 	 @Column(name = "tip")
-	 private String tip;
+	 private String tip;//简介
 	 
-	@Column(name = "description")
-	private String description;
+	@Column(name = "description", length = 2000)
+	private String description;//产品介绍
+	
+	@Lob
+	@Column(name = "explain2")
+	 private String explain;//使用说明
 
 	@Column(name = "store_number")
-	private int storeNumber;//总库存
+	private int storeNumber = 0;//总库存
 
 	@Column(name = "convert_number")
-	private int convertNumber;//已兑换
+	private int convertNumber = 0;//已兑换
 
 	@Column(name = "store_unused")
-	private int storeUnused;//剩余库存
+	private int storeUnused = 0;//剩余库存
 	
 	@Column(name = "sort")
 	private int sort;
@@ -148,6 +151,14 @@ public class PresentEntity implements Serializable {
 
 	public void setCategoryId(long categoryId) {
 		this.categoryId = categoryId;
+	}
+
+	public String getExplain() {
+		return explain;
+	}
+
+	public void setExplain(String explain) {
+		this.explain = explain;
 	}
 
 	public long getId() {
@@ -259,12 +270,11 @@ public class PresentEntity implements Serializable {
 	public String toString() {
 		return "PresentEntity [id=" + id + ", code=" + code + ", name=" + name + ", faceValue=" + faceValue + ", value="
 				+ value + ", image=" + image + ", bigImage=" + bigImage + ", isHot=" + isHot + ", tip=" + tip
-				+ ", description=" + description + ", storeNumber=" + storeNumber + ", convertNumber=" + convertNumber
-				+ ", storeUnused=" + storeUnused + ", sort=" + sort + ", status=" + status + ", categoryId="
-				+ categoryId + ", presentCategory=" + presentCategory + ", createtime=" + createtime + ", modifytime="
-				+ modifytime + "]";
+				+ ", description=" + description + ", explain=" + explain + ", storeNumber=" + storeNumber
+				+ ", convertNumber=" + convertNumber + ", storeUnused=" + storeUnused + ", sort=" + sort + ", status="
+				+ status + ", categoryId=" + categoryId + ", presentCategory=" + presentCategory + ", createtime="
+				+ createtime + ", modifytime=" + modifytime + "]";
 	}
-
 
 
 }

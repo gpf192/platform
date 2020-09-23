@@ -16,4 +16,9 @@ public interface PagePresentCardService {
 	
 	List<PresentCardEntity> findByCardIdLikeAndPresentIdOrderByCreateDateDesc(String cardId, long presentId,int pageNumber, int pageSize);
 	int countByCardIdLikeAndPresentId(String cardId,long presentId);
+	
+	//查询库存
+		public int countByPresentIdAndConvertStatusAndCardStatus(long PresentId,int convertStatus, int cardStatus);
+		//查询已下架
+		public int countByPresentIdAndCardStatus(long presentId,int cardStatus);
 }

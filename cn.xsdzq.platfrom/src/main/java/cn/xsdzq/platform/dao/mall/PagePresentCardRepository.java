@@ -21,5 +21,10 @@ public interface PagePresentCardRepository extends PagingAndSortingRepository<Pr
 	
 	Page<PresentCardEntity> findByCardIdLikeAndPresentIdOrderByCreateDateDesc(String cardId, long presentId,Pageable pageable);
 	int countByCardIdLikeAndPresentId(String cardId,long presentId);
+	//查询已兑换、未兑换状态数量，且上架状态
+	int countByPresentIdAndConvertStatusAndCardStatus(long presentId, int convertStatus, int cardStatus);
+	//查询已下架
+	int countByPresentIdAndCardStatus(long presentId, int cardStatus);
+	
 
 }

@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "mall_present_result")
 public class PresentResultEntity {
@@ -29,8 +30,8 @@ public class PresentResultEntity {
 	private int integralNumber ;//消耗积分
 
 	// 积分金额 这个字段保留，不需要
-	//@Column(name = "value")
-	//private double value;
+	@Column(name = "value")
+	private double value;
 
 	@Column(name = "change_number")
 	private int changeNumber;//兑换数量
@@ -49,8 +50,8 @@ public class PresentResultEntity {
 	private MallUserEntity mallUserEntity;
 
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER, optional = false)
-	@JoinColumn(name = "card_id", referencedColumnName = "id")
-	private PresentCardEntity presentCardEntity;
+	@JoinColumn(name = "present_id", referencedColumnName = "id")
+	private PresentEntity presentEntity;
 
 	
 	public int getIntegralNumber() {
@@ -111,19 +112,30 @@ public class PresentResultEntity {
 		this.mallUserEntity = mallUserEntity;
 	}
 
-	public PresentCardEntity getPresentCardEntity() {
-		return presentCardEntity;
+	public PresentEntity getPresentEntity() {
+		return presentEntity;
 	}
 
-	public void setPresentCardEntity(PresentCardEntity presentCardEntity) {
-		this.presentCardEntity = presentCardEntity;
+	public void setPresentEntity(PresentEntity presentEntity) {
+		this.presentEntity = presentEntity;
+	}
+
+	public double getValue() {
+		return value;
+	}
+
+	public void setValue(double value) {
+		this.value = value;
 	}
 
 	@Override
 	public String toString() {
-		return "PresentResultEntity [id=" + id + ", integralNumber=" + integralNumber + ", changeNumber=" + changeNumber
-				+ ", dateFlag=" + dateFlag + ", groupTime=" + groupTime + ", recordTime=" + recordTime
-				+ ", mallUserEntity=" + mallUserEntity + ", presentCardEntity=" + presentCardEntity + "]";
+		return "PresentResultEntity [id=" + id + ", integralNumber=" + integralNumber + ", value=" + value
+				+ ", changeNumber=" + changeNumber + ", dateFlag=" + dateFlag + ", groupTime=" + groupTime
+				+ ", recordTime=" + recordTime + ", mallUserEntity=" + mallUserEntity + ", presentEntity="
+				+ presentEntity + "]";
 	}
+
+
 
 }
