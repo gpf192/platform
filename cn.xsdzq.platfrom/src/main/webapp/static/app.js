@@ -331,6 +331,10 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/commodity/cardmanage",
 		templateUrl : "htmls/commodity/cardmanage.html",
 		controller : "cardmanageController"
+	}).state("cardImport", {
+		url : "/commodity/cardImport",
+		templateUrl : "htmls/commodity/cardImport.html",
+		controller : "cardImportController"
 	}).state("exchangerecords", {
 		url : "/commodity/exchangerecords", 
 		templateUrl : "htmls/commodity/exchangerecords.html",

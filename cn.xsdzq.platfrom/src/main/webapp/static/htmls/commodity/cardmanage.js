@@ -107,7 +107,10 @@ function cardmanageController($scope, $http, $state, $stateParams, $gridService,
 	$scope.newBuild = function() {
 		$state.go("cardadd");
 	}
-	
+	//批量导入
+	$scope.cardImport = function() {
+		$state.go("cardImport");
+	}
 	//编辑
 	$scope.batchModifyInfo = function() {
 		if($scope.selected.length != 1){

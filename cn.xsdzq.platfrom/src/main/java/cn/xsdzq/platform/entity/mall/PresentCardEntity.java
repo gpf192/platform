@@ -75,7 +75,7 @@ public class PresentCardEntity implements Serializable {
 	@Column(name = "modifyBy")
 	private String modifyBy;
 	
-	@Column(name = "modifyBy")
+	@Column(name = "isImport")
 	private int isImport = 0;//0-不是导入，1是导入
 
 	// 修改时间
