@@ -49,6 +49,12 @@ public class PresentServiceImpl implements PresentService {
 	}
 
 	@Override
+	public PresentEntity getPresentEntitiesByCode(String code) {
+		// TODO Auto-generated method stub
+		return presentRepository.findByCode(code);
+	}
+
+	@Override
 	public List<PresentEntity> getPresentEntitiesByCategoryId(long categoryId) {
 		// TODO Auto-generated method stub
 		return presentRepository.findByCategoryId(categoryId);

@@ -74,6 +74,9 @@ public class PresentCardEntity implements Serializable {
 	
 	@Column(name = "modifyBy")
 	private String modifyBy;
+	
+	@Column(name = "modifyBy")
+	private int isImport = 0;//0-不是导入，1是导入
 
 	// 修改时间
 	@Column(name = "modifytime")
@@ -96,7 +99,14 @@ public class PresentCardEntity implements Serializable {
 	}
 
 
-		
+	public int getIsImport() {
+		return isImport;
+	}
+
+	public void setIsImport(int isImport) {
+		this.isImport = isImport;
+	}
+
 	public Date getModifytime() {
 			return modifytime;
 		}
@@ -184,8 +194,7 @@ public class PresentCardEntity implements Serializable {
 		return "PresentCardEntity [id=" + id + ", cardId=" + cardId + ", password=" + password + ", cardStatus="
 				+ cardStatus + ", convertStatus=" + convertStatus + ", presentId=" + presentId + ", present=" + present
 				+ ", createDate=" + createDate + ", convertDate=" + convertDate + ", createdBy=" + createdBy
-				+ ", modifyBy=" + modifyBy + ", modifytime=" + modifytime + "]";
+				+ ", modifyBy=" + modifyBy + ", isImport=" + isImport + ", modifytime=" + modifytime + "]";
 	}
-
 
 }

@@ -11,6 +11,7 @@ public interface PresentService {
 
 	public List<PresentEntity> getPresentEntities();
 	public List<PresentEntity> getPresentEntitiesByName(String name);
+	public PresentEntity getPresentEntitiesByCode(String code);
 	public List<PresentEntity> getPresentEntitiesByCategoryId(long categoryId) ;
 	public void deletePresent(long id);
 	public PresentEntity findById(long id);

@@ -1,10 +1,16 @@
 package cn.xsdzq.platform.util.mall;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.xsdzq.platform.entity.mall.CardImportTempEntity;
+import cn.xsdzq.platform.entity.mall.CreditImportTempEntity;
 import cn.xsdzq.platform.entity.mall.PresentCardEntity;
 import cn.xsdzq.platform.entity.mall.PresentCategoryEntity;
 import cn.xsdzq.platform.entity.mall.PresentEntity;
 import cn.xsdzq.platform.entity.mall.PresentRecordEntity;
 import cn.xsdzq.platform.entity.mall.PresentResultEntity;
+import cn.xsdzq.platform.model.mall.CardImportTempDTO;
 import cn.xsdzq.platform.model.mall.PresentCardDTO;
 import cn.xsdzq.platform.model.mall.PresentCategoryDTO;
 import cn.xsdzq.platform.model.mall.PresentDTO;
@@ -128,5 +134,51 @@ public class PresentUtil {
 		dto.setRecordTime(DateUtil.DateToString(entity.getRecordTime()));
 		return dto;
 	}
+	public static CardImportTempDTO convertCardImportTempDTOByEntity(CardImportTempEntity entity) {
+		CardImportTempDTO dto = new CardImportTempDTO();
+		dto.setCardId(entity.getCardId());
+		dto.setPassword(entity.getPassword());
+		dto.setPresentCode(entity.getPresentCode());
+		dto.setCardStatus(1);
+		dto.setConvertStatus(0);
+		return dto;
+	}
 	
+	public static CardImportTempEntity toCardImportTempEntity(List<Object> lo) {
+		CardImportTempEntity vo = new CardImportTempEntity();
+		
+		   vo.setCardId(String.valueOf(lo.get(0))); 
+		   vo.setPassword(String.valueOf(lo.get(1))); 
+		   vo.setPresentCode(String.valueOf(lo.get(2))); 
+		   vo.setCardStatus(1);
+		   vo.setConvertStatus(0);
+ 
+		return vo;
+	}
+	
+	public static PresentCardEntity cardTempEntityToCardEntity(CardImportTempEntity temp) {
+		PresentCardEntity card = new PresentCardEntity();
+		card.setCardId(temp.getCardId());
+		card.setPassword(temp.getPassword());
+		//card.setPresentCode(temp.getPresentCode());
+		card.setCardStatus(1);
+		card.setConvertStatus(0);
+		return card;
+	}
+	public static boolean  isRepeat(List<CardImportTempEntity> temps){
+		List<CardImportTempEntity> a =  new ArrayList<CardImportTempEntity>();
+		for (CardImportTempEntity entity : temps) {
+			a.add(entity);
+		}
+		for (int i = 0; i < temps.size(); i++) {  
+			for (int j = 0; j < a.size(); j++) {    
+				// 判断两个集合中数据是否相等(查重)     
+				if (temps.get(i).getCardId().equals(a.get(i).getCardId())) {      
+					return true;          
+					}   
+				}
+		}
+		return false;
+	}		
+
 }

@@ -37,6 +37,11 @@ public class PresentCardServiceImpl implements PresentCardService {
 		// TODO Auto-generated method stub
 		return presentCardRepository.findAll();
 	}
+	
+	@Override
+	public PresentCardEntity findByCardId(String cardId) {
+		return presentCardRepository.findByCardId(cardId);
+	}
 
 	@Override
 	@Transactional
