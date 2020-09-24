@@ -27,24 +27,17 @@ import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import cn.xsdzq.platform.entity.mall.CardImportTempEntity;
-import cn.xsdzq.platform.entity.mall.CreditImportTempEntity;
 import cn.xsdzq.platform.entity.mall.PresentCardEntity;
 import cn.xsdzq.platform.entity.mall.PresentEntity;
 import cn.xsdzq.platform.model.Pagination;
 import cn.xsdzq.platform.model.mall.CardImportTempDTO;
-import cn.xsdzq.platform.model.mall.CreditImportTempDTO;
-import cn.xsdzq.platform.service.mall.CreditService;
 import cn.xsdzq.platform.service.mall.PageCardImportTempService;
 import cn.xsdzq.platform.service.mall.PresentCardService;
 import cn.xsdzq.platform.service.mall.PresentService;
-import cn.xsdzq.platform.util.DateUtil;
 import cn.xsdzq.platform.util.GsonUtil;
 import cn.xsdzq.platform.util.ImportExcelUtil;
-import cn.xsdzq.platform.util.PublicUtil;
 import cn.xsdzq.platform.util.UserManageUtil;
-import cn.xsdzq.platform.util.mall.CreditUtil;
 import cn.xsdzq.platform.util.mall.PresentUtil;
-import javassist.expr.NewArray;
 
 @RestController
 @RequestMapping(value = "/mall/cardImport")

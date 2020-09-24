@@ -87,10 +87,10 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 	        	if (data.resCode == 0) {
 	        		//同步上传，上传附件后，插入表
 	        		layerUtils.iMsg(-1, "导入成功");
-	        		//$scope.getEmpList(50);
+	        		$scope.getEmpList(50);
 	        	}else {
 					layerUtils.iMsg(-1, "附件上传失败");
-					//$scope.getEmpList(50);
+					$scope.getEmpList(50);
 				}
 	        })
 	};

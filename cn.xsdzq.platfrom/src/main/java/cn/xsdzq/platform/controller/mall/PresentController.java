@@ -52,11 +52,9 @@ public class PresentController {
 	
 	
 	@PostMapping("/add")
-	public Map<String, Object> addPresent(@RequestBody PresentDTO presentEntity) {
-		
-		PresentEntity entity = PresentUtil.convertPresentEntityByDto(presentEntity);
-		System.out.println(entity.toString());
-		PresentCategoryEntity c = presentCategoryService.findById(presentEntity.getCategoryId());
+	public Map<String, Object> addPresent(@RequestBody PresentDTO dto) {
+		PresentEntity entity = PresentUtil.convertPresentEntityByDto(dto);
+		PresentCategoryEntity c = presentCategoryService.findById(dto.getCategoryId());
 		entity.setPresentCategory(c);
 		//entity.setCreatetime(new Date());
 		presentService.addPresent(entity);

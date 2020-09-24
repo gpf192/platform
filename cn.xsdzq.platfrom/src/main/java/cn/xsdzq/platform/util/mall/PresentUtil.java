@@ -50,7 +50,7 @@ public class PresentUtil {
 		entity.setImage(dto.getImage());
 		entity.setBigImage(dto.getBigImage());
 		
-		entity.setHot(dto.isHot());
+		entity.setIsHot(dto.getIsHot());
 		entity.setCategoryId(dto.getCategoryId());
 		entity.setDescription(dto.getDescription());
 		entity.setFaceValue(dto.getFaceValue());
@@ -59,6 +59,11 @@ public class PresentUtil {
 		
 		entity.setTip(dto.getTip());
 		entity.setExplain(dto.getExplain());
+		if(dto.getNewFlag()==0) {
+			entity.setCreatetime(DateUtil.stringToDate1(dto.getCreatetime()));
+
+		}
+		entity.setAttention(dto.getAttention());
 		return entity;
 	}
 	
@@ -73,14 +78,14 @@ public class PresentUtil {
 
 		dto.setImage(entity.getImage());
 		dto.setBigImage(entity.getBigImage());
-		
-		dto.setHot(entity.isHot());		
+		dto.setIsHot(entity.getIsHot());		
 		dto.setFaceValue(entity.getFaceValue());
 		dto.setValue(entity.getValue());
 		dto.setDescription(entity.getDescription());
 		dto.setTip(entity.getTip());
 		dto.setExplain(entity.getExplain());
 		dto.setStatus(entity.getStatus());
+		dto.setAttention(entity.getAttention());
 		try {
 			dto.setCreatetime(DateUtil.DateToString(entity.getCreatetime()));
 		} catch (Exception e) {

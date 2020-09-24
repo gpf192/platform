@@ -40,10 +40,10 @@ function commodityaddController($scope, $http, $state, $stateParams, $gridServic
 		$scope.presentStatusModel = $scope.presentStatusList[0];
 		
 		$scope.isHotList = [{
-			name:"热门",
+			name:"是",
 			code:true
 		},{
-			name:"非热门",
+			name:"否",
 			code:false
 		}]
 		$scope.formData.isHotModel = $scope.isHotList[1];
@@ -65,7 +65,7 @@ function commodityaddController($scope, $http, $state, $stateParams, $gridServic
 		var code="";
 		var tip = "";
 		var explain = "";
-		
+		var attention = "";
 		if(!utils.isEmpty($scope.formData.name)) {
 			name = $scope.formData.name;
 		}else {
@@ -114,6 +114,9 @@ function commodityaddController($scope, $http, $state, $stateParams, $gridServic
 		if(!utils.isEmpty($scope.formData.description)) {
 			description = $scope.formData.description;
 		}
+		if(!utils.isEmpty($scope.formData.attention)) {
+			attention = $scope.formData.attention;
+		}
 		var param = {
 				name:name,
 				code:code,
@@ -126,7 +129,9 @@ function commodityaddController($scope, $http, $state, $stateParams, $gridServic
 				isHot:$scope.formData.isHotModel.code,
 				status:status,
 				tip:tip,
-				explain:explain
+				explain:explain,
+				attention:attention,
+				newFlag:1
 		}
 	
 		$http.post(url, param).success(function(data) {

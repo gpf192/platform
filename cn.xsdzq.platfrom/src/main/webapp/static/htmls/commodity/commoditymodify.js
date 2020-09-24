@@ -35,6 +35,7 @@ function commoditymodifyController($scope, $http, $state, $stateParams, $gridSer
 				}
 			}
 		});
+		angular.copy($stateParams.param,$scope.formData);
 		$scope.presentStatusList = [{
 			name:"上架",
 			code:"0"
@@ -50,15 +51,19 @@ function commoditymodifyController($scope, $http, $state, $stateParams, $gridSer
 			$scope.presentStatusModel = $scope.presentStatusList[1];
 		}
 		
+		var  tempHot =  $stateParams.param.isHot;	
 		$scope.isHotList = [{
-			name:"热门",
+			name:"是",
 			code:true
 		},{
-			name:"非热门",
+			name:"否",
 			code:false
 		}]
-		$scope.formData.isHotModel = $scope.isHotList[1];
-		angular.copy($stateParams.param,$scope.formData);
+		if(tempHot) {
+			$scope.isHotModel = $scope.isHotList[0];
+		}else{
+			$scope.isHotModel = $scope.isHotList[1];
+		}		
 		
 	};	
 
@@ -77,6 +82,7 @@ function commoditymodifyController($scope, $http, $state, $stateParams, $gridSer
 		var code="";
 		var tip = "";
 		var explain = "";
+		var attention = "";
 		if(!utils.isEmpty($scope.formData.name)) {
 			name = $scope.formData.name;
 		}else {
@@ -111,6 +117,7 @@ function commoditymodifyController($scope, $http, $state, $stateParams, $gridSer
 			layerUtils.iMsg(-1, "商品状态不能为空");
 			return;
 		}
+		
 		if(!utils.isEmpty($scope.formData.image)) {
 			image = $scope.formData.image;
 		}
@@ -126,8 +133,9 @@ function commoditymodifyController($scope, $http, $state, $stateParams, $gridSer
 		if(!utils.isEmpty($scope.formData.explain)) {
 			explain = $scope.formData.explain;
 		}
-		console.log($scope.formData.id+"--9");	
-		
+		if(!utils.isEmpty($scope.formData.attention)) {
+			attention = $scope.formData.attention;
+		}		
 		var param = {
 				id:$scope.formData.id,
 				categoryId:$scope.formData.presentCategoryModel.id,
@@ -139,10 +147,13 @@ function commoditymodifyController($scope, $http, $state, $stateParams, $gridSer
 				bigImage:bigImage,
 				presentCategory:presentCategory,
 				status:status,
-				isHot:$scope.formData.isHotModel.code,
+				isHot:$scope.isHotModel.code,
 				description:description,
 				tip:tip,
-				explain:explain
+				explain:explain,
+				createtime:$scope.formData.createtime,
+				attention:attention,
+				newFlag:0
 		}
 		$http.post(url, param).success(function(data) {
 			if (data.resCode == 0) {

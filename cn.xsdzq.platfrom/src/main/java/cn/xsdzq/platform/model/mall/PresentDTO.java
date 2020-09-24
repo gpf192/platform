@@ -24,7 +24,21 @@ public class PresentDTO {
 	private int storeUnused;//剩余库存
 	private String status;//状态，上上架/下架
 	private String createtime;
+	private String attention;//attention注意事项
+	private int newFlag;//剩余库存
 	
+	public int getNewFlag() {
+		return newFlag;
+	}
+	public void setNewFlag(int newFlag) {
+		this.newFlag = newFlag;
+	}
+	public String getAttention() {
+		return attention;
+	}
+	public void setAttention(String attention) {
+		this.attention = attention;
+	}
 	public String getCode() {
 		return code;
 	}
@@ -116,10 +130,10 @@ public class PresentDTO {
 	public void setBigImage(String bigImage) {
 		this.bigImage = bigImage;
 	}
-	public boolean isHot() {
+	public boolean getIsHot() {
 		return isHot;
 	}
-	public void setHot(boolean isHot) {
+	public void setIsHot(boolean isHot) {
 		this.isHot = isHot;
 	}
 	public String getTip() {
@@ -147,9 +161,7 @@ public class PresentDTO {
 				+ image + ", bigImage=" + bigImage + ", isHot=" + isHot + ", tip=" + tip + ", sort=" + sort
 				+ ", explain=" + explain + ", description=" + description + ", storeNumber=" + storeNumber
 				+ ", convertNumber=" + convertNumber + ", storeUnused=" + storeUnused + ", status=" + status
-				+ ", createtime=" + createtime + "]";
+				+ ", createtime=" + createtime + ", attention=" + attention + ", newFlag=" + newFlag + "]";
 	}
-
-	
 	
 }

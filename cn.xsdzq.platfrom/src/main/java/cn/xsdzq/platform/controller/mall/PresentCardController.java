@@ -23,14 +23,12 @@ import org.springframework.web.bind.annotation.RestController;
 import cn.xsdzq.platform.entity.mall.PresentCardEntity;
 import cn.xsdzq.platform.entity.mall.PresentEntity;
 import cn.xsdzq.platform.entity.mall.PresentRecordEntity;
-import cn.xsdzq.platform.entity.mall.PresentResultEntity;
 import cn.xsdzq.platform.model.Pagination;
 import cn.xsdzq.platform.model.mall.PresentCardDTO;
 import cn.xsdzq.platform.model.mall.PresentRecodDTO;
 import cn.xsdzq.platform.service.mall.PagePresentCardService;
 import cn.xsdzq.platform.service.mall.PresentCardService;
 import cn.xsdzq.platform.service.mall.PresentRecordService;
-import cn.xsdzq.platform.service.mall.PresentResultService;
 import cn.xsdzq.platform.service.mall.PresentService;
 import cn.xsdzq.platform.util.GsonUtil;
 import cn.xsdzq.platform.util.MethodUtil;
@@ -92,7 +90,12 @@ public class PresentCardController {
 		
 		if(num == 1) {
 			//全量查找
-			entities = pagePresentCardService.findByOrderByCreateDateDesc(pageNumber, pageSize);
+			try {
+				entities = pagePresentCardService.findByOrderByCreateDateDesc(pageNumber, pageSize);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			sum = pagePresentCardService.countAll();
 		}
 		if(num == 2) {

@@ -60,11 +60,12 @@ public class PresentEntity implements Serializable {
 	 private String bigImage;
 	 
 	 @Column(name = "is_hot")
-	 private boolean isHot;
+	 private boolean isHot;//0不热，1热
 	 
 	 @Column(name = "tip")
 	 private String tip;//简介
-	 
+	
+	 @Lob
 	@Column(name = "description", length = 2000)
 	private String description;//产品介绍
 	
@@ -72,6 +73,11 @@ public class PresentEntity implements Serializable {
 	@Column(name = "explain2")
 	 private String explain;//使用说明
 
+	@Lob
+	@Column(name = "attention", nullable = true)
+	private String attention;//attention注意事项
+
+	
 	@Column(name = "store_number")
 	private int storeNumber = 0;//总库存
 
@@ -85,13 +91,13 @@ public class PresentEntity implements Serializable {
 	private int sort;
 	
 	@Column(name = "status")
-	private String status;//状态，上上架/下架
+	private String status;//状态，0上架/1下架
 	
-	@Column(name = "categoryId", insertable = false, updatable = false)
+	@Column(name = "category_id", insertable = false, updatable = false)
 	private long categoryId;
 
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER, optional = false)
-	@JoinColumn(name = "categoryId", referencedColumnName = "id")
+	@JoinColumn(name = "category_id", referencedColumnName = "id")
 	private PresentCategoryEntity presentCategory;//商品分类
 
 	// 创建时间
@@ -117,6 +123,14 @@ public class PresentEntity implements Serializable {
 		return sort;
 	}
 
+	public String getAttention() {
+		return attention;
+	}
+
+	public void setAttention(String attention) {
+		this.attention = attention;
+	}
+
 	public void setSort(int sort) {
 		this.sort = sort;
 	}
@@ -129,11 +143,11 @@ public class PresentEntity implements Serializable {
 		this.bigImage = bigImage;
 	}
 
-	public boolean isHot() {
+	public boolean getIsHot() {
 		return isHot;
 	}
 
-	public void setHot(boolean isHot) {
+	public void setIsHot(boolean isHot) {
 		this.isHot = isHot;
 	}
 

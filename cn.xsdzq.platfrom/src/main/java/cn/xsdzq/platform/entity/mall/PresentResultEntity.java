@@ -26,6 +26,7 @@ public class PresentResultEntity {
 	@Column(name = "id")
 	private Long id;
 	
+	// 兑换时使用的积分
 	@Column(name = "integral_number", nullable = false)
 	private int integralNumber ;//消耗积分
 

@@ -54,11 +54,11 @@ public class PresentCardEntity implements Serializable {
 	@Column(name = "convert_status")
 	private int convertStatus;//兑换状态，已兑换1/未兑换0
 	
-	@Column(name = "presentId", insertable = false, updatable = false)
+	@Column(name = "present_id", insertable = false, updatable = false)
 	private long presentId;
 	
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER, optional = false)
-	@JoinColumn(name = "presentId", referencedColumnName = "id")
+	@JoinColumn(name = "present_id", referencedColumnName = "id")
 	private PresentEntity present;//二级目录
 
 	@Column(name = "create_date")
@@ -75,8 +75,8 @@ public class PresentCardEntity implements Serializable {
 	@Column(name = "modifyBy")
 	private String modifyBy;
 	
-	@Column(name = "isImport")
-	private int isImport = 0;//0-不是导入，1是导入
+	@Column(name = "is_import")
+	private int isImport ;//0-不是导入，1是导入
 
 	// 修改时间
 	@Column(name = "modifytime")
