@@ -70,7 +70,10 @@ public class PresentController {
 			PresentDTO dto = PresentUtil.convertPresentDTOByEntity(entity);
 			cDtos.add(dto);
 		}
-		
+		PresentDTO all = new PresentDTO();
+		all.setName("全部");
+		all.setCode("all");
+		cDtos.add(all);
 		return GsonUtil.buildMap(0, "success", cDtos);
 		
 	}

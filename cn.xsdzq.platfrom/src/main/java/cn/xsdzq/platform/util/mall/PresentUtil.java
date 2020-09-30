@@ -175,15 +175,20 @@ public class PresentUtil {
 		for (CardImportTempEntity entity : temps) {
 			a.add(entity);
 		}
+		
 		for (int i = 0; i < temps.size(); i++) {  
+			int num = 0;
 			for (int j = 0; j < a.size(); j++) {    
 				// 判断两个集合中数据是否相等(查重)     
 				if (temps.get(i).getCardId().equals(a.get(j).getCardId())) {      
-					return true;          
+					num = num+1;          
 					}   
 				}
+			if(num>1) {
+				return true;
+			}
 		}
-		return false;
+		return false;						
 	}		
 
 }

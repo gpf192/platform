@@ -24,7 +24,7 @@
                <div class="form-group ">
                     <label  class="col-sm-3 control-label">商品名称:</label>
                        <div class="col-sm-6">
-                        <select class="form-control" ng-model="formData.presentNameModel"
+                        <select class="form-control" ng-model="formData.presentNameModel" readOnly=true 
                             ng-options="x.name for x in presentList| filter:{name:'!全部'}" ></select>
                       </div>
                 </div>
