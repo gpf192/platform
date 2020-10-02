@@ -36,6 +36,7 @@ import cn.xsdzq.platform.model.mall.CreditDTO;
 import cn.xsdzq.platform.model.mall.CreditImportRecordDTO;
 import cn.xsdzq.platform.model.mall.CreditImportTempDTO;
 import cn.xsdzq.platform.model.mall.CreditUserTotalDTO;
+import cn.xsdzq.platform.model.mall.PresentCategoryDTO;
 import cn.xsdzq.platform.service.mall.CreditImportRecordService;
 import cn.xsdzq.platform.service.mall.CreditImportTempService;
 import cn.xsdzq.platform.service.mall.CreditService;
@@ -87,7 +88,13 @@ public class CreditController {
 			CreditDTO dto = CreditUtil.convertCreditDTOByEntity(entity);
 			cDtos.add(dto);
 		}
+		CreditDTO all = new CreditDTO();
+		all.setId(0);
+		all.setCategoryName("全部");
+		all.setCategoryCode("all");
+		all.setIntegralValue("0");
 		
+		cDtos.add(all);
 		return GsonUtil.buildMap(0, "ok", cDtos);
 	}
 	

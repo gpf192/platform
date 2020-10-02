@@ -27,6 +27,7 @@ import cn.xsdzq.platform.entity.mall.PresentCategoryEntity;
 import cn.xsdzq.platform.model.CategoryDTO;
 import cn.xsdzq.platform.model.Pagination;
 import cn.xsdzq.platform.model.mall.PresentCategoryDTO;
+import cn.xsdzq.platform.model.mall.PresentDTO;
 import cn.xsdzq.platform.service.mall.PresentCategoryService;
 import cn.xsdzq.platform.util.CategoryUtil;
 import cn.xsdzq.platform.util.GsonUtil;
@@ -73,6 +74,11 @@ public class PresentCategoryController {
 			PresentCategoryDTO dto = PresentUtil.convertPresentCategoryDTOByEntity(category);
 			cDtos.add(dto);
 		}
+		PresentCategoryDTO all = new PresentCategoryDTO();
+		all.setId(0);
+		all.setName("全部");
+		all.setCode("all");
+		cDtos.add(all);
 		return GsonUtil.buildMap(0, "success", cDtos);
 	
 	}

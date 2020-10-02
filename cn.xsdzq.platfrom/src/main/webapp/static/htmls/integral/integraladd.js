@@ -45,6 +45,10 @@ function integraladdController($scope, $http, $state, $stateParams, $gridService
 				
 		
 		if(!utils.isEmpty($scope.formData.categoryName)) {
+			if("全部"==$scope.formData.categoryName){
+				layerUtils.iMsg(-1, "项目名称不合法");
+				return;
+			}
 			categoryName = $scope.formData.categoryName;
 		}else {
 			layerUtils.iMsg(-1, "项目名称不能为空");
@@ -60,7 +64,7 @@ function integraladdController($scope, $http, $state, $stateParams, $gridService
 		if(!utils.isEmpty($scope.formData.integralValue)) {
 			integralValue = $scope.formData.integralValue;
 		}else {
-			layerUtils.iMsg(-1, "面值不能为空");
+			layerUtils.iMsg(-1, "积分值不能为空");
 			return;
 		}
 		if(!utils.isEmpty($scope.formData.frontName)) {

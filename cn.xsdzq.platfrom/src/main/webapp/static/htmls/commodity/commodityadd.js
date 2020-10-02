@@ -67,6 +67,10 @@ function commodityaddController($scope, $http, $state, $stateParams, $gridServic
 		var explain = "";
 		var attention = "";
 		if(!utils.isEmpty($scope.formData.name)) {
+			if("全部"==$scope.formData.name){
+				layerUtils.iMsg(-1, "商品名称不合法");
+				return;
+			}
 			name = $scope.formData.name;
 		}else {
 			layerUtils.iMsg(-1, "商品名称不能为空");

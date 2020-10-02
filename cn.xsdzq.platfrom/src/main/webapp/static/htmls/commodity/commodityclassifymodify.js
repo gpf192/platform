@@ -51,6 +51,10 @@ function commodityclassifymodifyController($scope, $http, $state, $stateParams, 
 		
 		
 		if(!utils.isEmpty($scope.formData.name)) {
+			if("全部"==$scope.formData.name){
+				layerUtils.iMsg(-1, "分类名称不合法");
+				return;
+			}
 			name = $scope.formData.name;
 		}else {
 			layerUtils.iMsg(-1, "分类名称不能为空");

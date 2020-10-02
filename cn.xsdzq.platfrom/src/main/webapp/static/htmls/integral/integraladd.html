@@ -46,7 +46,7 @@
                     <label class="col-sm-3 control-label">积分值：</label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" id="integralValue" name="integralValue"
-                            ng-model="formData.integralValue" placeholder="请输入内容" />
+                            ng-model="formData.integralValue" placeholder="请输入内容"  oninput="value=value.replace(/[^\d.]/g,'')" />
                     </div>
                 </div>         
                 <div class="form-group ">

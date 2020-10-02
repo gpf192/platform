@@ -27,7 +27,12 @@ public class PresentUtil {
 		dto.setName(entity.getName());
 		dto.setCode( entity.getCode());
 		dto.setFlag(entity.getFlag());
-		dto.setCreatetime(DateUtil.DateToString(entity.getCreatetime()));
+		try {
+			dto.setCreatetime(DateUtil.DateToString(entity.getCreatetime()));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return dto;
 		}
 	public static PresentCategoryEntity convertPresentCategoryEntityByDto(PresentCategoryDTO dto) {
