@@ -42,10 +42,12 @@ public class CreditRecordEntity implements Serializable {
 	@Column(name = "reason_code")
 	private String reasonCode;
 	
-		
+	// 项目名称，
+	@Column(name = "import_Item")
+	private String importItem;	//导入时关联的项目名称
 	// 项目名称，
 	@Column(name = "item")
-	private String item;
+	private String item;//前端展示
 
 		// 项目代码，此处不与项目类关联， 保持导入记录明细，避免项目类被删除后，找不到记录
 	@Column(name = "item_code")
@@ -198,13 +200,31 @@ public class CreditRecordEntity implements Serializable {
 		this.mallUserEntity = mallUserEntity;
 	}
 
+	public String getImportItem() {
+		return importItem;
+	}
+
+	public void setImportItem(String importItem) {
+		this.importItem = importItem;
+	}
+
+	public String getClientId() {
+		return clientId;
+	}
+
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
+	}
+
 	@Override
 	public String toString() {
 		return "CreditRecordEntity [id=" + id + ", type=" + type + ", reason=" + reason + ", reasonCode=" + reasonCode
-				+ ", item=" + item + ", itemCode=" + itemCode + ", integralNumber=" + integralNumber + ", value="
-				+ value + ", dateFlag=" + dateFlag + ", groupTime=" + groupTime + ", beginDate=" + beginDate
-				+ ", endDate=" + endDate + ", recordTime=" + recordTime + ", mallUserEntity=" + mallUserEntity + "]";
+				+ ", importItem=" + importItem + ", item=" + item + ", itemCode=" + itemCode + ", integralNumber="
+				+ integralNumber + ", value=" + value + ", dateFlag=" + dateFlag + ", groupTime=" + groupTime
+				+ ", beginDate=" + beginDate + ", endDate=" + endDate + ", recordTime=" + recordTime + ", clientId="
+				+ clientId + ", mallUserEntity=" + mallUserEntity + "]";
 	}
 
+	
 
 }

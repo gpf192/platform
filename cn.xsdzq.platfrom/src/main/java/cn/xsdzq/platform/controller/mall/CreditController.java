@@ -324,46 +324,116 @@ public class CreditController {
 		Pagination pagination = new Pagination(pageNumber, pageSize, sum);
 		return GsonUtil.buildMap(0, "ok", dtos,pagination);
 	}
+	
+	//提交前判断重复性
+		@RequestMapping(value = "/checkBeforeSubmit", method = POST, produces = "application/json; charset=utf-8")	
+		@ResponseBody
+		public Map<String, Object> checkBeforeSubmit() {
+			//查询临时表数据
+			List<CreditImportTempEntity> temps = creditImportTempService.findAllTemp();
+			//判断数据格式
+			  //判断字段格式
+			  if(temps.size()==0) {
+					return GsonUtil.buildMap(1, "当前无数据，请先导入", null);
+	 
+			  }
+				for (CreditImportTempEntity entity : temps) {
+					if(entity.getClientId() == null || entity.getClientName() == null|| entity.getDepartmentCode() == null|| entity.getDepartmentDesc()== null|| 
+							entity.getCategoryName() == null|| entity.getCategoryCode()== null || entity.getNum()== null || entity.getBeginDate()== null || entity.getEndDate()== null) {
+						return GsonUtil.buildMap(1, "有空字段，无法导入", null);
+					}
+					if(!PublicUtil.isInteger(entity.getNum())) {
+						//num不为数字
+						return GsonUtil.buildMap(1, "client_id: "+entity.getClientId()+"导入积分格式错误", null);
+					}
+					if(!PublicUtil.isInteger(entity.getBeginDate()) || !PublicUtil.isInteger(entity.getEndDate())
+							|| entity.getBeginDate().length() != 8 || entity.getEndDate().length() != 8) {
+						return GsonUtil.buildMap(1, "client_id: "+entity.getClientId()+"导入日期格式错误", null);
+
+					}
+					if(Integer.parseInt(entity.getEndDate()) < Integer.parseInt(DateUtil.Dateymd(new Date())) ) {
+						return GsonUtil.buildMap(1, "client_id: "+entity.getClientId()+"失效日期小于当前日期，无法导入", null);
+
+					}
+					if(Integer.parseInt(entity.getEndDate()) < Integer.parseInt(DateUtil.Dateymd(new Date())) ) {
+						return GsonUtil.buildMap(1, "client_id: "+entity.getClientId()+"失效日期小于当前日期，无法导入", null);
+					}
+
+					if(PublicUtil.stringToInt(entity.getEndDate()) < PublicUtil.stringToInt(entity.getBeginDate()) ) {
+						return GsonUtil.buildMap(1, "client_id: "+entity.getClientId()+"失效日期小于生效日期，无法导入", null);
+					}
+					if( PublicUtil.stringToInt(entity.getNum()) <= 0) {
+						return GsonUtil.buildMap(1, "client_id: "+entity.getClientId()+"分数必须为正数", null);
+					}
+					
+				}
+				
+			int num = 0;
+			
+			for(CreditImportTempEntity temp:temps) {
+				int t = 0;
+				//与数据库比对，查重
+				t = creditImportRecordService.countByClientIdAndItemCodeAndMallUserEntity_DepartmentCodeAndMallUserEntity_MobileAndBeginDate(temp.getClientId(),
+						temp.getCategoryCode(), temp.getDepartmentCode(), temp.getMobile(), temp.getBeginDate());
+				if(t>0) {
+					num++;		
+				}				
+			}
+			if(num >0) {
+				System.out.println("cunzai chongfu  : "+num);
+				return GsonUtil.buildMap(2, "存在重复记录", null);
+			}else {
+			
+				return GsonUtil.buildMap(0, "success", null);
+			}
+			
+		}
+		
 	//正式提交
 	@RequestMapping(value = "/submit", method = POST, produces = "application/json; charset=utf-8")	
 	@ResponseBody
 	public Map<String, Object> submit() {
 		//查询临时表数据
 		List<CreditImportTempEntity> temps = creditImportTempService.findAllTemp();
+		System.out.println("正式提交++++++++++++++++++++++++++++++++++++++++++++++");
 		System.out.println("size :"+temps.size());
 		//判断数据格式
 		  //判断字段格式
-		  if(temps.size()==0) {
-				return GsonUtil.buildMap(1, "当前无数据，请先导入", null);
- 
-		  }
+			 /* if(temps.size()==0) {
+					return GsonUtil.buildMap(1, "当前无数据，请先导入", null);
+	 
+			  }
 			for (CreditImportTempEntity entity : temps) {
+				if(entity.getClientId() == null || entity.getClientName() == null|| entity.getDepartmentCode() == null|| entity.getDepartmentDesc()== null|| 
+						entity.getCategoryName() == null|| entity.getCategoryCode()== null || entity.getNum()== null || entity.getBeginDate()== null || entity.getEndDate()== null) {
+					return GsonUtil.buildMap(1, "有空字段，无法导入", null);
+				}
 				if(!PublicUtil.isInteger(entity.getNum())) {
 					//num不为数字
-					return GsonUtil.buildMap(1, "client_id:"+entity.getClientId()+"导入积分格式错误", null);
+					return GsonUtil.buildMap(1, "client_id: "+entity.getClientId()+"导入积分格式错误", null);
 				}
-				if(!PublicUtil.isInteger(entity.getBeginDate()) || !PublicUtil.isInteger(entity.getEndDate()) ) {
-					return GsonUtil.buildMap(1, "client_id:"+entity.getClientId()+"导入日期格式错误", null);
-
-				}
-				if(Integer.parseInt(entity.getEndDate()) < Integer.parseInt(DateUtil.Dateymd(new Date())) ) {
-					return GsonUtil.buildMap(1, "client_id:"+entity.getClientId()+"失效日期小于当前日期，无法导入", null);
-
+				if(!PublicUtil.isInteger(entity.getBeginDate()) || !PublicUtil.isInteger(entity.getEndDate())
+						|| entity.getBeginDate().length() != 8 || entity.getEndDate().length() != 8) {
+					return GsonUtil.buildMap(1, "client_id: "+entity.getClientId()+"导入日期格式错误", null);
+	
 				}
 				if(Integer.parseInt(entity.getEndDate()) < Integer.parseInt(DateUtil.Dateymd(new Date())) ) {
-					return GsonUtil.buildMap(1, "client_id:"+entity.getClientId()+"失效日期小于当前日期，无法导入", null);
+					return GsonUtil.buildMap(1, "client_id: "+entity.getClientId()+"失效日期小于当前日期，无法导入", null);
+	
 				}
-
+				if(Integer.parseInt(entity.getEndDate()) < Integer.parseInt(DateUtil.Dateymd(new Date())) ) {
+					return GsonUtil.buildMap(1, "client_id: "+entity.getClientId()+"失效日期小于当前日期，无法导入", null);
+				}
+	
 				if(PublicUtil.stringToInt(entity.getEndDate()) < PublicUtil.stringToInt(entity.getBeginDate()) ) {
-					return GsonUtil.buildMap(1, "client_id:"+entity.getClientId()+"失效日期小于生效日期，无法导入", null);
+					return GsonUtil.buildMap(1, "client_id: "+entity.getClientId()+"失效日期小于生效日期，无法导入", null);
 				}
 				if( PublicUtil.stringToInt(entity.getNum()) <= 0) {
-					return GsonUtil.buildMap(1, "client_id:"+entity.getClientId()+"分数必须为正数", null);
+					return GsonUtil.buildMap(1, "client_id: "+entity.getClientId()+"分数必须为正数", null);
 				}
+				
 			}
-			
-		//循环每条数据并插入正式表，同时总分表加上相应数据,判断导入数据的时效性
-		//判断导入数据的失效日期，如果小于当天 ，提示无法导入 
+			*/
 		
 		for(CreditImportTempEntity temp:temps) {
 			//插入用户表，插入总分表   //插入正式记录表 end	

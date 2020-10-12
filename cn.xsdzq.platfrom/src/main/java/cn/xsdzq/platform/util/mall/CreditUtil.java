@@ -59,9 +59,17 @@ public class CreditUtil {
 		dto.setMobile(entity.getMallUserEntity().getMobile());
 		dto.setDepartmentDesc(entity.getMallUserEntity().getDepartmentName());
 		dto.setDepartmentCode(entity.getMallUserEntity().getDepartmentCode());
-		dto.setCategoryName(entity.getItem());
-		dto.setCategoryCode(entity.getItemCode());
-		dto.setNum(entity.getIntegralNumber());
+		if(entity.isType()) {
+			dto.setCategoryName(entity.getItem());
+			dto.setCategoryCode(entity.getItemCode());
+			dto.setNum("+"+entity.getIntegralNumber());
+		}else {
+			dto.setCategoryName("兑换"+entity.getItem());
+			dto.setCategoryCode(entity.getReasonCode());
+			dto.setNum("-"+entity.getIntegralNumber());
+		}
+		
+		
 		dto.setBeginDate(entity.getBeginDate());
 		dto.setEndDate(entity.getEndDate());
 		return dto;
@@ -86,16 +94,16 @@ public class CreditUtil {
 	public static CreditImportTempEntity toCreditImportTempEntity(List<Object> lo) {
 		CreditImportTempEntity vo = new CreditImportTempEntity();
 		
-		   vo.setClientName(String.valueOf(lo.get(0))); 
-		   vo.setClientId(String.valueOf(lo.get(1))); 
-		   vo.setMobile(String.valueOf(lo.get(2))); 
-		   vo.setDepartmentDesc(String.valueOf(lo.get(3)));
-		   vo.setDepartmentCode(String.valueOf(lo.get(4)));
-		   vo.setCategoryName(String.valueOf(lo.get(5)));
-		   vo.setCategoryCode(String.valueOf(lo.get(6)));
-		   vo.setNum(String.valueOf(lo.get(7)));
-		   vo.setBeginDate(String.valueOf(lo.get(8)));
-		   vo.setEndDate(String.valueOf(lo.get(9)));
+		   vo.setClientName(String.valueOf(lo.get(0)).replaceAll(" ", "")); 
+		   vo.setClientId(String.valueOf(lo.get(1)).replaceAll(" ", "")); 
+		   vo.setMobile(String.valueOf(lo.get(2)).replaceAll(" ", "")); 
+		   vo.setDepartmentDesc(String.valueOf(lo.get(3)).replaceAll(" ", ""));
+		   vo.setDepartmentCode(String.valueOf(lo.get(4)).replaceAll(" ", ""));
+		   vo.setCategoryName(String.valueOf(lo.get(5)).replaceAll(" ", ""));
+		   vo.setCategoryCode(String.valueOf(lo.get(6)).replaceAll(" ", ""));
+		   vo.setNum(String.valueOf(lo.get(7)).replaceAll(" ", ""));
+		   vo.setBeginDate(String.valueOf(lo.get(8)).replaceAll(" ", ""));
+		   vo.setEndDate(String.valueOf(lo.get(9)).replaceAll(" ", ""));
 		   
 		return vo;
 	}

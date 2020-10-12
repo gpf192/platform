@@ -144,13 +144,10 @@ function integralallocationController($scope, $http, $state, $stateParams, $grid
 			        }
 			      }  
 	  	    var url = httpUtils.url.deleteCreditCategory;
-			$http.post(url, param).success(function(data) {
-				if (data.resCode != 0) {
-					layerUtils.iMsg(-1, "删除失败");	
-				}
+			$http.post(url, param).success(function(data) {			
 			});
 	        }
-			layerUtils.iMsg(-1, "删除成功");
+			layerUtils.iMsg(-1, "操作完成，若记录含有关联子项，则无法删除");
 			$scope.selected = [];
 			$scope.getCommodityclassifyList(50);
 			

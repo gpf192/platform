@@ -30,4 +30,7 @@ public interface PageCreditRecordRepository extends PagingAndSortingRepository<C
 	//
 	Page<CreditRecordEntity> findByMallUserEntity_ClientNameLikeAndClientIdLikeAndItemCodeLikeOrderByRecordTimeDesc(String username,String clientId, String itemCode,Pageable pageable);
 	int countByMallUserEntity_ClientNameLikeAndClientIdLikeAndItemCodeLike(String username,String clientId,String itemCode);
+	
+	//对比重复
+	int countByClientIdAndItemCodeAndMallUserEntity_DepartmentCodeAndMallUserEntity_MobileAndBeginDate(String clientId,String itemCode,String departmentCode,String mobile,String beginDate);
 }

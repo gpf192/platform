@@ -157,9 +157,9 @@ public class PresentUtil {
 	public static CardImportTempEntity toCardImportTempEntity(List<Object> lo) {
 		CardImportTempEntity vo = new CardImportTempEntity();
 		
-		   vo.setCardId(String.valueOf(lo.get(0))); 
-		   vo.setPassword(String.valueOf(lo.get(1))); 
-		   vo.setPresentCode(String.valueOf(lo.get(2))); 
+		   vo.setCardId(String.valueOf(lo.get(0)).replaceAll(" ", "")); 
+		   vo.setPassword(String.valueOf(lo.get(1)).replaceAll(" ", "")); 
+		   vo.setPresentCode(String.valueOf(lo.get(2)).replaceAll(" ", "")); 
 		   vo.setCardStatus(1);
 		   vo.setConvertStatus(0);
  

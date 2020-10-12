@@ -21,8 +21,8 @@ public class CreditImportRecordServiceImpl implements CreditImportRecordService{
 	@Autowired
 	private PageCreditRecordRepository creditImportRecordRepository;
 	
-	@Autowired
-	private PageCreditRecordRepository pageCreditRecordRepository;
+	/*@Autowired
+	private PageCreditRecordRepository pageCreditRecordRepository;*/
 	
 	@Override
 	@Transactional
@@ -152,6 +152,12 @@ public class CreditImportRecordServiceImpl implements CreditImportRecordService{
 		// TODO Auto-generated method stub
 		return creditImportRecordRepository.countByMallUserEntity_ClientNameLikeAndClientIdLikeAndItemCodeLike(username,clientId, itemCode);
 
+	}
+	@Override
+	public int countByClientIdAndItemCodeAndMallUserEntity_DepartmentCodeAndMallUserEntity_MobileAndBeginDate(
+			String clientId, String itemCode, String departmentCode, String mobile, String beginDate) {
+		// TODO Auto-generated method stub
+		return creditImportRecordRepository.countByClientIdAndItemCodeAndMallUserEntity_DepartmentCodeAndMallUserEntity_MobileAndBeginDate(clientId, itemCode, departmentCode, mobile, beginDate);
 	}
 	
 }

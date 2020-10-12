@@ -32,4 +32,7 @@ public interface CreditImportRecordService {
 	//
 	List<CreditRecordEntity> findByMallUserEntity_ClientNameLikeAndClientIdLikeAndItemCodeLikeOrderByRecordTimeDesc(String username,String clientId, String itemCode, int pageNumber, int pageSize);
 	int countByMallUserEntity_ClientNameLikeAndClientIdLikeItemCodeLike(String username,String clientId,String itemCode);
+	
+	int countByClientIdAndItemCodeAndMallUserEntity_DepartmentCodeAndMallUserEntity_MobileAndBeginDate(String clientId,String itemCode,String departmentCode,String mobile,String beginDate);
+
 }

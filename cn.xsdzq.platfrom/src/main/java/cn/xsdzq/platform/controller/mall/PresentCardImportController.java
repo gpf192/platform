@@ -150,11 +150,13 @@ public class PresentCardImportController {
 		}
 			User user = UserManageUtil.getUser();
 			String username = user.getUsername();
-		//循环每条数据并插入正式表，同时总分表加上相应数据,判断导入数据的时效性		
+		//循环每条数据并插入正式表，同时父类加上相应数据,判断导入数据的时效性		
 		for(CardImportTempEntity temp:temps) {
 			 //临时类转换为 正式类，插入card表 end	
 			PresentCardEntity presentCard = PresentUtil.cardTempEntityToCardEntity(temp);
 			PresentEntity present =  presentService.getPresentEntitiesByCode(temp.getPresentCode());
+			present.setStoreUnused(present.getStoreUnused()+1);
+			presentService.addPresent(present);//父类+1
 			presentCard.setPresent(present);//关联父类
 			presentCard.setCreateDate(new Date());
 			presentCard.setCreatedBy(username);

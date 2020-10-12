@@ -137,6 +137,7 @@ function commoditymanageController($scope, $http, $state, $stateParams, $gridSer
 
 	}
 	//删除
+	//var temp = 0;
 	$scope.batchDeleteInfo = function() {
 		
 		if($scope.selected.length == 0){
@@ -145,7 +146,8 @@ function commoditymanageController($scope, $http, $state, $stateParams, $gridSer
         }
 
 		layerUtils.iConfirm("是否删除该商品？", function() {
-			for (var h = 0; h < $scope.selected.length; h++) {			
+			
+			for (var h = 0; h < $scope.selected.length; h++) {		
 	        	var infoId = $scope.selected[h];	
 	  	      for (var i = 0; i < $scope.commodityList.length; i++) {
 			        var tempInfo = $scope.commodityList[i];
@@ -157,10 +159,14 @@ function commoditymanageController($scope, $http, $state, $stateParams, $gridSer
 	  	    console.log(param.id);
 			$http.post(url, param).success(function(data) {
 				if (data.resCode != 0) {
-					layerUtils.iMsg(-1, "删除失败,含有关联子项");	
+					
 				}
 			});
-	        }
+			
+	       }
+
+			layerUtils.iMsg(-1, "操作完成，若记录含有关联子项，则无法删除");
+			$scope.selected = [];
 			$scope.getCommodityList(50);
 			
 		}, function() {

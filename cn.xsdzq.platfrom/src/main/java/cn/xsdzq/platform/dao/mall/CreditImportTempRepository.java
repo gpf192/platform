@@ -11,4 +11,5 @@ public interface CreditImportTempRepository extends PagingAndSortingRepository<C
 	
 	Page<CreditImportTempEntity> findByClientIdOrderByBeginDateDesc(String clientId, Pageable pageable);
 	int countByClientId(String clientId);
+	
 }

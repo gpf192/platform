@@ -10,7 +10,7 @@ public class CreditImportRecordDTO {
 	private String departmentCode;//营业部编码, 每次导入即更新
 	private String categoryName;//项目名称
 	private String categoryCode;//项目编码，唯一
-	private long num;//导入分数
+	private String num;//导入分数
 	private String beginDate;//生效日期
 	private String endDate;//失效日期
 
@@ -78,11 +78,13 @@ public class CreditImportRecordDTO {
 		this.categoryCode = categoryCode;
 	}
 
-	public long getNum() {
+
+
+	public String getNum() {
 		return num;
 	}
 
-	public void setNum(long num) {
+	public void setNum(String num) {
 		this.num = num;
 	}
 

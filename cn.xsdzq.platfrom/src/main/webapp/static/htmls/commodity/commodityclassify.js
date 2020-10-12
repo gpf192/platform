@@ -164,11 +164,13 @@ function commodityclassifyController($scope, $http, $state, $stateParams, $gridS
 			  }  
 	  	    var url = httpUtils.url.deleteCommodityClassify;
 			$http.post(url, param).success(function(data) {
-				if (data.resCode != 0) {
+				/*if (data.resCode != 0) {
 					layerUtils.iMsg(-1, "删除失败，含有关联子项");	
-				}
+				}*/
 			});
 	        }
+			layerUtils.iMsg(-1, "操作完成，若记录含有关联子项，则无法删除");
+			$scope.selected = [];
 			$scope.getCommodityclassifyList(10);
 			
 		}, function() {
