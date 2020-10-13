@@ -101,10 +101,10 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 		layerUtils.iConfirm("是否提交当前数据？提交后不可删除。", function() {
 			//
 			var checkBeforeSubmitUrl = httpUtils.url.checkBeforeSubmit;
-			console.log(1234);
 			$http.post(checkBeforeSubmitUrl).success(function(data) {
 				if (data.resCode == 1) {
 					layerUtils.iMsg(-1,data.respMsg);
+					return;
 				}
 				if (data.resCode == 2) {					
 					layerUtils.iConfirm("检测到数据库中存在相同记录，是否提交当前数据？", function() {
@@ -112,7 +112,7 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 						$http.post(url).success(function(data) {
 							if (data.resCode == 0) {
 								layerUtils.iMsg(-1,"提交成功");
-								//$scope.getEmpList(50);//此时再次查询 应该是没有数据
+								$scope.getEmpList(50);//此时再次查询 应该是没有数据
 							}else {
 								layerUtils.iMsg(-1,data.respMsg);
 								//$scope.getEmpList(50);
@@ -122,7 +122,6 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 						console.log("取消");
 					});
 				}else{
-					console.log(456);
 					var url = httpUtils.url.submit;
 					$http.post(url).success(function(data) {
 						if (data.resCode == 0) {

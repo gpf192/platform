@@ -141,9 +141,16 @@ public class CreditController {
 	@ResponseBody
 	public Map<String, Object> deleteCredit(@RequestBody CreditDTO creditDTO) {
 		//有子分类不可删除
-		//CreditEntity entity = CreditUtil.convertCreditEntityByDTO(creditDTO);
-		creditService.deleteCredit(creditDTO.getId());
-		return GsonUtil.buildMap(0, "success", null);
+		System.out.println("creditDTO: "+creditDTO.toString());
+		int num = creditImportRecordService.countByTypeAndItemCode(true, creditDTO.getCategoryCode());
+		if(num == 0){
+			//可以删除
+			System.out.println("=====================================================");
+			creditService.deleteCredit(creditDTO.getId());
+			return GsonUtil.buildMap(0, "success", null);
+		}else {
+			return GsonUtil.buildMap(1, "存在关联子项", null);
+		}
 	}
 	
 	
@@ -399,42 +406,7 @@ public class CreditController {
 		System.out.println("size :"+temps.size());
 		//判断数据格式
 		  //判断字段格式
-			 /* if(temps.size()==0) {
-					return GsonUtil.buildMap(1, "当前无数据，请先导入", null);
-	 
-			  }
-			for (CreditImportTempEntity entity : temps) {
-				if(entity.getClientId() == null || entity.getClientName() == null|| entity.getDepartmentCode() == null|| entity.getDepartmentDesc()== null|| 
-						entity.getCategoryName() == null|| entity.getCategoryCode()== null || entity.getNum()== null || entity.getBeginDate()== null || entity.getEndDate()== null) {
-					return GsonUtil.buildMap(1, "有空字段，无法导入", null);
-				}
-				if(!PublicUtil.isInteger(entity.getNum())) {
-					//num不为数字
-					return GsonUtil.buildMap(1, "client_id: "+entity.getClientId()+"导入积分格式错误", null);
-				}
-				if(!PublicUtil.isInteger(entity.getBeginDate()) || !PublicUtil.isInteger(entity.getEndDate())
-						|| entity.getBeginDate().length() != 8 || entity.getEndDate().length() != 8) {
-					return GsonUtil.buildMap(1, "client_id: "+entity.getClientId()+"导入日期格式错误", null);
-	
-				}
-				if(Integer.parseInt(entity.getEndDate()) < Integer.parseInt(DateUtil.Dateymd(new Date())) ) {
-					return GsonUtil.buildMap(1, "client_id: "+entity.getClientId()+"失效日期小于当前日期，无法导入", null);
-	
-				}
-				if(Integer.parseInt(entity.getEndDate()) < Integer.parseInt(DateUtil.Dateymd(new Date())) ) {
-					return GsonUtil.buildMap(1, "client_id: "+entity.getClientId()+"失效日期小于当前日期，无法导入", null);
-				}
-	
-				if(PublicUtil.stringToInt(entity.getEndDate()) < PublicUtil.stringToInt(entity.getBeginDate()) ) {
-					return GsonUtil.buildMap(1, "client_id: "+entity.getClientId()+"失效日期小于生效日期，无法导入", null);
-				}
-				if( PublicUtil.stringToInt(entity.getNum()) <= 0) {
-					return GsonUtil.buildMap(1, "client_id: "+entity.getClientId()+"分数必须为正数", null);
-				}
-				
-			}
-			*/
-		
+
 		for(CreditImportTempEntity temp:temps) {
 			//插入用户表，插入总分表   //插入正式记录表 end	
 			mallUserService.addCreditScore(temp);								
@@ -444,6 +416,6 @@ public class CreditController {
 		creditImportTempService.deleteAllTemp();
 		System.out.println("清空临时表入完成----");
 		return GsonUtil.buildMap(0, "success", null);
-	}
+	}	
 	
 }

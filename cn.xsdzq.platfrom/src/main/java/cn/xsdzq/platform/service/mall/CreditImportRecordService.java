@@ -34,5 +34,7 @@ public interface CreditImportRecordService {
 	int countByMallUserEntity_ClientNameLikeAndClientIdLikeItemCodeLike(String username,String clientId,String itemCode);
 	
 	int countByClientIdAndItemCodeAndMallUserEntity_DepartmentCodeAndMallUserEntity_MobileAndBeginDate(String clientId,String itemCode,String departmentCode,String mobile,String beginDate);
-
+	int countByTypeAndItemCode(boolean type ,String itemCode);
+	
+	
 }

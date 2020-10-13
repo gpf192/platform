@@ -85,15 +85,19 @@ public class MallUserServiceImpl implements MallUserService {
 		}
 		// 3.项目的类别，查询是否存在项目code，不存在则新建
 		CreditEntity creditEntity = creditCategoryRepository.findByCategoryCode(temp.getCategoryCode());
+		String tempName = "";
 		if (creditEntity == null){
 			creditEntity = new CreditEntity();
 			creditEntity.setCategoryCode(temp.getCategoryCode());
 			creditEntity.setCategoryName(temp.getCategoryName());
+			creditEntity.setFrontName(temp.getCategoryName());
 			creditEntity.setIntegralValue(temp.getNum());
 			creditEntity.setFlag("1");
 			creditEntity.setCreatetime(new Date());
 			
 			creditCategoryRepository.save(creditEntity);
+		}else{
+			tempName =creditEntity.getCategoryName() ;
 		}
 		// 4.导入附件记录
 		//此处只写增加记录
@@ -101,10 +105,14 @@ public class MallUserServiceImpl implements MallUserService {
 		CreditRecordEntity creditRecordEntity = new CreditRecordEntity();
 		creditRecordEntity.setMallUserEntity(owner);
 		creditRecordEntity.setType(true);//true 增加，  false  减少
-		creditRecordEntity.setItem(temp.getCategoryName());
+		creditRecordEntity.setImportItem(temp.getCategoryName());
+		//取项目分类的前端显示字段
+		if("".equals(tempName)) {
+			creditRecordEntity.setItem(temp.getCategoryName());
+		}else {
+			creditRecordEntity.setItem(tempName);
+		}	
 		creditRecordEntity.setItemCode(temp.getCategoryCode());
-		//creditRecordEntity.setReason("兑换奖品");
-		//creditRecordEntity.setReasonCode("10");
 		creditRecordEntity.setIntegralNumber(tempNum);//导入积分
 		creditRecordEntity.setDateFlag(nowFlag);
 		creditRecordEntity.setBeginDate(temp.getBeginDate());

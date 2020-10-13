@@ -4,7 +4,7 @@ function commodityclassifyController($scope, $http, $state, $stateParams, $gridS
 	$scope.init=function(){
 		var data = {
 				"one" : {
-					name : "商品管理",
+					name : "商品分类管理",
 					goto:""
 				},
 				"two" : {

@@ -34,7 +34,7 @@ public class CreditRecordEntity implements Serializable {
 	private long id;
 	
 	@Column(name = "type", nullable = false)
-	private boolean type; // type 为0 查找减少原因 着reason，type 查找 item itemCode
+	private boolean type; // type 为0 查找减少原因 reason，type为1查找 item itemCode
 
 	@Column(name = "reason")
 	private String reason;//减票原因

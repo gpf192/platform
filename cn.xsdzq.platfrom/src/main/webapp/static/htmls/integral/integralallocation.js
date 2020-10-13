@@ -114,7 +114,7 @@ function integralallocationController($scope, $http, $state, $stateParams, $grid
 		        }
 		      }        	
         } 
-
+		
 		layerUtils.iConfirm("是否修该此产品信息？", function() {
 			console.log(param);
 			$state.go("integralModify", {
