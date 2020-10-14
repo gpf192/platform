@@ -36,7 +36,6 @@ import cn.xsdzq.platform.model.mall.CreditDTO;
 import cn.xsdzq.platform.model.mall.CreditImportRecordDTO;
 import cn.xsdzq.platform.model.mall.CreditImportTempDTO;
 import cn.xsdzq.platform.model.mall.CreditUserTotalDTO;
-import cn.xsdzq.platform.model.mall.PresentCategoryDTO;
 import cn.xsdzq.platform.service.mall.CreditImportRecordService;
 import cn.xsdzq.platform.service.mall.CreditImportTempService;
 import cn.xsdzq.platform.service.mall.CreditService;
@@ -74,8 +73,10 @@ public class CreditController {
 	public Map<String, Object> addCredit(@RequestBody CreditDTO creditDTO) {
 
 		//logger.info(CreditDTO.toString());
+		//同时修改关联的导入记录的 前端显示名字
 		CreditEntity entity = CreditUtil.convertCreditEntityByDTO(creditDTO);
 		creditService.addCredit(entity);
+
 		return GsonUtil.buildMap(0, "success", null);
 	}
 	
@@ -230,7 +231,6 @@ public class CreditController {
 		}
 		if(num == 2) {
 			//abc
-			System.out.println("*******************_______________+++++++++++++++++++++++++++");
 			entities = creditImportRecordService.findByMallUserEntity_ClientNameLikeAndClientIdLikeAndItemCodeLikeOrderByRecordTimeDesc(username, clientId, itemCode, pageNumber, pageSize);
 			sum = creditImportRecordService.countByMallUserEntity_ClientNameLikeAndClientIdLikeItemCodeLike(username, clientId, itemCode);
 		}
@@ -276,7 +276,6 @@ public class CreditController {
 	//导入excel
 	 @RequestMapping(value="/upload",method={RequestMethod.POST}) 
 	 public Map<String, Object>  uploadExcel(HttpServletRequest request) throws Exception { 
-		 System.out.println("进入接口===================================(**********************************");
 		 //
 		 MultipartResolver resolver = new CommonsMultipartResolver(request.getSession().getServletContext());
 		 MultipartHttpServletRequest multipartRequest = resolver.resolveMultipart(request); 

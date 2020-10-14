@@ -32,6 +32,6 @@ public interface PageCreditRecordRepository extends PagingAndSortingRepository<C
 	int countByMallUserEntity_ClientNameLikeAndClientIdLikeAndItemCodeLike(String username,String clientId,String itemCode);
 	
 	//对比重复
-	int countByClientIdAndItemCodeAndMallUserEntity_DepartmentCodeAndMallUserEntity_MobileAndBeginDateAndType(String clientId,String itemCode,String departmentCode,String mobile,String beginDate,int type);
-	int countByTypeAndItemCode(boolean type ,String itemCode);
+	int countByClientIdAndItemCodeAndMallUserEntity_DepartmentCodeAndMallUserEntity_MobileAndBeginDateAndType(String clientId,String itemCode,String departmentCode,String mobile,String beginDate,boolean type);
+	int countByTypeAndItemCode(boolean type ,String itemCode);	
 }

@@ -72,6 +72,8 @@ public class CreditUtil {
 		
 		dto.setBeginDate(entity.getBeginDate());
 		dto.setEndDate(entity.getEndDate());
+		dto.setRecordTime(DateUtil.DateToString(entity.getRecordTime()));
+
 		return dto;
 	}
 	

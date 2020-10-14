@@ -157,7 +157,7 @@ public class CreditImportRecordServiceImpl implements CreditImportRecordService{
 	public int countByClientIdAndItemCodeAndMallUserEntity_DepartmentCodeAndMallUserEntity_MobileAndBeginDate(
 			String clientId, String itemCode, String departmentCode, String mobile, String beginDate) {
 		// TODO Auto-generated method stub
-		return creditImportRecordRepository.countByClientIdAndItemCodeAndMallUserEntity_DepartmentCodeAndMallUserEntity_MobileAndBeginDateAndType(clientId, itemCode, departmentCode, mobile, beginDate,1);
+		return creditImportRecordRepository.countByClientIdAndItemCodeAndMallUserEntity_DepartmentCodeAndMallUserEntity_MobileAndBeginDateAndType(clientId, itemCode, departmentCode, mobile, beginDate,true);
 	}
 	@Override
 	public int countByTypeAndItemCode(boolean type, String itemCode) {

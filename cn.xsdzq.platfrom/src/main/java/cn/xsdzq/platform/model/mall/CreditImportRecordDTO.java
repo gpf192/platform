@@ -1,5 +1,6 @@
 package cn.xsdzq.platform.model.mall;
 
+import java.util.Date;
 
 public class CreditImportRecordDTO {
 	private long id;
@@ -12,7 +13,16 @@ public class CreditImportRecordDTO {
 	private String categoryCode;//项目编码，唯一
 	private String num;//导入分数
 	private String beginDate;//生效日期
-	private String endDate;//失效日期
+	private String endDate;//失效日期	
+	private String recordTime;
+
+	public String getRecordTime() {
+		return recordTime;
+	}
+
+	public void setRecordTime(String recordTime) {
+		this.recordTime = recordTime;
+	}
 
 	public long getId() {
 		return id;
