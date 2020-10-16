@@ -13,5 +13,6 @@ public interface PresentCardService {
 	public List<PresentCardEntity> getPresentCardEntities();
 	public void deletePresentCard(PresentCardDTO dto);
 	public PresentCardEntity findById(long id);
+	public void deletePresentCardById(long id);
 
 }

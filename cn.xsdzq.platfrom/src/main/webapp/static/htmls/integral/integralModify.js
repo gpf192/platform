@@ -66,12 +66,12 @@ function integralModifyController($scope, $http, $state, $stateParams, $gridServ
 			layerUtils.iMsg(-1, "项目编码不能为空");
 			return;
 		}
-		if(!utils.isEmpty($scope.formData.integralValue)) {
+		/*if(!utils.isEmpty($scope.formData.integralValue)) {
 			integralValue = $scope.formData.integralValue;
 		}else {
 			layerUtils.iMsg(-1, "面值不能为空");
 			return;
-		}
+		}*/
 		if(!utils.isEmpty($scope.formData.frontName)) {
 			frontName = $scope.formData.frontName;
 		}else {

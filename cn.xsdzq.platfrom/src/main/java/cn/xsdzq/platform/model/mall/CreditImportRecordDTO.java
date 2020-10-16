@@ -15,6 +15,24 @@ public class CreditImportRecordDTO {
 	private String beginDate;//生效日期
 	private String endDate;//失效日期	
 	private String recordTime;
+	private String importItem;	//导入时关联的项目名称
+	private String importMobile;//导入时的手机号
+
+	public String getImportMobile() {
+		return importMobile;
+	}
+
+	public void setImportMobile(String importMobile) {
+		this.importMobile = importMobile;
+	}
+
+	public String getImportItem() {
+		return importItem;
+	}
+
+	public void setImportItem(String importItem) {
+		this.importItem = importItem;
+	}
 
 	public String getRecordTime() {
 		return recordTime;
@@ -119,8 +137,9 @@ public class CreditImportRecordDTO {
 		return "CreditImportRecordDTO [id=" + id + ", clientName=" + clientName + ", clientId=" + clientId + ", mobile="
 				+ mobile + ", departmentDesc=" + departmentDesc + ", departmentCode=" + departmentCode
 				+ ", categoryName=" + categoryName + ", categoryCode=" + categoryCode + ", num=" + num + ", beginDate="
-				+ beginDate + ", endDate=" + endDate + "]";
+				+ beginDate + ", endDate=" + endDate + ", recordTime=" + recordTime + ", importItem=" + importItem
+				+ ", importMobile=" + importMobile + "]";
 	}
-	
+
 	
 }

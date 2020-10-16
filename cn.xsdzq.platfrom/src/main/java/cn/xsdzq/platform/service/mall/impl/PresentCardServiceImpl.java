@@ -57,5 +57,13 @@ public class PresentCardServiceImpl implements PresentCardService {
 		return presentCardRepository.findById(id).get();
 	}
 
+	@Override
+	@Transactional
+	public void deletePresentCardById(long id) {
+		// TODO Auto-generated method stub
+		PresentCardEntity entity = presentCardRepository.findById(id).get();
+		presentCardRepository.delete(entity);
+	}
+
 
 }

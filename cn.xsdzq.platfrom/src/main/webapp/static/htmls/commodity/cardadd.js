@@ -55,7 +55,12 @@ function cardaddController($scope, $http, $state, $stateParams, $gridService, ht
 			return;
 		}
 		if(!utils.isEmpty($scope.formData.password)) {
-			password = $scope.formData.password;
+			if( $scope.formData.password == "无") {
+				password = password;
+			}else{
+				password = $scope.formData.password;
+			}
+			
 		}
 		
 		if(!utils.isEmpty($scope.cardStatusModel.code)) {

@@ -163,25 +163,26 @@ function cardmanageController($scope, $http, $state, $stateParams, $gridService,
 		      }  
   	      }
 		layerUtils.iConfirm("是否删除该卡券？", function() {
+			var list=[];
+			
 			for (var h = 0; h < $scope.selected.length; h++) {			
 	        	var infoId = $scope.selected[h];	
 		  	      for (var i = 0; i < $scope.cardList.length; i++) {
 				        var tempInfo = $scope.cardList[i];
 				        if(tempInfo.id == infoId){
-				        	var param = tempInfo;
+				        	//var param = tempInfo;
+				        	list.push(infoId);
 				        }
-				      }  
-		  	      
-		  	    var url = httpUtils.url.deleteCard;
-				$http.post(url, param).success(function(data) {
-					if (data.resCode != 0) {
-						layerUtils.iMsg(-1, "删除失败,部分卡券无法删除");	
-					}
-				});
+				      }  	  	      
+		  	  
 	        }
+			 var url = httpUtils.url.deleteCard;
+				$http.post(url, list).success(function(data) {
+					$scope.getCardList(50);
+				});
 			layerUtils.iMsg(-1, "删除成功");
 			
-			$scope.getCardList(50);
+			
 			$scope.selected = [];
 			
 		}, function() {

@@ -59,17 +59,19 @@ public class PresentCardController {
 		System.out.println(dto.toString());
 		PresentCardEntity entity = PresentUtil.convertPresentCardEntityByDTO(dto);
 		PresentEntity p = presentService.findById(dto.getPresentId());
-		p.setStoreUnused(p.getStoreUnused()+1);//库存+1
-		presentService.addPresent(p);
 		entity.setPresent(p);
 		User user = UserManageUtil.getUser();
 		String name = user.getUsername();
 		if(dto.getIsNew()==0) {
 			//新增
+			p.setStoreUnused(p.getStoreUnused()+1);//库存+1
+			presentService.addPresent(p);
+			
 			entity.setCreatedBy(name);
 			presentCardService.addPresentCard(entity);
 			
 		}else {
+			
 			PresentCardEntity temp = presentCardService.findById(dto.getId());
 			entity.setCreateDate(temp.getCreateDate());//保持不变
 			entity.setModifytime(new Date());
@@ -128,11 +130,22 @@ public class PresentCardController {
 
 	@RequestMapping(value = "/delete", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Map<String, Object> deletePresentCard(HttpServletRequest request,  @RequestBody PresentCardDTO dto) {		
-		PresentEntity p = presentService.findById(dto.getPresentId());
+	//public Map<String, Object> deletePresentCard(HttpServletRequest request,  @RequestBody PresentCardDTO dto) {		
+	public Map<String, Object> deletePresentCard(HttpServletRequest request,  @RequestBody List<Long> ids) {		
+	
+	/*PresentEntity p = presentService.findById(dto.getPresentId());
 		p.setStoreUnused(p.getStoreUnused()-1);//库存-1
 		presentService.addPresent(p);
-		presentCardService.deletePresentCard(dto);
+
+		presentCardService.deletePresentCard(dto);*/
+		for(Long id:ids) {
+			System.out.println("id:--- "+id);
+			PresentCardEntity card = presentCardService.findById(id);
+			PresentEntity present = presentService.findById(card.getPresentId());
+			present.setStoreUnused(present.getStoreUnused()-1);//库存-1
+			presentService.addPresent(present);
+			presentCardService.deletePresentCardById(id);
+		}
 		
 		return GsonUtil.buildMap(0, "success", null);
 	}

@@ -56,7 +56,7 @@ public class CreditUtil {
 		dto.setId(entity.getId());
 		dto.setClientId(entity.getMallUserEntity().getClientId());
 		dto.setClientName(entity.getMallUserEntity().getClientName());
-		dto.setMobile(entity.getMallUserEntity().getMobile());
+		dto.setMobile(entity.getImportMobile());
 		dto.setDepartmentDesc(entity.getMallUserEntity().getDepartmentName());
 		dto.setDepartmentCode(entity.getMallUserEntity().getDepartmentCode());
 		if(entity.isType()) {
@@ -69,7 +69,7 @@ public class CreditUtil {
 			dto.setNum("-"+entity.getIntegralNumber());
 		}
 		
-		
+		dto.setImportItem(entity.getImportItem());
 		dto.setBeginDate(entity.getBeginDate());
 		dto.setEndDate(entity.getEndDate());
 		dto.setRecordTime(DateUtil.DateToString(entity.getRecordTime()));

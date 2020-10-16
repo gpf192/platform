@@ -97,7 +97,7 @@ public class MallUserServiceImpl implements MallUserService {
 			
 			creditCategoryRepository.save(creditEntity);
 		}else{
-			tempName =creditEntity.getCategoryName() ;
+			tempName =creditEntity.getFrontName() ;
 		}
 		// 4.导入附件记录
 		//此处只写增加记录
@@ -117,7 +117,7 @@ public class MallUserServiceImpl implements MallUserService {
 		creditRecordEntity.setDateFlag(nowFlag);
 		creditRecordEntity.setBeginDate(temp.getBeginDate());
 		creditRecordEntity.setEndDate(temp.getEndDate());
-		creditRecordEntity.setGroupTime(DateUtil.Dateymd(new Date()));//20200810
+		creditRecordEntity.setGroupTime(DateUtil.Dateym(temp.getBeginDate()));//20200810
 		creditRecordEntity.setRecordTime(new Date());
 		creditRecordRepository.save(creditRecordEntity);
 

@@ -69,22 +69,30 @@ function cardmodifyController($scope, $http, $state, $stateParams, $gridService,
 			layerUtils.iMsg(-1, "卡号不能为空");
 			return;
 		}
-		/*if(!utils.isEmpty($scope.cardStatusModel.code)) {
-			cardStatus = $scope.cardStatusModel.code;
-		}else {
-			layerUtils.iMsg(-1, "卡券状态不能为空");
-			return;
-		}*/
+		
+		if(!utils.isEmpty($scope.formData.password)) {
+			if( $scope.formData.password == "无") {
+				console.log(1);
+				password = password;
+			}else{
+				console.log(2);
+				password = $scope.formData.password;
+			}
+			
+		}
+		
+		
 		
 		var param = {
 				id:$scope.formData.id,
 				presentId:$scope.formData.presentNameModel.id,				
 				cardId:cardId,
-				password:$scope.formData.password,
+				password:password,
 				cardStatus:cardStatus,
 				isNew:1//更新
 				
 		}		
+		console.log($scope.formData.presentNameModel.id+" 44444 ");
 		$http.post(url, param).success(function(data) {
 			if (data.resCode == 0) {
 				layerUtils.iAlert("修改成功",function(){

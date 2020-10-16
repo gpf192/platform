@@ -379,8 +379,8 @@ public class CreditController {
 			for(CreditImportTempEntity temp:temps) {
 				int t = 0;
 				//与数据库比对，查重
-				t = creditImportRecordService.countByClientIdAndItemCodeAndMallUserEntity_DepartmentCodeAndMallUserEntity_MobileAndBeginDate(temp.getClientId(),
-						temp.getCategoryCode(), temp.getDepartmentCode(), temp.getMobile(), temp.getBeginDate());
+				t = creditImportRecordService.countByClientIdAndItemCodeAndBeginDateAndType(temp.getClientId(),
+						temp.getCategoryCode(),  temp.getBeginDate());
 				if(t>0) {
 					num++;		
 				}				

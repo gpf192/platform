@@ -74,4 +74,10 @@ public class DateUtil {
 		return  sdf.format(date) ;
 			
 	}
+	public static String Dateym(String s) {
+		
+		return  s.substring(0, 4)+"-"+s.substring(4, 6);
+			
+	}
+		
 }

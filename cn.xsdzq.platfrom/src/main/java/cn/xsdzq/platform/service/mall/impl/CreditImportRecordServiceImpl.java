@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import cn.xsdzq.platform.dao.mall.CreditRecordRepository;
 import cn.xsdzq.platform.dao.mall.PageCreditRecordRepository;
 import cn.xsdzq.platform.entity.mall.CreditRecordEntity;
 import cn.xsdzq.platform.service.mall.CreditImportRecordService;
@@ -21,8 +22,8 @@ public class CreditImportRecordServiceImpl implements CreditImportRecordService{
 	@Autowired
 	private PageCreditRecordRepository creditImportRecordRepository;
 	
-	/*@Autowired
-	private PageCreditRecordRepository pageCreditRecordRepository;*/
+	@Autowired
+	private CreditRecordRepository creditRecordRepository;
 	
 	@Override
 	@Transactional
@@ -154,15 +155,20 @@ public class CreditImportRecordServiceImpl implements CreditImportRecordService{
 
 	}
 	@Override
-	public int countByClientIdAndItemCodeAndMallUserEntity_DepartmentCodeAndMallUserEntity_MobileAndBeginDate(
-			String clientId, String itemCode, String departmentCode, String mobile, String beginDate) {
+	public int countByClientIdAndItemCodeAndBeginDateAndType(
+			String clientId, String itemCode,  String beginDate) {
 		// TODO Auto-generated method stub
-		return creditImportRecordRepository.countByClientIdAndItemCodeAndMallUserEntity_DepartmentCodeAndMallUserEntity_MobileAndBeginDateAndType(clientId, itemCode, departmentCode, mobile, beginDate,true);
+		return creditImportRecordRepository.countByClientIdAndItemCodeAndBeginDateAndType(clientId, itemCode,  beginDate,true);
 	}
 	@Override
 	public int countByTypeAndItemCode(boolean type, String itemCode) {
 		// TODO Auto-generated method stub
 		return creditImportRecordRepository.countByTypeAndItemCode(type, itemCode);
+	}
+	@Override
+	public List<CreditRecordEntity> findByType(boolean type) {
+		// TODO Auto-generated method stub
+		return creditRecordRepository.findByType(type);
 	}
 	
 }

@@ -45,6 +45,11 @@ public class CreditRecordEntity implements Serializable {
 	// 项目名称，
 	@Column(name = "import_Item")
 	private String importItem;	//导入时关联的项目名称
+	
+	// 项目名称，
+	@Column(name = "import_mobile")
+	private String importMobile;	//导入时的手机号
+		
 	// 项目名称，
 	@Column(name = "item")
 	private String item;//前端展示
@@ -94,6 +99,14 @@ public class CreditRecordEntity implements Serializable {
 	}
 
 	
+
+	public String getImportMobile() {
+		return importMobile;
+	}
+
+	public void setImportMobile(String importMobile) {
+		this.importMobile = importMobile;
+	}
 
 	public String getBeginDate() {
 		return beginDate;
@@ -219,12 +232,10 @@ public class CreditRecordEntity implements Serializable {
 	@Override
 	public String toString() {
 		return "CreditRecordEntity [id=" + id + ", type=" + type + ", reason=" + reason + ", reasonCode=" + reasonCode
-				+ ", importItem=" + importItem + ", item=" + item + ", itemCode=" + itemCode + ", integralNumber="
-				+ integralNumber + ", value=" + value + ", dateFlag=" + dateFlag + ", groupTime=" + groupTime
-				+ ", beginDate=" + beginDate + ", endDate=" + endDate + ", recordTime=" + recordTime + ", clientId="
-				+ clientId + ", mallUserEntity=" + mallUserEntity + "]";
+				+ ", importItem=" + importItem + ", importMobile=" + importMobile + ", item=" + item + ", itemCode="
+				+ itemCode + ", integralNumber=" + integralNumber + ", value=" + value + ", dateFlag=" + dateFlag
+				+ ", groupTime=" + groupTime + ", beginDate=" + beginDate + ", endDate=" + endDate + ", recordTime="
+				+ recordTime + ", clientId=" + clientId + ", mallUserEntity=" + mallUserEntity + "]";
 	}
-
-	
 
 }
