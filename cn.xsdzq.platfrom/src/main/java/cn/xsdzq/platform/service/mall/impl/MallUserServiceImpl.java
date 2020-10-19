@@ -116,7 +116,7 @@ public class MallUserServiceImpl implements MallUserService {
 		creditRecordEntity.setIntegralNumber(tempNum);//导入积分
 		creditRecordEntity.setDateFlag(nowFlag);
 		creditRecordEntity.setBeginDate(temp.getBeginDate());
-		creditRecordEntity.setEndDate(temp.getEndDate());
+		creditRecordEntity.setEndDate(Integer.parseInt(temp.getEndDate()));
 		creditRecordEntity.setGroupTime(DateUtil.Dateym(temp.getBeginDate()));//20200810
 		creditRecordEntity.setRecordTime(new Date());
 		creditRecordRepository.save(creditRecordEntity);

@@ -33,12 +33,12 @@ public class Task {
 	@Autowired
 	private MallUserService mallUserService;
 	
-	
-	@Scheduled(cron = "0/59 * * * * ? ") // 间隔5秒执行
+	// cron = "0 * 12 * * ? " 12点执行
+	@Scheduled(cron = "0 0 24 * * ? ") // 间隔5秒执行  cron = "0/5 * * * * ? "
     public void ScanCreditTask() {
 		System.out.println("使用SpringMVC框架配置定时任务");
 		String now = DateUtil.Dateymd(new Date());
-		System.out.println("今天是 "+now);
+		System.out.println("今天是lingcheng "+now + new Date());
 		List<CreditRecordEntity> recordList = creditImportRecordService.findByType(true);
 		for(CreditRecordEntity record:recordList) {			
 			if( now.equals(record.getEndDate())) {

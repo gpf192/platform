@@ -71,7 +71,7 @@ public class CreditUtil {
 		
 		dto.setImportItem(entity.getImportItem());
 		dto.setBeginDate(entity.getBeginDate());
-		dto.setEndDate(entity.getEndDate());
+		dto.setEndDate(entity.getEndDate()+"");
 		dto.setRecordTime(DateUtil.DateToString(entity.getRecordTime()));
 
 		return dto;
@@ -89,7 +89,7 @@ public class CreditUtil {
 		dto.setCategoryCode(entity.getCategoryCode());
 		dto.setNum(entity.getNum());
 		dto.setBeginDate(entity.getBeginDate());
-		dto.setEndDate(entity.getEndDate());
+		dto.setEndDate(entity.getEndDate()+"");
 		return dto;
 	}
 	
@@ -121,7 +121,7 @@ public class CreditUtil {
 		//entity.setCategoryCode(temp.getCategoryCode());
 		//entity.setNum(temp.getNum());
 		entity.setBeginDate(temp.getBeginDate());
-		entity.setEndDate(temp.getEndDate());
+		entity.setEndDate(Integer.parseInt(temp.getEndDate()));
 		return entity;
 	}
 

@@ -2,6 +2,7 @@ package cn.xsdzq.platform.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtil {
@@ -78,6 +79,19 @@ public class DateUtil {
 		
 		return  s.substring(0, 4)+"-"+s.substring(4, 6);
 			
+	}
+	public static int te() {
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.DATE, -1);
+	    Date pre = c.getTime();
+		
+		return  Integer.parseInt(sdf.format(pre)) ;
+			
+	}
+	public static void main(String[] args) {
+		int t = te();
+		System.out.println(t);
 	}
 		
 }

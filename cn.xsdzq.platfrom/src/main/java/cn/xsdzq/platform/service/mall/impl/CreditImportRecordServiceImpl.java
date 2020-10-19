@@ -170,5 +170,20 @@ public class CreditImportRecordServiceImpl implements CreditImportRecordService{
 		// TODO Auto-generated method stub
 		return creditRecordRepository.findByType(type);
 	}
+	@Override
+	public List<CreditRecordEntity> findByEndDateAndType(int endDate, boolean type) {
+		// TODO Auto-generated method stub
+		return creditRecordRepository.findByEndDateAndType(endDate, type);
+	}
+	@Override
+	public List<CreditRecordEntity> findByEndDateLessThanEqualAndType(int endDate, boolean type) {
+		// TODO Auto-generated method stub
+		return creditRecordRepository.findByEndDateLessThanEqualAndType(endDate, type);
+	}
+	@Override
+	public List<CreditRecordEntity> findByClientIdAndType(int endDate, boolean type) {
+		// TODO Auto-generated method stub
+		return creditRecordRepository.findByClientIdAndType(endDate, type);
+	}
 	
 }
