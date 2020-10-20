@@ -80,7 +80,7 @@ public class DateUtil {
 		return  s.substring(0, 4)+"-"+s.substring(4, 6);
 			
 	}
-	public static int te() {
+	public static int getPreDayAsInt() {
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
 		Calendar c = Calendar.getInstance();
 		c.add(Calendar.DATE, -1);
@@ -89,9 +89,21 @@ public class DateUtil {
 		return  Integer.parseInt(sdf.format(pre)) ;
 			
 	}
+	public static String  getPreDayAsString() {
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.DATE, -1);
+	    Date pre = c.getTime();
+		
+		return  sdf.format(pre) ;
+			
+	}
 	public static void main(String[] args) {
-		int t = te();
+		int t = getPreDayAsInt();
 		System.out.println(t);
+		
+		System.out.println(Dateym(String.valueOf(t)));
+		System.out.println(getPreDayAsString());
 	}
 		
 }

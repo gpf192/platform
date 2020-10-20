@@ -41,5 +41,10 @@ public interface MallUserService {
 	//
 	List<MallUserInfoEntity> findByMallUserEntity_clientNameLikeAndClentIdLikeAndMallUserEntity_moblieLikeOrderByCreditScoreDesc(String username, String clientId, String moblie,int pageNumber, int pageSize);
 	int countByMallUserEntity_clientNameLikeAndClentIdLikeAndMallUserEntity_moblieLike(String username, String clientId, String moblie);
-
+	//
+	MallUserInfoEntity findByClientId(String clientId);
+	
+	//跑批失效分数
+	public void endDateJob();
+		
 }

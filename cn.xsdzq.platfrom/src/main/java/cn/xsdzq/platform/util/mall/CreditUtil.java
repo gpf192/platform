@@ -63,15 +63,17 @@ public class CreditUtil {
 			dto.setCategoryName(entity.getItem());
 			dto.setCategoryCode(entity.getItemCode());
 			dto.setNum("+"+entity.getIntegralNumber());
+			dto.setEndDate(entity.getEndDate()+"");
 		}else {
-			dto.setCategoryName("兑换"+entity.getItem());
+			dto.setCategoryName(entity.getReason()+":"+entity.getItem());
 			dto.setCategoryCode(entity.getReasonCode());
 			dto.setNum("-"+entity.getIntegralNumber());
+			dto.setEndDate("");
 		}
 		
 		dto.setImportItem(entity.getImportItem());
 		dto.setBeginDate(entity.getBeginDate());
-		dto.setEndDate(entity.getEndDate()+"");
+		
 		dto.setRecordTime(DateUtil.DateToString(entity.getRecordTime()));
 
 		return dto;

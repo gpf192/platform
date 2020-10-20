@@ -119,6 +119,7 @@ public class MallUserServiceImpl implements MallUserService {
 		creditRecordEntity.setEndDate(Integer.parseInt(temp.getEndDate()));
 		creditRecordEntity.setGroupTime(DateUtil.Dateym(temp.getBeginDate()));//20200810
 		creditRecordEntity.setRecordTime(new Date());
+		creditRecordEntity.setImportMobile(temp.getMobile());
 		creditRecordRepository.save(creditRecordEntity);
 
 		// 5.个人信息累计总积分值
@@ -280,6 +281,82 @@ public class MallUserServiceImpl implements MallUserService {
 		// TODO Auto-generated method stub
 		return pageMallUserInfoRepository.countByMallUserEntity_clientNameLikeAndClientIdLikeAndMallUserEntity_mobileLike(username, clientId, moblie);
 
+	}
+
+	@Override
+	public MallUserInfoEntity findByClientId(String clientId) {
+		// TODO Auto-generated method stub
+		return mallUserInfoRepository.findByClientId(clientId);
+	}
+
+	@Override
+	@Transactional
+	public void endDateJob() {
+		// TODO Auto-generated method stub
+		int preday =DateUtil.getPreDayAsInt();
+		List<CreditRecordEntity> recordList = creditRecordRepository.findByEndDateAndType(preday,  true);
+		System.out.println("昨天共有几条到期记录 -- "+recordList.size());
+		for(CreditRecordEntity record:recordList) {	
+			String clientId = record.getClientId();
+			MallUserInfoEntity userInfo = mallUserInfoRepository.findByClientId(clientId);
+			//只筛选当前积分大于0的，  等于0的已经消耗完毕 不用关注失效分数
+			//需要插入的失效record = t-1及之前 共失效 - t-1之前，对换+失效记录
+			if(userInfo.getCreditScore() > 0) {
+				int sum1 = 0;
+				int sum2 = 0;
+				int tempNum = 0;
+				List<CreditRecordEntity> list1 = creditRecordRepository.findByEndDateLessThanEqualAndType(preday,  true);
+				for(CreditRecordEntity r1:list1) {
+					sum1 = sum1 + r1.getIntegralNumber();
+				}
+				List<CreditRecordEntity> list2 = creditRecordRepository.findByEndDateLessThanEqualAndType(preday,  false);
+				for(CreditRecordEntity r2:list2) {
+					sum2 = sum2 + r2.getIntegralNumber();
+				}
+				if(sum1 > sum2) {
+					tempNum = sum1 -sum2;
+					CreditRecordEntity c = new CreditRecordEntity();
+					c.setClientId(clientId);
+					c.setDateFlag(DateUtil.getPreDayAsString());//2020-10-01
+					c.setGroupTime(DateUtil.Dateym(String.valueOf(preday)));//2020-10
+					c.setIntegralNumber(tempNum);//失效分数
+					c.setItem(record.getItem());
+					c.setItemCode(record.getItemCode());
+					MallUserEntity mallUser = mallUserRepository.findByClientId(clientId);//必须保持clientid 唯一
+					//处理  用户总积分表中有相同clientId的bug
+					c.setMallUserEntity(mallUser);
+					c.setReason("失效");
+					c.setReasonCode("11");//固定常亮
+					c.setRecordTime(new Date());
+					c.setType(false);
+					System.out.println("插入一条失效记录 "+c.toString());
+					creditRecordRepository.save(c);
+				}
+				//更新当前剩余积分
+				//当前总得分 - t-1日及之前总兑换+失效）
+				int sum3 = 0;
+				int sum4 = 0;
+				int tempTotal = 0;
+				List<CreditRecordEntity> list3 = creditRecordRepository.findByClientIdAndType(clientId,  true);
+				for(CreditRecordEntity r3:list3) {
+					sum3 = sum3 + r3.getIntegralNumber();
+				}
+				List<CreditRecordEntity> list4 = creditRecordRepository.findByEndDateLessThanEqualAndType(preday,  false);
+				for(CreditRecordEntity r4:list4) {
+					//测试前面插入失效的记录  是否在这里包含在内
+					sum4 = sum4 + r4.getIntegralNumber();
+				}
+				
+				if(sum3 > sum4) {
+					tempTotal = sum3 - sum4;
+					userInfo.setCreditScore(tempTotal);
+					mallUserInfoRepository.save(userInfo);
+					System.out.println("更新用户积分："+userInfo.getClientId()+"(sum3: "+sum3+" sum4: "+sum4+" )"+tempTotal);
+				}
+			}
+			
+			
+		}
 	}
 
 

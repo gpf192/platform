@@ -37,9 +37,5 @@ public interface CreditImportRecordService {
 	int countByTypeAndItemCode(boolean type ,String itemCode);
 	
 	List<CreditRecordEntity> findByType(boolean type);
-	//跑批job
-	List<CreditRecordEntity> findByEndDateAndType(int endDate, boolean type);
-	List<CreditRecordEntity> findByEndDateLessThanEqualAndType(int endDate, boolean type);
-	//查询当前用户的总积分用
-	List<CreditRecordEntity> findByClientIdAndType(int endDate, boolean type);
+	
 }

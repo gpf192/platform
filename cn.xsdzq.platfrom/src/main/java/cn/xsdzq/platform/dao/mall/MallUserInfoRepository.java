@@ -10,5 +10,5 @@ import cn.xsdzq.platform.entity.mall.MallUserInfoEntity;
 public interface MallUserInfoRepository extends JpaRepository<MallUserInfoEntity, Long> {
 
 	MallUserInfoEntity findByMallUserEntity(MallUserEntity mallUserEntity);
-
+	MallUserInfoEntity findByClientId(String clientId);
 }
