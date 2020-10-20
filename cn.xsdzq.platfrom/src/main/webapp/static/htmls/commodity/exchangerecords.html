@@ -1,3 +1,5 @@
+<script src="././exporttable/alasql.min.js" type="text/javascript"></script>
+<script src="././exporttable/xlsx.core.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="htmls/commodity/exchangerecords.js"></script>
 <script type="text/javascript">
 </script>
@@ -44,12 +46,14 @@
 						<input type="text" class="form-control input-300 " id="mobile" name="mobile"
 						ng-model="formData.mobile" placeholder="请输入关键字"></input>
 				</div>
-				&nbsp
+				&nbsp &nbsp
 				<input type="button" value="查询" class="btn btn-primary"
 							ng-click="getExchangeRecordsList(100)" />
-					 &nbsp
-                <input type="button" value="导出" class="btn btn-primary"
-                            ng-click="exportToExcel()" />
+					 &nbsp &nbsp
+               <button  type="button" class="btn btn-info btn-sm"
+                            ng-click="exportToExcel()">
+                            <i class="fa fa-download"></i><span> 导出</span>
+                </button>
 			</form>
 			<br/>
 			<br/>

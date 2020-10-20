@@ -53,7 +53,6 @@ function exchangerecordsController($scope, $http, $state, $stateParams, $gridSer
 		var url = httpUtils.url.exchangeRecords;
 		var presentId = "";
 		var clientId = "";
-		//var clientName = "";
 		var mobile = "";
 		if("全部" != $scope.formData.category.name){
 			presentId = $scope.formData.category.id;
@@ -61,16 +60,13 @@ function exchangerecordsController($scope, $http, $state, $stateParams, $gridSer
 		if(!utils.isEmpty($scope.formData.clientId)) {
 			clientId = "%"+$scope.formData.clientId+"%";
 		}
-		/*if(!utils.isEmpty($scope.formData.clientName)) {
-			clientName = $scope.formData.clientName;
-		}*/
+		
 		if(!utils.isEmpty($scope.formData.mobile)) {
 			mobile = "%"+$scope.formData.mobile+"%";
 		}
 		var params = {
 			presentId:presentId,
 			clientId:clientId,
-			//clientName:clientName,
 			mobile:mobile,
 			pageNumber : 0,
 			pageSize : pageSize,
@@ -89,10 +85,25 @@ function exchangerecordsController($scope, $http, $state, $stateParams, $gridSer
 	
 
 	//导出为excel
+	Date.prototype.Format = function (fmt) {  
+	    var o = {
+	        "M+": this.getMonth() + 1, //月份 
+	        "d+": this.getDate(), //日 
+	        "h+": this.getHours(), //小时 
+	        "m+": this.getMinutes(), //分 
+	        "s+": this.getSeconds(), //秒 
+	        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+	        "S": this.getMilliseconds() //毫秒 
+	    };
+	    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+	    for (var k in o)
+	    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+	    return fmt;
+	}
 	$scope.exportToExcel=function(){ 
 		var excelArrs = getExcelData();
-		var myDate = new Date();
-		 alasql.promise('SELECT * INTO XLSX("商品兑换记录表-' + myDate+ '.xlsx",{headers:true}) FROM ?',[excelArrs])
+		var myDate = new Date().Format("yyyyMMddhhmmss");
+		 alasql.promise('SELECT * INTO XLSX("兑换记录统计表-' + myDate+ '.xlsx",{headers:true}) FROM ?',[excelArrs])
 			.then(function (data) {
 			  if(data == 1){
 				$timeout(function(){
@@ -105,7 +116,7 @@ function exchangerecordsController($scope, $http, $state, $stateParams, $gridSer
 	//组装ecxel数据
 	function getExcelData() {
 		var arr =[];
-		angular.forEach($scope.productsSellList, function(data, index, datas) {
+		angular.forEach($scope.exchangeRecordsList, function(data, index, datas) {
 			var newObj = {	
 				
 			};
@@ -118,7 +129,7 @@ function exchangerecordsController($scope, $http, $state, $stateParams, $gridSer
 				newObj["卡号"] = 	data.cardId;
 				newObj["密码"] = 	data.password;
 				newObj["实际价格（元）"] = 	data.price;
-				newObj["消费积分"] = 	data.integral;
+				newObj["消费积分"] = 	data.integralNum;
 				newObj["兑换时间"] = 	data.recordTime;
 			}
 			arr.push(newObj);

@@ -63,8 +63,7 @@ function integralUserDetailController($scope, $http, $state, $stateParams, $grid
 		if("全部" != $scope.formData.category.categoryName){
 			itemCode = "%"+$scope.formData.category.categoryCode+"%";
 		}
-		//console.log(itemCode);
-	//console.log("11-"+$scope.formData.category.categoryName+"--"+$scope.formData.category.categoryCode);
+	
 		var params = {
 			pageNumber : 0,
 			pageSize : pageSize,
@@ -103,7 +102,7 @@ function integralUserDetailController($scope, $http, $state, $stateParams, $grid
 	$scope.exportToExcel=function(){ 
 		var excelArrs = getExcelData();
 		var myDate = new Date().Format("yyyyMMddhhmmss");
-		 alasql.promise('SELECT * INTO XLSX("客户积分查询-' + myDate+ '.xlsx",{headers:true}) FROM ?',[excelArrs])
+		 alasql.promise('SELECT * INTO XLSX("客户积分明细查询-' + myDate+ '.xlsx",{headers:true}) FROM ?',[excelArrs])
 			.then(function (data) {
 			  if(data == 1){
 				$timeout(function(){
@@ -121,17 +120,19 @@ function integralUserDetailController($scope, $http, $state, $stateParams, $grid
 				
 			};
 			for(k=0;k<$scope.userVoteList.length;k++){				
-				newObj["客户姓名"] = 	data.userName;
+				newObj["客户姓名"] = 	data.clientName;
 				newObj["客户号"] = 	data.clientId;
-				newObj["手机号"] = 	data.mobile;
+				newObj["导入手机号"] = 	data.mobile;
 				newObj["营业部"] = 	data.departmentDesc;
-				newObj["营业部编码"] = 	data.departmentDesc;
+				newObj["营业部编码"] = 	data.departmentCode;
 				
-				newObj["项目名称"] = 	data.userName;
-				newObj["项目编码"] = 	data.clientId;
-				newObj["积分变化"] = 	data.mobile;
-				newObj["生成时间"] = 	data.departmentDesc;
-				newObj["失效时间"] = 	data.departmentDesc;
+				newObj["项目编码"] = 	data.categoryCode;
+				newObj["导入项目名称"] = 	data.importItem;
+				newObj["前端展示名称"] = 	data.categoryName;
+				newObj["积分变化"] = 	data.num;
+				newObj["失效时间"] = 	data.beginDate;
+				newObj["截止时间"] = 	data.endDate;
+				newObj["创建时间"] = 	data.recordTime;
 				
 			}
 			arr.push(newObj);

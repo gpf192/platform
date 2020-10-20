@@ -108,7 +108,7 @@ function integralqueryController($scope, $http, $state, $stateParams, $gridServi
 				
 			};
 			for(k=0;k<$scope.userVoteList.length;k++){				
-				newObj["客户姓名"] = 	data.userName;
+				newObj["客户姓名"] = 	data.clientName;
 				newObj["客户号"] = 	data.clientId;
 				newObj["手机号"] = 	data.mobile;
 				newObj["营业部"] = 	data.departmentDesc;

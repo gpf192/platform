@@ -1,3 +1,5 @@
+<script src="././exporttable/alasql.min.js" type="text/javascript"></script>
+<script src="././exporttable/xlsx.core.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="htmls/integral/integralallocation.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -49,6 +51,7 @@ $(function(){
 				<input type="button" value="查询" class="btn btn-primary"
 							ng-click="getCommodityclassifyList(50)" />
 			</form>
+			<hr />
         <div  class="dataTables_wrapper form-inline" role="grid">
             <div class="row hide" ng-show="activityProductsList.length>0">
                 <div class="col-sm-12">
@@ -77,20 +80,27 @@ $(function(){
                 class="datatable table table-striped table-bordered table-hover dataTable text-center"
                 aria-describedby="datatable1_info">
                 <thead>
-                        <div>
-       <button type="button" ng-click="newBuild()"
+                     <div>
+       						<button type="button" ng-click="newBuild()"
                                     class="btn btn-default btn-primary">新增</button>
                                  
-                        &nbsp &nbsp
-                        <button  type="button" class="btn btn-info btn-sm"
-                                    ng-click="batchModifyInfo()">
-                                    <i class="fa fa-pencil-square-o"></i><span> 编辑</span>
-                        </button>
-                        &nbsp &nbsp
-                        <button  type="button" class="btn btn-danger btn-sm"
-                                    ng-click="batchDeleteInfo()">
-                                    <i class="fa fa-trash-o"></i><span> 删除</span>
-                        </button>
+	                        &nbsp &nbsp
+	                        <button  type="button" class="btn btn-info btn-sm"
+	                                    ng-click="batchModifyInfo()">
+	                                    <i class="fa fa-pencil-square-o"></i><span> 编辑</span>
+	                        </button>
+	                        &nbsp &nbsp
+	                        <button  type="button" class="btn btn-danger btn-sm"
+	                                    ng-click="batchDeleteInfo()">
+	                                    <i class="fa fa-trash-o"></i><span> 删除</span>
+                       		 </button>
+                       		 
+                       		  &nbsp &nbsp
+                       		  <button  type="button" class="btn btn-info btn-sm"
+	                                    ng-click="exportToExcel()">
+	                                    <i class="fa fa-download"></i><span> 导出</span>
+	                        </button>
+               				 
                         
                      </div>
                      &nbsp           

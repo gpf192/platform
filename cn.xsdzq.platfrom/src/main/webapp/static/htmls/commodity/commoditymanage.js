@@ -173,6 +173,69 @@ function commoditymanageController($scope, $http, $state, $stateParams, $gridSer
 			console.log("取消");
 		});
 	}
+//导出为excel
 	
+	Date.prototype.Format = function (fmt) {  
+	    var o = {
+	        "M+": this.getMonth() + 1, //月份 
+	        "d+": this.getDate(), //日 
+	        "h+": this.getHours(), //小时 
+	        "m+": this.getMinutes(), //分 
+	        "s+": this.getSeconds(), //秒 
+	        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+	        "S": this.getMilliseconds() //毫秒 
+	    };
+	    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+	    for (var k in o)
+	    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+	    return fmt;
+	}
+	
+	$scope.exportToExcel=function(){ 
+		var excelArrs = getExcelData();
+		var myDate = new Date().Format("yyyyMMddhhmmss");
+		 alasql.promise('SELECT * INTO XLSX("商品管理统计表-' + myDate+ '.xlsx",{headers:true}) FROM ?',[excelArrs])
+			.then(function (data) {
+			  if(data == 1){
+				$timeout(function(){
+				  console.log('数据导出成功！');
+				})
+			  }
+			});
+	};
+	function getExcelData() {
+		var arr =[];
+		angular.forEach($scope.commodityList, function(data, index, datas) {
+			var newObj = {	
+				
+			};
+			for(k=0;k<$scope.commodityList.length;k++){				
+				newObj["所属分类"] = 	data.categoryName;
+				newObj["商品名称"] = 	data.name;
+				newObj["商品代码"] = 	data.code;
+				newObj["商品面值（元"] = 	data.faceValue;
+				newObj["实际价格（元）"] = 	data.value;
+				
+				newObj["简介"] = 	(data.tip=="0"?"":data.tip);
+				newObj["产品介绍"] = 	(data.description==0?"":data.description);
+				newObj["使用说明"] = 	(data.explain==0?"":data.explain);
+				newObj["注意事项"] = 	(data.attention==0?"":data.attention);
+				newObj["小图"] = 	(data.image==0?"":data.image);
+				
+				newObj["大图"] = 	(data.bigImage==0?"":data.bigImage);
+				newObj["是否热门"] = 	(data.isHot?"是":"否");
+				newObj["总数量"] = 	data.storeNumber;
+				newObj["已兑换数量"] = 	data.convertNumber;
+				newObj["剩余库存数量"] = 	data.storeUnused;
+				
+				newObj["状态"] = (data.status==0?"已上架":"已下架");
+				newObj["创建时间"] = 	data.createtime;
+				
+				
+			}
+			arr.push(newObj);
+		});
+		return arr;
+	}
 
 }
