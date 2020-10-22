@@ -216,13 +216,13 @@ function commoditymanageController($scope, $http, $state, $stateParams, $gridSer
 				newObj["商品面值（元"] = 	data.faceValue;
 				newObj["实际价格（元）"] = 	data.value;
 				
-				newObj["简介"] = 	(data.tip=="0"?"":data.tip);
-				newObj["产品介绍"] = 	(data.description==0?"":data.description);
-				newObj["使用说明"] = 	(data.explain==0?"":data.explain);
-				newObj["注意事项"] = 	(data.attention==0?"":data.attention);
-				newObj["小图"] = 	(data.image==0?"":data.image);
+				newObj["简介"] = 	(data.tip==null?"":data.tip);
+				newObj["产品介绍"] = 	(data.description==null?"":data.description);
+				newObj["使用说明"] = 	(data.explain==null?"":data.explain);
+				newObj["注意事项"] = 	(data.attention==null?"":data.attention);
+				newObj["小图"] = 	(data.image==null?"":data.image);
 				
-				newObj["大图"] = 	(data.bigImage==0?"":data.bigImage);
+				newObj["大图"] = 	(data.bigImage==null?"":data.bigImage);
 				newObj["是否热门"] = 	(data.isHot?"是":"否");
 				newObj["总数量"] = 	data.storeNumber;
 				newObj["已兑换数量"] = 	data.convertNumber;

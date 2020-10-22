@@ -296,6 +296,14 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/integral/integralImport",
 		templateUrl : "htmls/integral/integralImport.html",
 		controller : "integralImportController"
+	}).state("crmCreditRecord", {
+		url : "/integral/crmCreditRecord",
+		templateUrl : "htmls/integral/crmCreditRecord.html",
+		controller : "crmCreditRecordController"
+	}).state("crmCreditApiMsg", {
+		url : "/integral/crmCreditApiMsg",
+		templateUrl : "htmls/integral/crmCreditApiMsg.html",
+		controller : "crmCreditApiMsgController"
 	}).state("commodityclassify", {
 		url : "/commodity/commodityclassify",
 		templateUrl : "htmls/commodity/commodityclassify.html",

@@ -99,11 +99,10 @@ public class DateUtil {
 			
 	}
 	public static void main(String[] args) {
-		int t = getPreDayAsInt();
-		System.out.println(t);
 		
-		System.out.println(Dateym(String.valueOf(t)));
-		System.out.println(getPreDayAsString());
+		System.out.println(stringToDateAndSeconds(getPreDayAsString()));
+		
+		
 	}
 		
 }

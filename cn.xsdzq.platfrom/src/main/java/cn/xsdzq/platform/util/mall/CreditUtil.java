@@ -2,10 +2,14 @@ package cn.xsdzq.platform.util.mall;
 
 import java.util.List;
 
+import cn.xsdzq.platform.entity.mall.CRMCreditApiErrorMsgEntity;
+import cn.xsdzq.platform.entity.mall.CRMCreditRecordEntity;
 import cn.xsdzq.platform.entity.mall.CreditEntity;
 import cn.xsdzq.platform.entity.mall.CreditRecordEntity;
 import cn.xsdzq.platform.entity.mall.CreditImportTempEntity;
 import cn.xsdzq.platform.entity.mall.MallUserInfoEntity;
+import cn.xsdzq.platform.model.mall.CRMCreditApiMsgDTO;
+import cn.xsdzq.platform.model.mall.CRMCreditRecordDTO;
 import cn.xsdzq.platform.model.mall.CreditDTO;
 import cn.xsdzq.platform.model.mall.CreditImportRecordDTO;
 import cn.xsdzq.platform.model.mall.CreditImportTempDTO;
@@ -66,7 +70,12 @@ public class CreditUtil {
 			dto.setEndDate(entity.getEndDate()+"");
 		}else {
 			dto.setCategoryName(entity.getReason()+":"+entity.getItem());
-			dto.setCategoryCode(entity.getReasonCode());
+			if("11".equals(entity.getReasonCode())) {
+				dto.setCategoryCode(entity.getItemCode());
+			}else {
+				dto.setCategoryCode(entity.getReasonCode());	
+			}
+			
 			dto.setNum("-"+entity.getIntegralNumber());
 			dto.setEndDate("");
 		}
@@ -112,19 +121,33 @@ public class CreditUtil {
 		return vo;
 	}
 	//导入表格的临时类转换为正式实体类,  不用此方法 
-	public static CreditRecordEntity changeTempToRecord(CreditImportTempEntity temp) {
-		CreditRecordEntity entity = new CreditRecordEntity();
-	//	entity.setClientId(temp.getClientId());
-		//entity.setClientName(temp.getClientName());
-		//entity.setDepartmentCode(temp.getDepartmentCode());
-		//entity.setDepartmentDesc(temp.getDepartmentDesc());
-		//entity.setMobile(temp.getMobile());
-		//entity.setCategoryName(temp.getCategoryName());
-		//entity.setCategoryCode(temp.getCategoryCode());
-		//entity.setNum(temp.getNum());
-		entity.setBeginDate(temp.getBeginDate());
-		entity.setEndDate(Integer.parseInt(temp.getEndDate()));
-		return entity;
+	public static CRMCreditRecordDTO convertCRMCreditDTOByEntity(CRMCreditRecordEntity entity) {
+		CRMCreditRecordDTO dto = new CRMCreditRecordDTO();
+		dto.setClientId(entity.getClientId());
+		dto.setClientName(entity.getClientName());
+		dto.setSerialNum(entity.getSerialNum());
+		
+		dto.setDepartmentCode(entity.getDepartmentCode());
+		dto.setDepartmentDesc(entity.getDepartmentDesc());
+		dto.setMobile(entity.getMobile());
+		
+		dto.setItemCode(entity.getItemCode());
+		dto.setItemName(entity.getItemName());
+		dto.setNum(entity.getNum());
+		
+		dto.setBeginDate(entity.getBeginDate());
+		dto.setEndDate(entity.getEndDate());
+		return dto;
+	}
+	
+	public static CRMCreditApiMsgDTO convertCRMCreditMsgDTOByEntity(CRMCreditApiErrorMsgEntity entity) {
+		CRMCreditApiMsgDTO dto = new CRMCreditApiMsgDTO();
+		
+		dto.setId(entity.getId());
+		dto.setSerialNum(entity.getSerialNum());
+		dto.setMsg(entity.getMsg());
+		dto.setRecordTime(DateUtil.DateToString(entity.getRecordTime()));
+		return dto;
 	}
 
 }

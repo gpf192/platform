@@ -229,7 +229,7 @@ function cardmanageController($scope, $http, $state, $stateParams, $gridService,
 			};
 			for(k=0;k<$scope.cardList.length;k++){				
 				newObj["卡号"] = 	data.cardId;
-				newObj["密码"] = 	data.password;
+				newObj["密码"] = 	(data.password==null?"":data.password);
 				newObj["商品名称"] = 	data.presentName;
 				newObj["兑换状态"] = 	(data.convertStatus==1?"已兑换":"未兑换");
 				newObj["创建时间"] = 	data.createDate;

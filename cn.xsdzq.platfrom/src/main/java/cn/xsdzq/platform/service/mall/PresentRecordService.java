@@ -7,8 +7,8 @@ import cn.xsdzq.platform.entity.mall.PresentRecordEntity;
 
 public interface PresentRecordService {
 
-	List<PresentRecordEntity> getRecordEntities();
-	//分页查询
+		List<PresentRecordEntity> getRecordEntities();
+		//分页查询
 		List<PresentRecordEntity> findByOrderByRecordTimeDesc(int pageNumber, int pageSize);
 		int countAll();
 		//

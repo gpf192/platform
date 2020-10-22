@@ -13,7 +13,7 @@ public interface CreditRecordRepository extends JpaRepository<CreditRecordEntity
 	
 	//跑批job用
 	List<CreditRecordEntity> findByEndDateAndType(int endDate, boolean type);
-	List<CreditRecordEntity> findByEndDateLessThanEqualAndType(int endDate, boolean type);
+	List<CreditRecordEntity> findByClientIdAndEndDateLessThanEqualAndType(String clientId, int endDate, boolean type);
 	//查询当前用户的总积分用
 	List<CreditRecordEntity> findByClientIdAndType(String clientId, boolean type);
 }

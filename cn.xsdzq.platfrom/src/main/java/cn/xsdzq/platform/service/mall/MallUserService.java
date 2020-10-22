@@ -46,5 +46,7 @@ public interface MallUserService {
 	
 	//跑批失效分数
 	public void endDateJob();
+	
+	public void scanCrmCreditJob();
 		
 }

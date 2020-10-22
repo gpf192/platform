@@ -117,6 +117,9 @@ ngApp.factory("httpUtils", [ function() {
 		getUserCreditTotal:baseUrl + "mall/credit/getUserCreditTotal",
 		getCreditImportRecord :baseUrl + "mall/credit/getCreditImportRecord",
 		
+		crmCreditRecord:baseUrl + "mall/crm/getCrmCreditRecord",
+		crmCreditApiMsg:baseUrl + "mall/crm/getCrmCreditApiMsg",
+		
 		importExcel:baseUrl + "mall/credit/upload",
 		getCreditImportTemp :baseUrl + "mall/credit/getCreditImportTemp",
 		checkBeforeSubmit:baseUrl + "mall/credit/checkBeforeSubmit",

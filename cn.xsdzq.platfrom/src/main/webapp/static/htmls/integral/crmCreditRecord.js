@@ -1,16 +1,16 @@
 ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils', 'utils'];
-function integralUserDetailController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils,utils) {
+function crmCreditRecordController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils,utils) {
 	$scope.userVoteList= [];
 	$scope.formData = {};
 	$scope.categoryList = [];
 	$scope.init=function(){
 		var data = {
 				"one" : {
-					name : "积分管理",
+					name : "CRM接口查询",
 					goto:""
 				},
 				"two" : {
-					name : "客户积分明细",
+					name : "CRM接口积分明细查询",
 					goto:"userTIcketsList"
 
 				}
@@ -25,7 +25,7 @@ function integralUserDetailController($scope, $http, $state, $stateParams, $grid
 						$scope.formData.category = $scope.categoryList[k];	
 					}
 				}
-				$scope.getEmpList(100);
+				$scope.getEmpList(50);
 			}
 		});
 		
@@ -34,11 +34,11 @@ function integralUserDetailController($scope, $http, $state, $stateParams, $grid
 				page : 0
 			};
 			$scope.selectNumList = [{
+				num : 10
+			}, {
+				num : 50
+			}, {
 				num : 100
-			}, {
-				num : 150
-			}, {
-				num : 200
 			}];
 			$scope.selectNum = $scope.selectNumList[0];	
 			$scope.$watch("selectNum.num", function(newValue, oldValue) {
@@ -50,12 +50,12 @@ function integralUserDetailController($scope, $http, $state, $stateParams, $grid
 	};
 	
 	$scope.getEmpList = function(pageSize) {
-		var url = httpUtils.url.getCreditImportRecord;
-		var username = "";
+		var url = httpUtils.url.crmCreditRecord;
+		var serialNum = "";
 		var clientId = "";
 		var itemCode = "";
-		if(!utils.isEmpty($scope.formData.clientName)) {
-			username = "%"+$scope.formData.clientName+"%";
+		if(!utils.isEmpty($scope.formData.serialNum)) {
+			serialNum = "%"+$scope.formData.serialNum+"%";
 		}
 		if(!utils.isEmpty($scope.formData.clientId)) {
 			clientId = "%"+$scope.formData.clientId+"%";
@@ -67,7 +67,7 @@ function integralUserDetailController($scope, $http, $state, $stateParams, $grid
 		var params = {
 			pageNumber : 0,
 			pageSize : pageSize,
-			username : username,
+			serialNum : serialNum,
 			clientId : clientId,
 			itemCode : itemCode
 		};

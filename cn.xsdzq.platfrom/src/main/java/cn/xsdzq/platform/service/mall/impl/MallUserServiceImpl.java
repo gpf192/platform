@@ -302,19 +302,27 @@ public class MallUserServiceImpl implements MallUserService {
 			//只筛选当前积分大于0的，  等于0的已经消耗完毕 不用关注失效分数
 			//需要插入的失效record = t-1及之前 共失效 - t-1之前，对换+失效记录
 			if(userInfo.getCreditScore() > 0) {
+				System.out.println("clientId "+clientId+" 总积分大于0 ，进入循环 ");
 				int sum1 = 0;
 				int sum2 = 0;
-				int tempNum = 0;
-				List<CreditRecordEntity> list1 = creditRecordRepository.findByEndDateLessThanEqualAndType(preday,  true);
+				int tempNum = 0;//记录里失效分数
+				int sum3 = 0;
+				int sum4 = 0;
+				int tempTotal = 0;//存储计算的总积分
+				List<CreditRecordEntity> list1 = creditRecordRepository.findByClientIdAndEndDateLessThanEqualAndType(clientId,preday,  true);
 				for(CreditRecordEntity r1:list1) {
 					sum1 = sum1 + r1.getIntegralNumber();
 				}
-				List<CreditRecordEntity> list2 = creditRecordRepository.findByEndDateLessThanEqualAndType(preday,  false);
+				List<CreditRecordEntity> list2 = creditRecordRepository.findByClientIdAndEndDateLessThanEqualAndType(clientId, preday,  false);
 				for(CreditRecordEntity r2:list2) {
 					sum2 = sum2 + r2.getIntegralNumber();
 				}
+				System.out.println("clientI "+clientId+",sum1: "+sum1+", sum2: "+sum2);
+				
+				
 				if(sum1 > sum2) {
 					tempNum = sum1 -sum2;
+					System.out.println("sum1>sum2, clientI "+clientId+", sum1: "+sum1+", sum2: "+sum2+",sum1-sum2= tempNum: "+tempNum);
 					CreditRecordEntity c = new CreditRecordEntity();
 					c.setClientId(clientId);
 					c.setDateFlag(DateUtil.getPreDayAsString());//2020-10-01
@@ -331,32 +339,37 @@ public class MallUserServiceImpl implements MallUserService {
 					c.setType(false);
 					System.out.println("插入一条失效记录 "+c.toString());
 					creditRecordRepository.save(c);
-				}
-				//更新当前剩余积分
-				//当前总得分 - t-1日及之前总兑换+失效）
-				int sum3 = 0;
-				int sum4 = 0;
-				int tempTotal = 0;
-				List<CreditRecordEntity> list3 = creditRecordRepository.findByClientIdAndType(clientId,  true);
-				for(CreditRecordEntity r3:list3) {
-					sum3 = sum3 + r3.getIntegralNumber();
-				}
-				List<CreditRecordEntity> list4 = creditRecordRepository.findByEndDateLessThanEqualAndType(preday,  false);
-				for(CreditRecordEntity r4:list4) {
-					//测试前面插入失效的记录  是否在这里包含在内
-					sum4 = sum4 + r4.getIntegralNumber();
+					//增加失效记录的同时，更新当前剩余积分
+					//当前总得分 - t-1日及之前总兑换+失效）
+
+					List<CreditRecordEntity> list3 = creditRecordRepository.findByClientIdAndType(clientId,  true);
+					for(CreditRecordEntity r3:list3) {
+						sum3 = sum3 + r3.getIntegralNumber();
+					}	
+					
+					List<CreditRecordEntity> list4 = creditRecordRepository.findByClientIdAndEndDateLessThanEqualAndType(clientId, preday,  false);
+					for(CreditRecordEntity r4:list4) {
+						sum4 = sum4 + r4.getIntegralNumber();
+					}
+					System.out.println("clientI "+clientId+",sum3: "+sum3+", sum4: "+sum4);
+					if(sum3 > sum4) {
+						tempTotal = sum3 - sum4;
+						System.out.println("开始计算总积分，clientI "+clientId+",sum3: "+sum3+", sum4: "+sum4+", sum3-sum4=tempTotal: "+tempTotal);
+						userInfo.setCreditScore(tempTotal);
+						mallUserInfoRepository.save(userInfo);
+					}
 				}
 				
-				if(sum3 > sum4) {
-					tempTotal = sum3 - sum4;
-					userInfo.setCreditScore(tempTotal);
-					mallUserInfoRepository.save(userInfo);
-					System.out.println("更新用户积分："+userInfo.getClientId()+"(sum3: "+sum3+" sum4: "+sum4+" )"+tempTotal);
-				}
 			}
 			
 			
 		}
+	}
+
+	@Override
+	public void scanCrmCreditJob() {
+		// TODO Auto-generated method stub
+		
 	}
 
 
