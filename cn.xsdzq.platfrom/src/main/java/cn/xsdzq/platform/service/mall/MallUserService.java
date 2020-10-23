@@ -10,7 +10,6 @@ import cn.xsdzq.platform.entity.mall.MallUserInfoEntity;
 
 public interface MallUserService {
 
-
 	public MallUserEntity getUserByClientId(String clientId);
 
 	public void addMallUser(MallUserEntity mallUserEntity);
@@ -48,5 +47,7 @@ public interface MallUserService {
 	public void endDateJob();
 	
 	public void scanCrmCreditJob();
+	//手动再次执行
+	public void scanCrmErrorManual();
 		
 }

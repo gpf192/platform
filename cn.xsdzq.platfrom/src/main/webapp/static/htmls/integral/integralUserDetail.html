@@ -79,7 +79,9 @@
                 <thead>
              
                     <tr role="row">
-                        <th class="col-sm-1 text-center">序号</th>        
+                        <th class="col-sm-1 text-center">序号</th> 
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">CRM流水号</div></th>       
                         <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
                             aria-controls="datatable1" rowspan="1" colspan="1"><div style="white-space:nowrap;">客户姓名</div></th>
                         <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
@@ -112,6 +114,7 @@
                 <tbody role="alert" aria-live="polite" aria-relevant="all">
                     <tr ng-repeat="user in userVoteList">
                        <td >{{$index+selectNum["num"]*currentPage.page+1}}</td>
+                       <td ><div style="white-space:nowrap;" >{{user.serialNum}}</div> </td> 
                        <td ><div style="white-space:nowrap;" >{{user.clientName}}</div> </td> 
                        <td ><div style="white-space:nowrap;" >{{user.clientId}}</div> </td> 
                        <td ><div style="white-space:nowrap;" >{{user.mobile}}</div> </td> 

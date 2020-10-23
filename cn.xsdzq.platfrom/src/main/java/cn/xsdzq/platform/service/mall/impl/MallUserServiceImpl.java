@@ -1,13 +1,16 @@
 package cn.xsdzq.platform.service.mall.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,14 +18,22 @@ import cn.xsdzq.platform.dao.mall.CreditCategoryRepository;
 import cn.xsdzq.platform.dao.mall.CreditRecordRepository;
 import cn.xsdzq.platform.dao.mall.MallUserInfoRepository;
 import cn.xsdzq.platform.dao.mall.MallUserRepository;
+import cn.xsdzq.platform.dao.mall.PageCrmCreditApiErrMsgRepository;
+import cn.xsdzq.platform.dao.mall.PageCrmCreditRecordRepository;
 import cn.xsdzq.platform.dao.mall.PageMallUserInfoRepository;
+import cn.xsdzq.platform.entity.mall.CRMCreditApiErrorMsgEntity;
+import cn.xsdzq.platform.entity.mall.CRMCreditRecordEntity;
 import cn.xsdzq.platform.entity.mall.CreditEntity;
 import cn.xsdzq.platform.entity.mall.CreditImportTempEntity;
 import cn.xsdzq.platform.entity.mall.CreditRecordEntity;
 import cn.xsdzq.platform.entity.mall.MallUserEntity;
 import cn.xsdzq.platform.entity.mall.MallUserInfoEntity;
+import cn.xsdzq.platform.service.mall.CRMCreditRecordService;
 import cn.xsdzq.platform.service.mall.MallUserService;
 import cn.xsdzq.platform.util.DateUtil;
+import cn.xsdzq.platform.util.GsonUtil;
+import cn.xsdzq.platform.util.PublicUtil;
+import cn.xsdzq.platform.util.UserManageUtil;
 
 
 
@@ -45,6 +56,13 @@ public class MallUserServiceImpl implements MallUserService {
 	
 	@Autowired
 	private CreditCategoryRepository creditCategoryRepository;
+	
+	
+	@Autowired
+	private PageCrmCreditRecordRepository pageCrmCreditRecordRepository;
+	
+	@Autowired
+	private PageCrmCreditApiErrMsgRepository pageCrmCreditApiErrMsgRepository;
 	
 	@Override
 	public void addMallUser(MallUserEntity mallUserEntity) {
@@ -367,12 +385,206 @@ public class MallUserServiceImpl implements MallUserService {
 	}
 
 	@Override
+	@Transactional
 	public void scanCrmCreditJob() {
 		// TODO Auto-generated method stub
+		//扫描crmrecord 前一天记录
+		int preday =DateUtil.getPreDayAsInt(); 
+		List<CRMCreditRecordEntity> crmlist = new ArrayList<CRMCreditRecordEntity>();
+		crmlist = pageCrmCreditRecordRepository.findByBeginDate(preday);
+		
+		System.out.println("crm 有几条记录"+crmlist.size());
+		//循环，校验数据，不合格的 插入error表,合格的插入record表，
+		for(CRMCreditRecordEntity entity:crmlist) {
+			String client_id = entity.getClientId();
+			int flag = 0;
+			String msg ="";
+			if( entity.getClientName() == null|| entity.getDepartmentCode() == null|| entity.getDepartmentDesc()== null|| 
+					entity.getItemName() == null|| entity.getItemCode() == null || String.valueOf(entity.getNum())== null || String.valueOf(entity.getBeginDate())== null || String.valueOf(entity.getEndDate())== null) {
+				flag=+1;
+				msg =msg+":存在空字段；";
+			}
+			
+			if(String.valueOf(entity.getBeginDate()).length() != 8 || String.valueOf(entity.getEndDate()).length() != 8) {
+				flag=+1;
+				msg =msg+":导入日期格式错误；";
+			}
+			if(entity.getEndDate() < Integer.parseInt(DateUtil.Dateymd(new Date())) ) {
+				flag=+1;
+				msg =msg+":失效日期小于当前日期；";
+			}	
+
+			if(entity.getEndDate() < entity.getBeginDate() ) {
+				flag=+1;
+				msg =msg+":失效日期小于生效日期；";
+			}
+			if( entity.getNum() <= 0) {
+				flag=+1;
+				msg =msg+":分数为非正数；";
+			}
+			if(flag > 0) {
+				System.out.println("crm 校验数据完毕，发现错误");
+				//插入错误表
+				CRMCreditApiErrorMsgEntity errorEntity = new CRMCreditApiErrorMsgEntity();
+				errorEntity.setMsg(msg);
+				errorEntity.setSerialNum(entity.getSerialNum());
+				errorEntity.setRecordTime(new Date());
+				errorEntity.setSta(0);
+				pageCrmCreditApiErrMsgRepository.save(errorEntity);
+			}else {
+				//接口数据转化为正式数据
+				System.out.println("crm 校验数据完毕，开始转换正式数据");
+				try {
+					changeToCreditRecord(entity);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.out.println("crm 校验数据完毕，转换过程未知异常");
+					CRMCreditApiErrorMsgEntity errorEntity = new CRMCreditApiErrorMsgEntity();
+					errorEntity.setMsg("转换过程未知异常");
+					errorEntity.setSerialNum(entity.getSerialNum());
+					errorEntity.setRecordTime(new Date());
+					errorEntity.setSta(0);
+					pageCrmCreditApiErrMsgRepository.save(errorEntity);
+				}
+			}
+		}
+		
 		
 	}
+	//接口数据转化为正式数据
+	public void changeToCreditRecord(CRMCreditRecordEntity temp) {
+		MallUserEntity owner = mallUserRepository.findByClientId(temp.getClientId());
+		if (owner == null) {
+			owner = new MallUserEntity();
+			owner.setClientId(temp.getClientId());
+			owner.setClientName(temp.getClientName());
+			owner.setMobile(temp.getMobile());
+			owner.setDepartmentCode(temp.getDepartmentCode());
+			owner.setDepartmentName(temp.getDepartmentDesc());
+			mallUserRepository.save(owner);
 
+			MallUserInfoEntity mallUserInfoEntity = new MallUserInfoEntity();
+			mallUserInfoEntity.setMallUserEntity(owner);
+			mallUserInfoEntity.setCreditScore(0);//当前总积分 ，有加有减
+			mallUserInfoEntity.setSumScore(0);//历史总积分 ，只加不减
+			mallUserInfoEntity.setUserLevel(0);
+			mallUserInfoEntity.setCreatetime(new Date());
+			mallUserInfoRepository.save(mallUserInfoEntity);
+		} else {
+			// update 逻辑 把部门信息同步过去
+			owner.setDepartmentCode(temp.getDepartmentCode());
+			owner.setDepartmentName(temp.getDepartmentDesc());
+			mallUserRepository.save(owner);//此处测试是否更新
+		}
+		// 3.项目的类别，查询是否存在项目code，不存在则新建
+		CreditEntity creditEntity = creditCategoryRepository.findByCategoryCode(temp.getItemCode());
+		String tempName = "";
+		if (creditEntity == null){
+			creditEntity = new CreditEntity();
+			creditEntity.setCategoryCode(temp.getItemCode());
+			creditEntity.setCategoryName(temp.getItemName());
+			creditEntity.setFrontName(temp.getItemName());
+			creditEntity.setFlag("1");
+			creditEntity.setCreatetime(new Date());
+			
+			creditCategoryRepository.save(creditEntity);
+		}else{
+			tempName =creditEntity.getFrontName() ;
+		}
+		// 4.导入记录
+		//此处只写增加记录
+		String nowFlag = DateUtil.getStandardDate(new Date());
+		CreditRecordEntity creditRecordEntity = new CreditRecordEntity();
+		creditRecordEntity.setMallUserEntity(owner);
+		creditRecordEntity.setType(true);//true 增加，  false  减少
+		creditRecordEntity.setImportItem(temp.getItemName());
+		//取项目分类的前端显示字段
+		if("".equals(tempName)) {
+			creditRecordEntity.setItem(temp.getItemName());
+		}else {
+			creditRecordEntity.setItem(tempName);
+		}	
+		creditRecordEntity.setItemCode(temp.getItemCode());
+		creditRecordEntity.setIntegralNumber(temp.getNum());//导入积分
+		creditRecordEntity.setDateFlag(nowFlag);
+		creditRecordEntity.setBeginDate(temp.getBeginDate()+"");
+		creditRecordEntity.setEndDate(temp.getEndDate());
+		creditRecordEntity.setGroupTime(DateUtil.Dateym(temp.getBeginDate()+""));//20200810
+		creditRecordEntity.setRecordTime(new Date());
+		creditRecordEntity.setImportMobile(temp.getMobile());
+		creditRecordEntity.setSerialNum(temp.getSerialNum());
+		creditRecordRepository.save(creditRecordEntity);
 
+		// 5.个人信息累计总积分值
 
+		MallUserInfoEntity myMallUserInfoEntity = mallUserInfoRepository.findByMallUserEntity(owner);		
+		myMallUserInfoEntity.setCreditScore(myMallUserInfoEntity.getCreditScore()+temp.getNum());
+		myMallUserInfoEntity.setSumScore(myMallUserInfoEntity.getSumScore()+temp.getNum());
+		myMallUserInfoEntity.setModifytime(new Date());			
+		mallUserInfoRepository.save(myMallUserInfoEntity);
+	}
+	//手动再次执行
+	@Override
+	@Transactional
+	public void scanCrmErrorManual() {
+		List<CRMCreditApiErrorMsgEntity> errLists = new ArrayList<CRMCreditApiErrorMsgEntity>();
+		errLists = pageCrmCreditApiErrMsgRepository.findBySta(0);
+		for(CRMCreditApiErrorMsgEntity err:errLists) {
+			CRMCreditRecordEntity entity = pageCrmCreditRecordRepository.findBySerialNum(err.getSerialNum());
+			//再次校验各字段
+			int flag = 0;
+			String msg ="";
+			if( entity.getClientName() == null|| entity.getDepartmentCode() == null|| entity.getDepartmentDesc()== null|| 
+					entity.getItemName() == null|| entity.getItemCode() == null || String.valueOf(entity.getNum())== null || String.valueOf(entity.getBeginDate())== null || String.valueOf(entity.getEndDate())== null) {
+				flag=+1;
+				msg =msg+":存在空字段；";
+			}
+			
+			if(String.valueOf(entity.getBeginDate()).length() != 8 || String.valueOf(entity.getEndDate()).length() != 8) {
+				flag=+1;
+				msg =msg+":导入日期格式错误；";
+			}
+			if(entity.getEndDate() < Integer.parseInt(DateUtil.Dateymd(new Date())) ) {
+				flag=+1;
+				msg =msg+":失效日期小于当前日期；";
+			}	
+
+			if(entity.getEndDate() < entity.getBeginDate() ) {
+				flag=+1;
+				msg =msg+":失效日期小于生效日期；";
+			}
+			if( entity.getNum() <= 0) {
+				flag=+1;
+				msg =msg+":分数为非正数；";
+			}
+			User user = UserManageUtil.getUser();
+			String userName = user.getUsername();
+			if(flag > 0) {
+				err.setMsg(msg);
+				err.setModifyTime(new Date());
+				err.setModifyBy(userName);
+			}else {
+				//未报错，接口数据开始转换正式数据
+				try {
+					changeToCreditRecord(entity);
+					//将此条记录置位 已处理状态
+					err.setMsg(msg);
+					err.setModifyTime(new Date());
+					err.setModifyBy(userName);
+					err.setSta(1);
+					pageCrmCreditApiErrMsgRepository.save(err);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					err.setMsg("手动执行接口转换过程未知异常");
+					err.setModifyBy(userName);
+					err.setModifyTime(new Date());
+					pageCrmCreditApiErrMsgRepository.save(err);
+				}
+				
+			}
+		}
+		
+	}
 	
 }

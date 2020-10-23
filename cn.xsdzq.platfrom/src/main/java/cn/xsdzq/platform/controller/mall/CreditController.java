@@ -360,10 +360,7 @@ public class CreditController {
 					if(Integer.parseInt(entity.getEndDate()) < Integer.parseInt(DateUtil.Dateymd(new Date())) ) {
 						return GsonUtil.buildMap(1, "client_id: "+entity.getClientId()+"失效日期小于当前日期，无法导入", null);
 
-					}
-					if(Integer.parseInt(entity.getEndDate()) < Integer.parseInt(DateUtil.Dateymd(new Date())) ) {
-						return GsonUtil.buildMap(1, "client_id: "+entity.getClientId()+"失效日期小于当前日期，无法导入", null);
-					}
+					}	
 
 					if(PublicUtil.stringToInt(entity.getEndDate()) < PublicUtil.stringToInt(entity.getBeginDate()) ) {
 						return GsonUtil.buildMap(1, "client_id: "+entity.getClientId()+"失效日期小于生效日期，无法导入", null);

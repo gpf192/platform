@@ -1,6 +1,5 @@
 package cn.xsdzq.platform.model.mall;
 
-import java.util.Date;
 
 public class CreditImportRecordDTO {
 	private long id;
@@ -17,6 +16,15 @@ public class CreditImportRecordDTO {
 	private String recordTime;
 	private String importItem;	//导入时关联的项目名称
 	private String importMobile;//导入时的手机号
+	private String serialNum;
+
+	public String getSerialNum() {
+		return serialNum;
+	}
+
+	public void setSerialNum(String serialNum) {
+		this.serialNum = serialNum;
+	}
 
 	public String getImportMobile() {
 		return importMobile;
@@ -138,7 +146,7 @@ public class CreditImportRecordDTO {
 				+ mobile + ", departmentDesc=" + departmentDesc + ", departmentCode=" + departmentCode
 				+ ", categoryName=" + categoryName + ", categoryCode=" + categoryCode + ", num=" + num + ", beginDate="
 				+ beginDate + ", endDate=" + endDate + ", recordTime=" + recordTime + ", importItem=" + importItem
-				+ ", importMobile=" + importMobile + "]";
+				+ ", importMobile=" + importMobile + ", serialNum=" + serialNum + "]";
 	}
 
 	

@@ -85,6 +85,10 @@ public class CreditRecordEntity implements Serializable {
 	
 	@Column(name = "client_id", insertable = false, updatable = false)
 	private String clientId;
+	
+	@Column(name = "serialNum")
+	private String serialNum;
+	
 
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "client_id", referencedColumnName = "client_id")
@@ -92,6 +96,14 @@ public class CreditRecordEntity implements Serializable {
 	
 	public long getId() {
 		return id;
+	}
+
+	public String getSerialNum() {
+		return serialNum;
+	}
+
+	public void setSerialNum(String serialNum) {
+		this.serialNum = serialNum;
 	}
 
 	public void setId(long id) {
@@ -235,7 +247,8 @@ public class CreditRecordEntity implements Serializable {
 				+ ", importItem=" + importItem + ", importMobile=" + importMobile + ", item=" + item + ", itemCode="
 				+ itemCode + ", integralNumber=" + integralNumber + ", value=" + value + ", dateFlag=" + dateFlag
 				+ ", groupTime=" + groupTime + ", beginDate=" + beginDate + ", endDate=" + endDate + ", recordTime="
-				+ recordTime + ", clientId=" + clientId + ", mallUserEntity=" + mallUserEntity + "]";
+				+ recordTime + ", clientId=" + clientId + ", serialNum=" + serialNum + ", mallUserEntity="
+				+ mallUserEntity + "]";
 	}
 
 }

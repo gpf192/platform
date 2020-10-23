@@ -32,11 +32,7 @@
 				&nbsp &nbsp
 				<input type="button" value="查询" class="btn btn-primary"
 							ng-click="getEmpList(10)" />
-				  &nbsp &nbsp
-               <button  type="button" class="btn btn-info btn-sm"
-                            ng-click="exportToExcel()">
-                            <i class="fa fa-download"></i><span> 导出</span>
-                </button>
+				
             </form>
             <hr />
                         <div class="row hide" ng-show="productsSellList.length>0">
@@ -65,7 +61,20 @@
                 class="datatable table table-striped table-bordered table-hover dataTable text-center"
                 aria-describedby="datatable1_info">
                 <thead>
-             
+                 <div>
+                  &nbsp &nbsp
+	               <button  type="button" class="btn btn-info btn-sm"
+	                            ng-click="exportToExcel()">
+	                            <i class="fa fa-download"></i><span> 导出</span>
+	                </button>
+             	&nbsp &nbsp
+	               <button  type="button" class="btn btn-danger btn-sm"
+	                            ng-click="getDataManual()">
+	                            <i class="fa fa-wrench"></i><span> 手工调用接口</span>
+	                </button>
+					 
+                 </div>
+                 &nbsp 
                     <tr role="row">
                         <th class="col-sm-1 text-center">序号</th>        
                         <th class="col-sm-0 text-center" role="columnheader" tabindex="0"

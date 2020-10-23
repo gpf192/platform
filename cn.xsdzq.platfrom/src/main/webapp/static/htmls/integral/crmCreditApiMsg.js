@@ -22,11 +22,11 @@ function crmCreditApiMsgController($scope, $http, $state, $stateParams, $gridSer
 				page : 0
 			};
 			$scope.selectNumList = [{
-				num : 10
-			}, {
 				num : 50
 			}, {
 				num : 100
+			}, {
+				num : 150
 			}];
 			$scope.selectNum = $scope.selectNumList[0];	
 			$scope.$watch("selectNum.num", function(newValue, oldValue) {
@@ -81,7 +81,7 @@ function crmCreditApiMsgController($scope, $http, $state, $stateParams, $gridSer
 	$scope.exportToExcel=function(){ 
 		var excelArrs = getExcelData();
 		var myDate = new Date().Format("yyyyMMddhhmmss");
-		 alasql.promise('SELECT * INTO XLSX("CRM积分接口问题单据-' + myDate+ '.xlsx",{headers:true}) FROM ?',[excelArrs])
+		 alasql.promise('SELECT * INTO XLSX("CRM积分接口报错记录-' + myDate+ '.xlsx",{headers:true}) FROM ?',[excelArrs])
 			.then(function (data) {
 			  if(data == 1){
 				$timeout(function(){
@@ -108,6 +108,23 @@ function crmCreditApiMsgController($scope, $http, $state, $stateParams, $gridSer
 			arr.push(newObj);
 		});
 		return arr;
+	}
+	
+	$scope.getDataManual=function(){
+		layerUtils.iConfirm("该功能用于重新获取crm接口之前有问题的数据，请确认当前问题数据已修改完毕", function() {
+		
+			var checkBeforeSubmitUrl = httpUtils.url.getDataManual;
+			$http.post(checkBeforeSubmitUrl).success(function(data) {
+				if (data.resCode == 1) {
+					layerUtils.iMsg(-1,data.respMsg);
+					return;
+				}
+				
+			});
+		
+		}, function() {
+			console.log("取消");
+		});
 	}
 	
 }

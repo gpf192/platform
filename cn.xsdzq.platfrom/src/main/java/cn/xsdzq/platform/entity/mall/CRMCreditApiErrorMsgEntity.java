@@ -34,6 +34,39 @@ public class CRMCreditApiErrorMsgEntity implements Serializable {
 	@Column(name = "record_time")
 	private Date recordTime;
 
+	@Column(name = "sta")
+	private int sta;//0-未处理记录，   1-已处理
+	
+	@Column(name = "modify_time")
+	private Date modifyTime;
+	
+	@Column(name = "modifyBy")
+	private String modifyBy;
+	
+	public Date getModifyTime() {
+		return modifyTime;
+	}
+
+	public void setModifyTime(Date modifyTime) {
+		this.modifyTime = modifyTime;
+	}
+
+	public String getModifyBy() {
+		return modifyBy;
+	}
+
+	public void setModifyBy(String modifyBy) {
+		this.modifyBy = modifyBy;
+	}
+
+	public int getSta() {
+		return sta;
+	}
+
+	public void setSta(int sta) {
+		this.sta = sta;
+	}
+
 	public long getId() {
 		return id;
 	}
@@ -69,7 +102,7 @@ public class CRMCreditApiErrorMsgEntity implements Serializable {
 	@Override
 	public String toString() {
 		return "CRMCreditApiErrorMsgEntity [id=" + id + ", serialNum=" + serialNum + ", msg=" + msg + ", recordTime="
-				+ recordTime + "]";
+				+ recordTime + ", sta=" + sta + ", modifyTime=" + modifyTime + ", modifyBy=" + modifyBy + "]";
 	}
 	
 }

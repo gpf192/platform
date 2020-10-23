@@ -1,5 +1,7 @@
 package cn.xsdzq.platform.dao.mall;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -31,5 +33,10 @@ public interface PageCrmCreditRecordRepository  extends PagingAndSortingReposito
 	//
 	Page<CRMCreditRecordEntity> findByClientIdLikeAndSerialNumLikeAndItemCodeLikeOrderByBeginDateDesc(String clientId,String serialNum,String itemCode, Pageable pageable);
 	int countByClientIdLikeAndSerialNumLikeAndItemCodeLike(String clientId,String serialNum,String itemCode);
+	//
+	
+	//crm 扫描job
+	List<CRMCreditRecordEntity> findByBeginDate(int beginDate);
+	CRMCreditRecordEntity findBySerialNum(String serialNum);
 	
 }

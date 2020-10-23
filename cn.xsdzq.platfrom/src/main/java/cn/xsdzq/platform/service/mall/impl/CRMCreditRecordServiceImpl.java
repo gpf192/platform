@@ -105,28 +105,28 @@ public class CRMCreditRecordServiceImpl implements CRMCreditRecordService {
 	public List<CRMCreditApiErrorMsgEntity> findMsgByOrderByRecordTimeDesc(int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<CRMCreditApiErrorMsgEntity> pages = pageCrmCreditApiErrMsgRepository.findByOrderByRecordTimeDesc(pageRequest);		
+		Page<CRMCreditApiErrorMsgEntity> pages = pageCrmCreditApiErrMsgRepository.findByStaOrderByRecordTimeDesc(0,pageRequest);		
 		List<CRMCreditApiErrorMsgEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
 	public int countMsgAll() {
 		// TODO Auto-generated method stub
-		return (int) pageCrmCreditApiErrMsgRepository.count();
+		return  pageCrmCreditApiErrMsgRepository.countBySta(0);
 	}
 	@Override
 	public List<CRMCreditApiErrorMsgEntity> findMsgBySerialNumLikeOrderByRecordTimeDesc(String serialNum,
 			int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<CRMCreditApiErrorMsgEntity> pages = pageCrmCreditApiErrMsgRepository.findBySerialNumLikeOrderByRecordTimeDesc(serialNum, pageRequest);		
+		Page<CRMCreditApiErrorMsgEntity> pages = pageCrmCreditApiErrMsgRepository.findByStaAndSerialNumLikeOrderByRecordTimeDesc(0,serialNum, pageRequest);		
 		List<CRMCreditApiErrorMsgEntity> infos = pages.getContent();
 		return infos;
 	}
 	@Override
 	public int countMsgBySerialNumLike(String serialNum) {
 		// TODO Auto-generated method stub
-		return pageCrmCreditApiErrMsgRepository.countBySerialNumLike(serialNum);
+		return pageCrmCreditApiErrMsgRepository.countByStaAndSerialNumLike(0,serialNum);
 	}
 	@Override
 	public List<CRMCreditRecordEntity> findByClientIdLikeAndItemCodeLikeOrderByBeginDateDesc(String clientId,

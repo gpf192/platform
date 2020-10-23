@@ -63,6 +63,7 @@ public class CreditUtil {
 		dto.setMobile(entity.getImportMobile());
 		dto.setDepartmentDesc(entity.getMallUserEntity().getDepartmentName());
 		dto.setDepartmentCode(entity.getMallUserEntity().getDepartmentCode());
+		dto.setSerialNum(entity.getSerialNum());
 		if(entity.isType()) {
 			dto.setCategoryName(entity.getItem());
 			dto.setCategoryCode(entity.getItemCode());

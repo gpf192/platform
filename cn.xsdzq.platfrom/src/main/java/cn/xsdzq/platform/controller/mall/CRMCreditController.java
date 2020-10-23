@@ -1,5 +1,7 @@
 package cn.xsdzq.platform.controller.mall;
 
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -13,14 +15,17 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import cn.xsdzq.platform.entity.mall.CRMCreditApiErrorMsgEntity;
 import cn.xsdzq.platform.entity.mall.CRMCreditRecordEntity;
+import cn.xsdzq.platform.entity.mall.CreditImportTempEntity;
 import cn.xsdzq.platform.model.Pagination;
 import cn.xsdzq.platform.model.mall.CRMCreditApiMsgDTO;
 import cn.xsdzq.platform.model.mall.CRMCreditRecordDTO;
 import cn.xsdzq.platform.service.mall.CRMCreditRecordService;
+import cn.xsdzq.platform.service.mall.MallUserService;
 import cn.xsdzq.platform.util.GsonUtil;
 import cn.xsdzq.platform.util.MethodUtil;
 import cn.xsdzq.platform.util.mall.CreditUtil;
@@ -33,6 +38,9 @@ public class CRMCreditController {
 	@Autowired
 	@Qualifier("crmCreditRecordServiceImpl")
 	private CRMCreditRecordService crmCreditRecordService;
+	
+	@Autowired
+	private MallUserService mallUserService;
 	
 	//CRM分页查询用户积分明细
 		@GetMapping(value = "/getCrmCreditRecord")
@@ -125,4 +133,15 @@ public class CRMCreditController {
 			return GsonUtil.buildMap(0, "ok", dtos,pagination);
 		}
 		
+		//手动执行crm接口
+		 @RequestMapping(value = "/getDataManual", method = POST, produces = "application/json; charset=utf-8")
+			@ResponseBody
+			public Map<String, Object> getDataManual() {
+			 int num  = crmCreditRecordService.countMsgAll();
+				  if(num==0) {
+						return GsonUtil.buildMap(1, "当前接口无报错数据", null);	 
+				  }
+				  mallUserService.scanCrmErrorManual();
+				return GsonUtil.buildMap(0, "success", null);
+			}
 }

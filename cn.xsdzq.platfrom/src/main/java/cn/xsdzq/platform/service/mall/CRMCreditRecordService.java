@@ -38,4 +38,5 @@ public interface CRMCreditRecordService {
 	 int countMsgAll();
 	List<CRMCreditApiErrorMsgEntity> findMsgBySerialNumLikeOrderByRecordTimeDesc(String serialNum,int pageNumber, int pageSize);
 	int countMsgBySerialNumLike(String serialNum);
+
 }
