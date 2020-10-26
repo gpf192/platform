@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import cn.xsdzq.platform.constants.CreditRecordConst;
+
 public class DateUtil {
 	public static String getStandardDate(Date date) {
 		SimpleDateFormat sFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -98,11 +100,6 @@ public class DateUtil {
 		return  sdf.format(pre) ;
 			
 	}
-	public static void main(String[] args) {
-		
-		System.out.println(stringToDateAndSeconds(getPreDayAsString()));
-		
-		
-	}
+	
 		
 }

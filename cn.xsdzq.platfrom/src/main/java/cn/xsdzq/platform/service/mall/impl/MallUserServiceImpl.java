@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import cn.xsdzq.platform.constants.CreditRecordConst;
 import cn.xsdzq.platform.dao.mall.CreditCategoryRepository;
 import cn.xsdzq.platform.dao.mall.CreditRecordRepository;
 import cn.xsdzq.platform.dao.mall.MallUserInfoRepository;
@@ -310,6 +311,74 @@ public class MallUserServiceImpl implements MallUserService {
 	@Override
 	@Transactional
 	public void endDateJob() {
+		int preday =DateUtil.getPreDayAsInt();
+		List<CreditRecordEntity> recordList = creditRecordRepository.findByEndDateAndType(preday,  true);
+		System.out.println("昨天共有几条到期记录 -- "+recordList.size());
+		//，0，新增状态，未兑换，1-未完全兑换，2-已完成兑换，3-已过期
+		/**
+		 *  cahngeType 为 0 ， 取integralNumber ，最后 type置位3；
+			cahngeType 为 1 ，取remindNumer ， 最后type置位3  remindnumber置位 0
+			cahngeType 为 2， 忽略
+		 */
+		for(CreditRecordEntity record:recordList) {	
+			if(record.getChangeType() == 0) {
+				String clientId = record.getClientId();
+				MallUserInfoEntity userInfo = mallUserInfoRepository.findByClientId(clientId);
+				CreditRecordEntity c = new CreditRecordEntity();
+				c.setClientId(clientId);
+				c.setDateFlag(DateUtil.getPreDayAsString());//2020-10-01
+				c.setGroupTime(DateUtil.Dateym(String.valueOf(preday)));//2020-10
+				c.setIntegralNumber(record.getIntegralNumber());//失效分数
+				c.setItem(record.getItem());
+				c.setItemCode(record.getItemCode());
+				MallUserEntity mallUser = mallUserRepository.findByClientId(clientId);//必须保持clientid 唯一
+				//处理  用户总积分表中有相同clientId的bug
+				c.setMallUserEntity(mallUser);
+				c.setReason(CreditRecordConst.EXPIREDCARDREASON);
+				c.setReasonCode(CreditRecordConst.EXPIREDCARD);//固定常亮
+				c.setRecordTime(new Date());
+				c.setType(false);//false-消耗 或兑换，true-增加
+				System.out.println("插入一条失效记录 "+c.toString());
+				creditRecordRepository.save(c);
+				record.setChangeType(CreditRecordConst.CHANGETYPE_EXPRIE);//置位失效状态  
+				creditRecordRepository.save(record);//增加失效记录
+				int tempTotal = userInfo.getCreditScore()-record.getIntegralNumber();
+				userInfo.setCreditScore(tempTotal);
+				mallUserInfoRepository.save(userInfo);//更改总积分
+			}
+			if(record.getChangeType() == 1) {
+				String clientId = record.getClientId();
+				int tempNum = record.getRemindNumer();
+				MallUserInfoEntity userInfo = mallUserInfoRepository.findByClientId(clientId);
+				CreditRecordEntity c = new CreditRecordEntity();
+				c.setClientId(clientId);
+				c.setDateFlag(DateUtil.getPreDayAsString());//2020-10-01
+				c.setGroupTime(DateUtil.Dateym(String.valueOf(preday)));//2020-10
+				c.setIntegralNumber(tempNum);//失效分数，取剩余分数
+				c.setItem(record.getItem());
+				c.setItemCode(record.getItemCode());
+				MallUserEntity mallUser = mallUserRepository.findByClientId(clientId);//必须保持clientid 唯一
+				//处理  用户总积分表中有相同clientId的bug
+				c.setMallUserEntity(mallUser);
+				c.setReason(CreditRecordConst.EXPIREDCARDREASON);//已失效
+				c.setReasonCode(CreditRecordConst.EXPIREDCARD);//11
+				c.setRecordTime(new Date());
+				c.setType(false);//false-消耗 或兑换，true-增加
+				System.out.println("插入一条失效记录 "+c.toString());
+				creditRecordRepository.save(c);
+				record.setChangeType(CreditRecordConst.CHANGETYPE_EXPRIE);//置位失效状态
+				record.setRemindNumer(0);//剩余分数置位0
+				creditRecordRepository.save(record);//增加失效记录
+				int tempTotal = userInfo.getCreditScore()-tempNum;
+				userInfo.setCreditScore(tempTotal);
+				mallUserInfoRepository.save(userInfo);//更改总积分
+			}
+		}
+	}
+	
+	//@Override  此算法冗余，弃用
+	@Transactional
+	public void endDateJobBak() {
 		// TODO Auto-generated method stub
 		int preday =DateUtil.getPreDayAsInt();
 		List<CreditRecordEntity> recordList = creditRecordRepository.findByEndDateAndType(preday,  true);
@@ -384,6 +453,8 @@ public class MallUserServiceImpl implements MallUserService {
 		}
 	}
 
+	
+	
 	@Override
 	@Transactional
 	public void scanCrmCreditJob() {
@@ -586,5 +657,8 @@ public class MallUserServiceImpl implements MallUserService {
 		}
 		
 	}
+	
+	
+
 	
 }

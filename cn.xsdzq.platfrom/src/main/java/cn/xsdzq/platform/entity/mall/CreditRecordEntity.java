@@ -15,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
@@ -60,12 +62,18 @@ public class CreditRecordEntity implements Serializable {
 	
 	// 积分数
 	@Column(name = "integral_number")
-	private int integralNumber;
-	
+	private int integralNumber;	
 
 	// 积分金额 这个字段保留，不需要
 	@Column(name = "value")
 	private double value;
+	
+	// 兑换类型，0，新增状态，未兑换，1.未完全兑换，2.已完成兑换，3-已过期
+	@Column(name = "change_type")
+	private int changeType = 0;
+
+	@Column(name = "remind_numer")
+	private int remindNumer = 0;//上面状态是0或者1 的时候 ，剩余的分数
 	
 	@Column(name = "data_flag")
 	private String dateFlag; // 每日的判断标准
@@ -82,6 +90,12 @@ public class CreditRecordEntity implements Serializable {
 	
 	@Column(name = "record_time", nullable = false)
 	private Date recordTime;
+	
+	// 修改时间
+	@Column(name = "modifytime", nullable = true)
+	@LastModifiedDate
+	private Date modifytime;
+	
 	
 	@Column(name = "client_id", insertable = false, updatable = false)
 	private String clientId;
@@ -241,13 +255,39 @@ public class CreditRecordEntity implements Serializable {
 		this.clientId = clientId;
 	}
 
+	
+	public int getChangeType() {
+		return changeType;
+	}
+
+	public void setChangeType(int changeType) {
+		this.changeType = changeType;
+	}
+
+	public int getRemindNumer() {
+		return remindNumer;
+	}
+
+	public void setRemindNumer(int remindNumer) {
+		this.remindNumer = remindNumer;
+	}
+
+	public Date getModifytime() {
+		return modifytime;
+	}
+
+	public void setModifytime(Date modifytime) {
+		this.modifytime = modifytime;
+	}
+
 	@Override
 	public String toString() {
 		return "CreditRecordEntity [id=" + id + ", type=" + type + ", reason=" + reason + ", reasonCode=" + reasonCode
 				+ ", importItem=" + importItem + ", importMobile=" + importMobile + ", item=" + item + ", itemCode="
-				+ itemCode + ", integralNumber=" + integralNumber + ", value=" + value + ", dateFlag=" + dateFlag
-				+ ", groupTime=" + groupTime + ", beginDate=" + beginDate + ", endDate=" + endDate + ", recordTime="
-				+ recordTime + ", clientId=" + clientId + ", serialNum=" + serialNum + ", mallUserEntity="
+				+ itemCode + ", integralNumber=" + integralNumber + ", value=" + value + ", changeType=" + changeType
+				+ ", remindNumer=" + remindNumer + ", dateFlag=" + dateFlag + ", groupTime=" + groupTime
+				+ ", beginDate=" + beginDate + ", endDate=" + endDate + ", recordTime=" + recordTime + ", modifytime="
+				+ modifytime + ", clientId=" + clientId + ", serialNum=" + serialNum + ", mallUserEntity="
 				+ mallUserEntity + "]";
 	}
 

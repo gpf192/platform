@@ -26,9 +26,9 @@ public class CreditTask {
 		System.out.println("job done : "+new Date());
     }
 	
-	@Scheduled(cron = "0 25 15 * * ? ") // 间隔5秒执行  cron = "0/5 * * * * ? "
+	@Scheduled(cron = "0 * 5 * * ? ") // 间隔5秒执行  cron = "0/5 * * * * ? "
     public void ScanCrmTask() {
-		System.out.println("使用SpringMVC框架配置定时任务---扫描CRM接口");
+		System.out.println("CRM-使用SpringMVC框架配置定时任务");
 		//String now = DateUtil.Dateymd(new Date());
 		System.out.println("CRM: 今天是lingcheng "+ new Date());
 
