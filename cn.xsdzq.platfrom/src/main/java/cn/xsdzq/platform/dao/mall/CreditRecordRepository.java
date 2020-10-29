@@ -12,7 +12,8 @@ public interface CreditRecordRepository extends JpaRepository<CreditRecordEntity
 	List<CreditRecordEntity> findByType(boolean type);
 	
 	//跑批job用
-	List<CreditRecordEntity> findByEndDateAndType(int endDate, boolean type);
+	List<CreditRecordEntity> findByEndDateAndTypeAndChangeTypeIn(int endDate, boolean type,List<Integer> list);
+	List<CreditRecordEntity> findByBeginDateAndTypeAndChangeTypeIn(String preDay, boolean type,List<Integer> list);
 	List<CreditRecordEntity> findByClientIdAndEndDateLessThanEqualAndType(String clientId, int endDate, boolean type);
 	//查询当前用户的总积分用
 	List<CreditRecordEntity> findByClientIdAndType(String clientId, boolean type);

@@ -139,7 +139,7 @@ public class CRMCreditController {
 			public Map<String, Object> getDataManual() {
 			 int num  = crmCreditRecordService.countMsgAll();
 				  if(num==0) {
-						return GsonUtil.buildMap(1, "当前接口无报错数据", null);	 
+						return GsonUtil.buildMap(1, "当前无接口报错记录", null);	 
 				  }
 				  mallUserService.scanCrmErrorManual();
 				return GsonUtil.buildMap(0, "success", null);

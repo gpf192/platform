@@ -7,7 +7,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.User;
@@ -15,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.xsdzq.platform.constants.CreditRecordConst;
+import cn.xsdzq.platform.dao.lcj.ParamRepository;
 import cn.xsdzq.platform.dao.mall.CreditCategoryRepository;
 import cn.xsdzq.platform.dao.mall.CreditRecordRepository;
 import cn.xsdzq.platform.dao.mall.MallUserInfoRepository;
@@ -22,6 +22,7 @@ import cn.xsdzq.platform.dao.mall.MallUserRepository;
 import cn.xsdzq.platform.dao.mall.PageCrmCreditApiErrMsgRepository;
 import cn.xsdzq.platform.dao.mall.PageCrmCreditRecordRepository;
 import cn.xsdzq.platform.dao.mall.PageMallUserInfoRepository;
+import cn.xsdzq.platform.entity.lcj.ParamEntity;
 import cn.xsdzq.platform.entity.mall.CRMCreditApiErrorMsgEntity;
 import cn.xsdzq.platform.entity.mall.CRMCreditRecordEntity;
 import cn.xsdzq.platform.entity.mall.CreditEntity;
@@ -29,11 +30,8 @@ import cn.xsdzq.platform.entity.mall.CreditImportTempEntity;
 import cn.xsdzq.platform.entity.mall.CreditRecordEntity;
 import cn.xsdzq.platform.entity.mall.MallUserEntity;
 import cn.xsdzq.platform.entity.mall.MallUserInfoEntity;
-import cn.xsdzq.platform.service.mall.CRMCreditRecordService;
 import cn.xsdzq.platform.service.mall.MallUserService;
 import cn.xsdzq.platform.util.DateUtil;
-import cn.xsdzq.platform.util.GsonUtil;
-import cn.xsdzq.platform.util.PublicUtil;
 import cn.xsdzq.platform.util.UserManageUtil;
 
 
@@ -65,6 +63,9 @@ public class MallUserServiceImpl implements MallUserService {
 	@Autowired
 	private PageCrmCreditApiErrMsgRepository pageCrmCreditApiErrMsgRepository;
 	
+	@Autowired
+	private ParamRepository paramRepository;
+	
 	@Override
 	public void addMallUser(MallUserEntity mallUserEntity) {
 		// TODO Auto-generated method stub
@@ -75,6 +76,8 @@ public class MallUserServiceImpl implements MallUserService {
 	@Transactional
 	public void addCreditScore(CreditImportTempEntity temp) {
 		// TODO Auto-generated method stub	
+		ParamEntity p =paramRepository.getValueByCode("cvp");
+		int cvp = Integer.parseInt(p.getValue());//当前有效期天数
 		int tempNum = Integer.parseInt(temp.getNum());//分数String转化为整数
 		//临时表导入的数据作为参数
 		
@@ -135,7 +138,7 @@ public class MallUserServiceImpl implements MallUserService {
 		creditRecordEntity.setIntegralNumber(tempNum);//导入积分
 		creditRecordEntity.setDateFlag(nowFlag);
 		creditRecordEntity.setBeginDate(temp.getBeginDate());
-		creditRecordEntity.setEndDate(Integer.parseInt(temp.getEndDate()));
+		creditRecordEntity.setEndDate(DateUtil.getFutureDayAsInt(temp.getBeginDate(),cvp-1));//
 		creditRecordEntity.setGroupTime(DateUtil.Dateym(temp.getBeginDate()));//20200810
 		creditRecordEntity.setRecordTime(new Date());
 		creditRecordEntity.setImportMobile(temp.getMobile());
@@ -311,8 +314,12 @@ public class MallUserServiceImpl implements MallUserService {
 	@Override
 	@Transactional
 	public void endDateJob() {
-		int preday =DateUtil.getPreDayAsInt();
-		List<CreditRecordEntity> recordList = creditRecordRepository.findByEndDateAndType(preday,  true);
+		int preday =DateUtil.getPreDayAsInt(1);
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(0);
+		list.add(1);
+		//筛选条件 结束日期，type为1表示增加的记录，changetype为0或1，标识增加的未兑换或未完全兑换
+		List<CreditRecordEntity> recordList = creditRecordRepository.findByEndDateAndTypeAndChangeTypeIn(preday,  true, list);
 		System.out.println("昨天共有几条到期记录 -- "+recordList.size());
 		//，0，新增状态，未兑换，1-未完全兑换，2-已完成兑换，3-已过期
 		/**
@@ -326,6 +333,7 @@ public class MallUserServiceImpl implements MallUserService {
 				MallUserInfoEntity userInfo = mallUserInfoRepository.findByClientId(clientId);
 				CreditRecordEntity c = new CreditRecordEntity();
 				c.setClientId(clientId);
+				c.setSerialNum(record.getSerialNum());
 				c.setDateFlag(DateUtil.getPreDayAsString());//2020-10-01
 				c.setGroupTime(DateUtil.Dateym(String.valueOf(preday)));//2020-10
 				c.setIntegralNumber(record.getIntegralNumber());//失效分数
@@ -352,6 +360,7 @@ public class MallUserServiceImpl implements MallUserService {
 				MallUserInfoEntity userInfo = mallUserInfoRepository.findByClientId(clientId);
 				CreditRecordEntity c = new CreditRecordEntity();
 				c.setClientId(clientId);
+				c.setSerialNum(record.getSerialNum());
 				c.setDateFlag(DateUtil.getPreDayAsString());//2020-10-01
 				c.setGroupTime(DateUtil.Dateym(String.valueOf(preday)));//2020-10
 				c.setIntegralNumber(tempNum);//失效分数，取剩余分数
@@ -377,10 +386,10 @@ public class MallUserServiceImpl implements MallUserService {
 	}
 	
 	//@Override  此算法冗余，弃用
-	@Transactional
+	/*@Transactional
 	public void endDateJobBak() {
 		// TODO Auto-generated method stub
-		int preday =DateUtil.getPreDayAsInt();
+		int preday =DateUtil.getPreDayAsInt(1);
 		List<CreditRecordEntity> recordList = creditRecordRepository.findByEndDateAndType(preday,  true);
 		System.out.println("昨天共有几条到期记录 -- "+recordList.size());
 		for(CreditRecordEntity record:recordList) {	
@@ -451,7 +460,7 @@ public class MallUserServiceImpl implements MallUserService {
 			
 			
 		}
-	}
+	}*/
 
 	
 	
@@ -460,41 +469,48 @@ public class MallUserServiceImpl implements MallUserService {
 	public void scanCrmCreditJob() {
 		// TODO Auto-generated method stub
 		//扫描crmrecord 前一天记录
-		int preday =DateUtil.getPreDayAsInt(); 
+		int preday =DateUtil.getPreDayAsInt(1); 
 		List<CRMCreditRecordEntity> crmlist = new ArrayList<CRMCreditRecordEntity>();
 		crmlist = pageCrmCreditRecordRepository.findByBeginDate(preday);
 		
 		System.out.println("crm 有几条记录"+crmlist.size());
+		ParamEntity p =paramRepository.getValueByCode("cvp");
+		int cvp = Integer.parseInt(p.getValue());//当前有效期天数
+		
 		//循环，校验数据，不合格的 插入error表,合格的插入record表，
 		for(CRMCreditRecordEntity entity:crmlist) {
-			String client_id = entity.getClientId();
 			int flag = 0;
 			String msg ="";
+			int endDate = DateUtil.getFutureDayAsInt(String.valueOf(entity.getBeginDate()),cvp-1);
 			if( entity.getClientName() == null|| entity.getDepartmentCode() == null|| entity.getDepartmentDesc()== null|| 
-					entity.getItemName() == null|| entity.getItemCode() == null || String.valueOf(entity.getNum())== null || String.valueOf(entity.getBeginDate())== null || String.valueOf(entity.getEndDate())== null) {
+					entity.getItemName() == null|| entity.getItemCode() == null || String.valueOf(entity.getNum())== null || String.valueOf(entity.getBeginDate())== null ) {
 				flag=+1;
-				msg =msg+":存在空字段；";
+				msg =msg+"存在空字段；";
 			}
 			
-			if(String.valueOf(entity.getBeginDate()).length() != 8 || String.valueOf(entity.getEndDate()).length() != 8) {
+			if(String.valueOf(entity.getBeginDate()).length() != 8 ) {
 				flag=+1;
-				msg =msg+":导入日期格式错误；";
+				msg =msg+"日期格式错误；";
 			}
-			if(entity.getEndDate() < Integer.parseInt(DateUtil.Dateymd(new Date())) ) {
+			if(endDate <= DateUtil.getPreDayAsInt(1)) {
 				flag=+1;
-				msg =msg+":失效日期小于当前日期；";
+				msg =msg+"积分截止日期小于当前日期，请调整积分有效期参数；";
 			}	
-
-			if(entity.getEndDate() < entity.getBeginDate() ) {
+			//判断 生效日期不能大于当天
+			if(endDate < entity.getBeginDate() ) {
 				flag=+1;
-				msg =msg+":失效日期小于生效日期；";
+				msg =msg+"积分截止日期小于生效日期；";
+			}
+			if(entity.getBeginDate()>Integer.parseInt(DateUtil.Dateymd(new Date()))) {
+				flag=+1;
+				msg =msg+"生效日期大于当前日期；";//不会扫到，只会扫描t-1
 			}
 			if( entity.getNum() <= 0) {
 				flag=+1;
-				msg =msg+":分数为非正数；";
+				msg =msg+"分数为非正数；";
 			}
 			if(flag > 0) {
-				System.out.println("crm 校验数据完毕，发现错误");
+				System.out.println("crm 校验数据，发现错误");
 				//插入错误表
 				CRMCreditApiErrorMsgEntity errorEntity = new CRMCreditApiErrorMsgEntity();
 				errorEntity.setMsg(msg);
@@ -504,9 +520,10 @@ public class MallUserServiceImpl implements MallUserService {
 				pageCrmCreditApiErrMsgRepository.save(errorEntity);
 			}else {
 				//接口数据转化为正式数据
-				System.out.println("crm 校验数据完毕，开始转换正式数据");
+				
 				try {
 					changeToCreditRecord(entity);
+					System.out.println("crm 校验数据完毕，转换正式数据完毕");
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -526,6 +543,8 @@ public class MallUserServiceImpl implements MallUserService {
 	//接口数据转化为正式数据
 	public void changeToCreditRecord(CRMCreditRecordEntity temp) {
 		MallUserEntity owner = mallUserRepository.findByClientId(temp.getClientId());
+		ParamEntity p =paramRepository.getValueByCode("cvp");
+		int cvp = Integer.parseInt(p.getValue());//当前有效期天数
 		if (owner == null) {
 			owner = new MallUserEntity();
 			owner.setClientId(temp.getClientId());
@@ -580,7 +599,7 @@ public class MallUserServiceImpl implements MallUserService {
 		creditRecordEntity.setIntegralNumber(temp.getNum());//导入积分
 		creditRecordEntity.setDateFlag(nowFlag);
 		creditRecordEntity.setBeginDate(temp.getBeginDate()+"");
-		creditRecordEntity.setEndDate(temp.getEndDate());
+		creditRecordEntity.setEndDate(DateUtil.getFutureDayAsInt(String.valueOf(temp.getBeginDate()),cvp-1));//根据导入时的有效天数计算有效期
 		creditRecordEntity.setGroupTime(DateUtil.Dateym(temp.getBeginDate()+""));//20200810
 		creditRecordEntity.setRecordTime(new Date());
 		creditRecordEntity.setImportMobile(temp.getMobile());
@@ -601,30 +620,40 @@ public class MallUserServiceImpl implements MallUserService {
 	public void scanCrmErrorManual() {
 		List<CRMCreditApiErrorMsgEntity> errLists = new ArrayList<CRMCreditApiErrorMsgEntity>();
 		errLists = pageCrmCreditApiErrMsgRepository.findBySta(0);
+		ParamEntity p =paramRepository.getValueByCode("cvp");
+		int cvp = Integer.parseInt(p.getValue());//当前有效期天数
 		for(CRMCreditApiErrorMsgEntity err:errLists) {
 			CRMCreditRecordEntity entity = pageCrmCreditRecordRepository.findBySerialNum(err.getSerialNum());
 			//再次校验各字段
 			int flag = 0;
 			String msg ="";
+			int endDate = DateUtil.getFutureDayAsInt(String.valueOf(entity.getBeginDate()),cvp-1);
+
 			if( entity.getClientName() == null|| entity.getDepartmentCode() == null|| entity.getDepartmentDesc()== null|| 
-					entity.getItemName() == null|| entity.getItemCode() == null || String.valueOf(entity.getNum())== null || String.valueOf(entity.getBeginDate())== null || String.valueOf(entity.getEndDate())== null) {
+					entity.getItemName() == null|| entity.getItemCode() == null || String.valueOf(entity.getNum())== null || String.valueOf(entity.getBeginDate())== null ) {
 				flag=+1;
 				msg =msg+":存在空字段；";
 			}
 			
-			if(String.valueOf(entity.getBeginDate()).length() != 8 || String.valueOf(entity.getEndDate()).length() != 8) {
+			if(String.valueOf(entity.getBeginDate()).length() != 8 ) {
 				flag=+1;
 				msg =msg+":导入日期格式错误；";
 			}
-			if(entity.getEndDate() < Integer.parseInt(DateUtil.Dateymd(new Date())) ) {
+			if(entity.getBeginDate()>Integer.parseInt(DateUtil.Dateymd(new Date()))) {
 				flag=+1;
-				msg =msg+":失效日期小于当前日期；";
-			}	
-
-			if(entity.getEndDate() < entity.getBeginDate() ) {
-				flag=+1;
-				msg =msg+":失效日期小于生效日期；";
+				msg =msg+"生效日期大于当前日期；";//不会扫到，只会扫描t-1
 			}
+			if(endDate <= DateUtil.getPreDayAsInt(1)) {
+				flag=+1;
+				msg =msg+"积分截止日期小于当前日期，请调整积分有效期参数；";
+			}	
+			//判断 生效日期不能大于当天
+			if(endDate < entity.getBeginDate() ) {
+				flag=+1;
+				msg =msg+"积分截止日期小于生效日期；";
+			}
+			
+
 			if( entity.getNum() <= 0) {
 				flag=+1;
 				msg =msg+":分数为非正数；";
@@ -640,7 +669,7 @@ public class MallUserServiceImpl implements MallUserService {
 				try {
 					changeToCreditRecord(entity);
 					//将此条记录置位 已处理状态
-					err.setMsg(msg);
+					
 					err.setModifyTime(new Date());
 					err.setModifyBy(userName);
 					err.setSta(1);

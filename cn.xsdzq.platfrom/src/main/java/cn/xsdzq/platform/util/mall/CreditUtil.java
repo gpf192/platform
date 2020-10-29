@@ -117,7 +117,7 @@ public class CreditUtil {
 		   vo.setCategoryCode(String.valueOf(lo.get(6)).replaceAll(" ", ""));
 		   vo.setNum(String.valueOf(lo.get(7)).replaceAll(" ", ""));
 		   vo.setBeginDate(String.valueOf(lo.get(8)).replaceAll(" ", ""));
-		   vo.setEndDate(String.valueOf(lo.get(9)).replaceAll(" ", ""));
+		   //vo.setEndDate(String.valueOf(lo.get(9)).replaceAll(" ", ""));
 		   
 		return vo;
 	}

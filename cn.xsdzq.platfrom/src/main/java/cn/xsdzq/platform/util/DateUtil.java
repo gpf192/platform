@@ -82,15 +82,16 @@ public class DateUtil {
 		return  s.substring(0, 4)+"-"+s.substring(4, 6);
 			
 	}
-	public static int getPreDayAsInt() {
+	public static int getPreDayAsInt(int num) {
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
 		Calendar c = Calendar.getInstance();
-		c.add(Calendar.DATE, -1);
+		c.add(Calendar.DATE, -num);
 	    Date pre = c.getTime();
 		
 		return  Integer.parseInt(sdf.format(pre)) ;
 			
 	}
+	
 	public static String  getPreDayAsString() {
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 		Calendar c = Calendar.getInstance();
@@ -100,6 +101,35 @@ public class DateUtil {
 		return  sdf.format(pre) ;
 			
 	}
-	
+	public static int getFutureDayAsInt(int num) {
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.DATE, +num);
+	    Date pre = c.getTime();
 		
+		return  Integer.parseInt(sdf.format(pre)) ;
+			
+	}
+	public static int getFutureDayAsInt(String day,int num) {
+		
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+		Date date1 = null ;
+		
+		try {
+			date1 = sdf.parse(day);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Calendar c = Calendar.getInstance();
+		c.setTime(date1);
+		c.add(Calendar.DATE, +num);
+		return Integer.parseInt(sdf.format(c.getTime()));
+			
+	}
+	public static void main(String[] args) {
+		//System.out.println(getFutureDayAsInt("20201026" ,0));
+		System.out.println( DateUtil.Dateymd(new Date()));
+		System.out.println( getPreDayAsInt(1));
+	}	
 }

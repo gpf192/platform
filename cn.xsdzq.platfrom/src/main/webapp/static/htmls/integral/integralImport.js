@@ -206,7 +206,7 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 				newObj["itemCode"] ="" ;
 				newObj["num"]  =""	;
 				newObj["beginDate"]   =""	;
-				newObj["endDate"] ="" ;
+				//newObj["endDate"] ="" ;
 
 			
 			arr.push(newObj);

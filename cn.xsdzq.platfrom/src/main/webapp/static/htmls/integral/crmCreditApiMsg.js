@@ -17,7 +17,7 @@ function crmCreditApiMsgController($scope, $http, $state, $stateParams, $gridSer
 		$scope.$emit("changeNavigation", data);
 	
 		
-		$scope.getEmpList(10);
+		$scope.getEmpList(50);
 		$scope.currentPage = {
 				page : 0
 			};
@@ -118,6 +118,9 @@ function crmCreditApiMsgController($scope, $http, $state, $stateParams, $gridSer
 				if (data.resCode == 1) {
 					layerUtils.iMsg(-1,data.respMsg);
 					return;
+				}else{
+					layerUtils.iMsg(-1,"提交成功");
+					$scope.getEmpList(50);
 				}
 				
 			});

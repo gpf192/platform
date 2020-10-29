@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
+import cn.xsdzq.platform.entity.lcj.ParamEntity;
 import cn.xsdzq.platform.entity.mall.CreditEntity;
 import cn.xsdzq.platform.entity.mall.CreditRecordEntity;
 import cn.xsdzq.platform.entity.mall.CreditImportTempEntity;
@@ -36,6 +37,7 @@ import cn.xsdzq.platform.model.mall.CreditDTO;
 import cn.xsdzq.platform.model.mall.CreditImportRecordDTO;
 import cn.xsdzq.platform.model.mall.CreditImportTempDTO;
 import cn.xsdzq.platform.model.mall.CreditUserTotalDTO;
+import cn.xsdzq.platform.service.lcj.ParamService;
 import cn.xsdzq.platform.service.mall.CreditImportRecordService;
 import cn.xsdzq.platform.service.mall.CreditImportTempService;
 import cn.xsdzq.platform.service.mall.CreditService;
@@ -68,6 +70,8 @@ public class CreditController {
 	@Autowired
 	private MallUserService mallUserService;
 
+	@Autowired
+	private ParamService paramService;
 	
 	@PostMapping(value = "/add")
 	public Map<String, Object> addCredit(@RequestBody CreditDTO creditDTO) {
@@ -298,6 +302,11 @@ public class CreditController {
 		   //循环每行数据并插入
 		   CreditImportTempEntity entity = CreditUtil.toCreditImportTempEntity(lo);
 		   System.out.println("temp : "+entity.toString());
+		   //通过系统设定参数，计 算enddate
+		   ParamEntity p =paramService.getValueByCode("cvp");
+		   int cvp = Integer.parseInt(p.getValue());//当前有效期天数
+		   int enddate = DateUtil.getFutureDayAsInt(entity.getBeginDate(),cvp-1);
+		   entity.setEndDate(String.valueOf(enddate));
 		   creditImportTempService.add(entity);
 		  } 
 		
@@ -364,6 +373,9 @@ public class CreditController {
 
 					if(PublicUtil.stringToInt(entity.getEndDate()) < PublicUtil.stringToInt(entity.getBeginDate()) ) {
 						return GsonUtil.buildMap(1, "client_id: "+entity.getClientId()+"失效日期小于生效日期，无法导入", null);
+					}
+					if(PublicUtil.stringToInt(entity.getBeginDate()) > Integer.parseInt(DateUtil.Dateymd(new Date())) ) {
+						return GsonUtil.buildMap(1, "client_id: "+entity.getClientId()+"生效日期大于当前日期，无法导入", null);
 					}
 					if( PublicUtil.stringToInt(entity.getNum()) <= 0) {
 						return GsonUtil.buildMap(1, "client_id: "+entity.getClientId()+"分数必须为正数", null);
