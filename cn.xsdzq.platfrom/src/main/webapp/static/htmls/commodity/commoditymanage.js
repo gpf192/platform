@@ -11,7 +11,7 @@ function commoditymanageController($scope, $http, $state, $stateParams, $gridSer
 				},
 				"two" : {
 					name : "商品管理",
-					goto:"commodityclassify"
+					goto:"commoditymanage"
 
 				}
 			}

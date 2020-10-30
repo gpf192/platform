@@ -36,7 +36,7 @@ public class CreditTask {
 		
     }
 	//扫描crm接口
-	@Scheduled(cron = "0 21 16 * * ? ") // 上午10点行 cron = "0 0 10 * * ? "
+	@Scheduled(cron = "0 0 09 * * ? ") // 上午9点行 cron = "0 0 09 * * ? "
     public void ScanCrmTask() {
 		System.out.println("CRM-使用SpringMVC框架配置定时任务 "+ new Date());
 		//检查开关是否开启

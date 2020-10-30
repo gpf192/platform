@@ -10,7 +10,7 @@ function crmCreditApiMsgController($scope, $http, $state, $stateParams, $gridSer
 				},
 				"two" : {
 					name : "CRM接口报错单据查询",
-					goto:"userTIcketsList"
+					goto:"crmCreditApiMsg"
 
 				}
 			}

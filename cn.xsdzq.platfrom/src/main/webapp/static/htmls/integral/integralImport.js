@@ -10,7 +10,7 @@ function integralImportController($scope, $http, $state, $stateParams, $gridServ
 				},
 				"two" : {
 					name : "积分来源导入",
-					goto:"userTIcketsList"
+					goto:"integralImport"
 
 				}
 			}

@@ -11,7 +11,7 @@ function integralUserDetailController($scope, $http, $state, $stateParams, $grid
 				},
 				"two" : {
 					name : "客户积分明细",
-					goto:"userTIcketsList"
+					goto:"integralUserDetail"
 
 				}
 			}

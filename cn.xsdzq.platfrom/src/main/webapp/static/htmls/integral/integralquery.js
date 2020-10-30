@@ -10,7 +10,7 @@ function integralqueryController($scope, $http, $state, $stateParams, $gridServi
 				},
 				"two" : {
 					name : "客户总积分查询",
-					goto:"userTIcketsList"
+					goto:"integralquery"
 
 				}
 			}

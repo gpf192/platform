@@ -10,7 +10,7 @@ function integralallocationController($scope, $http, $state, $stateParams, $grid
 				},
 				"two" : {
 					name : "项目类别配置 ",
-					goto:"commodityclassify"
+					goto:"integralallocation"
 
 				}
 			}

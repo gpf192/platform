@@ -11,7 +11,7 @@ function crmCreditRecordController($scope, $http, $state, $stateParams, $gridSer
 				},
 				"two" : {
 					name : "CRM接口积分明细查询",
-					goto:"userTIcketsList"
+					goto:"crmCreditRecord"
 
 				}
 			}
