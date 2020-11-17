@@ -6,5 +6,5 @@ import cn.xsdzq.platform.entity.mall.PresentCardEntity;
 
 
 public interface PresentCardRepository extends JpaRepository<PresentCardEntity, Long> {
-
+	PresentCardEntity findByCardId(String cardId);
 }

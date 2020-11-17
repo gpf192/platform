@@ -12,9 +12,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -33,51 +36,144 @@ public class PresentEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "present_sequence")
-	@SequenceGenerator(name = "present_sequence", sequenceName = "present_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_present")
+	@SequenceGenerator(name = "sequence_present", sequenceName = "sequence_present", allocationSize = 1)
 	@Column(name = "id")
 	private long id;
 
-	@Column(name = "name", unique = true)
+	@Column(name = "code", unique = true)
+	private String code;
+	
+	@Column(name = "name")
 	private String name;
-
+	
 	@Column(name = "face_value", precision = 2)
 	private float faceValue;//面值
 
 	@Column(name = "value", precision = 2)
 	private float value;//实际价格
+	
+	@Column(name = "image", nullable = true)
+	private String image;
+	
+	 @Column(name = "big_image")
+	 private String bigImage;
+	 
+	 @Column(name = "is_hot")
+	 private boolean isHot;//0不热，1热
+	 
+	 @Column(name = "tip")
+	 private String tip;//简介
+	
+	 @Lob
+	@Column(name = "description", length = 2000)
+	private String description;//产品介绍
+	
+	@Lob
+	@Column(name = "explain2")
+	 private String explain;//使用说明
 
-	@Column(name = "description")
-	private String description;
+	@Lob
+	@Column(name = "attention", nullable = true)
+	private String attention;//attention注意事项
 
+	
 	@Column(name = "store_number")
-	private int storeNumber;//总库存
+	private int storeNumber = 0;//总库存
 
 	@Column(name = "convert_number")
-	private int convertNumber;//已兑换
+	private int convertNumber = 0;//已兑换
 
 	@Column(name = "store_unused")
-	private int storeUnused;//剩余库存
-
-	@Column(name = "status")
-	private String status;//状态，上上架/下架
+	private int storeUnused = 0;//剩余库存
 	
-	@Column(name = "categoryId", insertable = false, updatable = false)
+	@Column(name = "sort")
+	private int sort;
+	
+	@Column(name = "status")
+	private String status;//状态，0上架/1下架
+	
+	@Column(name = "category_id", insertable = false, updatable = false)
 	private long categoryId;
 
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER, optional = false)
-	@JoinColumn(name = "categoryId", referencedColumnName = "id")
+	@JoinColumn(name = "category_id", referencedColumnName = "id")
 	private PresentCategoryEntity presentCategory;//商品分类
 
 	// 创建时间
 	@Column(name = "createtime")
 	@CreatedDate
+    @Temporal(TemporalType.TIMESTAMP)
 	private Date createtime;
 
 	// 修改时间
 	@Column(name = "modifytime", nullable = true)
 	@LastModifiedDate
 	private Date modifytime;
+	 	 
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public int getSort() {
+		return sort;
+	}
+
+	public String getAttention() {
+		return attention;
+	}
+
+	public void setAttention(String attention) {
+		this.attention = attention;
+	}
+
+	public void setSort(int sort) {
+		this.sort = sort;
+	}
+
+	public String getBigImage() {
+		return bigImage;
+	}
+
+	public void setBigImage(String bigImage) {
+		this.bigImage = bigImage;
+	}
+
+	public boolean getIsHot() {
+		return isHot;
+	}
+
+	public void setIsHot(boolean isHot) {
+		this.isHot = isHot;
+	}
+
+	public String getTip() {
+		return tip;
+	}
+
+	public void setTip(String tip) {
+		this.tip = tip;
+	}
+
+	public long getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(long categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	public String getExplain() {
+		return explain;
+	}
+
+	public void setExplain(String explain) {
+		this.explain = explain;
+	}
 
 	public long getId() {
 		return id;
@@ -176,12 +272,23 @@ public class PresentEntity implements Serializable {
 		this.modifytime = modifytime;
 	}
 
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	@Override
 	public String toString() {
-		return "Present [id=" + id + ", name=" + name + ", faceValue=" + faceValue + ", value=" + value
-				+ ", description=" + description + ", storeNumber=" + storeNumber + ", convertNumber=" + convertNumber
-				+ ", storeUnused=" + storeUnused + ", status=" + status + ", presentCategory=" + presentCategory
-				+ ", createtime=" + createtime + ", modifytime=" + modifytime + "]";
+		return "PresentEntity [id=" + id + ", code=" + code + ", name=" + name + ", faceValue=" + faceValue + ", value="
+				+ value + ", image=" + image + ", bigImage=" + bigImage + ", isHot=" + isHot + ", tip=" + tip
+				+ ", description=" + description + ", explain=" + explain + ", storeNumber=" + storeNumber
+				+ ", convertNumber=" + convertNumber + ", storeUnused=" + storeUnused + ", sort=" + sort + ", status="
+				+ status + ", categoryId=" + categoryId + ", presentCategory=" + presentCategory + ", createtime="
+				+ createtime + ", modifytime=" + modifytime + "]";
 	}
+
 
 }

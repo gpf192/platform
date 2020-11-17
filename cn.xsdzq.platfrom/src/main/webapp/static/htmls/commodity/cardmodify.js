@@ -1,11 +1,12 @@
-ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils' ];
-function cardmodifyController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils) {
+ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils', 'utils'  ];
+function cardmodifyController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils,utils) {
 
 	$scope.formData = {};
+	$scope.presentList = [];
 	$scope.init=function(){
 		var data = {
 				"one" : {
-					name : "",
+					name : "卡券管理",
 					goto:""
 
 				},
@@ -16,57 +17,37 @@ function cardmodifyController($scope, $http, $state, $stateParams, $gridService,
 				}
 			}
 			$scope.$emit("changeNavigation", data);
+		
 		var param = utils.isEmptyObject($stateParams.param);
 		if(param){
 			$state.go("cardmanage");
 			return;
 		}
-		
-		$scope.formData.cardId="";
-		$scope.formData.password="";	
-		$scope.presentCategoryList = [{
-			name:"京东E卡",
-			code:"0"
-		},{
-			name:"爱奇艺月卡",
-			code:"1"
-		}]
-		scope.presentCategoryModel = $scope.presentCategoryList[0];
-		$scope.presentNameList = [{
-			name:"100元京东E卡",
-			code:"0"
-		},{
-			name:"200元京东E卡",
-			code:"1"
-		}]
-		scope.presentNameModel = $scope.presentNameList[0];
+			
+		//分类下拉框复制
+		$http.get(httpUtils.url.commodity, {}).success(function(data) {
+			if (data.resCode == 0) {
+				$scope.presentList = data.result;
+				for(var i=0;i<data.result.length;i++){
+					if($scope.formData.presentId==data.result[i].id){
+						$scope.formData.presentNameModel = $scope.presentList[i];
+					}
+				}
+			}
+		});
+
 		$scope.cardStatusList = [{
 			name:"上架",
-			code:"0"
+			code:"1"
 		},{
 			name:"下架",
-			code:"1"
+			code:"0"
 		}]
-		scope.cardStatusModel = $scope.cardStatusList[0];
 		
-		
-		var status = $stateParams.param.presentCategory;
-		if(status ==0) {
-			$scope.presentCategoryModel = $scope.presentCategoryList[0];
-		}else if(status ==1) {
-			$scope.presentCategoryModel = $scope.presentCategoryList[1];
-		}
-		
-		var presentName = $stateParams.param.presentName;
-		if(presentName ==0) {
-			$scope.presentNameModel = $scope.presentNameList[0];
-		}else if(presentName ==1) {
-			$scope.presentNameModel = $scope.presentNameList[1];
-		}
 		var cardStatus = $stateParams.param.cardStatus;
-		if(cardStatus ==0) {
+		if(cardStatus ==1) {
 			$scope.cardStatusModel = $scope.cardStatusList[0];
-		}else if(cardStatus ==1) {
+		}else if(cardStatus ==0) {
 			$scope.cardStatusModel = $scope.cardStatusList[1];
 		}
 		angular.copy($stateParams.param,$scope.formData);
@@ -75,25 +56,12 @@ function cardmodifyController($scope, $http, $state, $stateParams, $gridService,
 	
 	$scope.newBuild = function() {
 		var url = httpUtils.url.addCard;
-		
-		var presentCategory="";
-		var presentName="";
+		var present="";
+
 		var cardId="";
 		var password="";
-		var cardStatus="";
+		var cardStatus="1";
 		
-		if(!utils.isEmpty($scope.presentCategoryModel.code)) {
-			presentCategory = $scope.presentCategoryModel.code;
-		}else {
-			layerUtils.iMsg(-1, "商品分类不能为空");
-			return;
-		}
-		if(!utils.isEmpty($scope.presentNameModel.code)) {
-			presentName = $scope.presentNameModel.code;
-		}else {
-			layerUtils.iMsg(-1, "商品名称不能为空");
-			return;
-		}
 		
 		if(!utils.isEmpty($scope.formData.cardId)) {
 			cardId = $scope.formData.cardId;
@@ -101,28 +69,37 @@ function cardmodifyController($scope, $http, $state, $stateParams, $gridService,
 			layerUtils.iMsg(-1, "卡号不能为空");
 			return;
 		}
-		if(!utils.isEmpty($scope.cardStatusModel.code)) {
-			cardStatus = $scope.cardStatusModel.code;
-		}else {
-			layerUtils.iMsg(-1, "卡券状态不能为空");
-			return;
+		
+		if(!utils.isEmpty($scope.formData.password)) {
+			if( $scope.formData.password == "无") {
+				console.log(1);
+				password = password;
+			}else{
+				console.log(2);
+				password = $scope.formData.password;
+			}
+			
 		}
 		
+		
+		
 		var param = {
-				presentCategory:presentCategory,
-				presentName:presentName,
+				id:$scope.formData.id,
+				presentId:$scope.formData.presentNameModel.id,				
 				cardId:cardId,
 				password:password,
 				cardStatus:cardStatus,
-		}
+				isNew:1//更新
+				
+		}		
+		console.log($scope.formData.presentNameModel.id+" 44444 ");
 		$http.post(url, param).success(function(data) {
 			if (data.resCode == 0) {
-				layerUtils.iMsg(-1,"添加成功");
-				$scope.formData={};
-			}else if (data.resCode == 1) {
-				$scope.formData={};
+				layerUtils.iAlert("修改成功",function(){
+					$state.go("cardmanage");
+				});
 			} else {
-				layerUtils.iMsg(-1,"添加失败");
+				layerUtils.iMsg(-1, "修改失败");
 			}
 		});
 	}

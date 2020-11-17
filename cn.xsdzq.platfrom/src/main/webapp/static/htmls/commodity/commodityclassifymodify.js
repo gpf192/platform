@@ -47,12 +47,23 @@ function commodityclassifymodifyController($scope, $http, $state, $stateParams, 
 		
 		var name = "";
 		var flag = "";
+		var code = "";
 		
 		
 		if(!utils.isEmpty($scope.formData.name)) {
+			if("全部"==$scope.formData.name){
+				layerUtils.iMsg(-1, "分类名称不合法");
+				return;
+			}
 			name = $scope.formData.name;
 		}else {
 			layerUtils.iMsg(-1, "分类名称不能为空");
+			return;
+		}
+		if(!utils.isEmpty($scope.formData.code)) {
+			code = $scope.formData.code;
+		}else {
+			layerUtils.iMsg(-1, "分类代码不能为空");
 			return;
 		}
 		if(!utils.isEmpty($scope.formData.flag)) {
@@ -63,17 +74,19 @@ function commodityclassifymodifyController($scope, $http, $state, $stateParams, 
 		}
 
 		var param = {
+				id:$scope.formData.id,
+				code:code,
 				name:name,
 				flag:flag,
+				isNew:1
 		}
 		$http.post(url, param).success(function(data) {
 			if (data.resCode == 0) {
 				layerUtils.iMsg(-1,"添加成功");
-				$scope.formData={};
-			}else if (data.resCode == 1) {
-//				layerUtils.iMsg(-1,"  产品代码已存在 ");
-				$scope.formData={};
-			} else {
+				//$scope.formData={};
+				$state.go("commodityclassify");
+				}
+			 else {
 				layerUtils.iMsg(-1,"添加失败");
 			}
 		});

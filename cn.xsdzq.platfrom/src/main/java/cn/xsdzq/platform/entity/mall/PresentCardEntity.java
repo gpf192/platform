@@ -19,6 +19,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 /**
  * 实物卡
@@ -36,8 +37,8 @@ public class PresentCardEntity implements Serializable {
 	 * default entity id
 	 */
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "present_card_sequence")
-	@SequenceGenerator(name = "present_card_sequence", sequenceName = "present_card_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_present_card")
+	@SequenceGenerator(name = "sequence_present_card", sequenceName = "sequence_present_card", allocationSize = 1)
 	@Column(name = "id")
 	private long id;
 
@@ -48,13 +49,16 @@ public class PresentCardEntity implements Serializable {
 	private String password;
 
 	@Column(name = "card_status")
-	private String cardStatus;//卡券状态， 上架/下架
+	private int cardStatus;//卡券状态， 上架1/下架0
 
 	@Column(name = "convert_status")
-	private String convertStatus;//兑换状态，已兑换/未兑换
-
+	private int convertStatus;//兑换状态，已兑换1/未兑换0
+	
+	@Column(name = "present_id", insertable = false, updatable = false)
+	private long presentId;
+	
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER, optional = false)
-	@JoinColumn(name = "presentId", referencedColumnName = "id")
+	@JoinColumn(name = "present_id", referencedColumnName = "id")
 	private PresentEntity present;//二级目录
 
 	@Column(name = "create_date")
@@ -64,6 +68,52 @@ public class PresentCardEntity implements Serializable {
 
 	@Column(name = "convert_date")
 	private Date convertDate;
+	
+	@Column(name = "createdBy")
+	private String createdBy;
+	
+	@Column(name = "modifyBy")
+	private String modifyBy;
+	
+	@Column(name = "is_import")
+	private int isImport ;//0-不是导入，1是导入
+
+	// 修改时间
+	@Column(name = "modifytime")
+	private Date modifytime;
+	
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public String getModifyBy() {
+		return modifyBy;
+	}
+
+	public void setModifyBy(String modifyBy) {
+		this.modifyBy = modifyBy;
+	}
+
+
+	public int getIsImport() {
+		return isImport;
+	}
+
+	public void setIsImport(int isImport) {
+		this.isImport = isImport;
+	}
+
+	public Date getModifytime() {
+			return modifytime;
+		}
+
+		public void setModifytime(Date modifytime) {
+			this.modifytime = modifytime;
+		}
 
 	public long getId() {
 		return id;
@@ -89,19 +139,21 @@ public class PresentCardEntity implements Serializable {
 		this.password = password;
 	}
 
-	public String getCardStatus() {
+	
+
+	public int getCardStatus() {
 		return cardStatus;
 	}
 
-	public void setCardStatus(String cardStatus) {
+	public void setCardStatus(int cardStatus) {
 		this.cardStatus = cardStatus;
 	}
 
-	public String getConvertStatus() {
+	public int getConvertStatus() {
 		return convertStatus;
 	}
 
-	public void setConvertStatus(String convertStatus) {
+	public void setConvertStatus(int convertStatus) {
 		this.convertStatus = convertStatus;
 	}
 
@@ -129,11 +181,20 @@ public class PresentCardEntity implements Serializable {
 		this.convertDate = convertDate;
 	}
 
+	public long getPresentId() {
+		return presentId;
+	}
+
+	public void setPresentId(long presentId) {
+		this.presentId = presentId;
+	}
+
 	@Override
 	public String toString() {
-		return "PresentCard [id=" + id + ", cardId=" + cardId + ", password=" + password + ", cardStatus=" + cardStatus
-				+ ", convertStatus=" + convertStatus + ", Present=" + present + ", createDate=" + createDate
-				+ ", convertDate=" + convertDate + "]";
+		return "PresentCardEntity [id=" + id + ", cardId=" + cardId + ", password=" + password + ", cardStatus="
+				+ cardStatus + ", convertStatus=" + convertStatus + ", presentId=" + presentId + ", present=" + present
+				+ ", createDate=" + createDate + ", convertDate=" + convertDate + ", createdBy=" + createdBy
+				+ ", modifyBy=" + modifyBy + ", isImport=" + isImport + ", modifytime=" + modifytime + "]";
 	}
 
 }

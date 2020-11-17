@@ -20,32 +20,26 @@
         <form action="" class="form-horizontal">
             <fieldset>
                 <legend> 新增卡券</legend>
-             <div class="form-group ">
-                    <label  class="col-sm-3 control-label">商品分类:</label>
-                       <div class="col-sm-6">
-                        <select class="form-control" ng-model="presentCategoryModel"
-                            ng-options="x.name for x in presentCategoryList" ></select>
-                      </div>
-                </div>
+      
                <div class="form-group ">
                     <label  class="col-sm-3 control-label">商品名称:</label>
                        <div class="col-sm-6">
-                        <select class="form-control" ng-model="presentNameModel"
-                            ng-options="x.name for x in presentNameList" ></select>
+                        <select class="form-control" ng-model="formData.presentNameModel"
+                            ng-options="x.name for x in presentList| filter:{name:'!全部'}" ></select>
                       </div>
                 </div>
           		<div class="form-group">
                     <label class="col-sm-3 control-label">卡号：</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="emp_code" name="emp_code"
-                            ng-model="formData.emp_code" placeholder="请输入内容" />
+                        <input type="text" class="form-control" id="cardId" name="cardId"
+                            ng-model="formData.cardId" placeholder="请输入内容" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 control-label">密码：</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="emp_code" name="emp_code"
-                            ng-model="formData.emp_code" placeholder="请输入内容" />
+                        <input type="text" class="form-control" id="password" name="password"
+                            ng-model="formData.password" placeholder="请输入内容" />
                     </div>
                 </div>
    

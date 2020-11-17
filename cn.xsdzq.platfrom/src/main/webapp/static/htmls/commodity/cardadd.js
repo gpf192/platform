@@ -1,7 +1,8 @@
-ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils' ];
-function cardaddController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils) {
+ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils','utils' ];
+function cardaddController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils,utils) {
 
 	$scope.formData = {};
+	$scope.presentList = [];
 	$scope.init=function(){
 		var data = {
 				"one" : {
@@ -17,55 +18,35 @@ function cardaddController($scope, $http, $state, $stateParams, $gridService, ht
 			}
 			$scope.$emit("changeNavigation", data);
 		$scope.formData.cardId="";
-		$scope.formData.password	
-		$scope.presentCategoryList = [{
-			name:"京东E卡",
-			code:"0"
-		},{
-			name:"爱奇艺月卡",
-			code:"1"
-		}]
-		scope.presentCategoryModel = $scope.presentCategoryList[0];
-		$scope.presentNameList = [{
-			name:"100元京东E卡",
-			code:"0"
-		},{
-			name:"200元京东E卡",
-			code:"1"
-		}]
-		scope.presentNameModel = $scope.presentNameList[0];
+		$scope.formData.password="";	
+		
+		
+		$http.get(httpUtils.url.commodity, {}).success(function(data) {
+			if (data.resCode == 0) {
+				$scope.presentList = data.result;
+				$scope.formData.presentNameModel = $scope.presentList[0];
+			}
+		});
+				
+		
 		$scope.cardStatusList = [{
 			name:"上架",
-			code:"0"
+			code:"1"
 		},{
 			name:"下架",
-			code:"1"
+			code:"0"
 		}]
-		scope.cardStatusModel = $scope.cardStatusList[0];
+		$scope.cardStatusModel = $scope.cardStatusList[0];
 	};
 	
 	
 	$scope.newBuild = function() {
-		var url = httpUtils.url.addCard;
-		
-		var presentCategory="";
-		var presentName="";
+		var url = httpUtils.url.addCard;		
+		var presentId="";
 		var cardId="";
 		var password="";
 		var cardStatus="";
-		
-		if(!utils.isEmpty($scope.presentCategoryModel.code)) {
-			presentCategory = $scope.presentCategoryModel.code;
-		}else {
-			layerUtils.iMsg(-1, "商品分类不能为空");
-			return;
-		}
-		if(!utils.isEmpty($scope.presentNameModel.name)) {
-			presentName = $scope.presentNameModel.name;
-		}else {
-			layerUtils.iMsg(-1, "商品名称不能为空");
-			return;
-		}
+				
 		
 		if(!utils.isEmpty($scope.formData.cardId)) {
 			cardId = $scope.formData.cardId;
@@ -73,6 +54,15 @@ function cardaddController($scope, $http, $state, $stateParams, $gridService, ht
 			layerUtils.iMsg(-1, "卡号不能为空");
 			return;
 		}
+		if(!utils.isEmpty($scope.formData.password)) {
+			if( $scope.formData.password == "无") {
+				password = password;
+			}else{
+				password = $scope.formData.password;
+			}
+			
+		}
+		
 		if(!utils.isEmpty($scope.cardStatusModel.code)) {
 			cardStatus = $scope.cardStatusModel.code;
 		}else {
@@ -81,18 +71,19 @@ function cardaddController($scope, $http, $state, $stateParams, $gridService, ht
 		}
 		
 		var param = {
-				presentCategory:presentCategory,
-				presentName:presentName,
+				presentId:$scope.formData.presentNameModel.id,
 				cardId:cardId,
 				password:password,
 				cardStatus:cardStatus,
+				convertStatus:0,
+				isNew:0//代表新增
 		}
+		console.log(presentId+cardId+password+cardStatus+"--end");
 		$http.post(url, param).success(function(data) {
 			if (data.resCode == 0) {
 				layerUtils.iMsg(-1,"添加成功");
-				$scope.formData={};
-			}else if (data.resCode == 1) {
-				$scope.formData={};
+				$state.go("cardmanage");
+				
 			} else {
 				layerUtils.iMsg(-1,"添加失败");
 			}

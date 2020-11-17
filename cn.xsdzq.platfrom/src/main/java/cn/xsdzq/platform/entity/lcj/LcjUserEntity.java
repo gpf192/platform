@@ -56,10 +56,10 @@ public class LcjUserEntity implements Serializable{
 	@Column(name = "app_version", nullable = true, length = 100)
 	private String appVersion;
 
-	@Column(name = "last_op_ip", nullable = true, length = 200)
+	@Column(name = "last_op_ip", nullable = true, length = 1000)
 	private String lastOpIP;
 
-	@Column(name = "last_login_time", nullable = true, length = 200)
+	@Column(name = "last_login_time", nullable = true, length = 500)
 	private String lastLoginTime;
 
 	// 创建时间

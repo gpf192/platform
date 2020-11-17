@@ -15,16 +15,16 @@ function userVoteForListController($scope, $http, $state, $stateParams, $gridSer
 				}
 			}
 		$scope.$emit("changeNavigation", data);
-		$scope.getUserVoteForList(20000);
+		$scope.getUserVoteForList(100);
 		$scope.currentPage = {
 				page : 0
 			};
 			$scope.selectNumList = [{
-				num : 10
-			}, {
-				num : 50
-			}, {
 				num : 100
+			}, {
+				num : 150
+			}, {
+				num : 200
 			}];
 			$scope.selectNum = $scope.selectNumList[0];	
 			$scope.$watch("selectNum.num", function(newValue, oldValue) {

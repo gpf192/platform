@@ -32,11 +32,11 @@ function contestantListController($scope, $http, $state, $stateParams, $gridServ
 				page : 0
 			};
 			$scope.selectNumList = [{
-				num : 10
-			}, {
-				num : 50
-			}, {
 				num : 100
+			}, {
+				num : 150
+			}, {
+				num : 200
 			}];
 			$scope.selectNum = $scope.selectNumList[0];	
 			$scope.$watch("selectNum.num", function(newValue, oldValue) {
@@ -133,7 +133,7 @@ function contestantListController($scope, $http, $state, $stateParams, $gridServ
 			if (data.resCode == 0) {
 				layerUtils.iMsg(-1, "置顶成功");
 //				$scope.selected = [];
-				$scope.getEmpList(20000);
+				$scope.getEmpList(100);
 			}
 		});
 	}
@@ -188,7 +188,7 @@ function contestantListController($scope, $http, $state, $stateParams, $gridServ
 				if (data.resCode == 0) {
 					layerUtils.iMsg(-1, "删除成功");
 					$scope.selected = [];
-					$scope.getEmpList(20000);
+					$scope.getEmpList(100);
 				}
 			});
 		}, function() {

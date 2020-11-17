@@ -92,16 +92,44 @@ ngApp.factory("httpUtils", [ function() {
 		getLoginRecord:baseUrl + "live/getLoginRecord",
 		
 		commodityClassify:baseUrl + "mall/category/all",
+		getAllPage:baseUrl + "mall/category/getAllPage",
 		addCommodityClassify:baseUrl + "mall/category/add",
 		deleteCommodityClassify:baseUrl + "mall/category/delete",
+		
 		commodity:baseUrl + "mall/present/all",
+		getAllPresentPage:baseUrl + "mall/present/getAllPresentPage",
 		addCommodity:baseUrl + "mall/present/add",
 		deleteCommodity:baseUrl + "mall/present/delete",
 		card:baseUrl + "mall/card/all",
 		addCard:baseUrl + "mall/card/add",
 		deleteCard:baseUrl + "mall/card/delete",
-		exchangeRecords:baseUrl + "mall/card/PresentResult"
+		exchangeRecords:baseUrl + "mall/card/exchangeRecords",
 		
+		uploadCardTemp:baseUrl + "mall/cardImport/uploadCardTemp",
+		deleteCardTempData:baseUrl + "mall/cardImport/deleteCardTempData",
+		getCardImportTemp:baseUrl + "mall/cardImport/getCardImportTemp",
+		submitCardImport:baseUrl + "mall/cardImport/submit",
+		
+		getCreditCategory:baseUrl + "mall/credit/all",
+		getAllItems:baseUrl + "mall/credit/getAllItems",
+		addCreditCategory:baseUrl + "mall/credit/add",
+		deleteCreditCategory:baseUrl + "mall/credit/delete",
+		getUserCreditTotal:baseUrl + "mall/credit/getUserCreditTotal",
+		getCreditImportRecord :baseUrl + "mall/credit/getCreditImportRecord",
+		
+		crmCreditRecord:baseUrl + "mall/crm/getCrmCreditRecord",
+		crmCreditApiMsg:baseUrl + "mall/crm/getCrmCreditApiMsg",
+		crmCreditProduct:baseUrl + "mall/crm/getCrmCreditProduct",
+		getDataManual:baseUrl + "mall/crm/getDataManual",
+		
+		importExcel:baseUrl + "mall/credit/upload",
+		getCreditImportTemp :baseUrl + "mall/credit/getCreditImportTemp",
+		checkBeforeSubmit:baseUrl + "mall/credit/checkBeforeSubmit",
+		submit:baseUrl + "mall/credit/submit",
+		deleteTempData:baseUrl + "mall/credit/deleteTempData"
+		
+
+
 	};
 
 	function getUrl() {

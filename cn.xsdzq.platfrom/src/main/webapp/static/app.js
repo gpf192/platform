@@ -283,14 +283,31 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/integral/integralquery",
 		templateUrl : "htmls/integral/integralquery.html",
 		controller : "integralqueryController"
-	}).state("integraldetail", {
-		url : "/integral/integraldetail",
-		templateUrl : "htmls/integral/integraldetail.html",
-		controller : "integraldetailController"
-	}).state("integralsource", {
-		url : "/integral/integralsource",
-		templateUrl : "htmls/integral/integralsource.html",
-		controller : "integralsourceController"
+	}).state("integralModify", {
+		url : "/integral/integralModify",
+		templateUrl : "htmls/integral/integralModify.html",
+		controller : "integralModifyController",
+		params:{param:{}}
+	}).state("integralUserDetail", {
+		url : "/integral/integralUserDetail",
+		templateUrl : "htmls/integral/integralUserDetail.html",
+		controller : "integralUserDetailController"
+	}).state("integralImport", {
+		url : "/integral/integralImport",
+		templateUrl : "htmls/integral/integralImport.html",
+		controller : "integralImportController"
+	}).state("crmCreditRecord", {
+		url : "/integral/crmCreditRecord",
+		templateUrl : "htmls/integral/crmCreditRecord.html",
+		controller : "crmCreditRecordController"
+	}).state("crmProductList", {
+		url : "/integral/crmProductList",
+		templateUrl : "htmls/integral/crmProductList.html",
+		controller : "crmProductListController"
+	}).state("crmCreditApiMsg", {
+		url : "/integral/crmCreditApiMsg",
+		templateUrl : "htmls/integral/crmCreditApiMsg.html",
+		controller : "crmCreditApiMsgController"
 	}).state("commodityclassify", {
 		url : "/commodity/commodityclassify",
 		templateUrl : "htmls/commodity/commodityclassify.html",
@@ -326,6 +343,10 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/commodity/cardmanage",
 		templateUrl : "htmls/commodity/cardmanage.html",
 		controller : "cardmanageController"
+	}).state("cardImport", {
+		url : "/commodity/cardImport",
+		templateUrl : "htmls/commodity/cardImport.html",
+		controller : "cardImportController"
 	}).state("exchangerecords", {
 		url : "/commodity/exchangerecords", 
 		templateUrl : "htmls/commodity/exchangerecords.html",

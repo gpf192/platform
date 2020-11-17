@@ -3,18 +3,18 @@ package cn.xsdzq.platform.util;
 public class MethodUtil {
 	public static int getMethodNum (String beginTime, String endTime) {
 		if("".equals(beginTime) && "".equals(endTime)) {
-			//时间为空
+			//全为空
 			return 1;//全量查找
 		}
 		if(!"".equals(beginTime) && !"".equals(endTime)){					
-			//时间不为空
+			//都有值
 			return 2;//按时间区间查询
 		}
 		if(!"".equals(beginTime) && "".equals(endTime)){					
-			//时间不为空
+			//前者不空，后者空
 			return 3;//按时间查询,只大于开始时间
 		}
-		else return 4;//按时间查询,只小于结束时间
+		else return 4;//前者空，后者不空
 	}
 	public static int getEmpMethodNum (String emp_name, String emp_code, String departmentCode) {
 		if("".equals(emp_name) && "".equals(emp_code) && "".equals(departmentCode)) {
@@ -52,51 +52,51 @@ public class MethodUtil {
 			return 2;//四个条件一起查询
 		}
 		if(!"".equals(beginTime) && "".equals(endTime) && "".equals(prizeName)&& "".equals(account)) {
-			return 3;//查询条件  大于开始时间
+			return 3;//a
 		}
 		if("".equals(beginTime) && !"".equals(endTime) && "".equals(prizeName)&& "".equals(account)) {
-			return 4;//查询条件  小于结束时间
+			return 4;//b
 		}
 		if("".equals(beginTime) && "".equals(endTime) && !"".equals(prizeName)&& "".equals(account)) {
-			return 5;//查询条件  奖品名称
+			return 5;//c
 		}
 		
 		if("".equals(beginTime) && "".equals(endTime) && "".equals(prizeName)&& !"".equals(account)) {
-			return 6;//查询条件  资金账号
+			return 6;//d
 		}
 		//两个条件
 		
 		if(!"".equals(beginTime) && !"".equals(endTime) && "".equals(prizeName)&& "".equals(account)) {
-			return 7;//查询条件  大于开始时间、小于结束时间
+			return 7;//ab
 		}
 		if(!"".equals(beginTime) && "".equals(endTime) && !"".equals(prizeName)&& "".equals(account)) {
-			return 8;//查询条件  大于开始时间、奖品名称
+			return 8;//ac
 		}
 		if(!"".equals(beginTime) && "".equals(endTime) && "".equals(prizeName)&& !"".equals(account)) {
-			return 9;//查询条件  大于开始时间、资金账号
+			return 9;//ad
 		}
 		if("".equals(beginTime) && !"".equals(endTime) && !"".equals(prizeName)&& "".equals(account)) {
-			return 10;//查询条件  小于结束时间、奖品名称
+			return 10;//bc
 		}
 		if("".equals(beginTime) && !"".equals(endTime) && "".equals(prizeName)&& !"".equals(account)) {
-			return 11;//查询条件    小于结束时间、资金账号
+			return 11;//bd
 		}
 		if("".equals(beginTime) && "".equals(endTime) && !"".equals(prizeName)&& !"".equals(account)) {
-			return 12;//查询条件 奖品名称、资金账号
+			return 12;//cd
 		}
 		//三个条件
 		if(!"".equals(beginTime) && !"".equals(endTime) && !"".equals(prizeName)&& "".equals(account)) {
-			return 13;//查询条件 开始时间、 结束时间、 奖品名称
+			return 13;//abc
 		}
 		if(!"".equals(beginTime) && "".equals(endTime) && !"".equals(prizeName)&& !"".equals(account)) {
-			return 14;//查询条件  开始时间、 奖品名称、资金账号
+			return 14;//acd
 		}
 		if("".equals(beginTime) && !"".equals(endTime) && !"".equals(prizeName)&& !"".equals(account)) {
-			return 15;//查询条件 结束时间、 奖品名称、资金账号
+			return 15;//bcd
 		}
 		
 		if(!"".equals(beginTime) && !"".equals(endTime) && "".equals(prizeName)&& !"".equals(account)) {
-			return 16;//查询条件 结束时间、 奖品名称、资金账号
+			return 16;//abd
 		}
 		else return 17;
 	}

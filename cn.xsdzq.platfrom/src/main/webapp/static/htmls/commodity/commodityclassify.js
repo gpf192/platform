@@ -4,7 +4,7 @@ function commodityclassifyController($scope, $http, $state, $stateParams, $gridS
 	$scope.init=function(){
 		var data = {
 				"one" : {
-					name : "商品管理",
+					name : "商品分类管理",
 					goto:""
 				},
 				"two" : {
@@ -14,7 +14,7 @@ function commodityclassifyController($scope, $http, $state, $stateParams, $gridS
 				}
 			}
 		$scope.$emit("changeNavigation", data);
-		$scope.getCommodityclassifyList(20000);
+		$scope.getCommodityclassifyList(10);
 		
 		$scope.currentPage = {
 				page : 0
@@ -26,6 +26,7 @@ function commodityclassifyController($scope, $http, $state, $stateParams, $gridS
 			}, {
 				num : 100
 			}];
+			
 			$scope.selectNum = $scope.selectNumList[0];	
 			$scope.$watch("selectNum.num", function(newValue, oldValue) {
 				if (newValue != oldValue) {
@@ -66,7 +67,7 @@ function commodityclassifyController($scope, $http, $state, $stateParams, $gridS
 	
 	$scope.getCommodityclassifyList = function(pageSize) {
 		
-		var url = httpUtils.url.commodityClassify;
+		var url = httpUtils.url.getAllPage;
 		var params = {
 			pageNumber : 0,
 			pageSize : pageSize
@@ -160,17 +161,17 @@ function commodityclassifyController($scope, $http, $state, $stateParams, $gridS
 			        if(tempInfo.id == infoId){
 			        	var param = tempInfo;
 			        }
-			      }  
+			  }  
 	  	    var url = httpUtils.url.deleteCommodityClassify;
 			$http.post(url, param).success(function(data) {
-				if (data.resCode != 0) {
-					layerUtils.iMsg(-1, "删除失败");	
-				}
+				/*if (data.resCode != 0) {
+					layerUtils.iMsg(-1, "删除失败，含有关联子项");	
+				}*/
 			});
 	        }
-			layerUtils.iMsg(-1, "删除成功");
+			layerUtils.iMsg(-1, "操作完成，若记录含有关联子项，则无法删除");
 			$scope.selected = [];
-			$scope.getCommodityclassifyList(50);
+			$scope.getCommodityclassifyList(10);
 			
 		}, function() {
 			console.log("取消");

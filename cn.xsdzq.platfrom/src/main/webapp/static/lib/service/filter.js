@@ -209,3 +209,20 @@ ngApp.filter('orderStatusFilter', function() {
 	    
 	}
 });
+
+ngApp.filter('omitFilter', function() { 
+	return function (str) {
+		if(str){
+            var carContent = '';
+            if(str.length >= 5){
+                str.length = 5;
+                carContent = str.substring(0,5) + '...';
+            }
+            else {
+                carContent = str
+            }
+            return carContent
+        }
+	    
+	}
+});
