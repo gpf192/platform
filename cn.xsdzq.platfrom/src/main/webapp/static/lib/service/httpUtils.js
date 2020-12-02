@@ -91,10 +91,10 @@ ngApp.factory("httpUtils", [ function() {
 		
 		getLoginRecord:baseUrl + "live/getLoginRecord",
 		
-		commodityClassify:baseUrl + "mall/category/all",
-		getAllPage:baseUrl + "mall/category/getAllPage",
-		addCommodityClassify:baseUrl + "mall/category/add",
-		deleteCommodityClassify:baseUrl + "mall/category/delete",
+		commodityClassify:baseUrl + "mall/categoryy/all",
+		getAllPage:baseUrl + "mall/categoryy/getAllPage",
+		addCommodityClassify:baseUrl + "mall/categoryy/add",
+		deleteCommodityClassify:baseUrl + "mall/categoryy/delete",
 		
 		commodity:baseUrl + "mall/present/all",
 		getAllPresentPage:baseUrl + "mall/present/getAllPresentPage",
