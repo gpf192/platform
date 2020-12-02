@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.xsdzq.platform.dao.mall.PagePresentRepository;
+import cn.xsdzq.platform.dao.mall.PresentCategoryRepository;
 import cn.xsdzq.platform.dao.mall.PresentRepository;
 import cn.xsdzq.platform.entity.mall.PresentEntity;
 import cn.xsdzq.platform.service.mall.PresentService;
@@ -24,14 +25,13 @@ public class PresentServiceImpl implements PresentService {
 	
 	@Autowired
 	private PagePresentRepository pagePresentRepository;
+	@Autowired
+	private PresentCategoryRepository presentCategoryRepository;
 
 	@Override
 	@Transactional
 	public void addPresent(PresentEntity present) {
-		// TODO Auto-generated method stub
-		/*PresentEntity p = presentRepository.findById(present.getId()).get();
-		present.setCreatetime(p.getCreatetime());
-		present.setModifytime(new Date());*/
+		// TODO Auto-generated method stub		
 		presentRepository.save(present);
 
 	}

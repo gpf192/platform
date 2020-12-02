@@ -55,9 +55,18 @@ public class PresentController {
 	public Map<String, Object> addPresent(@RequestBody PresentDTO dto) {
 		PresentEntity entity = PresentUtil.convertPresentEntityByDto(dto);
 		PresentCategoryEntity c = presentCategoryService.findById(dto.getCategoryId());
-		entity.setPresentCategory(c);
-		//entity.setCreatetime(new Date());
-		presentService.addPresent(entity);
+		entity.setPresentCategory(c);//父类关系
+		if(dto.getNewFlag() == 0) {
+			//更新
+			PresentEntity p = presentService.findById(entity.getId());
+			entity.setStoreUnused(p.getStoreUnused());//库存保持不变
+			presentService.addPresent(entity);
+		}else {
+			//新增
+			presentService.addPresent(entity);
+		}
+		
+		
 		return GsonUtil.buildMap(0, "success", null);
 	}
 	

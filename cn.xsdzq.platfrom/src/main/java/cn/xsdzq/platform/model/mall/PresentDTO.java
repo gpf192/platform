@@ -25,7 +25,7 @@ public class PresentDTO {
 	private String status;//状态，上上架/下架
 	private String createtime;
 	private String attention;//attention注意事项
-	private int newFlag;//剩余库存
+	private int newFlag;//0-新增，1-更新 
 	
 	public int getNewFlag() {
 		return newFlag;
