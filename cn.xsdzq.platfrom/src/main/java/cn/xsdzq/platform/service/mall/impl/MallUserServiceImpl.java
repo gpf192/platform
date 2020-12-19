@@ -469,9 +469,9 @@ public class MallUserServiceImpl implements MallUserService {
 	public void scanCrmCreditJob() {
 		// TODO Auto-generated method stub
 		//扫描crmrecord 前一天记录
-		int preday =DateUtil.getPreDayAsInt(1); 
+		int preday =DateUtil.getPreDayAsInt(4); 
 		List<CRMCreditRecordEntity> crmlist = new ArrayList<CRMCreditRecordEntity>();
-		crmlist = pageCrmCreditRecordRepository.findByBeginDate(preday);
+		crmlist = pageCrmCreditRecordRepository.findByBeginDateGreaterThan(preday);
 		
 		System.out.println("crm 有几条记录"+crmlist.size());
 		ParamEntity p =paramRepository.getValueByCode("cvp");
@@ -479,6 +479,9 @@ public class MallUserServiceImpl implements MallUserService {
 		
 		//循环，校验数据，不合格的 插入error表,合格的插入record表，
 		for(CRMCreditRecordEntity entity:crmlist) {
+			List<CreditRecordEntity> l = creditRecordRepository.findBySerialNum(entity.getSerialNum());	
+			if(l.size() == 0) {
+			//记录表不存在，则插入
 			int flag = 0;
 			String msg ="";
 			int endDate = DateUtil.getFutureDayAsInt(String.valueOf(entity.getBeginDate()),cvp-1);
@@ -537,6 +540,7 @@ public class MallUserServiceImpl implements MallUserService {
 				}
 			}
 		}
+	}
 		
 		
 	}
@@ -623,6 +627,9 @@ public class MallUserServiceImpl implements MallUserService {
 		ParamEntity p =paramRepository.getValueByCode("cvp");
 		int cvp = Integer.parseInt(p.getValue());//当前有效期天数
 		for(CRMCreditApiErrorMsgEntity err:errLists) {
+			List<CreditRecordEntity> l = creditRecordRepository.findBySerialNum(err.getSerialNum());	
+			if(l.size() == 0) {
+			//查询正式表中是否有流水号 ，没有的话 再 插入
 			CRMCreditRecordEntity entity = pageCrmCreditRecordRepository.findBySerialNum(err.getSerialNum());
 			//再次校验各字段
 			int flag = 0;
@@ -683,7 +690,15 @@ public class MallUserServiceImpl implements MallUserService {
 				}
 				
 			}
+			}else {
+				//已经处理，不需要这里再次手动推送
+				err.setModifyTime(new Date());
+				
+				err.setSta(1);
+				pageCrmCreditApiErrMsgRepository.save(err);
+			}
 		}
+	
 		
 	}
 	
