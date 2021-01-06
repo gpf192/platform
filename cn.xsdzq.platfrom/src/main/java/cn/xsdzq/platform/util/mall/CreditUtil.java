@@ -3,14 +3,12 @@ package cn.xsdzq.platform.util.mall;
 import java.util.List;
 
 import cn.xsdzq.platform.entity.mall.CRMCreditApiErrorMsgEntity;
-import cn.xsdzq.platform.entity.mall.CRMCreditProductViewEntity;
 import cn.xsdzq.platform.entity.mall.CRMCreditRecordEntity;
 import cn.xsdzq.platform.entity.mall.CreditEntity;
 import cn.xsdzq.platform.entity.mall.CreditRecordEntity;
 import cn.xsdzq.platform.entity.mall.CreditImportTempEntity;
 import cn.xsdzq.platform.entity.mall.MallUserInfoEntity;
 import cn.xsdzq.platform.model.mall.CRMCreditApiMsgDTO;
-import cn.xsdzq.platform.model.mall.CRMCreditProductViewDTO;
 import cn.xsdzq.platform.model.mall.CRMCreditRecordDTO;
 import cn.xsdzq.platform.model.mall.CreditDTO;
 import cn.xsdzq.platform.model.mall.CreditImportRecordDTO;
@@ -153,16 +151,4 @@ public class CreditUtil {
 		return dto;
 	}
 
-	public static CRMCreditProductViewDTO convertCRMCreditProductDTOByEntity(CRMCreditProductViewEntity entity) {
-		CRMCreditProductViewDTO dto = new CRMCreditProductViewDTO();
-		
-		dto.setProductCode(entity.getProductCode());
-		dto.setProductName(entity.getProductName());
-		dto.setProductType(entity.getProductType());
-		dto.setFundType(entity.getFundType());
-		dto.setRiskType(entity.getRiskType());
-		dto.setPurchaseRate(entity.getPurchaseRate());
-		
-		return dto;
-	}
 }

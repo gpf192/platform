@@ -2,6 +2,9 @@ package cn.xsdzq.platform.service.mall;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import cn.xsdzq.platform.entity.mall.CRMCreditApiErrorMsgEntity;
 import cn.xsdzq.platform.entity.mall.CRMCreditRecordEntity;
 
