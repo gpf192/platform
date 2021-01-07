@@ -300,6 +300,10 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/integral/crmCreditRecord",
 		templateUrl : "htmls/integral/crmCreditRecord.html",
 		controller : "crmCreditRecordController"
+	}).state("crmProductList", {
+		url : "/integral/crmProductList",
+		templateUrl : "htmls/integral/crmProductList.html",
+		controller : "crmProductListController"
 	}).state("crmCreditApiMsg", {
 		url : "/integral/crmCreditApiMsg",
 		templateUrl : "htmls/integral/crmCreditApiMsg.html",

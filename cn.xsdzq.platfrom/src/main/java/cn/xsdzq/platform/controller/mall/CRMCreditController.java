@@ -19,11 +19,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import cn.xsdzq.platform.entity.mall.CRMCreditApiErrorMsgEntity;
+import cn.xsdzq.platform.entity.mall.CRMCreditProductViewEntity;
 import cn.xsdzq.platform.entity.mall.CRMCreditRecordEntity;
-import cn.xsdzq.platform.entity.mall.CreditImportTempEntity;
 import cn.xsdzq.platform.model.Pagination;
 import cn.xsdzq.platform.model.mall.CRMCreditApiMsgDTO;
+import cn.xsdzq.platform.model.mall.CRMCreditProductViewDTO;
 import cn.xsdzq.platform.model.mall.CRMCreditRecordDTO;
+import cn.xsdzq.platform.service.mall.CRMCreditProductService;
 import cn.xsdzq.platform.service.mall.CRMCreditRecordService;
 import cn.xsdzq.platform.service.mall.MallUserService;
 import cn.xsdzq.platform.util.GsonUtil;
@@ -41,6 +43,9 @@ public class CRMCreditController {
 	
 	@Autowired
 	private MallUserService mallUserService;
+	
+	@Autowired
+	private CRMCreditProductService crmCreditProductService;
 	
 	//CRM分页查询用户积分明细
 		@GetMapping(value = "/getCrmCreditRecord")
@@ -143,5 +148,26 @@ public class CRMCreditController {
 				  }
 				  mallUserService.scanCrmErrorManual();
 				return GsonUtil.buildMap(0, "success", null);
+			}
+		 //查找crm接口产品信息列表
+			@GetMapping(value = "/getCrmCreditProduct")
+			public Map<String, Object> getCrmCreditProduct(HttpServletRequest request, 
+					@RequestParam int pageNumber,@RequestParam int pageSize) {
+				
+				int sum = 0 ;		
+				List<CRMCreditProductViewEntity> entities = null;
+			
+					//全量查找
+					entities = crmCreditProductService.findByOrderByProductCode(pageNumber, pageSize);
+					sum = crmCreditProductService.countAll();
+						
+		
+				List<CRMCreditProductViewDTO> dtos = new ArrayList<CRMCreditProductViewDTO>();
+				for (CRMCreditProductViewEntity entity : entities) {
+					CRMCreditProductViewDTO dto = CreditUtil.convertCRMCreditProductDTOByEntity(entity);
+					dtos.add(dto);
+				}
+				Pagination pagination = new Pagination(pageNumber, pageSize, sum);
+				return GsonUtil.buildMap(0, "ok", dtos,pagination);
 			}
 }
