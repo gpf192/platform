@@ -2,9 +2,7 @@ package cn.xsdzq.platform.service.lcj;
 
 import java.util.List;
 
-import cn.xsdzq.platform.entity.UserEntity;
 import cn.xsdzq.platform.entity.lcj.AwardEntity;
-import cn.xsdzq.platform.entity.lcj.AwardResultEntity;
 
 public interface AwardService {
 	List<AwardEntity> getAllAward();
@@ -14,6 +12,6 @@ public interface AwardService {
 
 	void modifyAward(AwardEntity entity);
 	int getAwardResultNumber(AwardEntity awardEntity);
-	
+	int compareAwardNumber(AwardEntity awardEntity);
 
 }

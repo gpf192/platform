@@ -29,6 +29,7 @@ public class PrizeDTO implements Serializable{
 
 	private String createtime;
 	
+
 	public String getPrice() {
 		return price;
 	}

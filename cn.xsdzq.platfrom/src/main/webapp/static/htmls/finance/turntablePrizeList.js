@@ -138,6 +138,11 @@ function turntablePrizeListController($scope, $http, $state, httpUtils, layerUti
 		angular.element('#newBuild').text('确认修改');
 		angular.element('#name').focus();
 		angular.copy($scope.newPrizeList[index],$scope.formData);
+		//除了牛卡 其他都不能修改
+		if($scope.formData.type == false){
+			console.log(1);
+			 $("#amount").attr("readOnly",true); //不可编辑，可以传值
+		}
 	}
 	
 	

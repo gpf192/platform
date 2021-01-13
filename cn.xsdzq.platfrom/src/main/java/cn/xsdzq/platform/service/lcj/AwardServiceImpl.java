@@ -51,7 +51,8 @@ public class AwardServiceImpl implements AwardService{
 		info.setAwardNameAlias(entity.getAwardNameAlias());
 		info.setAwardValue(entity.getAwardValue());
 		info.setImageName(entity.getImageName());
-		info.setImageNumber(entity.getImageNumber());
+		//info.setImageNumber(entity.getImageNumber());
+		info.setAmount(entity.getAmount());
 		info.setIndex(entity.getIndex());
 		awardRepository.modifyAward(info);
 	}
@@ -64,5 +65,11 @@ public class AwardServiceImpl implements AwardService{
 			total += awardResultEntity.getAwardNumber();
 		}
 		return total;
+	}
+	@Override
+	public int compareAwardNumber(AwardEntity awardEntity) {
+		AwardEntity info = awardRepository.getAwardById(awardEntity.getId());
+		return awardEntity.getAmount()-info.getUsedNumber();
+	
 	}
 }

@@ -38,6 +38,9 @@ public class PrizeResultEntity implements Serializable {
 	@Column(name = "type", nullable = false)
 	private boolean type; // type 为0 表示减少 为1表示增加
 
+	@Column(name = "num", length = 100)
+	private Integer number = 0;
+	
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "client_id", referencedColumnName = "client_id")
 	private LcjUserEntity userEntity;
@@ -84,6 +87,20 @@ public class PrizeResultEntity implements Serializable {
 
 	public void setType(boolean type) {
 		this.type = type;
+	}
+
+	public Integer getNumber() {
+		return number;
+	}
+
+	public void setNumber(Integer number) {
+		this.number = number;
+	}
+
+	@Override
+	public String toString() {
+		return "PrizeResultEntity [id=" + id + ", recordTime=" + recordTime + ", type=" + type + ", number=" + number
+				+ ", userEntity=" + userEntity + ", prizeEntity=" + prizeEntity + "]";
 	}
 	
 

@@ -104,10 +104,10 @@ public class AwardController extends BaseController {
 	@RequestMapping(value = "/modifyAward", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> modifyAward(HttpServletRequest request, @RequestBody AwardDTO dto) {
-		
+		System.out.println("jinruxiugai ");
 		AwardEntity entity = LcjUtil.convertEntityByAwardDTO(dto);	
 		//判断  总数必须大于等于已经兑换的数量
-		if("qjfdj".equals(entity.getImageName())) {
+		/*if("qjfdj".equals(entity.getImageName())) {
 			int resultNumber = awardService.getAwardResultNumber(entity);//目前已经兑换的全家福奖个数
 			int total = entity.getImageNumber();//修改后的总数
 			
@@ -117,9 +117,17 @@ public class AwardController extends BaseController {
 				
 				return GsonUtil.buildMap(-1, message, null);			
 				}
-		}
-
-	
+		}*/
+		
+	//判断修改后的数据 与已消耗的数据
+		int residueNumber = awardService.compareAwardNumber(entity);
+		if (residueNumber < 0) {
+			String message = dto.getAwardName() + "修改失败！总数不能小于已经兑换的数量";
+			
+			return GsonUtil.buildMap(-1, message, null);			
+			}
+		//end
+		
 		awardService.modifyAward(entity);
 		User user = UserManageUtil.getUser();
 		String name = user.getUsername();

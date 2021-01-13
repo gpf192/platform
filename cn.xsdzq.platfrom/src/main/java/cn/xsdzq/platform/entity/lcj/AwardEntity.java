@@ -37,9 +37,15 @@ public class AwardEntity implements Serializable {
 	@Column(name = "image_number")
 	private Integer imageNumber;
 
+	@Column(name = "amount")
+	private Integer amount;
+	
 	@Column(name = "award_value") // 奖品价值
 	private Integer awardValue;
-
+	
+	@Column(name = "used_number")
+	private Integer usedNumber;
+	
 	public long getId() {
 		return id;
 	}
@@ -96,9 +102,26 @@ public class AwardEntity implements Serializable {
 		this.awardValue = awardValue;
 	}
 
+	public Integer getAmount() {
+		return amount;
+	}
+
+	public Integer getUsedNumber() {
+		return usedNumber;
+	}
+
+	public void setAmount(Integer amount) {
+		this.amount = amount;
+	}
+
+	public void setUsedNumber(Integer usedNumber) {
+		this.usedNumber = usedNumber;
+	}
+
 	@Override
 	public String toString() {
 		return "AwardEntity [id=" + id + ", awardName=" + awardName + ", awardNameAlias=" + awardNameAlias
-				+ ", imageName=" + imageName + ", imageNumber=" + imageNumber + ", awardValue=" + awardValue + "]";
+				+ ", imageName=" + imageName + ", index=" + index + ", imageNumber=" + imageNumber + ", amount="
+				+ amount + ", awardValue=" + awardValue + ", usedNumber=" + usedNumber + "]";
 	}
 }

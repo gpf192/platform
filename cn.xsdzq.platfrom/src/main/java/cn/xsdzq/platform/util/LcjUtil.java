@@ -356,7 +356,8 @@ public class LcjUtil {
 		dto.setImageName(entity.getImageName());
 		dto.setImageNumber(entity.getImageNumber());
 		dto.setIndex(entity.getIndex());
-				
+		dto.setAmount(entity.getAmount());	
+		dto.setUsedNumber(entity.getUsedNumber());
 		return dto;
 	}
 	public static AwardEntity convertEntityByAwardDTO(AwardDTO dto) {
@@ -366,7 +367,8 @@ public class LcjUtil {
 		entity.setAwardNameAlias(dto.getAwardNameAlias());
 		entity.setAwardValue(dto.getAwardValue());
 		entity.setImageName(dto.getImageName());
-		entity.setImageNumber(dto.getImageNumber());
+		//entity.setImageNumber(dto.getImageNumber());
+		entity.setAmount(dto.getAmount());
 		entity.setIndex(dto.getIndex());
 		return entity;
 	}

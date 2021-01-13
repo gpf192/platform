@@ -18,6 +18,24 @@ public class AwardDTO implements Serializable{
 	private Integer imageNumber;
 
 	private Integer awardValue;
+	private Integer amount;
+	private Integer usedNumber;
+
+	public Integer getAmount() {
+		return amount;
+	}
+
+	public Integer getUsedNumber() {
+		return usedNumber;
+	}
+
+	public void setAmount(Integer amount) {
+		this.amount = amount;
+	}
+
+	public void setUsedNumber(Integer usedNumber) {
+		this.usedNumber = usedNumber;
+	}
 
 	public long getId() {
 		return id;
@@ -78,7 +96,8 @@ public class AwardDTO implements Serializable{
 	@Override
 	public String toString() {
 		return "AwardDTO [id=" + id + ", awardName=" + awardName + ", awardNameAlias=" + awardNameAlias + ", imageName="
-				+ imageName + ", index=" + index + ", imageNumber=" + imageNumber + ", awardValue=" + awardValue + "]";
+				+ imageName + ", index=" + index + ", imageNumber=" + imageNumber + ", awardValue=" + awardValue
+				+ ", amount=" + amount + ", usedNumber=" + usedNumber + "]";
 	}
 	
 	
