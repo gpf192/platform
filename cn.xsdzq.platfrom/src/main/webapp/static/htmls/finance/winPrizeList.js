@@ -18,16 +18,16 @@ function winPrizeListController($scope, $http, $state, httpUtils, layerUtils, $s
 		$scope.$emit("changeNavigation", data);
 		$scope.formData.beginTime = '';
 		$scope.formData.endTime = '';
-		$scope.getWinPrizeList(20000);
+		$scope.getWinPrizeList(50);
 		$scope.currentPage = {
 				page : 0
 			};
 			$scope.selectNumList = [{
-				num : 10
-			}, {
 				num : 50
 			}, {
 				num : 100
+			}, {
+				num : 150
 			}];
 			$scope.selectNum = $scope.selectNumList[0];	
 			$scope.$watch("selectNum.num", function(newValue, oldValue) {

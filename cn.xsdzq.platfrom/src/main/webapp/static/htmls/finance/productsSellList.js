@@ -1,5 +1,5 @@
 ngApp.$inject = ['$scope', '$http', '$state', 'httpUtils', 'layerUtils', '$stateParams', '$gridService','utils'];
-function integralqueryController($scope, $http, $state, httpUtils, layerUtils, $stateParams, $gridService,utils) {
+function productsSellListController($scope, $http, $state, httpUtils, layerUtils, $stateParams, $gridService,utils) {
 	$scope.productsSellList = [];
 	$scope.formData = {};
 	$scope.init=function(){
