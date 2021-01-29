@@ -9,10 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.xsdzq.platform.dao.lcj.LcjPrizeRepository;
-import cn.xsdzq.platform.dao.lcj.PrizeRepository;
 import cn.xsdzq.platform.entity.lcj.LcjPrizeEntity;
-import cn.xsdzq.platform.entity.lcj.PrizeEntity;
-import cn.xsdzq.platform.service.InfoServiceImpl;
 
 @Service(value = "lcjPrizeServiceImpl")
 @Transactional(readOnly = true)

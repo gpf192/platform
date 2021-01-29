@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.xsdzq.platform.dao.lcj.MyPrizeRecordRepository;
+import cn.xsdzq.platform.dao.lcj.PagePrizeNumRepository;
+import cn.xsdzq.platform.dao.lcj.PagePrizeRecordRepository;
 import cn.xsdzq.platform.dao.lcj.PrizeResultRepository;
-import cn.xsdzq.platform.entity.lcj.AwardResultEntity;
-import cn.xsdzq.platform.entity.lcj.PrizeResultEntity;
+import cn.xsdzq.platform.entity.lcj.PrizeNumberEntity;
+import cn.xsdzq.platform.entity.lcj.PrizeRecordEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeResultViewEntity;
 
 @Service(value = "prizeRecordServiceImpl")
@@ -24,7 +26,11 @@ public class PrizeRecordServiceImpl implements PrizeRecordService{
 	@Autowired
 	private PrizeResultRepository prizeResultRepository;
 	
+	@Autowired
+	private PagePrizeRecordRepository pagePrizeRecordRepository;
 	
+	@Autowired
+	private PagePrizeNumRepository pagePrizeNumRepository;
 
 	@Override
 	public List<PrizeResultViewEntity> getAllPrizeRecord(int pageNumber, int pageSize) {
@@ -251,4 +257,116 @@ public class PrizeRecordServiceImpl implements PrizeRecordService{
 		// TODO Auto-generated method stub
 		return myPrizeRecordRepository.countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndClientId(beginDate, endDate, ClientId);
 	}
+	//
+	@Override
+	public List<PrizeRecordEntity> getAllPrizeRecordForKmh(int pageNumber, int pageSize){
+		PageRequest pageable = new PageRequest(pageNumber, pageSize);
+		Page<PrizeRecordEntity> pages = pagePrizeRecordRepository.findByTypeOrderByRecordTimeDesc(true, pageable);
+		List<PrizeRecordEntity> infos = pages.getContent();
+		return infos;
+	}
+	@Override
+	public int countPrizeRecodAll() {
+		return pagePrizeRecordRepository.countByType(true);
+	}
+	@Override
+	public List<PrizeRecordEntity> findRecordByUserEntity_clientNameLikeAndUserEntity_clientIdLikeOrderByNumberDesc(
+			String clientName, String clientId, int pageNumber, int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageable = new PageRequest(pageNumber, pageSize);
+		Page<PrizeRecordEntity> pages = pagePrizeRecordRepository.findByTypeAndUserEntity_clientNameLikeAndUserEntity_clientIdLikeOrderByRecordTimeDesc(true, clientName, clientId, pageable);
+		List<PrizeRecordEntity> infos = pages.getContent();
+		return infos;
+	}
+	@Override
+	public int countRecordByUserEntity_clientNameLikeAndUserEntity_clientIdLike(String clientName, String clientId) {
+		// TODO Auto-generated method stub
+		return pagePrizeRecordRepository.countByTypeAndUserEntity_clientNameLikeAndUserEntity_clientIdLike(true, clientName, clientId);
+	}
+	@Override
+	public List<PrizeRecordEntity> findRecordByUserEntity_clientNameLikeOrderByNumberDesc(String clientName,
+			int pageNumber, int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageable = new PageRequest(pageNumber, pageSize);
+		Page<PrizeRecordEntity> pages = pagePrizeRecordRepository.findByTypeAndUserEntity_clientNameLikeOrderByRecordTimeDesc(true, clientName, pageable);
+		List<PrizeRecordEntity> infos = pages.getContent();
+		return infos;
+	}
+	@Override
+	public int countRecordByUserEntity_clientNameLike(String clientName) {
+		// TODO Auto-generated method stub
+		return pagePrizeRecordRepository.countByTypeAndUserEntity_clientNameLike(true, clientName);
+	}
+	@Override
+	public List<PrizeRecordEntity> findRecordByUserEntity_clientIdLikeOrderByNumberDesc(String clientId, int pageNumber,
+			int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageable = new PageRequest(pageNumber, pageSize);
+		Page<PrizeRecordEntity> pages = pagePrizeRecordRepository.findByTypeAndUserEntity_clientIdLikeOrderByRecordTimeDesc(true, clientId, pageable);
+		List<PrizeRecordEntity> infos = pages.getContent();
+		return infos;
+	}
+	@Override
+	public int countRecordByUserEntity_clientIdLike(String clientId) {
+		// TODO Auto-generated method stub
+		return pagePrizeRecordRepository.countByTypeAndUserEntity_clientIdLike(true, clientId);
+	}
+	
+	//
+	@Override
+	public int countPrizeNumberForKmh() {
+		// TODO Auto-generated method stub
+		return (int)pagePrizeNumRepository.count();
+	}
+	@Override
+	public List<PrizeNumberEntity> getPrizeNumberForKmh(int pageNumber, int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageable = new PageRequest(pageNumber, pageSize);
+		Page<PrizeNumberEntity> pages = pagePrizeNumRepository.findByOrderByNumberDesc(pageable);
+		List<PrizeNumberEntity> infos = pages.getContent();
+		return infos;
+	}
+	@Override
+	public List<PrizeNumberEntity> findByUserEntity_clientNameLikeAndUserEntity_clientIdLikeOrderByNumberDesc(
+			String clientName, String clientId, int pageNumber, int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageable = new PageRequest(pageNumber, pageSize);
+		Page<PrizeNumberEntity> pages = pagePrizeNumRepository.findByUserEntity_clientNameLikeAndUserEntity_clientIdLikeOrderByNumberDesc( clientName,  clientId,pageable);
+		List<PrizeNumberEntity> infos = pages.getContent();
+		return infos;
+	}
+	@Override
+	public int countByUserEntity_clientNameLikeAndUserEntity_clientIdLike(String clientName, String clientId) {
+		// TODO Auto-generated method stub
+		return pagePrizeNumRepository.countByUserEntity_clientNameLikeAndUserEntity_clientIdLike(clientName, clientId);
+	}
+	@Override
+	public List<PrizeNumberEntity> findByUserEntity_clientNameLikeOrderByNumberDesc(String clientName, int pageNumber,
+			int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageable = new PageRequest(pageNumber, pageSize);
+		Page<PrizeNumberEntity> pages = pagePrizeNumRepository.findByUserEntity_clientNameLikeOrderByNumberDesc(clientName, pageable);
+		List<PrizeNumberEntity> infos = pages.getContent();
+		return infos;
+	}
+	@Override
+	public int countByUserEntity_clientNameLike(String clientName) {
+		// TODO Auto-generated method stub
+		return pagePrizeNumRepository.countByUserEntity_clientNameLike(clientName);
+	}
+	@Override
+	public List<PrizeNumberEntity> findByUserEntity_clientIdLikeOrderByNumberDesc(String clientId, int pageNumber,
+			int pageSize) {
+		// TODO Auto-generated method stub
+		PageRequest pageable = new PageRequest(pageNumber, pageSize);
+		Page<PrizeNumberEntity> pages = pagePrizeNumRepository.findByUserEntity_clientIdLikeOrderByNumberDesc(clientId, pageable);
+		List<PrizeNumberEntity> infos = pages.getContent();
+		return infos;
+	}
+	@Override
+	public int countByUserEntity_clientIdLike(String clientId) {
+		// TODO Auto-generated method stub
+		return pagePrizeNumRepository.countByUserEntity_clientIdLike(clientId);
+	}
+		
 }

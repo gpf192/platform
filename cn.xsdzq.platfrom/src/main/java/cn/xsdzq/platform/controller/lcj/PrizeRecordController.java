@@ -19,9 +19,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.xsdzq.platform.entity.lcj.LcjPrizeResultViewEntity;
-import cn.xsdzq.platform.entity.lcj.PrizeResultEntity;
+import cn.xsdzq.platform.entity.lcj.PrizeNumberEntity;
+import cn.xsdzq.platform.entity.lcj.PrizeRecordEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeResultViewEntity;
 import cn.xsdzq.platform.model.Pagination;
+import cn.xsdzq.platform.model.lcj.KmhPrizeRecordDTO;
+import cn.xsdzq.platform.model.lcj.PrizeNumDTO;
 import cn.xsdzq.platform.model.lcj.PrizeRecordDTO;
 import cn.xsdzq.platform.service.lcj.LcjPrizeResultService;
 import cn.xsdzq.platform.service.lcj.PrizeRecordService;
@@ -288,7 +291,81 @@ public class PrizeRecordController {
 		Pagination pagination = new Pagination(pageNumber, pageSize, sum);
 		return GsonUtil.buildMap(0, "ok", prizeRecordDTOs, pagination);
 	}
+	//开门红
+	@RequestMapping(value = "/userGetChanceList", method = GET, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> userGetChanceList(HttpServletRequest request,  
+			 @RequestParam String clientName, @RequestParam String clientId, 
+			 @RequestParam int pageNumber,@RequestParam int pageSize) {
+		System.out.println("全量查询 userGetChanceList    +   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+		int sum = 0 ;
+		List<PrizeRecordEntity> entitys = null;
+		int num = MethodUtil.getMethodNum(clientName, clientId);
+		if(num == 1) {
+			//全量查找
+			entitys = prizeRecordService.getAllPrizeRecordForKmh(pageNumber, pageSize);
+			sum = prizeRecordService.countPrizeRecodAll();
+		}	
+		if(num == 2) {
+			//全量查找
+			entitys = prizeRecordService.findRecordByUserEntity_clientNameLikeAndUserEntity_clientIdLikeOrderByNumberDesc(clientName, clientId, pageNumber, pageSize);
+			sum = prizeRecordService.countRecordByUserEntity_clientNameLikeAndUserEntity_clientIdLike(clientName, clientId);
+		}
+		if(num == 3) {
+			//全量查找
+			entitys = prizeRecordService.findRecordByUserEntity_clientNameLikeOrderByNumberDesc(clientName, pageNumber, pageSize);
+			sum = prizeRecordService.countRecordByUserEntity_clientNameLike(clientName);
+		}
+		if(num == 4) {
+			//全量查找
+			entitys = prizeRecordService.findRecordByUserEntity_clientIdLikeOrderByNumberDesc(clientId, pageNumber, pageSize);
+			sum = prizeRecordService.countRecordByUserEntity_clientIdLike(clientId);
+		}
+		List<KmhPrizeRecordDTO> dtos = new ArrayList<KmhPrizeRecordDTO>();
+		for (PrizeRecordEntity entity : entitys) {
+			KmhPrizeRecordDTO dto = LcjUtil.convertKmhPrizeRecordDTOByEntity(entity);
+			dtos.add(dto);
+		}
+		Pagination pagination = new Pagination(pageNumber, pageSize, sum);
+		return GsonUtil.buildMap(0, "ok", dtos, pagination);
+	}
 	
-
+	@RequestMapping(value = "/userTotalChanceList", method = GET, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> userTotalChanceList(HttpServletRequest request,  
+			 @RequestParam String clientName, @RequestParam String clientId, 
+			 @RequestParam int pageNumber,@RequestParam int pageSize) {
+		System.out.println("全量查询 userTotalChanceList    +   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+		int sum = 0 ;
+		List<PrizeNumberEntity> entitys = null;
+		int num = MethodUtil.getMethodNum(clientName, clientId);
+		if(num == 1) {
+			//全量查找
+			entitys = prizeRecordService.getPrizeNumberForKmh(pageNumber, pageSize);
+			sum = prizeRecordService.countPrizeNumberForKmh();
+		}
+		if(num == 2) {
+			//clientName ,clientId
+			entitys = prizeRecordService.findByUserEntity_clientNameLikeAndUserEntity_clientIdLikeOrderByNumberDesc(clientName, clientId, pageNumber, pageSize);
+			sum = prizeRecordService.countByUserEntity_clientNameLikeAndUserEntity_clientIdLike(clientName, clientId);
+		}
+		if(num == 3) {
+			//clientName
+			entitys = prizeRecordService.findByUserEntity_clientNameLikeOrderByNumberDesc(clientName, pageNumber, pageSize);
+			sum = prizeRecordService.countByUserEntity_clientNameLike(clientName);
+		}
+		if(num == 4) {
+			//clientId
+			entitys = prizeRecordService.findByUserEntity_clientIdLikeOrderByNumberDesc(clientId, pageNumber, pageSize);
+			sum = prizeRecordService.countByUserEntity_clientIdLike(clientId);
+		}
+		List<PrizeNumDTO> dtos = new ArrayList<PrizeNumDTO>();
+		for (PrizeNumberEntity entity : entitys) {
+			PrizeNumDTO dto = LcjUtil.convertPrizeNumDTOByEntity(entity);
+			dtos.add(dto);
+		}
+		Pagination pagination = new Pagination(pageNumber, pageSize, sum);
+		return GsonUtil.buildMap(0, "ok", dtos, pagination);
+	}
 	
 }

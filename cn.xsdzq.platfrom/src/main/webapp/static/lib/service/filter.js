@@ -71,6 +71,19 @@ ngApp.filter('voteSourceFilter', function() {
 	    }
 	}
 });
+
+ngApp.filter('kmhSourceFilter', function() { 
+	return function (value) {
+	    if(value == "13"){
+	    	return "购买产品";
+	    }
+	    if(value == "16"){
+	    	return "签约投顾";
+	    }
+	  
+	}
+});
+
 ngApp.filter('divisionFilter', function() { 
 	return function (value) {
 	    if(value == "0"){

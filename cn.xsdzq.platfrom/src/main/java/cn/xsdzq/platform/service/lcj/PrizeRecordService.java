@@ -3,6 +3,11 @@ package cn.xsdzq.platform.service.lcj;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import cn.xsdzq.platform.entity.lcj.PrizeNumberEntity;
+import cn.xsdzq.platform.entity.lcj.PrizeRecordEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeResultEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeResultViewEntity;
 
@@ -55,5 +60,29 @@ public interface PrizeRecordService {
 	
 	List<PrizeResultViewEntity> findByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndClientIdOrderByRecordTime(Date beginDate, Date endDate, String ClientId, int pageNumber, int pageSize);
 	int countByRecordTimeGreaterThanEqualAndRecordTimeLessThanEqualAndClientId(Date beginDate, Date endDate, String ClientId);
+	//kmh  PrizeRecordEntity
+	int countPrizeRecodAll();	
+	List<PrizeRecordEntity> getAllPrizeRecordForKmh(int pageNumber, int pageSize);
 	
+	List<PrizeRecordEntity> findRecordByUserEntity_clientNameLikeAndUserEntity_clientIdLikeOrderByNumberDesc(String clientName,  String clientId,int pageNumber, int pageSize);
+	int countRecordByUserEntity_clientNameLikeAndUserEntity_clientIdLike(String clientName,  String clientId);
+	
+	List<PrizeRecordEntity> findRecordByUserEntity_clientNameLikeOrderByNumberDesc(String clientName, int pageNumber, int pageSize);
+	int countRecordByUserEntity_clientNameLike(String clientName );
+	
+	List<PrizeRecordEntity> findRecordByUserEntity_clientIdLikeOrderByNumberDesc( String clientId, int pageNumber, int pageSize);
+	int countRecordByUserEntity_clientIdLike( String clientId);
+	
+	//PrizeNumberEntity
+	int countPrizeNumberForKmh();
+	List<PrizeNumberEntity> getPrizeNumberForKmh(int pageNumber, int pageSize);
+	
+	List<PrizeNumberEntity> findByUserEntity_clientNameLikeAndUserEntity_clientIdLikeOrderByNumberDesc(String clientName,  String clientId,int pageNumber, int pageSize);
+	int countByUserEntity_clientNameLikeAndUserEntity_clientIdLike(String clientName,  String clientId);
+	
+	List<PrizeNumberEntity> findByUserEntity_clientNameLikeOrderByNumberDesc(String clientName, int pageNumber, int pageSize);
+	int countByUserEntity_clientNameLike(String clientName );
+	
+	List<PrizeNumberEntity> findByUserEntity_clientIdLikeOrderByNumberDesc( String clientId, int pageNumber, int pageSize);
+	int countByUserEntity_clientIdLike( String clientId);
 }

@@ -46,9 +46,7 @@ function modifyProductController($scope, $http, $state, $stateParams, httpUtils,
 			name:"中低风险等级",
 			
 		},{
-			name:"、" +
-					"" +
-					"风险等级",
+			name:"中风险等级",
 			
 		},{
 			name:"中高风险等级",

@@ -566,6 +566,10 @@ public class MallUserServiceImpl implements MallUserService {
 			mallUserInfoEntity.setCreatetime(new Date());
 			mallUserInfoRepository.save(mallUserInfoEntity);
 		} else {
+			//将用户姓名再次更新，供前端安全校验
+			 if(temp.getClientName() !=null && temp.getClientName().length() >1){
+				 owner.setClientName(temp.getClientName());
+				 }
 			// update 逻辑 把部门信息同步过去
 			owner.setDepartmentCode(temp.getDepartmentCode());
 			owner.setDepartmentName(temp.getDepartmentDesc());
