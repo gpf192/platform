@@ -23,4 +23,18 @@ public class SysUtil {
 		
 		return dto;
 	}
+	public static String hideString(String pw) {
+		String b = "";
+		if(pw.length()>10) {
+			 b = pw.substring(0, 4)+"********"+pw.substring( pw.length()-4,pw.length());
+
+		}else if(pw.length()<=4) {
+			 b = "********";
+
+		}else {
+			b = pw.substring(0, 2)+"********"+pw.substring( pw.length()-2,pw.length());
+		}
+		
+		return b;
+	}
 }

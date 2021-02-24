@@ -16,6 +16,7 @@ import cn.xsdzq.platform.model.mall.PresentCategoryDTO;
 import cn.xsdzq.platform.model.mall.PresentDTO;
 import cn.xsdzq.platform.model.mall.PresentRecodDTO;
 import cn.xsdzq.platform.util.DateUtil;
+import cn.xsdzq.platform.util.SysUtil;
 
 public class PresentUtil {
 	
@@ -107,7 +108,12 @@ public class PresentUtil {
 		dto.setCardId(entity.getCardId());
 		dto.setPresentId(entity.getPresentId());
 		dto.setPresentName(entity.getPresent().getName());
-		dto.setPassword(entity.getPassword());
+		if(entity.getPassword()==null) {
+			dto.setPassword(entity.getPassword());
+		}else {
+			dto.setPassword(SysUtil.hideString(entity.getPassword()));//密码隐藏
+		}
+
 		dto.setCardStatus(entity.getCardStatus());
 		dto.setConvertStatus(entity.getConvertStatus());
 		dto.setCreateDate(DateUtil.DateToString(entity.getCreateDate()));
@@ -138,7 +144,12 @@ public class PresentUtil {
 		dto.setPresentName(entity.getPresentCardEntity().getPresent().getName());
 		
 		dto.setCardId(entity.getPresentCardEntity().getCardId());
-		dto.setPassword(entity.getPresentCardEntity().getPassword());
+		if(entity.getPresentCardEntity().getPassword()==null) {
+			dto.setPassword(entity.getPresentCardEntity().getPassword());
+		}else {
+			dto.setPassword(SysUtil.hideString(entity.getPresentCardEntity().getPassword()));
+		}
+		
 		dto.setPrice(entity.getPrice());
 		dto.setIntegralNum(entity.getIntegralNumber());
 		dto.setRecordTime(DateUtil.DateToString(entity.getRecordTime()));

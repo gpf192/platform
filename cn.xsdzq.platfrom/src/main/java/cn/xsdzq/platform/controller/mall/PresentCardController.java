@@ -56,7 +56,7 @@ public class PresentCardController {
 	
 	@PostMapping(value = "/add")
 	public Map<String, Object> addCard(@RequestBody PresentCardDTO dto) {
-		System.out.println(dto.toString());
+		//System.out.println(dto.toString());
 		PresentCardEntity entity = PresentUtil.convertPresentCardEntityByDTO(dto);
 		PresentEntity p = presentService.findById(dto.getPresentId());
 		entity.setPresent(p);
@@ -77,7 +77,7 @@ public class PresentCardController {
 			entity.setModifytime(new Date());
 			entity.setCreatedBy(temp.getCreatedBy());//保持不变
 			entity.setModifyBy(name);
-			System.out.println(entity.toString());
+			//System.out.println(entity.toString());
 			presentCardService.addPresentCard(entity);
 		}
 		

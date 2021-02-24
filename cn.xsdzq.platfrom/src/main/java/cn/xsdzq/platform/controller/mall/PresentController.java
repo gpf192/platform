@@ -60,6 +60,7 @@ public class PresentController {
 			//更新
 			PresentEntity p = presentService.findById(entity.getId());
 			entity.setStoreUnused(p.getStoreUnused());//库存保持不变
+			entity.setConvertNumber(p.getConvertNumber());//已兑换数量保持不变
 			presentService.addPresent(entity);
 		}else {
 			//新增
