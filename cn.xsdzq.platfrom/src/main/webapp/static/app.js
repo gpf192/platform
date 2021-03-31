@@ -308,6 +308,23 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/integral/crmCreditRecord",
 		templateUrl : "htmls/integral/crmCreditRecord.html",
 		controller : "crmCreditRecordController"
+	}).state("userBlacklist", {
+		url : "/integral/userBlacklist",
+		templateUrl : "htmls/integral/userBlacklist.html",
+		controller : "userBlacklistController"
+	}).state("userBlacklistAdd", {
+		url : "/integral/userBlacklistAdd",
+		templateUrl : "htmls/integral/userBlacklistAdd.html",
+		controller : "userBlacklistAddController"
+	}).state("userBlacklistModify", {
+		url : "/integral/userBlacklistModify",
+		templateUrl : "htmls/integral/userBlacklistModify.html",
+		controller : "userBlacklistModifyController",
+		params:{param:{}}
+	}).state("userBlacklistImport", {
+		url : "/integral/userBlacklistImport",
+		templateUrl : "htmls/integral/userBlacklistImport.html",
+		controller : "userBlacklistImportController"
 	}).state("crmProductList", {
 		url : "/integral/crmProductList",
 		templateUrl : "htmls/integral/crmProductList.html",

@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.xsdzq.platform.entity.mall.CardImportTempEntity;
-import cn.xsdzq.platform.entity.mall.CreditImportTempEntity;
 import cn.xsdzq.platform.entity.mall.PresentCardEntity;
 import cn.xsdzq.platform.entity.mall.PresentCategoryEntity;
 import cn.xsdzq.platform.entity.mall.PresentEntity;
 import cn.xsdzq.platform.entity.mall.PresentRecordEntity;
-import cn.xsdzq.platform.entity.mall.PresentResultEntity;
 import cn.xsdzq.platform.model.mall.CardImportTempDTO;
 import cn.xsdzq.platform.model.mall.PresentCardDTO;
 import cn.xsdzq.platform.model.mall.PresentCategoryDTO;
@@ -162,6 +160,10 @@ public class PresentUtil {
 		dto.setPresentCode(entity.getPresentCode());
 		dto.setCardStatus(1);
 		dto.setConvertStatus(0);
+		String date = entity.getExpiryTime();
+		String s = date.substring(0, 4)+"-"+date.substring(4, 6)
+		+"-"+date.substring(6, 8);
+		dto.setExpiryTime(date);
 		return dto;
 	}
 	
@@ -173,7 +175,7 @@ public class PresentUtil {
 		   vo.setPresentCode(String.valueOf(lo.get(2)).replaceAll(" ", "")); 
 		   vo.setCardStatus(1);
 		   vo.setConvertStatus(0);
- 
+		   vo.setExpiryTime(String.valueOf(lo.get(3)).replaceAll(" ", ""));
 		return vo;
 	}
 	

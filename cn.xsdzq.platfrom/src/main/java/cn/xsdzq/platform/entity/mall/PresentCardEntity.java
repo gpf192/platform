@@ -82,6 +82,9 @@ public class PresentCardEntity implements Serializable {
 	@Column(name = "modifytime")
 	private Date modifytime;
 	
+	@Column(name = "expiry_time")
+	private Date expiryTime;//失效时间
+	
 	public String getCreatedBy() {
 		return createdBy;
 	}
@@ -187,6 +190,14 @@ public class PresentCardEntity implements Serializable {
 
 	public void setPresentId(long presentId) {
 		this.presentId = presentId;
+	}
+
+	public Date getExpiryTime() {
+		return expiryTime;
+	}
+
+	public void setExpiryTime(Date expiryTime) {
+		this.expiryTime = expiryTime;
 	}
 
 	@Override

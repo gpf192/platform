@@ -13,6 +13,16 @@ public class CardImportTempDTO {
 	private int convertStatus = 0;//兑换状态，已兑换1/未兑换0
 	
 	private String presentCode;
+	
+	private String expiryTime;//失效时间
+
+	public String getExpiryTime() {
+		return expiryTime;
+	}
+
+	public void setExpiryTime(String expiryTime) {
+		this.expiryTime = expiryTime;
+	}
 
 	public long getId() {
 		return id;
@@ -65,7 +75,8 @@ public class CardImportTempDTO {
 	@Override
 	public String toString() {
 		return "CardImportTempDTO [id=" + id + ", cardId=" + cardId + ", password=" + password + ", cardStatus="
-				+ cardStatus + ", convertStatus=" + convertStatus + ", presentCode=" + presentCode + "]";
+				+ cardStatus + ", convertStatus=" + convertStatus + ", presentCode=" + presentCode + ", expiryTime="
+				+ expiryTime + "]";
 	}
 	
 	

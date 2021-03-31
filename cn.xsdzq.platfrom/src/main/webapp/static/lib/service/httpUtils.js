@@ -129,9 +129,16 @@ ngApp.factory("httpUtils", [ function() {
 		getCreditImportTemp :baseUrl + "mall/credit/getCreditImportTemp",
 		checkBeforeSubmit:baseUrl + "mall/credit/checkBeforeSubmit",
 		submit:baseUrl + "mall/credit/submit",
-		deleteTempData:baseUrl + "mall/credit/deleteTempData"
+		deleteTempData:baseUrl + "mall/credit/deleteTempData",
 		
-
+		getAllUserBlacklist:baseUrl + "mall/user/getAll",
+		addUserBlacklist:baseUrl + "mall/user/addUserBlacklist",
+		deleteUserBlacklist:baseUrl + "mall/user/delete",
+		
+		uploadUserBlacklistImportExcel:baseUrl + "mall/user/uploadExcel",
+		submitUserBlacklistImport:baseUrl + "mall/user/submit",
+		deleteUserBlacklistImport:baseUrl + "mall/user/deleteUserBlacklistImport",
+		getAllUserBlacklistTemp:baseUrl + "mall/user/getAllUserBlacklistTemp"
 
 	};
 

@@ -52,6 +52,20 @@ public class DateUtil {
 			}
 		return date1;
 	}
+	public static Date stringToDateAndSeconds1(String date) {
+		String d = date.substring(0, 4)+"-"+date.substring(4, 6)
+		+"-"+date.substring(6, 8);
+		 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		 Date date1 = null ;
+		
+			try {
+				date1 = sdf.parse(d +" 23:59:59");
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return date1;
+	}
 	public static String DateToString(Date date) {
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		
@@ -128,8 +142,11 @@ public class DateUtil {
 			
 	}
 	public static void main(String[] args) {
-		//System.out.println(getFutureDayAsInt("20201026" ,0));
-		System.out.println( DateUtil.Dateymd(new Date()));
-		System.out.println( getPreDayAsInt(1));
+		//StringBuilder s = new StringBuilder();
+		//String a  = "33"+s.append(55)+s.append(true)+s.append("66").toString();
+		String s = "20213456";
+		//System.out.println(s.substring(0, 4)+"-"+s.substring(4, 6)
+		//+"-"+s.substring(6, 8));
+		System.out.println( stringToDateAndSeconds1("20210326"));
 	}	
 }

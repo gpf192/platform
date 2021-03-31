@@ -1,14 +1,14 @@
 ngApp.$inject = [ '$scope', '$http', '$state', '$stateParams', '$gridService', 'httpUtils', 'layerUtils', 'utils'];
-function cardImportController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils,utils) {
+function userBlacklistImportController($scope, $http, $state, $stateParams, $gridService, httpUtils, layerUtils,utils) {
 	$scope.formData = {};
 	$scope.init=function(){
 		var data = {
 				"one" : {
-					name : "卡券管理",
-					goto:"cardmanage"
+					name : "用户黑名单管理",
+					goto:"userBlacklist"
 				},
 				"two" : {
-					name : "卡券批量导入",
+					name : "批量导入",
 					goto:""
 
 				}
@@ -36,7 +36,7 @@ function cardImportController($scope, $http, $state, $stateParams, $gridService,
 	};
 	
 	$scope.getEmpList = function(pageSize) {
-		var url = httpUtils.url.getCardImportTemp;
+		var url = httpUtils.url.getAllUserBlacklistTemp;
 		var username = "";
 		var clientId = "";
 		var votes_source = "";
@@ -78,7 +78,7 @@ function cardImportController($scope, $http, $state, $stateParams, $gridService,
       
 		 $http({
 	            method: 'POST',
-	            url: httpUtils.url.uploadCardTemp,
+	            url: httpUtils.url.uploadUserBlacklistImportExcel,
 	            data: form,
 	            headers: {'Content-Type': undefined},
 	            transformRequest: angular.identity
@@ -99,7 +99,7 @@ function cardImportController($scope, $http, $state, $stateParams, $gridService,
 	$scope.submit=function(){
 		layerUtils.iConfirm("是否提交当前数据？提交后不可删除。", function() {
 		//var url = httpUtils.url.submitImportTempToCredit;
-			var url = httpUtils.url.submitCardImport;
+			var url = httpUtils.url.submitUserBlacklistImport;
 
 		var param = {
 				categoryName:1,
@@ -125,10 +125,11 @@ function cardImportController($scope, $http, $state, $stateParams, $gridService,
 		//清空当前数据 deletTemp
 	$scope.deletTemp=function(){
 		layerUtils.iConfirm("是否清空当前临时数据？", function() {
-		var url = httpUtils.url.deleteCardTempData;
+		var url = httpUtils.url.deleteUserBlacklistImport;
 		$http.post(url).success(function(data) {
 			if (data.resCode == 0) {
 				layerUtils.iMsg(-1,"删除成功");
+			//	$scope.formData={};
 				$scope.getEmpList(50);//此时再次查询 应该是没有数据
 			} else {
 				layerUtils.iMsg(-1,data.respMsg);
@@ -162,7 +163,7 @@ function cardImportController($scope, $http, $state, $stateParams, $gridService,
 	$scope.templateDownLoad=function(){ 
 		var excelArrs = getExcelData();
 		var myDate = new Date().Format("yyyyMMddhhmmss");
-		 alasql.promise('SELECT * INTO XLSX("卡券导入模板-' + myDate+ '.xlsx",{headers:true}) FROM ?',[excelArrs])
+		 alasql.promise('SELECT * INTO XLSX("用户导入模板-' + myDate+ '.xlsx",{headers:true}) FROM ?',[excelArrs])
 			.then(function (data) {
 			  if(data == 1){
 				$timeout(function(){
@@ -177,12 +178,14 @@ function cardImportController($scope, $http, $state, $stateParams, $gridService,
 		//angular.forEach($scope.userVoteList, function(data, index, datas) {
 			var newObj = {	
 				
-			};						
-				newObj["卡号"] ="" ;
-				newObj["密码"]  ="";
-				newObj["所属商品代码"]  ="" ;
-				newObj["失效时间"]  ="" ;
+			};
+							
+				newObj["客户号"] ="" ;
+				newObj["客户姓名"]  ="";
+				newObj["营业部"]  ="" ;
+				
 
+			
 			arr.push(newObj);
 		//});
 		return arr;

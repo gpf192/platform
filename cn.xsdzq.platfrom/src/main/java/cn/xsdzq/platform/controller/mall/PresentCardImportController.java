@@ -74,8 +74,8 @@ public class PresentCardImportController {
 		  listob = new ImportExcelUtil().getBankListByExcel(in,file.getOriginalFilename()); 
 
 		  in.close(); 
-		System.out.println("end------");
-		System.out.println("listob.size(): "+listob.size());//少后10条数据？
+		//System.out.println("end------");
+		//System.out.println("listob.size(): "+listob.size());//少后10条数据？
 		  //该处可调用service相应方法进行数据保存到数据库中，现只对数据输出 
 		  for (int i = 1; i < listob.size(); i++) { //i=0 则包括第一行标题数据
 		   List<Object> lo = listob.get(i); //每行数据

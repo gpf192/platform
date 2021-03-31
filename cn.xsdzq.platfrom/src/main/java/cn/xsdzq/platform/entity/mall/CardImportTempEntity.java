@@ -48,6 +48,17 @@ public class CardImportTempEntity implements Serializable {
 	@Column(name = "presentCode")
 	private String presentCode;//关联父项
 
+	@Column(name = "expiry_time")
+	private String expiryTime;//失效时间
+	
+	public String getExpiryTime() {
+		return expiryTime;
+	}
+
+	public void setExpiryTime(String expiryTime) {
+		this.expiryTime = expiryTime;
+	}
+
 	public long getId() {
 		return id;
 	}
@@ -99,7 +110,8 @@ public class CardImportTempEntity implements Serializable {
 	@Override
 	public String toString() {
 		return "CardImportTempEntity [id=" + id + ", cardId=" + cardId + ", password=" + password + ", cardStatus="
-				+ cardStatus + ", convertStatus=" + convertStatus + ", presentCode=" + presentCode + "]";
+				+ cardStatus + ", convertStatus=" + convertStatus + ", presentCode=" + presentCode + ", expiryTime="
+				+ expiryTime + "]";
 	}
 	
 	
