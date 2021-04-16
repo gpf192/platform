@@ -136,7 +136,7 @@ function cardImportController($scope, $http, $state, $stateParams, $gridService,
 			}
 		});
 		}, function() {
-			console.log("取消");
+			//console.log("取消");
 		});
 	}
 	

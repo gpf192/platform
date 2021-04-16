@@ -1,7 +1,5 @@
 package cn.xsdzq.platform.model.mall;
 
-import javax.persistence.Column;
-
 public class PresentDTO {
 	private long id;
 	private String name;
@@ -26,7 +24,14 @@ public class PresentDTO {
 	private String createtime;
 	private String attention;//attention注意事项
 	private int newFlag;//0-新增，1-更新 
+	private int illegalNum;//下架的卡券数量
 	
+	public int getIllegalNum() {
+		return illegalNum;
+	}
+	public void setIllegalNum(int illegalNum) {
+		this.illegalNum = illegalNum;
+	}
 	public int getNewFlag() {
 		return newFlag;
 	}

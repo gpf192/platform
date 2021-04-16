@@ -80,7 +80,8 @@ function integraladdController($scope, $http, $state, $stateParams, $gridService
 				categoryCode:categoryCode,
 				integralValue:integralValue,
 				frontName:frontName,
-				flag:$scope.flagModel.code
+				//flag:$scope.flagModel.code
+				flag:'1'
 		}
 	//	console.log($scope.formData.presentNameModel.id+"--00");
 		$http.post(url, param).success(function(data) {

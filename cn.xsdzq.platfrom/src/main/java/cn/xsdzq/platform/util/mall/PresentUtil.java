@@ -115,6 +115,12 @@ public class PresentUtil {
 		dto.setCardStatus(entity.getCardStatus());
 		dto.setConvertStatus(entity.getConvertStatus());
 		dto.setCreateDate(DateUtil.DateToString(entity.getCreateDate()));
+		if(entity.getExpiryTime()==20991231) {
+			dto.setExpiryTime("无");
+		}else {
+			dto.setExpiryTime(DateUtil.stringToDateAndSeconds2(entity.getExpiryTime()));
+		}
+	
 		return dto;
 	}
 	
@@ -127,6 +133,7 @@ public class PresentUtil {
 		entity.setCardStatus(1);//默认上架
 		entity.setPresentId(dto.getPresentId());
 		entity.setConvertStatus(0);//默认未兑换
+		entity.setExpiryTime(Integer.parseInt(dto.getExpiryTime()));
 		return entity;
 	}
 	
@@ -161,9 +168,14 @@ public class PresentUtil {
 		dto.setCardStatus(1);
 		dto.setConvertStatus(0);
 		String date = entity.getExpiryTime();
-		String s = date.substring(0, 4)+"-"+date.substring(4, 6)
-		+"-"+date.substring(6, 8);
-		dto.setExpiryTime(date);
+		if(!"无".equals(date)) {
+			String s = date.substring(0, 4)+"-"+date.substring(4, 6)
+			+"-"+date.substring(6, 8);
+			dto.setExpiryTime(s+" 00:00:00");
+		}else {
+			dto.setExpiryTime(date);
+		}
+		
 		return dto;
 	}
 	
@@ -172,10 +184,11 @@ public class PresentUtil {
 		
 		   vo.setCardId(String.valueOf(lo.get(0)).replaceAll(" ", "")); 
 		   vo.setPassword(String.valueOf(lo.get(1)).replaceAll(" ", "")); 
-		   vo.setPresentCode(String.valueOf(lo.get(2)).replaceAll(" ", "")); 
+		   vo.setPresentCode(String.valueOf(lo.get(2)).replaceAll(" ", ""));
+		   vo.setExpiryTime(String.valueOf(lo.get(3)).replaceAll(" ", ""));
 		   vo.setCardStatus(1);
 		   vo.setConvertStatus(0);
-		   vo.setExpiryTime(String.valueOf(lo.get(3)).replaceAll(" ", ""));
+		  
 		return vo;
 	}
 	
@@ -183,9 +196,14 @@ public class PresentUtil {
 		PresentCardEntity card = new PresentCardEntity();
 		card.setCardId(temp.getCardId());
 		card.setPassword(temp.getPassword());
-		//card.setPresentCode(temp.getPresentCode());
 		card.setCardStatus(1);
 		card.setConvertStatus(0);
+		if("无".equals(temp.getExpiryTime())) {
+			card.setExpiryTime(20991231);
+		}else{
+			card.setExpiryTime(Integer.parseInt(temp.getExpiryTime()));
+		}
+		
 		return card;
 	}
 	public static boolean  isRepeat(List<CardImportTempEntity> temps){

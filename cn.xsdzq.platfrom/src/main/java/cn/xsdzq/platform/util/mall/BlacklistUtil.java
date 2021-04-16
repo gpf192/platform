@@ -37,8 +37,18 @@ public class BlacklistUtil {
 		UserBlackListImportEntity vo = new UserBlackListImportEntity();
 		
 		   vo.setClientId(String.valueOf(lo.get(0)).replaceAll(" ", "")); 
-		   vo.setClientName(String.valueOf(lo.get(1)).replaceAll(" ", "")); 
-		   vo.setDepartmentDesc(String.valueOf(lo.get(2)).replaceAll(" ", "")); 
+		   try {
+			vo.setClientName(String.valueOf(lo.get(1)).replaceAll(" ", ""));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			vo.setClientName("");
+		} 
+		   try {
+			vo.setDepartmentDesc(String.valueOf(lo.get(2)).replaceAll(" ", ""));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			vo.setDepartmentDesc("");
+		} 
 		   
 		return vo;
 	}

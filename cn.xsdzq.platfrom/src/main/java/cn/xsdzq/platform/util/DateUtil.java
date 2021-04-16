@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import cn.xsdzq.platform.constants.CreditRecordConst;
 
 public class DateUtil {
 	public static String getStandardDate(Date date) {
@@ -13,7 +12,14 @@ public class DateUtil {
 		String standardString = sFormat.format(date);
 		return standardString;
 	}
-	
+	public static int getNowDate() {
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+		Calendar c = Calendar.getInstance();
+	    Date pre = c.getTime();
+		
+	    int sd = Integer.parseInt(sdf.format(pre)) ;
+		return sd;
+	}
 	public static Date stringToDate(String date) {
 		 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		 Date date1 = null ;
@@ -52,6 +58,7 @@ public class DateUtil {
 			}
 		return date1;
 	}
+	
 	public static Date stringToDateAndSeconds1(String date) {
 		String d = date.substring(0, 4)+"-"+date.substring(4, 6)
 		+"-"+date.substring(6, 8);
@@ -65,6 +72,13 @@ public class DateUtil {
 				e.printStackTrace();
 			}
 		return date1;
+	}
+	
+	public static String stringToDateAndSeconds2(int date) {
+		String sdate = String.valueOf(date);
+		String d = sdate.substring(0, 4)+"-"+sdate.substring(4, 6)
+		+"-"+sdate.substring(6, 8)+" 00:00:00";
+		return d;
 	}
 	public static String DateToString(Date date) {
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

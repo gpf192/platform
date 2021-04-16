@@ -7,6 +7,7 @@ import java.util.List;
 import cn.xsdzq.platform.entity.mall.CreditImportTempEntity;
 import cn.xsdzq.platform.entity.mall.MallUserEntity;
 import cn.xsdzq.platform.entity.mall.MallUserInfoEntity;
+import cn.xsdzq.platform.model.mall.UserIntegralDTO;
 
 public interface MallUserService {
 
@@ -15,6 +16,7 @@ public interface MallUserService {
 	public void addMallUser(MallUserEntity mallUserEntity);
 
 	public void addCreditScore(CreditImportTempEntity temp);
+	public boolean modifyUserTotalIntegral(UserIntegralDTO dto);
 	
 	//分页查询
 	List<MallUserInfoEntity> findByOrderByCreditScoreDesc(int pageNumber, int pageSize);
@@ -45,6 +47,9 @@ public interface MallUserService {
 	
 	//跑批失效分数
 	public void endDateJob();
+	
+	//跑批失效卡券
+	public void cardEndDateJob();
 	
 	public void scanCrmCreditJob();
 	//手动再次执行

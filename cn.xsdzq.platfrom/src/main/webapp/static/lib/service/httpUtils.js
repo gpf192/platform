@@ -119,6 +119,7 @@ ngApp.factory("httpUtils", [ function() {
 		deleteCreditCategory:baseUrl + "mall/credit/delete",
 		getUserCreditTotal:baseUrl + "mall/credit/getUserCreditTotal",
 		getCreditImportRecord :baseUrl + "mall/credit/getCreditImportRecord",
+		modifyUserIntegral :baseUrl + "mall/credit/modifyUserIntegral",
 		
 		crmCreditRecord:baseUrl + "mall/crm/getCrmCreditRecord",
 		crmCreditApiMsg:baseUrl + "mall/crm/getCrmCreditApiMsg",

@@ -22,6 +22,8 @@ import cn.xsdzq.platform.dao.mall.MallUserRepository;
 import cn.xsdzq.platform.dao.mall.PageCrmCreditApiErrMsgRepository;
 import cn.xsdzq.platform.dao.mall.PageCrmCreditRecordRepository;
 import cn.xsdzq.platform.dao.mall.PageMallUserInfoRepository;
+import cn.xsdzq.platform.dao.mall.PresentCardRepository;
+import cn.xsdzq.platform.dao.mall.PresentRepository;
 import cn.xsdzq.platform.entity.lcj.ParamEntity;
 import cn.xsdzq.platform.entity.mall.CRMCreditApiErrorMsgEntity;
 import cn.xsdzq.platform.entity.mall.CRMCreditRecordEntity;
@@ -30,8 +32,12 @@ import cn.xsdzq.platform.entity.mall.CreditImportTempEntity;
 import cn.xsdzq.platform.entity.mall.CreditRecordEntity;
 import cn.xsdzq.platform.entity.mall.MallUserEntity;
 import cn.xsdzq.platform.entity.mall.MallUserInfoEntity;
+import cn.xsdzq.platform.entity.mall.PresentCardEntity;
+import cn.xsdzq.platform.entity.mall.PresentEntity;
+import cn.xsdzq.platform.model.mall.UserIntegralDTO;
 import cn.xsdzq.platform.service.mall.MallUserService;
 import cn.xsdzq.platform.util.DateUtil;
+import cn.xsdzq.platform.util.GsonUtil;
 import cn.xsdzq.platform.util.UserManageUtil;
 
 
@@ -64,6 +70,12 @@ public class MallUserServiceImpl implements MallUserService {
 	private PageCrmCreditApiErrMsgRepository pageCrmCreditApiErrMsgRepository;
 	
 	@Autowired
+	private PresentCardRepository presentCardRepository;
+	
+	@Autowired
+	private PresentRepository presentRepository;
+	
+	@Autowired
 	private ParamRepository paramRepository;
 	
 	@Override
@@ -72,6 +84,40 @@ public class MallUserServiceImpl implements MallUserService {
 
 	}
 	
+	@Override
+	@Transactional
+	public boolean modifyUserTotalIntegral(UserIntegralDTO dto) {
+		
+		MallUserInfoEntity info = mallUserInfoRepository.findByClientId(dto.getClientId());
+		int num = info.getCreditScore() - dto.getChangeNum();
+		if(num < 0) {
+			return false;
+		}
+		MallUserEntity user =  mallUserRepository.findByClientId(dto.getClientId());
+		CreditRecordEntity  record = new CreditRecordEntity();
+		record.setSerialNum("manual");		
+		record.setClientId(dto.getClientId());
+		record.setIntegralNumber(dto.getChangeNum());
+		record.setDateFlag(DateUtil.getStandardDate(new Date()));//2021-01-02
+		record.setGroupTime(DateUtil.getStandardDate(new Date()).substring(0, 7));
+		record.setBeginDate(DateUtil.Dateymd(new Date()));
+		record.setRecordTime(new Date());
+		record.setMallUserEntity(user);
+		if("1".equals(dto.getFlag())) {
+			info.setCreditScore(info.getCreditScore() + dto.getChangeNum());
+			record.setType(true);
+			record.setItemCode(dto.getCategoryCode());
+			record.setImportItem(dto.getCategoryName());
+		}else {
+			info.setCreditScore(info.getCreditScore() - dto.getChangeNum());
+			record.setType(false);
+			record.setReason(dto.getCategoryName());
+			record.setReasonCode(dto.getCategoryCode());
+		}
+		mallUserInfoRepository.save(info);
+		creditRecordRepository.save(record);
+		return true;
+	}
 	@Override
 	@Transactional
 	public void addCreditScore(CreditImportTempEntity temp) {
@@ -310,7 +356,7 @@ public class MallUserServiceImpl implements MallUserService {
 		// TODO Auto-generated method stub
 		return mallUserInfoRepository.findByClientId(clientId);
 	}
-
+//扫描失效积分
 	@Override
 	@Transactional
 	public void endDateJob() {
@@ -318,7 +364,7 @@ public class MallUserServiceImpl implements MallUserService {
 		List<Integer> list = new ArrayList<Integer>();
 		list.add(0);
 		list.add(1);
-		//筛选条件 结束日期，type为1表示增加的记录，changetype为0或1，标识增加的未兑换或未完全兑换
+		//筛选条件 :结束日期，type为1表示增加的记录，changetype为0或1，标识增加的未兑换或未完全兑换
 		List<CreditRecordEntity> recordList = creditRecordRepository.findByEndDateAndTypeAndChangeTypeIn(preday,  true, list);
 		System.out.println("昨天共有几条到期记录 -- "+recordList.size());
 		//，0，新增状态，未兑换，1-未完全兑换，2-已完成兑换，3-已过期
@@ -383,12 +429,37 @@ public class MallUserServiceImpl implements MallUserService {
 				mallUserInfoRepository.save(userInfo);//更改总积分
 			}
 		}
+		
+		
 	}
-	
+	//失效卡券
+	@Override
+	@Transactional
+	public void cardEndDateJob() {
+		System.out.println(" 开始扫描失效卡券 "+new Date());
+		List<PresentCardEntity> carList = new ArrayList<PresentCardEntity>();
+		/**
+		 * 查询条件：当天日期（int类型），未兑换（值是0）
+		 */
+		carList = presentCardRepository.findByExpiryTimeAndConvertStatus(DateUtil.getNowDate(), 0);
+		if(carList.size() == 0) {
+			System.out.println(" 今日无失效卡券 "+new Date());
+		}else {
+			System.out.println(" 今日失效卡券 "+carList.size()+" 条 "+new Date());
+			for(PresentCardEntity car:carList) {
+				car.setCardStatus(0);//卡券状态， 上架1/下架0
+				presentCardRepository.save(car);
+				//所属产品类别库存总数 -1
+				PresentEntity present = car.getPresent();
+				present.setStoreUnused(present.getStoreUnused()-1);
+				presentRepository.save(present);
+			}
+		}
+		
+	}
 	//@Override  此算法冗余，弃用
 	/*@Transactional
 	public void endDateJobBak() {
-		// TODO Auto-generated method stub
 		int preday =DateUtil.getPreDayAsInt(1);
 		List<CreditRecordEntity> recordList = creditRecordRepository.findByEndDateAndType(preday,  true);
 		System.out.println("昨天共有几条到期记录 -- "+recordList.size());

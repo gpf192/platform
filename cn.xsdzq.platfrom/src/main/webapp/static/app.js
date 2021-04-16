@@ -296,6 +296,11 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl : "htmls/integral/integralModify.html",
 		controller : "integralModifyController",
 		params:{param:{}}
+	}).state("userTotalIntegralModify", {
+		url : "/integral/userTotalIntegralModify",
+		templateUrl : "htmls/integral/userTotalIntegralModify.html",
+		controller : "userTotalIntegralModifyController",
+		params:{param:{}}
 	}).state("integralUserDetail", {
 		url : "/integral/integralUserDetail",
 		templateUrl : "htmls/integral/integralUserDetail.html",

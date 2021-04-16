@@ -13,11 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.xsdzq.platform.dao.mall.CreditCategoryRepository;
 import cn.xsdzq.platform.dao.mall.CreditRecordRepository;
-import cn.xsdzq.platform.dao.mall.PageCreditRecordRepository;
 import cn.xsdzq.platform.dao.mall.PageCreditRepository;
 import cn.xsdzq.platform.entity.mall.CreditEntity;
 import cn.xsdzq.platform.entity.mall.CreditRecordEntity;
-import cn.xsdzq.platform.entity.mall.PresentCardEntity;
 import cn.xsdzq.platform.service.mall.CreditService;
 
 @Service(value = "creditServiceImpl")

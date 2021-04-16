@@ -25,17 +25,20 @@ public class CreditTask {
 	// 扫描失效积分，cron = "0 * 12 * * ? " 12点执行  ，cron = "0 0 0 * * ? " 0点执行
 	@Scheduled(cron = "0 0 0 * * ? ") // 间隔5秒执行  cron = "0/5 * * * * ? "
     public void ScanCreditEndTask() {
-		//System.out.println("主机：0点扫描失效积分任务,begin: "+ DateUtil.DateToString(new Date()));
-		System.out.println("备机：0点扫描失效积分任务,begin: "+ DateUtil.DateToString(new Date()));
+		System.out.println("主机：0点扫描失效积分任务,begin: "+ DateUtil.DateToString(new Date()));
+		//System.out.println("备机：0点扫描失效积分任务,begin: "+ DateUtil.DateToString(new Date()));
 		ParamEntity paramEntity = paramService.getValueByCode("scanCreditEndTask");
 		if("1".equals(paramEntity.getValue())) {
-			//1-代开  0-关闭
+			//1-打开  0-关闭
+			//积分自动失效
 			mallUserService.endDateJob();
-			//System.out.println("主机：0点扫描失效积分任务,end: "+ DateUtil.DateToString(new Date()));
-			System.out.println("备机：0点扫描失效积分任务,end: "+ DateUtil.DateToString(new Date()));
+			System.out.println("主机：0点扫描失效积分任务,end: "+ DateUtil.DateToString(new Date()));
+			//System.out.println("备机：0点扫描失效积分任务,end: "+ DateUtil.DateToString(new Date()));
+			//卡券自动失效
+			mallUserService.cardEndDateJob();
 		}else{
-			//System.out.println("主机：0点扫描失效积分任务,开关已关闭。"+ DateUtil.DateToString(new Date()));
-			System.out.println("备机：0点扫描失效积分任务,开关已关闭。"+ DateUtil.DateToString(new Date()));
+			System.out.println("主机：0点扫描失效积分任务,开关已关闭。"+ DateUtil.DateToString(new Date()));
+			//System.out.println("备机：0点扫描失效积分任务,开关已关闭。"+ DateUtil.DateToString(new Date()));
 		};
 		
     }
@@ -49,11 +52,11 @@ public class CreditTask {
 		if("1".equals(paramEntity.getValue())) {
 			//1-代开  0-关闭
 			mallUserService.scanCrmCreditJob();//
-			//System.out.println("主机：21点扫描CRM积分明细任务,end: "+ DateUtil.DateToString(new Date()));
-			System.out.println("备机：21点扫描CRM积分明细任务,end: "+ DateUtil.DateToString(new Date()));
+			System.out.println("主机：21点扫描CRM积分明细任务,end: "+ DateUtil.DateToString(new Date()));
+			//System.out.println("备机：21点扫描CRM积分明细任务,end: "+ DateUtil.DateToString(new Date()));
 		}else{
-			//System.out.println("主机：21点扫描CRM积分明细任务,开关已关闭: "+ DateUtil.DateToString(new Date()));
-			System.out.println("备机：21点扫描CRM积分明细任务,开关已关闭: "+ DateUtil.DateToString(new Date()));
+			System.out.println("主机：21点扫描CRM积分明细任务,开关已关闭: "+ DateUtil.DateToString(new Date()));
+			//System.out.println("备机：21点扫描CRM积分明细任务,开关已关闭: "+ DateUtil.DateToString(new Date()));
 		};
 		
     }

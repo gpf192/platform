@@ -68,7 +68,12 @@ function integralqueryController($scope, $http, $state, $stateParams, $gridServi
 		var tableElement = angular.element("#datatable1");
 		$gridService.queryTableDatas($scope, tableElement, params, settings, $http);
 	};
-	
+	//修改积分 
+	$scope.modify =function(index){
+		var user=$scope.userVoteList[index];
+		console.log(user);
+		$state.go("userTotalIntegralModify",{param :user});
+	}
 	//导出为excel
 	
 	Date.prototype.Format = function (fmt) {  

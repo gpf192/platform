@@ -34,6 +34,7 @@ import cn.xsdzq.platform.model.mall.CardImportTempDTO;
 import cn.xsdzq.platform.service.mall.PageCardImportTempService;
 import cn.xsdzq.platform.service.mall.PresentCardService;
 import cn.xsdzq.platform.service.mall.PresentService;
+import cn.xsdzq.platform.util.DateUtil;
 import cn.xsdzq.platform.util.GsonUtil;
 import cn.xsdzq.platform.util.ImportExcelUtil;
 import cn.xsdzq.platform.util.UserManageUtil;
@@ -74,8 +75,7 @@ public class PresentCardImportController {
 		  listob = new ImportExcelUtil().getBankListByExcel(in,file.getOriginalFilename()); 
 
 		  in.close(); 
-		//System.out.println("end------");
-		//System.out.println("listob.size(): "+listob.size());//少后10条数据？
+		
 		  //该处可调用service相应方法进行数据保存到数据库中，现只对数据输出 
 		  for (int i = 1; i < listob.size(); i++) { //i=0 则包括第一行标题数据
 		   List<Object> lo = listob.get(i); //每行数据
@@ -138,16 +138,19 @@ public class PresentCardImportController {
 		for (CardImportTempEntity entity : temps) {
 			PresentEntity present =  presentService.getPresentEntitiesByCode(entity.getPresentCode());
 			if(present == null) {
-				return GsonUtil.buildMap(1, "父类代码:"+entity.getPresentCode()+"不存在，无法导入", null);
+				return GsonUtil.buildMap(1, "父类代码: "+entity.getPresentCode()+" 不存在，无法导入", null);
 			}
 			//检查cardId是否存在
 			PresentCardEntity card = presentCardService.findByCardId(entity.getCardId());
 			if(card != null) {		
-				return GsonUtil.buildMap(1, "cardId:"+entity.getCardId()+"已存在，无法导入", null);
+				return GsonUtil.buildMap(1, "cardId: "+entity.getCardId()+" 已存在，无法导入", null);
+			}
+			if(Integer.parseInt(entity.getExpiryTime()) <= DateUtil.getNowDate() ) {
+				return GsonUtil.buildMap(1, "cardId: "+entity.getCardId()+" 失效日期小于等于当天，无法导入", null);
 			}
 			
-			
 		}
+		
 			User user = UserManageUtil.getUser();
 			String username = user.getUsername();
 		//循环每条数据并插入正式表，同时父类加上相应数据,判断导入数据的时效性		

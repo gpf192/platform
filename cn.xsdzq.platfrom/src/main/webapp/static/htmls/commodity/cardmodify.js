@@ -7,12 +7,12 @@ function cardmodifyController($scope, $http, $state, $stateParams, $gridService,
 		var data = {
 				"one" : {
 					name : "卡券管理",
-					goto:""
+					goto:"cardmanage"
 
 				},
 				"two" : {
 					name : "修改卡券",
-					goto:"cardmodify"
+					goto:""
 
 				}
 			}
@@ -51,6 +51,16 @@ function cardmodifyController($scope, $http, $state, $stateParams, $gridService,
 			$scope.cardStatusModel = $scope.cardStatusList[1];
 		}
 		angular.copy($stateParams.param,$scope.formData);
+		//对失效日期字段单独处理
+		var time = $scope.formData.expiryTime ;//2021-12-01
+		if("无"===time){
+			$scope.formData.expiryTime = "";
+		}else{
+			var t = time.substring(0,4)+time.substring(5,7)+time.substring(8,10);
+			$scope.formData.expiryTime = t;
+		}
+		
+		
 	};
 	
 	
@@ -61,7 +71,7 @@ function cardmodifyController($scope, $http, $state, $stateParams, $gridService,
 		var cardId="";
 		var password="";
 		var cardStatus="1";
-		
+		var expiryTime = "";
 		
 		if(!utils.isEmpty($scope.formData.cardId)) {
 			cardId = $scope.formData.cardId;
@@ -70,36 +80,49 @@ function cardmodifyController($scope, $http, $state, $stateParams, $gridService,
 			return;
 		}
 		
-		if(!utils.isEmpty($scope.formData.password)) {
+		/*if(!utils.isEmpty($scope.formData.password)) {
 			if( $scope.formData.password == "无") {
-				console.log(1);
+			
 				password = password;
 			}else{
-				console.log(2);
+				
 				password = $scope.formData.password;
 			}
 			
+		}*/
+		
+		
+		if(!utils.isEmpty($scope.formData.expiryTime)) {
+			//不为空
+			if($scope.formData.expiryTime.length != 8){
+				//且格式年月日
+				 layerUtils.iMsg(-1, "失效日期格式应为年月日，如20200101");
+					return;
+			 }
+			//后端服务器判断 失效日期必须大于当天  			
+			expiryTime = $scope.formData.expiryTime;
+		}else {
+			//为空
+			expiryTime = 20991231;
 		}
-		
-		
-		
+		 
 		var param = {
 				id:$scope.formData.id,
 				presentId:$scope.formData.presentNameModel.id,				
 				cardId:cardId,
 				password:password,
 				cardStatus:cardStatus,
+				expiryTime:expiryTime,
 				isNew:1//更新
 				
-		}		
-		console.log($scope.formData.presentNameModel.id+" 44444 ");
+		}
 		$http.post(url, param).success(function(data) {
 			if (data.resCode == 0) {
 				layerUtils.iAlert("修改成功",function(){
 					$state.go("cardmanage");
 				});
 			} else {
-				layerUtils.iMsg(-1, "修改失败");
+				layerUtils.iMsg(-1, data.respMsg);
 			}
 		});
 	}
