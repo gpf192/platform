@@ -42,7 +42,7 @@ public class CreditRecordEntity implements Serializable {
 	private String reason;//减票原因
 
 	@Column(name = "reason_code")
-	private String reasonCode;
+	private String reasonCode;//过期失效-11， 兑换-10
 	
 	// 项目名称，
 	@Column(name = "import_Item")

@@ -103,15 +103,20 @@ public class MallUserServiceImpl implements MallUserService {
 		record.setBeginDate(DateUtil.Dateymd(new Date()));
 		record.setRecordTime(new Date());
 		record.setMallUserEntity(user);
+		//写入前端显示名称
+		CreditEntity centity = creditCategoryRepository.findByCategoryCode(dto.getCategoryCode());
+		record.setItem(centity.getFrontName());
+		record.setItemCode(dto.getCategoryCode());
 		if("1".equals(dto.getFlag())) {
 			info.setCreditScore(info.getCreditScore() + dto.getChangeNum());
 			record.setType(true);
-			record.setItemCode(dto.getCategoryCode());
 			record.setImportItem(dto.getCategoryName());
+
+			
 		}else {
 			info.setCreditScore(info.getCreditScore() - dto.getChangeNum());
 			record.setType(false);
-			record.setReason(dto.getCategoryName());
+			record.setReason("手工变更");
 			record.setReasonCode(dto.getCategoryCode());
 		}
 		mallUserInfoRepository.save(info);
