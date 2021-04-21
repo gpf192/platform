@@ -52,6 +52,8 @@ public interface MallUserService {
 	public void cardEndDateJob();
 	
 	public void scanCrmCreditJob();
+	//邮件发送任务
+	public void mailSendCreditJob();
 	//手动再次执行
 	public void scanCrmErrorManual();
 		

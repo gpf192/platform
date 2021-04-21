@@ -17,6 +17,7 @@ import cn.xsdzq.platform.constants.CreditRecordConst;
 import cn.xsdzq.platform.dao.lcj.ParamRepository;
 import cn.xsdzq.platform.dao.mall.CreditCategoryRepository;
 import cn.xsdzq.platform.dao.mall.CreditRecordRepository;
+import cn.xsdzq.platform.dao.mall.MailItemListRepository;
 import cn.xsdzq.platform.dao.mall.MallUserInfoRepository;
 import cn.xsdzq.platform.dao.mall.MallUserRepository;
 import cn.xsdzq.platform.dao.mall.PageCrmCreditApiErrMsgRepository;
@@ -30,6 +31,7 @@ import cn.xsdzq.platform.entity.mall.CRMCreditRecordEntity;
 import cn.xsdzq.platform.entity.mall.CreditEntity;
 import cn.xsdzq.platform.entity.mall.CreditImportTempEntity;
 import cn.xsdzq.platform.entity.mall.CreditRecordEntity;
+import cn.xsdzq.platform.entity.mall.MailItemListEntity;
 import cn.xsdzq.platform.entity.mall.MallUserEntity;
 import cn.xsdzq.platform.entity.mall.MallUserInfoEntity;
 import cn.xsdzq.platform.entity.mall.PresentCardEntity;
@@ -37,7 +39,7 @@ import cn.xsdzq.platform.entity.mall.PresentEntity;
 import cn.xsdzq.platform.model.mall.UserIntegralDTO;
 import cn.xsdzq.platform.service.mall.MallUserService;
 import cn.xsdzq.platform.util.DateUtil;
-import cn.xsdzq.platform.util.GsonUtil;
+import cn.xsdzq.platform.util.SendEmailUtil;
 import cn.xsdzq.platform.util.UserManageUtil;
 
 
@@ -77,6 +79,9 @@ public class MallUserServiceImpl implements MallUserService {
 	
 	@Autowired
 	private ParamRepository paramRepository;
+	 
+	@Autowired
+	private MailItemListRepository mailItemListRepository;
 	
 	@Override
 	public void addMallUser(MallUserEntity mallUserEntity) {
@@ -781,8 +786,42 @@ public class MallUserServiceImpl implements MallUserService {
 	
 		
 	}
-	
-	
+	@Override
+	@Transactional
+	public void mailSendCreditJob() {
+		//查询积分项目，拼接邮件内容ParamEntity
+		String from = paramRepository.getValueByCode("mailSender").getValue();
+		String to = paramRepository.getValueByCode("mailReceiver").getValue();
+		String authorizationCode = paramRepository.getValueByCode("mailAuthorizationCode").getValue();
+		String smtpServer = paramRepository.getValueByCode("smtpServer").getValue();
+		String emailMsg = "";
+		String date = DateUtil.getPreDayAsString();
+		List<CreditRecordEntity> recordList = new ArrayList<CreditRecordEntity>();
+		List<MailItemListEntity> itemList = new ArrayList<MailItemListEntity>();
+		//1-每天都 检查，0-每月第一天检查
+		if("01".equals(date.substring(8))) {
+			 itemList = mailItemListRepository.findAll();//每月第一天
+		}else {
+			 //itemList = mailItemListRepository.findByFlag(1);//每天
+			 itemList = mailItemListRepository.findAll();
+		}
+		for(MailItemListEntity item : itemList) {
+			recordList = creditRecordRepository.findByTypeAndItemCodeAndDateFlag(true, item.getItemCode(), date);
+			if(recordList.size() == 0 ) {
+				emailMsg = emailMsg + item.getItemCode()+"——"+item.getItemName()+" ; <br>";
+				
+				recordList.clear();
+			}
+		}
+		//添加正文前缀
+		if(!"".equals(emailMsg)){
+			emailMsg = "此邮件为系统自动发送，请勿回复！<br>查询日期为： "+date+" ,"+"以下积分项目无数据更新： <br>"+emailMsg+"请排查crm系统是否正常生成数据。";
+		}
+		//调用邮件发送工具类
+		SendEmailUtil.sendMail(from, to,
+				emailMsg, authorizationCode, smtpServer);
+		
+	}
 
 	
 }

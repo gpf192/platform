@@ -18,4 +18,6 @@ public interface CreditRecordRepository extends JpaRepository<CreditRecordEntity
 	List<CreditRecordEntity> findBySerialNum(String serialNum);
 	//查询当前用户的总积分用
 	List<CreditRecordEntity> findByClientIdAndType(String clientId, boolean type);
+	//邮件自动推送查询
+	List<CreditRecordEntity> findByTypeAndItemCodeAndDateFlag(boolean type, String itemCode, String date);
 }
