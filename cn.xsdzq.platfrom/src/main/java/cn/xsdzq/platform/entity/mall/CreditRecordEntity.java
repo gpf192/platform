@@ -56,7 +56,7 @@ public class CreditRecordEntity implements Serializable {
 	@Column(name = "item")
 	private String item;//前端展示
 
-		// 项目代码，此处不与项目类关联， 保持导入记录明细，避免项目类被删除后，找不到记录
+	// 项目代码，此处不与项目类关联， 保持导入记录明细，避免项目类被删除后，找不到记录
 	@Column(name = "item_code")
 	private String itemCode;
 	

@@ -33,6 +33,24 @@ function integraladdController($scope, $http, $state, $stateParams, $gridService
 		$scope.flagModel = $scope.flagList[0];
 	};
 	
+	function checksum(chars){
+		var sum = 0; 
+		for (var i=0; i<chars.length; i++)
+		{ 
+		    var c = chars.charCodeAt(i); 
+		    if ((c >= 0x0001 && c <= 0x007e) || (0xff60<=c && c<=0xff9f))
+	
+		{ 
+		    sum++; 
+		    }
+		    else 
+		    {     
+		    sum+=2; 
+	
+		    } 
+		}
+		return sum;
+	}
 	
 	$scope.newBuild = function() {
 		var url = httpUtils.url.addCreditCategory;	
@@ -61,19 +79,21 @@ function integraladdController($scope, $http, $state, $stateParams, $gridService
 			layerUtils.iMsg(-1, "项目编码不能为空");
 			return;
 		}
-		/*if(!utils.isEmpty($scope.formData.integralValue)) {
-			integralValue = $scope.formData.integralValue;
-		}else {
-			layerUtils.iMsg(-1, "积分值不能为空");
-			return;
-		}*/
+		
 		if(!utils.isEmpty($scope.formData.frontName)) {
 			frontName = $scope.formData.frontName;
 		}else {
 			layerUtils.iMsg(-1, "前端显示名称不能为空");
 			return;
 		}
-	
+		
+		var s1 = checksum($scope.formData.categoryName);
+		var s2 = checksum($scope.formData.frontName);
+		if(s1>40 || s2>40){
+			layerUtils.iMsg(-1, "项目名称或前端显示名称字数超过限制");
+			return;
+		}
+		
 		
 		var param = {
 				categoryName:categoryName,

@@ -30,7 +30,7 @@ public class CreditTask {
 	private ParamService paramService;
 	
 	
-	// 扫描失效积分，cron = "0 * 12 * * ? " 12点执行  ，cron = "0 0 0 * * ? " 0点执行
+	// 扫描失效积分，以及卡券自动失效cron = "0 * 12 * * ? " 12点执行  ，cron = "0 0 0 * * ? " 0点执行
 	//@Scheduled(cron = "0 0 0 * * ? ") // 间隔5秒执行  cron = "0/5 * * * * ? "
 	@Scheduled(cron="${creditEndCron}")
     public void ScanCreditEndTask() {
@@ -42,12 +42,10 @@ public class CreditTask {
 			//积分自动失效
 			mallUserService.endDateJob();
 			System.out.println("主机：0点扫描失效积分任务,end: "+ DateUtil.DateToString(new Date()));
-			//System.out.println("备机：0点扫描失效积分任务,end: "+ DateUtil.DateToString(new Date()));
 			//卡券自动失效
 			mallUserService.cardEndDateJob();
 		}else{
 			System.out.println("主机：0点扫描失效积分任务,开关已关闭。"+ DateUtil.DateToString(new Date()));
-			//System.out.println("备机：0点扫描失效积分任务,开关已关闭。"+ DateUtil.DateToString(new Date()));
 		};
 		
     }

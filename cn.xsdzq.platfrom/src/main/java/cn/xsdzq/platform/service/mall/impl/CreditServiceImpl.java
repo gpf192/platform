@@ -37,8 +37,10 @@ public class CreditServiceImpl implements CreditService{
 	@Transactional
 	public void addCredit(CreditEntity entity) {
 		// TODO Auto-generated method stub
-		//判断是否有关联导入积分明细，若有则更新明细中的前端项目显示字段
-		List<CreditRecordEntity> recordList = creditRecordRepository.findByTypeAndItemCode(true, entity.getCategoryCode());
+		//判断是否有关联导入积分明细，若有则更新明细中的前端项目显示字段，包括手动减积分
+		//List<CreditRecordEntity> recordList = creditRecordRepository.findByTypeAndItemCode(true, entity.getCategoryCode());
+		List<CreditRecordEntity> recordList = creditRecordRepository.findByItemCode(entity.getCategoryCode());
+
 		if(recordList.size() >0) {
 			for(CreditRecordEntity record:recordList) {
 				record.setItem(entity.getFrontName());

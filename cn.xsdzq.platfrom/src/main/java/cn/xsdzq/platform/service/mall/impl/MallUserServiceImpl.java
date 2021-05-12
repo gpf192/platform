@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import cn.xsdzq.platform.constants.CreditRecordConst;
 import cn.xsdzq.platform.dao.lcj.ParamRepository;
 import cn.xsdzq.platform.dao.mall.CreditCategoryRepository;
@@ -92,12 +93,17 @@ public class MallUserServiceImpl implements MallUserService {
 	@Override
 	@Transactional
 	public boolean modifyUserTotalIntegral(UserIntegralDTO dto) {
-		
+		//判断剩余积分是否足够扣减
 		MallUserInfoEntity info = mallUserInfoRepository.findByClientId(dto.getClientId());
-		int num = info.getCreditScore() - dto.getChangeNum();
-		if(num < 0) {
-			return false;
+		if("0".equals(dto.getFlag())) {
+			int num = info.getCreditScore() - dto.getChangeNum();
+			if(num < 0) {
+				return false;
+			}
 		}
+		//如果增加积分， 按照导入积分逻辑，生成相应的截止日期
+		
+		//如果减少积分，就走兑换逻辑进行扣减
 		MallUserEntity user =  mallUserRepository.findByClientId(dto.getClientId());
 		CreditRecordEntity  record = new CreditRecordEntity();
 		record.setSerialNum("manual");		
@@ -113,21 +119,69 @@ public class MallUserServiceImpl implements MallUserService {
 		record.setItem(centity.getFrontName());
 		record.setItemCode(dto.getCategoryCode());
 		if("1".equals(dto.getFlag())) {
+			ParamEntity p =paramRepository.getValueByCode("cvp");
+			int cvp = Integer.parseInt(p.getValue());//当前有效期天数
 			info.setCreditScore(info.getCreditScore() + dto.getChangeNum());
 			record.setType(true);
 			record.setImportItem(dto.getCategoryName());
+			record.setEndDate(DateUtil.getFutureDayAsInt(DateUtil.Dateymd(new Date()),cvp-1));//
 
 			
 		}else {
 			info.setCreditScore(info.getCreditScore() - dto.getChangeNum());
 			record.setType(false);
-			record.setReason("手工变更");
+			record.setReason("积分变更");
 			record.setReasonCode(dto.getCategoryCode());
+			//走正常兑换消耗积分处理逻辑
+			try {
+				handleRudeceCredit( user,  dto.getChangeNum());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		mallUserInfoRepository.save(info);
 		creditRecordRepository.save(record);
 		return true;
 	}
+	//扣减积分
+
+
+	void handleRudeceCredit(MallUserEntity mallUserEntity, int reduceScore) {
+		List<CreditRecordEntity> creditRecordEntities = creditRecordRepository.findByUnusedCredit(mallUserEntity,
+				CreditRecordConst.ADDSCORE, 1);
+		log.info("creditRecordEntities: " + creditRecordEntities.size());
+		for (CreditRecordEntity creditRecordEntity : creditRecordEntities) {
+			log.info(creditRecordEntity.toString());
+			// 做减法
+			int score;
+			if (creditRecordEntity.getChangeType() == CreditRecordConst.CHANGETYPE_UNUSED) {
+				score = creditRecordEntity.getIntegralNumber();
+			} else {
+				score = creditRecordEntity.getRemindNumer();
+			}
+			if (reduceScore - score > 0) {
+				creditRecordEntity.setChangeType(CreditRecordConst.CHANGETYPE_COMPLETE);
+				creditRecordEntity.setRemindNumer(0);
+				reduceScore = reduceScore - score;
+				creditRecordRepository.save(creditRecordEntity);
+			} else if (reduceScore - score == 0) {
+				creditRecordEntity.setChangeType(CreditRecordConst.CHANGETYPE_COMPLETE);
+				creditRecordEntity.setRemindNumer(0);
+				reduceScore = reduceScore - score;
+				creditRecordRepository.save(creditRecordEntity);
+				break;
+			} else {
+				creditRecordEntity.setChangeType(CreditRecordConst.CHANGETYPE_REMIND);
+				creditRecordEntity.setRemindNumer(score - reduceScore);
+				reduceScore = 0;
+				creditRecordRepository.save(creditRecordEntity);
+				break;
+			}
+		}
+
+	}
+
 	@Override
 	@Transactional
 	public void addCreditScore(CreditImportTempEntity temp) {

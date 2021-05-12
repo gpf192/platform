@@ -105,7 +105,8 @@ function userTotalIntegralModifyController($scope, $http, $state, $stateParams, 
 					$state.go("integralquery");
 				});
 			} else {
-				layerUtils.iMsg(-1, data.resMsg);
+				
+				layerUtils.iMsg(-1, data.respMsg);
 			}
 		});
 	}
