@@ -385,6 +385,19 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/commodity/commoditymanage",
 		templateUrl : "htmls/commodity/commoditymanage.html",
 		controller : "commoditymanageController"
+	}).state("videoList", {
+		url : "/video/videoList",
+		templateUrl : "htmls/video/videoList.html",
+		controller : "videoListController"		
+	}).state("newVideo", {
+		url : "/video/newVideo",
+		templateUrl : "htmls/video/newVideo.html",
+		controller : "newVideoController"		
+	}).state("modifyVideo", {
+		url : "/video/modifyVideo",
+		templateUrl : "htmls/video/modifyVideo.html",
+		controller : "modifyVideoController",
+		params:{user:{}}
 	});
 	
 

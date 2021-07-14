@@ -139,8 +139,12 @@ ngApp.factory("httpUtils", [ function() {
 		uploadUserBlacklistImportExcel:baseUrl + "mall/user/uploadExcel",
 		submitUserBlacklistImport:baseUrl + "mall/user/submit",
 		deleteUserBlacklistImport:baseUrl + "mall/user/deleteUserBlacklistImport",
-		getAllUserBlacklistTemp:baseUrl + "mall/user/getAllUserBlacklistTemp"
-
+		getAllUserBlacklistTemp:baseUrl + "mall/user/getAllUserBlacklistTemp",
+		
+		videoList:baseUrl + "video/getVideoList",
+		addVideo:baseUrl + "video/addVideo",
+		deleteVideo:baseUrl + "video/deleteVideo"
+		
 	};
 
 	function getUrl() {

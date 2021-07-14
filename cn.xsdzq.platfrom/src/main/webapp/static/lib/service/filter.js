@@ -222,7 +222,17 @@ ngApp.filter('orderStatusFilter', function() {
 	    
 	}
 });
-
+ngApp.filter('openFlag', function() { 
+	return function (value) {
+	    if(value == 0){
+	    	return "否";
+	    }
+	    if(value == 1){
+	    	return "是";
+	    }
+	    
+	}
+});
 ngApp.filter('omitFilter', function() { 
 	return function (str) {
 		if(str){

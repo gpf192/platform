@@ -854,10 +854,10 @@ public class MallUserServiceImpl implements MallUserService {
 		List<MailItemListEntity> itemList = new ArrayList<MailItemListEntity>();
 		//1-每天都 检查，0-每月第一天检查
 		if("01".equals(date.substring(8))) {
-			 itemList = mailItemListRepository.findAll();//每月第一天
+			 itemList = mailItemListRepository.findAll();//每月第一天查全量
 		}else {
-			 //itemList = mailItemListRepository.findByFlag(1);//每天
-			 itemList = mailItemListRepository.findAll();
+			 itemList = mailItemListRepository.findByFlag(1);//每天查三个项目 
+			// itemList = mailItemListRepository.findAll();
 		}
 		for(MailItemListEntity item : itemList) {
 			recordList = creditRecordRepository.findByTypeAndItemCodeAndDateFlag(true, item.getItemCode(), date);
@@ -868,12 +868,14 @@ public class MallUserServiceImpl implements MallUserService {
 			}
 		}
 		//添加正文前缀
+		//emailMsg = "test-"+new Date();
 		if(!"".equals(emailMsg)){
 			emailMsg = "此邮件为系统自动发送，请勿回复！<br>查询日期为： "+date+" ,"+"以下积分项目无数据更新： <br>"+emailMsg+"请排查crm系统是否正常生成数据。";
+			//调用邮件发送工具类
+			SendEmailUtil.sendMail(from, to,
+					emailMsg, authorizationCode, smtpServer);
 		}
-		//调用邮件发送工具类
-		SendEmailUtil.sendMail(from, to,
-				emailMsg, authorizationCode, smtpServer);
+		
 		
 	}
 
