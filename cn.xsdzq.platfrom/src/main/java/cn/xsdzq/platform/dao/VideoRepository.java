@@ -9,6 +9,7 @@ import cn.xsdzq.platform.entity.VideoEntity;
 
 public interface VideoRepository extends JpaRepository<VideoEntity, Long> {
 
-	List<VideoEntity> findByToogle(boolean toogle);
+	List<VideoEntity> findByToogleAndFundType(boolean toogle, int fundType);
+	List<VideoEntity> findByFundTypeOrderByIdDesc( int fundType);
 
 }

@@ -26,14 +26,16 @@ public class VideoServiceImpl implements VideoService {
 	private PageVideoRepository pageVideoRepository;
 
 	@Override
-	public VideoEntity getCurrentVideoEntity() {
+	public VideoEntity getCurrentVideoEntity(int fundType) {
 		// TODO Auto-generated method stub
-		List<VideoEntity> videoEntities = videoRepository.findByToogle(true);
+		List<VideoEntity> videoEntities = videoRepository.findByToogleAndFundType(true, fundType);
 		VideoEntity currentVideoEntity = null;
 		if (videoEntities.size() > 0) {
+			
 			currentVideoEntity = videoEntities.get(0);
 		} else {
-			currentVideoEntity = videoRepository.findAll().get(0);
+			List<VideoEntity> li = videoRepository.findByFundTypeOrderByIdDesc(fundType);
+			currentVideoEntity = li.get(0);
 		}
 		  VideoId videoId = new VideoId();
 		  videoId.setId(currentVideoEntity.getId());
@@ -67,18 +69,18 @@ public class VideoServiceImpl implements VideoService {
 	}
 //
 	@Override
-	public List<VideoEntity> findAll(int pageNumber, int pageSize) {
+	public List<VideoEntity> findAll(int fundType,int pageNumber, int pageSize) {
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<VideoEntity> pages = pageVideoRepository.findAll(pageRequest);
+		Page<VideoEntity> pages = pageVideoRepository.findByFundTypeOrderByCreatetimeDesc(fundType,pageRequest);
 			
 		List<VideoEntity> infos = pages.getContent();
 		return infos;
 	}
 
 	@Override
-	public int coutAll() {
+	public int coutAll(int fundType) {
 		// TODO Auto-generated method stub
-		return (int)pageVideoRepository.count();
+		return pageVideoRepository.countByFundType(fundType);
 	}
 
 
@@ -89,7 +91,7 @@ public class VideoServiceImpl implements VideoService {
 		// TODO Auto-generated method stub
 		// 新建用户给予基础的权限
 		pageVideoRepository.save(videoEntity);
-		List<VideoEntity> list = pageVideoRepository.findByToogle(true);		
+		List<VideoEntity> list = pageVideoRepository.findByToogleAndFundType(true, videoEntity.getFundType());		
 		if(list.size() > 1) {
 			
 			throw new RuntimeException("只允许开启一个基金视频，请关闭其他视频。");

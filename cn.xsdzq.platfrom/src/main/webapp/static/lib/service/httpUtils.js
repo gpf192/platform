@@ -132,14 +132,14 @@ ngApp.factory("httpUtils", [ function() {
 		submit:baseUrl + "mall/credit/submit",
 		deleteTempData:baseUrl + "mall/credit/deleteTempData",
 		
-		getAllUserBlacklist:baseUrl + "mall/user/getAll",
-		addUserBlacklist:baseUrl + "mall/user/addUserBlacklist",
-		deleteUserBlacklist:baseUrl + "mall/user/delete",
+		getAllUserBlacklist:baseUrl + "mall/userr/getAll",
+		addUserBlacklist:baseUrl + "mall/userr/addUserBlacklist",
+		deleteUserBlacklist:baseUrl + "mall/userr/delete",
 		
-		uploadUserBlacklistImportExcel:baseUrl + "mall/user/uploadExcel",
-		submitUserBlacklistImport:baseUrl + "mall/user/submit",
-		deleteUserBlacklistImport:baseUrl + "mall/user/deleteUserBlacklistImport",
-		getAllUserBlacklistTemp:baseUrl + "mall/user/getAllUserBlacklistTemp",
+		uploadUserBlacklistImportExcel:baseUrl + "mall/userr/uploadExcel",
+		submitUserBlacklistImport:baseUrl + "mall/userr/submit",
+		deleteUserBlacklistImport:baseUrl + "mall/userr/deleteUserBlacklistImport",
+		getAllUserBlacklistTemp:baseUrl + "mall/userr/getAllUserBlacklistTemp",
 		
 		videoList:baseUrl + "video/getVideoList",
 		addVideo:baseUrl + "video/addVideo",

@@ -2,18 +2,16 @@ ngApp.$inject = ['$scope', '$http', '$state', '$stateParams', 'httpUtils', 'laye
 function modifyVideoController($scope, $http, $state, $stateParams, httpUtils, layerUtils, utils) {
 	
 	$scope.formData = {};
+	$scope.temp = {};
 	$scope.init=function(){
 		var data = [{
-					name : "用户管理",
+					name : "基金视频管理",
 					goto:""
 				},
+				
 				{
-					name : "用户列表管理",
-					goto:"videoList"
-				},
-				{
-					name : "修改视频",
-					goto:"modifyuser"
+					name : "编辑视频",
+					goto:"modifyVideo"
 				}];
 		$scope.$emit("changeNavigation", data);
 		
@@ -24,6 +22,11 @@ function modifyVideoController($scope, $http, $state, $stateParams, httpUtils, l
 		}
 		angular.copy($stateParams.user,$scope.formData);
 		UM.getEditor('myEditor').setContent($scope.formData.content);
+		if($scope.formData.fundType === 1){
+			$scope.temp.ft = "持营类";
+		}else if($scope.formData.fundType === 2){
+			$scope.temp.ft = "新发类";
+		}
 	};
 	
 	var um = UM.getEditor('myEditor');
@@ -60,7 +63,12 @@ function modifyVideoController($scope, $http, $state, $stateParams, httpUtils, l
 		$http.post(url, $scope.formData).success(function(data) {
 			if (data.resCode == 0) {
 				layerUtils.iAlert("修改成功",function(){
-					$state.go("videoList");
+					if($scope.formData.fundType === 1){
+						$state.go("videoList");
+					}else{
+						$state.go("xfvideoList");
+					}
+					//$state.go("videoList");
 				});
 			} else {
 				layerUtils.iMsg(-1,data.respMsg);

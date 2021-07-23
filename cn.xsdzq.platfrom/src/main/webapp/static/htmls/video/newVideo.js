@@ -16,7 +16,16 @@ function newVideoController($scope, $http, $state, httpUtils, layerUtils) {
 
 				}
 			}
-			$scope.$emit("changeNavigation", data);
+		$scope.flagList = [{
+			name:"持营类",
+			code:1
+		},{
+			name:"新发类",
+			code:2
+		}]
+		$scope.fundType = $scope.flagList[0];
+		
+		$scope.$emit("changeNavigation", data);
 		$scope.formData.toogle = false;
 		
 	};
@@ -47,11 +56,19 @@ function newVideoController($scope, $http, $state, httpUtils, layerUtils) {
 		
 		var url = httpUtils.url.addVideo;
 		$scope.formData.content = UM.getEditor('myEditor').getContent();
+		$scope.formData.fundType = $scope.fundType.code;
+		console.log($scope.formData);
 		$http.post(url, $scope.formData).success(function(data) {
 			if (data.resCode == 0) {
 				layerUtils.iMsg(-1,"添加成功");
-				$scope.formData={};
-				UM.getEditor('myEditor').setContent('');
+				if($scope.formData.fundType === 1){
+					$state.go("videoList");
+				}else{
+					$state.go("xfvideoList");
+				}
+				//$state.go("videoList");
+				//$scope.formData={};
+				//UM.getEditor('myEditor').setContent('');
 			} else {
 				layerUtils.iMsg(-1,data.respMsg);
 			}

@@ -18,6 +18,16 @@ public class VideoDTO {
 
 	private int videoPlayNumber;
 
+	private int fundType;
+	
+	public int getFundType() {
+		return fundType;
+	}
+
+	public void setFundType(int fundType) {
+		this.fundType = fundType;
+	}
+
 	public long getId() {
 		return id;
 	}

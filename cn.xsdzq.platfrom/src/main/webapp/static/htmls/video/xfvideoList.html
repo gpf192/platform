@@ -1,8 +1,8 @@
-<script type="text/javascript" src="htmls/video/videoList.js"></script>
+<script type="text/javascript" src="htmls/video/xfvideoList.js"></script>
 <div class="box border primary" ng-init="init()">
 	<div class="box-title">
 		<h4>
-			<i class="fa fa-bars"></i>持营基金视频管理
+			<i class="fa fa-bars"></i>新发基金视频管理
 		</h4>
 		<div class="tools hidden">
 			<a href="#box-config" data-toggle="modal" class="config"> <i
@@ -42,7 +42,7 @@
 				class="datatable table table-striped table-bordered table-hover  text-center"
 				aria-describedby="datatable1_info">
 				<thead>
-				
+					
 					<tr role="row">
 						<th class="col-sm-1 text-center" role="columnheader" tabindex="0"
 							aria-controls="datatable1" rowspan="1" colspan="1">序号</th>
@@ -73,7 +73,7 @@
 					<tr ng-repeat="user in users | filter:search">
 						<td class="col-sm-1">{{$index+1}}</td>
 						<td class="col-sm-1">{{user.name}}</td>
-						<td class="col-sm-1"><span ng-bind="user.fundType == 1?'持营类':'新增类'"></span></td>
+						<td class="col-sm-1"><span ng-bind="user.fundType == 1?'持营':'新发'"></span></td>
 						<td class="col-sm-1">{{user.startTime}}</td>
 						<td class="col-sm-1">{{user.fundCode}}</td>
 						<td class="col-sm-1">{{user.videoUrl}}</td>

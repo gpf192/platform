@@ -56,6 +56,9 @@ public class VideoEntity implements Serializable {
 
 	@Column(name = "page_number") // 页面访问量
 	private int pageNumber;
+	
+	@Column(name = "fund_type") // 1-持营，2-新发
+	private int fundType;
 
 	@Column(name = "video_play_number") // 视频的播放量
 	private int videoPlayNumber;
@@ -156,6 +159,14 @@ public class VideoEntity implements Serializable {
 
 	public void setModifytime(Date modifytime) {
 		this.modifytime = modifytime;
+	}
+
+	public int getFundType() {
+		return fundType;
+	}
+
+	public void setFundType(int fundType) {
+		this.fundType = fundType;
 	}
 
 	@Override

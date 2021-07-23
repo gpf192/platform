@@ -392,11 +392,24 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 	}).state("newVideo", {
 		url : "/video/newVideo",
 		templateUrl : "htmls/video/newVideo.html",
-		controller : "newVideoController"		
+		controller : "newVideoController"
 	}).state("modifyVideo", {
 		url : "/video/modifyVideo",
 		templateUrl : "htmls/video/modifyVideo.html",
 		controller : "modifyVideoController",
+		params:{user:{}}
+	}).state("xfvideoList", {
+		url : "/video/xfvideoList",
+		templateUrl : "htmls/video/xfvideoList.html",
+		controller : "xfvideoListController"		
+	}).state("newxfVideo", {
+		url : "/video/newxfVideo",
+		templateUrl : "htmls/video/newxfVideo.html",
+		controller : "newxfVideoController"		
+	}).state("modifyxfVideo", {
+		url : "/video/modifyxfVideo",
+		templateUrl : "htmls/video/modifyxfVideo.html",
+		controller : "modifyxfVideoController",
 		params:{user:{}}
 	});
 	

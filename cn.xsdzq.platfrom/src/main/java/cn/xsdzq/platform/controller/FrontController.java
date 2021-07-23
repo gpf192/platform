@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.xsdzq.platform.entity.CaptureErrorEntity;
 import cn.xsdzq.platform.entity.CategoryEntity;
 import cn.xsdzq.platform.entity.CustomerMobileEntity;
 import cn.xsdzq.platform.entity.InfoEntity;
@@ -33,6 +34,7 @@ import cn.xsdzq.platform.model.KCBean;
 import cn.xsdzq.platform.model.Pagination;
 import cn.xsdzq.platform.model.SearchBean;
 import cn.xsdzq.platform.model.VideoId;
+import cn.xsdzq.platform.service.CaptureErrorService;
 import cn.xsdzq.platform.service.CustomerKCService;
 import cn.xsdzq.platform.service.ICategoryService;
 import cn.xsdzq.platform.service.IInfoService;
@@ -68,6 +70,10 @@ public class FrontController {
 	@Autowired
 	private VideoService videoService;
 
+	
+	@Autowired
+	private CaptureErrorService captureErrorService;
+	
 	@RequestMapping(value = "/getInfoById", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> getCategory(HttpServletRequest request, @RequestParam long id) {
@@ -211,12 +217,12 @@ public class FrontController {
 	
 	//  end
 	//cms
-	//@RequestMapping(value = "/getCategories", produces = "application/json; charset=utf-8")
+
 	@GetMapping(value = "/getCurrentVideo")
 	@ResponseBody
-	public Map<String, Object> getCurrentVideo() {
+	public Map<String, Object> getCurrentVideo(HttpServletRequest request,@RequestParam String fundType) {
 		
-		VideoEntity videoEntity = videoService.getCurrentVideoEntity();
+		VideoEntity videoEntity = videoService.getCurrentVideoEntity(Integer.valueOf(fundType));
 		return GsonUtil.buildMap(0, "success", videoEntity);
 	}
 
@@ -236,5 +242,20 @@ public class FrontController {
 		return GsonUtil.buildMap(0, "success", null);
 	}
 	//cms end
-
+	@GetMapping(value = "/error/collect")
+	@ResponseBody
+	 public Map<String, Object> collectError(@RequestParam int type, @RequestParam String deviceInfo,
+	   @RequestParam String erroInfo) {
+		logger.info("type: " + type);
+		logger.info("deviceInfo: " + deviceInfo);
+		logger.info("erroInfo: " + erroInfo);
+	  
+	  CaptureErrorEntity captureErrorEntity = new CaptureErrorEntity();
+	  captureErrorEntity.setType(type);
+	  captureErrorEntity.setDeviceInfo(deviceInfo);
+	  captureErrorEntity.setErroInfo(erroInfo);
+	  
+	  captureErrorService.addErrorInfo(captureErrorEntity);
+	  return GsonUtil.buildMap(0, "success", null);
+	 }
 }

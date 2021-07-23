@@ -43,7 +43,7 @@ import cn.xsdzq.platform.util.mall.BlacklistUtil;
 import cn.xsdzq.platform.util.mall.PresentUtil;
 
 @RestController
-@RequestMapping(value = "/mall/user")
+@RequestMapping(value = "/mall/userr")
 public class UserBlacklistController {
 	@Autowired
 	private PageUserBlacklistService userBlacklistService;

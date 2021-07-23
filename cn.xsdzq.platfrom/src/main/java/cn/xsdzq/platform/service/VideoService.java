@@ -7,7 +7,7 @@ import cn.xsdzq.platform.model.VideoId;
 
 public interface VideoService {
 
-	VideoEntity getCurrentVideoEntity();
+	VideoEntity getCurrentVideoEntity(int fundType);
 
 	void addVideoPageNumber(VideoId videoId);
 
@@ -16,6 +16,6 @@ public interface VideoService {
 	//cms
 	void addVideo(VideoEntity videoEntity);
 	void deleteVideo(long id);
-	List<VideoEntity> findAll(int pageNumber, int pageSize);
-	int coutAll();
+	List<VideoEntity> findAll(int fundType,int pageNumber, int pageSize);
+	int coutAll(int fundType);
 }

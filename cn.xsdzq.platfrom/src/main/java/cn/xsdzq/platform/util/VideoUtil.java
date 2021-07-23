@@ -15,6 +15,7 @@ public class VideoUtil {
 		dto.setVideoUrl(entity.getVideoUrl());
 		dto.setToogle(entity.isToogle());
 		dto.setContent(entity.getContent());
+		dto.setFundType(entity.getFundType());
 		return dto;
 	}
 	
@@ -29,6 +30,7 @@ public class VideoUtil {
 		entity.setVideoUrl(dto.getVideoUrl());
 		entity.setToogle(dto.isToogle());
 		entity.setContent(dto.getContent());
+		entity.setFundType(dto.getFundType());
 		return entity;
 	}
 }

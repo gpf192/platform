@@ -36,33 +36,14 @@ public class VideoController {
 	@Autowired
 	private VideoService videoService;
 
-	@GetMapping(value = "/getCurrentVideo")
-	public Map<String, Object> getCurrentVideo() {
-		
-		VideoEntity videoEntity = videoService.getCurrentVideoEntity();
-		return GsonUtil.buildMap(0, "success", videoEntity);
-	}
-
-	@PostMapping(value = "/addPageNumber")
-	public Map<String, Object> addVideoPageNumber(@RequestBody VideoId videoId) {
-		videoService.addVideoPageNumber(videoId);
-
-		return GsonUtil.buildMap(0, "success", null);
-	}
-
-	@PostMapping(value = "/addVideoPlayNumber")
-	public Map<String, Object> addVideoPlayNumber(@RequestBody VideoId videoId) {
-		videoService.addVideoPlayNumber(videoId);
-
-		return GsonUtil.buildMap(0, "success", null);
-	}
+	
 	//cms
 	
 	@GetMapping(value = "/getVideoList")
 	@ResponseBody
-	public Map<String, Object> getVideoList(HttpServletRequest request,@RequestParam int pageNumber,@RequestParam int pageSize) {
-		List<VideoEntity> entities  = videoService.findAll(pageNumber, pageSize);
-		int sum = videoService.coutAll();
+	public Map<String, Object> getVideoList(HttpServletRequest request,@RequestParam int fundType,@RequestParam int pageNumber,@RequestParam int pageSize) {
+		List<VideoEntity> entities  = videoService.findAll(fundType ,pageNumber, pageSize);
+		int sum = videoService.coutAll(fundType);
 		
 		List<VideoDTO> dtos = new ArrayList<VideoDTO>();
 		for (VideoEntity entity : entities) {
@@ -85,25 +66,6 @@ public class VideoController {
 		return GsonUtil.buildMap(0, "ok", null);
 
 	}
-
-	/*@RequestMapping(value = "/modifyVideo", method = POST, produces = "application/json; charset=utf-8")
-	@ResponseBody
-	public Map<String, Object> modifyVideo(@RequestBody videoDTO videoDTO) {
-
-		//logger.info(userDTO.toString());
-		UserEntity userEntity = UserUtil.convertUserEntityByUserDTO(userDTO);
-		// 保持用户原有角色
-		userEntity.setRoleEntities(userService.findUserById(userDTO.getId()).getRoleEntities());
-		// 加密
-		String pw1 = userEntity.getPassword();
-		BCryptPasswordEncoder encode = new BCryptPasswordEncoder();
-		pw1 = encode.encode(pw1);
-		userEntity.setPassword(pw1);
-		System.out.println(userEntity.getLockFlag()+" *************************************************");
-		userService.modifyUser(userEntity);
-		return GsonUtil.buildMap(0, "ok", null);
-
-	}*/
 
 	@RequestMapping(value = "/deleteVideo", method = POST, produces = "application/json; charset=utf-8")
 	@ResponseBody

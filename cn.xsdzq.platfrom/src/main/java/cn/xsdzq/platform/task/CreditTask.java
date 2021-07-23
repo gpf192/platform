@@ -75,14 +75,14 @@ public class CreditTask {
     public void mailSendTask() {
 		System.out.println("主机：邮件发送-凌晨5点扫描CRM积分明细任务,begin: "+ DateUtil.DateToString(new Date()));
 		//检查开关是否开启
-		ParamEntity paramEntity = paramService.getValueByCode("sendMailJob");
+		/*ParamEntity paramEntity = paramService.getValueByCode("sendMailJob");
 		if("1".equals(paramEntity.getValue())) {
 			//1-代开  0-关闭
 			mallUserService.mailSendCreditJob();//
 			System.out.println("主机：邮件发送-凌晨5点扫描CRM积分明细任务,end: "+ DateUtil.DateToString(new Date()));
 		}else{
 			System.out.println("主机：邮件发送-凌晨5点扫描CRM积分明细任务,开关已关闭: "+ DateUtil.DateToString(new Date()));
-		};
+		};*/
 		
     }
 }

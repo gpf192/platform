@@ -1,5 +1,5 @@
 ngApp.$inject = ['$scope', '$http', '$state','$stateParams', '$gridService', 'httpUtils', 'layerUtils'];
-function videoListController($scope, $http, $state,  $stateParams, $gridService, httpUtils, layerUtils) {
+function xfvideoListController($scope, $http, $state,  $stateParams, $gridService, httpUtils, layerUtils) {
 	$scope.formData = {};
 	$scope.users=[];
 	
@@ -11,8 +11,8 @@ function videoListController($scope, $http, $state,  $stateParams, $gridService,
 
 				},
 				"two" : {
-					name : "持营基金视频列表",
-					goto:"videoList"
+					name : "新发基金视频列表",
+					goto:"xfvideoList"
 
 				}
 			}
@@ -32,19 +32,7 @@ function videoListController($scope, $http, $state,  $stateParams, $gridService,
 		$scope.getUserList(10);
 	};
 	
-/*	$scope.modifyRole =function(index){
-		var user=$scope.users[index];
-		//console.log(user);
-		$state.go("modifyVideo",{user:user});
-	}*/
-	
-	/*$scope.getUserList = function(pageSize) {
-		$http.get(httpUtils.url.videoList, {}).success(function(data) {
-			if (data.resCode == 0) {
-				$scope.users = data.result;
-			}
-		});
-	}*/
+
 	$scope.newVideo = function() {
 		$state.go("newVideo");
 	}
@@ -52,7 +40,7 @@ function videoListController($scope, $http, $state,  $stateParams, $gridService,
 		
 		var url = httpUtils.url.videoList;
 		var params = {
-			fundType : 1,
+			fundType : 2,
 			pageNumber : 0,
 			pageSize : pageSize
 		};

@@ -82,7 +82,7 @@ function userTotalIntegralModifyController($scope, $http, $state, $stateParams, 
 		}
 
 		
-		if($scope.formData.changeNum === 0) {
+		if($scope.formData.changeNum === '0') {
 			layerUtils.iMsg(-1, "值不能为0");
 			return;
 		}else{

@@ -604,7 +604,9 @@ public class MallUserServiceImpl implements MallUserService {
 	public void scanCrmCreditJob() {
 		// TODO Auto-generated method stub
 		//扫描crmrecord 前一天记录
-		int preday =DateUtil.getPreDayAsInt(5); 
+		//int preday =DateUtil.getPreDayAsInt(5); 
+		// 临时同步数据
+		int preday =20210530; 
 		List<CRMCreditRecordEntity> crmlist = new ArrayList<CRMCreditRecordEntity>();
 		crmlist = pageCrmCreditRecordRepository.findByBeginDateGreaterThan(preday);
 		
