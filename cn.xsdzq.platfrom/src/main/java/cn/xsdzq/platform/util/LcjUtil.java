@@ -10,6 +10,8 @@ import cn.xsdzq.platform.entity.lcj.EmpEntity;
 import cn.xsdzq.platform.entity.lcj.EmpTicketEntity;
 import cn.xsdzq.platform.entity.lcj.EmpTicketRecordEntity;
 import cn.xsdzq.platform.entity.lcj.LcjPrizeEntity;
+import cn.xsdzq.platform.entity.lcj.LcjPrizeNumberEntity;
+import cn.xsdzq.platform.entity.lcj.LcjPrizeRecordEntity;
 import cn.xsdzq.platform.entity.lcj.LcjPrizeResultViewEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeNumberEntity;
@@ -423,6 +425,28 @@ public class LcjUtil {
 	}
 	
 	public static PrizeNumDTO convertPrizeNumDTOByEntity(PrizeNumberEntity entity) {
+		PrizeNumDTO dto = new PrizeNumDTO();
+		dto.setId(entity.getId());
+		dto.setClientName(entity.getUserEntity().getClientName());
+		dto.setClientId(entity.getUserEntity().getClientId());	
+		dto.setNumber(entity.getNumber());
+		dto.setPhone(entity.getUserEntity().getMobile());
+		return dto;
+	}
+	//818
+	public static KmhPrizeRecordDTO convertLcjPrizeRecordDTOByEntity(LcjPrizeRecordEntity entity) {
+		KmhPrizeRecordDTO dto = new KmhPrizeRecordDTO();
+		dto.setId(entity.getId());
+		dto.setClientName(entity.getUserEntity().getClientName());
+		dto.setClientId(entity.getUserEntity().getClientId());
+		dto.setSerialNum(entity.getSerialNum());
+		dto.setReason(entity.getReason());
+		dto.setNumber(entity.getNumber());
+		dto.setRecordTime(DateUtil.DateToString(entity.getRecordTime()));
+		return dto;
+	}
+	
+	public static PrizeNumDTO convertLcjPrizeNumDTOByEntity(LcjPrizeNumberEntity entity) {
 		PrizeNumDTO dto = new PrizeNumDTO();
 		dto.setId(entity.getId());
 		dto.setClientName(entity.getUserEntity().getClientName());

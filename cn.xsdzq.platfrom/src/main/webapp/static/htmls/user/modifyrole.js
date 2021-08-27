@@ -19,7 +19,7 @@ function modifyRoleController($scope, $http, $state, $stateParams, httpUtils, la
 			return;
 		}
 		$scope.user=$stateParams.user;
-		console.log($scope.user);
+		//console.log($scope.user);
 		$scope.getPermissions($scope.user);
 	};
 	$scope.getPermissions=function(){

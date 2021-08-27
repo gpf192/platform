@@ -24,7 +24,10 @@ function newUserController($scope, $http, $state, httpUtils, layerUtils) {
 	$scope.labelList=[];
 
 	$scope.submit = function() {
-		
+		if($scope.formData.password.length <6){
+			layerUtils.iMsg(-1,"密码长度不能小于7位");
+			return;
+		}
 		var url = httpUtils.url.addUser;
 		$http.post(url, $scope.formData).success(function(data) {
 			if (data.resCode == 0) {

@@ -3,12 +3,8 @@ package cn.xsdzq.platform.service.lcj;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
 import cn.xsdzq.platform.entity.lcj.PrizeNumberEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeRecordEntity;
-import cn.xsdzq.platform.entity.lcj.PrizeResultEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeResultViewEntity;
 
 public interface PrizeRecordService {

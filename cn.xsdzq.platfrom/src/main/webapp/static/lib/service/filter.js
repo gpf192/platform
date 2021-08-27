@@ -84,6 +84,23 @@ ngApp.filter('kmhSourceFilter', function() {
 	}
 });
 
+ngApp.filter('lcjSourceFilter', function() { 
+	return function (value) {
+		if(value == "12"){
+	    	return "分享";
+	    }
+	    if(value == "13"){
+	    	return "购买产品";
+	    }
+	    if(value == "16"){
+	    	return "签约投顾";
+	    }else{
+	    	return "其他";
+	    }
+	  
+	}
+});
+
 ngApp.filter('divisionFilter', function() { 
 	return function (value) {
 	    if(value == "0"){

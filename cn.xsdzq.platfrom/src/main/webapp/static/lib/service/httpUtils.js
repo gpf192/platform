@@ -143,7 +143,10 @@ ngApp.factory("httpUtils", [ function() {
 		
 		videoList:baseUrl + "video/getVideoList",
 		addVideo:baseUrl + "video/addVideo",
-		deleteVideo:baseUrl + "video/deleteVideo"
+		deleteVideo:baseUrl + "video/deleteVideo",
+		
+		userGetChanceList818:baseUrl + "prize/userGetChanceList818",
+		userTotalChanceList818:baseUrl + "prize/userTotalChanceList818"
 		
 	};
 
