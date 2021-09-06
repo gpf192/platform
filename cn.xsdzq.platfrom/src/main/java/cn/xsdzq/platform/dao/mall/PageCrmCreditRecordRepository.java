@@ -36,7 +36,7 @@ public interface PageCrmCreditRecordRepository  extends PagingAndSortingReposito
 	//
 	
 	//crm 扫描job
-	List<CRMCreditRecordEntity> findByBeginDate(int beginDate);
+	List<CRMCreditRecordEntity> findByBeginDateGreaterThan(int beginDate);
 	CRMCreditRecordEntity findBySerialNum(String serialNum);
 	
 }

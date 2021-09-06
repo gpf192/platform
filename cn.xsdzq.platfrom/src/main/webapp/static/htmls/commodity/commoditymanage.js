@@ -227,7 +227,7 @@ function commoditymanageController($scope, $http, $state, $stateParams, $gridSer
 				newObj["总数量"] = 	data.storeNumber;
 				newObj["已兑换数量"] = 	data.convertNumber;
 				newObj["剩余库存数量"] = 	data.storeUnused;
-				
+				newObj["下架数量"] = 	data.illegalNum;
 				newObj["状态"] = (data.status==0?"已上架":"已下架");
 				newObj["创建时间"] = 	data.createtime;
 				

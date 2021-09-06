@@ -38,8 +38,15 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label">密码：</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="password" name="password"
+                        <input type="text" class="form-control" id="password" name="password" readOnly=true
                             ng-model="formData.password" placeholder="请输入内容" />
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-sm-3 control-label">失效日期：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="expiryTime" name="expiryTime" 
+                            ng-model="formData.expiryTime" placeholder="请输入年月日，如20200101"  oninput="value=value.replace(/[^\d]/g,'')" />
                     </div>
                 </div>
    

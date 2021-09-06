@@ -22,24 +22,31 @@
         <div class="dataTables_wrapper form-inline" role="grid" style="overflow:scroll">
             <form class="form-inline margin10">
               &nbsp	
+              
 				<div class="form-group ">
 					<label  for="integralType">客户号:</label>					
 						<input type="text" class="form-control input-300 " id="clientId" name="clientId"
 						ng-model="formData.clientId" placeholder="请输入关键字"></input>
 				</div>
+				
 				&nbsp
+				  
 				<div class="form-group ">
 					<label  for="searchTitle">客户姓名:</label>					
 						<input type="text" class="form-control input-300 " id="clientName" name="clientName"
 						ng-model="formData.clientName" placeholder="请输入关键字"></input>
 
 				</div>
+			
+				
 				&nbsp
+				  <p>
 				<div class="form-group ">
 					<label class="control-label text-right">项目类别:</label>
-					<select class="form-control" ng-model="formData.category"
+					<select class="form-control " ng-model="formData.category"
 							ng-options="item.categoryName for item in categoryList"></select>
 				</div>
+				</p>
 				&nbsp &nbsp
 				<input type="button" value="查询" class="btn btn-primary"
 							ng-click="getEmpList(100)" />

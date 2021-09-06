@@ -16,25 +16,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
-
 import cn.xsdzq.platform.controller.BaseController;
 import cn.xsdzq.platform.entity.lcj.LcjPrizeEntity;
+import cn.xsdzq.platform.entity.lcj.LcjPrizeNumberEntity;
+import cn.xsdzq.platform.entity.lcj.LcjPrizeRecordEntity;
 import cn.xsdzq.platform.entity.lcj.PrizeEntity;
+import cn.xsdzq.platform.model.Pagination;
 import cn.xsdzq.platform.model.lcj.BatchPrizeJsonDTO;
+import cn.xsdzq.platform.model.lcj.KmhPrizeRecordDTO;
 import cn.xsdzq.platform.model.lcj.PrizeDTO;
+import cn.xsdzq.platform.model.lcj.PrizeNumDTO;
+import cn.xsdzq.platform.service.lcj.LciPrizeRecordService;
 import cn.xsdzq.platform.service.lcj.LcjPrizeService;
 import cn.xsdzq.platform.service.lcj.MyPrizeService;
 import cn.xsdzq.platform.service.lcj.PrizeService;
 import cn.xsdzq.platform.util.GsonUtil;
 import cn.xsdzq.platform.util.LcjUtil;
+import cn.xsdzq.platform.util.MethodUtil;
 import cn.xsdzq.platform.util.UserManageUtil;
 
 @Controller
@@ -52,6 +56,10 @@ public class PrizeController extends BaseController {
 	@Autowired
 	@Qualifier("lcjPrizeServiceImpl")
 	private LcjPrizeService lcjPrizeService;
+	
+	@Autowired
+	@Qualifier("lcjPrizeRecordServiceImpl")
+	private LciPrizeRecordService prizeRecordService;
 	
 	/*@RequestMapping(value = "/getPrize", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
@@ -214,5 +222,80 @@ public class PrizeController extends BaseController {
 		String name = user.getUsername();
 		logger.info("action:" + "modify" + ";" + "user:" + name + ";" + "prize:" + entity.getName() + ";");
 		return GsonUtil.buildMap(0, "ok", null);
+	}
+	
+  // 818 
+	@RequestMapping(value = "/userGetChanceList818", method = GET, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> userGetChanceList(HttpServletRequest request,  
+			 @RequestParam String clientName, @RequestParam String clientId, 
+			 @RequestParam int pageNumber,@RequestParam int pageSize) {
+		int sum = 0 ;
+		List<LcjPrizeRecordEntity> entitys = null;
+		int num = MethodUtil.getMethodNum(clientName, clientId);
+		if(num == 1) {
+			//全量查找
+			entitys = prizeRecordService.getAllPrizeRecordForKmh(pageNumber, pageSize);
+			sum = prizeRecordService.countPrizeRecodAll();
+		}	
+		if(num == 2) {
+			//全量查找
+			entitys = prizeRecordService.findRecordByUserEntity_clientNameLikeAndUserEntity_clientIdLikeOrderByNumberDesc(clientName, clientId, pageNumber, pageSize);
+			sum = prizeRecordService.countRecordByUserEntity_clientNameLikeAndUserEntity_clientIdLike(clientName, clientId);
+		}
+		if(num == 3) {
+			//全量查找
+			entitys = prizeRecordService.findRecordByUserEntity_clientNameLikeOrderByNumberDesc(clientName, pageNumber, pageSize);
+			sum = prizeRecordService.countRecordByUserEntity_clientNameLike(clientName);
+		}
+		if(num == 4) {
+			//全量查找
+			entitys = prizeRecordService.findRecordByUserEntity_clientIdLikeOrderByNumberDesc(clientId, pageNumber, pageSize);
+			sum = prizeRecordService.countRecordByUserEntity_clientIdLike(clientId);
+		}
+		List<KmhPrizeRecordDTO> dtos = new ArrayList<KmhPrizeRecordDTO>();
+		for (LcjPrizeRecordEntity entity : entitys) {
+			KmhPrizeRecordDTO dto = LcjUtil.convertLcjPrizeRecordDTOByEntity(entity);
+			dtos.add(dto);
+		}
+		Pagination pagination = new Pagination(pageNumber, pageSize, sum);
+		return GsonUtil.buildMap(0, "ok", dtos, pagination);
+	}
+	
+	@RequestMapping(value = "/userTotalChanceList818", method = GET, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> userTotalChanceList(HttpServletRequest request,  
+			 @RequestParam String clientName, @RequestParam String clientId, 
+			 @RequestParam int pageNumber,@RequestParam int pageSize) {
+		int sum = 0 ;
+		List<LcjPrizeNumberEntity> entitys = null;
+		int num = MethodUtil.getMethodNum(clientName, clientId);
+		if(num == 1) {
+			//全量查找
+			entitys = prizeRecordService.getPrizeNumberForKmh(pageNumber, pageSize);
+			sum = prizeRecordService.countPrizeNumberForKmh();
+		}
+		if(num == 2) {
+			//clientName ,clientId
+			entitys = prizeRecordService.findByUserEntity_clientNameLikeAndUserEntity_clientIdLikeOrderByNumberDesc(clientName, clientId, pageNumber, pageSize);
+			sum = prizeRecordService.countByUserEntity_clientNameLikeAndUserEntity_clientIdLike(clientName, clientId);
+		}
+		if(num == 3) {
+			//clientName
+			entitys = prizeRecordService.findByUserEntity_clientNameLikeOrderByNumberDesc(clientName, pageNumber, pageSize);
+			sum = prizeRecordService.countByUserEntity_clientNameLike(clientName);
+		}
+		if(num == 4) {
+			//clientId
+			entitys = prizeRecordService.findByUserEntity_clientIdLikeOrderByNumberDesc(clientId, pageNumber, pageSize);
+			sum = prizeRecordService.countByUserEntity_clientIdLike(clientId);
+		}
+		List<PrizeNumDTO> dtos = new ArrayList<PrizeNumDTO>();
+		for (LcjPrizeNumberEntity entity : entitys) {
+			PrizeNumDTO dto = LcjUtil.convertLcjPrizeNumDTOByEntity(entity);
+			dtos.add(dto);
+		}
+		Pagination pagination = new Pagination(pageNumber, pageSize, sum);
+		return GsonUtil.buildMap(0, "ok", dtos, pagination);
 	}
 }

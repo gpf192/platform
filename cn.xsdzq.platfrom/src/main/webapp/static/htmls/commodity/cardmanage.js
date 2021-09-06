@@ -86,7 +86,6 @@ function cardmanageController($scope, $http, $state, $stateParams, $gridService,
 		if("全部" != $scope.formData.category.name){
 			presentId = $scope.formData.category.id;
 		}
-		console.log(cardId+"--"+presentId);
 		var url = httpUtils.url.card;
 		var params = {
 			cardId:cardId,	
@@ -133,12 +132,11 @@ function cardmanageController($scope, $http, $state, $stateParams, $gridService,
 		}
 
 		layerUtils.iConfirm("是否修该此产品信息？", function() {
-			console.log(param);// integraldetail   cardmodify
 			$state.go("cardmodify", {
 				param : param
 			});
 		}, function() {
-			console.log("取消");
+			//console.log("取消");
 		})
 
 	}
@@ -186,7 +184,7 @@ function cardmanageController($scope, $http, $state, $stateParams, $gridService,
 			$scope.selected = [];
 			
 		}, function() {
-			console.log("取消");
+			//console.log("取消");
 		});
 	}
 	
@@ -231,8 +229,10 @@ function cardmanageController($scope, $http, $state, $stateParams, $gridService,
 				newObj["卡号"] = 	data.cardId;
 				newObj["密码"] = 	(data.password==null?"":data.password);
 				newObj["商品名称"] = 	data.presentName;
+				newObj["上架状态"] = 	(data.cardStatus==0?"下架":"上架");
 				newObj["兑换状态"] = 	(data.convertStatus==1?"已兑换":"未兑换");
 				newObj["创建时间"] = 	data.createDate;
+				newObj["失效"] = 	data.expiryTime;
 				
 			}
 			arr.push(newObj);

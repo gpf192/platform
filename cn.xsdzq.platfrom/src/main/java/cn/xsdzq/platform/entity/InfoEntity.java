@@ -54,7 +54,7 @@ public class InfoEntity implements Serializable {
 	private String commonFlag = "N";//前台常见问题标识
 
 	@Column(name = "checked_result")
-	private String checkedResult;
+	private String checkedResult;//generate-暂存等待提交，submit-提交未审核，approve-审核通过，reject-审核拒绝；
 
 	@Column(name = "created_by")
 	private String createdBy;

@@ -37,6 +37,7 @@ import cn.xsdzq.platform.model.mall.CreditDTO;
 import cn.xsdzq.platform.model.mall.CreditImportRecordDTO;
 import cn.xsdzq.platform.model.mall.CreditImportTempDTO;
 import cn.xsdzq.platform.model.mall.CreditUserTotalDTO;
+import cn.xsdzq.platform.model.mall.UserIntegralDTO;
 import cn.xsdzq.platform.service.lcj.ParamService;
 import cn.xsdzq.platform.service.mall.CreditImportRecordService;
 import cn.xsdzq.platform.service.mall.CreditImportTempService;
@@ -76,7 +77,6 @@ public class CreditController {
 	@PostMapping(value = "/add")
 	public Map<String, Object> addCredit(@RequestBody CreditDTO creditDTO) {
 
-		//logger.info(CreditDTO.toString());
 		//同时修改关联的导入记录的 前端显示名字
 		CreditEntity entity = CreditUtil.convertCreditEntityByDTO(creditDTO);
 		creditService.addCredit(entity);
@@ -277,6 +277,18 @@ public class CreditController {
 		Pagination pagination = new Pagination(pageNumber, pageSize, sum);
 		return GsonUtil.buildMap(0, "ok", dtos,pagination);
 	}
+	//手工更改用户总积分 
+	@RequestMapping(value = "/modifyUserIntegral", method = POST, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> modifyUserIntegral(@RequestBody UserIntegralDTO dto) {
+		//更改客户总积分
+		 System.out.println(dto.toString());
+		if(!mallUserService.modifyUserTotalIntegral(dto)) {
+			return GsonUtil.buildMap(1, "客户积分不足", null);
+		}
+		//插入客户积分明细
+		return GsonUtil.buildMap(0, "success", null);
+	}
 	//导入excel
 	 @RequestMapping(value="/upload",method={RequestMethod.POST}) 
 	 public Map<String, Object>  uploadExcel(HttpServletRequest request) throws Exception { 
@@ -410,8 +422,6 @@ public class CreditController {
 	public Map<String, Object> submit() {
 		//查询临时表数据
 		List<CreditImportTempEntity> temps = creditImportTempService.findAllTemp();
-		System.out.println("正式提交++++++++++++++++++++++++++++++++++++++++++++++");
-		System.out.println("size :"+temps.size());
 		//判断数据格式
 		  //判断字段格式
 

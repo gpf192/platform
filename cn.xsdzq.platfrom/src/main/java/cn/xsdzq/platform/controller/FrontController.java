@@ -16,23 +16,30 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.xsdzq.platform.entity.CaptureErrorEntity;
 import cn.xsdzq.platform.entity.CategoryEntity;
 import cn.xsdzq.platform.entity.CustomerMobileEntity;
 import cn.xsdzq.platform.entity.InfoEntity;
+import cn.xsdzq.platform.entity.VideoEntity;
 import cn.xsdzq.platform.model.CategoryDTO;
 import cn.xsdzq.platform.model.InfoDTO;
 import cn.xsdzq.platform.model.KCBean;
 import cn.xsdzq.platform.model.Pagination;
 import cn.xsdzq.platform.model.SearchBean;
+import cn.xsdzq.platform.model.VideoId;
+import cn.xsdzq.platform.service.CaptureErrorService;
 import cn.xsdzq.platform.service.CustomerKCService;
 import cn.xsdzq.platform.service.ICategoryService;
 import cn.xsdzq.platform.service.IInfoService;
 import cn.xsdzq.platform.service.IMyInfoService;
+import cn.xsdzq.platform.service.VideoService;
 import cn.xsdzq.platform.util.CategoryUtil;
 import cn.xsdzq.platform.util.CommonUtil;
 import cn.xsdzq.platform.util.GsonUtil;
@@ -59,7 +66,14 @@ public class FrontController {
 	@Autowired
 	@Qualifier("customerKCServiceImpl")
 	private CustomerKCService customerKCService;
+	//基金视频
+	@Autowired
+	private VideoService videoService;
 
+	
+	@Autowired
+	private CaptureErrorService captureErrorService;
+	
 	@RequestMapping(value = "/getInfoById", method = GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> getCategory(HttpServletRequest request, @RequestParam long id) {
@@ -202,5 +216,46 @@ public class FrontController {
 	}
 	
 	//  end
+	//cms
 
+	@GetMapping(value = "/getCurrentVideo")
+	@ResponseBody
+	public Map<String, Object> getCurrentVideo(HttpServletRequest request,@RequestParam String fundType) {
+		
+		VideoEntity videoEntity = videoService.getCurrentVideoEntity(Integer.valueOf(fundType));
+		return GsonUtil.buildMap(0, "success", videoEntity);
+	}
+
+	@PostMapping(value = "/addPageNumber")
+	@ResponseBody
+	public Map<String, Object> addVideoPageNumber(@RequestBody VideoId videoId) {
+		videoService.addVideoPageNumber(videoId);
+
+		return GsonUtil.buildMap(0, "success", null);
+	}
+
+	@PostMapping(value = "/addVideoPlayNumber")
+	@ResponseBody
+	public Map<String, Object> addVideoPlayNumber(@RequestBody VideoId videoId) {
+		videoService.addVideoPlayNumber(videoId);
+
+		return GsonUtil.buildMap(0, "success", null);
+	}
+	//cms end
+	@GetMapping(value = "/error/collect")
+	@ResponseBody
+	 public Map<String, Object> collectError(@RequestParam int type, @RequestParam String deviceInfo,
+	   @RequestParam String erroInfo) {
+		logger.info("type: " + type);
+		logger.info("deviceInfo: " + deviceInfo);
+		logger.info("erroInfo: " + erroInfo);
+	  
+	  CaptureErrorEntity captureErrorEntity = new CaptureErrorEntity();
+	  captureErrorEntity.setType(type);
+	  captureErrorEntity.setDeviceInfo(deviceInfo);
+	  captureErrorEntity.setErroInfo(erroInfo);
+	  
+	  captureErrorService.addErrorInfo(captureErrorEntity);
+	  return GsonUtil.buildMap(0, "success", null);
+	 }
 }

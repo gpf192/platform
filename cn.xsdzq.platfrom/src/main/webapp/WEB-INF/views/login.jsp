@@ -9,7 +9,7 @@
 <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
 		Remove this if you use the .htaccess -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>帮助中心后台管理系统</title>
+<title>CMS综合运营管理平台</title>
 <meta name="description" content="">
 <meta name="author" content="ZHENGJINGUANG">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,11 +24,13 @@
 		<div class="form">
 			<div class="container-fluid">
 				<div class="row">
-				<!--  
-					<div class="col-sm-7">
-						<h3>新时代后台管理系统</h3>
-					</div>
-					 -->
+				 
+				 <!--  <div class="col-sm-12 text-center">
+						 <h2><font color="white">新时代后台管理系统</font></h2> 
+						<h3><font color="white"><nobr>New Time Securities Management System</nobr></font></h3>
+					</div> --> 
+				
+					 
 					<div class="col-sm-12 text-center error-msg">
 						<c:if test="${not empty error}">
 							<div class="error">${error}</div>

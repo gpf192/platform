@@ -30,6 +30,7 @@ import cn.xsdzq.platform.service.mall.PagePresentCardService;
 import cn.xsdzq.platform.service.mall.PresentCardService;
 import cn.xsdzq.platform.service.mall.PresentRecordService;
 import cn.xsdzq.platform.service.mall.PresentService;
+import cn.xsdzq.platform.util.DateUtil;
 import cn.xsdzq.platform.util.GsonUtil;
 import cn.xsdzq.platform.util.MethodUtil;
 import cn.xsdzq.platform.util.UserManageUtil;
@@ -56,7 +57,10 @@ public class PresentCardController {
 	
 	@PostMapping(value = "/add")
 	public Map<String, Object> addCard(@RequestBody PresentCardDTO dto) {
-		System.out.println(dto.toString());
+		//先判断失效时间，不允许小于等于当天
+		if(Integer.parseInt(dto.getExpiryTime()) <= DateUtil.getNowDate() ) {
+			return GsonUtil.buildMap(1, "保存失败，失效日期必须大于当天！", null);
+		}
 		PresentCardEntity entity = PresentUtil.convertPresentCardEntityByDTO(dto);
 		PresentEntity p = presentService.findById(dto.getPresentId());
 		entity.setPresent(p);
@@ -71,14 +75,20 @@ public class PresentCardController {
 			presentCardService.addPresentCard(entity);
 			
 		}else {
-			
+			//更新
 			PresentCardEntity temp = presentCardService.findById(dto.getId());
-			entity.setCreateDate(temp.getCreateDate());//保持不变
+			//temp.setPassword(dto.getPassword()); //不支持改密码
+			temp.setCardId(dto.getCardId());
+			temp.setModifyBy(name);
+			temp.setModifytime(new Date());
+			temp.setExpiryTime(Integer.parseInt(dto.getExpiryTime()));
+			presentCardService.addPresentCard(temp);
+			/*entity.setCreateDate(temp.getCreateDate());//保持不变
 			entity.setModifytime(new Date());
 			entity.setCreatedBy(temp.getCreatedBy());//保持不变
-			entity.setModifyBy(name);
-			System.out.println(entity.toString());
-			presentCardService.addPresentCard(entity);
+			entity.setModifyBy(name);*/
+			//System.out.println(entity.toString());
+			//presentCardService.addPresentCard(entity);
 		}
 		
 		return GsonUtil.buildMap(0, "success", null);
@@ -199,7 +209,6 @@ public class PresentCardController {
 		List<PresentRecodDTO> dtos = new ArrayList<PresentRecodDTO>();
 		for (PresentRecordEntity entity : entities) {
 			PresentRecodDTO dto = PresentUtil.convertDTOByPresentRecordEntity(entity);
-			//System.out.println(dto.toString());
 			dtos.add(dto);
 		}
 		Pagination pagination = new Pagination(pageNumber, pageSize, sum);

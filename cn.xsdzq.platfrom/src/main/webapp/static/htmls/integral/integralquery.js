@@ -42,8 +42,8 @@ function integralqueryController($scope, $http, $state, $stateParams, $gridServi
 		var username = "";
 		var clientId = "";
 		var mobile = "";
-		if(!utils.isEmpty($scope.formData.username)) {
-			username = "%"+$scope.formData.username+"%";
+		if(!utils.isEmpty($scope.formData.clientName)) {
+			username = "%"+$scope.formData.clientName+"%";
 		}
 		if(!utils.isEmpty($scope.formData.clientId)) {
 			clientId = "%"+$scope.formData.clientId+"%";
@@ -51,7 +51,7 @@ function integralqueryController($scope, $http, $state, $stateParams, $gridServi
 		if(!utils.isEmpty($scope.formData.mobile)) {
 			mobile = "%"+$scope.formData.mobile+"%";
 		}
-		
+		console.log(username+"-ppp");
 		var params = {
 			pageNumber : 0,
 			pageSize : pageSize,
@@ -68,7 +68,12 @@ function integralqueryController($scope, $http, $state, $stateParams, $gridServi
 		var tableElement = angular.element("#datatable1");
 		$gridService.queryTableDatas($scope, tableElement, params, settings, $http);
 	};
-	
+	//修改积分 
+	$scope.modify =function(index){
+		var user=$scope.userVoteList[index];
+		console.log(user);
+		$state.go("userTotalIntegralModify",{param :user});
+	}
 	//导出为excel
 	
 	Date.prototype.Format = function (fmt) {  

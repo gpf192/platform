@@ -13,8 +13,15 @@ public class PresentCardDTO {
 	private PresentEntity present;//二级目录
 	private String createDate;
 	private int isNew;//0代表新增，1代表更新
+	private String expiryTime;//失效时间
 	
 	
+	public String getExpiryTime() {
+		return expiryTime;
+	}
+	public void setExpiryTime(String expiryTime) {
+		this.expiryTime = expiryTime;
+	}
 	public int getIsNew() {
 		return isNew;
 	}

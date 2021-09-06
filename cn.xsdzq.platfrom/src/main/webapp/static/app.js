@@ -189,6 +189,24 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/userTIcketsList",
 		templateUrl : "htmls/finance/userTIcketsList.html",
 		controller : "userTIcketsListController"
+	}).state("userGetChanceList", {
+		url : "/userGetChanceList",
+		templateUrl : "htmls/finance/userGetChanceList.html",
+		controller : "userGetChanceListController"
+	}).state("userTotalChanceList", {
+		url : "/userTotalChanceList",
+		templateUrl : "htmls/finance/userTotalChanceList.html",
+		controller : "userTotalChanceListController"
+			
+	}).state("userGetChance818", {
+		url : "/userGetChanceList818",
+		templateUrl : "htmls/finance/userGetChanceList818.html",
+		controller : "userGetChanceList818Controller"
+	}).state("userTotalChanceList818", {
+		url : "/userTotalChanceList818",
+		templateUrl : "htmls/finance/userTotalChanceList818.html",
+		controller : "userTotalChanceList818Controller"
+			
 	}).state("contestantList", {
 		url : "/contestantList",
 		templateUrl : "htmls/finance/contestantList.html",
@@ -288,6 +306,11 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl : "htmls/integral/integralModify.html",
 		controller : "integralModifyController",
 		params:{param:{}}
+	}).state("userTotalIntegralModify", {
+		url : "/integral/userTotalIntegralModify",
+		templateUrl : "htmls/integral/userTotalIntegralModify.html",
+		controller : "userTotalIntegralModifyController",
+		params:{param:{}}
 	}).state("integralUserDetail", {
 		url : "/integral/integralUserDetail",
 		templateUrl : "htmls/integral/integralUserDetail.html",
@@ -300,6 +323,23 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/integral/crmCreditRecord",
 		templateUrl : "htmls/integral/crmCreditRecord.html",
 		controller : "crmCreditRecordController"
+	}).state("userBlacklist", {
+		url : "/integral/userBlacklist",
+		templateUrl : "htmls/integral/userBlacklist.html",
+		controller : "userBlacklistController"
+	}).state("userBlacklistAdd", {
+		url : "/integral/userBlacklistAdd",
+		templateUrl : "htmls/integral/userBlacklistAdd.html",
+		controller : "userBlacklistAddController"
+	}).state("userBlacklistModify", {
+		url : "/integral/userBlacklistModify",
+		templateUrl : "htmls/integral/userBlacklistModify.html",
+		controller : "userBlacklistModifyController",
+		params:{param:{}}
+	}).state("userBlacklistImport", {
+		url : "/integral/userBlacklistImport",
+		templateUrl : "htmls/integral/userBlacklistImport.html",
+		controller : "userBlacklistImportController"
 	}).state("crmProductList", {
 		url : "/integral/crmProductList",
 		templateUrl : "htmls/integral/crmProductList.html",
@@ -355,6 +395,32 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		url : "/commodity/commoditymanage",
 		templateUrl : "htmls/commodity/commoditymanage.html",
 		controller : "commoditymanageController"
+	}).state("videoList", {
+		url : "/video/videoList",
+		templateUrl : "htmls/video/videoList.html",
+		controller : "videoListController"		
+	}).state("newVideo", {
+		url : "/video/newVideo",
+		templateUrl : "htmls/video/newVideo.html",
+		controller : "newVideoController"
+	}).state("modifyVideo", {
+		url : "/video/modifyVideo",
+		templateUrl : "htmls/video/modifyVideo.html",
+		controller : "modifyVideoController",
+		params:{user:{}}
+	}).state("xfvideoList", {
+		url : "/video/xfvideoList",
+		templateUrl : "htmls/video/xfvideoList.html",
+		controller : "xfvideoListController"		
+	}).state("newxfVideo", {
+		url : "/video/newxfVideo",
+		templateUrl : "htmls/video/newxfVideo.html",
+		controller : "newxfVideoController"		
+	}).state("modifyxfVideo", {
+		url : "/video/modifyxfVideo",
+		templateUrl : "htmls/video/modifyxfVideo.html",
+		controller : "modifyxfVideoController",
+		params:{user:{}}
 	});
 	
 

@@ -4,18 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.xsdzq.platform.entity.mall.CardImportTempEntity;
-import cn.xsdzq.platform.entity.mall.CreditImportTempEntity;
 import cn.xsdzq.platform.entity.mall.PresentCardEntity;
 import cn.xsdzq.platform.entity.mall.PresentCategoryEntity;
 import cn.xsdzq.platform.entity.mall.PresentEntity;
 import cn.xsdzq.platform.entity.mall.PresentRecordEntity;
-import cn.xsdzq.platform.entity.mall.PresentResultEntity;
 import cn.xsdzq.platform.model.mall.CardImportTempDTO;
 import cn.xsdzq.platform.model.mall.PresentCardDTO;
 import cn.xsdzq.platform.model.mall.PresentCategoryDTO;
 import cn.xsdzq.platform.model.mall.PresentDTO;
 import cn.xsdzq.platform.model.mall.PresentRecodDTO;
 import cn.xsdzq.platform.util.DateUtil;
+import cn.xsdzq.platform.util.SysUtil;
 
 public class PresentUtil {
 	
@@ -107,10 +106,21 @@ public class PresentUtil {
 		dto.setCardId(entity.getCardId());
 		dto.setPresentId(entity.getPresentId());
 		dto.setPresentName(entity.getPresent().getName());
-		dto.setPassword(entity.getPassword());
+		if(entity.getPassword()==null) {
+			dto.setPassword(entity.getPassword());
+		}else {
+			dto.setPassword(SysUtil.hideString(entity.getPassword()));//密码隐藏
+		}
+
 		dto.setCardStatus(entity.getCardStatus());
 		dto.setConvertStatus(entity.getConvertStatus());
 		dto.setCreateDate(DateUtil.DateToString(entity.getCreateDate()));
+		if(entity.getExpiryTime()==20991231) {
+			dto.setExpiryTime("无");
+		}else {
+			dto.setExpiryTime(DateUtil.stringToDateAndSeconds2(entity.getExpiryTime()));
+		}
+	
 		return dto;
 	}
 	
@@ -123,6 +133,7 @@ public class PresentUtil {
 		entity.setCardStatus(1);//默认上架
 		entity.setPresentId(dto.getPresentId());
 		entity.setConvertStatus(0);//默认未兑换
+		entity.setExpiryTime(Integer.parseInt(dto.getExpiryTime()));
 		return entity;
 	}
 	
@@ -138,7 +149,12 @@ public class PresentUtil {
 		dto.setPresentName(entity.getPresentCardEntity().getPresent().getName());
 		
 		dto.setCardId(entity.getPresentCardEntity().getCardId());
-		dto.setPassword(entity.getPresentCardEntity().getPassword());
+		if(entity.getPresentCardEntity().getPassword()==null) {
+			dto.setPassword(entity.getPresentCardEntity().getPassword());
+		}else {
+			dto.setPassword(SysUtil.hideString(entity.getPresentCardEntity().getPassword()));
+		}
+		
 		dto.setPrice(entity.getPrice());
 		dto.setIntegralNum(entity.getIntegralNumber());
 		dto.setRecordTime(DateUtil.DateToString(entity.getRecordTime()));
@@ -151,6 +167,15 @@ public class PresentUtil {
 		dto.setPresentCode(entity.getPresentCode());
 		dto.setCardStatus(1);
 		dto.setConvertStatus(0);
+		String date = entity.getExpiryTime();
+		if(!"无".equals(date)) {
+			String s = date.substring(0, 4)+"-"+date.substring(4, 6)
+			+"-"+date.substring(6, 8);
+			dto.setExpiryTime(s+" 00:00:00");
+		}else {
+			dto.setExpiryTime(date);
+		}
+		
 		return dto;
 	}
 	
@@ -159,10 +184,11 @@ public class PresentUtil {
 		
 		   vo.setCardId(String.valueOf(lo.get(0)).replaceAll(" ", "")); 
 		   vo.setPassword(String.valueOf(lo.get(1)).replaceAll(" ", "")); 
-		   vo.setPresentCode(String.valueOf(lo.get(2)).replaceAll(" ", "")); 
+		   vo.setPresentCode(String.valueOf(lo.get(2)).replaceAll(" ", ""));
+		   vo.setExpiryTime(String.valueOf(lo.get(3)).replaceAll(" ", ""));
 		   vo.setCardStatus(1);
 		   vo.setConvertStatus(0);
- 
+		  
 		return vo;
 	}
 	
@@ -170,9 +196,14 @@ public class PresentUtil {
 		PresentCardEntity card = new PresentCardEntity();
 		card.setCardId(temp.getCardId());
 		card.setPassword(temp.getPassword());
-		//card.setPresentCode(temp.getPresentCode());
 		card.setCardStatus(1);
 		card.setConvertStatus(0);
+		if("无".equals(temp.getExpiryTime())) {
+			card.setExpiryTime(20991231);
+		}else{
+			card.setExpiryTime(Integer.parseInt(temp.getExpiryTime()));
+		}
+		
 		return card;
 	}
 	public static boolean  isRepeat(List<CardImportTempEntity> temps){

@@ -6,18 +6,20 @@ function lcjPrizeResultListController($scope, $http, $state, httpUtils, layerUti
 	  $scope.prizeNameOption = {
 	            
 	            '50元京东E卡' :"award1",
+	            '谢谢参与':"xiexie",
 	            '100元京东E卡' :"award3",
-	           ' 500元京东E卡' :"award8",
-	           ' 华为手机' :"award7",
-	           ' 额外投票权' :"award6",
-	           ' 谢谢参与':"xiexie"
+	            '智能手表' :"award6",
+	            '智能手环' :"award7",
+	            '500元京东E卡' :"award8",
+	            '5G手机' :"award2"
+	            
 	        }; 
 	$scope.init=function(){
 		//审核状态 默认为查询 全部
 		$scope.prizeName = $scope.prizeNameOption['50元京东E卡'];
 		var data = {
 				"one" : {
-					name : "转盘中奖管理",
+					name : "818中奖管理",
 					goto:"winPrizeList"
 				},
 				"two" : {
@@ -83,6 +85,7 @@ function lcjPrizeResultListController($scope, $http, $state, httpUtils, layerUti
 			pageNumber : 0,
 			pageSize : pageSize
 		};
+		console.log(params);
 		var settings = {
 			url : url,
 			showPage : 7,

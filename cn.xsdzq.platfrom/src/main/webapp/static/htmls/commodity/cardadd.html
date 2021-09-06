@@ -51,7 +51,13 @@
                             ng-options="x.name for x in cardStatusList" ></select>
                       </div>
                 </div>
-        
+		       <div class="form-group">
+		                   <label class="col-sm-3 control-label">失效日期：</label>
+		                   <div class="col-sm-6">
+		                       <input type="text" class="form-control" id="expiryTime" name="expiryTime" 
+		                           ng-model="formData.expiryTime" placeholder="请输入年月日，如20200101"  oninput="value=value.replace(/[^\d]/g,'')" />
+		                   </div>
+		       </div>
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-9">
                         <button type="button" ng-click="newBuild()" id="newBuild"

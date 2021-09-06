@@ -72,7 +72,10 @@ public class CreditUtil {
 			dto.setNum("+"+entity.getIntegralNumber());
 			dto.setEndDate(entity.getEndDate()+"");
 		}else {
+			//11-到期失效。10-已兑换，都需要之前的itemname
+			
 			dto.setCategoryName(entity.getReason()+":"+entity.getItem());
+			
 			if("11".equals(entity.getReasonCode())) {
 				dto.setCategoryCode(entity.getItemCode());
 			}else {

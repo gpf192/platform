@@ -63,9 +63,11 @@
             </form>
             <form class="form-inline margin10">
             <div class="col-sm-10 sort-img-tip">
-					<span class="text-warning">注：1.导入附件，检查无误后，确认提交可生效。<br/> 
-					2.附件只支持1个sheet表，表中各字段均为必填项，不允许空格或空字符，且字段顺序不可改变。</span><br/>
-					<span class="text-warning">3.cardId不能重复,父类presentCode必须已经存在。</span>
+					
+					<p> <span class="text-warning">注：1.导入附件，检查无误后，确认提交可生效。</span></p> 
+					<p><span class="text-warning">2.附件只支持1个sheet表，表中各字段均为必填项，不允许空格或空字符，且字段顺序不可改变。</span></p>
+					<p><span class="text-warning">3.卡号不能重复,所属商品代码必须已经存在。</span></p>
+					<p><span class="text-warning">4.失效时间格式，如：20200101。</span></p>
 					
 				</div>
             </form>
@@ -111,7 +113,8 @@
                         aria-controls="datatable1" rowspan="1" colspan="1">卡券状态</th>
                         <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
                         aria-controls="datatable1" rowspan="1" colspan="1">兑换状态</th>
-                        
+                        <th class="col-sm-1 text-center" role="columnheader" tabindex="0"
+                        aria-controls="datatable1" rowspan="1" colspan="1">失效时间</th>
                         
                     </tr>
                 </thead>
@@ -123,7 +126,7 @@
                        <td ><div style="white-space:nowrap;">{{card.presentCode}}</div> </td>
                        <td ><div style="white-space:nowrap;">{{card.cardStatus==0?"下架":"上架"}}</div> </td>
                        <td ><div style="white-space:nowrap;">{{card.convertStatus==1?"已兑换":"未兑换"}}</div> </td>
-                       
+                        <td ><div style="white-space:nowrap;">{{card.expiryTime}}</div> </td>
               
                     </tr>
                 </tbody>

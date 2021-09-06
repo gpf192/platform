@@ -50,6 +50,9 @@ ngApp.factory("httpUtils", [ function() {
 		modifyPrize : baseUrl + "prize/modifyPrize",
 		deletePrize : baseUrl + "prize/deletePrize",
 		
+		userGetChanceList: baseUrl + "prizeRecord/userGetChanceList",
+		userTotalChanceList: baseUrl + "prizeRecord/userTotalChanceList",
+		
 		lcjPrizeList : baseUrl + "prize/getLcjPrize",
 		addLcjPrize : baseUrl + "prize/addLcjPrize",
 		modifyLcjPrize : baseUrl + "prize/modifyLcjPrize",
@@ -91,10 +94,10 @@ ngApp.factory("httpUtils", [ function() {
 		
 		getLoginRecord:baseUrl + "live/getLoginRecord",
 		
-		commodityClassify:baseUrl + "mall/category/all",
-		getAllPage:baseUrl + "mall/category/getAllPage",
-		addCommodityClassify:baseUrl + "mall/category/add",
-		deleteCommodityClassify:baseUrl + "mall/category/delete",
+		commodityClassify:baseUrl + "mall/categoryy/all",
+		getAllPage:baseUrl + "mall/categoryy/getAllPage",
+		addCommodityClassify:baseUrl + "mall/categoryy/add",
+		deleteCommodityClassify:baseUrl + "mall/categoryy/delete",
 		
 		commodity:baseUrl + "mall/present/all",
 		getAllPresentPage:baseUrl + "mall/present/getAllPresentPage",
@@ -116,6 +119,7 @@ ngApp.factory("httpUtils", [ function() {
 		deleteCreditCategory:baseUrl + "mall/credit/delete",
 		getUserCreditTotal:baseUrl + "mall/credit/getUserCreditTotal",
 		getCreditImportRecord :baseUrl + "mall/credit/getCreditImportRecord",
+		modifyUserIntegral :baseUrl + "mall/credit/modifyUserIntegral",
 		
 		crmCreditRecord:baseUrl + "mall/crm/getCrmCreditRecord",
 		crmCreditApiMsg:baseUrl + "mall/crm/getCrmCreditApiMsg",
@@ -126,10 +130,24 @@ ngApp.factory("httpUtils", [ function() {
 		getCreditImportTemp :baseUrl + "mall/credit/getCreditImportTemp",
 		checkBeforeSubmit:baseUrl + "mall/credit/checkBeforeSubmit",
 		submit:baseUrl + "mall/credit/submit",
-		deleteTempData:baseUrl + "mall/credit/deleteTempData"
+		deleteTempData:baseUrl + "mall/credit/deleteTempData",
 		
-
-
+		getAllUserBlacklist:baseUrl + "mall/userr/getAll",
+		addUserBlacklist:baseUrl + "mall/userr/addUserBlacklist",
+		deleteUserBlacklist:baseUrl + "mall/userr/delete",
+		
+		uploadUserBlacklistImportExcel:baseUrl + "mall/userr/uploadExcel",
+		submitUserBlacklistImport:baseUrl + "mall/userr/submit",
+		deleteUserBlacklistImport:baseUrl + "mall/userr/deleteUserBlacklistImport",
+		getAllUserBlacklistTemp:baseUrl + "mall/userr/getAllUserBlacklistTemp",
+		
+		videoList:baseUrl + "video/getVideoList",
+		addVideo:baseUrl + "video/addVideo",
+		deleteVideo:baseUrl + "video/deleteVideo",
+		
+		userGetChanceList818:baseUrl + "prize/userGetChanceList818",
+		userTotalChanceList818:baseUrl + "prize/userTotalChanceList818"
+		
 	};
 
 	function getUrl() {

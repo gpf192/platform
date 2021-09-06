@@ -51,7 +51,7 @@ function awardListController($scope, $http, $state, httpUtils, layerUtils, utils
 		if($scope.isModify) {
 			var childPrize = $scope.newPrizeList[modifyIndex];
 			var url = httpUtils.url.modifyAward;
-			var newProduct = {id:childPrize.id,awardName:$scope.formData.awardName,awardNameAlias:$scope.formData.awardNameAlias,awardValue:$scope.formData.awardValue,imageName:$scope.formData.imageName,imageNumber:$scope.formData.imageNumber,index:$scope.formData.index};
+			var newProduct = {id:childPrize.id,awardName:$scope.formData.awardName,awardNameAlias:$scope.formData.awardNameAlias,awardValue:$scope.formData.awardValue,imageName:$scope.formData.imageName,amount:$scope.formData.amount,index:$scope.formData.index};
 			$http.post(url,newProduct).success(function(data) {
 				if (data.resCode == 0) {
 					$scope.isModify = false;
@@ -60,14 +60,14 @@ function awardListController($scope, $http, $state, httpUtils, layerUtils, utils
 					childPrize.awardNameAlias = $scope.formData.awardNameAlias;
 					childPrize.awardValue = $scope.formData.awardValue;
 					childPrize.imageName = $scope.formData.imageName;
-					childPrize.imageNumber = $scope.formData.imageNumber;
+					childPrize.amount = $scope.formData.amount;
 					childPrize.index = $scope.formData.index;
 					layerUtils.iMsg(-1,"修改成功");
 					$scope.formData.awardName="";
 					$scope.formData.awardNameAlias="";
 					$scope.formData.awardValue="";
 					$scope.formData.imageName="";
-					$scope.formData.imageNumber="";
+					$scope.formData.amount="";
 					$scope.formData.index="";
 				}
 				if(data.resCode == -1){ 
@@ -77,7 +77,7 @@ function awardListController($scope, $http, $state, httpUtils, layerUtils, utils
 		}else {
 			
 				//如果不满足的话就让添加并且更新列表 
-				var newProduct = {awardName:$scope.formData.awardName,awardNameAlias:$scope.formData.awardNameAlias,awardValue:$scope.formData.awardValue,imageName:$scope.formData.imageName,imageNumber:$scope.formData.imageNumber,index:$scope.formData.index};
+				var newProduct = {awardName:$scope.formData.awardName,awardNameAlias:$scope.formData.awardNameAlias,awardValue:$scope.formData.awardValue,imageName:$scope.formData.imageName,amount:$scope.formData.amount,index:$scope.formData.index};
 				$scope.newPrizeList.push(newProduct);
 				console.log("newPrizeList="+angular.toJson($scope.newPrizeList));
 				console.log("customaryPrizeList="+angular.toJson(customaryPrizeList));
@@ -85,7 +85,7 @@ function awardListController($scope, $http, $state, httpUtils, layerUtils, utils
 				$scope.formData.awardNameAlias="";
 				$scope.formData.awardValue="";
 				$scope.formData.imageName="";
-				$scope.formData.imageNumber="";
+				$scope.formData.amount="";
 				$scope.formData.index="";
 			
 		}
@@ -131,11 +131,12 @@ function awardListController($scope, $http, $state, httpUtils, layerUtils, utils
 			layerUtils.iMsg(-1,"目前在修改状态！");
 			return;
 		}
-		if($scope.newPrizeList[index].imageName!= 'qjfdj' ||$scope.newPrizeList[index].awardName!= '全家福大奖')
+		//if($scope.newPrizeList[index].imageName!= 'qjfdj' ||$scope.newPrizeList[index].awardName!= '全家福大奖')
+		/*if($scope.newPrizeList[index].imageName!= 'qjfdj' )
 		{
-			layerUtils.iMsg(-1,"非全家福大奖不可修改 ！");
+			layerUtils.iMsg(-1,"不可修改 ！");
 			return;
-		}
+		}*/
 		modifyIndex = index;
 		$scope.isModify = true;
 		angular.element('#newBuild').text('确认修改');
@@ -175,7 +176,7 @@ function awardListController($scope, $http, $state, httpUtils, layerUtils, utils
 			$scope.formData.awardNameAlias="";
 			$scope.formData.awardValue="";
 			$scope.formData.imageName="";
-			$scope.formData.imageNumber="";
+			$scope.formData.amount="";
 			$scope.formData.index="";
 		}
 	}

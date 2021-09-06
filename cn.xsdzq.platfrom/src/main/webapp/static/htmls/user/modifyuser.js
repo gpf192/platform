@@ -34,6 +34,10 @@ function modifyUserController($scope, $http, $state, $stateParams, httpUtils, la
 			layerUtils.iMsg(-1, "密码不能为空");
 			return;
 		}
+		if($scope.formData.password.length <6){
+			layerUtils.iMsg(-1,"密码长度不能小于7位");
+			return;
+		}
 		if (($scope.formData.lockFlag < 0 || $scope.formData.lockFlag > 5)) {
 			layerUtils.iMsg(-1, "请输入5以内数字");
 			return;

@@ -119,7 +119,8 @@ function integralUserDetailController($scope, $http, $state, $stateParams, $grid
 			var newObj = {	
 				
 			};
-			for(k=0;k<$scope.userVoteList.length;k++){				
+			for(k=0;k<$scope.userVoteList.length;k++){	
+				newObj["CRM流水号"] = 	(data.serialNum==null?"":data.serialNum);
 				newObj["客户姓名"] = 	data.clientName;
 				newObj["客户号"] = 	data.clientId;
 				newObj["导入手机号"] = 	(data.mobile==null?"":data.mobile);

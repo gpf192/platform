@@ -55,9 +55,19 @@ public class PresentController {
 	public Map<String, Object> addPresent(@RequestBody PresentDTO dto) {
 		PresentEntity entity = PresentUtil.convertPresentEntityByDto(dto);
 		PresentCategoryEntity c = presentCategoryService.findById(dto.getCategoryId());
-		entity.setPresentCategory(c);
-		//entity.setCreatetime(new Date());
-		presentService.addPresent(entity);
+		entity.setPresentCategory(c);//父类关系
+		if(dto.getNewFlag() == 0) {
+			//更新
+			PresentEntity p = presentService.findById(entity.getId());
+			entity.setStoreUnused(p.getStoreUnused());//库存保持不变
+			entity.setConvertNumber(p.getConvertNumber());//已兑换数量保持不变
+			presentService.addPresent(entity);
+		}else {
+			//新增
+			presentService.addPresent(entity);
+		}
+		
+		
 		return GsonUtil.buildMap(0, "success", null);
 	}
 	
@@ -113,9 +123,11 @@ public class PresentController {
 			//已下架
 			int xiajia = pagePresentCardService.countByPresentIdAndCardStatus(entity.getId(),0 );
 			PresentDTO dto = PresentUtil.convertPresentDTOByEntity(entity);
-			dto.setStoreNumber(convertNumber+storeUnused+xiajia);//总库存实时计算
+			//总库存实时计算，兑换的+未用的+下架的，目前只有自动下架的，不支持手工下架卡券
+			dto.setStoreNumber(convertNumber+storeUnused+xiajia);
 			dto.setConvertNumber(convertNumber);
 			dto.setStoreUnused(storeUnused);
+			dto.setIllegalNum(xiajia);
 			cDtos.add(dto);
 		}
 		

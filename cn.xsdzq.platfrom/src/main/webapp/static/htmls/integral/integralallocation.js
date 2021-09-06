@@ -134,7 +134,7 @@ function integralallocationController($scope, $http, $state, $stateParams, $grid
         }
 		
 
-		layerUtils.iConfirm("是否删除该商品分类？", function() {
+		layerUtils.iConfirm("是否删除该项目？", function() {
 			for (var h = 0; h < $scope.selected.length; h++) {			
 	        	var infoId = $scope.selected[h];	
 	  	      for (var i = 0; i < $scope.commodityclassifyList.length; i++) {

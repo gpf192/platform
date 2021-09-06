@@ -6,13 +6,13 @@ function cardaddController($scope, $http, $state, $stateParams, $gridService, ht
 	$scope.init=function(){
 		var data = {
 				"one" : {
-					name : "",
-					goto:""
+					name : "卡券管理",
+					goto:"cardmanage"
 
 				},
 				"two" : {
 					name : "新增卡券",
-					goto:"cardadd"
+					goto:""
 
 				}
 			}
@@ -46,7 +46,7 @@ function cardaddController($scope, $http, $state, $stateParams, $gridService, ht
 		var cardId="";
 		var password="";
 		var cardStatus="";
-				
+		var expiryTime = "";		
 		
 		if(!utils.isEmpty($scope.formData.cardId)) {
 			cardId = $scope.formData.cardId;
@@ -69,23 +69,38 @@ function cardaddController($scope, $http, $state, $stateParams, $gridService, ht
 			layerUtils.iMsg(-1, "卡券状态不能为空");
 			return;
 		}
-		
+		//对失效日期字段单独处理
+		if(!utils.isEmpty($scope.formData.expiryTime)) {
+			//不为空
+			if($scope.formData.expiryTime.length != 8){
+				//且格式年月日
+				 layerUtils.iMsg(-1, "失效日期格式应为年月日，如20200101");
+					return;
+			 }
+			  			
+			expiryTime = $scope.formData.expiryTime;
+			//后端服务器判断 失效日期必须大于当天
+		}else {
+			//为空
+			expiryTime = 20991231;
+		}
 		var param = {
 				presentId:$scope.formData.presentNameModel.id,
 				cardId:cardId,
 				password:password,
 				cardStatus:cardStatus,
 				convertStatus:0,
+				expiryTime:expiryTime,
 				isNew:0//代表新增
 		}
-		console.log(presentId+cardId+password+cardStatus+"--end");
+		console.log(param);
 		$http.post(url, param).success(function(data) {
 			if (data.resCode == 0) {
 				layerUtils.iMsg(-1,"添加成功");
 				$state.go("cardmanage");
 				
 			} else {
-				layerUtils.iMsg(-1,"添加失败");
+				layerUtils.iMsg(-1,data.respMsg);
 			}
 		});
 	}

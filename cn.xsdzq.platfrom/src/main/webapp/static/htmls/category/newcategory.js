@@ -16,7 +16,7 @@ function newCategoryController($scope, $http, $state, httpUtils, layerUtils) {
 	};
 
 	$scope.submit = function() {
-		console.log("jinru *** newCategoryController");
+		
 		var url = httpUtils.url.addCategory;
 		
 		if (angular.isEmpty($scope.formData.title)) {

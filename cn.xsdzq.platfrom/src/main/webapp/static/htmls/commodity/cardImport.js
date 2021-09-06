@@ -5,11 +5,11 @@ function cardImportController($scope, $http, $state, $stateParams, $gridService,
 		var data = {
 				"one" : {
 					name : "卡券管理",
-					goto:""
+					goto:"cardmanage"
 				},
 				"two" : {
 					name : "卡券批量导入",
-					goto:"userTIcketsList"
+					goto:""
 
 				}
 			}
@@ -129,7 +129,6 @@ function cardImportController($scope, $http, $state, $stateParams, $gridService,
 		$http.post(url).success(function(data) {
 			if (data.resCode == 0) {
 				layerUtils.iMsg(-1,"删除成功");
-			//	$scope.formData={};
 				$scope.getEmpList(50);//此时再次查询 应该是没有数据
 			} else {
 				layerUtils.iMsg(-1,data.respMsg);
@@ -137,7 +136,7 @@ function cardImportController($scope, $http, $state, $stateParams, $gridService,
 			}
 		});
 		}, function() {
-			console.log("取消");
+			//console.log("取消");
 		});
 	}
 	
@@ -178,14 +177,12 @@ function cardImportController($scope, $http, $state, $stateParams, $gridService,
 		//angular.forEach($scope.userVoteList, function(data, index, datas) {
 			var newObj = {	
 				
-			};
-							
-				newObj["cardId"] ="" ;
-				newObj["password"]  ="";
-				newObj["presentCode"]  ="" ;
-				
+			};						
+				newObj["卡号"] ="" ;
+				newObj["密码"]  ="";
+				newObj["所属商品代码"]  ="" ;
+				newObj["失效时间"]  ="" ;
 
-			
 			arr.push(newObj);
 		//});
 		return arr;

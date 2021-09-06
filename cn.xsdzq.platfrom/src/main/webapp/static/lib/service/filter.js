@@ -71,6 +71,36 @@ ngApp.filter('voteSourceFilter', function() {
 	    }
 	}
 });
+
+ngApp.filter('kmhSourceFilter', function() { 
+	return function (value) {
+	    if(value == "13"){
+	    	return "购买产品";
+	    }
+	    if(value == "16"){
+	    	return "签约投顾";
+	    }
+	  
+	}
+});
+
+ngApp.filter('lcjSourceFilter', function() { 
+	return function (value) {
+		if(value == "12"){
+	    	return "分享";
+	    }
+	    if(value == "13"){
+	    	return "购买产品";
+	    }
+	    if(value == "16"){
+	    	return "签约投顾";
+	    }else{
+	    	return "其他";
+	    }
+	  
+	}
+});
+
 ngApp.filter('divisionFilter', function() { 
 	return function (value) {
 	    if(value == "0"){
@@ -209,7 +239,17 @@ ngApp.filter('orderStatusFilter', function() {
 	    
 	}
 });
-
+ngApp.filter('openFlag', function() { 
+	return function (value) {
+	    if(value == 0){
+	    	return "否";
+	    }
+	    if(value == 1){
+	    	return "是";
+	    }
+	    
+	}
+});
 ngApp.filter('omitFilter', function() { 
 	return function (str) {
 		if(str){

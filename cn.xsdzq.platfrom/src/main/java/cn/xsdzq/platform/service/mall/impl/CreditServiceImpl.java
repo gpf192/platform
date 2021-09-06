@@ -13,11 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.xsdzq.platform.dao.mall.CreditCategoryRepository;
 import cn.xsdzq.platform.dao.mall.CreditRecordRepository;
-import cn.xsdzq.platform.dao.mall.PageCreditRecordRepository;
 import cn.xsdzq.platform.dao.mall.PageCreditRepository;
 import cn.xsdzq.platform.entity.mall.CreditEntity;
 import cn.xsdzq.platform.entity.mall.CreditRecordEntity;
-import cn.xsdzq.platform.entity.mall.PresentCardEntity;
 import cn.xsdzq.platform.service.mall.CreditService;
 
 @Service(value = "creditServiceImpl")
@@ -39,8 +37,10 @@ public class CreditServiceImpl implements CreditService{
 	@Transactional
 	public void addCredit(CreditEntity entity) {
 		// TODO Auto-generated method stub
-		//判断是否有关联导入积分明细，若有则更新明细中的前端项目显示字段
-		List<CreditRecordEntity> recordList = creditRecordRepository.findByTypeAndItemCode(true, entity.getCategoryCode());
+		//判断是否有关联导入积分明细，若有则更新明细中的前端项目显示字段，包括手动减积分
+		//List<CreditRecordEntity> recordList = creditRecordRepository.findByTypeAndItemCode(true, entity.getCategoryCode());
+		List<CreditRecordEntity> recordList = creditRecordRepository.findByItemCode(entity.getCategoryCode());
+
 		if(recordList.size() >0) {
 			for(CreditRecordEntity record:recordList) {
 				record.setItem(entity.getFrontName());

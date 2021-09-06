@@ -36,7 +36,7 @@ import cn.xsdzq.platform.util.mall.PresentUtil;
 
 
 @RestController
-@RequestMapping(value = "/mall/category")
+@RequestMapping(value = "/mall/categoryy")
 public class PresentCategoryController {
 
 	public static Logger logger = LoggerFactory.getLogger(PresentCategoryController.class);
