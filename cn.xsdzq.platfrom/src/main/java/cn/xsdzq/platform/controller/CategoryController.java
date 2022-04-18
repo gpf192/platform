@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sun.istack.internal.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import cn.xsdzq.platform.entity.CategoryEntity;
 import cn.xsdzq.platform.model.CategoryDTO;
@@ -31,7 +32,7 @@ import cn.xsdzq.platform.util.GsonUtil;
 @RequestMapping("/category")
 public class CategoryController {
 
-	private static Logger logger = Logger.getLogger(CategoryController.class);
+	private static Logger logger = LogManager.getLogger(CategoryController.class);
 
 	@Autowired
 	@Qualifier("categoryServiceImpl")

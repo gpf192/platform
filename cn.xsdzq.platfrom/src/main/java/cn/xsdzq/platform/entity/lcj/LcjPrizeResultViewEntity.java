@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
-@Table(name = "lcj818_prize_result_view")
+@Table(name = "lcj_518_2022_prize_result_view")
 @EntityListeners(AuditingEntityListener.class)
 public class LcjPrizeResultViewEntity implements Serializable {
 	@Id

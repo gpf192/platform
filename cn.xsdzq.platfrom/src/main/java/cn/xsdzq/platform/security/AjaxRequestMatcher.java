@@ -4,11 +4,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
-import com.sun.istack.internal.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class AjaxRequestMatcher implements RequestMatcher {
 
-	private static Logger logger = Logger.getLogger(AjaxRequestMatcher.class);
+	private static Logger logger = LogManager.getLogger(AjaxRequestMatcher.class);
 
 	@Override
 	public boolean matches(HttpServletRequest request) {

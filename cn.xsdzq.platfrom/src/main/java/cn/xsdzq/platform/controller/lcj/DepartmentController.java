@@ -13,7 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sun.istack.internal.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import cn.xsdzq.platform.entity.lcj.DepartmentEntity;
 import cn.xsdzq.platform.model.lcj.DepartmentDTO;
@@ -24,7 +25,7 @@ import cn.xsdzq.platform.util.LcjUtil;
 @Controller
 @RequestMapping("/department")
 public class DepartmentController {
-	private static Logger logger = Logger.getLogger(DepartmentController.class);
+	private static Logger logger = LogManager.getLogger(DepartmentController.class);
 
 	@Autowired
 	@Qualifier("departmentServiceImpl")

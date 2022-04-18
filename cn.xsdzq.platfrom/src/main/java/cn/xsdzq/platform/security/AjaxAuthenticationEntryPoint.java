@@ -9,11 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
-import com.sun.istack.internal.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class AjaxAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
-	private static Logger logger = Logger.getLogger(AjaxAuthenticationEntryPoint.class);
+	private static Logger logger = LogManager.getLogger(AjaxAuthenticationEntryPoint.class);
 
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,

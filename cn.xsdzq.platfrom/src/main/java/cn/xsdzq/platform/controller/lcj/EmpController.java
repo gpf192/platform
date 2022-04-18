@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sun.xml.internal.stream.Entity;
 
 import cn.xsdzq.platform.controller.BaseController;
 import cn.xsdzq.platform.entity.lcj.DepartmentEntity;
