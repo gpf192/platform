@@ -429,7 +429,7 @@ public class MallUserServiceImpl implements MallUserService {
 		list.add(0);
 		list.add(1);
 		//筛选条件 :结束日期，type为1表示增加的记录，changetype为0或1，标识增加的未兑换或未完全兑换
-		List<CreditRecordEntity> recordList = creditRecordRepository.findByEndDateAndTypeAndChangeTypeIn(preday,  true, list);
+		List<CreditRecordEntity> recordList = creditRecordRepository.findByEndDateLessThanEqualAndTypeAndChangeTypeIn(preday,  true, list);
 		System.out.println("昨天共有几条到期记录 -- "+recordList.size());
 		//，0，新增状态，未兑换，1-未完全兑换，2-已完成兑换，3-已过期
 		/**
@@ -505,7 +505,7 @@ public class MallUserServiceImpl implements MallUserService {
 		/**
 		 * 查询条件：当天日期（int类型），未兑换（值是0）
 		 */
-		carList = presentCardRepository.findByExpiryTimeAndConvertStatus(DateUtil.getNowDate(), 0);
+		carList = presentCardRepository.findByExpiryTimeLessThanEqualAndConvertStatus(DateUtil.getNowDate(), 0);
 		if(carList.size() == 0) {
 			System.out.println(" 今日无失效卡券 "+new Date());
 		}else {

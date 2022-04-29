@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	   xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	   xmlns:tx="http://www.springframework.org/schema/tx" xmlns:task="http://www.springframework.org/schema/task"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans 
 		http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/jdbc 
 		http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
@@ -12,7 +13,7 @@
         http://www.springframework.org/schema/tx 
         http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/context  
-		http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+		http://www.springframework.org/schema/context/spring-context-4.0.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 	<context:annotation-config />
 	<context:component-scan base-package="cn.xsdzq.platform" />
 	<jpa:repositories base-package="cn.xsdzq.platform.dao" />
@@ -32,23 +33,23 @@
         <property name="password" value="xsdzq"/>  
 	 -->
 	 
-	 <!--<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">  
+<!--	 <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>  
         <property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl"/>  
 	 	<property name="username" value="bzzx"/>  
      	<property name="password" value="bzzx123456"/>  
-     	   连接池启动时的初始值 
+
         <property name="initialSize" value="3" />  
-    </bean>-->  
+    </bean>-->
     
-    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">  
-        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>  
-        <property name="url" value="jdbc:oracle:thin:@192.168.113.135:1521:orcl"/>  
-	 	<property name="username" value="bzzx"/>  
-     	<property name="password" value="bzzx123456"/>  
-        <!-- 连接池启动时的初始值 -->  
-        <property name="initialSize" value="3" />  
-        <!-- end -->  
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@10.150.52.110:1521:orcl"/>
+	 	<property name="username" value="bzzx"/>
+     	<property name="password" value="xsdhelp456"/>
+        <!-- 连接池启动时的初始值 -->
+        <property name="initialSize" value="3" />
+        <!-- end -->
     </bean>
 
 	<!-- jdbc template -->
@@ -94,5 +95,7 @@
 
 	<!-- 配置 Annotation 驱动，定义事务 -->
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
-	
+
+	<!-- 开启定时任务注解-->
+	<task:annotation-driven/>
 </beans>
