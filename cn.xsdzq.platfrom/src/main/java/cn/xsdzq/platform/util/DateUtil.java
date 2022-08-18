@@ -155,6 +155,27 @@ public class DateUtil {
 		return Integer.parseInt(sdf.format(c.getTime()));
 			
 	}
+
+	public static Date addMinute(Date time, Integer minute) {
+		assert time != null && minute != null;
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(time);
+		cal.add(Calendar.MINUTE, minute);
+		return cal.getTime();
+	}
+
+	public static Date strToDate(String str) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = null;
+		try {
+			date = format.parse(str);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		return date;
+	}
+
 	public static void main(String[] args) {
 		//StringBuilder s = new StringBuilder();
 		//String a  = "33"+s.append(55)+s.append(true)+s.append("66").toString();
@@ -162,5 +183,5 @@ public class DateUtil {
 		//System.out.println(s.substring(0, 4)+"-"+s.substring(4, 6)
 		//+"-"+s.substring(6, 8));
 		System.out.println( stringToDateAndSeconds1("20210326"));
-	}	
+	}
 }

@@ -61,6 +61,9 @@ public class MallUserInfoEntity implements Serializable {
 	@LastModifiedDate
 	private Date modifytime;
 
+	// 冻结积分
+	@Column(name = "frozen_integral",columnDefinition = "int default 0")
+	private Integer frozenIntegral = 0;
 
 	public String getClientId() {
 		return clientId;
@@ -126,11 +129,26 @@ public class MallUserInfoEntity implements Serializable {
 		this.modifytime = modifytime;
 	}
 
-	@Override
-	public String toString() {
-		return "MallUserInfoEntity [id=" + id + ", creditScore=" + creditScore + ", sumScore=" + sumScore
-				+ ", userLevel=" + userLevel + ", clientId=" + clientId + ", mallUserEntity=" + mallUserEntity
-				+ ", createtime=" + createtime + ", modifytime=" + modifytime + "]";
+	public Integer getFrozenIntegral() {
+		return frozenIntegral;
 	}
 
+	public void setFrozenIntegral(Integer frozenIntegral) {
+		this.frozenIntegral = frozenIntegral;
+	}
+
+	@Override
+	public String toString() {
+		return "MallUserInfoEntity{" +
+				"id=" + id +
+				", creditScore=" + creditScore +
+				", sumScore=" + sumScore +
+				", userLevel=" + userLevel +
+				", clientId='" + clientId + '\'' +
+				", mallUserEntity=" + mallUserEntity +
+				", createtime=" + createtime +
+				", modifytime=" + modifytime +
+				", frozenIntegral=" + frozenIntegral +
+				'}';
+	}
 }

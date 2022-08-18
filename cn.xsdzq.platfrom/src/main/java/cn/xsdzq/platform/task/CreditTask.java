@@ -1,8 +1,10 @@
 package cn.xsdzq.platform.task;
 
-import java.util.Date;
-
-
+import cn.xsdzq.platform.entity.lcj.ParamEntity;
+import cn.xsdzq.platform.service.lcj.ParamService;
+import cn.xsdzq.platform.service.mall.MallUserService;
+import cn.xsdzq.platform.service.mall.OrderService;
+import cn.xsdzq.platform.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
@@ -10,10 +12,8 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import cn.xsdzq.platform.entity.lcj.ParamEntity;
-import cn.xsdzq.platform.service.lcj.ParamService;
-import cn.xsdzq.platform.service.mall.MallUserService;
-import cn.xsdzq.platform.util.DateUtil;
+import javax.annotation.Resource;
+import java.util.Date;
 
 @PropertySource("classpath:/param.ini")
 @Component
@@ -28,6 +28,9 @@ public class CreditTask {
 	
 	@Autowired
 	private ParamService paramService;
+
+	@Resource
+	private OrderService orderService;
 	
 	
 	// 扫描失效积分，以及卡券自动失效cron = "0 * 12 * * ? " 12点执行  ，cron = "0 0 0 * * ? " 0点执行
@@ -83,4 +86,12 @@ public class CreditTask {
 		};
 		
     }
+
+	@Scheduled(cron = "${orderQueryCron}")
+	public void queryOrderTask() {
+		ParamEntity paramEntity = paramService.getValueByCode("orderQueryJob");
+		if ("1".equals(paramEntity.getValue())) {
+			orderService.syncOrderStatus();
+		}
+	}
 }
