@@ -421,7 +421,23 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl : "htmls/video/modifyxfVideo.html",
 		controller : "modifyxfVideoController",
 		params:{user:{}}
-	});
+	}).state("brandmanage", {
+		url : "/product/brandmanage",
+		templateUrl : "htmls/product/brandmanage.html",
+		controller : "brandmanageController"
+	}).state("brandadd", {
+		url : "/product/brandadd",
+		templateUrl : "htmls/product/brandadd.html",
+		controller : "brandaddController"
+	}).state("brandmodify", {
+		url : "/product/brandmodify",
+		templateUrl : "htmls/product/brandmodify.html",
+		controller : "brandmodifyController",
+		params:{param:{}}
+	})
+
+
+	;
 	
 
 	$urlRouterProvider.otherwise("/");
