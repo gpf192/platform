@@ -145,6 +145,11 @@ ngApp.factory("httpUtils", [ function() {
 		getAllBrand:baseUrl + "mall/brand/all",
 		addBrand:baseUrl + "mall/brand/add",
 		deleteBrand:baseUrl + "mall/brand/delete",
+
+		getMallProductSellStatus:baseUrl + "mall/product/sellstatus",
+		getMallAllProduct:baseUrl + "mall/product/all",
+		addMallProduct:baseUrl + "mall/product/add",
+		deleteMallProduct:baseUrl + "mall/product/delete",
 		
 		videoList:baseUrl + "video/getVideoList",
 		addVideo:baseUrl + "video/addVideo",

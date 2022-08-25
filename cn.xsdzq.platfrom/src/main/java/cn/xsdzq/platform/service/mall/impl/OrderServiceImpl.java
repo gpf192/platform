@@ -1,10 +1,14 @@
 package cn.xsdzq.platform.service.mall.impl;
 
 import cn.xsdzq.platform.constants.ChengQuanOrderStatusEnum;
+import cn.xsdzq.platform.constants.CreditRecordConst;
 import cn.xsdzq.platform.constants.OrderStatusEnum;
+import cn.xsdzq.platform.dao.mall.MallUserRepository;
 import cn.xsdzq.platform.dao.mall.OrderRepository;
 import cn.xsdzq.platform.entity.lcj.ParamEntity;
+import cn.xsdzq.platform.entity.mall.CreditRecordEntity;
 import cn.xsdzq.platform.entity.mall.MallOrderEntity;
+import cn.xsdzq.platform.entity.mall.MallUserEntity;
 import cn.xsdzq.platform.entity.mall.MallUserInfoEntity;
 import cn.xsdzq.platform.manager.OrderManager;
 import cn.xsdzq.platform.service.lcj.ParamService;
@@ -35,6 +39,8 @@ public class OrderServiceImpl implements OrderService {
     private DirectChargeService directChargeService;
     @Resource
     private OrderManager orderManager;
+    @Resource
+    private MallUserRepository mallUserRepository;
 
     @Override
     public void syncOrderStatus() {
@@ -92,7 +98,9 @@ public class OrderServiceImpl implements OrderService {
             MallUserInfoEntity updateUserInfo = new MallUserInfoEntity();
             updateUserInfo.setClientId(order.getClientId());
             updateUserInfo.setFrozenIntegral(order.getUseIntegral());
-            orderManager.update(updateOrder, updateUserInfo);
+
+            CreditRecordEntity creditRecord = buildCreditRecord(updateOrder);
+            orderManager.update(updateOrder, updateUserInfo, creditRecord);
         }
     }
 
@@ -111,6 +119,24 @@ public class OrderServiceImpl implements OrderService {
         }
 
         return orderStatus;
+    }
+
+    private CreditRecordEntity buildCreditRecord(MallOrderEntity order) {
+        MallUserEntity user = mallUserRepository.findByClientId(order.getClientId());
+        CreditRecordEntity credit = new CreditRecordEntity();
+        credit.setType(CreditRecordConst.REDUCESCORE);
+        credit.setReasonCode(CreditRecordConst.EXCHANGECARD);
+        credit.setReason(CreditRecordConst.EXCHANGECARDREASON);
+        credit.setItem(order.getGoodsName());
+        credit.setIntegralNumber(order.getUseIntegral());
+        String tradeDate = order.getTradeDate().toString();
+        credit.setDateFlag(tradeDate.substring(0, 4) + "-" + tradeDate.substring(4, 6) + "-" + tradeDate.substring(6, 8));
+        credit.setGroupTime(tradeDate.substring(0, 4) + "-" + tradeDate.substring(4, 6));
+        credit.setChangeType(CreditRecordConst.CHANGETYPE_COMPLETE);
+        credit.setRemindNumer(0);
+        credit.setRecordTime(order.getEndTime());
+        credit.setMallUserEntity(user);
+        return credit;
     }
 
 }

@@ -434,11 +434,23 @@ ngApp.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl : "htmls/product/brandmodify.html",
 		controller : "brandmodifyController",
 		params:{param:{}}
+	}).state("productmanage", {
+		url : "/product/productmanage",
+		templateUrl : "htmls/product/productmanage.html",
+		controller : "productmanageController"
+	}).state("productadd", {
+		url : "/product/productadd",
+		templateUrl : "htmls/product/productadd.html",
+		controller : "productaddController"
+	}).state("productmodify", {
+		url : "/product/productmodify",
+		templateUrl : "htmls/product/productmodify.html",
+		controller : "productmodifyController",
+		params:{param:{}}
 	})
 
 
 	;
-	
 
 	$urlRouterProvider.otherwise("/");
 });

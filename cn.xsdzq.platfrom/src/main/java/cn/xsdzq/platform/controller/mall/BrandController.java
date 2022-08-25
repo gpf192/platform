@@ -58,7 +58,11 @@ public class BrandController {
     }
 
     @GetMapping(value = "/all")
-    public Map<String, Object> getAllPage(HttpServletRequest request, @RequestParam String goodsTypeId, @RequestParam String sellStatusCode, @RequestParam int pageNumber, @RequestParam int pageSize) {
+    public Map<String, Object> getAllPage(HttpServletRequest request,
+                                          @RequestParam(required = false) String goodsTypeId,
+                                          @RequestParam(required = false) String sellStatusCode,
+                                          @RequestParam int pageNumber,
+                                          @RequestParam int pageSize) {
         BrandQueryDTO brandQueryDTO = new BrandQueryDTO();
         if (!StringUtils.isEmpty(goodsTypeId)) {
             brandQueryDTO.setGoodsTypeId(goodsTypeId);

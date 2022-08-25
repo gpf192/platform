@@ -1,0 +1,99 @@
+<script type="text/javascript" src="htmls/product/productadd.js"></script>
+<script type="text/javascript">
+</script>
+<div class="box border primary" ng-init="init()">
+    <div class="box-title">
+        <h4>
+            <i class="fa fa-bars"></i>新增商品
+        </h4>
+        <div class="tools hidden">
+            <a href="#box-config" data-toggle="modal" class="config"> <i
+                class="fa fa-cog"></i>
+            </a> <a href="javascript:;" class="reload"> <i class="fa fa-refresh"></i>
+            </a> <a href="javascript:;" class="collapse"> <i
+                class="fa fa-chevron-up"></i>
+            </a> <a href="javascript:;" class="remove"> <i class="fa fa-times"></i>
+            </a>
+        </div>
+    </div>
+    <div class="box-body big">
+        <form action="" class="form-horizontal">
+            <fieldset>
+                <legend> 新增商品</legend>
+
+          		<div class="form-group">
+                    <label class="col-sm-3 control-label">商品名称：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="goodsName" name="goodsName"
+                            ng-model="formData.goodsName" placeholder="请输入内容" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">商品编码：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="goodsNo" name="goodsNo"
+                               ng-model="formData.goodsNo" placeholder="请输入内容" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">商品面额：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="officialPrice" name="officialPrice"
+                               ng-model="formData.officialPrice" placeholder="请输入内容" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">实际价格：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="price" name="price"
+                               ng-model="formData.price" placeholder="请输入内容" />
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    <label  class="col-sm-3 control-label">商品状态:</label>
+                    <div class="col-sm-6">
+                        <select class="form-control" ng-model="formData.sellStatus"
+                                ng-options="item.code as item.desc for item in sellStatusList | filter:{desc:'!全部'}" ></select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">大图url：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="bigImage" name="bigImage"
+                               ng-model="formData.bigImage" placeholder="请输入内容" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">小图url：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="smallImage" name="smallImage"
+                               ng-model="formData.smallImage" placeholder="请输入内容" />
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    <label  class="col-sm-3 control-label">商品类别id:</label>
+                    <div class="col-sm-6">
+                        <select class="form-control" ng-model="formData.goodsTypeId"
+                                ng-options="item.goodsTypeId as item.goodsTypeName for item in brandAllList | filter:{goodsTypeName:'!全部'}" ></select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-9">
+                        <button type="button" ng-click="newBuild()" id="newBuild"
+                            class="btn btn-default btn-primary">保存</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+
+    </div>
+   
+</div>

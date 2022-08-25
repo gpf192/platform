@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BrandRepository extends JpaRepository<MallBrandEntity, Long> {
 
-
+    MallBrandEntity findByGoodsTypeId(String goodsTypeId);
 }

@@ -36,6 +36,9 @@ public class BrandServiceImpl implements BrandService {
                 throw new RuntimeException("更新数据不存在");
             } else {
                 MallBrandEntity mallBrandEntity = optional.get();
+                saveOrUpdateBrand.setGoodsTypeId(null);
+                saveOrUpdateBrand.setCreateTime(null);
+                saveOrUpdateBrand.setUpdateTime(null);
                 BeanHelper.copyPropertiesIgnoreNull(saveOrUpdateBrand, mallBrandEntity);
                 brandRepository.save(mallBrandEntity);
                 return;
