@@ -12,5 +12,5 @@ public interface BrandService {
 
     void save(BrandSaveDTO brandDTO);
 
-    Page<MallBrandEntity> queryByPage(BrandQueryDTO brandQueryDTO, Integer pageNum, Integer pageSize);
+    Page<MallBrandEntity> queryByPage(BrandQueryDTO brandQueryDTO);
 }

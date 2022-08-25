@@ -49,13 +49,14 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public Page<MallBrandEntity> queryByPage(BrandQueryDTO brandQueryDTO, Integer pageNum, Integer pageSize) {
+    public Page<MallBrandEntity> queryByPage(BrandQueryDTO brandQueryDTO) {
         Sort sort = Sort.by(Sort.Direction.ASC, "createTime");
-        Pageable pageable = PageRequest.of(pageNum, pageSize, sort);
+        Pageable pageable = PageRequest.of(brandQueryDTO.getPageNumber(), brandQueryDTO.getPageSize(), sort);
 
         MallBrandEntity brand = new MallBrandEntity();
         BeanUtils.copyProperties(brandQueryDTO, brand);
         ExampleMatcher matcher = ExampleMatcher.matching()
+                .withIgnorePaths("pageNumber", "pageSize")
                 .withMatcher("sellStatus", ExampleMatcher.GenericPropertyMatchers.exact())
                 .withMatcher("goodsTypeId", ExampleMatcher.GenericPropertyMatchers.contains());
         Example<MallBrandEntity> example = Example.of(brand, matcher);

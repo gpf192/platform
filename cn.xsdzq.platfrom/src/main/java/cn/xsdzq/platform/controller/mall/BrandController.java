@@ -3,10 +3,7 @@ package cn.xsdzq.platform.controller.mall;
 import cn.xsdzq.platform.constants.BrandStatusEnum;
 import cn.xsdzq.platform.entity.mall.MallBrandEntity;
 import cn.xsdzq.platform.model.Pagination;
-import cn.xsdzq.platform.model.mall.BrandQueryDTO;
-import cn.xsdzq.platform.model.mall.BrandRecordDTO;
-import cn.xsdzq.platform.model.mall.BrandSaveDTO;
-import cn.xsdzq.platform.model.mall.BrandSellStatusDTO;
+import cn.xsdzq.platform.model.mall.*;
 import cn.xsdzq.platform.service.mall.BrandService;
 import cn.xsdzq.platform.util.BeanHelper;
 import cn.xsdzq.platform.util.GsonUtil;
@@ -58,28 +55,19 @@ public class BrandController {
     }
 
     @GetMapping(value = "/all")
-    public Map<String, Object> getAllPage(HttpServletRequest request,
-                                          @RequestParam(required = false) String goodsTypeId,
-                                          @RequestParam(required = false) String sellStatusCode,
-                                          @RequestParam int pageNumber,
-                                          @RequestParam int pageSize) {
-        BrandQueryDTO brandQueryDTO = new BrandQueryDTO();
-        if (!StringUtils.isEmpty(goodsTypeId)) {
-            brandQueryDTO.setGoodsTypeId(goodsTypeId);
+    public Map<String, Object> getAllPage(HttpServletRequest request, BrandQueryDTO brandQueryDTO) {
+        if (brandQueryDTO == null || StringUtils.isEmpty(brandQueryDTO.getPageNumber()) || StringUtils.isEmpty(brandQueryDTO.getPageSize())) {
+            return GsonUtil.buildMap(1, "必输项为空", null);
         }
 
-        if (!StringUtils.isEmpty(sellStatusCode) && !"all".equals(sellStatusCode)) {
-            brandQueryDTO.setSellStatus(Integer.valueOf(sellStatusCode));
-        }
-
-        Page<MallBrandEntity> page = brandService.queryByPage(brandQueryDTO, pageNumber, pageSize);
+        Page<MallBrandEntity> page = brandService.queryByPage(brandQueryDTO);
         List<MallBrandEntity> content = page.getContent();
 
         List<BrandRecordDTO> brandRecordDTOList = Collections.emptyList();
         if (!CollectionUtils.isEmpty(content)) {
             brandRecordDTOList = BeanHelper.copyList(content, BrandRecordDTO.class);
         }
-        Pagination pagination = new Pagination(pageNumber, pageSize, (int) page.getTotalElements());
+        Pagination pagination = new Pagination(brandQueryDTO.getPageNumber(), brandQueryDTO.getPageSize(), (int) page.getTotalElements());
         return GsonUtil.buildMap(0, "ok", brandRecordDTOList, pagination);
 
     }

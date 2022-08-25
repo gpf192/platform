@@ -24,7 +24,7 @@
                 <form class="form-inline margin10">
                     &nbsp
                     <div class="form-group ">
-                        <label  for="searchTitle">商品类别id:</label>
+                        <label>商品类别id:</label>
                         <input type="text" class="form-control input-300 " id="goodsTypeId" name="goodsTypeId"
                                ng-model="formData.goodsTypeId" placeholder="请输入关键字"></input>
                     </div>
@@ -33,7 +33,7 @@
                     <div class="form-group ">
                         <label class="control-label text-right">商品类别状态:</label>
                         <select class="form-control" ng-model="formData.sellStatus"
-                                ng-options="item.desc for item in sellStatusList"></select>
+                                ng-options="item.code as item.desc for item in sellStatusList"></select>
                     </div>
                     &nbsp
                     <input type="button" value="查询" class="btn btn-primary"

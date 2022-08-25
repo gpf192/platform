@@ -25,7 +25,7 @@ function brandmanageController($scope, $http, $state, $stateParams, $gridService
                 //设置筛选条件为默认
                 for (var k = 0; k < $scope.sellStatusList.length; k++) {
                     if ($scope.sellStatusList[k].desc == "全部") {
-                        $scope.formData.sellStatus = $scope.sellStatusList[k];
+                        $scope.formData.sellStatus = $scope.sellStatusList[k].code;
                     }
                 }
 
@@ -82,20 +82,15 @@ function brandmanageController($scope, $http, $state, $stateParams, $gridService
     };
 
     $scope.getBrandList = function (pageSize) {
-        let goodsTypeId = "";
-        let sellStatusCode = "";
+        let sellStatus = null;
 
-        if (!utils.isEmpty($scope.formData.goodsTypeId)) {
-            goodsTypeId = "%" + $scope.formData.goodsTypeId + "%";
-        }
-
-        if ("全部" != $scope.formData.sellStatus.desc) {
-            sellStatusCode = $scope.formData.sellStatus.code;
+        if ("all" != $scope.formData.sellStatus) {
+            sellStatus = $scope.formData.sellStatus;
         }
 
         const params = {
-            goodsTypeId: goodsTypeId,
-            sellStatusCode: sellStatusCode,
+            goodsTypeId: $scope.formData.goodsTypeId,
+            sellStatus: sellStatus,
             pageNumber: 0,
             pageSize: pageSize
         };
