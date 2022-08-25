@@ -53,7 +53,7 @@ public class CreditUtil {
 		dto.setDepartmentDesc(entity.getMallUserEntity().getDepartmentName());
 		dto.setMobile(entity.getMallUserEntity().getMobile());
 		dto.setTotal(entity.getCreditScore());
-		
+		dto.setFrozenIntegral(entity.getFrozenIntegral());
 		return dto;
 	}
 	

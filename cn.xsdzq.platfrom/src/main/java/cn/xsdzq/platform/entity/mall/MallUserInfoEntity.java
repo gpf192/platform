@@ -82,7 +82,7 @@ public class MallUserInfoEntity implements Serializable {
 	}
 
 	public int getCreditScore() {
-		return creditScore;
+		return creditScore - frozenIntegral;
 	}
 
 	public void setCreditScore(int creditScore) {

@@ -8,6 +8,7 @@ public class CreditUserTotalDTO {
 	private String departmentDesc;//营业部名称
 	private String departmentCode;//营业部编码, 每次导入即更新
 	private long total;//总分数
+	private Integer frozenIntegral; // 冻结积分
 	public long getId() {
 		return id;
 	}
@@ -50,12 +51,26 @@ public class CreditUserTotalDTO {
 	public void setTotal(long total) {
 		this.total = total;
 	}
+
+	public Integer getFrozenIntegral() {
+		return frozenIntegral;
+	}
+
+	public void setFrozenIntegral(Integer frozenIntegral) {
+		this.frozenIntegral = frozenIntegral;
+	}
+
 	@Override
 	public String toString() {
-		return "CreditUserTotalDTO [id=" + id + ", clientName=" + clientName + ", clientId=" + clientId + ", mobile="
-				+ mobile + ", departmentDesc=" + departmentDesc + ", departmentCode=" + departmentCode + ", total="
-				+ total + "]";
+		return "CreditUserTotalDTO{" +
+				"id=" + id +
+				", clientName='" + clientName + '\'' +
+				", clientId='" + clientId + '\'' +
+				", mobile='" + mobile + '\'' +
+				", departmentDesc='" + departmentDesc + '\'' +
+				", departmentCode='" + departmentCode + '\'' +
+				", total=" + total +
+				", frozenIntegral=" + frozenIntegral +
+				'}';
 	}
-	
-	
 }
