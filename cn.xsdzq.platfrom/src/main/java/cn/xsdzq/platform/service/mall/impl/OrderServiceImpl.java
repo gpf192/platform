@@ -1,5 +1,6 @@
 package cn.xsdzq.platform.service.mall.impl;
 
+import cn.xsdzq.platform.constants.AdjustmentTypeEnum;
 import cn.xsdzq.platform.constants.ChengQuanOrderStatusEnum;
 import cn.xsdzq.platform.constants.CreditRecordConst;
 import cn.xsdzq.platform.constants.OrderStatusEnum;
@@ -11,16 +12,19 @@ import cn.xsdzq.platform.entity.mall.MallOrderEntity;
 import cn.xsdzq.platform.entity.mall.MallUserEntity;
 import cn.xsdzq.platform.entity.mall.MallUserInfoEntity;
 import cn.xsdzq.platform.manager.OrderManager;
+import cn.xsdzq.platform.model.mall.OrderQueryDTO;
+import cn.xsdzq.platform.model.mall.OrderSaveDTO;
 import cn.xsdzq.platform.service.lcj.ParamService;
 import cn.xsdzq.platform.service.mall.OrderService;
 import cn.xsdzq.platform.service.mall.client.chengquan.CommonRespEntity;
 import cn.xsdzq.platform.service.mall.client.chengquan.DirectChargeService;
 import cn.xsdzq.platform.service.mall.client.chengquan.GetOrderReqEntity;
 import cn.xsdzq.platform.service.mall.client.chengquan.GetOrderRespEntity;
+import cn.xsdzq.platform.util.BeanHelper;
 import cn.xsdzq.platform.util.DateUtil;
+import cn.xsdzq.platform.util.UserManageUtil;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -28,6 +32,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -67,6 +72,41 @@ public class OrderServiceImpl implements OrderService {
                 }
             }
         }
+    }
+
+    @Override
+    public void save(OrderSaveDTO orderSaveDTO) {
+        Optional<MallOrderEntity> optional = orderRepository.findById(orderSaveDTO.getId());
+        if (!optional.isPresent()) {
+            throw new RuntimeException("更新数据不存在");
+        } else {
+            MallOrderEntity mallOrderEntity = optional.get();
+            if(!AdjustmentTypeEnum.DEFAULT.getCode().equals(mallOrderEntity.getAdjustmentType())){
+                throw new RuntimeException("调账不允许");
+            }
+            mallOrderEntity.setOperator(UserManageUtil.getUserName());
+            BeanHelper.copyPropertiesIgnoreNull(orderSaveDTO, mallOrderEntity);
+            orderRepository.save(mallOrderEntity);
+        }
+    }
+
+    @Override
+    public Page<MallOrderEntity> queryByPage(OrderQueryDTO orderQueryDTO) {
+        Sort sort = Sort.by(Sort.Direction.ASC, "createTime");
+        Pageable pageable = PageRequest.of(orderQueryDTO.getPageNumber(), orderQueryDTO.getPageSize(), sort);
+
+        MallOrderEntity order = new MallOrderEntity();
+        BeanUtils.copyProperties(orderQueryDTO, order);
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withIgnorePaths("pageNumber", "pageSize")
+                .withMatcher("clientId", ExampleMatcher.GenericPropertyMatchers.contains())
+                .withMatcher("orderNo", ExampleMatcher.GenericPropertyMatchers.contains())
+                .withMatcher("orderStatus", ExampleMatcher.GenericPropertyMatchers.exact())
+                .withMatcher("rechargeStatus", ExampleMatcher.GenericPropertyMatchers.exact())
+                .withMatcher("adjustmentType", ExampleMatcher.GenericPropertyMatchers.exact())
+                .withMatcher("clientName", ExampleMatcher.GenericPropertyMatchers.contains());
+        Example<MallOrderEntity> example = Example.of(order, matcher);
+        return orderRepository.findAll(example, pageable);
     }
 
     private void process(MallOrderEntity order) {

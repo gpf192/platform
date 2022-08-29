@@ -1,0 +1,286 @@
+<script src="././exporttable/alasql.min.js" type="text/javascript"></script>
+<script src="././exporttable/xlsx.core.min.js" type="text/javascript">
+</script>
+<script type="text/javascript" src="htmls/order/ordermanage.js"></script>
+<script type="text/javascript">
+</script>
+<div class="box border primary" ng-init="init()">
+    <div class="box-title">
+        <h4>
+            <i class="fa fa-bars"></i>订单查询
+        </h4>
+        <div class="tools hidden">
+            <a href="#box-config" data-toggle="modal" class="config"> <i
+                    class="fa fa-cog"></i>
+            </a> <a href="javascript:;" class="reload"> <i class="fa fa-refresh"></i>
+        </a> <a href="javascript:;" class="collapse"> <i
+                class="fa fa-chevron-up"></i>
+        </a> <a href="javascript:;" class="remove"> <i class="fa fa-times"></i>
+        </a>
+        </div>
+    </div>
+    <div class="box-body">
+        <div class="dataTables_wrapper form-inline" role="grid">
+            <div class="panel-body form-inline">
+                <form class="form-inline margin10">
+                    &nbsp
+                    <div class="form-group ">
+                        <label>客户号:</label>
+                        <input type="text" class="form-control input-300 " id="clientId" name="clientId"
+                               ng-model="formData.clientId" placeholder="请输入关键字"></input>
+                    </div>
+                    &nbsp
+                    <div class="form-group ">
+                        <label>客户姓名:</label>
+                        <input type="text" class="form-control input-300 " id="clientName" name="clientName"
+                               ng-model="formData.clientName" placeholder="请输入关键字"></input>
+                    </div>
+                    &nbsp
+                    <div class="form-group ">
+                        <label>订单号:</label>
+                        <input type="text" class="form-control input-300 " id="orderNo" name="orderNo"
+                               ng-model="formData.orderNo" placeholder="请输入关键字"></input>
+                    </div>
+                    &nbsp
+                    <div class="form-group ">
+                        <label class="control-label text-right">订单状态:</label>
+                        <select class="form-control" ng-model="formData.orderStatus"
+                                ng-options="item.code as item.desc for item in orderStatusList"></select>
+                    </div>
+                    &nbsp
+                    <div class="form-group ">
+                        <label class="control-label text-right">充值状态:</label>
+                        <select class="form-control" ng-model="formData.rechargeStatus"
+                                ng-options="item.code as item.desc for item in rechargeStatusList"></select>
+                    </div>
+                    &nbsp
+                    <div class="form-group ">
+                        <label class="control-label text-right">调账类型:</label>
+                        <select class="form-control" ng-model="formData.adjustmentType"
+                                ng-options="item.code as item.desc for item in adjustmentTypeList"></select>
+                    </div>
+                    <input type="button" value="查询" class="btn btn-primary"
+                           ng-click="getOrderList(50)"/>
+                </form>
+            </div>
+            <hr/>
+            <div class="dataTables_wrapper form-inline" role="grid">
+                <table id="datatable1" cellpadding="0" cellspacing="0" border="0" width="80%"
+                       class="datatable table table-striped table-bordered table-hover dataTable text-center"
+                       aria-describedby="datatable1_info">
+                    <thead>
+                    <tr role="row">
+                        <th class="col-sm-1 text-center">序号</th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">客户姓名
+                        </th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">客户号
+                        </th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">交易日期
+                        </th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">营业部编码
+                        </th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">营业部名称
+                        </th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">订单号
+                        </th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">商品类别id
+                        </th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">商品类别名称
+                        </th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">商品编码
+                        </th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">商品名称
+                        </th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">充值手机号
+                        </th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">充值金额
+                        </th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">扣款金额
+                        </th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">使用积分
+                        </th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">订单状态
+                        </th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">订单创建时间(橙券)
+                        </th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">订单完成时间(橙券)
+                        </th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">充值状态码(橙券)
+                        </th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">充值错误码(橙券)
+                        </th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">充值错误码说明(橙券)
+                        </th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">调账类型
+                        </th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">调账原因
+                        </th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">操作人
+                        </th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">备注
+                        </th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">创建时间(下单时间)
+                        </th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">更新时间
+                        </th>
+                        <th class="col-sm-0 text-center" role="columnheader" tabindex="0"
+                            aria-controls="datatable1" rowspan="1" colspan="1">
+                            <div style="white-space:nowrap;">修改</div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody role="alert" aria-live="polite" aria-relevant="all">
+                    <tr ng-repeat="order in orderList">
+                        <td>{{$index + selectNum["num"] * currentPage.page + 1}}</td>
+                        <td>
+                            <div style="white-space:nowrap;">{{order.clientName}}</div>
+                        </td>
+                        <td>
+                            <div style="white-space:nowrap;">{{order.clientId}}</div>
+                        </td>
+                        <td>
+                            <div style="white-space:nowrap;">{{order.tradeDate}}</div>
+                        </td>
+                        <td>
+                            <div style="white-space:nowrap;">{{order.departmentCode}}</div>
+                        </td>
+                        <td>
+                            <div style="white-space:nowrap;">{{order.departmentName}}</div>
+                        </td>
+                        <td>
+                            <div style="white-space:nowrap;">{{order.orderNo}}</div>
+                        </td>
+                        <td>
+                            <div style="white-space:nowrap;">{{order.goodsTypeId}}</div>
+                        </td>
+                        <td>
+                            <div style="white-space:nowrap;">{{order.goodsTypeName}}</div>
+                        </td>
+                        <td>
+                            <div style="white-space:nowrap;">{{order.goodsNo}}</div>
+                        </td>
+                        <td>
+                            <div style="white-space:nowrap;">{{order.goodsName}}</div>
+                        </td>
+                        <td>
+                            <div style="white-space:nowrap;">{{order.rechargeNumber}}</div>
+                        </td>
+                        <td>
+                            <div style="white-space:nowrap;">{{order.rechargeAmount}}</div>
+                        </td>
+                        <td>
+                            <div style="white-space:nowrap;">{{order.consumeAmount}}</div>
+                        </td>
+                        <td>
+                            <div style="white-space:nowrap;">{{order.useIntegral}}</div>
+                        </td>
+                        <td>
+                            <div style="white-space:nowrap;">{{order.orderStatusName}}</div>
+                        </td>
+                        <td>
+                            <div style="white-space:nowrap;">{{order.startTime}}</div>
+                        </td>
+                        <td>
+                            <div style="white-space:nowrap;">{{order.endTime}}</div>
+                        </td>
+                        <td>
+                            <div style="white-space:nowrap;">{{order.rechargeStatusName}}</div>
+                        </td>
+                        <td>
+                            <div style="white-space:nowrap;">{{order.rechargeCode}}</div>
+                        </td>
+                        <td>
+                            <div style="white-space:nowrap;">{{order.rechargeMessage}}</div>
+                        </td>
+                        <td>
+                            <div style="white-space:nowrap;">{{order.adjustmentTypeName}}</div>
+                        </td>
+                        <td>
+                            <div style="white-space:nowrap;">{{order.adjustmentReason}}</div>
+                        </td>
+                        <td>
+                            <div style="white-space:nowrap;">{{order.operator}}</div>
+                        </td>
+                        <td>
+                            <div style="white-space:nowrap;">{{order.remark}}</div>
+                        </td>
+                        <td>
+                            <div style="white-space:nowrap;">{{order.createTime}}</div>
+                        </td>
+                        <td>
+                            <div style="white-space:nowrap;">{{order.updateTime}}</div>
+                        </td>
+                        <td class="col-sm-0 text-center">
+                            <div>
+                                <button type="button" class="btn btn-warning btn-sm"
+                                        ng-click="modify($index)">
+                                    <i class="fa fa-pencil-square-o"></i><span> 调账</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                </table>
+                <div class="row hide">
+                    <div class="col-sm-12" ng-model="pagination">
+                        <div class="pull-left">
+                            <div class="dataTables_info" id="datatable1_info">
+                                第 {{pagination.pageNumber + 1}} 页 / 共 {{pagination.totalItems}} 记录
+                            </div>
+                        </div>
+                        <div class="pull-right">
+                            <div class="dataTables_paginate paging_bs_full"
+                                 id="datatable1_paginate">
+                                <ul class="pagination">
+                                    <li class="disabled" id="page_first"
+                                        ng-click="getUserList('first')"><a tabindex="0"
+                                                                           class="paginate_button first"
+                                                                           id="datatable1_first">首页</a></li>
+                                    <li class="disabled" id="page_previous"><a tabindex="0"
+                                                                               ng-click="getUserList('previous')"
+                                                                               class="paginate_button previous"
+                                                                               id="datatable1_previous">上一页</a>
+                                    </li>
+                                    <li id="page_next"><a tabindex="0"
+                                                          ng-click="getUserList('next')" class="paginate_button next"
+                                                          id="datatable1_next">下一页</a></li>
+                                    <li id="page_last" ng-click="getUserList('last')"><a
+                                            tabindex="0" class="paginate_button last" id="datatable1_last">尾页</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
