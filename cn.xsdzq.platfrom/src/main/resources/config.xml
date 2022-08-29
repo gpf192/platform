@@ -58,17 +58,18 @@
 	</bean>
 
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="persistenceUnitName" value="jpaData" />
+		<property name="packagesToScan" value="cn.xsdzq.platform.entity" />
+		<!--<property name="persistenceUnitName" value="jpaData" />-->
 		<property name="dataSource" ref="dataSource" />
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
 		</property>
-		<property name="persistenceXmlLocation" value="classpath:persistence.xml">
-		</property>
+		<!--		<property name="persistenceXmlLocation" value="classpath:persistence.xml">
+                </property>-->
 		<property name="jpaProperties">
 			<props>
 				<!-- <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop> -->
-				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>  
+				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.format_sql">true</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
