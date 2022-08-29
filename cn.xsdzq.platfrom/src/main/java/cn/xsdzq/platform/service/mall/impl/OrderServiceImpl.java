@@ -81,12 +81,29 @@ public class OrderServiceImpl implements OrderService {
             throw new RuntimeException("更新数据不存在");
         } else {
             MallOrderEntity mallOrderEntity = optional.get();
-            if(!AdjustmentTypeEnum.DEFAULT.getCode().equals(mallOrderEntity.getAdjustmentType())){
+            if (!AdjustmentTypeEnum.DEFAULT.getCode().equals(mallOrderEntity.getAdjustmentType())) {
                 throw new RuntimeException("调账不允许");
             }
+
+            if(AdjustmentTypeEnum.DEDUCTION.getCode().equals(mallOrderEntity.getAdjustmentType())){
+                mallOrderEntity.setOrderStatus(OrderStatusEnum.SUCCESS.getCode());
+                mallOrderEntity.setRechargeStatus(ChengQuanOrderStatusEnum.SUCCESS.getCode());
+            }else if(AdjustmentTypeEnum.RETURN.getCode().equals(mallOrderEntity.getAdjustmentType())){
+                mallOrderEntity.setOrderStatus(OrderStatusEnum.FAILURE.getCode());
+                mallOrderEntity.setRechargeStatus(ChengQuanOrderStatusEnum.FAILURE.getCode());
+            }else{
+                throw new RuntimeException("调账类型不正确");
+            }
+
             mallOrderEntity.setOperator(UserManageUtil.getUserName());
             BeanHelper.copyPropertiesIgnoreNull(orderSaveDTO, mallOrderEntity);
-            orderRepository.save(mallOrderEntity);
+
+            MallUserInfoEntity updateUserInfo = new MallUserInfoEntity();
+            updateUserInfo.setClientId(mallOrderEntity.getClientId());
+            updateUserInfo.setFrozenIntegral(mallOrderEntity.getUseIntegral());
+
+            CreditRecordEntity creditRecord = buildCreditRecord(mallOrderEntity);
+            orderManager.update(mallOrderEntity,updateUserInfo, creditRecord);
         }
     }
 
@@ -129,9 +146,11 @@ public class OrderServiceImpl implements OrderService {
             // 系统异常
         } else if (commonResp.getCode() == 7777) {
             updateOrder.setOrderStatus(OrderStatusEnum.PROCESSING.getCode());
+            updateOrder.setRechargeStatus(ChengQuanOrderStatusEnum.RECHARGE.getCode());
             // 失败
         } else {
             updateOrder.setOrderStatus(OrderStatusEnum.FAILURE.getCode());
+            updateOrder.setRechargeStatus(ChengQuanOrderStatusEnum.FAILURE.getCode());
         }
 
         if (!order.getOrderStatus().equals(updateOrder.getOrderStatus())) {

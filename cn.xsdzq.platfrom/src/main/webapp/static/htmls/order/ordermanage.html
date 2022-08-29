@@ -237,7 +237,7 @@
                             <div style="white-space:nowrap;">{{order.updateTime}}</div>
                         </td>
                         <td class="col-sm-0 text-center">
-                            <div>
+                            <div ng-show="order.adjustmentType == 0">
                                 <button type="button" class="btn btn-warning btn-sm"
                                         ng-click="modify($index)">
                                     <i class="fa fa-pencil-square-o"></i><span> 调账</span>

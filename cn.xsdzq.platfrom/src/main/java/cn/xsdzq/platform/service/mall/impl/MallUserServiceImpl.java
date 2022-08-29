@@ -147,7 +147,7 @@ public class MallUserServiceImpl implements MallUserService {
 	//扣减积分
 
 
-	void handleRudeceCredit(MallUserEntity mallUserEntity, int reduceScore) {
+	public void handleRudeceCredit(MallUserEntity mallUserEntity, int reduceScore) {
 		List<CreditRecordEntity> creditRecordEntities = creditRecordRepository.findByUnusedCredit(mallUserEntity,
 				CreditRecordConst.ADDSCORE, 1);
 		log.info("creditRecordEntities: " + creditRecordEntities.size());

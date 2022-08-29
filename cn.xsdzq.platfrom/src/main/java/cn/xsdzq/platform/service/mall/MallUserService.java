@@ -56,5 +56,6 @@ public interface MallUserService {
 	public void mailSendCreditJob();
 	//手动再次执行
 	public void scanCrmErrorManual();
-		
+
+	public void handleRudeceCredit(MallUserEntity mallUserEntity, int reduceScore);
 }
