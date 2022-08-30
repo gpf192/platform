@@ -85,10 +85,10 @@ public class OrderServiceImpl implements OrderService {
                 throw new RuntimeException("调账不允许");
             }
 
-            if(AdjustmentTypeEnum.DEDUCTION.getCode().equals(mallOrderEntity.getAdjustmentType())){
+            if(AdjustmentTypeEnum.DEDUCTION.getCode().equals(orderSaveDTO.getAdjustmentType())){
                 mallOrderEntity.setOrderStatus(OrderStatusEnum.SUCCESS.getCode());
                 mallOrderEntity.setRechargeStatus(ChengQuanOrderStatusEnum.SUCCESS.getCode());
-            }else if(AdjustmentTypeEnum.RETURN.getCode().equals(mallOrderEntity.getAdjustmentType())){
+            }else if(AdjustmentTypeEnum.RETURN.getCode().equals(orderSaveDTO.getAdjustmentType())){
                 mallOrderEntity.setOrderStatus(OrderStatusEnum.FAILURE.getCode());
                 mallOrderEntity.setRechargeStatus(ChengQuanOrderStatusEnum.FAILURE.getCode());
             }else{
