@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="box-body">
-        <div class="dataTables_wrapper form-inline" role="grid">
+        <div class="dataTables_wrapper form-inline" role="grid" style="overflow:scroll">
             <div class="panel-body form-inline">
                 <form class="form-inline margin10">
                     &nbsp
@@ -42,6 +42,7 @@
                                ng-model="formData.orderNo" placeholder="请输入关键字"></input>
                     </div>
                     &nbsp
+                    <p>
                     <div class="form-group ">
                         <label class="control-label text-right">订单状态:</label>
                         <select class="form-control" ng-model="formData.orderStatus"
@@ -59,6 +60,7 @@
                         <select class="form-control" ng-model="formData.adjustmentType"
                                 ng-options="item.code as item.desc for item in adjustmentTypeList"></select>
                     </div>
+                    </p>
                     <input type="button" value="查询" class="btn btn-primary"
                            ng-click="getOrderList(50)"/>
                 </form>
