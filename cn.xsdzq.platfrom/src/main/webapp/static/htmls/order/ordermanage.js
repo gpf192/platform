@@ -64,18 +64,8 @@ function ordermanageController($scope, $http, $state, $stateParams, $gridService
         };
         $scope.selectNumList = [{
             num: 50
-        }, {
-            num: 100
-        }, {
-            num: 150
         }];
         $scope.selectNum = $scope.selectNumList[0];
-        $scope.$watch("selectNum.num", function (newValue, oldValue) {
-            if (newValue != oldValue) {
-                getOrderList(newValue);
-                $scope.currentPage.page = 0;
-            }
-        }, true);
     };
 
     $scope.getOrderList = function (pageSize) {

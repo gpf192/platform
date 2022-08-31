@@ -47,18 +47,8 @@ function productmanageController($scope, $http, $state, $stateParams, $gridServi
         };
         $scope.selectNumList = [{
             num: 50
-        }, {
-            num: 100
-        }, {
-            num: 150
         }];
         $scope.selectNum = $scope.selectNumList[0];
-        $scope.$watch("selectNum.num", function (newValue, oldValue) {
-            if (newValue != oldValue) {
-                getProductList(newValue);
-                $scope.currentPage.page = 0;
-            }
-        }, true);
     };
 
     //p begin
@@ -123,10 +113,7 @@ function productmanageController($scope, $http, $state, $stateParams, $gridServi
     $scope.newBuild = function () {
         $state.go("productadd");
     }
-    //批量导入
-    /*    $scope.cardImport = function () {
-            $state.go("cardImport");
-        }*/
+
     //编辑
     $scope.batchModifyInfo = function () {
         if ($scope.selected.length != 1) {
@@ -184,55 +171,4 @@ function productmanageController($scope, $http, $state, $stateParams, $gridServi
             //console.log("取消");
         });
     }
-
-
-//导出为excel
-
-    /*    Date.prototype.Format = function (fmt) {
-            var o = {
-                "M+": this.getMonth() + 1, //月份
-                "d+": this.getDate(), //日
-                "h+": this.getHours(), //小时
-                "m+": this.getMinutes(), //分
-                "s+": this.getSeconds(), //秒
-                "q+": Math.floor((this.getMonth() + 3) / 3), //季度
-                "S": this.getMilliseconds() //毫秒
-            };
-            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-            for (var k in o)
-                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-            return fmt;
-        }*/
-
-    /*    $scope.exportToExcel = function () {
-            var excelArrs = getExcelData();
-            var myDate = new Date().Format("yyyyMMddhhmmss");
-            alasql.promise('SELECT * INTO XLSX("卡券统计表-' + myDate + '.xlsx",{headers:true}) FROM ?', [excelArrs])
-                .then(function (data) {
-                    if (data == 1) {
-                        $timeout(function () {
-                            console.log('数据导出成功！');
-                        })
-                    }
-                });
-        };*/
-
-    /*    function getExcelData() {
-            var arr = [];
-            angular.forEach($scope.cardList, function (data, index, datas) {
-                var newObj = {};
-                for (k = 0; k < $scope.cardList.length; k++) {
-                    newObj["卡号"] = data.cardId;
-                    newObj["密码"] = (data.password == null ? "" : data.password);
-                    newObj["商品名称"] = data.presentName;
-                    newObj["上架状态"] = (data.cardStatus == 0 ? "下架" : "上架");
-                    newObj["兑换状态"] = (data.convertStatus == 1 ? "已兑换" : "未兑换");
-                    newObj["创建时间"] = data.createDate;
-                    newObj["失效"] = data.expiryTime;
-
-                }
-                arr.push(newObj);
-            });
-            return arr;
-        }*/
 }

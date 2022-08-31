@@ -250,39 +250,7 @@
                     </tbody>
                     <tfoot>
                 </table>
-                <div class="row hide">
-                    <div class="col-sm-12" ng-model="pagination">
-                        <div class="pull-left">
-                            <div class="dataTables_info" id="datatable1_info">
-                                第 {{pagination.pageNumber + 1}} 页 / 共 {{pagination.totalItems}} 记录
-                            </div>
-                        </div>
-                        <div class="pull-right">
-                            <div class="dataTables_paginate paging_bs_full"
-                                 id="datatable1_paginate">
-                                <ul class="pagination">
-                                    <li class="disabled" id="page_first"
-                                        ng-click="getUserList('first')"><a tabindex="0"
-                                                                           class="paginate_button first"
-                                                                           id="datatable1_first">首页</a></li>
-                                    <li class="disabled" id="page_previous"><a tabindex="0"
-                                                                               ng-click="getUserList('previous')"
-                                                                               class="paginate_button previous"
-                                                                               id="datatable1_previous">上一页</a>
-                                    </li>
-                                    <li id="page_next"><a tabindex="0"
-                                                          ng-click="getUserList('next')" class="paginate_button next"
-                                                          id="datatable1_next">下一页</a></li>
-                                    <li id="page_last" ng-click="getUserList('last')"><a
-                                            tabindex="0" class="paginate_button last" id="datatable1_last">尾页</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
             </div>
         </div>
-
     </div>
+</div>

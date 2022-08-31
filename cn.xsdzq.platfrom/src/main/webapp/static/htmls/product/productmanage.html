@@ -47,29 +47,6 @@
             </div>
             <hr />
             <div  class="dataTables_wrapper form-inline" role="grid">
-                <div class="row hide" ng-show="activityProductsList.length>0">
-                    <div class="col-sm-12">
-                        <div class="pull-right">
-                            <div class="dataTables_filter" id="datatable1_filter">
-                                <label> <input type="text" aria-controls="datatable1"
-                                               placeholder="Search" ng-model="search" class="form-control input-sm">
-                                </label>
-                            </div>
-                        </div>
-                        <div class="pull-left hide">
-                            <div id="datatable1_length" class="dataTables_length">
-                                <label> 显示 <select size="1" name="datatable1_length"
-                                                   ng-model="selectNum"
-                                                   ng-options="row.num for row in selectNumList"
-                                                   aria-controls="datatable1" class="form-control input-sm">
-                                </select> 行
-                                </label>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-
                 <table id="datatable1" cellpadding="0" cellspacing="0" border="0" width="80%"
                        class="datatable table table-striped table-bordered table-hover dataTable text-center"
                        aria-describedby="datatable1_info">
@@ -88,16 +65,6 @@
                                  ng-click="batchDeleteInfo()">
                             <i class="fa fa-trash-o"></i><span> 删除</span>
                         </button>
-<!--                        &nbsp &nbsp
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="cardImport()">
-                            <i class="fa fa-upload"></i><span> 批量导入</span>
-                        </button>
-                        &nbsp &nbsp
-                        <button  type="button" class="btn btn-info btn-sm"
-                                 ng-click="exportToExcel()">
-                            <i class="fa fa-download"></i><span> 导出</span>
-                        </button>-->
-
                     </div>
                     &nbsp
                     <tr role="row">
@@ -143,37 +110,8 @@
                     </tbody>
                     <tfoot>
                 </table>
-                <div class="row hide">
-                    <div class="col-sm-12" ng-model="pagination">
-                        <div class="pull-left">
-                            <div class="dataTables_info" id="datatable1_info">
-                                第 {{pagination.pageNumber+1}} 页     /  共  {{pagination.totalItems}} 记录
-                            </div>
-                        </div>
-                        <div class="pull-right">
-                            <div class="dataTables_paginate paging_bs_full"
-                                 id="datatable1_paginate">
-                                <ul class="pagination">
-                                    <li class="disabled" id="page_first"
-                                        ng-click="getUserList('first')"><a tabindex="0"
-                                                                           class="paginate_button first" id="datatable1_first">首页</a></li>
-                                    <li class="disabled" id="page_previous"><a tabindex="0"
-                                                                               ng-click="getUserList('previous')"
-                                                                               class="paginate_button previous" id="datatable1_previous">上一页</a>
-                                    </li>
-                                    <li id="page_next"><a tabindex="0"
-                                                          ng-click="getUserList('next')" class="paginate_button next"
-                                                          id="datatable1_next">下一页</a></li>
-                                    <li id="page_last" ng-click="getUserList('last')"><a
-                                            tabindex="0" class="paginate_button last" id="datatable1_last">尾页</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
             </div>
         </div>
 
     </div>
+</div>
