@@ -293,11 +293,10 @@ public class CreditController {
 	 @RequestMapping(value="/upload",method={RequestMethod.POST}) 
 	 public Map<String, Object>  uploadExcel(HttpServletRequest request) throws Exception { 
 		 //
-		 MultipartResolver resolver = new CommonsMultipartResolver(request.getSession().getServletContext());
-		 MultipartHttpServletRequest multipartRequest = resolver.resolveMultipart(request); 
 		 InputStream in =null; 
-		  List<List<Object>> listob = null; 
-		 MultipartFile file = multipartRequest.getFile("upfile"); 
+		  List<List<Object>> listob = null;
+		 MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
+		 MultipartFile file = multipartHttpServletRequest.getFile("upfile");
 		
 		  if(file.isEmpty()){ 
 		   throw new Exception("文件不存在！"); 

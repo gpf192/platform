@@ -62,11 +62,10 @@ public class PresentCardImportController {
 	 public Map<String, Object>  uploadExcel(HttpServletRequest request) throws Exception { 
 		 System.out.println("进入接口===================================(**********************************");
 		 //
-		 MultipartResolver resolver = new CommonsMultipartResolver(request.getSession().getServletContext());
-		 MultipartHttpServletRequest multipartRequest = resolver.resolveMultipart(request); 
 		 InputStream in =null; 
-		  List<List<Object>> listob = null; 
-		 MultipartFile file = multipartRequest.getFile("upfile"); 
+		  List<List<Object>> listob = null;
+		 MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
+		 MultipartFile file = multipartHttpServletRequest.getFile("upfile");
 		
 		  if(file.isEmpty()){ 
 		   throw new Exception("文件不存在！"); 
