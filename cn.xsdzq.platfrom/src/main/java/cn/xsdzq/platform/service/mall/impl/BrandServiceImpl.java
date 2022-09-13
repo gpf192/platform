@@ -50,7 +50,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public Page<MallBrandEntity> queryByPage(BrandQueryDTO brandQueryDTO) {
-        Sort sort = Sort.by(Sort.Direction.ASC, "createTime");
+        Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
         Pageable pageable = PageRequest.of(brandQueryDTO.getPageNumber(), brandQueryDTO.getPageSize(), sort);
 
         MallBrandEntity brand = new MallBrandEntity();

@@ -63,7 +63,7 @@ public class MallProductServiceImpl implements MallProductService {
 
     @Override
     public Page<MallProductEntity> queryByPage(ProductQueryDTO productQueryDTO) {
-        Sort sort = Sort.by(Sort.Direction.ASC, "createTime");
+        Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
         Pageable pageable = PageRequest.of(productQueryDTO.getPageNumber(), productQueryDTO.getPageSize(), sort);
 
         MallProductEntity product = new MallProductEntity();

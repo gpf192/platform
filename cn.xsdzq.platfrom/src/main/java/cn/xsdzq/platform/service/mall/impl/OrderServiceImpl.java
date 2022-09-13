@@ -85,13 +85,18 @@ public class OrderServiceImpl implements OrderService {
                 throw new RuntimeException("调账不允许");
             }
 
-            if(AdjustmentTypeEnum.DEDUCTION.getCode().equals(orderSaveDTO.getAdjustmentType())){
+            if (!OrderStatusEnum.INIT.getCode().equals(mallOrderEntity.getOrderStatus())
+                    && !OrderStatusEnum.PROCESSING.getCode().equals(mallOrderEntity.getOrderStatus())) {
+                throw new RuntimeException("订单状态不允许");
+            }
+
+            if (AdjustmentTypeEnum.DEDUCTION.getCode().equals(orderSaveDTO.getAdjustmentType())) {
                 mallOrderEntity.setOrderStatus(OrderStatusEnum.SUCCESS.getCode());
                 mallOrderEntity.setRechargeStatus(ChengQuanOrderStatusEnum.SUCCESS.getCode());
-            }else if(AdjustmentTypeEnum.RETURN.getCode().equals(orderSaveDTO.getAdjustmentType())){
+            } else if (AdjustmentTypeEnum.RETURN.getCode().equals(orderSaveDTO.getAdjustmentType())) {
                 mallOrderEntity.setOrderStatus(OrderStatusEnum.FAILURE.getCode());
                 mallOrderEntity.setRechargeStatus(ChengQuanOrderStatusEnum.FAILURE.getCode());
-            }else{
+            } else {
                 throw new RuntimeException("调账类型不正确");
             }
 
@@ -103,13 +108,13 @@ public class OrderServiceImpl implements OrderService {
             updateUserInfo.setFrozenIntegral(mallOrderEntity.getUseIntegral());
 
             CreditRecordEntity creditRecord = buildCreditRecord(mallOrderEntity);
-            orderManager.update(mallOrderEntity,updateUserInfo, creditRecord);
+            orderManager.update(mallOrderEntity, updateUserInfo, creditRecord);
         }
     }
 
     @Override
     public Page<MallOrderEntity> queryByPage(OrderQueryDTO orderQueryDTO) {
-        Sort sort = Sort.by(Sort.Direction.ASC, "createTime");
+        Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
         Pageable pageable = PageRequest.of(orderQueryDTO.getPageNumber(), orderQueryDTO.getPageSize(), sort);
 
         MallOrderEntity order = new MallOrderEntity();
@@ -185,7 +190,7 @@ public class OrderServiceImpl implements OrderService {
         CreditRecordEntity credit = new CreditRecordEntity();
         credit.setType(CreditRecordConst.REDUCESCORE);
         credit.setReasonCode(CreditRecordConst.EXCHANGECARD);
-        credit.setReason(CreditRecordConst.EXCHANGECARDREASON);
+        credit.setReason(CreditRecordConst.PREPAIDREFILLREASON);
         credit.setItem(order.getGoodsName());
         credit.setIntegralNumber(order.getUseIntegral());
         String tradeDate = order.getTradeDate().toString();
